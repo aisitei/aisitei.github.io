@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vivo X300s - 초능력 소형 V 카메라</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --accent: #8b5cf6;
+      --bg-light: #ffffff;
+      --bg-dark: #0a0a0a;
+      --text-light: #1a1a1a;
+      --text-dark: #f5f5f5;
+      --text-secondary-light: #666666;
+      --text-secondary-dark: #b0b0b0;
+      --border-light: #e5e5e5;
+      --border-dark: #2a2a2a;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-theme {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    /* Theme variables */
+    body {
+      --bg: var(--bg-light);
+      --text: var(--text-light);
+      --text-secondary: var(--text-secondary-light);
+      --border: var(--border-light);
+    }
+
+    body.dark-theme {
+      --bg: var(--bg-dark);
+      --text: var(--text-dark);
+      --text-secondary: var(--text-secondary-dark);
+      --border: var(--border-dark);
+    }
+
+    /* Header & Navigation */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: color-mix(in srgb, var(--bg) 95%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .header-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-title span {
+      color: var(--accent);
+    }
+
+    .theme-toggle {
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: color-mix(in srgb, var(--accent), transparent 90%);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background: color-mix(in srgb, var(--accent), transparent 80%);
+    }
+
+    /* Main Content */
+    main {
+      margin-top: 60px;
+    }
+
+    .hero-section {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent), transparent 95%), color-mix(in srgb, var(--accent), transparent 98%));
+    }
+
+    .hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      width: 100%;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: 56px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+      animation: slideInDown 0.8s ease-out;
+    }
+
+    .hero-text h1 .highlight {
+      color: var(--accent);
+    }
+
+    .hero-text p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      animation: slideInUp 0.8s ease-out 0.1s both;
+    }
+
+    .hero-image {
+      position: relative;
+      animation: slideInRight 0.8s ease-out 0.2s both;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px color-mix(in srgb, var(--accent), transparent 80%);
+    }
+
+    /* Image Translation Overlay */
+    .img-translation {
+      background: color-mix(in srgb, var(--accent), transparent 88%);
+      border-top: 1px solid color-mix(in srgb, var(--accent), transparent 70%);
+      padding: 14px 16px;
+      margin-top: 12px;
+      border-radius: 0 0 16px 16px;
+    }
+
+    .img-translation-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .img-translation-row {
+      display: flex;
+      gap: 12px;
+      padding: 6px 0;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .img-translation-row + .img-translation-row {
+      border-top: 1px solid color-mix(in srgb, var(--accent), transparent 85%);
+      padding-top: 8px;
+      margin-top: 4px;
+    }
+
+    .img-translation-cn {
+      color: var(--text-secondary);
+      flex: 1;
+      font-style: italic;
+    }
+
+    .img-translation-arrow {
+      color: var(--accent);
+      flex-shrink: 0;
+      font-weight: 600;
+    }
+
+    .img-translation-kr {
+      color: var(--text);
+      flex: 1;
+      font-weight: 500;
+    }
+
+    /* Features Section */
+    .features-section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 48px;
+      text-align: center;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .section-title .accent {
+      color: var(--accent);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .feature-card {
+      padding: 32px;
+      background: color-mix(in srgb, var(--accent), transparent 98%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .feature-card:hover {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent), transparent 95%);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px color-mix(in srgb, var(--accent), transparent 85%);
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Specs Section */
+    .specs-section {
+      padding: 80px 40px;
+      background: color-mix(in srgb, var(--accent), transparent 98%);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+
+    .spec-item {
+      padding: 24px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .spec-item:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 16px color-mix(in srgb, var(--accent), transparent 90%);
+    }
+
+    .spec-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .spec-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .spec-detail {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Highlights Section */
+    .highlights-section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .highlight-item {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .highlight-number {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .highlight-content h4 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .highlight-content p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Accessory Section */
+    .accessory-section {
+      padding: 80px 40px;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent), transparent 95%), color-mix(in srgb, var(--accent), transparent 98%));
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .accessory-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .accessory-text h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    .accessory-text h2 .highlight {
+      color: var(--accent);
+    }
+
+    .accessory-text ul {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .accessory-text li {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      padding-left: 32px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .accessory-text li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .source-link {
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    .source-link:hover {
+      opacity: 0.7;
+      text-decoration: underline;
+    }
+
+    /* Animations */
+    @keyframes slideInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 0 16px;
+      }
+
+      .header-title {
+        font-size: 16px;
+      }
+
+      .hero-section {
+        height: auto;
+        min-height: 100vh;
+        padding-top: 60px;
+      }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 24px;
+      }
+
+      .hero-text h1 {
+        font-size: 32px;
+      }
+
+      .hero-text p {
+        font-size: 16px;
+      }
+
+      .features-section,
+      .highlights-section,
+      .accessory-section,
+      .specs-section {
+        padding: 40px 20px;
+      }
+
+      .section-title {
+        font-size: 28px;
+        margin-bottom: 32px;
+      }
+
+      .accessory-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .accessory-text h2 {
+        font-size: 24px;
+      }
+
+      .features-grid,
+      .specs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-title">
+      <span>vivo</span> X300s
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
+      <span id="themeIcon">🌙</span>
+    </button>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>
+            초능력<br>
+            <span class="highlight">소형 V 카메라</span>
+          </h1>
+          <p>vivo X300s는 X300 Ultra의 강력한 이미징 기능을 소형 폼팩터로 구현했습니다. 전문적인 카메라 체험을 손쉽게 휴대할 수 있습니다.</p>
+        </div>
+        <div class="hero-image">
+          <img src="https://img.ithome.com/newsuploadfiles/2026/3/4ee29014-a67d-4de5-ae32-a0b83305d8f1.jpg?x-bce-process=image/format,f_auto" alt="vivo X300s 초능력 소형 V 카메라">
+          <div class="img-translation">
+            <div class="img-translation-header">
+              📝 이미지 번역
+            </div>
+            <div class="img-translation-row">
+              <div class="img-translation-cn">#vivo X300s# 之所以被称为「超能小V单」，除了全方位的超能升级，更重要的是在影像上</div>
+              <div class="img-translation-arrow">→</div>
+              <div class="img-translation-kr">#vivo X300s#가 '초능력 소형 V 카메라'로 불리는 이유는, 전방위 초능력 업그레이드 외에도 이미징 성능이 더욱 중요하기 때문입니다</div>
+            </div>
+            <div class="img-translation-row">
+              <div class="img-translation-cn">小V单拥有不少X300 Ultra同款的影像能力。</div>
+              <div class="img-translation-arrow">→</div>
+              <div class="img-translation-kr">소형 V 카메라는 X300 Ultra와 동일한 다수의 이미징 기능을 보유하고 있습니다.</div>
+            </div>
+            <div class="img-translation-row">
+              <div class="img-translation-cn">焦段适配性：200mm是专业人像的黄金视角</div>
+              <div class="img-translation-arrow">→</div>
+              <div class="img-translation-kr">초점 거리 호환성: 200mm는 전문 인물 촬영의 황금 화각</div>
+            </div>
+            <div class="img-translation-row">
+              <div class="img-translation-cn">便携与画质平衡：这支「口红200」用15片结构，比上代减重27%</div>
+              <div class="img-translation-arrow">→</div>
+              <div class="img-translation-kr">휴대성과 화질의 균형: '립스틱 200'은 15매 구조로, 전작 대비 27% 경량화</div>
+            </div>
+            <div class="img-translation-row">
+              <div class="img-translation-cn">超长焦人像的核心，是「用专业设备拍出氛围感」</div>
+              <div class="img-translation-arrow">→</div>
+              <div class="img-translation-kr">초망원 인물 사진의 핵심은 '전문 장비로 분위기를 담아내는 것'</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+      <h2 class="section-title">
+        <span class="accent">초능력 업그레이드</span><br>
+        이미징 기능
+      </h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>📷 200mm 텔레포토 호환성</h3>
+          <p>립스틱 200 악세서리는 전문 인물 촬영을 위한 황금 화각인 200mm 초점 거리를 제공합니다. 자연스러운 압축감과 깔끔한 배경 흐림(보케)을 구현합니다.</p>
+        </div>
+        <div class="feature-card">
+          <h3>✨ Zeiss 색감 보정</h3>
+          <p>Zeiss 광학 렌즈와 색감 보정 기술의 완벽한 조합으로 전문적인 이미지 품질을 보장합니다.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🎒 휴대성과 화질의 균형</h3>
+          <p>15매 구조 설계로 전작 대비 27% 가벼워진 153g의 무게로 가방에 쉽게 담을 수 있습니다.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🌍 여행 사진 최적화</h3>
+          <p>해변, 산책로, 도시 풍경 촬영에 최적화된 컴팩트 설계로 여행 중 전문적인 사진을 쉽게 촬영할 수 있습니다.</p>
+        </div>
+        <div class="feature-card">
+          <h3>👤 초망원 인물 사진</h3>
+          <p>전문 설비의 분위기감을 담아낼 수 있는 초망원 인물 촬영 기능으로 자연스러운 표정 담금을 실현합니다.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🔧 X300 Ultra 상속 기능</h3>
+          <p>플래그십 X300 Ultra의 강력한 이미징 기술을 소형 X300s에 통합했습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section class="highlights-section">
+      <h2 class="section-title">초망원 인물 사진의 <span class="accent">핵심 장점</span></h2>
+
+      <div class="highlight-item">
+        <div class="highlight-number">1</div>
+        <div class="highlight-content">
+          <h4>초점 거리 호환성</h4>
+          <p>200mm는 전문 인물 촬영의 황금 화각입니다. 피사체의 표정을 자연스럽게 담아내면서도 과도한 압축감 없이, 자연스러운 배경 흐림과 깔끔한 엣지로 전문적인 이미지를 만들어냅니다. 이것이 광학 렌즈와 Zeiss 색감 보정의 기초가 됩니다.</p>
+        </div>
+      </div>
+
+      <div class="highlight-item">
+        <div class="highlight-number">2</div>
+        <div class="highlight-content">
+          <h4>휴대성과 화질의 완벽한 균형</h4>
+          <p>15매 렌즈 구조로 설계된 립스틱 200 악세서리는 전작 대비 27% 경량화되어 153g의 무게로 여행 가방에 쉽게 담을 수 있습니다. 컴팩트한 크기에도 불구하고 전문적인 화질을 유지합니다.</p>
+        </div>
+      </div>
+
+      <div class="highlight-item">
+        <div class="highlight-number">3</div>
+        <div class="highlight-content">
+          <h4>전문 장비로 분위기감 표현</h4>
+          <p>초망원 인물 사진의 핵심은 '전문 설비로 분위기감을 담아내는 것'입니다. vivo X300s와 립스틱 200의 조합은 전문가용 카메라 장비의 느낌을 제공하면서도 스마트폰의 편의성을 유지합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Specs Section -->
+    <section class="specs-section">
+      <h2 class="section-title">기술 사양</h2>
+      <div class="specs-grid">
+        <div class="spec-item">
+          <div class="spec-label">디스플레이</div>
+          <div class="spec-value">6.78"</div>
+          <div class="spec-detail">1.5K+ 144Hz BOE Q10+ 플랫 디스플레이</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">전면 카메라</div>
+          <div class="spec-value">50MP</div>
+          <div class="spec-detail">고해상도 셀카 촬영</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">메인 카메라</div>
+          <div class="spec-value">200MP</div>
+          <div class="spec-detail">초고해상도 센서</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">초광각 렌즈</div>
+          <div class="spec-value">50MP</div>
+          <div class="spec-detail">광활한 장면 촬영</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">망원 렌즈</div>
+          <div class="spec-value">50MP</div>
+          <div class="spec-detail">페리스코프 방식 망원</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">배터리</div>
+          <div class="spec-value">7000mAh</div>
+          <div class="spec-detail">90W 빠른 충전</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">방진방수</div>
+          <div class="spec-value">IP68/IP69</div>
+          <div class="spec-detail">완벽한 보호등급</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">진동 모터</div>
+          <div class="spec-value">X축</div>
+          <div class="spec-detail">고급 햅틱 피드백</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">스피커</div>
+          <div class="spec-value">듀얼 스테레오</div>
+          <div class="spec-detail">입체 음향 경험</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">생체 인증</div>
+          <div class="spec-value">3D 초음파</div>
+          <div class="spec-detail">고급 지문 인식</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">악세서리</div>
+          <div class="spec-value">립스틱 200</div>
+          <div class="spec-detail">200mm 망원 렌즈, 153g</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">경량화</div>
+          <div class="spec-value">27% 감소</div>
+          <div class="spec-detail">전작 대비 무게 감소</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accessory Section -->
+    <section class="accessory-section">
+      <div class="accessory-content">
+        <div class="accessory-text">
+          <h2>
+            <span class="highlight">립스틱 200</span><br>
+            외부 망원 렌즈
+          </h2>
+          <p style="margin-bottom: 24px; color: var(--text-secondary);">vivo X300s와의 완벽한 조합으로 전문적인 초망원 인물 촬영을 경험하세요.</p>
+          <ul>
+            <li>200mm 초점 거리 - 전문 인물 촬영의 황금 화각</li>
+            <li>15매 렌즈 구조로 뛰어난 광학 성능</li>
+            <li>전작 대비 27% 경량화된 153g</li>
+            <li>여행과 휴대에 최적화된 소형 디자인</li>
+            <li>Zeiss 색감 보정 기술 통합</li>
+            <li>자연스러운 배경 흐림과 깔끔한 엣지</li>
+          </ul>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center;">
+          <div style="text-align: center;">
+            <div style="font-size: 64px; margin-bottom: 16px;">📷</div>
+            <p style="color: var(--text-secondary); font-size: 14px;">전문 장비의 분위기감을<br>담아내는 악세서리</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      vivo 제품 담당자 한박소(韩伯啸)가 발표한 vivo X300s에 관한 정보입니다.
+      <br>
+      원본 기사: <a href="https://www.ithome.com/0/929/674.htm" class="source-link" target="_blank" rel="noopener noreferrer">IT Home</a>
+    </p>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const body = document.body;
+
+    // Check for saved theme preference
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    if (currentTheme === 'dark') {
+      body.classList.add('dark-theme');
+      themeIcon.textContent = '☀️';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-theme');
+      const isLight = !body.classList.contains('dark-theme');
+      themeIcon.textContent = isLight ? '🌙' : '☀️';
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    });
+
+    // Scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.feature-card, .spec-item, .highlight-item').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+      observer.observe(el);
+    });
+
+    // Smooth scroll behavior
+    document.documentElement.style.scrollBehavior = 'smooth';
+  </script>
+</body>
+</html>

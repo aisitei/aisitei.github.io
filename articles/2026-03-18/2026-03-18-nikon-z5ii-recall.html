@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="니콘 Z5II 풀프레임 미러리스 카메라 리콜 안내">
+    <meta name="theme-color" content="#1a1a1a">
+    <title>니콘 Z5II 리콜 안내 | IT之家</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #ffffff;
+            --surface: #f5f5f5;
+            --border: #e0e0e0;
+            --text: #1a1a1a;
+            --text-secondary: #666666;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --negative: #dc2626;
+            --success: #10b981;
+            --overlay: rgba(26, 26, 26, 0.7);
+        }
+
+        html[data-theme="dark"] {
+            --bg: #0f0f0f;
+            --surface: #1a1a1a;
+            --border: #333333;
+            --text: #f0f0f0;
+            --text-secondary: #999999;
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --warning: #fbbf24;
+            --warning-light: #78350f;
+            --negative: #ef4444;
+            --overlay: rgba(0, 0, 0, 0.85);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%);
+        }
+
+        /* Accessibility */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .skip-to-content {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+        }
+
+        .skip-to-content:focus {
+            top: 0;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: var(--surface);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .menu-button {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-button:hover {
+            background: var(--border);
+            transform: scale(1.05);
+        }
+
+        /* Main content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Hero section */
+        .hero {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            height: 400px;
+            display: flex;
+            align-items: flex-end;
+            background: var(--surface);
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, var(--overlay), transparent 50%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        .hero-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .hero-meta {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Article section */
+        .article-section {
+            margin-bottom: 2.5rem;
+            animation: fadeIn 0.6s ease-out 0.2s backwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .article-body {
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        .article-body p {
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+        }
+
+        .article-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Warning notice */
+        .notice {
+            background: var(--warning-light);
+            border-left: 4px solid var(--warning);
+            padding: 1.25rem;
+            border-radius: 6px;
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1rem;
+        }
+
+        html[data-theme="dark"] .notice {
+            background: rgba(245, 158, 11, 0.1);
+            border-left-color: var(--warning);
+        }
+
+        .notice-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            color: var(--warning);
+        }
+
+        .notice-content {
+            flex: 1;
+        }
+
+        .notice-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text);
+        }
+
+        .notice-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* Info cards grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin: 2rem 0;
+            animation: fadeIn 0.6s ease-out 0.3s backwards;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 0.75rem;
+            color: var(--accent);
+        }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-content {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .card-content strong {
+            color: var(--accent);
+        }
+
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-family: 'Noto Sans KR', sans-serif;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+            border-color: var(--accent);
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Source info */
+        .source-info {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2.5rem 0;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .source-info a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .source-info a:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Print styles */
+        @media print {
+            header, .menu-button, .action-buttons {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            .hero {
+                break-inside: avoid;
+            }
+
+            .article-section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            main {
+                padding: 1rem;
+            }
+
+            .hero {
+                height: 280px;
+            }
+
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .hero-content {
+                padding: 1.25rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+        }
+
+        /* Reveal animation on scroll */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        [data-reveal].revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">본문 바로 가기</a>
+
+    <header role="banner">
+        <div class="header-container">
+            <div class="logo">IT之家</div>
+            <nav class="nav-menu" aria-label="주 메뉴">
+                <button class="menu-button" id="theme-toggle" aria-label="다크 모드 토글">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button class="menu-button" id="print-btn" aria-label="인쇄">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                        <rect x="6" y="14" width="12" height="8"></rect>
+                    </svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" role="main">
+        <!-- Hero Section -->
+        <section class="hero" aria-label="기사 헤더">
+            <img src="https://img.ithome.com/newsuploadfiles/2026/3/6a7098ec-0460-4108-9885-e682029d0671.jpg?x-bce-process=image/format,f_auto"
+                 alt="니콘 Z5II 카메라" class="hero-image">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">니콘 Z5II 풀프레임 미러리스 카메라 리콜</h1>
+                <div class="hero-meta">
+                    <div class="meta-item">
+                        <span>📅 2026년 3월 17일</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>📰 IT之家</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notice -->
+        <div class="notice" role="alert" aria-labelledby="notice-title">
+            <svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3.05h16.94a2 2 0 0 0 1.71-3.05L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            <div class="notice-content">
+                <div class="notice-title" id="notice-title">리콜 공지</div>
+                <div class="notice-text">일부 제품에 조립된 개별 부품이 드문 경우 정상적인 사용에 영향을 줄 수 있습니다. 자신의 카메라가 대상인지 확인하세요.</div>
+            </div>
+        </div>
+
+        <!-- Article Body -->
+        <article class="article-section" data-reveal>
+            <h2 class="section-title">리콜 공지 사항</h2>
+            <div class="article-body">
+                <p>니콘이 Z5II 풀프레임 미러리스 카메라에 대한 리콜을 발표했습니다. 리콜 사유는 "일부 제품에 조립된 개별 부품이 드문 경우 관련 제품의 정상적인 사용에 영향을 줄 수 있다"는 것입니다.</p>
+
+                <p>사용자는 니콘 공식 웹사이트에서 시리얼 번호를 입력하여 자신의 카메라가 리콜 대상인지 확인할 수 있습니다. 보증 상태와 관계없이 무상 수리 서비스가 제공되며, 반송 배송비도 포함됩니다.</p>
+            </div>
+        </article>
+
+        <!-- Regional Information -->
+        <article class="article-section" data-reveal>
+            <h2 class="section-title">지역별 리콜 대상</h2>
+            <div class="article-body">
+                <p>중국 본토에서 구매한 Z6III 및 ZR 모델은 이번 리콜에 해당되지 않습니다. 그러나 중국 본토 이외 지역에서 구매한 Z6III 및 ZR 카메라는 리콜 대상에 포함될 수 있습니다.</p>
+            </div>
+        </article>
+
+        <!-- Info Cards -->
+        <section class="cards-grid" aria-label="리콜 정보 카드">
+            <div class="card" data-reveal>
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+                <div class="card-title">리콜 대상</div>
+                <div class="card-content">니콘 Z5II <strong>일부 모델</strong></div>
+            </div>
+
+            <div class="card" data-reveal>
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                </svg>
+                <div class="card-title">해외판 추가 대상</div>
+                <div class="card-content"><strong>Z6III</strong>, <strong>ZR</strong></div>
+            </div>
+
+            <div class="card" data-reveal>
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path>
+                    <path d="M7 12l3 3 7-7"></path>
+                </svg>
+                <div class="card-title">중국 본토 제외</div>
+                <div class="card-content">본토 구매 Z6III/ZR은 <strong>해당 없음</strong></div>
+            </div>
+
+            <div class="card" data-reveal>
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v20m10-10H2"></path>
+                    <circle cx="12" cy="12" r="10"></circle>
+                </svg>
+                <div class="card-title">수리 비용</div>
+                <div class="card-content"><strong>무상</strong> (반송비 포함)</div>
+            </div>
+
+            <div class="card" data-reveal>
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                    <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>
+                <div class="card-title">리콜 사유</div>
+                <div class="card-content">개별 부품 <strong>조립 문제</strong></div>
+            </div>
+
+            <div class="card" data-reveal>
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <div class="card-title">확인 방법</div>
+                <div class="card-content"><strong>시리얼 번호</strong> 입력 조회</div>
+            </div>
+        </section>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="https://www.nikon.com.cn/sc_CN/service-and-support/service-advisory.tag/service_advisory_notices/service_advisory_for_z5ii.dcr"
+               class="btn btn-primary" target="_blank" rel="noopener noreferrer" aria-label="새 탭에서 리콜 조회 링크 열기">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                리콜 조회 링크
+            </a>
+            <button class="btn btn-secondary" id="download-btn" aria-label="페이지를 PNG로 다운로드">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                PNG 다운로드
+            </button>
+        </div>
+
+        <!-- Source Info -->
+        <div class="source-info">
+            <p><strong>원본 출처:</strong> <a href="https://www.ithome.com/0/929/905.htm" target="_blank" rel="noopener noreferrer">IT之家</a></p>
+            <p><strong>발행일:</strong> 2026년 3월 17일</p>
+            <p><strong>최종 업데이트:</strong> 2026년 3월 18일</p>
+        </div>
+    </main>
+
+    <footer role="contentinfo">
+        <p>이 기사는 IT之家에서 제공하는 정보를 바탕으로 제작되었습니다. 리콜 관련 최신 정보는 니콘 공식 웹사이트를 방문하시기 바랍니다.</p>
+    </footer>
+
+    <script>
+        // Theme toggle
+        function initTheme() {
+            const stored = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', stored);
+            updateThemeButton(stored);
+        }
+
+        function updateThemeButton(theme) {
+            const btn = document.getElementById('theme-toggle');
+            btn.setAttribute('aria-pressed', theme === 'dark');
+        }
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            const next = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateThemeButton(next);
+        });
+
+        // Print function
+        document.getElementById('print-btn').addEventListener('click', () => {
+            window.print();
+        });
+
+        // Scroll reveal animation
+        function initReveal() {
+            const reveals = document.querySelectorAll('[data-reveal]');
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('revealed');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                reveals.forEach(el => observer.observe(el));
+            } else {
+                reveals.forEach(el => el.classList.add('revealed'));
+            }
+        }
+
+        // PNG download placeholder
+        document.getElementById('download-btn').addEventListener('click', () => {
+            alert('PNG 다운로드 기능은 브라우저의 스크린샷 도구를 사용하거나 인쇄 기능에서 PDF로 저장할 수 있습니다.\n\n또는 마우스 오른쪽 버튼 > "다른 이름으로 저장"을 사용하세요.');
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            initReveal();
+        });
+
+        // Respect prefers-color-scheme
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            if (!localStorage.getItem('theme')) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        }
+
+        // Listen for system theme changes
+        if (window.matchMedia) {
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (!localStorage.getItem('theme')) {
+                    document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

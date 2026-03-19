@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>荣耀 Magic V6 - 2026년 폴더블 폰 최고봉</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --honor-blue: #0066FF;
+            --dark-bg: #0f172a;
+            --dark-surface: #1e293b;
+            --dark-border: #334155;
+            --dark-text: #f1f5f9;
+            --dark-text-secondary: #cbd5e1;
+            --light-bg: #ffffff;
+            --light-surface: #f8fafc;
+            --light-border: #e2e8f0;
+            --light-text: #0f172a;
+            --light-text-secondary: #475569;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: var(--light-text);
+            background-color: var(--light-bg);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--dark-bg);
+                color: var(--dark-text);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Navbar */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--light-surface);
+            border-bottom: 1px solid var(--light-border);
+            padding: 1rem 2rem;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            nav {
+                background-color: rgba(30, 41, 59, 0.95);
+                border-bottom-color: var(--dark-border);
+            }
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--honor-blue);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--honor-blue);
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-menu a:hover {
+            color: var(--honor-blue);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .navbar-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 1rem;
+                background-color: var(--light-surface);
+                padding: 2rem;
+                border-bottom: 1px solid var(--light-border);
+            }
+
+            @media (prefers-color-scheme: dark) {
+                .navbar-menu {
+                    background-color: var(--dark-surface);
+                    border-bottom-color: var(--dark-border);
+                }
+            }
+
+            .navbar-menu.active {
+                display: flex;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, var(--honor-blue), #0052cc);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .hero {
+                background: linear-gradient(135deg, var(--honor-blue), #0052cc);
+            }
+        }
+
+        .hero img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 300px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .article-header {
+            margin: 3rem 0 2rem 0;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light-border);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .article-header {
+                border-bottom-color: var(--dark-border);
+            }
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.9rem;
+            color: var(--light-text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .article-meta {
+                color: var(--dark-text-secondary);
+            }
+        }
+
+        .article-meta a {
+            color: var(--honor-blue);
+            text-decoration: none;
+            transition: text-decoration 0.3s ease;
+        }
+
+        .article-meta a:hover {
+            text-decoration: underline;
+        }
+
+        /* Spec Grid */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+            background-color: #1e293b;
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        .spec-item {
+            text-align: center;
+        }
+
+        .spec-label {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 0.25rem;
+        }
+
+        .spec-detail {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        /* Feature Cards */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background-color: var(--light-surface);
+            border-radius: 12px;
+            border: 1px solid var(--light-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideInUp 0.6s ease backwards;
+        }
+
+        .feature-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .feature-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .feature-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .feature-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .feature-card {
+                background-color: var(--dark-surface);
+                border-color: var(--dark-border);
+            }
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 102, 255, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--honor-blue);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--light-text-secondary);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .feature-card p {
+                color: var(--dark-text-secondary);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Titles */
+        h2 {
+            font-size: 2rem;
+            margin: 2rem 0 1rem 0;
+            color: inherit;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--honor-blue);
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        /* Text Content */
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Source Link */
+        .source-link {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: var(--light-surface);
+            border-left: 4px solid var(--honor-blue);
+            border-radius: 4px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .source-link {
+                background-color: var(--dark-surface);
+            }
+        }
+
+        .source-link a {
+            color: var(--honor-blue);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .source-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--light-surface);
+            border-top: 1px solid var(--light-border);
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+            color: var(--light-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            footer {
+                background-color: var(--dark-surface);
+                border-top-color: var(--dark-border);
+                color: var(--dark-text-secondary);
+            }
+        }
+
+        footer a {
+            color: var(--honor-blue);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Tables */
+        table {
+            width: 100%;
+            margin: 1.5rem 0;
+            border-collapse: collapse;
+            background-color: #1e293b;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            color: #f1f5f9;
+        }
+
+        th {
+            background-color: #0f172a;
+            font-weight: 700;
+        }
+
+        tr:not(:last-child) {
+            border-bottom: 1px solid #334155;
+        }
+
+        tr:hover {
+            background-color: #334155;
+        }
+
+        td span.text-secondary {
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="navbar-container">
+            <div class="navbar-brand">Honor Magic V6</div>
+            <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li><a href="#specs">사양</a></li>
+                <li><a href="#features">특징</a></li>
+                <li><a href="#design">디자인</a></li>
+                <li><a href="#camera">카메라</a></li>
+                <li><a href="#battery">배터리</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="http://qimg.ithome.com/image/2026/03/16/20260316_113732_591.jpeg?x-bce-process=image/format,f_auto" alt="Honor Magic V6">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>荣耀 Magic V6</h1>
+            <p>2026년 폴더블 폰 최고봉</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Article Header -->
+        <div class="article-header">
+            <h1>Honor Magic V6는 정말 구매할 가치가 있을까?</h1>
+            <div class="article-meta">
+                <span>📅 2026년 3월 16일</span>
+                <span>📰 원본: <a href="https://www.ithome.com/0/929/450.htm" target="_blank">IT之家</a></span>
+            </div>
+        </div>
+
+        <!-- Introduction -->
+        <section>
+            <p>2026년 3월 10일에 발표된 Honor Magic V6는 혁신적인 폴더블 디자인과 최고 수준의 기술 사양으로 올해 최고의 폴더블 스마트폰으로 자리매김했습니다. 얇기, 내구성, 카메라, 성능, 배터리 등 모든 분야에서 업계 최고 수준의 성능을 자랑합니다.</p>
+        </section>
+
+        <!-- Spec Grid -->
+        <section id="specs">
+            <h2>핵심 사양</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <div class="spec-label">펼침 두께</div>
+                    <div class="spec-value">4.0mm</div>
+                    <div class="spec-detail">세계 최박</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">접힘 두께</div>
+                    <div class="spec-value">8.75mm</div>
+                    <div class="spec-detail">최소 폴딩 갭</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">무게</div>
+                    <div class="spec-value">219g</div>
+                    <div class="spec-detail">경량 구조</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">배터리 용량</div>
+                    <div class="spec-value">7150mAh</div>
+                    <div class="spec-detail">1TB 모델 기준</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">주 카메라</div>
+                    <div class="spec-value">6400만</div>
+                    <div class="spec-detail">픽셀 + 텔레포토</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">방수 등급</div>
+                    <div class="spec-value">IP68/69</div>
+                    <div class="spec-detail">4m 방수</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design & Build Quality -->
+        <section id="design">
+            <h2>혁신적인 디자인 및 내구성</h2>
+
+            <h3>세계 최박 폴더블 디자인</h3>
+            <p>Honor Magic V6는 폴더블 스마트폰 역사상 가장 얇은 디자인을 자랑합니다. 펼침 상태에서 4.0mm의 두께는 일반적인 스마트폰 수준이며, 접힘 상태에서도 8.75mm의 미니멀한 폴딩 갭을 유지합니다. 219g의 가벼운 무게는 휴대성을 극대화하면서도 프리미엄 느낌을 잃지 않습니다.</p>
+
+            <h3>항공급 재료로 제조된 힌지</h3>
+            <p>Honor Magic V6의 힌지는 航空级盾构钢锻造荣耀鲁班铰链으로, 2800MPa의 항복강도를 자랑합니다. 이는 극도의 강도와 내구성을 보장하여 수십만 번의 개폐에도 견딜 수 있습니다.</p>
+
+            <h3>프리미엄 유리 및 방수 기술</h3>
+            <p>新一代荣耀金钢巨犀玻璃는 5600층의 氮化硅 고정밀 나노코팅으로 처리되어, 뛰어난 내구성과 스크래치 저항성을 제공합니다. IP68/69 등급의 방수 기능은 4미터 깊이에서 견딜 수 있어, 일상생활에서의 물 손상으로부터 완벽히 보호합니다.</p>
+        </section>
+
+        <!-- Battery & Charging -->
+        <section id="battery">
+            <h2>강력한 배터리 및 빠른 충전</h2>
+
+            <h3>차세대 실리콘 배터리</h3>
+            <p>Honor Magic V6는 실리콘 함량 32%의 新一代青海湖刀片电池를 탑재했습니다. 1TB 모델은 7150mAh의 대용량 배터리를 제공하여, 종일 사용에도 충분한 배터리 지속시간을 보장합니다.</p>
+
+            <h3>다중 빠른 충전 기술</h3>
+            <ul>
+                <li><strong>유선 충전:</strong> 80W 초고속 충전 지원</li>
+                <li><strong>무선 충전:</strong> 66W 고속 무선 충전</li>
+                <li><strong>리버스 무선 충전:</strong> 다른 기기 충전 가능</li>
+                <li><strong>기본 제공:</strong> 120W GaN 충전기 포함</li>
+            </ul>
+
+            <p>이러한 다중 충전 옵션은 사용자의 편의성을 극대화하고, 빠른 충전 속도로 언제 어디서나 즉시 사용할 수 있게 합니다.</p>
+        </section>
+
+        <!-- Performance -->
+        <section>
+            <h2>최고 수준의 성능</h2>
+
+            <h3>플래그십 프로세서</h3>
+            <p>Honor Magic V6는 满血第五代骁龙8至尊版을 탑재했습니다. 이는 3nm 공정으로 제조되며, 최대 4.6GHz의 클럭 속도로 동작하여, 최고 수준의 성능을 제공합니다.</p>
+
+            <h3>고급 운영 체제</h3>
+            <p>MagicOS 10.0은 Honor의 최신 운영 체제로, AI 기반의 최적화와 향상된 멀티태스킹 기능을 제공합니다. PC급 3분할 화면 기능으로 생산성을 극대화할 수 있습니다.</p>
+        </section>
+
+        <!-- Camera System -->
+        <section id="camera">
+            <h2>프로급 카메라 시스템</h2>
+
+            <h3>旗舰级 이미징 시스템</h3>
+            <p>Honor Magic V6의 카메라 시스템은 6400만 픽셀의 고해상도 센서와 고급 텔레포토 렌즈로 구성되어 있습니다. 이는 다양한 촬영 상황에서 최고 수준의 이미지 품질을 제공합니다.</p>
+
+            <h3>고급 이미지 처리 기술</h3>
+            <ul>
+                <li><strong>초강력 손떨림 방지:</strong> CIPA 6.5 등급의 최강 손떨림 방지 기술</li>
+                <li><strong>원색 엔진:</strong> AiMAGE 원색 이미징 엔진으로 정확한 색감 표현</li>
+                <li><strong>AI 영화 추색:</strong> AI 기반의 색감 최적화로 영화 같은 영상 촬영</li>
+                <li><strong>외화면 스마트 촬영:</strong> 외부 화면의 스마트 촬영 가이드 기능</li>
+            </ul>
+
+            <p>이러한 고급 카메라 기술은 일반 사용자도 전문가 수준의 사진과 영상을 촬영할 수 있게 해줍니다.</p>
+        </section>
+
+        <!-- AI Features -->
+        <section>
+            <h2>AI 통합 기능</h2>
+
+            <h3>생산성 향상 기능</h3>
+            <p>Honor Magic V6는 PC급 듀얼 스크린 멀티태스킹을 지원합니다. 한 화면에서 두 개의 작업을 동시에 수행할 수 있는 "一屏盯双股" 기능으로, 작업 효율을 크게 향상시킵니다.</p>
+
+            <h3>AI 기반 스마트 기능</h3>
+            <p>MagicOS 10.0의 AI 통합 기능들은 사용자의 습관을 학습하여 더욱 개인화된 경험을 제공합니다. 이미지 인식, 음성 처리, 자동 최적화 등이 모두 AI 기반으로 동작합니다.</p>
+        </section>
+
+        <!-- Summary -->
+        <section>
+            <h2>결론: 2026년 폴더블 폰 최고봉</h2>
+
+            <p>Honor Magic V6는 세계 최박 폴더블 디자인, 강력한 성능, 프로급 카메라 시스템, 그리고 혁신적인 AI 기능을 모두 갖춘 진정한 2026년 폴더블 폰의 최고봉입니다.</p>
+
+            <p><strong>주요 장점:</strong></p>
+            <ul>
+                <li>업계 최박의 폴더블 디자인 (4.0mm 펼침, 8.75mm 접힘)</li>
+                <li>항공급 내구성과 IP68/69 방수 등급</li>
+                <li>강력한 충전 기능 (80W 유선 + 66W 무선)</li>
+                <li>플래그십 성능과 최신 MagicOS</li>
+                <li>전문가 수준의 카메라 시스템</li>
+                <li>AI 통합 생산성 기능</li>
+            </ul>
+
+            <p>폴더블 스마트폰의 미래를 경험하고 싶다면, Honor Magic V6는 의심할 여지 없이 최고의 선택입니다.</p>
+        </section>
+
+        <!-- Source Link -->
+        <div class="source-link">
+            <strong>원본 기사:</strong> <a href="https://www.ithome.com/0/929/450.htm" target="_blank">荣耀 Magic V6 值得买吗 当称 2026 年折叠天花板 - IT之家</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>게시 날짜: 2026년 3월 16일</p>
+        <p>&copy; 2026 Honor Magic V6 리뷰 | 원본 출처: <a href="https://www.ithome.com" target="_blank">IT之家</a></p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('navbar-menu');
+            menu.classList.toggle('active');
+        }
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.navbar-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navbar-menu').classList.remove('active');
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards for animation
+        document.querySelectorAll('.feature-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>샤오미 POCO X8 Pro / X8 Pro Max 해외 출시</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --accent: #FFD500;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --border: #e5e7eb;
+            --spec-bg: #1e293b;
+            --spec-text: #f1f5f9;
+            --spec-secondary: #94a3b8;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #f1f5f9;
+                --text-secondary: #cbd5e1;
+                --bg-primary: #0f172a;
+                --bg-secondary: #1e293b;
+                --border: #334155;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--accent) 0%, #ffd500cc 100%);
+            color: #000;
+            padding: 4rem 2rem;
+            text-align: center;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .hero-date {
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .hero-image {
+            max-width: 100%;
+            height: auto;
+            margin: 2rem auto;
+            border-radius: 12px;
+            max-height: 400px;
+            object-fit: cover;
+            animation: zoomIn 1s ease-out;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Source Link */
+        .source-link {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+            margin-bottom: 3rem;
+            border-radius: 8px;
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        .source-link p {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .source-link a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        .source-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+            animation: fadeIn 0.6s ease-out 0.2s backwards;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .tab-button.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-button:hover {
+            color: var(--text-primary);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Spec Grid */
+        .spec-grid {
+            background-color: var(--spec-bg);
+            color: var(--spec-text);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .spec-grid h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-align: center;
+        }
+
+        .spec-grid-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .spec-item {
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            padding-bottom: 1.5rem;
+        }
+
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-size: 0.9rem;
+            color: var(--spec-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .spec-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--spec-text);
+        }
+
+        /* Comparison View */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Features Section */
+        .features {
+            margin: 3rem 0;
+        }
+
+        .features-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+        }
+
+        /* Gallery */
+        .gallery {
+            margin: 3rem 0;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .gallery-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background-color: var(--bg-secondary);
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-link {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab-button {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .spec-grid {
+                padding: 1.5rem;
+            }
+
+            .spec-grid-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .feature-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">POCO</div>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>샤오미 POCO X8 Pro / X8 Pro Max</h1>
+            <p class="hero-subtitle">해외 출시</p>
+            <p class="hero-date">2026년 3월 17일</p>
+            <img src="https://img.ithome.com/newsuploadfiles/2026/3/3beee278-1d21-45bb-b457-8de956704892.jpg?x-bce-process=image/format,f_auto" alt="POCO X8 Pro Max" class="hero-image">
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Source Link -->
+        <div class="source-link">
+            <p>원문 출처:</p>
+            <a href="https://www.ithome.com/0/930/030.htm" target="_blank">https://www.ithome.com/0/930/030.htm</a>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-button active" data-tab="comparison">사양 비교</button>
+            <button class="tab-button" data-tab="pro-max">X8 Pro Max</button>
+            <button class="tab-button" data-tab="pro">X8 Pro</button>
+        </div>
+
+        <!-- Tab: Comparison -->
+        <div id="comparison" class="tab-content active">
+            <div class="comparison">
+                <!-- POCO X8 Pro Max -->
+                <div class="spec-grid">
+                    <h3>X8 Pro Max</h3>
+                    <div class="spec-grid-content">
+                        <div class="spec-item">
+                            <div class="spec-label">프로세서</div>
+                            <div class="spec-value">Dimensity 9500s</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">메모리</div>
+                            <div class="spec-value">LPDDR5x</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">스토리지</div>
+                            <div class="spec-value">UFS 4.1</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">디스플레이</div>
+                            <div class="spec-value">6.83" AMOLED</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">해상도</div>
+                            <div class="spec-value">2772×1280</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">주사율</div>
+                            <div class="spec-value">120Hz</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">밝기</div>
+                            <div class="spec-value">HDR 3500nit</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">배터리</div>
+                            <div class="spec-value">8500mAh</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">유선 충전</div>
+                            <div class="spec-value">100W</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">무선 충전</div>
+                            <div class="spec-value">27W 역방향</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">메인 카메라</div>
+                            <div class="spec-value">50MP 1/1.95"</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">초광각</div>
+                            <div class="spec-value">8MP</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">전면 카메라</div>
+                            <div class="spec-value">20MP</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">연결</div>
+                            <div class="spec-value">Wi-Fi 7, BT 6.0, NFC</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">가격 (12+256GB)</div>
+                            <div class="spec-value">$429</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">가격 (512GB)</div>
+                            <div class="spec-value">$459</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- POCO X8 Pro -->
+                <div class="spec-grid">
+                    <h3>X8 Pro</h3>
+                    <div class="spec-grid-content">
+                        <div class="spec-item">
+                            <div class="spec-label">프로세서</div>
+                            <div class="spec-value">Dimensity 8500 Ultra</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">클록 속도</div>
+                            <div class="spec-value">3.4GHz</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">두께</div>
+                            <div class="spec-value">8.38mm</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">무게</div>
+                            <div class="spec-value">201g</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">디스플레이</div>
+                            <div class="spec-value">6.59" AMOLED</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">해상도</div>
+                            <div class="spec-value">2576×1268</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">주사율</div>
+                            <div class="spec-value">120Hz</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">배터리</div>
+                            <div class="spec-value">6500mAh</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">유선 충전</div>
+                            <div class="spec-value">100W</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">메인 카메라</div>
+                            <div class="spec-value">50MP 1/1.95"</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">초광각</div>
+                            <div class="spec-value">8MP</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">가격 (8+256GB)</div>
+                            <div class="spec-value">$299</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">가격 (12+512GB)</div>
+                            <div class="spec-value">$359</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Pro Max Details -->
+        <div id="pro-max" class="tab-content">
+            <div class="spec-grid">
+                <h3>POCO X8 Pro Max</h3>
+                <div class="spec-grid-content">
+                    <div class="spec-item">
+                        <div class="spec-label">프로세서</div>
+                        <div class="spec-value">MediaTek Dimensity 9500s</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">메모리 타입</div>
+                        <div class="spec-value">LPDDR5x</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">스토리지 타입</div>
+                        <div class="spec-value">UFS 4.1</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">디스플레이 크기</div>
+                        <div class="spec-value">6.83인치</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">디스플레이 기술</div>
+                        <div class="spec-value">AMOLED</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">해상도</div>
+                        <div class="spec-value">2772 × 1280 픽셀</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">주사율</div>
+                        <div class="spec-value">120Hz</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">최대 밝기</div>
+                        <div class="spec-value">HDR 3500nit</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">배터리 용량</div>
+                        <div class="spec-value">8500mAh</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">유선 충전</div>
+                        <div class="spec-value">100W</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">무선 역방향 충전</div>
+                        <div class="spec-value">27W</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">메인 카메라</div>
+                        <div class="spec-value">50MP f/1.95 1/1.95"</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">초광각 카메라</div>
+                        <div class="spec-value">8MP</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">전면 카메라</div>
+                        <div class="spec-value">20MP</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Wi-Fi</div>
+                        <div class="spec-value">Wi-Fi 7</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">블루투스</div>
+                        <div class="spec-value">BT 6.0</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">NFC</div>
+                        <div class="spec-value">지원</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">가격 (12+256GB)</div>
+                        <div class="spec-value">$429</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">가격 (12+512GB)</div>
+                        <div class="spec-value">$459</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Pro Details -->
+        <div id="pro" class="tab-content">
+            <div class="spec-grid">
+                <h3>POCO X8 Pro</h3>
+                <div class="spec-grid-content">
+                    <div class="spec-item">
+                        <div class="spec-label">프로세서</div>
+                        <div class="spec-value">MediaTek Dimensity 8500 Ultra</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">클록 속도</div>
+                        <div class="spec-value">3.4GHz</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">두께</div>
+                        <div class="spec-value">8.38mm</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">무게</div>
+                        <div class="spec-value">201g</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">디스플레이 크기</div>
+                        <div class="spec-value">6.59인치</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">디스플레이 기술</div>
+                        <div class="spec-value">AMOLED</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">해상도</div>
+                        <div class="spec-value">2576 × 1268 픽셀</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">주사율</div>
+                        <div class="spec-value">120Hz</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">배터리 용량</div>
+                        <div class="spec-value">6500mAh</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">유선 충전</div>
+                        <div class="spec-value">100W</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">메인 카메라</div>
+                        <div class="spec-value">50MP f/1.95 1/1.95"</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">초광각 카메라</div>
+                        <div class="spec-value">8MP</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">가격 (8+256GB)</div>
+                        <div class="spec-value">$299</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">가격 (12+512GB)</div>
+                        <div class="spec-value">$359</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section class="features">
+            <h2 class="features-title">주요 특징</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <h4>🚀 고성능</h4>
+                    <p>X8 Pro Max는 최신 Dimensity 9500s 프로세서로 강력한 성능을 제공하며, X8 Pro는 3.4GHz의 Dimensity 8500 Ultra로 일상적인 사용에 충분한 성능을 자랑합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📱 프리미엄 디스플레이</h4>
+                    <p>두 모델 모두 AMOLED 디스플레이를 탑재하고 있으며, 120Hz 주사율로 부드러운 스크롤링 경험을 제공합니다. X8 Pro Max는 6.83인치 대화면에 3500nit의 밝기를 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔋 대용량 배터리</h4>
+                    <p>X8 Pro Max는 8500mAh, X8 Pro는 6500mAh의 배터리를 탑재했으며, 두 모델 모두 100W 빠른 충전을 지원합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📸 고성능 카메라 시스템</h4>
+                    <p>두 모델 모두 5000만 화소 f/1.95 대구경 메인 카메라(1/1.95인치 대형 센서)와 800만 화소 초광각 렌즈를 탑재하여 풍경부터 인물까지 다양한 촬영이 가능합니다. X8 Pro Max는 전면에 2000만 화소 셀피 카메라를 추가로 탑재했으며, 두 모델 모두 AI 사진 보정 기능을 지원합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🌐 최신 연결 기술</h4>
+                    <p>X8 Pro Max는 Wi-Fi 7, 블루투스 6.0, NFC를 지원하여 최신 무선 기술의 이점을 누릴 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💰 경쟁력 있는 가격</h4>
+                    <p>X8 Pro는 $299부터 시작하는 합리적인 가격대를 제공하며, X8 Pro Max도 프리미엄 기능에 비해 $429의 경쟁력 있는 가격을 자랑합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="gallery">
+            <h2 class="gallery-title">제품 갤러리</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/3beee278-1d21-45bb-b457-8de956704892.jpg?x-bce-process=image/format,f_auto" alt="POCO X8 Pro Max 정면">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/ee8918a4-b490-4920-aacd-04c1ac203000.jpg?x-bce-process=image/format,f_auto" alt="POCO X8 Pro 디자인">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/9ed200a9-3110-4c28-b9c2-8dc3cdac9af0.jpg?x-bce-process=image/format,f_auto" alt="POCO 모델 비교">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>📱 스마트폰 신제품 | 샤오미 POCO</p>
+            <p>기사 원문: <a href="https://www.ithome.com/0/930/030.htm" class="footer-link" target="_blank">IT 홈</a></p>
+            <p style="font-size: 0.85rem; margin-top: 1rem;">이 페이지는 정보 제공 목적으로 작성되었습니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Mobile navigation toggle
+        const navToggle = document.getElementById('navToggle');
+        navToggle.addEventListener('click', () => {
+            alert('모바일 네비게이션입니다. 탭을 선택하여 정보를 확인하세요.');
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .gallery-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

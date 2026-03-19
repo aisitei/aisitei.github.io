@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>삼성 Galaxy S26 Ultra 숨겨진 카메라 기능 공개: 이중 색상 가상 보조광</title>
+
+    <!-- Google Fonts: Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- html2canvas for PNG download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #1e40af;
+            --secondary-color: #0891b2;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --neutral-50: #f9fafb;
+            --neutral-100: #f3f4f6;
+            --neutral-200: #e5e7eb;
+            --neutral-300: #d1d5db;
+            --neutral-400: #9ca3af;
+            --neutral-500: #6b7280;
+            --neutral-600: #4b5563;
+            --neutral-700: #374151;
+            --neutral-800: #1f2937;
+            --neutral-900: #111827;
+
+            --text-primary: var(--neutral-900);
+            --text-secondary: var(--neutral-600);
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--neutral-50);
+            --border-color: var(--neutral-200);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+
+            --transition-fast: 150ms ease-in-out;
+            --transition-normal: 300ms ease-in-out;
+            --transition-slow: 500ms ease-in-out;
+        }
+
+        body.dark-mode {
+            --text-primary: #f3f4f6;
+            --text-secondary: #d1d5db;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --border-color: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            line-height: 1.6;
+            transition: background-color var(--transition-normal), color var(--transition-normal);
+        }
+
+        /* Background atmosphere */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(30, 64, 175, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(8, 145, 178, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body.dark-mode::before {
+            background: radial-gradient(circle at 20% 30%, rgba(30, 64, 175, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(8, 145, 178, 0.15) 0%, transparent 50%);
+        }
+
+        /* Skip to content link for accessibility */
+        .skip-to-content {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            z-index: 100;
+            border-radius: 0 0 4px 0;
+        }
+
+        .skip-to-content:focus {
+            top: 0;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.7);
+            transition: all var(--transition-normal);
+        }
+
+        body.dark-mode header {
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: 'Noto Sans KR', sans-serif;
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e3a8a;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            margin: 2rem 0 3rem 0;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.7) 0%, rgba(8, 145, 178, 0.5) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            font-weight: 300;
+            opacity: 0.95;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin: 3rem 0;
+        }
+
+        .section {
+            margin: 3rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 2rem;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        /* Introduction Section */
+        .intro-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease-out 0.1s both;
+        }
+
+        .intro-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .intro-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Image Showcase */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .image-card {
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-normal);
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .image-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .image-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .image-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-translation {
+            /* Placeholder for translation overlays if needed in future */
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all var(--transition-normal);
+            animation: fadeInUp 0.6s ease-out both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .feature-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .feature-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 3rem;
+            height: 3rem;
+            background: var(--bg-secondary);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Dual Mode Comparison */
+        .mode-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .mode-card {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all var(--transition-normal);
+            animation: fadeInUp 0.6s ease-out both;
+            position: relative;
+        }
+
+        .mode-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .mode-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .mode-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .mode-badge.silver {
+            background: #e8e8e8;
+            color: #4b4b4b;
+        }
+
+        body.dark-mode .mode-badge.silver {
+            background: #4b5563;
+            color: #e8e8e8;
+        }
+
+        .mode-badge.gold {
+            background: #fcd34d;
+            color: #78350f;
+        }
+
+        body.dark-mode .mode-badge.gold {
+            background: #b45309;
+            color: #fef3c7;
+        }
+
+        .mode-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .mode-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .mode-features {
+            list-style: none;
+        }
+
+        .mode-features li {
+            padding: 0.75rem 0;
+            padding-left: 1.75rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .mode-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+            color: var(--success-color);
+        }
+
+        /* Step-by-step Guide */
+        .steps-container {
+            margin: 2rem 0;
+        }
+
+        .step-card {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            animation: fadeInUp 0.6s ease-out both;
+            transition: all var(--transition-normal);
+        }
+
+        .step-card:nth-child(1) { animation-delay: 0; }
+        .step-card:nth-child(2) { animation-delay: 0.1s; }
+        .step-card:nth-child(3) { animation-delay: 0.2s; }
+        .step-card:nth-child(4) { animation-delay: 0.3s; }
+
+        .step-card:hover {
+            background: var(--bg-primary);
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Controls Section */
+        .controls-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .control-item {
+            padding: 1.5rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            transition: all var(--transition-normal);
+        }
+
+        .control-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .control-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .control-label::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .control-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Summary Section */
+        .summary-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 1rem;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+            animation: fadeInUp 0.6s ease-out 0.5s both;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .summary-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .summary-text {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Source Link */
+        .source-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            text-align: center;
+        }
+
+        .source-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .source-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            word-break: break-all;
+        }
+
+        .source-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            header, .nav-menu, .print-hide {
+                display: none;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .hero {
+                page-break-inside: avoid;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                height: 350px;
+            }
+
+            .hero-title {
+                font-size: 1.75rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .header-container {
+                padding: 0.75rem 1rem;
+            }
+
+            .logo {
+                font-size: 1rem;
+            }
+
+            .nav-menu {
+                gap: 0.5rem;
+            }
+
+            .btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .summary-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .summary-title {
+                font-size: 1.5rem;
+            }
+
+            .summary-text {
+                font-size: 1rem;
+            }
+
+            .step-card {
+                grid-template-columns: 60px 1fr;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+
+            .step-number {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                height: 250px;
+                margin: 1rem 0 2rem 0;
+            }
+
+            .hero-title {
+                font-size: 1.25rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+
+            .intro-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .intro-card p {
+                font-size: 1rem;
+            }
+
+            .feature-card,
+            .mode-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .step-card {
+                grid-template-columns: 50px 1fr;
+                gap: 0.75rem;
+                padding: 1rem;
+            }
+
+            .step-number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">본 콘텐츠로 건너뛰기</a>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">Samsung S26 Ultra</a>
+            <nav class="nav-menu">
+                <button class="btn btn-secondary print-hide" id="theme-toggle" aria-label="테마 토글">
+                    <span class="btn-icon">🌙</span>
+                </button>
+                <button class="btn btn-secondary print-hide" id="download-btn" aria-label="PNG 다운로드">
+                    <span class="btn-icon">📥</span>
+                    <span>이미지 저장</span>
+                </button>
+                <button class="btn btn-secondary print-hide" id="print-btn" aria-label="인쇄">
+                    <span class="btn-icon">🖨️</span>
+                    <span>인쇄</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="container">
+        <!-- Hero Section -->
+        <section class="hero" aria-label="영웅 섹션">
+            <img src="https://img.ithome.com/newsuploadfiles/2026/3/20e3c57a-84ab-456c-b305-262412cd8b3d.jpg" alt="Samsung Galaxy S26 Ultra" class="hero-image">
+            <div class="hero-overlay">
+                <div class="hero-content">
+                    <h1 class="hero-title">삼성 Galaxy S26 Ultra 숨겨진 카메라 기능</h1>
+                    <p class="hero-subtitle">이중 색상 가상 보조광으로 전문가 수준의 역광 사진 촬영</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Introduction Section -->
+        <section class="section" aria-labelledby="intro-heading">
+            <h2 class="section-title" id="intro-heading">기능 소개</h2>
+            <article class="intro-card">
+                <p>삼성이 Galaxy S26 Ultra에 혁신적인 컴퓨테이셔널 포토그래피 기능을 통합했습니다. <strong>가상 반사판(Virtual Reflector)</strong>이라는 이 기능은 역광 인물사진의 도전 과제를 해결하기 위해 실시간 알고리즘을 활용합니다.</p>
+                <p>이 기술은 물리적인 반사판에 의존하지 않으면서도 섀도우를 지능적으로 밝혀 하이라이트 디테일을 보존합니다. 전문 사진작가들이 스튜디오에서 사용하는 보조광 기법을 손 안의 스마트폰으로 구현할 수 있습니다.</p>
+            </article>
+        </section>
+
+        <!-- Image Gallery -->
+        <section class="section" aria-labelledby="gallery-heading">
+            <h2 class="section-title" id="gallery-heading">실제 인터페이스</h2>
+            <div class="image-gallery">
+                <figure class="image-card">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/53905e90-2083-4b4d-95e8-f3b6ca16bdcd.png" alt="Expert RAW 앱 스크린샷 - 가상 반사판 UI">
+                    <div class="image-translation"></div>
+                </figure>
+                <figure class="image-card">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/8357762d-8c50-4edd-9d72-4d6e4ce638aa.png" alt="가상 반사판 설정 - 실버/골드 모드">
+                    <div class="image-translation"></div>
+                </figure>
+                <figure class="image-card">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/20e3c57a-84ab-456c-b305-262412cd8b3d.jpg" alt="Galaxy S26 Ultra 백 카메라">
+                    <div class="image-translation"></div>
+                </figure>
+            </div>
+        </section>
+
+        <!-- Dual Mode Features -->
+        <section class="section" aria-labelledby="modes-heading">
+            <h2 class="section-title" id="modes-heading">이중 색상 모드</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">가상 반사판은 두 가지 고유한 색온도 모드로 다양한 촬영 상황을 지원합니다:</p>
+
+            <div class="mode-comparison">
+                <article class="mode-card">
+                    <span class="mode-badge silver">실버 모드</span>
+                    <h3 class="mode-title">실버 모드</h3>
+                    <p class="mode-description">자연스럽고 투명감 있는 중립적인 고명도 조명을 제공합니다. 인물의 피부톤과 텍스처를 자연스럽게 표현하는 데 최적화되어 있습니다.</p>
+                    <ul class="mode-features">
+                        <li>자연스러운 광학 밸런스</li>
+                        <li>높은 명도 대비 비율</li>
+                        <li>피부 색감 정확성</li>
+                        <li>객관적이고 중립적인 표현</li>
+                    </ul>
+                </article>
+
+                <article class="mode-card">
+                    <span class="mode-badge gold">골드 모드</span>
+                    <h3 class="mode-title">골드 모드</h3>
+                    <p class="mode-description">따뜻하고 부드러운 톤으로 피부 톤을 강조하고 햇빛에 그을린 미학을 만들어냅니다. 시간대별 자연광을 모방하여 생동감 있는 인물사진을 표현합니다.</p>
+                    <ul class="mode-features">
+                        <li>따뜻한 색온도 (3000K 대역)</li>
+                        <li>부드러운 조명 효과</li>
+                        <li>피부 텍스처 강조</li>
+                        <li>황금시간대 감성 표현</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <!-- User Controls -->
+        <section class="section" aria-labelledby="controls-heading">
+            <h2 class="section-title" id="controls-heading">사용자 제어 옵션</h2>
+            <article class="controls-section">
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">가상 반사판은 전문 수준의 세밀한 제어 옵션을 제공합니다:</p>
+                <div class="controls-grid">
+                    <div class="control-item">
+                        <div class="control-label">반사도 조절</div>
+                        <p class="control-description">빛의 강도를 세밀하게 조정할 수 있어 최적의 노출 수준을 구현합니다.</p>
+                    </div>
+                    <div class="control-item">
+                        <div class="control-label">빛 방향 조작</div>
+                        <p class="control-description">보조광의 방향을 수동으로 조절하여 섀도우를 정확히 채웁니다.</p>
+                    </div>
+                    <div class="control-item">
+                        <div class="control-label">한 클릭 초기화</div>
+                        <p class="control-description">설정을 기본값으로 빠르게 복원하는 옵션입니다.</p>
+                    </div>
+                    <div class="control-item">
+                        <div class="control-label">자동 중앙 정렬</div>
+                        <p class="control-description">기본적으로 중앙 정렬된 상태에서 시작하며 수동 오버라이드가 가능합니다.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Access Guide -->
+        <section class="section" aria-labelledby="access-heading">
+            <h2 class="section-title" id="access-heading">접근 방법</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">가상 반사판 기능에 접근하는 단계별 가이드:</p>
+
+            <div class="steps-container">
+                <article class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Expert Raw 앱 다운로드</h3>
+                        <p>삼성 Galaxy Store에서 Expert Raw 앱을 다운로드하여 설치합니다.</p>
+                    </div>
+                </article>
+
+                <article class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>앱 실행 및 "Lab" 메뉴 접근</h3>
+                        <p>Expert Raw 앱을 실행한 후 메뉴에서 "Lab" 섹션으로 이동합니다.</p>
+                    </div>
+                </article>
+
+                <article class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>플라스크 아이콘 선택</h3>
+                        <p>Lab 메뉴에서 플라스크(화학 실험) 아이콘을 찾아 탭하여 활성화합니다.</p>
+                    </div>
+                </article>
+
+                <article class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>가상 반사판 사용 시작</h3>
+                        <p>이제 역광 촬영 시 가상 반사판의 모든 기능과 제어 옵션을 사용할 수 있습니다.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="summary-section" aria-labelledby="summary-heading">
+            <h2 class="summary-title" id="summary-heading">기술의 힘</h2>
+            <p class="summary-text">
+                가상 반사판은 첨단 컴퓨테이셔널 포토그래피의 진정한 혁신입니다. 이 기능은 물리적 장비의 제한에서 벗어나 스마트폰으로 전문가 수준의 인물사진을 촬영할 수 있게 해줍니다. 실시간 알고리즘이 섀도우를 지능적으로 조정하면서 하이라이트는 자연스럽게 보존하여, 어떤 환경에서도 완벽한 역광 사진을 만들어낼 수 있습니다.
+            </p>
+        </section>
+
+        <!-- Source -->
+        <section class="source-section" aria-labelledby="source-heading">
+            <p class="source-label" id="source-heading">원문 출처:</p>
+            <a href="https://www.ithome.com/0/930/217.htm" class="source-link" target="_blank" rel="noopener noreferrer">
+                https://www.ithome.com/0/930/217.htm
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>삼성 Galaxy S26 Ultra | Virtual Reflector 기능 소개</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem;">© 2026 IT Home. 모든 권리 보유.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const bodyElement = document.body;
+
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            bodyElement.classList.add('dark-mode');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            bodyElement.classList.toggle('dark-mode');
+            const isDark = bodyElement.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeToggle.textContent = isDark ? '☀️' : '🌙';
+        });
+
+        // Print Button
+        const printBtn = document.getElementById('print-btn');
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+
+        // PNG Download Button
+        const downloadBtn = document.getElementById('download-btn');
+        downloadBtn.addEventListener('click', async () => {
+            try {
+                downloadBtn.disabled = true;
+                downloadBtn.textContent = '📥 처리 중...';
+
+                const element = document.documentElement;
+                const canvas = await html2canvas(element, {
+                    backgroundColor: getComputedStyle(bodyElement).backgroundColor,
+                    scale: 2,
+                    logging: false
+                });
+
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = '2026-03-19-samsung-s26-ultra-virtual-reflector.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                downloadBtn.textContent = '📥 이미지 저장';
+                downloadBtn.disabled = false;
+            } catch (error) {
+                console.error('Download failed:', error);
+                alert('이미지 저장 실패. 다시 시도해주세요.');
+                downloadBtn.textContent = '📥 이미지 저장';
+                downloadBtn.disabled = false;
+            }
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

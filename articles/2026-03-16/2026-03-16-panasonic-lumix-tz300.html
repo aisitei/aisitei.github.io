@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파나소닉 Lumix TZ300 카드형 카메라 공개: 20MP 1인치 센서</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --accent-color: #0033A0;
+            --spec-bg: #1e293b;
+            --spec-text: #f1f5f9;
+            --spec-secondary: #94a3b8;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #0f172a;
+                --bg-secondary: #1e293b;
+                --text-primary: #f1f5f9;
+                --text-secondary: #cbd5e1;
+                --border-color: #334155;
+                --spec-bg: #1e293b;
+                --spec-text: #f1f5f9;
+                --spec-secondary: #94a3b8;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Navbar */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        .nav-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: none;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu.active {
+            display: flex;
+        }
+
+        .nav-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-brand {
+                font-size: 1rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background-color: var(--bg-secondary);
+                padding: 1.5rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--border-color);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-header {
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .article-date {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .article-meta {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .article-content {
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Spec Grid */
+        .specs-section {
+            margin: 3rem 0;
+            animation: fadeInUp 0.8s ease-out 0.5s backwards;
+        }
+
+        .specs-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            background-color: var(--spec-bg);
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        .spec-item {
+            padding: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .spec-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 51, 160, 0.2);
+        }
+
+        .spec-label {
+            font-size: 0.85rem;
+            color: var(--spec-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .spec-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--spec-text);
+        }
+
+        .spec-detail {
+            font-size: 0.9rem;
+            color: var(--spec-secondary);
+            margin-top: 0.5rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            margin: 3rem 0;
+            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+        }
+
+        .features-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: all 0.3s;
+            animation: scaleIn 0.6s ease-out backwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.6s; }
+        .feature-card:nth-child(2) { animation-delay: 0.65s; }
+        .feature-card:nth-child(3) { animation-delay: 0.7s; }
+        .feature-card:nth-child(4) { animation-delay: 0.75s; }
+        .feature-card:nth-child(5) { animation-delay: 0.8s; }
+        .feature-card:nth-child(6) { animation-delay: 0.85s; }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-color);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            margin: 3rem 0;
+            animation: fadeInUp 0.8s ease-out 0.7s backwards;
+        }
+
+        .gallery-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 16 / 10;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Source Section */
+        .source-section {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--accent-color);
+            animation: fadeInUp 0.8s ease-out 0.8s backwards;
+        }
+
+        .source-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .source-link {
+            display: inline-block;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            word-break: break-all;
+        }
+
+        .source-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            main {
+                padding: 2rem 1.5rem;
+            }
+
+            .article-title {
+                font-size: 1.75rem;
+            }
+
+            .specs-title,
+            .features-title,
+            .gallery-title {
+                font-size: 1.5rem;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+
+            .hero {
+                height: 350px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            nav,
+            footer {
+                display: none;
+            }
+
+            main {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-brand">파나소닉 Lumix</div>
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#specs">사양</a></li>
+            <li><a href="#features">기능</a></li>
+            <li><a href="#gallery">갤러리</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/3/69406646-8537-4f1c-87eb-9d044acd1fe2.png?x-bce-process=image/format,f_auto"
+             alt="파나소닉 Lumix TZ300" class="hero-image">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>파나소닉 Lumix TZ300</h1>
+            <p>20MP 1인치 센서의 프리미엄 카드형 카메라</p>
+            <p style="font-size: 1rem; margin-top: 1rem;">2026년 3월 24일 출시 예정</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Article Header -->
+        <div class="article-header">
+            <div class="article-date">2026년 3월 16일</div>
+            <h1 class="article-title">파나소닉 Lumix TZ300 카드형 카메라 공개: 20MP 1인치 센서</h1>
+            <div class="article-meta">
+                <span>저자: 漾仔</span> | <span>원문: IT之家</span>
+            </div>
+        </div>
+
+        <!-- Article Content -->
+        <article class="article-content">
+            <p>외신 PhotoRumors에서 파나소닉의 새로운 카드형 카메라 Lumix TZ300을 공개했습니다. 이 제품은 2018년형 TZ200의 후속 모델로 2026년 3월 24일 출시될 예정입니다.</p>
+
+            <p>Lumix TZ300은 고성능 콤팩트 카메라 분야에서 파나소닉의 프리미엄 포지셔닝을 강화하는 제품으로, 여행객과 사진 애호가들을 위한 완벽한 선택이 될 것으로 기대됩니다.</p>
+        </article>
+
+        <!-- Specifications Section -->
+        <section class="specs-section" id="specs">
+            <h2 class="specs-title">주요 사양</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <div class="spec-label">센서</div>
+                    <div class="spec-value">20MP</div>
+                    <div class="spec-detail">1인치 이미지센서</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">렌즈</div>
+                    <div class="spec-value">라이카 제임스</div>
+                    <div class="spec-detail">DC Vario-Elmar 24-360mm f/3.3-6.4</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">광학 줌</div>
+                    <div class="spec-value">15배</div>
+                    <div class="spec-detail">광범위한 망원 범위</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">매크로 모드</div>
+                    <div class="spec-value">3cm</div>
+                    <div class="spec-detail">초근거리 피초점 거리</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">동영상</div>
+                    <div class="spec-value">4K</div>
+                    <div class="spec-detail">고품질 비디오 녹화</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">디스플레이</div>
+                    <div class="spec-value">틸트형</div>
+                    <div class="spec-detail">회전 가능한 스크린</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section" id="features">
+            <h2 class="features-title">주요 기능</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📷</div>
+                    <div class="feature-title">프리미엄 센서</div>
+                    <div class="feature-desc">20메가픽셀 1인치 이미지센서로 탁월한 이미지 품질을 제공합니다.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-title">강력한 줌</div>
+                    <div class="feature-desc">라이카 렌즈의 15배 광학 줌으로 먼 거리의 피사체도 선명하게 담을 수 있습니다.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎬</div>
+                    <div class="feature-title">4K 영상</div>
+                    <div class="feature-desc">고선명 4K 영상 녹화로 프로 수준의 비디오 콘텐츠를 제작할 수 있습니다.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">향상된 안정화</div>
+                    <div class="feature-desc">개선된 손떨림 보정 기능으로 흔들림 없는 선명한 사진과 영상을 촬영합니다.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">틸트 디스플레이</div>
+                    <div class="feature-desc">회전 가능한 스크린으로 다양한 각도에서 쉽게 촬영할 수 있습니다.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌸</div>
+                    <div class="feature-title">매크로 촬영</div>
+                    <div class="feature-desc">최소 3cm 거리에서 초근거리 피사체를 섬세하게 촬영할 수 있습니다.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section" id="gallery">
+            <h2 class="gallery-title">제품 이미지</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/69406646-8537-4f1c-87eb-9d044acd1fe2.png?x-bce-process=image/format,f_auto"
+                         alt="파나소닉 Lumix TZ300 제품 이미지">
+                </div>
+            </div>
+        </section>
+
+        <!-- Source Section -->
+        <section class="source-section">
+            <div class="source-label">원본 기사</div>
+            <a href="https://www.ithome.com/0/929/695.htm" class="source-link" target="_blank" rel="noopener noreferrer">
+                https://www.ithome.com/0/929/695.htm
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>기사 작성일: 2026년 3월 16일 | 출시 예정일: 2026년 3월 24일</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">파나소닉 Lumix TZ300에 대한 자세한 정보는 공식 웹사이트를 참고하세요.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.article-header, .article-content, .specs-section, .features-section, .gallery-section, .source-section').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

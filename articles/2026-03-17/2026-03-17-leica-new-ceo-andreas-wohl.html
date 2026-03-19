@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ko" class="theme-dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>라이카 카메라 신임 CEO 안드레아스 볼, 4월 1일 취임</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html.theme-dark {
+      --bg: #0A0A0A; --surface: #141414; --surface-hover: #1C1C1C;
+      --border: rgba(255,255,255,0.04);
+      --text: #EDEDED; --text-secondary: #888;
+      --accent: #C8102E; --accent-secondary: #E8384F;
+      --positive: #10b981; --negative: #f43f5e; --warning: #f59e0b;
+    }
+    html.theme-light {
+      --bg: #FAFAF9; --surface: #FFFFFF; --surface-hover: #F5F5F4;
+      --border: #e5e5e5;
+      --text: #1a1a1a; --text-secondary: #666666;
+      --accent: #B00020; --accent-secondary: #D32F2F;
+      --positive: #059669; --negative: #e11d48; --warning: #d97706;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg); color: var(--text);
+      line-height: 1.7; -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.01em;
+      transition: background 0.3s, color 0.3s;
+      font-feature-settings: 'cv11', 'ss01';
+    }
+
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -1;
+      background: radial-gradient(ellipse 80% 50% at 50% 20%,
+        color-mix(in srgb, var(--accent), transparent 94%), transparent);
+    }
+
+    h1, h2, h3 { color: var(--text); letter-spacing: -0.03em; line-height: 1.15; text-wrap: balance; }
+    h1 { font-weight: 700; }
+    h2 { font-weight: 600; }
+    p, li, td, th, span, label { color: var(--text); font-weight: 400; }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate { animation: fadeInUp 0.6s ease-out both; }
+    .animate.delay-1 { animation-delay: 0.1s; }
+    .animate.delay-2 { animation-delay: 0.2s; }
+    .animate.delay-3 { animation-delay: 0.3s; }
+    .animate.delay-4 { animation-delay: 0.4s; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    @media print {
+      body { background: white !important; color: black !important; }
+      .viz-menu { display: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .card { break-inside: avoid; border: 1px solid #ddd; box-shadow: none; }
+      * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+    @page { margin: 1in; }
+
+    /* === MENU === */
+    .viz-menu { position: fixed; top: 16px; right: 16px; z-index: 9999; }
+    .viz-menu-toggle {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      backdrop-filter: blur(12px); transition: all 0.2s;
+    }
+    .viz-menu-toggle:hover { background: var(--surface-hover); }
+    .viz-menu-dropdown {
+      position: absolute; top: 52px; right: 0; min-width: 200px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 8px;
+      opacity: 0; visibility: hidden; transform: translateY(-8px);
+      transition: all 0.2s; backdrop-filter: blur(16px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.05);
+    }
+    .viz-menu-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0); }
+    .viz-menu-dropdown button {
+      width: 100%; padding: 10px 14px; border: none; border-radius: 8px;
+      background: transparent; color: var(--text); font-size: 14px;
+      font-family: inherit; cursor: pointer; text-align: left;
+      display: flex; align-items: center; gap: 10px; transition: background 0.15s;
+    }
+    .viz-menu-dropdown button:hover { background: var(--surface-hover); }
+
+    .skip-to-content {
+      position: absolute; top: -40px; left: 6px; background: var(--accent);
+      color: white; padding: 8px 12px; text-decoration: none;
+      border-radius: 4px; opacity: 0; pointer-events: none;
+      transition: all 0.2s; z-index: 10000;
+    }
+    .skip-to-content:focus { top: 6px; opacity: 1; pointer-events: auto; }
+
+    /* === LAYOUT === */
+    .container { max-width: 900px; margin: 0 auto; padding: 24px 24px 80px; }
+
+    /* === HERO === */
+    .hero {
+      position: relative; border-radius: 16px; overflow: hidden;
+      margin-bottom: 32px; aspect-ratio: 16/9; background: #111;
+    }
+    .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 40%, transparent 70%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 32px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--accent); color: white;
+      padding: 4px 12px; border-radius: 20px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase; width: fit-content; margin-bottom: 12px;
+    }
+    .hero-title {
+      font-size: clamp(1.5rem, 4vw, 2.2rem); color: #fff;
+      font-weight: 700; line-height: 1.2; margin-bottom: 8px;
+    }
+    .hero-meta {
+      display: flex; align-items: center; gap: 16px;
+      color: rgba(255,255,255,0.7); font-size: 13px;
+    }
+
+    /* === ARTICLE === */
+    .article-body { font-size: 16px; line-height: 1.85; }
+    .article-body p { margin-bottom: 20px; }
+    .article-body .lead {
+      font-size: 18px; font-weight: 400; color: var(--text-secondary);
+      border-left: 3px solid var(--accent); padding-left: 16px; margin-bottom: 28px;
+    }
+
+    /* === PROFILE CARD === */
+    .profile-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px; margin: 28px 0;
+      display: flex; gap: 24px; align-items: flex-start;
+      transition: box-shadow 0.2s ease;
+    }
+    .profile-card:hover {
+      box-shadow: 0 0 0 1px var(--border), 0 8px 16px rgba(0,0,0,0.08);
+    }
+    .profile-avatar {
+      width: 80px; height: 80px; border-radius: 50%; overflow: hidden;
+      flex-shrink: 0; border: 2px solid var(--border);
+    }
+    .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-info { flex: 1; }
+    .profile-name { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .profile-role { font-size: 14px; color: var(--accent); font-weight: 500; margin-bottom: 12px; }
+    .profile-detail {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 14px; color: var(--text-secondary); margin-bottom: 6px;
+    }
+    .profile-detail svg { flex-shrink: 0; color: var(--text-secondary); }
+
+    /* === TIMELINE === */
+    .timeline { margin: 28px 0; }
+    .timeline-item {
+      display: flex; gap: 16px; padding: 16px 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; margin-bottom: 10px;
+      transition: box-shadow 0.2s ease;
+    }
+    .timeline-item:hover {
+      box-shadow: 0 0 0 1px var(--border), 0 8px 16px rgba(0,0,0,0.08);
+    }
+    .timeline-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0; margin-top: 6px;
+    }
+    .timeline-content { flex: 1; }
+    .timeline-year {
+      font-size: 12px; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;
+    }
+    .timeline-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* === QUOTE === */
+    .quote-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px; margin: 28px 0;
+      position: relative; transition: box-shadow 0.2s ease;
+    }
+    .quote-card:hover {
+      box-shadow: 0 0 0 1px var(--border), 0 8px 16px rgba(0,0,0,0.08);
+    }
+    .quote-mark {
+      font-size: 48px; color: var(--accent); opacity: 0.3;
+      line-height: 1; margin-bottom: 8px; font-family: Georgia, serif;
+    }
+    .quote-text {
+      font-size: 16px; line-height: 1.8; font-style: italic;
+      color: var(--text); margin-bottom: 12px;
+    }
+    .quote-author {
+      font-size: 13px; color: var(--text-secondary); font-weight: 500;
+    }
+
+    /* === SOURCE FOOTER === */
+    .source-footer {
+      margin-top: 40px; padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .source-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--accent); text-decoration: none; font-size: 14px;
+      font-weight: 500; transition: opacity 0.2s;
+    }
+    .source-link:hover { opacity: 0.8; }
+    .source-date { font-size: 13px; color: var(--text-secondary); }
+
+    /* === MOBILE === */
+    @media (max-width: 768px) {
+      .container { padding: 16px 16px 60px; }
+      .hero { aspect-ratio: 4/3; }
+      .hero-overlay { padding: 20px; }
+      .hero-title { font-size: 1.3rem; }
+      .profile-card { flex-direction: column; align-items: center; text-align: center; }
+    }
+    @media (max-width: 375px) {
+      .container { padding: 12px 12px 48px; }
+      .timeline-item { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">본문으로 건너뛰기</a>
+
+  <!-- MENU -->
+  <div class="viz-menu">
+    <button class="viz-menu-toggle" onclick="toggleMenu()" aria-label="메뉴">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="5" x2="17" y2="5"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="15" x2="17" y2="15"/>
+      </svg>
+    </button>
+    <div class="viz-menu-dropdown" id="vizMenuDropdown">
+      <button onclick="cycleTheme()"><span id="themeIcon">&#127769;</span><span id="themeLabel">Dark</span></button>
+      <button onclick="downloadImage()"><span>&#128229;</span><span>PNG 다운로드</span></button>
+      <button onclick="window.print()"><span>&#128424;</span><span>인쇄 / PDF</span></button>
+    </div>
+  </div>
+
+  <main id="main-content" role="main">
+    <div class="container">
+
+      <!-- HERO -->
+      <section class="hero animate" role="region" aria-label="기사 대표 이미지">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/3/d547d3dd-a501-4ead-83bc-72b52a8b1a26.jpg?x-bce-process=image/format,f_auto"
+             alt="라이카 카메라 신임 CEO 안드레아스 볼" loading="eager">
+        <div class="hero-overlay">
+          <div class="hero-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            카메라 업계
+          </div>
+          <h1 class="hero-title">라이카 카메라 신임 CEO 안드레아스 볼, 4월 1일 공식 취임</h1>
+          <div class="hero-meta">
+            <span style="display:flex;align-items:center;gap:4px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              2026년 3월 16일
+            </span>
+            <span style="display:flex;align-items:center;gap:4px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              IT之家
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ARTICLE BODY -->
+      <article class="article-body" role="region" aria-label="기사 본문">
+
+        <p class="lead animate delay-1">
+          독일 명품 카메라 브랜드 라이카(Leica)가 새로운 수장을 맞이합니다. 안드레아스 볼이 2026년 4월 1일부터 공식적으로 CEO에 취임하며, 2017년부터 재임해온 마티아스 하쉬의 뒤를 잇게 됩니다.
+        </p>
+
+        <!-- PROFILE CARD -->
+        <div class="profile-card animate delay-2" role="region" aria-label="신임 CEO 프로필">
+          <div class="profile-avatar">
+            <img src="https://img.ithome.com/newsuploadfiles/2026/3/d547d3dd-a501-4ead-83bc-72b52a8b1a26.jpg?x-bce-process=image/format,f_auto"
+                 alt="안드레아스 볼" loading="lazy">
+          </div>
+          <div class="profile-info">
+            <div class="profile-name">안드레아스 볼 (Andreas Wohl)</div>
+            <div class="profile-role">라이카 카메라 신임 CEO &middot; 2026년 4월 1일 취임</div>
+            <div class="profile-detail">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              만 44세
+            </div>
+            <div class="profile-detail">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+              럭셔리 산업 및 전략 경영 분야 전문가
+            </div>
+            <div class="profile-detail">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              전직 IWC 샤프하우젠(만국표) COO
+            </div>
+          </div>
+        </div>
+
+        <div data-reveal>
+          <p>
+            올해 44세인 안드레아스 볼은 럭셔리 산업과 전략 경영 분야에서 풍부한 경험을 보유하고 있습니다. 그의 경력에는 글로벌 컨설팅 기업 롤랜드 버거(Roland Berger)에서의 근무 경험과, 스위스 명품 시계 브랜드 IWC 샤프하우젠(만국표)에서 15년간 근무하며 최종적으로 최고운영책임자(COO)까지 승진한 이력이 포함됩니다.
+          </p>
+        </div>
+
+        <!-- CAREER TIMELINE -->
+        <h2 class="animate delay-3" style="font-size:1.3rem; margin: 32px 0 16px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:8px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          주요 경력
+        </h2>
+
+        <div class="timeline" role="list" aria-label="경력 타임라인">
+          <div class="timeline-item" role="listitem" data-reveal>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-year">컨설팅 경력</div>
+              <div class="timeline-text">글로벌 전략 컨설팅 기업 롤랜드 버거(Roland Berger)에서 경영 컨설턴트로 활동</div>
+            </div>
+          </div>
+          <div class="timeline-item" role="listitem" data-reveal>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-year">IWC 샤프하우젠 &middot; 15년</div>
+              <div class="timeline-text">스위스 럭셔리 시계 브랜드 IWC 샤프하우젠(만국표)에서 15년간 근무하며 최고운영책임자(COO)까지 승진</div>
+            </div>
+          </div>
+          <div class="timeline-item" role="listitem" data-reveal>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-year">2026년 4월 1일</div>
+              <div class="timeline-text">라이카 카메라 CEO 공식 취임, 2017년부터 재임한 마티아스 하쉬의 후임</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUOTE -->
+        <div class="quote-card" data-reveal>
+          <div class="quote-mark">"</div>
+          <div class="quote-text">
+            볼은 국제적 관리 경험, 하이엔드 테크놀로지 제품 분야 경험, 그리고 럭셔리 브랜드 경영 역량을 두루 갖추고 있어 라이카의 새로운 수장으로 선택되었습니다. 이번 인사는 회사 경영진의 젊은 세대 교체 전략을 반영합니다.
+          </div>
+          <div class="quote-author">
+            — 안드레아스 카우프만, 라이카 대주주 겸 이사회 의장
+          </div>
+        </div>
+
+        <div data-reveal>
+          <p>
+            라이카 대주주이자 이사회 의장인 안드레아스 카우프만은, 볼을 선택한 이유로 국제적 관리 경험, 하이엔드 기술 제품 분야에서의 전문성, 그리고 럭셔리 브랜드 운영 능력을 꼽았습니다. 이번 인사는 라이카 경영진의 세대교체 전략의 일환으로, 170년이 넘는 역사를 가진 라이카가 새로운 시대를 맞이하게 됨을 의미합니다.
+          </p>
+        </div>
+
+      </article>
+
+      <!-- SOURCE -->
+      <footer class="source-footer" data-reveal>
+        <a href="https://www.ithome.com/0/929/573.htm" target="_blank" rel="noopener noreferrer" class="source-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기 (IT之家)
+        </a>
+        <span class="source-date">번역일: 2026년 3월 17일</span>
+      </footer>
+
+    </div>
+  </main>
+
+  <script>
+    function toggleMenu() {
+      var d = document.getElementById('vizMenuDropdown');
+      if (d) d.classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.viz-menu')) {
+        var d = document.getElementById('vizMenuDropdown');
+        if (d) d.classList.remove('open');
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        var d = document.getElementById('vizMenuDropdown');
+        if (d) d.classList.remove('open');
+      }
+    });
+
+    var savedTheme = localStorage.getItem('viz-theme');
+    var currentTheme = savedTheme || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    function applyTheme(t) {
+      document.documentElement.className = 'theme-' + t;
+      document.getElementById('themeIcon').textContent = t === 'dark' ? '\uD83C\uDF19' : '\u2600\uFE0F';
+      document.getElementById('themeLabel').textContent = t === 'dark' ? 'Dark' : 'Light';
+      localStorage.setItem('viz-theme', t);
+      currentTheme = t;
+    }
+    function cycleTheme() { applyTheme(currentTheme === 'dark' ? 'light' : 'dark'); }
+    applyTheme(currentTheme);
+
+    document.querySelectorAll('[data-reveal]').forEach(function(el) { el.classList.add('reveal'); });
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+    setTimeout(function() { document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); }); }, 500);
+
+    async function downloadImage() {
+      var menu = document.querySelector('.viz-menu');
+      menu.style.display = 'none';
+      try {
+        var url = await htmlToImage.toPng(document.body, {
+          quality: 1, pixelRatio: 2,
+          filter: function(n) { return !n.classList || !n.classList.contains('viz-menu'); }
+        });
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = document.title.replace(/\s+/g, '-').toLowerCase() + '.png';
+        a.click();
+      } catch(e) { console.error(e); }
+      menu.style.display = '';
+    }
+  </script>
+</body>
+</html>

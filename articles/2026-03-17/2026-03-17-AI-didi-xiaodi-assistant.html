@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="디디 AI 출행 도우미 '샤오디' v1.0 출시 - 맞춤형 차량 호출 서비스">
+    <meta name="keywords" content="디디, AI, 출행 도우미, 샤오디, 자동차 호출">
+    <title>디디 AI 출행 도우미 "샤오디" v1.0 출시 — 한마디로 맞춤형 차량 호출</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6611;
+            --primary-dark: #E55A0F;
+            --bg-light: #ffffff;
+            --bg-light-secondary: #f8fafc;
+            --text-light: #1e293b;
+            --text-light-secondary: #64748b;
+            --bg-dark: #0f172a;
+            --bg-dark-secondary: #1e293b;
+            --text-dark: #f1f5f9;
+            --text-dark-secondary: #cbd5e1;
+            --spec-bg: #1e293b;
+            --spec-text: #f1f5f9;
+            --spec-secondary: #94a3b8;
+            --border-light: #e2e8f0;
+            --border-dark: #334155;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--bg-dark);
+                color: var(--text-dark);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: var(--bg-light);
+                color: var(--text-light);
+            }
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Navbar */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            nav {
+                background: var(--bg-dark-secondary);
+                border-bottom-color: var(--border-dark);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .nav-menu a {
+                color: var(--text-dark);
+            }
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .mobile-toggle {
+                color: var(--text-dark);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background: var(--bg-light);
+                border-bottom: 1px solid var(--border-light);
+                padding: 1rem 2rem;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                .nav-menu {
+                    background: var(--bg-dark-secondary);
+                    border-bottom-color: var(--border-dark);
+                }
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            bottom: -80px;
+            left: -80px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero::before,
+            .hero::after {
+                animation: none;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 2rem;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-content {
+                animation: none;
+            }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .hero .date {
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 350px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        /* Hero Image */
+        .hero-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Main Content */
+        main {
+            padding: 4rem 0;
+        }
+
+        /* Intro Section */
+        .intro-section {
+            background: var(--bg-light-secondary);
+            padding: 3rem;
+            border-radius: 12px;
+            margin-bottom: 4rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .intro-section {
+                background: var(--bg-dark-secondary);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .intro-section {
+                animation: none;
+            }
+        }
+
+        .intro-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .intro-section p {
+            color: var(--text-light-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .intro-section p {
+                color: var(--text-dark-secondary);
+            }
+        }
+
+        /* Spec Grid */
+        .spec-grid {
+            background: var(--spec-bg);
+            color: var(--spec-text);
+            padding: 3rem;
+            border-radius: 12px;
+            margin-bottom: 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .spec-item {
+            padding: 2rem;
+            border-left: 4px solid var(--primary);
+            background: rgba(255, 102, 17, 0.05);
+            border-radius: 8px;
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .spec-item {
+                animation: none;
+            }
+        }
+
+        .spec-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--spec-text);
+        }
+
+        .spec-item p {
+            color: var(--spec-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Feature Cards */
+        .features-section {
+            margin-bottom: 4rem;
+        }
+
+        .features-section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .features-section h2 {
+                color: var(--text-dark);
+            }
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border-light);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .feature-card {
+                background: var(--bg-dark-secondary);
+                border-color: var(--border-dark);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .feature-card {
+                animation: none;
+            }
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(255, 102, 17, 0.15);
+        }
+
+        .feature-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .feature-card h3 {
+                color: var(--text-dark);
+            }
+        }
+
+        .feature-card p {
+            color: var(--text-light-secondary);
+            line-height: 1.7;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .feature-card p {
+                color: var(--text-dark-secondary);
+            }
+        }
+
+        /* Use Cases */
+        .use-cases {
+            background: var(--bg-light-secondary);
+            padding: 3rem;
+            border-radius: 12px;
+            margin-bottom: 4rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .use-cases {
+                background: var(--bg-dark-secondary);
+            }
+        }
+
+        .use-cases h2 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .use-cases h2 {
+                color: var(--text-dark);
+            }
+        }
+
+        .use-case-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: var(--bg-light);
+            align-items: center;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .use-case-item {
+                background: var(--bg-dark);
+            }
+        }
+
+        .use-case-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .use-case-item h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .use-case-item p {
+            color: var(--text-light-secondary);
+            line-height: 1.7;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .use-case-item p {
+                color: var(--text-dark-secondary);
+            }
+        }
+
+        .use-case-tags {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: var(--primary);
+            color: white;
+            padding: 0.35rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .use-case-item {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Gallery */
+        .gallery-section {
+            margin-bottom: 4rem;
+        }
+
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .gallery-section h2 {
+                color: var(--text-dark);
+            }
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: zoomIn 0.6s ease-out;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .gallery-item {
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .gallery-item {
+                animation: none;
+            }
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .gallery-item:hover {
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Source Link */
+        .source-link {
+            background: var(--bg-light);
+            border: 2px solid var(--primary);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .source-link {
+                background: var(--bg-dark-secondary);
+            }
+        }
+
+        .source-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .source-link a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-light);
+            border-top: 1px solid var(--border-light);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-light-secondary);
+            font-size: 0.95rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            footer {
+                background: var(--bg-dark-secondary);
+                border-top-color: var(--border-dark);
+                color: var(--text-dark-secondary);
+            }
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            main {
+                padding: 2rem 0;
+            }
+
+            .intro-section,
+            .spec-grid,
+            .use-cases,
+            .source-link {
+                padding: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="nav-brand">샤오디 v1.0</a>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#features">기능</a></li>
+            <li><a href="#use-cases">활용 사례</a></li>
+            <li><a href="#gallery">갤러리</a></li>
+        </ul>
+        <button class="mobile-toggle" id="mobileToggle">☰</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>디디 AI 출행 도우미 "샤오디" v1.0</h1>
+            <p class="subtitle">한마디로 맞춤형 차량 호출</p>
+            <p class="date">📅 2026년 3월 17일</p>
+        </div>
+    </section>
+
+    <!-- Hero Image -->
+    <img src="https://img.ithome.com/newsuploadfiles/2026/3/f6b9b328-0d3c-46fd-82ff-b21141c23fcf.png?x-bce-process=image/format,f_auto" alt="디디 AI 출행 도우미 샤오디" class="hero-image">
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Intro Section -->
+            <section class="intro-section">
+                <h2>출시 소식</h2>
+                <p>
+                    디디의 AI 출행 도우미 "샤오디(小滴)" v1.0이 공식 출시되었습니다.
+                    지난해 9월부터 베타 버전으로 서비스되던 이 AI 도우미는 이제 모든 사용자가
+                    이용할 수 있게 되었습니다.
+                </p>
+                <p>
+                    샤오디는 90개 이상의 서비스 태그를 지원하여 신선한 공기, 넓은 트렁크, 부드러운 주행 등
+                    다양한 차량의 특성과 사용자의 필요를 정확히 매칭시킵니다.
+                </p>
+            </section>
+
+            <!-- Spec Grid -->
+            <section class="spec-grid">
+                <div class="spec-item">
+                    <h3>🔖 90+ 서비스 태그</h3>
+                    <p class="text-secondary">신선한 공기, 넓은 트렁크, 부드러운 주행 등 다양한 맞춤형 옵션</p>
+                </div>
+                <div class="spec-item">
+                    <h3>🤖 자연어 처리</h3>
+                    <p class="text-secondary">사용자의 말을 플랫폼이 실행 가능한 태그로 자동 변환</p>
+                </div>
+                <div class="spec-item">
+                    <h3>🚗 지능형 매칭</h3>
+                    <p class="text-secondary">실시간 교통, 시간, 차량 위치, 운전자 상태 종합 분석</p>
+                </div>
+                <div class="spec-item">
+                    <h3>👥 멀티 픽업</h3>
+                    <p class="text-secondary">복수 인원 픽업 경로 자동 계획</p>
+                </div>
+                <div class="spec-item">
+                    <h3>💬 음성 명령</h3>
+                    <p class="text-secondary">"집으로 가", "직장으로 가" 등 간단한 음성 지시</p>
+                </div>
+                <div class="spec-item">
+                    <h3>🔄 다중 교통 수단</h3>
+                    <p class="text-secondary">차량뿐 아니라 다양한 교통 수단 추천</p>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features-section" id="features">
+                <h2>주요 기능</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="icon">🗣️</div>
+                        <h3>자연어 AI 호출</h3>
+                        <p>
+                            사용자가 말한 자연어를 AI가 이해하고 자동으로 서비스 태그로 변환합니다.
+                            복잡한 설정 없이 간단한 말로 원하는 차량을 호출할 수 있습니다.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🎯</div>
+                        <h3>스마트 매칭</h3>
+                        <p>
+                            실시간 교통 정보, 현재 시간, 차량 위치, 운전자 상태를 종합적으로 분석하여
+                            가장 적합한 차량을 추천합니다.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🔄</div>
+                        <h3>유연한 대체 솔루션</h3>
+                        <p>
+                            완벽한 매칭이 없을 경우, AI가 핵심 요구사항을 우선하여
+                            더 나은 솔루션을 제시합니다.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">📍</div>
+                        <h3>즐겨찾기 주소</h3>
+                        <p>
+                            "집", "직장" 등 자주 가는 주소를 저장하면,
+                            앞으로는 그 말로만 호출 가능합니다.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">☕</div>
+                        <h3>주변 시설 검색</h3>
+                        <p>
+                            근처 커피숍 등 시설을 검색하고
+                            한 번의 터치로 해당 위치로 차량을 호출할 수 있습니다.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🚌</div>
+                        <h3>다중 교통 추천</h3>
+                        <p>
+                            차량뿐만 아니라 대중교통 등 다양한 교통 수단을
+                            상황에 맞게 추천합니다.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Use Cases -->
+            <section class="use-cases" id="use-cases">
+                <h2>활용 사례</h2>
+
+                <div class="use-case-item">
+                    <div>
+                        <h3>임산부 탑승</h3>
+                        <p>
+                            "임신 중이에요"라고 말하면 AI가 자동으로 '부드러운 주행'과 '넓은 실내 공간' 태그를
+                            활성화하여 최적의 차량을 매칭합니다.
+                        </p>
+                        <div class="use-case-tags">
+                            <span class="tag">부드러운 주행</span>
+                            <span class="tag">넓은 실내</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="use-case-item">
+                    <div>
+                        <h3>건강 상태 대응</h3>
+                        <p>
+                            "기분이 안 좋아요", "몸이 안 좋아요"라고 말하면
+                            '부드러운 주행'과 '휘발유 자동차' 태그가 자동 활성화됩니다.
+                        </p>
+                        <div class="use-case-tags">
+                            <span class="tag">부드러운 주행</span>
+                            <span class="tag">휘발유 자동차</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="use-case-item">
+                    <div>
+                        <h3>복잡한 시나리오</h3>
+                        <p>
+                            노인 돌봄, 비즈니스 접대, 의료 이송 등 복잡한 상황에서도
+                            AI가 상황을 이해하고 적절한 차량 옵션을 자동으로 설정합니다.
+                        </p>
+                        <div class="use-case-tags">
+                            <span class="tag">노인 돌봄</span>
+                            <span class="tag">비즈니스 수용</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gallery -->
+            <section class="gallery-section" id="gallery">
+                <h2>갤러리</h2>
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/3/5f23c152-c6ef-482e-b5e8-7e76187820e9.png?x-bce-process=image/format,f_auto" alt="디디 샤오디 인터페이스 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/3/11241f3c-9ee8-46a4-89df-4e9c6e668694.png?x-bce-process=image/format,f_auto" alt="디디 샤오디 인터페이스 2">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/3/f6b9b328-0d3c-46fd-82ff-b21141c23fcf.png?x-bce-process=image/format,f_auto" alt="디디 샤오디 인터페이스 3">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Source Link -->
+            <section class="source-link">
+                <p>원본 기사 보기</p>
+                <a href="https://www.ithome.com/0/930/029.htm" target="_blank" rel="noopener noreferrer">
+                    https://www.ithome.com/0/930/029.htm
+                </a>
+            </section>
+
+            <!-- Additional Info -->
+            <section class="intro-section">
+                <h2>이용 방법</h2>
+                <p>
+                    디디의 최신 앱을 다운로드한 후, 홈페이지의 'AI 叫车' 버튼을 클릭하면
+                    샤오디 서비스에 접근할 수 있습니다.
+                </p>
+                <p>
+                    단순히 차량 호출 버튼을 누르는 것이 아니라,
+                    자신의 상황과 요구사항을 자연스럽게 말하기만 하면
+                    AI가 나머지를 알아서 처리해줍니다.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 디디 AI 출행 도우미. 모든 권리 보유.</p>
+        <p>원본 출처: IT 홈 (https://www.ithome.com)</p>
+    </footer>
+
+    <!-- Script -->
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when link is clicked
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements with animation classes
+        document.querySelectorAll('.feature-card, .gallery-item, .use-case-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

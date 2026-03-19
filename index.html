@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 블로그 | IT 뉴스 & 테크 리뷰</title>
+  <meta name="description" content="IT之家 최신 기사를 한국어로 번역하여 제공하는 테크 블로그">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --accent: #f59e0b;
+      --bg: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-card: #ffffff;
+      --text: #0f172a;
+      --text-secondary: #64748b;
+      --text-muted: #94a3b8;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --max-width: 1200px;
+      --header-height: 64px;
+      --sidebar-width: 280px;
+      --cat-camera: #2563eb;
+      --cat-phone: #7c3aed;
+      --cat-ai: #059669;
+    }
+
+    html.dark {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-card: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #334155;
+      --border-light: #1e293b;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+      --shadow: 0 1px 3px rgba(0,0,0,0.4);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+      --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      background-color: color-mix(in srgb, var(--bg), transparent 10%);
+      height: var(--header-height);
+    }
+
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text span { color: var(--primary); }
+
+    .nav-desktop {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-link {
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--primary);
+      background: color-mix(in srgb, var(--primary), transparent 92%);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-icon {
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      font-size: 18px;
+    }
+
+    .btn-icon:hover {
+      background: var(--bg-secondary);
+      color: var(--text);
+    }
+
+    .menu-toggle { display: none; }
+
+    .hero {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary), #6366f1);
+      color: #fff;
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .hero-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+      line-height: 1.3;
+    }
+
+    .hero p {
+      font-size: 16px;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 24px;
+    }
+
+    .hero-stat { text-align: center; }
+
+    .hero-stat-num {
+      font-size: 28px;
+      font-weight: 800;
+      display: block;
+    }
+
+    .hero-stat-label {
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
+    .main-layout {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 32px 24px;
+      display: grid;
+      grid-template-columns: 1fr var(--sidebar-width);
+      gap: 32px;
+    }
+
+    .category-filter {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .cat-btn {
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .cat-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .cat-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .cat-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+
+    .date-group { margin-bottom: 32px; }
+
+    .date-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    .date-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .date-badge {
+      font-size: 12px;
+      padding: 2px 10px;
+      border-radius: 100px;
+      background: color-mix(in srgb, var(--primary), transparent 90%);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .article-grid { display: grid; gap: 16px; }
+
+    .article-card {
+      display: flex;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.25s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .article-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .card-category-bar {
+      width: 4px;
+      flex-shrink: 0;
+    }
+
+    .card-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .card-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tag-camera {
+      background: color-mix(in srgb, var(--cat-camera), transparent 88%);
+      color: var(--cat-camera);
+    }
+
+    .tag-phone {
+      background: color-mix(in srgb, var(--cat-phone), transparent 88%);
+      color: var(--cat-phone);
+    }
+
+    .tag-ai {
+      background: color-mix(in srgb, var(--cat-ai), transparent 88%);
+      color: var(--cat-ai);
+    }
+
+    .card-date {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: -0.3px;
+      color: var(--text);
+    }
+
+    .card-excerpt {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-source {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: auto;
+      padding-top: 8px;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .sidebar-widget {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .widget-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ad-placeholder {
+      background: var(--bg-secondary);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .ad-placeholder-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .category-list { list-style: none; }
+
+    .category-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 14px;
+    }
+
+    .category-list li:last-child { border-bottom: none; }
+
+    .category-list .cat-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .category-list .cat-count {
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--bg-secondary);
+      padding: 2px 8px;
+      border-radius: 100px;
+    }
+
+    .archive-list { list-style: none; }
+
+    .archive-list li a {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .archive-list li a:hover { color: var(--primary); }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      margin-top: 48px;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-left {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--primary); }
+
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 2000;
+    }
+
+    .mobile-drawer.open { display: block; }
+
+    .drawer-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .drawer-panel {
+      position: absolute;
+      top: 0; right: 0;
+      width: 280px;
+      height: 100%;
+      background: var(--bg);
+      padding: 24px;
+      overflow-y: auto;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+    }
+
+    .drawer-close {
+      width: 36px; height: 36px;
+      border: none;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-sm);
+      font-size: 18px;
+      cursor: pointer;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      margin-left: auto;
+    }
+
+    .drawer-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .drawer-nav a {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .drawer-nav a:hover, .drawer-nav a.active {
+      background: color-mix(in srgb, var(--primary), transparent 92%);
+      color: var(--primary);
+    }
+
+    .scroll-top {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.3s;
+      z-index: 500;
+    }
+
+    .scroll-top.visible { display: flex; }
+    .scroll-top:hover { transform: translateY(-2px); background: var(--primary-dark); }
+
+    .fade-in { animation: fadeIn 0.5s ease-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 1024px) {
+      .main-layout { grid-template-columns: 1fr; }
+      .sidebar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 16px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      :root { --header-height: 56px; }
+      .nav-desktop { display: none; }
+      .menu-toggle { display: flex; }
+      .hero { padding: 32px 20px; }
+      .hero h1 { font-size: 24px; }
+      .hero-stats { gap: 20px; }
+      .hero-stat-num { font-size: 22px; }
+      .main-layout { padding: 20px 16px; gap: 24px; }
+      .category-filter {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .article-card { flex-direction: column; }
+      .card-category-bar { width: 100%; height: 3px; }
+      .card-title { font-size: 15px; }
+      .sidebar { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 20px; }
+      .hero p { font-size: 14px; }
+      .card-body { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon">AI</div>
+        <div class="logo-text"><span>AI시테이</span> 블로그</div>
+      </a>
+      <nav class="nav-desktop">
+        <a href="/" class="nav-link active">홈</a>
+        <a href="#" class="nav-link">IT뉴스</a>
+        <a href="#" class="nav-link">카메라</a>
+        <a href="#" class="nav-link">스마트폰</a>
+        <a href="#" class="nav-link">AI</a>
+        <a href="#" class="nav-link">소개</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn-icon" onclick="toggleSearch()" title="검색" aria-label="검색">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button class="btn-icon" onclick="toggleDarkMode()" title="다크모드" aria-label="다크모드 전환" id="darkModeBtn">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="btn-icon menu-toggle" onclick="toggleDrawer()" aria-label="메뉴 열기">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-overlay" onclick="toggleDrawer()"></div>
+    <div class="drawer-panel">
+      <button class="drawer-close" onclick="toggleDrawer()" aria-label="메뉴 닫기">&times;</button>
+      <nav class="drawer-nav">
+        <a href="/" class="active">홈</a>
+        <a href="#">IT뉴스</a>
+        <a href="#">카메라</a>
+        <a href="#">스마트폰</a>
+        <a href="#">AI</a>
+        <a href="#">소개</a>
+      </nav>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-inner fade-in">
+      <h1>IT之家 최신 테크 뉴스를<br>한국어로 매일 전합니다</h1>
+      <p>카메라, 스마트폰, AI 등 중국 IT 뉴스를 자동 번역하여 매일 업데이트합니다</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num">17</span>
+          <span class="hero-stat-label">총 기사</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">4</span>
+          <span class="hero-stat-label">일자</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">3</span>
+          <span class="hero-stat-label">카테고리</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="main-layout">
+    <main>
+      <div class="category-filter">
+        <button class="cat-btn active" onclick="filterCategory('all', this)">전체</button>
+        <button class="cat-btn" onclick="filterCategory('camera', this)"><span class="cat-dot" style="background:#2563eb"></span>카메라</button>
+        <button class="cat-btn" onclick="filterCategory('phone', this)"><span class="cat-dot" style="background:#7c3aed"></span>스마트폰</button>
+        <button class="cat-btn" onclick="filterCategory('ai', this)"><span class="cat-dot" style="background:#059669"></span>AI</button>
+      </div>
+
+      <div class="date-group fade-in">
+        <div class="date-header">
+          <h2>2026년 3월 19일</h2>
+          <span class="date-badge">3건</span>
+        </div>
+        <div class="article-grid">
+          <a href="articles/2026-03-19/2026-03-19-xtu-s7pro-max-action-camera.html" class="article-card" data-category="camera">
+            <div class="card-category-bar" style="background:#2563eb"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-camera">카메라</span>
+                <span class="card-date">2026.03.19</span>
+              </div>
+              <h3 class="card-title">샤오투 S7PRO MAX 액션카메라 - HiSilicon 센서 탑재</h3>
+              <p class='card-excerpt'>RYYB 기술로 야간 촬영 능력 40% 향상된 최신 액션카메라</p>
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+          <a href="articles/2026-03-19/2026-03-19-samsung-s26-ultra-virtual-reflector.html" class="article-card" data-category="phone">
+            <div class="card-category-bar" style="background:#7c3aed"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-phone">스마트폰</span>
+                <span class="card-date">2026.03.19</span>
+              </div>
+              <h3 class="card-title">삼성 Galaxy S26 Ultra 숨겨진 카메라 기능 공개: 이중 색상 가상 보조광</h3>
+              <p class='card-excerpt'>이중 색상 가상 보조광으로 전문가 수준의 역광 사진 촬영</p>
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+          <a href="articles/2026-03-19/2026-03-19-oppo-find-n6-hasselblad.html" class="article-card" data-category="phone">
+            <div class="card-category-bar" style="background:#7c3aed"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-phone">스마트폰</span>
+                <span class="card-date">2026.03.19</span>
+              </div>
+              <h3 class="card-title">OPPO Find N6 - 전 세계에서 가장 평평한 폴더블폰</h3>
+              <p class='card-excerpt'>스냅드래곤 8 Elite Gen5 · 하셀블라드 이미징 · 9,999위안부터</p>
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="date-group fade-in">
+        <div class="date-header">
+          <h2>2026년 3월 18일</h2>
+          <span class="date-badge">3건</span>
+        </div>
+        <div class="article-grid">
+          <a href="articles/2026-03-18/2026-03-18-sony-imx820-sensor.html" class="article-card" data-category="camera">
+            <div class="card-category-bar" style="background:#2563eb"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-camera">카메라</span>
+                <span class="card-date">2026.03.18</span>
+              </div>
+              <h3 class="card-title">소니, IMX820 풀프레임 센서 공식 공개 — 24MP 부분 스택형, CoW BI 기술 적용</h3>
+              <p class='card-excerpt'>소니 IMX820 풀프레임 센서 공식 공개 - 24MP 부분 스택형, CoW BI 기술 적용</p>
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+          <a href="articles/2026-03-18/2026-03-18-panasonic-lumix-tz300.html" class="article-card" data-category="camera">
+            <div class="card-category-bar" style="background:#2563eb"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-camera">카메라</span>
+                <span class="card-date">2026.03.18</span>
+              </div>
+              <h3 class="card-title">파나소닉 루믹스 TZ300 컴팩트 카메라 유출</h3>
+              <p class='card-excerpt'>파나소닉 루믹스 TZ300
+            
+                20MP 1인치 센서
+                15배 광학 줌
+                2026년 3월 24일 출시
+            
+        
+    
+
+    
+    </p>
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+          <a href="articles/2026-03-18/2026-03-18-nikon-z5ii-recall.html" class="article-card" data-category="camera">
+            <div class="card-category-bar" style="background:#2563eb"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-camera">카메라</span>
+                <span class="card-date">2026.03.18</span>
+              </div>
+              <h3 class="card-title">니콘 Z5II 리콜 안내</h3>
+              <p class='card-excerpt'>니콘 Z5II 풀프레임 미러리스 카메라 리콜 안내</p>
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="date-group fade-in">
+        <div class="date-header">
+          <h2>2026년 3월 17일</h2>
+          <span class="date-badge">7건</span>
+        </div>
+        <div class="article-grid">
+          <a href="articles/2026-03-17/2026-03-17-xiaomi-18-pro-camera-rumor.html" class="article-card" data-category="camera">
+            <div class="card-category-bar" style="background:#2563eb"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-camera">카메라</span>
+                <span class="card-date">2026.03.17</span>
+              </div>
+              <h3 class="card-title">샤오미 18 Pro 루머 - 200MP 듀얼 카메라 컴팩트 플래그십</h3>
+              <p class='card-excerpt'>샤오미 18 Pro 루머: 듀얼 200MP 카메라를 탑재한 컴팩트 플래그십</p>
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+          <a href="articles/2026-03-17/2026-03-17-vivo-x300s-camera.html" class="article-card" data-category="camera">
+            <div class="card-category-bar" style="background:#2563eb"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-camera">카메라</span>
+                <span class="card-date">2026.03.17</span>
+              </div>
+              <h3 class="card-title">vivo X300s - 초능력 소형 V 카메라</h3>
+              <p class='card-excerpt'>vivo X300s는 X300 Ultra의 강력한 이미징 기능을 소형 폼팩터로 구현했습니다. 전문적인 카메라 체험을 손쉽게 휴대할 수 있습니다.</p>
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+          <a href="articles/2026-03-17/2026-03-17-vivo-t5x-5g.html" class="article-card" data-category="phone">
+            <div class="card-category-bar" style="background:#7c3aed"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-phone">스마트폰</span>
+                <span class="card-date">2026.03.17</span>
+              </div>
+              <h3 class="card-title">vivo T5x 5G 인도 출시: 디멘시티 7400 Turbo, 7200mAh 배터리</h3>
+              <p class='card-excerpt'>vivo가 새로운 중급형 스마트폰 T5x 5G를 인도 시장에 출시했습니다. MediaTek 디멘시티 7400 Turbo 칩셋과 대용량 배터리를 탑재하여 뛰어난 성능과 배터리 지속 시간을 제공합니다.</p>
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+          <a href="articles/2026-03-17/2026-03-17-poco-x8-pro-max.html" class="article-card" data-category="phone">
+            <div class="card-category-bar" style="background:#7c3aed"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-phone">스마트폰</span>
+                <span class="card-date">2026.03.17</span>
+              </div>
+              <h3 class="card-title">샤오미 POCO X8 Pro / X8 Pro Max 해외 출시</h3>
+              
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+          <a href="articles/2026-03-17/2026-03-17-oppo-find-n6-camera.html" class="article-card" data-category="camera">
+            <div class="card-category-bar" style="background:#2563eb"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-camera">카메라</span>
+                <span class="card-date">2026.03.17</span>
+              </div>
+              <h3 class="card-title">OPPO Find N6 - 카메라 혁신 (2026년 3월 17일)</h3>
+              <p class='card-excerpt'>OPPO Find N6 폴더블 스크린 - 하셀블라드 2억 화소 쿼드 카메라 + 단하 색상 복원 렌즈</p>
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+          <a href="articles/2026-03-17/2026-03-17-leica-new-ceo-andreas-wohl.html" class="article-card" data-category="camera">
+            <div class="card-category-bar" style="background:#2563eb"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-camera">카메라</span>
+                <span class="card-date">2026.03.17</span>
+              </div>
+              <h3 class="card-title">라이카 카메라 신임 CEO 안드레아스 볼, 4월 1일 취임</h3>
+              <p class='card-excerpt'>카메라 업계
+          
+          라이카 카메라 신임 CEO 안드레아스 볼, 4월 1일 공식 취임
+          
+            
+              
+              2026년 3월 16일
+            
+       </p>
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+          <a href="articles/2026-03-17/2026-03-17-AI-didi-xiaodi-assistant.html" class="article-card" data-category="ai">
+            <div class="card-category-bar" style="background:#059669"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-ai">AI</span>
+                <span class="card-date">2026.03.17</span>
+              </div>
+              <h3 class="card-title">디디 AI 출행 도우미 &quot;샤오디&quot; v1.0 출시 — 한마디로 맞춤형 차량 호출</h3>
+              
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="date-group fade-in">
+        <div class="date-header">
+          <h2>2026년 3월 16일</h2>
+          <span class="date-badge">4건</span>
+        </div>
+        <div class="article-grid">
+          <a href="articles/2026-03-16/2026-03-16-sony-imx820-sensor.html" class="article-card" data-category="camera">
+            <div class="card-category-bar" style="background:#2563eb"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-camera">카메라</span>
+                <span class="card-date">2026.03.16</span>
+              </div>
+              <h3 class="card-title">소니 IMX820 풀프레임 센서</h3>
+              <p class='card-excerpt'>24MP 부분 스택 구조, CoW BI 기술 탑재</p>
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+          <a href="articles/2026-03-16/2026-03-16-panasonic-lumix-tz300.html" class="article-card" data-category="camera">
+            <div class="card-category-bar" style="background:#2563eb"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-camera">카메라</span>
+                <span class="card-date">2026.03.16</span>
+              </div>
+              <h3 class="card-title">파나소닉 Lumix TZ300 카드형 카메라 공개: 20MP 1인치 센서</h3>
+              <p class='card-excerpt'>20MP 1인치 센서의 프리미엄 카드형 카메라</p>
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+          <a href="articles/2026-03-16/2026-03-16-nikon-z5ii-recall.html" class="article-card" data-category="camera">
+            <div class="card-category-bar" style="background:#2563eb"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-camera">카메라</span>
+                <span class="card-date">2026.03.16</span>
+              </div>
+              <h3 class="card-title">니콘 Z5II 리콜 발표</h3>
+              
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+          <a href="articles/2026-03-16/2026-03-16-honor-magic-v6-foldable.html" class="article-card" data-category="phone">
+            <div class="card-category-bar" style="background:#7c3aed"></div>
+            <div class="card-body">
+              <div class="card-meta">
+                <span class="card-tag tag-phone">스마트폰</span>
+                <span class="card-date">2026.03.16</span>
+              </div>
+              <h3 class="card-title">荣耀 Magic V6 - 2026년 폴더블 폰 최고봉</h3>
+              
+              <span class="card-source">출처: IT之家</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Google AdSense In-feed Ad -->
+      <div class="ad-placeholder" style="margin-top: 16px;">
+        <div class="ad-placeholder-icon">📢</div>
+        <div>Google AdSense 광고 영역 (인피드 광고)</div>
+        <div style="font-size:11px; margin-top:4px; opacity:0.7;">기사 목록 하단에 자연스럽게 노출</div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <!-- Google AdSense Sidebar Ad -->
+      <div class="ad-placeholder">
+        <div class="ad-placeholder-icon">📢</div>
+        <div>Google AdSense</div>
+        <div style="font-size:11px; margin-top:4px; opacity:0.7;">사이드바 광고 영역</div>
+      </div>
+
+      <div class="sidebar-widget">
+        <h3 class="widget-title">📂 카테고리</h3>
+        <ul class="category-list">
+          <li><span class="cat-name"><span class="cat-dot" style="background:#2563eb"></span>카메라</span><span class="cat-count">11</span></li>
+          <li><span class="cat-name"><span class="cat-dot" style="background:#7c3aed"></span>스마트폰</span><span class="cat-count">5</span></li>
+          <li><span class="cat-name"><span class="cat-dot" style="background:#059669"></span>AI</span><span class="cat-count">1</span></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-widget">
+        <h3 class="widget-title">📅 아카이브</h3>
+        <ul class="archive-list">
+          <li><a href="#"><span>2026년 3월</span><span>17건</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-widget">
+        <h3 class="widget-title">ℹ️ 블로그 소개</h3>
+        <p style="font-size:13px; color:var(--text-secondary); line-height:1.7;">
+          IT之家의 최신 테크 기사를 매일 자동으로 수집하여 한국어로 번역 제공합니다.
+          카메라, 스마트폰, AI 분야의 중국 IT 뉴스를 가장 빠르게 만나보세요.
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        &copy; 2026 AI시테이 블로그. 기사 출처:
+        <a href="https://www.ithome.com" target="_blank" rel="noopener" style="color:var(--primary);text-decoration:none;">IT之家</a>
+      </div>
+      <div class="footer-links">
+        <a href="#">소개</a>
+        <a href="#">개인정보처리방침</a>
+        <a href="https://github.com/aisitei" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()" aria-label="맨 위로 스크롤">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script>
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('darkMode', isDark);
+      updateDarkModeIcon(isDark);
+    }
+
+    function updateDarkModeIcon(isDark) {
+      const btn = document.getElementById('darkModeBtn');
+      btn.innerHTML = isDark
+        ? '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+        : '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    }
+
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.documentElement.classList.add('dark');
+      updateDarkModeIcon(true);
+    }
+
+    function filterCategory(category, btn) {
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.article-card').forEach(card => {
+        card.style.display = (category === 'all' || card.dataset.category === category) ? '' : 'none';
+      });
+      document.querySelectorAll('.date-group').forEach(group => {
+        const visible = group.querySelectorAll('.article-card:not([style*="display: none"])');
+        group.style.display = visible.length > 0 ? '' : 'none';
+      });
+    }
+
+    function toggleDrawer() {
+      const drawer = document.getElementById('mobileDrawer');
+      drawer.classList.toggle('open');
+      document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('scroll', () => {
+      document.getElementById('scrollTopBtn').classList.toggle('visible', window.scrollY > 400);
+    });
+
+    function toggleSearch() {
+      alert('검색 기능은 추후 구현 예정입니다.');
+    }
+  </script>
+</body>
+</html>

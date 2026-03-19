@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소니 IMX820 풀프레임 센서 - IT홈 뉴스</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #0f172a;
+                color: #f1f5f9;
+            }
+        }
+
+        /* Navbar */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            nav {
+                background-color: #1e293b;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .navbar-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #F47920;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #1f2937;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .nav-toggle {
+                color: #f1f5f9;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background-color: #ffffff;
+                gap: 0;
+                border-top: 1px solid #e5e7eb;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                .nav-menu {
+                    background-color: #1e293b;
+                    border-top-color: #334155;
+                }
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #1f2937;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .nav-link {
+                color: #f1f5f9;
+            }
+        }
+
+        .nav-link:hover {
+            color: #F47920;
+        }
+
+        @media (max-width: 768px) {
+            .nav-link {
+                padding: 1rem;
+                border-bottom: 1px solid #e5e7eb;
+                display: block;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                .nav-link {
+                    border-bottom-color: #334155;
+                }
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(244, 121, 32, 0.7), rgba(0, 0, 0, 0.5));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #f1f5f9;
+            font-weight: 500;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Article Info */
+        .article-info {
+            padding: 2rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .article-info {
+                border-bottom-color: #334155;
+            }
+        }
+
+        .article-date {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .article-date {
+                color: #94a3b8;
+            }
+        }
+
+        .article-source {
+            color: #F47920;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .article-source:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 2rem 0;
+        }
+
+        .content p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        /* Spec Grid - Always dark background */
+        .spec-grid {
+            background-color: #1e293b;
+            color: #f1f5f9;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            animation: slideInUp 0.6s ease-out 0.2s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .spec-item {
+            padding: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            border-left: 3px solid #F47920;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .spec-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(244, 121, 32, 0.2);
+        }
+
+        .spec-label {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .spec-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        /* Feature Cards */
+        .features-section {
+            margin: 3rem 0;
+        }
+
+        .features-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #1f2937;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .features-title {
+                color: #f1f5f9;
+            }
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .feature-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-card:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .feature-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .feature-card {
+                background-color: #1e293b;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(244, 121, 32, 0.15);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #F47920;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+            font-weight: 700;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .feature-card h3 {
+                color: #f1f5f9;
+            }
+        }
+
+        .feature-card p {
+            color: #6b7280;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .feature-card p {
+                color: #cbd5e1;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f3f4f6;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            footer {
+                background-color: #1e293b;
+                border-top-color: #334155;
+            }
+        }
+
+        .footer-content {
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer-content {
+                color: #94a3b8;
+            }
+        }
+
+        .footer-content a {
+            color: #F47920;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-content a:hover {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                height: 350px;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="navbar">
+            <div class="navbar-brand">IT홈</div>
+            <button class="nav-toggle" aria-label="메뉴 열기" onclick="toggleMenu()">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#" class="nav-link">홈</a></li>
+                <li><a href="#features" class="nav-link">특징</a></li>
+                <li><a href="#specs" class="nav-link">사양</a></li>
+                <li><a href="#footer" class="nav-link">정보</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/3/a1602737-74d0-4220-a0cc-d3843c2bb1da.png?x-bce-process=image/format,f_auto"
+             alt="소니 IMX820 센서" class="hero-image">
+        <div class="hero-overlay">
+            <h1>소니 IMX820 풀프레임 센서</h1>
+            <p class="hero-subtitle">24MP 부분 스택 구조, CoW BI 기술 탑재</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Article Info -->
+        <div class="article-info">
+            <span class="article-date">2026년 3월 16일</span>
+            <a href="https://www.ithome.com/0/930/035.htm" class="article-source" target="_blank" rel="noopener noreferrer">
+                원본 기사 보기
+            </a>
+        </div>
+
+        <!-- Content -->
+        <section class="content">
+            <p>
+                소니 반도체 공식 웹사이트에 IMX820 풀프레임 CMOS 센서가 공개되었습니다.
+                이 센서는 2400만 화소의 부분 스택 구조 설계를 채택하고 있으며, 현재 니콘 Z6III, 파나소닉 루믹스 S1II 등의 제품에 적용되고 있습니다.
+            </p>
+
+            <p>
+                소니의 3300만 화소 부분 스택 센서는 현재 소니 자체 제품만 독점 사용 중이며,
+                2027년까지 독점이 지속될 것으로 예상됩니다. 이는 소니의 고급 센서 기술에 대한
+                전략적 접근 방식을 보여줍니다.
+            </p>
+        </section>
+
+        <!-- Spec Grid -->
+        <section id="specs" class="spec-grid">
+            <div class="spec-item">
+                <div class="spec-label">해상도</div>
+                <div class="spec-value">2400만 화소</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">센서 유형</div>
+                <div class="spec-value">CMOS</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">포맷</div>
+                <div class="spec-value">풀프레임</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">구조</div>
+                <div class="spec-value">부분 스택식</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">주요 기술</div>
+                <div class="spec-value">CoW BI</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">적용 제품</div>
+                <div class="spec-value">Z6III, S1II</div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <h2 class="features-title">CoW BI 기술의 장점</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">♻️</div>
+                    <h3>폐기물 감소</h3>
+                    <p>
+                        실리콘 웨이퍼 폐기물을 줄여 친환경적인 생산 공정을 실현합니다.
+                        자원 효율성을 극대화하는 혁신적인 제조 기술입니다.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>수율 향상</h3>
+                    <p>
+                        사전 검사를 통해 양품을 선별한 후 접합하여 제품 수율을 향상시킵니다.
+                        품질 관리 프로세스가 강화된 신뢰할 수 있는 제조 방식입니다.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>성능 향상</h3>
+                    <p>
+                        미시 단위 구리-구리 혼합 본딩 기술을 적용하여 A/D 변환기와 DRAM을 접합하고,
+                        젤리 현상 없는 전역 셔터와 더 높은 병렬 데이터 처리 능력을 제공합니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>원본 출처: <a href="https://www.ithome.com/0/930/035.htm" target="_blank" rel="noopener noreferrer">IT之家 (IT홈)</a></p>
+                <p>게시일: 2026년 3월 16일</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navMenu').classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const navMenu = document.getElementById('navMenu');
+            const navToggle = document.querySelector('.nav-toggle');
+            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

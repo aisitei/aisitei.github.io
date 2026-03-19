@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OPPO Find N6 폴더블 스크린 - 하셀블라드 2억 화소 쿼드 카메라 + 단하 색상 복원 렌즈">
+  <title>OPPO Find N6 - 카메라 혁신 (2026년 3월 17일)</title>
+
+  <style>
+    /* Variables and Theme */
+    :root {
+      --primary: #31a24c;
+      --primary-dark: #2a8a41;
+      --accent: #ff6b35;
+      --accent-light: #ff8a5b;
+      --bg-light: #fafbfc;
+      --bg-dark: #0f1419;
+      --text-light: #1a1a1a;
+      --text-dark: #f5f5f5;
+      --text-secondary-light: #666666;
+      --text-secondary-dark: #aaaaaa;
+      --border-light: #e0e0e0;
+      --border-dark: #2a2a2a;
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      --shadow-dark: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="light"] {
+      --bg: var(--bg-light);
+      --text: var(--text-light);
+      --text-secondary: var(--text-secondary-light);
+      --border: var(--border-light);
+      --shadow: var(--shadow);
+    }
+
+    [data-theme="dark"] {
+      --bg: var(--bg-dark);
+      --text: var(--text-dark);
+      --text-secondary: var(--text-secondary-dark);
+      --border: var(--border-dark);
+      --shadow: var(--shadow-dark);
+    }
+
+    /* Reset and Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(
+        ellipse at 30% 20%,
+        color-mix(in srgb, var(--primary), transparent 85%) 0%,
+        color-mix(in srgb, var(--accent), transparent 95%) 40%,
+        transparent 100%
+      );
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Skip to content */
+    .skip-to-content {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--primary);
+      color: white;
+      padding: 8px;
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    .skip-to-content:focus {
+      top: 0;
+    }
+
+    /* Header and Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: color-mix(in srgb, var(--bg), transparent 20%);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo::before {
+      content: '📱';
+      font-size: 1.8rem;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 0.5rem;
+      color: var(--text);
+      transition: all 0.2s ease;
+      border-radius: 6px;
+    }
+
+    button:hover {
+      background: color-mix(in srgb, var(--primary), transparent 90%);
+      color: var(--primary);
+    }
+
+    button:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    /* Main Content */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    section {
+      margin: 4rem 0;
+    }
+
+    section:first-of-type {
+      margin-top: 0;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 500px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+      animation: fadeInUp 0.8s ease-out;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      padding: 3rem 2rem;
+      color: white;
+      animation: slideUpIn 0.8s ease-out 0.3s both;
+    }
+
+    .hero-overlay h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-overlay .subtitle {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 1rem;
+    }
+
+    .hero-overlay .date {
+      display: inline-block;
+      background: var(--accent);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Image Translation Overlay */
+    .img-translation {
+      background: color-mix(in srgb, var(--accent), transparent 88%);
+      border-top: 1px solid color-mix(in srgb, var(--accent), transparent 70%);
+      padding: 14px 16px;
+      margin-top: -4px;
+    }
+
+    .img-translation-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .img-translation-row {
+      display: flex;
+      gap: 12px;
+      padding: 6px 0;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .img-translation-row + .img-translation-row {
+      border-top: 1px solid color-mix(in srgb, var(--accent), transparent 85%);
+      padding-top: 8px;
+      margin-top: 4px;
+    }
+
+    .img-translation-cn {
+      color: var(--text-secondary);
+      flex: 1;
+      font-style: italic;
+    }
+
+    .img-translation-arrow {
+      color: var(--accent);
+      flex-shrink: 0;
+      font-weight: 600;
+    }
+
+    .img-translation-kr {
+      color: var(--text);
+      flex: 1;
+      font-weight: 500;
+    }
+
+    /* Image Gallery */
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .image-item {
+      border-radius: 12px;
+      overflow: hidden;
+      animation: fadeInUp 0.6s ease-out;
+      background: color-mix(in srgb, var(--text), transparent 97%);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .image-item:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .image-item:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .image-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Section Title */
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    /* Spec Grid */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .spec-card {
+      background: color-mix(in srgb, var(--primary), transparent 95%);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .spec-card:hover {
+      transform: translateY(-4px);
+      background: color-mix(in srgb, var(--primary), transparent 90%);
+      border-color: var(--primary);
+      box-shadow: 0 8px 24px rgba(49, 162, 76, 0.15);
+    }
+
+    .spec-card h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .spec-card .value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
+    }
+
+    .spec-card .label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* Features Section */
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg,
+        color-mix(in srgb, var(--accent), transparent 92%),
+        color-mix(in srgb, var(--primary), transparent 92%));
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(255, 107, 53, 0.15);
+    }
+
+    .feature-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+    }
+
+    .feature-card h3::before {
+      content: '✨';
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .feature-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Content Section */
+    .content-block {
+      background: color-mix(in srgb, var(--text), transparent 98%);
+      border-left: 4px solid var(--primary);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 2rem 0;
+      line-height: 1.8;
+    }
+
+    .content-block h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .content-block ul {
+      list-style: none;
+      margin-left: 1rem;
+    }
+
+    .content-block li {
+      margin: 0.8rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      color: var(--text-secondary);
+    }
+
+    .content-block li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 4rem;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .source-link {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .source-link:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .source-link:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUpIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem;
+      }
+
+      .logo {
+        font-size: 1.2rem;
+      }
+
+      main {
+        padding: 1rem;
+      }
+
+      .hero {
+        height: 300px;
+      }
+
+      .hero-overlay h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .spec-grid,
+      .features-list,
+      .image-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-actions {
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        height: 250px;
+      }
+
+      .hero-overlay h1 {
+        font-size: 1.4rem;
+      }
+
+      .hero-overlay .subtitle {
+        font-size: 0.95rem;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+      }
+
+      main {
+        padding: 0.5rem;
+      }
+    }
+
+    /* Print Styles */
+    @media print {
+      header,
+      .nav-actions {
+        display: none;
+      }
+
+      body {
+        background: white;
+        color: black;
+      }
+
+      section {
+        page-break-inside: avoid;
+      }
+
+      .spec-card,
+      .feature-card {
+        page-break-inside: avoid;
+      }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      [data-theme="auto"] {
+        --bg: var(--bg-dark);
+        --text: var(--text-dark);
+        --text-secondary: var(--text-secondary-dark);
+        --border: var(--border-dark);
+        --shadow: var(--shadow-dark);
+      }
+    }
+
+    @media (prefers-color-scheme: light) {
+      [data-theme="auto"] {
+        --bg: var(--bg-light);
+        --text: var(--text-light);
+        --text-secondary: var(--text-secondary-light);
+        --border: var(--border-light);
+        --shadow: var(--shadow);
+      }
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <a href="#main" class="skip-to-content">주요 콘텐츠로 건너뛰기</a>
+
+  <header>
+    <nav>
+      <a href="#" class="logo">OPPO Find N6</a>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="테마 전환" onclick="toggleTheme()" title="테마 전환">
+          <span id="theme-icon">🌙</span>
+        </button>
+        <button aria-label="인쇄" onclick="window.print()" title="인쇄">
+          🖨️
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- Hero Section -->
+    <section class="hero">
+      <img src="https://img.ithome.com/newsuploadfiles/2026/3/12832304-35d7-4159-b40d-c609ebc84512.jpg?x-bce-process=image/format,f_auto/auto-orient,o_1"
+           alt="OPPO Find N6 폴더블 스크린 - 하셀블라드 2억 화소 카메라">
+      <div class="hero-overlay">
+        <h1>OPPO Find N6</h1>
+        <p class="subtitle">혁신적인 폴더블 카메라 경험</p>
+        <span class="date">2026년 3월 17일 저녁 7시 출시</span>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section>
+      <h2>주요 이미지</h2>
+      <div class="image-gallery">
+        <div class="image-item">
+          <img src="https://img.ithome.com/newsuploadfiles/2026/3/79799436-52d2-4da2-b8df-912e3d976006.jpg?x-bce-process=image/format,f_auto"
+               alt="OPPO Find N6 카메라 정보 공개">
+          <div class="img-translation">
+            <div class="img-translation-header">📝 이미지 텍스트 번역</div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">OPPO Find N6 影像爆料</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">OPPO Find N6 카메라 정보 공개</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">折叠屏</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">폴더블 스크린</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">也有哈苏2亿影像</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">하셀블라드 2억 화소 이미징도 탑재</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="image-item">
+          <img src="https://img.ithome.com/newsuploadfiles/2026/3/ab4b2b3e-e4aa-41aa-bf3e-a913773926f6.jpg?x-bce-process=image/format,f_auto"
+               alt="제품 리더 Zhou Yibao의 Weibo 포스트">
+          <div class="img-translation">
+            <div class="img-translation-header">📝 이미지 텍스트 번역</div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">我们首次在折叠屏上搭载了哈苏2亿超清四摄 + 丹霞色彩还原镜头。</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">폴더블 스크린에 하셀블라드 2억 초고화질 쿼드 카메라 + 단하 색상 복원 렌즈를 최초 탑재했습니다.</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">这次 #OPPO Find N6# 的影像升级，一定能为折叠屏用户带来更清晰、更真实还原、更有哈苏味的手机摄影体验。</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">이번 OPPO Find N6의 이미징 업그레이드는 폴더블 사용자에게 더 선명하고, 더 사실적이며, 하셀블라드 특유의 감성이 담긴 모바일 촬영 경험을 선사할 것입니다.</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">3月17日晚上7点，更多影像玩法我们发布会见！</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">3월 17일 저녁 7시, 더 많은 카메라 기능은 발표회에서 만나요!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Camera Features Section -->
+    <section>
+      <h2>카메라 시스템</h2>
+
+      <div class="content-block">
+        <h3>📷 하셀블라드 2억 초고화질 쿼드 카메라</h3>
+        <p>
+          OPPO Find N6은 폴더블 스크린 디바이스 중 최초로 하셀블라드 2억 화소 초고화질 쿼드 카메라를 탑재했습니다.
+          200MP 센서는 뛰어난 세부사항 포착 능력을 제공하며, 후처리 후에도 명확함을 유지합니다.
+          전문적인 사진 촬영 경험을 원하는 사용자들을 위해 설계되었습니다.
+        </p>
+      </div>
+
+      <div class="content-block">
+        <h3>🎨 단하 색상 복원 렌즈</h3>
+        <p>
+          단하(丹霞) 색상 복원 렌즈는 인간의 눈이 감지하는 것에 더 가까운 색상을 제공합니다.
+          이 혁신적인 기술은 보다 자연스럽고 충실한 색감 표현을 가능하게 하여,
+          실제 장면과 거의 동일한 색상을 담아낼 수 있습니다.
+        </p>
+      </div>
+
+      <div class="features-list">
+        <div class="feature-card">
+          <h3>프로 하셀블라드 모드</h3>
+          <p>전문가급 수동 조작 기능으로 사진가가 원하는 정확한 설정을 통해 완벽한 이미지를 캡처할 수 있습니다.</p>
+        </div>
+
+        <div class="feature-card">
+          <h3>초상화 모드 (하셀블라드 보케)</h3>
+          <p>하셀블라드 특유의 감성이 담긴 배경 흐림 효과로 피사체를 강조하는 전문적인 초상화 촬영이 가능합니다.</p>
+        </div>
+
+        <div class="feature-card">
+          <h3>마스터 모드</h3>
+          <p>AI 기반 지능형 촬영 모드로 모든 상황에서 최적의 사진을 자동으로 구성합니다.</p>
+        </div>
+
+        <div class="feature-card">
+          <h3>XPAN 모드</h3>
+          <p>독특한 초광각 구성으로 창의적이고 인상적인 시각적 표현을 가능하게 합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Camera Specs -->
+    <section>
+      <h2>카메라 사양</h2>
+      <div class="spec-grid">
+        <div class="spec-card">
+          <h3>전면 카메라</h3>
+          <div class="value">20MP + 20MP</div>
+          <div class="label">듀얼 카메라 시스템</div>
+        </div>
+
+        <div class="spec-card">
+          <h3>후면 카메라</h3>
+          <div class="value">50MP + 50MP + 200MP</div>
+          <div class="label">트리플 카메라 + 멀티스펙트럼</div>
+        </div>
+
+        <div class="spec-card">
+          <h3>추가 센서</h3>
+          <div class="value">2MP</div>
+          <div class="label">멀티스펙트럼 센서</div>
+        </div>
+
+        <div class="spec-card">
+          <h3>최대 해상도</h3>
+          <div class="value">200MP</div>
+          <div class="label">초고화질 캡처</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Device Specs Section -->
+    <section>
+      <h2>디바이스 사양</h2>
+
+      <div class="spec-grid">
+        <div class="spec-card">
+          <h3>프로세서</h3>
+          <div class="value">Snapdragon 8</div>
+          <div class="label">Elite Gen5 - 최고 성능</div>
+        </div>
+
+        <div class="spec-card">
+          <h3>메인 스크린</h3>
+          <div class="value">8.12"</div>
+          <div class="label">2K LTPO 디스플레이</div>
+        </div>
+
+        <div class="spec-card">
+          <h3>서브 스크린</h3>
+          <div class="value">6.62"</div>
+          <div class="label">보조 디스플레이</div>
+        </div>
+
+        <div class="spec-card">
+          <h3>배터리</h3>
+          <div class="value">5850-6000</div>
+          <div class="label">mAh 용량</div>
+        </div>
+
+        <div class="spec-card">
+          <h3>충전</h3>
+          <div class="value">80W</div>
+          <div class="label">고속 충전 지원</div>
+        </div>
+
+        <div class="spec-card">
+          <h3>메모리</h3>
+          <div class="value">12/16GB</div>
+          <div class="label">RAM + 1TB 저장공간</div>
+        </div>
+
+        <div class="spec-card">
+          <h3>무게</h3>
+          <div class="value">~225g</div>
+          <div class="label">가볍고 컴팩트</div>
+        </div>
+
+        <div class="spec-card">
+          <h3>힌지</h3>
+          <div class="value">티타늄</div>
+          <div class="label">내구성 극대화</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Highlights -->
+    <section>
+      <h2>주요 특징</h2>
+
+      <div class="content-block">
+        <h3>📱 폴더블 디자인</h3>
+        <p>
+          OPPO Find N6은 혁신적인 폴더블 스크린 디자인으로 포켓 사이즈와 태블릿 크기 디스플레이의
+          최고를 결합합니다. 티타늄 합금 힌지는 내구성을 극대화하고 매끄러운 폴딩 경험을 제공합니다.
+        </p>
+      </div>
+
+      <div class="content-block">
+        <h3>⚡ 강력한 성능</h3>
+        <p>
+          Snapdragon 8 Elite Gen5 프로세서와 12-16GB의 RAM은 모든 요구 사항을 충족하는
+          뛰어난 성능을 제공합니다. 최대 1TB의 저장공간으로 방대한 미디어와 데이터를 저장할 수 있습니다.
+        </p>
+      </div>
+
+      <div class="content-block">
+        <h3>🔋 오래가는 배터리</h3>
+        <p>
+          5850-6000mAh 용량의 배터리와 80W 고속 충전으로 하루 종일 안심하고 사용할 수 있습니다.
+          충전 시간을 최소화하면서도 강력한 성능을 유지합니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- Release Info -->
+    <section>
+      <h2>출시 정보</h2>
+
+      <div class="content-block">
+        <h3>🎉 공식 출시</h3>
+        <ul>
+          <li><strong>출시일:</strong> 2026년 3월 17일 (화요일)</li>
+          <li><strong>발표 시간:</strong> 저녁 7시 (현지 시간)</li>
+          <li><strong>제품 리더:</strong> Zhou Yibao (周意保)</li>
+          <li><strong>핵심 특징:</strong> 하셀블라드 2억 화소 쿼드 카메라 + 단하 색상 복원 렌즈</li>
+        </ul>
+      </div>
+
+      <div class="content-block">
+        <h3>📢 추가 정보</h3>
+        <p>
+          제품 리더 Zhou Yibao가 OPPO Find N6의 혁신적인 이미징 기능에 대한 상세한 비디오를 공개했습니다.
+          발표회에서 더 많은 카메라 플레이 기능과 사용 팁이 소개될 예정입니다.
+        </p>
+        <p style="margin-top: 1rem; color: var(--accent); font-weight: 600;">
+          📷 폴더블 스크린 사용자를 위한 차세대 카메라 경험이 시작됩니다!
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>OPPO Find N6 - 혁신적인 폴더블 카메라 기술</p>
+    <p style="font-size: 0.9rem; margin-top: 0.5rem;">
+      이 콘텐츠는 2026년 3월 17일 기준 정보입니다.
+    </p>
+    <a href="https://www.ithome.com/0/929/534.htm" class="source-link" target="_blank" rel="noopener noreferrer">
+      📰 원본 기사 보기 (IT Home)
+    </a>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('theme-icon');
+      const currentTheme = html.getAttribute('data-theme');
+
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+
+      themeIcon.textContent = newTheme === 'light' ? '🌙' : '☀️';
+    }
+
+    // Initialize theme from localStorage
+    function initializeTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('theme-icon');
+
+      if (savedTheme) {
+        html.setAttribute('data-theme', savedTheme);
+        themeIcon.textContent = savedTheme === 'light' ? '🌙' : '☀️';
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = prefersDark ? 'dark' : 'light';
+        html.setAttribute('data-theme', theme);
+        themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+      }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', initializeTheme);
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        if (this.getAttribute('href') !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+
+    // Add intersection observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe spec cards and feature cards
+    document.querySelectorAll('.spec-card, .feature-card, .content-block').forEach(el => {
+      el.style.opacity = '0';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
