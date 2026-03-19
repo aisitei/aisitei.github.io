@@ -1,0 +1,88 @@
+name: Sync ITHOME Articles
+
+on:
+  # 매일 한국시간 오전 9시 (UTC 0시)에 자동 실행
+  schedule:
+    - cron: '0 0 * * *'
+  # 수동 실행 지원
+  workflow_dispatch:
+  # ITHOME 레포에서 repository_dispatch 이벤트를 보낼 때 실행
+  repository_dispatch:
+    types: [sync-articles]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout blog repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Checkout ITHOME repo
+        uses: actions/checkout@v4
+        with:
+          repository: aisitei/ITHOME
+          token: ${{ secrets.GH_PAT }}
+          path: _ithome_source
+
+      - name: Sync article HTML files
+        run: |
+          echo "=== Syncing articles from ITHOME repo ==="
+
+          # articles 디렉토리 생성
+          mkdir -p articles
+
+          # ITHOME 레포에서 날짜별 폴더의 HTML 파일만 복사
+          for dir in _ithome_source/20*-*-*/; do
+            if [ -d "$dir" ]; then
+              date_name=$(basename "$dir")
+              mkdir -p "articles/$date_name"
+
+              # HTML 파일만 복사
+              for html_file in "$dir"*.html; do
+                if [ -f "$html_file" ]; then
+                  cp "$html_file" "articles/$date_name/"
+                  echo "  Copied: $(basename $html_file)"
+                fi
+              done
+            fi
+          done
+
+          echo "=== Article sync complete ==="
+          echo "Total articles: $(find articles -name '*.html' | wc -l)"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build index.html
+        run: python build.py
+
+      - name: Clean up source
+        run: rm -rf _ithome_source
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git add -A
+          if git diff --staged --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No new articles to sync"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected, will commit"
+          fi
+
+      - name: Commit and push
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "sync: update articles from ITHOME $(date +%Y-%m-%d)"
+          git push
