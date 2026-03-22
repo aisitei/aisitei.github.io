@@ -27,8 +27,19 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: aisitei/ITHOME
+          ref: main
           token: ${{ secrets.GH_PAT }}
           path: _ithome_source
+          fetch-depth: 0
+
+      - name: Debug ITHOME checkout
+        run: |
+          echo "=== ITHOME source directories ==="
+          ls -la _ithome_source/
+          echo "=== Date folders ==="
+          ls -d _ithome_source/20*-*-*/ 2>/dev/null || echo "No date folders found!"
+          echo "=== Latest git log ==="
+          cd _ithome_source && git log --oneline -3 && cd ..
 
       - name: Sync article HTML files
         run: |
