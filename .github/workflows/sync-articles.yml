@@ -1,4 +1,4 @@
-name: Sync ITHOME Articles
+name: Sync Blog Content
 
 on:
   # 매일 한국시간 오전 9시 (UTC 0시)에 자동 실행
@@ -6,7 +6,7 @@ on:
     - cron: '0 0 * * *'
   # 수동 실행 지원
   workflow_dispatch:
-  # ITHOME 레포에서 repository_dispatch 이벤트를 보낼 때 실행
+  # 외부 레포에서 트리거
   repository_dispatch:
     types: [sync-articles]
 
@@ -32,29 +32,24 @@ jobs:
           path: _ithome_source
           fetch-depth: 0
 
-      - name: Debug ITHOME checkout
-        run: |
-          echo "=== ITHOME source directories ==="
-          ls -la _ithome_source/
-          echo "=== Date folders ==="
-          ls -d _ithome_source/20*-*-*/ 2>/dev/null || echo "No date folders found!"
-          echo "=== Latest git log ==="
-          cd _ithome_source && git log --oneline -3 && cd ..
+      - name: Checkout cn-smartphone-analysis repo
+        uses: actions/checkout@v4
+        with:
+          repository: aisitei/cn-smartphone-analysis
+          ref: main
+          token: ${{ secrets.GH_PAT }}
+          path: _smartphone_source
+          fetch-depth: 0
 
-      - name: Sync article HTML files
+      - name: Sync ITHOME articles
         run: |
           echo "=== Syncing articles from ITHOME repo ==="
-
-          # articles 디렉토리 생성
           mkdir -p articles
 
-          # ITHOME 레포에서 날짜별 폴더의 HTML 파일만 복사
           for dir in _ithome_source/20*-*-*/; do
             if [ -d "$dir" ]; then
               date_name=$(basename "$dir")
               mkdir -p "articles/$date_name"
-
-              # HTML 파일만 복사
               for html_file in "$dir"*.html; do
                 if [ -f "$html_file" ]; then
                   cp "$html_file" "articles/$date_name/"
@@ -64,19 +59,50 @@ jobs:
             fi
           done
 
-          echo "=== Article sync complete ==="
           echo "Total articles: $(find articles -name '*.html' | wc -l)"
+
+      - name: Sync smartphone reports
+        run: |
+          echo "=== Syncing reports from cn-smartphone-analysis repo ==="
+          mkdir -p reports
+
+          if [ -d "_smartphone_source/reports" ]; then
+            for dir in _smartphone_source/reports/*/; do
+              if [ -d "$dir" ]; then
+                report_name=$(basename "$dir")
+                # .DS_Store 등 숨김 파일/폴더 제외
+                if [[ "$report_name" == .* ]]; then continue; fi
+
+                mkdir -p "reports/$report_name"
+
+                # report.html 복사
+                if [ -f "$dir/report.html" ]; then
+                  cp "$dir/report.html" "reports/$report_name/"
+                  echo "  Copied: $report_name/report.html"
+                fi
+
+                # images 폴더 복사
+                if [ -d "$dir/images" ]; then
+                  mkdir -p "reports/$report_name/images"
+                  cp -r "$dir/images/"* "reports/$report_name/images/" 2>/dev/null
+                  echo "  Copied: $report_name/images/"
+                fi
+              fi
+            done
+          fi
+
+          echo "Total reports: $(find reports -name 'report.html' | wc -l)"
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Build index.html
+      - name: Build all pages
         run: python build.py
 
-      - name: Clean up source
-        run: rm -rf _ithome_source
+      - name: Clean up sources
+        run: rm -rf _ithome_source _smartphone_source
 
       - name: Check for changes
         id: check_changes
@@ -84,7 +110,7 @@ jobs:
           git add -A
           if git diff --staged --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "No new articles to sync"
+            echo "No changes to sync"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
             echo "Changes detected, will commit"
@@ -95,5 +121,5 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "sync: update articles from ITHOME $(date +%Y-%m-%d)"
+          git commit -m "sync: update blog content $(date +%Y-%m-%d)"
           git push
