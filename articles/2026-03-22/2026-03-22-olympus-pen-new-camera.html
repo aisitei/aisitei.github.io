@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="올림푸스(OM System) 새로운 PEN 미러리스 카메라 개발 중, 출시 시기 미정">
+    <meta name="theme-color" content="#ffffff">
+    <title>올림푸스 새로운 PEN 미러리스 카메라 개발 중 | IT홈</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-tertiary: #f0f1f3;
+            --text-primary: #1a1d1f;
+            --text-secondary: #565b62;
+            --text-tertiary: #8b92a0;
+            --border-color: #e0e3e8;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #8b5cf6;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        html.dark-theme {
+            --bg-primary: #0f1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #c9d1d9;
+            --text-tertiary: #8b949e;
+            --border-color: #30363d;
+            --accent-primary: #58a6ff;
+            --accent-secondary: #d29bff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at 20% 50%,
+                rgba(59, 130, 246, 0.05) 0%,
+                transparent 50%
+            ),
+            radial-gradient(
+                circle at 80% 80%,
+                rgba(139, 92, 246, 0.03) 0%,
+                transparent 50%
+            );
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent-secondary);
+        }
+
+        a:focus-visible {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+
+        .skip-to-content {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background-color: var(--accent-primary);
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 0 0 4px 0;
+            z-index: 100;
+        }
+
+        .skip-to-content:focus {
+            top: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .icon-button {
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+            color: var(--text-primary);
+        }
+
+        .icon-button:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        .icon-button:focus-visible {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: -2px;
+        }
+
+        .icon-button svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 48px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px;
+        }
+
+        .hero-title {
+            color: white;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-meta {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Content Section */
+        main {
+            margin-bottom: 60px;
+        }
+
+        .article-header {
+            margin-bottom: 40px;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: var(--text-tertiary);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .article-content {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+        }
+
+        .article-content strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Highlights Section */
+        .highlights {
+            margin: 48px 0;
+            padding: 40px;
+            background-color: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .highlights-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .highlight-card {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .highlight-card:hover {
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .highlight-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .highlight-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        .highlight-card h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .highlight-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
+            font-size: 13px;
+            color: var(--text-tertiary);
+            text-align: center;
+        }
+
+        /* Animations */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        [data-reveal].revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Print Styles */
+        @media print {
+            body::before {
+                display: none;
+            }
+
+            header {
+                display: none;
+            }
+
+            .hero {
+                margin-bottom: 32px;
+                box-shadow: none;
+                border: 1px solid var(--border-color);
+            }
+
+            .icon-button {
+                display: none;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            header {
+                margin-bottom: 32px;
+            }
+
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .hero-overlay {
+                padding: 24px;
+            }
+
+            .hero-image {
+                height: 280px;
+            }
+
+            .article-meta {
+                gap: 16px;
+            }
+
+            .highlights {
+                padding: 24px;
+            }
+
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 22px;
+            }
+
+            .article-content {
+                font-size: 15px;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">메인 콘텐츠로 이동</a>
+
+    <header class="container">
+        <div class="logo">IT홈</div>
+        <nav class="header-controls" aria-label="사이트 컨트롤">
+            <button class="icon-button" id="theme-toggle" aria-label="테마 전환 (현재: 라이트 모드)">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+            <button class="icon-button" id="download-btn" aria-label="PNG로 다운로드">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+            </button>
+            <button class="icon-button" id="print-btn" aria-label="인쇄">
+                <svg viewBox="0 0 24 24">
+                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <main id="main-content" class="container">
+        <article>
+            <section class="hero">
+                <img src="https://img.ithome.com/newsuploadfiles/2026/3/bffa6cb6-4d7a-4ed1-a7d1-38481f93af2e.png?x-bce-process=image/format,f_auto"
+                     alt="올림푸스 OM System PEN 카메라"
+                     class="hero-image"
+                     loading="lazy">
+                <div class="hero-overlay">
+                    <h1 class="hero-title">올림푸스 새로운 PEN 미러리스 카메라 개발 중</h1>
+                    <div class="hero-meta">2026년 3월 21일 09:29 · IT홈</div>
+                </div>
+            </section>
+
+            <section class="article-header">
+                <div class="article-meta">
+                    <div class="meta-item">
+                        <span>작성일</span>
+                        <time datetime="2026-03-21">2026년 3월 21일</time>
+                    </div>
+                    <div class="meta-item">
+                        <span>카테고리</span>
+                        <span>카메라</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>출처</span>
+                        <a href="https://www.ithome.com/0/931/218.htm" target="_blank" rel="noopener noreferrer">IT홈</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="article-content" data-reveal>
+                <p>올림푸스의 카메라 사업을 이어받은 <strong>OM System</strong>이 새로운 <strong>PEN 미러리스 카메라</strong>를 개발 중인 것으로 확인되었습니다. 이 소식은 유튜브 영상에서 회사 임원인 토가시 카즈히로와 코야마 히로키의 인터뷰를 통해 전해졌습니다.</p>
+
+                <p><strong>임원들의 발언 주요 내용:</strong></p>
+                <p>임원들은 새로운 OM System PEN 카메라가 "논리적으로 반드시 출시될 것"이라고 확인했지만 구체적인 시기는 밝히지 않았습니다. 세부 사항에 대한 질문에는 "의미심장한 미소"로 답하며, 프로토타입이나 디자인이 이미 준비되어 있을 가능성을 시사했습니다.</p>
+
+                <p><strong>시장에 대한 우려:</strong></p>
+                <p>경영진은 시장 수요에 대한 우려를 표명하며, 기존 <strong>PEN E-PL7</strong> 모델이 큰 주목을 받지 못했다고 언급했습니다. 소비자들이 실제로 초소형 M43 카메라를 원하는지에 대한 의문을 제기했습니다.</p>
+
+                <p><strong>포지셔닝 제안:</strong></p>
+                <p>인터뷰 진행자는 새로운 PEN이 기본적인 엔트리급이 아닌 <strong>프리미엄 세그먼트</strong>를 타겟해야 한다고 제안하며, "고급스러운 컴팩트 M43 카메라에 대한 시장의 요구를 충족하는 하이엔드 제품"으로 포지셔닝할 것을 권했습니다. 이러한 접근 방식은 경쟁력 있는 가격대의 엔트리급 모델보다는 프리미엄 가치를 강조하는 전략으로 이해됩니다.</p>
+            </section>
+
+            <section class="highlights">
+                <h2 class="highlights-title">주요 특징</h2>
+                <div class="highlights-grid">
+                    <div class="highlight-card" data-reveal>
+                        <div class="highlight-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                <circle cx="12" cy="13" r="4"></circle>
+                            </svg>
+                        </div>
+                        <h3>PEN 시리즈 부활</h3>
+                        <p>올림푸스의 대표적인 PEN 라인업이 새로운 미러리스 카메라로 재탄생할 예정입니다.</p>
+                    </div>
+
+                    <div class="highlight-card" data-reveal>
+                        <div class="highlight-icon">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="1"></circle>
+                                <path d="M12 6v6m0 0v6"></path>
+                                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor"></circle>
+                            </svg>
+                        </div>
+                        <h3>출시 시기 미정</h3>
+                        <p>구체적인 출시 일정은 아직 공개되지 않았으나, 개발 진행 중이 확실한 상태입니다.</p>
+                    </div>
+
+                    <div class="highlight-card" data-reveal>
+                        <div class="highlight-icon">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                <path d="M16 3h-8M4 11h16M4 15h16"></path>
+                            </svg>
+                        </div>
+                        <h3>프리미엄 세그먼트</h3>
+                        <p>하이엔드 프리미엄 카메라로 포지셔닝되어 고급 사용자를 대상으로 할 전망입니다.</p>
+                    </div>
+
+                    <div class="highlight-card" data-reveal>
+                        <div class="highlight-icon">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <path d="M12 7v5l3.5 2"></path>
+                            </svg>
+                        </div>
+                        <h3>M43 마운트</h3>
+                        <p>마이크로 포서드(M43) 마운트를 채용하여 렌즈 생태계와의 호환성을 유지합니다.</p>
+                    </div>
+
+                    <div class="highlight-card" data-reveal>
+                        <div class="highlight-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path>
+                                <polyline points="16 12 12 8 8 12"></polyline>
+                            </svg>
+                        </div>
+                        <h3>초소형 디자인</h3>
+                        <p>컴팩트하고 휴대성이 좋은 초소형 바디로 설계될 것으로 예상됩니다.</p>
+                    </div>
+
+                    <div class="highlight-card" data-reveal>
+                        <div class="highlight-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2v20M2 12h20"></path>
+                                <circle cx="12" cy="12" r="10"></circle>
+                            </svg>
+                        </div>
+                        <h3>개발 진행 중</h3>
+                        <p>프로토타입과 디자인이 이미 준비된 단계로, 적극적인 개발이 진행 중입니다.</p>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>원본 기사</h3>
+                <div class="footer-links">
+                    <a href="https://www.ithome.com/0/931/218.htm" target="_blank" rel="noopener noreferrer">
+                        IT홈에서 원본 기사 읽기
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>관련 링크</h3>
+                <div class="footer-links">
+                    <a href="#">올림푸스(OM System) 공식 홈페이지</a>
+                    <a href="#">PEN 시리즈 히스토리</a>
+                    <a href="#">M43(마이크로 포서드) 마운트</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>이 페이지는 IT홈의 기사를 바탕으로 제작되었습니다.
+            <time datetime="2026-03-21">2026년 3월 21일</time> 기준 정보입니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        var isDarkTheme = false;
+        var themeToggleBtn = document.getElementById('theme-toggle');
+        var downloadBtn = document.getElementById('download-btn');
+        var printBtn = document.getElementById('print-btn');
+        var html = document.documentElement;
+
+        // Initialize theme from localStorage
+        var savedTheme = localStorage.getItem('theme-preference');
+        if (savedTheme === 'dark') {
+            isDarkTheme = true;
+            html.classList.add('dark-theme');
+            themeToggleBtn.setAttribute('aria-label', '테마 전환 (현재: 다크 모드)');
+        }
+
+        // Theme toggle
+        themeToggleBtn.addEventListener('click', function() {
+            isDarkTheme = !isDarkTheme;
+            if (isDarkTheme) {
+                html.classList.add('dark-theme');
+                localStorage.setItem('theme-preference', 'dark');
+                themeToggleBtn.setAttribute('aria-label', '테마 전환 (현재: 다크 모드)');
+            } else {
+                html.classList.remove('dark-theme');
+                localStorage.setItem('theme-preference', 'light');
+                themeToggleBtn.setAttribute('aria-label', '테마 전환 (현재: 라이트 모드)');
+            }
+        });
+
+        // Download as PNG
+        downloadBtn.addEventListener('click', function() {
+            var element = document.querySelector('main');
+            downloadBtn.disabled = true;
+            downloadBtn.style.opacity = '0.5';
+
+            html2canvas(element, {
+                backgroundColor: isDarkTheme ? '#0f1117' : '#ffffff',
+                scale: 2,
+                useCORS: true,
+                logging: false
+            }).then(function(canvas) {
+                var link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = '2026-03-22-olympus-pen-new-camera.png';
+                link.click();
+
+                downloadBtn.disabled = false;
+                downloadBtn.style.opacity = '1';
+            }).catch(function(err) {
+                console.error('Download failed:', err);
+                downloadBtn.disabled = false;
+                downloadBtn.style.opacity = '1';
+            });
+        });
+
+        // Print
+        printBtn.addEventListener('click', function() {
+            window.print();
+        });
+
+        // Scroll animation
+        var revealElements = document.querySelectorAll('[data-reveal]');
+
+        var revealObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        revealElements.forEach(function(element) {
+            revealObserver.observe(element);
+        });
+    </script>
+</body>
+</html>

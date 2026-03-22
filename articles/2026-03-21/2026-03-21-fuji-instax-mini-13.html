@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko" class="theme-dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>후지필름 Instax Mini 13 인스턴트 카메라 출시</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { interpolate-size: allow-keywords; }
+
+    html.theme-dark {
+      --bg: #0A0A0A; --surface: #141414; --surface-hover: #1C1C1C;
+      --border: rgba(255,255,255,0.04);
+      --text: #EDEDED; --text-secondary: #888;
+      --accent: #7c8dea; --accent-secondary: #c084fc;
+      --positive: #10b981; --negative: #f43f5e; --warning: #f59e0b;
+    }
+    html.theme-light {
+      --bg: #FAFAF9; --surface: #FFFFFF; --surface-hover: #F5F5F4;
+      --border: #e5e5e5;
+      --text: #1a1a1a; --text-secondary: #666;
+      --accent: #5b6abf; --accent-secondary: #9333ea;
+      --positive: #059669; --negative: #e11d48; --warning: #d97706;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg); color: var(--text);
+      line-height: 1.7; -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.01em;
+      transition: background 0.3s, color 0.3s;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -1;
+      background: radial-gradient(ellipse 80% 50% at 50% 20%,
+        color-mix(in srgb, var(--accent), transparent 92%), transparent);
+    }
+    h1,h2,h3,h4 { color: var(--text); letter-spacing: -0.03em; line-height: 1.15; text-wrap: balance; }
+    h1 { font-weight: 700; }
+    h2 { font-weight: 600; }
+    p,li,td,th,span,label { color: var(--text); font-weight: 400; }
+    .text-secondary { color: var(--text-secondary); }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+
+    .hero {
+      position: relative; min-height: 70vh; display: flex; align-items: center;
+      justify-content: center; text-align: center; overflow: hidden;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--accent), var(--bg) 82%), var(--bg));
+    }
+    .hero-content { position: relative; z-index: 2; padding: 60px 20px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: color-mix(in srgb, var(--accent), transparent 85%);
+      border: 1px solid color-mix(in srgb, var(--accent), transparent 70%);
+      border-radius: 20px; padding: 6px 16px; font-size: 12px;
+      font-weight: 600; color: var(--accent); text-transform: uppercase;
+      letter-spacing: 0.05em; margin-bottom: 24px;
+    }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 16px; }
+    .hero .subtitle { font-size: clamp(1rem, 2.5vw, 1.25rem); color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px; margin-bottom: 24px;
+      transition: box-shadow 0.2s ease;
+    }
+    .card:hover { box-shadow: 0 0 0 1px var(--border), 0 8px 16px rgba(0,0,0,0.08); }
+
+    .img-wrapper { margin-bottom: 24px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+    .img-wrapper img { width: 100%; display: block; }
+
+    .img-translation {
+      background: color-mix(in srgb, var(--accent), transparent 88%);
+      border-top: 1px solid color-mix(in srgb, var(--accent), transparent 70%);
+      padding: 14px 16px;
+    }
+    .img-translation-header {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;
+    }
+    .img-translation-row {
+      display: flex; gap: 12px; padding: 6px 0; font-size: 13px; line-height: 1.5;
+    }
+    .img-translation-row + .img-translation-row {
+      border-top: 1px solid color-mix(in srgb, var(--accent), transparent 85%);
+      padding-top: 8px; margin-top: 4px;
+    }
+    .img-translation-cn { color: var(--text-secondary); flex: 1; font-style: italic; }
+    .img-translation-arrow { color: var(--accent); flex-shrink: 0; font-weight: 600; }
+    .img-translation-kr { color: var(--text); flex: 1; font-weight: 500; }
+
+    .spec-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px; margin: 24px 0;
+    }
+    .spec-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px; text-align: center;
+      transition: box-shadow 0.2s ease;
+    }
+    .spec-item:hover { box-shadow: 0 0 0 1px var(--border), 0 8px 16px rgba(0,0,0,0.08); }
+    .spec-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; font-weight: 500; }
+    .spec-value { font-size: 20px; font-weight: 700; color: var(--accent); }
+
+    .feature-list { list-style: none; padding: 0; }
+    .feature-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .feature-list li:last-child { border-bottom: none; }
+    .feature-icon {
+      width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+      background: color-mix(in srgb, var(--accent), transparent 85%);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+    }
+
+    /* Color swatches */
+    .color-grid {
+      display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin: 24px 0;
+    }
+    .color-swatch {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .color-circle {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 2px solid var(--border); transition: transform 0.2s;
+    }
+    .color-circle:hover { transform: scale(1.1); }
+    .color-name { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+
+    .price-section { text-align: center; padding: 32px 0; }
+    .price-main { font-size: 36px; font-weight: 800; color: var(--accent); }
+    .price-sub { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+
+    .source-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--accent); text-decoration: none; font-size: 14px;
+      padding: 10px 20px; border: 1px solid color-mix(in srgb, var(--accent), transparent 70%);
+      border-radius: 8px; transition: background 0.2s;
+    }
+    .source-link:hover { background: color-mix(in srgb, var(--accent), transparent 90%); }
+
+    section { padding: 48px 0; }
+    section h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 24px; }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .animate { animation: fadeInUp 0.6s ease-out both; }
+    .animate.delay-1 { animation-delay: 0.1s; }
+    .animate.delay-2 { animation-delay: 0.2s; }
+    .animate.delay-3 { animation-delay: 0.3s; }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+    *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    @media print {
+      body { background: white !important; color: black !important; }
+      .viz-menu { display: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .card { break-inside: avoid; border: 1px solid #ddd; box-shadow: none; }
+      * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+
+    .viz-menu { position: fixed; top: 16px; right: 16px; z-index: 9999; }
+    .viz-menu-toggle {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      backdrop-filter: blur(12px); transition: all 0.2s;
+    }
+    .viz-menu-toggle:hover { background: var(--surface-hover); }
+    .viz-menu-dropdown {
+      position: absolute; top: 52px; right: 0; min-width: 200px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 8px;
+      opacity: 0; visibility: hidden; transform: translateY(-8px);
+      transition: all 0.2s; backdrop-filter: blur(16px);
+    }
+    .viz-menu-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0); }
+    .viz-menu-dropdown button {
+      width: 100%; padding: 10px 14px; border: none; border-radius: 8px;
+      background: transparent; color: var(--text); font-size: 14px;
+      font-family: inherit; cursor: pointer; text-align: left;
+      display: flex; align-items: center; gap: 10px; transition: background 0.15s;
+    }
+    .viz-menu-dropdown button:hover { background: var(--surface-hover); }
+
+    .article-footer {
+      text-align: center; padding: 48px 20px; border-top: 1px solid var(--border);
+      margin-top: 48px;
+    }
+    .article-meta { font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; }
+
+    @media (max-width: 768px) {
+      .spec-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .hero { min-height: 50vh; }
+      .container { padding: 0 16px; }
+      section { padding: 32px 0; }
+    }
+    @media (max-width: 375px) {
+      .spec-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:8px 16px;background:var(--accent);color:white;text-decoration:none;border-radius:4px;" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:10000;padding:8px 16px;background:var(--accent);color:white;text-decoration:none;border-radius:4px;'" onblur="this.style.cssText='position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;'">본문으로 건너뛰기</a>
+
+  <div class="viz-menu">
+    <button class="viz-menu-toggle" onclick="toggleMenu()" aria-label="메뉴">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="5" x2="17" y2="5"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="15" x2="17" y2="15"/>
+      </svg>
+    </button>
+    <div class="viz-menu-dropdown" id="vizMenuDropdown">
+      <button onclick="cycleTheme()"><span id="themeIcon">&#127769;</span><span id="themeLabel">다크</span></button>
+      <button onclick="downloadImage()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>PNG 다운로드</span></button>
+      <button onclick="window.print()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg><span>인쇄</span></button>
+    </div>
+  </div>
+
+  <main id="main-content" role="main">
+    <header class="hero" role="banner">
+      <div class="hero-content">
+        <div class="hero-badge animate">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          인스턴트 카메라
+        </div>
+        <h1 class="animate delay-1">후지필름 Instax Mini 13<br>인스턴트 카메라</h1>
+        <p class="subtitle animate delay-2">2초/10초 셀프 타이머 업그레이드 — 5가지 파스텔 컬러로 출시</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- Main Image -->
+      <section data-reveal>
+        <div class="img-wrapper">
+          <img src="https://img.ithome.com/newsuploadfiles/2026/3/d0d9ebc0-717d-421c-823c-379158fdb7ad.png" alt="후지필름 Instax Mini 13 해염블루 컬러 제품 이미지" loading="lazy">
+        </div>
+      </section>
+
+      <!-- Article body -->
+      <section data-reveal>
+        <article class="card">
+          <h2>다섯 가지 파스텔 컬러의 인스턴트 카메라</h2>
+          <p style="margin-top:16px;">후지필름이 Instax Mini 13 인스턴트 카메라를 공식 출시했습니다. 가격은 93달러(약 641.7위안)이며, 해염블루, 타로퍼플, 크림화이트, 허니듀그린, 복숭아핑크 등 5가지 컬러로 제공됩니다.</p>
+          <p style="margin-top:12px;">이번 모델의 가장 큰 업그레이드 포인트는 2초 및 10초 셀프 타이머 기능입니다. 기존 모델에서는 제공되지 않았던 이 기능을 통해 그룹 사진이나 혼자 촬영할 때 더욱 편리하게 사용할 수 있습니다.</p>
+          <p style="margin-top:12px;">핸드 스트랩 액세서리를 장착하면 카메라를 위로 기울여 고정할 수 있어, 두 손을 자유롭게 한 상태에서 듀얼 인물 촬영이 가능합니다. 전면 셀카 미러가 내장되어 있어 셀카 구도를 쉽게 잡을 수 있으며, 렌즈를 돌려 전원을 켜고 한 번 더 돌리면 셀카/접사 모드로 전환됩니다.</p>
+          <p style="margin-top:12px;">접사 촬영 시 30~50cm의 근접 초점 거리를 지원하며, 오토 플래시 기능으로 주변 조명에 따라 셔터 속도와 플래시 밝기를 자동으로 조절합니다.</p>
+        </article>
+      </section>
+
+      <!-- Colors Image -->
+      <section data-reveal>
+        <div class="img-wrapper">
+          <img src="https://img.ithome.com/newsuploadfiles/2026/3/b746e3e1-3abc-4002-a6d9-450d97a0e8e0.png" alt="후지필름 Instax Mini 13 컬러 옵션" loading="lazy">
+          <div class="img-translation">
+            <div class="img-translation-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              이미지 내 텍스트 번역
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">顏色</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">컬러</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">主機 / 前面 / 背面</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">본체 / 전면 / 후면</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">櫻果粉紅</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">체리 핑크</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feature Image -->
+      <section data-reveal>
+        <div class="img-wrapper">
+          <img src="https://img.ithome.com/newsuploadfiles/2026/3/dae8c8f2-e3f9-423c-9d75-f83d01522736.png" alt="후지필름 Instax Mini 13 기능 설명" loading="lazy">
+          <div class="img-translation">
+            <div class="img-translation-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              이미지 내 텍스트 번역
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">輕料輔佐完美角度，雙手完全解放！</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">가벼운 보조 도구로 완벽한 각도, 두 손 완전 해방!</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">自拍定時器</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">셀프 타이머</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">10 sec</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">10초 타이머</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Color Swatches -->
+      <section data-reveal>
+        <h2>컬러 옵션</h2>
+        <div class="color-grid">
+          <div class="color-swatch">
+            <div class="color-circle" style="background:#8EAEC4;"></div>
+            <span class="color-name">해염블루</span>
+          </div>
+          <div class="color-swatch">
+            <div class="color-circle" style="background:#B5A0C8;"></div>
+            <span class="color-name">타로퍼플</span>
+          </div>
+          <div class="color-swatch">
+            <div class="color-circle" style="background:#F0E8DD;"></div>
+            <span class="color-name">크림화이트</span>
+          </div>
+          <div class="color-swatch">
+            <div class="color-circle" style="background:#B8D4A8;"></div>
+            <span class="color-name">허니듀그린</span>
+          </div>
+          <div class="color-swatch">
+            <div class="color-circle" style="background:#E8B4B8;"></div>
+            <span class="color-name">복숭아핑크</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Specs -->
+      <section data-reveal>
+        <h2>제품 사양</h2>
+        <div class="spec-grid" role="img" aria-label="사양: 필름 Instax Mini, 초점거리 60mm, 셔터속도 1/2~1/250초, 무게 327g, 전원 AA건전지 2개">
+          <div class="spec-item">
+            <div class="spec-label">필름 타입</div>
+            <div class="spec-value" style="font-size:16px;">Instax Mini</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">렌즈 구성</div>
+            <div class="spec-value" style="font-size:16px;">2군 2매</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">초점거리</div>
+            <div class="spec-value">60mm</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">초점 범위</div>
+            <div class="spec-value" style="font-size:16px;">0.3m ~ ∞</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">셔터 속도</div>
+            <div class="spec-value" style="font-size:16px;">1/2 ~ 1/250s</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">무게</div>
+            <div class="spec-value">327g</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section data-reveal>
+        <h2>주요 기능</h2>
+        <div class="card">
+          <ul class="feature-list">
+            <li>
+              <div class="feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+              <div><strong>2초 / 10초 셀프 타이머</strong><br><span class="text-secondary">그룹 사진이나 솔로 촬영에 최적화된 새로운 타이머 기능</span></div>
+            </li>
+            <li>
+              <div class="feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div><strong>핸즈프리 듀얼 인물 촬영</strong><br><span class="text-secondary">핸드 스트랩으로 카메라 각도 조절, 두 손 자유</span></div>
+            </li>
+            <li>
+              <div class="feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+              <div><strong>셀카 미러 내장</strong><br><span class="text-secondary">전면 미러로 셀카 구도를 쉽게 확인</span></div>
+            </li>
+            <li>
+              <div class="feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+              <div><strong>접사 모드</strong><br><span class="text-secondary">30~50cm 근접 촬영, 렌즈 회전으로 간편 전환</span></div>
+            </li>
+            <li>
+              <div class="feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+              <div><strong>오토 플래시</strong><br><span class="text-secondary">주변 조명에 따라 셔터 속도와 플래시 밝기 자동 조절</span></div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Price -->
+      <section data-reveal>
+        <div class="card" style="text-align:center;">
+          <div class="price-section">
+            <div class="spec-label" style="margin-bottom:8px;">출시 가격</div>
+            <div class="price-main">$93</div>
+            <div class="price-sub">약 ¥641.7 (환율 기준)</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="article-footer">
+        <div class="article-meta">2026년 3월 20일 18:04 · 출처: IT之家 · 작성자: 潞源(인턴)</div>
+        <a href="https://www.ithome.com/0/931/124.htm" target="_blank" rel="noopener noreferrer" class="source-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기 (IT之家)
+        </a>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    function toggleMenu() {
+      var d = document.getElementById('vizMenuDropdown');
+      if (d) d.classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.viz-menu')) {
+        var d = document.getElementById('vizMenuDropdown');
+        if (d) d.classList.remove('open');
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        var d = document.getElementById('vizMenuDropdown');
+        if (d) d.classList.remove('open');
+      }
+    });
+
+    var savedTheme = localStorage.getItem('viz-theme');
+    var currentTheme = savedTheme || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    function applyTheme(t) {
+      document.documentElement.className = 'theme-' + t;
+      document.getElementById('themeIcon').textContent = t === 'dark' ? '\u{1F319}' : '\u{2600}\u{FE0F}';
+      document.getElementById('themeLabel').textContent = t === 'dark' ? '다크' : '라이트';
+      localStorage.setItem('viz-theme', t);
+      currentTheme = t;
+    }
+    function cycleTheme() { applyTheme(currentTheme === 'dark' ? 'light' : 'dark'); }
+    applyTheme(currentTheme);
+
+    document.querySelectorAll('[data-reveal]').forEach(function(el) { el.classList.add('reveal'); });
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(function(el) { revealObserver.observe(el); });
+    setTimeout(function() { document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); }); }, 500);
+
+    async function downloadImage() {
+      var menu = document.querySelector('.viz-menu');
+      menu.style.display = 'none';
+      try {
+        var url = await htmlToImage.toPng(document.body, { quality: 1, pixelRatio: 2, filter: function(n) { return !n.classList || !n.classList.contains('viz-menu'); } });
+        var a = document.createElement('a'); a.href = url;
+        a.download = document.title.replace(/\s+/g, '-').toLowerCase() + '.png'; a.click();
+      } catch(e) { console.error('Download failed:', e); }
+      menu.style.display = '';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ko" class="theme-dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>화웨이 200MP 1/1.28" 연속 광학 줌 방안 사전 연구 중</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { interpolate-size: allow-keywords; }
+
+    html.theme-dark {
+      --bg: #0A0A0A; --surface: #141414; --surface-hover: #1C1C1C;
+      --border: rgba(255,255,255,0.04);
+      --text: #EDEDED; --text-secondary: #888;
+      --accent: #3b82f6; --accent-secondary: #8b5cf6;
+      --positive: #10b981; --negative: #f43f5e; --warning: #f59e0b;
+    }
+    html.theme-light {
+      --bg: #FAFAF9; --surface: #FFFFFF; --surface-hover: #F5F5F4;
+      --border: #e5e5e5;
+      --text: #1a1a1a; --text-secondary: #666;
+      --accent: #2563eb; --accent-secondary: #7c3aed;
+      --positive: #059669; --negative: #e11d48; --warning: #d97706;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg); color: var(--text);
+      line-height: 1.7; -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.01em;
+      transition: background 0.3s, color 0.3s;
+      scrollbar-gutter: stable;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -1;
+      background: radial-gradient(ellipse 80% 50% at 50% 20%,
+        color-mix(in srgb, var(--accent), transparent 92%), transparent);
+    }
+    h1,h2,h3,h4,h5,h6 { color: var(--text); letter-spacing: -0.03em; line-height: 1.2; text-wrap: balance; }
+    h1 { font-weight: 700; }
+    h2 { font-weight: 600; }
+    body, p, li, td, th, span, label { font-weight: 400; }
+    p,li,td,th,span,label { color: var(--text); }
+    .text-secondary { color: var(--text-secondary); }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px;
+      transition: box-shadow 0.2s ease;
+    }
+    .card:hover {
+      box-shadow: 0 0 0 1px var(--border), 0 8px 16px rgba(0,0,0,0.08);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .animate { animation: fadeInUp 0.6s ease-out both; }
+    .animate.delay-1 { animation-delay: 0.1s; }
+    .animate.delay-2 { animation-delay: 0.2s; }
+    .animate.delay-3 { animation-delay: 0.3s; }
+    .animate.delay-4 { animation-delay: 0.4s; }
+    .animate.delay-5 { animation-delay: 0.5s; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    @media print {
+      body { background: white !important; color: black !important; }
+      .viz-menu, .reveal { display: revert; opacity: 1 !important; transform: none !important; }
+      .card { break-inside: avoid; border: 1px solid #ddd; box-shadow: none; }
+      * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+    @page { margin: 1in; }
+
+    *:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* Menu */
+    .viz-menu { position: fixed; top: 16px; right: 16px; z-index: 9999; }
+    .viz-menu-toggle {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      backdrop-filter: blur(12px); transition: all 0.2s;
+    }
+    .viz-menu-toggle:hover { background: var(--surface-hover); }
+    .viz-menu-dropdown {
+      position: absolute; top: 52px; right: 0; min-width: 200px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 8px;
+      opacity: 0; visibility: hidden; transform: translateY(-8px);
+      transition: all 0.2s; backdrop-filter: blur(16px);
+    }
+    .viz-menu-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0); }
+    .viz-menu-dropdown button {
+      width: 100%; padding: 10px 14px; border: none; border-radius: 8px;
+      background: transparent; color: var(--text); font-size: 14px;
+      font-family: inherit; cursor: pointer; text-align: left;
+      display: flex; align-items: center; gap: 10px; transition: background 0.15s;
+    }
+    .viz-menu-dropdown button:hover { background: var(--surface-hover); }
+
+    /* Hero */
+    .hero {
+      position: relative; width: 100%; min-height: 60vh;
+      display: flex; align-items: flex-end; overflow: hidden;
+    }
+    .hero-img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; padding: 48px;
+      max-width: 900px; width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: color-mix(in srgb, var(--accent), transparent 80%);
+      color: var(--accent); padding: 6px 14px; border-radius: 20px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      color: #fff; margin-bottom: 12px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .hero-meta {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      color: rgba(255,255,255,0.7); font-size: 14px;
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+    /* Container */
+    .container {
+      max-width: 800px; margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    /* Article body */
+    .article-body p {
+      font-size: 16px; line-height: 1.8;
+      margin-bottom: 24px; color: var(--text);
+    }
+    .article-body p:last-child { margin-bottom: 0; }
+
+    /* Article images */
+    .article-image-wrapper {
+      margin: 32px 0; border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .article-image-wrapper img {
+      width: 100%; display: block;
+    }
+
+    /* Image translation overlay */
+    .img-translation {
+      background: color-mix(in srgb, var(--accent), transparent 88%);
+      border-top: 1px solid color-mix(in srgb, var(--accent), transparent 70%);
+      padding: 14px 16px;
+    }
+    .img-translation-header {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;
+    }
+    .img-translation-row {
+      display: flex; gap: 12px; padding: 6px 0; font-size: 13px; line-height: 1.5;
+    }
+    .img-translation-row + .img-translation-row {
+      border-top: 1px solid color-mix(in srgb, var(--accent), transparent 85%);
+      padding-top: 8px; margin-top: 4px;
+    }
+    .img-translation-cn { color: var(--text-secondary); flex: 1; font-style: italic; }
+    .img-translation-arrow { color: var(--accent); flex-shrink: 0; font-weight: 600; }
+    .img-translation-kr { color: var(--text); flex: 1; font-weight: 500; }
+
+    /* Spec grid */
+    .spec-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px; margin: 32px 0;
+    }
+    .spec-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px; text-align: center;
+      transition: box-shadow 0.2s ease;
+    }
+    .spec-card:hover {
+      box-shadow: 0 0 0 1px var(--border), 0 8px 16px rgba(0,0,0,0.08);
+    }
+    .spec-value {
+      font-size: 28px; font-weight: 700; color: var(--accent);
+      letter-spacing: -0.03em; margin-bottom: 4px;
+    }
+    .spec-label {
+      font-size: 13px; color: var(--text-secondary); font-weight: 500;
+    }
+
+    /* Feature list */
+    .feature-list {
+      margin: 32px 0;
+    }
+    .feature-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 20px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 12px;
+      margin-bottom: 12px; transition: box-shadow 0.2s ease;
+    }
+    .feature-item:hover {
+      box-shadow: 0 0 0 1px var(--border), 0 8px 16px rgba(0,0,0,0.08);
+    }
+    .feature-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: color-mix(in srgb, var(--accent), transparent 85%);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--accent);
+    }
+    .feature-text h4 {
+      font-size: 15px; font-weight: 600; margin-bottom: 4px;
+    }
+    .feature-text p {
+      font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin: 0;
+    }
+
+    /* Source link */
+    .source-section {
+      margin-top: 48px; padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .source-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--accent); text-decoration: none; font-size: 14px;
+      font-weight: 500; transition: opacity 0.2s;
+    }
+    .source-link:hover { opacity: 0.8; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero { min-height: 50vh; }
+      .hero-content { padding: 24px; }
+      .container { padding: 32px 16px; }
+      .spec-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 375px) {
+      .hero-content { padding: 16px; }
+      .container { padding: 24px 12px; }
+      .spec-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:8px 16px;background:var(--accent);color:white;text-decoration:none;border-radius:4px;" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:10000;padding:8px 16px;background:var(--accent);color:white;text-decoration:none;border-radius:4px;'" onblur="this.style.cssText='position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;'">본문으로 건너뛰기</a>
+
+  <!-- MENU -->
+  <div class="viz-menu">
+    <button class="viz-menu-toggle" onclick="toggleMenu()" aria-label="메뉴">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="5" x2="17" y2="5"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="15" x2="17" y2="15"/>
+      </svg>
+    </button>
+    <div class="viz-menu-dropdown" id="vizMenuDropdown">
+      <button onclick="cycleTheme()"><span id="themeIcon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </span><span id="themeLabel">다크</span></button>
+      <button onclick="downloadImage()"><span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </span><span>PNG 다운로드</span></button>
+      <button onclick="window.print()"><span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      </span><span>인쇄 / PDF</span></button>
+    </div>
+  </div>
+
+  <main id="main-content" role="main">
+
+    <!-- Hero Section -->
+    <header class="hero" role="banner">
+      <img class="hero-img" src="https://img.ithome.com/newsuploadfiles/2026/3/26f745d5-2b81-441a-8bc1-3e7961866c5e.jpg?x-bce-process=image/format,f_auto" alt="HUAWEI Pura80 Ultra 일경쌍목 카메라 시스템" loading="eager">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge animate">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+          독점 보도
+        </div>
+        <h1 class="animate delay-1">화웨이, 200MP 1/1.28" 연속 광학 줌 방안 사전 연구 중</h1>
+        <div class="hero-meta animate delay-2">
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026.03.19
+          </span>
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            归泷 (구이룽)
+          </span>
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            IT之家
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Article Body -->
+    <article class="container">
+
+      <section class="article-body animate delay-3" role="region" aria-label="기사 본문">
+        <p>블로거 <strong>@数码闲聊站(디지털잡담방)</strong>의 정보에 따르면, "모 제조사에서 200MP 1/1.28" 연속 광학 줌 방안을 사전 연구 중"이라고 합니다. 이 방안은 <strong>망원 매크로(접사)</strong> 기능도 지원합니다.</p>
+
+        <p>댓글란의 논의에 따르면, 해당 블로거가 언급한 제조사는 <strong>화웨이(Huawei)</strong>로 추정됩니다.</p>
+      </section>
+
+      <!-- Spec Grid -->
+      <section data-reveal role="region" aria-label="핵심 사양">
+        <h2 style="font-size: 20px; margin-bottom: 20px;">핵심 사양</h2>
+        <div class="spec-grid">
+          <div class="spec-card">
+            <div class="spec-value">200MP</div>
+            <div class="spec-label">화소수</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-value">1/1.28"</div>
+            <div class="spec-label">센서 크기</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-value">연속</div>
+            <div class="spec-label">광학 줌 방식</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-value" style="font-size: 22px;">매크로</div>
+            <div class="spec-label">망원 접사 지원</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Current Pura 80 Ultra info -->
+      <section data-reveal role="region" aria-label="현재 Pura 80 Ultra 카메라 시스템">
+        <h2 style="font-size: 20px; margin-bottom: 16px; margin-top: 40px;">현행 Pura 80 Ultra 카메라 시스템</h2>
+        <div class="article-body">
+          <p>화웨이 Pura 80 Ultra에는 이전에 <strong>"일경쌍목(一镜双目)"</strong>이라 불리는 이중 초점 전환식 망원 구조가 채택되었습니다. 이 구조에는 5,000만 화소 대형 센서 망원 카메라와 1,250만 화소 초망원 카메라가 포함되어 있으며, <strong>3.7배</strong> 및 <strong>9.4배</strong> 광학 줌을 지원합니다.</p>
+        </div>
+      </section>
+
+      <!-- Hero image with translation -->
+      <div class="article-image-wrapper" data-reveal>
+        <img src="https://img.ithome.com/newsuploadfiles/2026/3/26f745d5-2b81-441a-8bc1-3e7961866c5e.jpg?x-bce-process=image/format,f_auto" alt="HUAWEI Pura80 Ultra 일경쌍목 카메라 시스템 홍보 이미지" style="width:100%; display:block;">
+        <div class="img-translation">
+          <div class="img-translation-header">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            이미지 내 중국어 번역
+          </div>
+          <div class="img-translation-row">
+            <span class="img-translation-cn">一镜双目</span>
+            <span class="img-translation-arrow">&rarr;</span>
+            <span class="img-translation-kr">하나의 렌즈, 두 개의 눈</span>
+          </div>
+          <div class="img-translation-row">
+            <span class="img-translation-cn">远近都妙</span>
+            <span class="img-translation-arrow">&rarr;</span>
+            <span class="img-translation-kr">가까이도 멀리도 훌륭하게</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature List: Future direction -->
+      <section data-reveal role="region" aria-label="향후 전망">
+        <h2 style="font-size: 20px; margin-bottom: 16px; margin-top: 40px;">향후 전망</h2>
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+            <div class="feature-text">
+              <h4>"일경쌍목"은 과도기 방안</h4>
+              <p>이전 정보에 따르면, 이중 초점 전환 방식은 물리적 구조의 부피가 크고 비용이 높아 과도기 방안으로 여겨지며, 향후 지속적으로 사용되지 않을 가능성이 있습니다.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div class="feature-text">
+              <h4>진정한 연속 광학 줌으로 전환</h4>
+              <p>이를 대체할 진정한 연속 광학 줌 방안이 "현재 적극적으로 테스트 중"입니다. 200MP 1/1.28" 대형 센서와 결합되어 스마트폰 카메라의 새로운 도약이 될 것으로 기대됩니다.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+            </div>
+            <div class="feature-text">
+              <h4>망원 매크로(접사) 지원</h4>
+              <p>새로운 연속 광학 줌 방안은 망원 매크로 기능도 지원하여, 원거리 촬영뿐만 아니라 가까운 거리의 세밀한 접사 촬영도 가능합니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Weibo screenshots -->
+      <section data-reveal role="region" aria-label="출처 스크린샷">
+        <h2 style="font-size: 20px; margin-bottom: 16px; margin-top: 40px;">출처: 웨이보(微博) 스크린샷</h2>
+
+        <div class="article-image-wrapper">
+          <img src="https://img.ithome.com/newsuploadfiles/2026/3/160f5da9-3d2b-484e-a934-a8b4e2b63230.jpg?x-bce-process=image/format,f_auto" alt="数码闲聊站 웨이보 원문 게시글 및 댓글" style="width:100%; display:block;">
+          <div class="img-translation">
+            <div class="img-translation-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              이미지 내 중국어 번역
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">独家，200Mp 1/1.28" 连续光变方案预研中</span>
+              <span class="img-translation-arrow">&rarr;</span>
+              <span class="img-translation-kr">독점: 200MP 1/1.28" 연속 광학 줌 방안 사전 연구 중</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">重点是焦段，如果能3-7倍，哪怕他1.4我也能接受</span>
+              <span class="img-translation-arrow">&rarr;</span>
+              <span class="img-translation-kr">핵심은 초점 거리입니다. 3~7배가 가능하다면 조리개 1.4라도 받아들일 수 있어요</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">前提是得有长焦微距，一味去争底大没意义</span>
+              <span class="img-translation-arrow">&rarr;</span>
+              <span class="img-translation-kr">전제는 망원 매크로가 있어야 한다는 것입니다. 센서 크기만 키우는 건 의미 없어요</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">有长焦微距</span>
+              <span class="img-translation-arrow">&rarr;</span>
+              <span class="img-translation-kr">망원 매크로 있습니다</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">能做到 3～5x 吗</span>
+              <span class="img-translation-arrow">&rarr;</span>
+              <span class="img-translation-kr">3~5배 할 수 있나요?</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">还不确定焦段，可以许愿，刚刚开始测试</span>
+              <span class="img-translation-arrow">&rarr;</span>
+              <span class="img-translation-kr">초점 거리는 아직 미확정, 소원을 빌어도 좋아요. 테스트 막 시작했습니다</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">优惠力度 618/双11/双12 > 首发 > 日常</span>
+              <span class="img-translation-arrow">&rarr;</span>
+              <span class="img-translation-kr">할인 순서: 618/쌍11/쌍12 > 첫 출시 > 일상</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-image-wrapper" style="margin-top: 24px;">
+          <img src="https://img.ithome.com/newsuploadfiles/2026/3/75b1a659-98e3-4a0e-b861-537e49f63f03.jpg?x-bce-process=image/format,f_auto" alt="웨이보 댓글 - 화웨이 추정 논의" style="width:100%; display:block;">
+          <div class="img-translation">
+            <div class="img-translation-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              이미지 내 중국어 번역
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">看小米和华为谁能首发了</span>
+              <span class="img-translation-arrow">&rarr;</span>
+              <span class="img-translation-kr">샤오미와 화웨이 중 누가 먼저 출시할지 봐야죠</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">这个表情就是华为，不过小米感觉也快了</span>
+              <span class="img-translation-arrow">&rarr;</span>
+              <span class="img-translation-kr">이 이모티콘은 화웨이입니다. 하지만 샤오미도 곧일 것 같아요</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">这俩是华子</span>
+              <span class="img-translation-arrow">&rarr;</span>
+              <span class="img-translation-kr">이 둘은 화웨이입니다</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">预研的话，今年没戏了</span>
+              <span class="img-translation-arrow">&rarr;</span>
+              <span class="img-translation-kr">사전 연구 단계라면 올해는 힘들겠네요</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Source -->
+      <section class="source-section" data-reveal role="region" aria-label="원문 링크">
+        <a href="https://www.ithome.com/0/930/632.htm" target="_blank" rel="noopener noreferrer" class="source-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기: IT之家 - 消息称某厂 200Mp 1/1.28" 连续光变方案预研中
+        </a>
+      </section>
+
+    </article>
+  </main>
+
+  <script>
+    // === Menu ===
+    function toggleMenu() {
+      var dropdown = document.getElementById('vizMenuDropdown');
+      if (dropdown) dropdown.classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.viz-menu')) {
+        var dropdown = document.getElementById('vizMenuDropdown');
+        if (dropdown) dropdown.classList.remove('open');
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        var dropdown = document.getElementById('vizMenuDropdown');
+        if (dropdown) dropdown.classList.remove('open');
+      }
+    });
+
+    // === Theme ===
+    var savedTheme = localStorage.getItem('viz-theme');
+    var currentTheme = savedTheme || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    function applyTheme(t) {
+      document.documentElement.className = 'theme-' + t;
+      var iconEl = document.getElementById('themeIcon');
+      var labelEl = document.getElementById('themeLabel');
+      if (iconEl) iconEl.innerHTML = t === 'dark'
+        ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+      if (labelEl) labelEl.textContent = t === 'dark' ? '다크' : '라이트';
+      localStorage.setItem('viz-theme', t);
+      currentTheme = t;
+    }
+    function cycleTheme() { applyTheme(currentTheme === 'dark' ? 'light' : 'dark'); }
+    applyTheme(currentTheme);
+
+    // === Scroll Reveal ===
+    document.querySelectorAll('[data-reveal]').forEach(function(el) { el.classList.add('reveal'); });
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(function(el) { revealObserver.observe(el); });
+    setTimeout(function() { document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); }); }, 500);
+
+    // === Download PNG ===
+    async function downloadImage() {
+      var menu = document.querySelector('.viz-menu');
+      menu.style.display = 'none';
+      try {
+        var url = await htmlToImage.toPng(document.body, { quality: 1, pixelRatio: 2, filter: function(n) { return !n.classList || !n.classList.contains('viz-menu'); } });
+        var a = document.createElement('a'); a.href = url;
+        a.download = document.title.replace(/\s+/g, '-').toLowerCase() + '.png'; a.click();
+      } catch(e) { console.error('Download failed:', e); }
+      menu.style.display = '';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소니 APS-C 플래그십 A6900 카메라 유출: 3300만 화소 적층형 센서</title>
+    <meta name="description" content="소니의 차세대 APS-C 플래그십 카메라 A6900의 사양이 유출되었습니다. A6700의 후속 모델로, 3300만 화소 CoW 적층형 센서와 첨단 기능을 탑재합니다.">
+    <meta name="author" content="IT Home">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f7f9fc;
+            --bg-tertiary: #f0f4f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #94a3b8;
+            --border-color: #e2e8f0;
+            --accent-color: #ef4444;
+            --accent-light: #fee2e2;
+            --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+            --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        html.dark-mode {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1a2847;
+            --bg-tertiary: #233355;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --border-color: #334155;
+            --accent-color: #f87171;
+            --accent-light: #7f1d1d;
+            --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.25);
+            --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.35);
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                ellipse 800px 600px at 50% -10%,
+                rgba(239, 68, 68, 0.05) 0%,
+                transparent 70%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .skip-to-content {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent-color);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-to-content:focus {
+            top: 0;
+        }
+
+        header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            transition: background 0.3s ease;
+        }
+
+        html.dark-mode header {
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-brand {
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+
+        .header-brand svg {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .header-menu {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        button:focus-visible {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 48px;
+            box-shadow: var(--card-shadow);
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0.3) 50%, transparent 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 40px;
+            max-width: 70%;
+            color: white;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(24px, 4vw, 48px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .article-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .article-content {
+            background: var(--bg-primary);
+            border-radius: 8px;
+        }
+
+        .article-content h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            opacity: 0;
+            animation: slideInLeft 0.6s ease-out forwards;
+            animation-delay: 0.2s;
+        }
+
+        .article-content p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: slideInLeft 0.6s ease-out forwards;
+        }
+
+        .article-content p:nth-of-type(1) { animation-delay: 0.3s; }
+        .article-content p:nth-of-type(2) { animation-delay: 0.4s; }
+
+        .features-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .features-list li {
+            padding: 10px 0;
+            padding-left: 24px;
+            position: relative;
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .features-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        .specs-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .spec-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            opacity: 0;
+            animation: slideInRight 0.6s ease-out forwards;
+        }
+
+        .spec-card:nth-child(1) { animation-delay: 0.2s; }
+        .spec-card:nth-child(2) { animation-delay: 0.3s; }
+        .spec-card:nth-child(3) { animation-delay: 0.4s; }
+        .spec-card:nth-child(4) { animation-delay: 0.5s; }
+
+        .spec-card:hover {
+            border-color: var(--accent-color);
+            background: var(--bg-tertiary);
+            transition: all 0.3s ease;
+        }
+
+        .spec-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .spec-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .price-section {
+            background: linear-gradient(135deg, var(--accent-light) 0%, rgba(239, 68, 68, 0.05) 100%);
+            border-left: 4px solid var(--accent-color);
+            padding: 16px;
+            border-radius: 6px;
+            margin-top: 16px;
+        }
+
+        html.dark-mode .price-section {
+            background: linear-gradient(135deg, rgba(127, 29, 29, 0.3) 0%, rgba(239, 68, 68, 0.05) 100%);
+        }
+
+        .price-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .price-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .price-range {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .grid-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .grid-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .grid-card-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .grid-card-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 32px 0;
+        }
+
+        .source-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 48px;
+        }
+
+        .source-section p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .source-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 8px 0;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .source-link:hover {
+            border-bottom-color: var(--accent-color);
+        }
+
+        .source-link:focus-visible {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .data-reveal {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 24px 16px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                padding: 24px;
+            }
+
+            .specs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .header-content {
+                padding: 12px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .article-wrapper {
+                gap: 24px;
+            }
+
+            .hero-content h1 {
+                font-size: 28px;
+            }
+        }
+
+        .print-hidden {
+            display: none;
+        }
+
+        @media print {
+            header,
+            .skip-to-content,
+            button {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+                color: #000;
+            }
+
+            main {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">메인 콘텐츠로 이동</a>
+
+    <header>
+        <div class="header-content">
+            <div class="header-brand">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+                </svg>
+                IT Home
+            </div>
+            <div class="header-menu">
+                <button id="theme-toggle" aria-label="다크 모드 전환" title="다크 모드">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button id="download-btn" aria-label="PNG로 다운로드" title="PNG로 다운로드">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </button>
+                <button id="print-btn" aria-label="인쇄" title="인쇄">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                        <rect x="6" y="14" width="12" height="8"></rect>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="hero-section">
+            <img src="https://img.ithome.com/newsuploadfiles/2026/3/412aea74-0d8a-4f1b-b045-84dfeb50d808.jpg?x-bce-process=image/format,f_auto" alt="소니 A6900 카메라" class="hero-image">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>소니 APS-C 플래그십 A6900 카메라 유출</h1>
+                <div class="hero-meta">
+                    <span>2026년 3월 21일 15:41</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="article-wrapper">
+            <article class="article-content">
+                <h2>차세대 플래그십 카메라 사양 공개</h2>
+
+                <p>소니의 차세대 APS-C 플래그십 카메라 A6900의 사양이 유출되었습니다. A6700의 후속 모델로, 소니의 APS-C 라인업을 한 단계 끌어올릴 것으로 기대됩니다.</p>
+
+                <p>이번 공개된 사양에 따르면 A6900은 업계 최고 수준의 센서 기술과 이미징 성능을 갖추고 있으며, 전문가 포토그래퍼와 영상 제작자들을 위한 강력한 도구가 될 것으로 예상됩니다.</p>
+
+                <div class="divider"></div>
+
+                <section class="features-section">
+                    <h3>주요 사양</h3>
+                    <ul class="features-list">
+                        <li>3300만 화소 CoW(웨이퍼 레벨 패키징) 적층형 센서 탑재</li>
+                        <li>다이나믹 레인지 15스톱 이상 지원</li>
+                        <li>BIONZ XR2 프로세서로 빠른 이미지 처리</li>
+                        <li>전자 셔터 최대 30fps 연사 성능</li>
+                        <li>기계식 셔터 15fps 연사 모드</li>
+                        <li>최대 셔터 속도 1/16,000초의 빠른 노출 제어</li>
+                        <li>풀프레임 α1과 동일한 무소음 구동 메커니즘</li>
+                        <li>바디 내 손떨림 보정(IBIS) 약 8.5스톱</li>
+                        <li>7K 오버샘플링 4K 60p 영상 (크롭 없음)</li>
+                        <li>1.3배 크롭 4K 120p 영상 촬영 지원</li>
+                    </ul>
+                </section>
+
+                <section class="features-section">
+                    <h3>디자인 및 기능</h3>
+                    <ul class="features-list">
+                        <li>전작 A6700보다 약간 두꺼운 바디 설계</li>
+                        <li>새로운 커스터마이즈 버튼 2개 (C1, C3) 추가</li>
+                        <li>CFexpress Type A 카드 슬롯 1개 탑재</li>
+                        <li>SD 카드 슬롯은 미지원</li>
+                    </ul>
+                </section>
+
+                <div class="divider"></div>
+
+                <h3>사양 비교 그리드</h3>
+                <div class="specs-grid">
+                    <div class="grid-card" data-reveal>
+                        <div class="grid-card-label">센서</div>
+                        <div class="grid-card-value">3300만 화소<br>CoW 적층형</div>
+                    </div>
+                    <div class="grid-card" data-reveal>
+                        <div class="grid-card-label">프로세서</div>
+                        <div class="grid-card-value">BIONZ XR2</div>
+                    </div>
+                    <div class="grid-card" data-reveal>
+                        <div class="grid-card-label">연사 속도</div>
+                        <div class="grid-card-value">30fps (전자)<br>15fps (기계)</div>
+                    </div>
+                    <div class="grid-card" data-reveal>
+                        <div class="grid-card-label">최대 셔터 속도</div>
+                        <div class="grid-card-value">1/16,000초</div>
+                    </div>
+                    <div class="grid-card" data-reveal>
+                        <div class="grid-card-label">IBIS 보정</div>
+                        <div class="grid-card-value">약 8.5스톱</div>
+                    </div>
+                    <div class="grid-card" data-reveal>
+                        <div class="grid-card-label">영상 성능</div>
+                        <div class="grid-card-value">7K→4K60p<br>4K120p</div>
+                    </div>
+                </div>
+
+                <div class="source-section">
+                    <p>소스</p>
+                    <a href="https://www.ithome.com/0/931/291.htm" class="source-link" target="_blank" rel="noopener noreferrer">
+                        IT Home 기사 보기
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="13 3 23 3 23 13"></polyline>
+                            <line x1="23" y1="3" x2="13" y2="13"></line>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+
+            <aside class="specs-sidebar">
+                <div class="spec-card">
+                    <div class="spec-label">카드 슬롯</div>
+                    <div class="spec-value">CFexpress Type A ×1</div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="price-section">
+                        <div class="price-label">예상 가격</div>
+                        <div class="price-value">$1,700~$2,000</div>
+                        <div class="price-range">약 248만~292만 원</div>
+                    </div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-label">다이나믹 레인지</div>
+                    <div class="spec-value">15스톱 이상</div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-label">출시 예정</div>
+                    <div class="spec-value">2026년 말~2027년 초</div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        // Theme toggle
+        var themeToggle = document.getElementById('theme-toggle');
+        var htmlElement = document.documentElement;
+        var isDarkMode = localStorage.getItem('theme') === 'dark';
+
+        if (isDarkMode) {
+            htmlElement.classList.add('dark-mode');
+            updateThemeIcon();
+        }
+
+        themeToggle.addEventListener('click', function() {
+            htmlElement.classList.toggle('dark-mode');
+            var newMode = htmlElement.classList.contains('dark-mode');
+            localStorage.setItem('theme', newMode ? 'dark' : 'light');
+            updateThemeIcon();
+        });
+
+        function updateThemeIcon() {
+            var isDark = htmlElement.classList.contains('dark-mode');
+            themeToggle.innerHTML = isDark ?
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path></svg>' :
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+        }
+
+        // Download as PNG
+        var downloadBtn = document.getElementById('download-btn');
+        downloadBtn.addEventListener('click', function() {
+            downloadBtn.disabled = true;
+            downloadBtn.style.opacity = '0.5';
+
+            html2canvas(document.body, {
+                backgroundColor: window.getComputedStyle(document.body).backgroundColor,
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(function(canvas) {
+                var link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = '2026-03-22-sony-a6900.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                downloadBtn.disabled = false;
+                downloadBtn.style.opacity = '1';
+            });
+        });
+
+        // Print
+        var printBtn = document.getElementById('print-btn');
+        printBtn.addEventListener('click', function() {
+            window.print();
+        });
+
+        // Intersection Observer for scroll animations
+        var revealElements = document.querySelectorAll('[data-reveal]');
+        var revealObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        revealElements.forEach(function(el) {
+            el.style.opacity = '0';
+            revealObserver.observe(el);
+        });
+    </script>
+</body>
+</html>

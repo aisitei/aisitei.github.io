@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ko" class="theme-dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>빌트록스 Vintage Z2 Mini 접이식 플래시 출시</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { interpolate-size: allow-keywords; }
+
+    html.theme-dark {
+      --bg: #0A0A0A; --surface: #141414; --surface-hover: #1C1C1C;
+      --border: rgba(255,255,255,0.04);
+      --text: #EDEDED; --text-secondary: #888;
+      --accent: #e8a838; --accent-secondary: #8b5cf6;
+      --positive: #10b981; --negative: #f43f5e; --warning: #f59e0b;
+    }
+    html.theme-light {
+      --bg: #FAFAF9; --surface: #FFFFFF; --surface-hover: #F5F5F4;
+      --border: #e5e5e5;
+      --text: #1a1a1a; --text-secondary: #666;
+      --accent: #c8891e; --accent-secondary: #7c3aed;
+      --positive: #059669; --negative: #e11d48; --warning: #d97706;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg); color: var(--text);
+      line-height: 1.7; -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.01em;
+      transition: background 0.3s, color 0.3s;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -1;
+      background: radial-gradient(ellipse 80% 50% at 50% 20%,
+        color-mix(in srgb, var(--accent), transparent 92%), transparent);
+    }
+    h1,h2,h3,h4 { color: var(--text); letter-spacing: -0.03em; line-height: 1.15; text-wrap: balance; }
+    h1 { font-weight: 700; }
+    h2 { font-weight: 600; }
+    p,li,td,th,span,label { color: var(--text); font-weight: 400; }
+    .text-secondary { color: var(--text-secondary); }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+
+    /* Hero */
+    .hero {
+      position: relative; min-height: 70vh; display: flex; align-items: center;
+      justify-content: center; text-align: center; overflow: hidden;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--accent), var(--bg) 85%), var(--bg));
+    }
+    .hero-content { position: relative; z-index: 2; padding: 60px 20px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: color-mix(in srgb, var(--accent), transparent 85%);
+      border: 1px solid color-mix(in srgb, var(--accent), transparent 70%);
+      border-radius: 20px; padding: 6px 16px; font-size: 12px;
+      font-weight: 600; color: var(--accent); text-transform: uppercase;
+      letter-spacing: 0.05em; margin-bottom: 24px;
+    }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 16px; }
+    .hero .subtitle { font-size: clamp(1rem, 2.5vw, 1.25rem); color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+    /* Card */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px; margin-bottom: 24px;
+      transition: box-shadow 0.2s ease;
+    }
+    .card:hover { box-shadow: 0 0 0 1px var(--border), 0 8px 16px rgba(0,0,0,0.08); }
+
+    /* Article image */
+    .article-img {
+      width: 100%; border-radius: 12px; display: block;
+      border: 1px solid var(--border);
+    }
+    .img-wrapper { margin-bottom: 24px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+    .img-wrapper img { width: 100%; display: block; }
+
+    /* Image translation overlay */
+    .img-translation {
+      background: color-mix(in srgb, var(--accent), transparent 88%);
+      border-top: 1px solid color-mix(in srgb, var(--accent), transparent 70%);
+      padding: 14px 16px;
+    }
+    .img-translation-header {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;
+    }
+    .img-translation-row {
+      display: flex; gap: 12px; padding: 6px 0; font-size: 13px; line-height: 1.5;
+    }
+    .img-translation-row + .img-translation-row {
+      border-top: 1px solid color-mix(in srgb, var(--accent), transparent 85%);
+      padding-top: 8px; margin-top: 4px;
+    }
+    .img-translation-cn { color: var(--text-secondary); flex: 1; font-style: italic; }
+    .img-translation-arrow { color: var(--accent); flex-shrink: 0; font-weight: 600; }
+    .img-translation-kr { color: var(--text); flex: 1; font-weight: 500; }
+
+    /* Spec grid */
+    .spec-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px; margin: 24px 0;
+    }
+    .spec-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px; text-align: center;
+      transition: box-shadow 0.2s ease;
+    }
+    .spec-item:hover { box-shadow: 0 0 0 1px var(--border), 0 8px 16px rgba(0,0,0,0.08); }
+    .spec-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; font-weight: 500; }
+    .spec-value { font-size: 20px; font-weight: 700; color: var(--accent); }
+
+    /* Feature list */
+    .feature-list { list-style: none; padding: 0; }
+    .feature-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .feature-list li:last-child { border-bottom: none; }
+    .feature-icon {
+      width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+      background: color-mix(in srgb, var(--accent), transparent 85%);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+    }
+
+    /* Price badge */
+    .price-section { text-align: center; padding: 32px 0; }
+    .price-main { font-size: 36px; font-weight: 800; color: var(--accent); }
+    .price-original { font-size: 18px; color: var(--text-secondary); text-decoration: line-through; margin-top: 4px; }
+
+    /* Source link */
+    .source-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--accent); text-decoration: none; font-size: 14px;
+      padding: 10px 20px; border: 1px solid color-mix(in srgb, var(--accent), transparent 70%);
+      border-radius: 8px; transition: background 0.2s;
+    }
+    .source-link:hover { background: color-mix(in srgb, var(--accent), transparent 90%); }
+
+    /* Section */
+    section { padding: 48px 0; }
+    section h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 24px; }
+
+    /* Animations */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .animate { animation: fadeInUp 0.6s ease-out both; }
+    .animate.delay-1 { animation-delay: 0.1s; }
+    .animate.delay-2 { animation-delay: 0.2s; }
+    .animate.delay-3 { animation-delay: 0.3s; }
+    .animate.delay-4 { animation-delay: 0.4s; }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* Focus */
+    *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    /* Print */
+    @media print {
+      body { background: white !important; color: black !important; }
+      .viz-menu { display: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .card { break-inside: avoid; border: 1px solid #ddd; box-shadow: none; }
+      * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+
+    /* Menu */
+    .viz-menu { position: fixed; top: 16px; right: 16px; z-index: 9999; }
+    .viz-menu-toggle {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      backdrop-filter: blur(12px); transition: all 0.2s;
+    }
+    .viz-menu-toggle:hover { background: var(--surface-hover); }
+    .viz-menu-dropdown {
+      position: absolute; top: 52px; right: 0; min-width: 200px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 8px;
+      opacity: 0; visibility: hidden; transform: translateY(-8px);
+      transition: all 0.2s; backdrop-filter: blur(16px);
+    }
+    .viz-menu-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0); }
+    .viz-menu-dropdown button {
+      width: 100%; padding: 10px 14px; border: none; border-radius: 8px;
+      background: transparent; color: var(--text); font-size: 14px;
+      font-family: inherit; cursor: pointer; text-align: left;
+      display: flex; align-items: center; gap: 10px; transition: background 0.15s;
+    }
+    .viz-menu-dropdown button:hover { background: var(--surface-hover); }
+
+    /* Footer */
+    .article-footer {
+      text-align: center; padding: 48px 20px; border-top: 1px solid var(--border);
+      margin-top: 48px;
+    }
+    .article-meta { font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; }
+
+    @media (max-width: 768px) {
+      .spec-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .hero { min-height: 50vh; }
+      .container { padding: 0 16px; }
+      section { padding: 32px 0; }
+    }
+    @media (max-width: 375px) {
+      .spec-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:8px 16px;background:var(--accent);color:white;text-decoration:none;border-radius:4px;" onfocus="this.style.cssText='position:fixed;left:16px;top:16px;z-index:10000;padding:8px 16px;background:var(--accent);color:white;text-decoration:none;border-radius:4px;'" onblur="this.style.cssText='position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;'">본문으로 건너뛰기</a>
+
+  <!-- Menu -->
+  <div class="viz-menu">
+    <button class="viz-menu-toggle" onclick="toggleMenu()" aria-label="메뉴">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="5" x2="17" y2="5"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="15" x2="17" y2="15"/>
+      </svg>
+    </button>
+    <div class="viz-menu-dropdown" id="vizMenuDropdown">
+      <button onclick="cycleTheme()"><span id="themeIcon">&#127769;</span><span id="themeLabel">다크</span></button>
+      <button onclick="downloadImage()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>PNG 다운로드</span></button>
+      <button onclick="window.print()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg><span>인쇄</span></button>
+    </div>
+  </div>
+
+  <main id="main-content" role="main">
+    <!-- Hero -->
+    <header class="hero" role="banner">
+      <div class="hero-content">
+        <div class="hero-badge animate">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          신제품 출시
+        </div>
+        <h1 class="animate delay-1">빌트록스 Vintage Z2 Mini<br>접이식 플래시</h1>
+        <p class="subtitle animate delay-2">TTL 지원, 가격 대비 성능 최강의 미니 플래시 — 첫 출시가 148위안</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- Main Image -->
+      <section data-reveal>
+        <div class="img-wrapper">
+          <img src="https://img.ithome.com/newsuploadfiles/2026/3/3df0b8ee-27f8-4f9c-8a1e-6118ff2e9406.jpg" alt="빌트록스 Vintage Z2 Mini 접이식 플래시 제품 이미지" class="article-img" loading="lazy">
+          <div class="img-translation">
+            <div class="img-translation-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              이미지 내 텍스트 번역
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">Mini折叠 展开闪耀</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">미니 접이식, 펼치면 빛나다</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">首发价 ¥148</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">첫 출시가 ¥148</span>
+            </div>
+            <div class="img-translation-row">
+              <span class="img-translation-cn">日常价 ¥168</span>
+              <span class="img-translation-arrow">→</span>
+              <span class="img-translation-kr">정상가 ¥168</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Article body -->
+      <section data-reveal>
+        <article class="card">
+          <h2>클래식 레트로 디자인의 미니 플래시</h2>
+          <p style="margin-top:16px;">빌트록스(Viltrox)가 Vintage Z2 Mini 접이식 플래시를 공식 출시했습니다. 이 제품은 이어폰 케이스만한 크기에 무게는 단 52g으로, 클래식한 레트로 디자인을 채택했습니다. 접이식 구조로 펼치면 자연스럽게 플래시 헤드가 위로 올라가는 구조입니다.</p>
+          <p style="margin-top:12px;">TTL과 M 모드를 모두 지원하며, 5단계 밝기 조절이 가능합니다. 전력 출력 시 회전 충전 시간은 단 2초이며, 420mAh 내장 배터리로 풀 파워 기준 700회 이상 발광이 가능합니다. 15분 미사용 시 자동 절전 모드로 전환됩니다.</p>
+          <p style="margin-top:12px;">소니, 후지필름, 캐논, 니콘 등 핫슈가 장착된 카메라와 호환되며, Type-C 충전을 지원합니다. 부드러운 빛을 위한 소프트박스도 기본 포함되어 있습니다.</p>
+        </article>
+      </section>
+
+      <!-- Product photos -->
+      <section data-reveal>
+        <div class="img-wrapper" style="margin-bottom:16px;">
+          <img src="https://img.ithome.com/newsuploadfiles/2026/3/18063f3b-16ce-4f17-8df8-f0493910dfc6.jpg" alt="빌트록스 Vintage Z2 Mini 손에 들고 있는 모습" class="article-img" loading="lazy">
+        </div>
+        <div class="img-wrapper">
+          <img src="https://img.ithome.com/newsuploadfiles/2026/3/39f1506a-ff31-47bd-ad7e-d2ccd82942db.jpg" alt="빌트록스 Vintage Z2 Mini 휴대 모습" class="article-img" loading="lazy">
+        </div>
+      </section>
+
+      <!-- Specs -->
+      <section data-reveal>
+        <h2>제품 사양</h2>
+        <div class="spec-grid" role="img" aria-label="제품 사양: 출력 10Ws, 가이드넘버 GN6, 색온도 6500K, 무게 52g, 배터리 420mAh, 발광 횟수 700회 이상">
+          <div class="spec-item">
+            <div class="spec-label">출력</div>
+            <div class="spec-value">10Ws</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">가이드넘버</div>
+            <div class="spec-value">GN6</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">색온도</div>
+            <div class="spec-value">6500K</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">무게</div>
+            <div class="spec-value">52g</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">내장 배터리</div>
+            <div class="spec-value">420mAh</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">발광 횟수</div>
+            <div class="spec-value">700+</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section data-reveal>
+        <h2>주요 기능</h2>
+        <div class="card">
+          <ul class="feature-list">
+            <li>
+              <div class="feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+              <div><strong>TTL / M 모드 지원</strong><br><span class="text-secondary">자동 TTL 측광과 수동 모드 선택 가능</span></div>
+            </li>
+            <li>
+              <div class="feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div>
+              <div><strong>5단계 밝기 조절</strong><br><span class="text-secondary">상황에 맞게 플래시 광량을 세밀하게 조절</span></div>
+            </li>
+            <li>
+              <div class="feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="10" x2="6" y2="14"/></svg></div>
+              <div><strong>Type-C 충전</strong><br><span class="text-secondary">420mAh 내장 배터리, 풀 파워 기준 700회 이상 발광</span></div>
+            </li>
+            <li>
+              <div class="feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 12a11.05 11.05 0 00-22 0zm-5 7a3 3 0 01-6 0v-7"/></svg></div>
+              <div><strong>다양한 카메라 호환</strong><br><span class="text-secondary">소니, 후지필름, 캐논, 니콘 등 핫슈 장착 카메라 지원</span></div>
+            </li>
+            <li>
+              <div class="feature-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+              <div><strong>빠른 재충전</strong><br><span class="text-secondary">풀 파워 회전 충전 시간 단 2초</span></div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Price -->
+      <section data-reveal>
+        <div class="card" style="text-align:center;">
+          <div class="price-section">
+            <div class="spec-label" style="margin-bottom:8px;">징둥(JD.com) 판매가</div>
+            <div class="price-main">¥148</div>
+            <div class="price-original">정상가 ¥168</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="article-footer">
+        <div class="article-meta">2026년 3월 20일 23:09 · 출처: IT之家 · 작성자: 潞源(인턴)</div>
+        <a href="https://www.ithome.com/0/931/177.htm" target="_blank" rel="noopener noreferrer" class="source-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기 (IT之家)
+        </a>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    function toggleMenu() {
+      var d = document.getElementById('vizMenuDropdown');
+      if (d) d.classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.viz-menu')) {
+        var d = document.getElementById('vizMenuDropdown');
+        if (d) d.classList.remove('open');
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        var d = document.getElementById('vizMenuDropdown');
+        if (d) d.classList.remove('open');
+      }
+    });
+
+    var savedTheme = localStorage.getItem('viz-theme');
+    var currentTheme = savedTheme || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    function applyTheme(t) {
+      document.documentElement.className = 'theme-' + t;
+      document.getElementById('themeIcon').textContent = t === 'dark' ? '\u{1F319}' : '\u{2600}\u{FE0F}';
+      document.getElementById('themeLabel').textContent = t === 'dark' ? '다크' : '라이트';
+      localStorage.setItem('viz-theme', t);
+      currentTheme = t;
+    }
+    function cycleTheme() { applyTheme(currentTheme === 'dark' ? 'light' : 'dark'); }
+    applyTheme(currentTheme);
+
+    document.querySelectorAll('[data-reveal]').forEach(function(el) { el.classList.add('reveal'); });
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(function(el) { revealObserver.observe(el); });
+    setTimeout(function() { document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); }); }, 500);
+
+    async function downloadImage() {
+      var menu = document.querySelector('.viz-menu');
+      menu.style.display = 'none';
+      try {
+        var url = await htmlToImage.toPng(document.body, { quality: 1, pixelRatio: 2, filter: function(n) { return !n.classList || !n.classList.contains('viz-menu'); } });
+        var a = document.createElement('a'); a.href = url;
+        a.download = document.title.replace(/\s+/g, '-').toLowerCase() + '.png'; a.click();
+      } catch(e) { console.error('Download failed:', e); }
+      menu.style.display = '';
+    }
+  </script>
+</body>
+</html>
