@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테슬라 전 AI 총괄 Andrej Karpathy: "GPT-2 몇 달간 튜닝했지만, AI 에이전트가 하룻밤 만에 핵심을 찾아냈다"</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #ffffff;
+            --color-text: #1f2937;
+            --color-text-secondary: #6b7280;
+            --color-border: #e5e7eb;
+            --color-accent: #6366f1;
+            --color-accent-light: #eef2ff;
+            --color-card-bg: #f9fafb;
+            --color-spec-bg: #1e293b;
+            --color-spec-text: #f1f5f9;
+            --color-spec-secondary: #94a3b8;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-bg: #0f172a;
+                --color-text: #f1f5f9;
+                --color-text-secondary: #cbd5e1;
+                --color-border: #334155;
+                --color-accent: #6366f1;
+                --color-accent-light: #312e81;
+                --color-card-bg: #1e293b;
+                --color-spec-bg: #1e293b;
+                --color-spec-text: #f1f5f9;
+                --color-spec-secondary: #94a3b8;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header & Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--color-border);
+            background-color: var(--color-bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: border-color 0.3s ease;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--color-accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: '🤖';
+            font-size: 1.5rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--color-border);
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--color-text);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--color-accent-light);
+            border-color: var(--color-accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(30, 41, 59, 0.7) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            max-width: 900px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-title {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        main {
+            margin-bottom: 4rem;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            color: var(--color-text);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        /* Spec Grid (Dark Block) */
+        .spec-grid {
+            background-color: var(--color-spec-bg);
+            color: var(--color-spec-text);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin: 2.5rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        .spec-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .spec-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-spec-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .spec-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-spec-text);
+        }
+
+        /* Blockquote */
+        .blockquote-section {
+            margin: 2.5rem 0;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--color-accent);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--color-text);
+            background-color: var(--color-accent-light);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            line-height: 1.8;
+        }
+
+        .quote-attribution {
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        /* Feature Cards */
+        .insights-section {
+            margin: 3rem 0;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        .insights-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--color-text);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-accent);
+            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.15);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--color-text);
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Content Sections */
+        section {
+            margin: 2.5rem 0;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-text);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--color-text);
+            line-height: 1.8;
+        }
+
+        strong {
+            color: var(--color-text);
+            font-weight: 600;
+        }
+
+        em {
+            color: var(--color-accent);
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-card-bg);
+            border-top: 1px solid var(--color-border);
+            padding: 2rem;
+            margin-top: 4rem;
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .footer-meta-label {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .footer-link {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+            word-break: break-all;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+        }
+
+        .footer-disclaimer {
+            border-top: 1px solid var(--color-border);
+            padding-top: 1rem;
+            font-size: 0.85rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                height: 350px;
+                margin-bottom: 2rem;
+            }
+
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .hero-meta {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .spec-grid {
+                padding: 1.5rem;
+                gap: 1.5rem;
+            }
+
+            blockquote {
+                font-size: 0.95rem;
+                padding: 1.25rem;
+                padding-left: 1.25rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-meta {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            header, .theme-toggle {
+                display: none;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">IT之家 AI</a>
+        <button class="theme-toggle" id="themeToggle">🌙 테마 전환</button>
+    </header>
+
+    <section class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/3/5e8c1192-1728-4919-b368-71baaa2f6060.png?x-bce-process=image/format,f_auto" alt="Andrej Karpathy와 GPT-2 튜닝" class="hero-image">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">테슬라 전 AI 총괄 Andrej Karpathy: "GPT-2 몇 달간 튜닝했지만, AI 에이전트가 하룻밤 만에 핵심을 찾아냈다"</h1>
+            <div class="hero-meta">
+                <span>📅 2026년 3월 23일</span>
+                <span>🏷️ AI</span>
+                <span>📰 IT之家</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <main>
+            <article>
+                <section class="blockquote-section">
+                    <p class="article-intro">
+                        Tesla의 전 AI 및 Autopilot 총괄인 <strong>Andrej Karpathy</strong>는 GPT-2 설정을 수동으로 조정하는 데 몇 달을 소비했지만 성공하지 못했습니다.
+                        그 후 자율형 AI 에이전트를 배포했고, 이 에이전트는 단 하나의 저녁 동안 그가 놓쳤던 파인튜닝 매개변수들을 발견했습니다.
+                        여기에는 인간이 쉽게 놓치지만 자동화된 시스템이 쉽게 인식하는 매개변수 간의 미묘한 상호작용이 포함되어 있습니다.
+                    </p>
+                </section>
+
+                <section class="spec-grid">
+                    <div class="spec-item">
+                        <span class="spec-label">핵심 인물</span>
+                        <span class="spec-value">Andrej Karpathy</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">소속 기업</span>
+                        <span class="spec-value">Tesla (전직)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">기술 주제</span>
+                        <span class="spec-value">GPT-2 파인튜닝</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">방법론</span>
+                        <span class="spec-value">자율형 AI 에이전트</span>
+                    </div>
+                </section>
+
+                <section class="blockquote-section">
+                    <h2>Karpathy의 핵심 주장</h2>
+                    <blockquote>
+                        "연구자들은 적어도 객관적 지표가 있는 영역에서는 자신을 프로세스에서 제거해야 합니다."
+                        <div class="quote-attribution">— Andrej Karpathy</div>
+                    </blockquote>
+                    <blockquote>
+                        "오늘날의 도구를 완벽하게 활용하려면, 당신 자신을 병목 지점으로서 제거해야 합니다."
+                        <div class="quote-attribution">— Andrej Karpathy</div>
+                    </blockquote>
+                </section>
+
+                <section class="insights-section">
+                    <h2 class="insights-title">핵심 통찰력</h2>
+                    <div class="cards-grid">
+                        <div class="card">
+                            <div class="card-icon">🧠</div>
+                            <h3 class="card-title">인간의 직관의 한계</h3>
+                            <p class="card-text">
+                                Karpathy는 주요 연구소의 AI 연구자들이 자신의 직관에 과도한 신뢰를 가지고 있다고 관찰했습니다.
+                                이는 역설적으로 자동화를 통해 자신의 작업을 자동화하고 있는 상황입니다.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon">⚡</div>
+                            <h3 class="card-title">자동화된 발견의 우월성</h3>
+                            <p class="card-text">
+                                자율형 에이전트가 하룻밤 만에 달성한 것이 인간 연구자들이 몇 달간 못한 것입니다.
+                                이는 매개변수 간의 복잡한 상호작용을 자동화 시스템이 더 효율적으로 식별한다는 것을 보여줍니다.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon">📊</div>
+                            <h3 class="card-title">객관적 지표의 중요성</h3>
+                            <p class="card-text">
+                                이 접근법이 효과적인 이유는 파인튜닝 결과가 객관적으로 측정 가능하기 때문입니다.
+                                명확한 성공 기준이 있을 때 자동화가 가장 효과적입니다.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>광범위한 시사점</h2>
+                    <p>
+                        Karpathy는 프로그래밍과 같이 쉽게 검증할 수 있는 작업에서의 진전이 더 정량화하기 어려운 영역으로 반드시 전이되는 것은 아니라고 지적합니다.
+                        이는 AI 시스템의 적용 범위에 대한 중요한 한계를 시사합니다.
+                    </p>
+                    <h3>객관적 지표가 있는 영역에서의 성공</h3>
+                    <p>
+                        객관적인 성공 기준이 명확하게 정의될 수 있는 영역에서는, 자율형 AI 에이전트가 인간 연구자보다 훨씬 효율적으로 최적값을 발견할 수 있습니다.
+                        이는 머신러닝의 하이퍼파라미터 최적화, 프로그래밍 과제, 게임 플레이 등과 같은 분야에 적용됩니다.
+                    </p>
+                    <h3>정량화 어려운 영역에서의 한계</h3>
+                    <p>
+                        반면, 창의성, 직관, 정성적 평가가 필요한 영역에서는 자동화된 접근법의 효과가 제한적일 수 있습니다.
+                        Karpathy의 관찰은 AI 시스템을 적용할 때 어떤 작업이 자동화에 적합한지 신중하게 고려해야 함을 강조합니다.
+                    </p>
+                </section>
+
+                <section class="blockquote-section">
+                    <h2>결론: 인간과 AI의 역할 재정의</h2>
+                    <p>
+                        Karpathy의 이 사례는 현대의 AI 연구와 개발에서 중요한 패러다임 전환을 제안합니다.
+                        연구자들이 자신을 "병목 지점"으로 보지 말고, 대신 <em>명확한 목표와 객관적 지표가 있는 작업을 자동화 시스템에 위임</em>하는 것을 고려해야 한다는 것입니다.
+                        이렇게 하면 인간은 더 고수준의 창의적 작업과 전략적 결정에 집중할 수 있게 됩니다.
+                    </p>
+                </section>
+            </article>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-meta">
+                    <div class="footer-meta-item">
+                        <span class="footer-meta-label">원문 출처</span>
+                        <a href="https://www.ithome.com/0/931/538.htm" class="footer-link" target="_blank" rel="noopener noreferrer">
+                            https://www.ithome.com/0/931/538.htm
+                        </a>
+                    </div>
+                    <div class="footer-meta-item">
+                        <span class="footer-meta-label">발행일</span>
+                        <span>2026년 3월 23일</span>
+                    </div>
+                    <div class="footer-meta-item">
+                        <span class="footer-meta-label">카테고리</span>
+                        <span>🤖 AI</span>
+                    </div>
+                </div>
+                <div class="footer-disclaimer">
+                    <strong>면책 조항:</strong> 이 문서는 IT之家의 원문 기사를 한국어로 번역한 것입니다.
+                    번역 과정에서 의미가 변할 수 있으니, 정확한 정보는 원문을 참고하시기 바랍니다.
+                    저작권은 원저작권자에게 있습니다.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+
+        function updateThemeButton() {
+            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            themeToggle.textContent = isDark ? '☀️ 테마 전환' : '🌙 테마 전환';
+        }
+
+        updateThemeButton();
+
+        themeToggle.addEventListener('click', () => {
+            const html = document.documentElement;
+            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (isDark) {
+                html.style.colorScheme = 'light';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.style.colorScheme = 'dark';
+                localStorage.setItem('theme', 'dark');
+            }
+
+            setTimeout(updateThemeButton, 100);
+        });
+
+        // Restore saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.style.colorScheme = savedTheme;
+        }
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDC 보고서: 2025년 글로벌 핸드헬드 스마트 카메라 출하량 83% 급증</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0066CC;
+            --secondary: #667eea;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --accent: #0066CC;
+            --background: #ffffff;
+            --surface: #f9fafb;
+            --border: #e5e7eb;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #f1f5f9;
+                --text-secondary: #cbd5e1;
+                --background: #0f172a;
+                --surface: #1e293b;
+                --border: #334155;
+                --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+                --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header with Theme Toggle */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--accent);
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            background-color: var(--background);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--surface);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .hero-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.85) 0%, rgba(102, 126, 234, 0.85) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 3rem 2rem;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        p {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background-color: rgba(0, 102, 204, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+        }
+
+        /* Spec Grid - ALWAYS dark theme */
+        .spec-grid {
+            background-color: #1e293b;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .spec-item {
+            text-align: center;
+            animation: scaleIn 0.6s ease 0.2s both;
+        }
+
+        .spec-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-label {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Feature Cards */
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease both;
+        }
+
+        .feature-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Market Share Chart */
+        .market-chart {
+            background-color: var(--surface);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        .chart-title {
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .chart-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .chart-label-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .chart-label-value {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .chart-bar {
+            height: 28px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 0.25rem;
+            position: relative;
+            overflow: hidden;
+            animation: scaleIn 0.6s ease 0.3s both;
+        }
+
+        .chart-bar-dji {
+            width: 62.4%;
+        }
+
+        .chart-bar-insta360 {
+            width: 20.4%;
+        }
+
+        .chart-bar-gopro {
+            width: 10.8%;
+        }
+
+        .chart-bar-others {
+            width: 6.4%;
+        }
+
+        /* Manufacturer Stats */
+        .manufacturer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .manufacturer-card {
+            background-color: var(--surface);
+            border: 2px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease both;
+        }
+
+        .manufacturer-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .manufacturer-rank {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .manufacturer-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .manufacturer-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .manufacturer-stat:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .stat-growth {
+            color: #10b981;
+            font-weight: 700;
+        }
+
+        .stat-decline {
+            color: #ef4444;
+            font-weight: 700;
+        }
+
+        /* Table Styling */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .data-table th {
+            background-color: var(--accent);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .data-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover {
+            background-color: rgba(0, 102, 204, 0.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer-link {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-disclaimer {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: var(--background);
+            border-left: 3px solid var(--accent);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-radius: 0.375rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-content {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .hero {
+                height: 300px;
+            }
+
+            .hero-overlay {
+                padding: 1.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero-meta {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            main {
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .spec-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+
+            .feature-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .manufacturer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">IT之家</div>
+            <span class="category-badge">📷 카메라</span>
+        </div>
+        <button class="theme-toggle" id="themeToggle">
+            <span id="themeIcon">🌙</span>
+            <span id="themeLabel">다크 모드</span>
+        </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/3/38ead711-ff5f-4f87-9884-9355eafaffce.png?x-bce-process=image/format,f_auto" alt="Action Camera Market" class="hero-image">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>IDC 보고서: 2025년 글로벌 핸드헬드 스마트 카메라 출하량 83% 급증</h1>
+                <div class="hero-meta">
+                    <div class="hero-meta-item">📅 2026년 3월 23일</div>
+                    <div class="hero-meta-item">📊 시장 보고서</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Executive Summary -->
+        <section>
+            <h2>시장 개요</h2>
+            <p>
+                국제데이터공사(IDC)의 최신 보고서에 따르면, 2025년 글로벌 핸드헬드 스마트 카메라 시장은
+                <span class="highlight">1,665만 대</span>의 출하량을 기록했으며, 이는 전년대비
+                <span class="highlight">83% 증가</span>한 수치입니다. 시장 규모 측면에서는 약
+                <span class="highlight">4,610억 위안(약 78조 원)</span>에 달하며, 전년대비
+                <span class="highlight">86% 성장</span>했습니다.
+            </p>
+        </section>
+
+        <!-- Key Market Metrics -->
+        <section>
+            <h3>주요 시장 지표</h3>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <div class="spec-value">1,665만</div>
+                    <div class="spec-label">2025년 출하량</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-value">83%</div>
+                    <div class="spec-label">전년대비 성장률</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-value">4,610억</div>
+                    <div class="spec-label">시장규모(위안)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-value">86%</div>
+                    <div class="spec-label">매출 성장률</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-value">4,000만+</div>
+                    <div class="spec-label">2030년 전망</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-value">약 20%</div>
+                    <div class="spec-label">5년 CAGR</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Coverage -->
+        <section>
+            <h2>시장 구성</h2>
+            <p>
+                글로벌 핸드헬드 스마트 카메라 시장은 주로 세 가지 주요 카테고리로 구성되어 있습니다:
+            </p>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="feature-icon">🏄</div>
+                    <div class="feature-title">액션 카메라</div>
+                    <div class="feature-description">
+                        2025년 출하량 800만 대 이상, 61% 성장률로 시장을 주도하는 세그먼트입니다.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <div class="feature-title">파노라마 카메라</div>
+                    <div class="feature-description">
+                        250만 대 이상의 출하량과 50% 이상의 성장률로 빠르게 성장 중입니다.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎥</div>
+                    <div class="feature-title">짐벌 카메라</div>
+                    <div class="feature-description">
+                        100% 이상의 성장률을 기록하며, DJI가 시장을 압도적으로 지배합니다.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Future Projection -->
+        <section>
+            <h2>시장 전망</h2>
+            <p>
+                IDC는 2030년까지 글로벌 핸드헬드 스마트 카메라 시장이 연간
+                <span class="highlight">4,000만 대 이상</span>으로 성장할 것으로 예측하고 있습니다.
+                향후 5년간 연평균 성장률(CAGR)은 약 <span class="highlight">20%</span>에 달할 것으로 예상됩니다.
+            </p>
+        </section>
+
+        <!-- Market Share Chart -->
+        <section>
+            <h2>시장점유율 분석</h2>
+            <div class="market-chart">
+                <div class="chart-title">상위 3개 제조사 시장점유율 (2025년)</div>
+
+                <div class="chart-item">
+                    <div class="chart-label">
+                        <span class="chart-label-name">DJI</span>
+                        <span class="chart-label-value">62.4%</span>
+                    </div>
+                    <div class="chart-bar chart-bar-dji"></div>
+                </div>
+
+                <div class="chart-item">
+                    <div class="chart-label">
+                        <span class="chart-label-name">Insta360</span>
+                        <span class="chart-label-value">20.4%</span>
+                    </div>
+                    <div class="chart-bar chart-bar-insta360"></div>
+                </div>
+
+                <div class="chart-item">
+                    <div class="chart-label">
+                        <span class="chart-label-name">GoPro</span>
+                        <span class="chart-label-value">10.8%</span>
+                    </div>
+                    <div class="chart-bar chart-bar-gopro"></div>
+                </div>
+
+                <div class="chart-item">
+                    <div class="chart-label">
+                        <span class="chart-label-name">기타</span>
+                        <span class="chart-label-value">6.4%</span>
+                    </div>
+                    <div class="chart-bar chart-bar-others"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top 3 Manufacturers -->
+        <section>
+            <h2>상위 3개 제조사 상세 분석</h2>
+            <div class="manufacturer-grid">
+                <div class="manufacturer-card">
+                    <div class="manufacturer-rank">1위</div>
+                    <div class="manufacturer-name">DJI</div>
+                    <div class="manufacturer-stat">
+                        <span class="stat-label">출하량</span>
+                        <span class="stat-value">1,040만 대</span>
+                    </div>
+                    <div class="manufacturer-stat">
+                        <span class="stat-label">시장점유율</span>
+                        <span class="stat-value">62.4%</span>
+                    </div>
+                    <div class="manufacturer-stat">
+                        <span class="stat-label">전년대비 성장</span>
+                        <span class="stat-value stat-growth">+161.2%</span>
+                    </div>
+                </div>
+
+                <div class="manufacturer-card">
+                    <div class="manufacturer-rank">2위</div>
+                    <div class="manufacturer-name">Insta360</div>
+                    <div class="manufacturer-stat">
+                        <span class="stat-label">출하량</span>
+                        <span class="stat-value">340만 대</span>
+                    </div>
+                    <div class="manufacturer-stat">
+                        <span class="stat-label">시장점유율</span>
+                        <span class="stat-value">20.4%</span>
+                    </div>
+                    <div class="manufacturer-stat">
+                        <span class="stat-label">전년대비 성장</span>
+                        <span class="stat-value stat-growth">+87.2%</span>
+                    </div>
+                </div>
+
+                <div class="manufacturer-card">
+                    <div class="manufacturer-rank">3위</div>
+                    <div class="manufacturer-name">GoPro</div>
+                    <div class="manufacturer-stat">
+                        <span class="stat-label">출하량</span>
+                        <span class="stat-value">180만 대</span>
+                    </div>
+                    <div class="manufacturer-stat">
+                        <span class="stat-label">시장점유율</span>
+                        <span class="stat-value">10.8%</span>
+                    </div>
+                    <div class="manufacturer-stat">
+                        <span class="stat-label">전년대비 성장</span>
+                        <span class="stat-value stat-decline">-25.9%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Breakdown -->
+        <section>
+            <h2>카테고리별 시장 동향</h2>
+
+            <h3>액션 카메라</h3>
+            <p>
+                액션 카메라 부분은 800만 대 이상의 출하량을 기록했으며,
+                <span class="highlight">61%의 성장률</span>을 보여주었습니다.
+                극한 스포츠 및 야외 활동의 인기 증가가 이 세그먼트의 성장을 견인했습니다.
+            </p>
+
+            <h3>짐벌 카메라</h3>
+            <p>
+                짐벌 카메라 시장은 <span class="highlight">100% 이상의 성장률</span>을 기록하며 가장 빠르게 성장하는 세그먼트입니다.
+                DJI가 이 카테고리에서 압도적인 우위를 점하고 있으며, 안정적인 동영상 촬영에 대한 수요 증가가 주요 성장 동력입니다.
+            </p>
+
+            <h3>파노라마 카메라</h3>
+            <p>
+                파노라마 카메라 시장은 250만 대 이상의 출하량과
+                <span class="highlight">50% 이상의 성장률</span>을 기록했습니다.
+                가상현실(VR) 콘텐츠에 대한 관심 증가로 이 부문이 빠른 속도로 성장하고 있습니다.
+            </p>
+        </section>
+
+        <!-- Key Insights -->
+        <section>
+            <h2>핵심 인사이트</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <div class="feature-title">DJI의 시장 지배력</div>
+                    <div class="feature-description">
+                        DJI는 전체 시장의 62.4%를 점유하며 161.2%의 놀라운 성장률을 기록했습니다.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <div class="feature-title">강한 시장 성장</div>
+                    <div class="feature-description">
+                        2030년까지 연간 5년 CAGR 20% 성장으로 시장은 계속 확대될 것으로 예상됩니다.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎬</div>
+                    <div class="feature-title">콘텐츠 창작 수요</div>
+                    <div class="feature-description">
+                        소셜 미디어와 영상 콘텐츠 제작의 확산이 시장 성장의 주요 원동력입니다.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <div class="feature-title">다양한 세그먼트</div>
+                    <div class="feature-description">
+                        액션, 짐벌, 파노라마 카메라 등 다양한 제품 카테고리가 고른 성장을 이루고 있습니다.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚠️</div>
+                    <div class="feature-title">GoPro의 도전</div>
+                    <div class="feature-description">
+                        전통적 액션카메라 업체인 GoPro는 25.9% 감소로 시장 변화에 대응 중입니다.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <div class="feature-title">신흥 기술 채택</div>
+                    <div class="feature-description">
+                        AI, 안정화 기술, 연결성 등 첨단 기술이 시장 성장을 가속화하고 있습니다.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Table -->
+        <section>
+            <h2>시장 요약 데이터</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th>수치</th>
+                        <th>성장률</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>전체 출하량</td>
+                        <td>1,665만 대</td>
+                        <td>+83%</td>
+                    </tr>
+                    <tr>
+                        <td>전체 시장규모</td>
+                        <td>4,610억 위안</td>
+                        <td>+86%</td>
+                    </tr>
+                    <tr>
+                        <td>액션 카메라</td>
+                        <td>800만+ 대</td>
+                        <td>+61%</td>
+                    </tr>
+                    <tr>
+                        <td>짐벌 카메라</td>
+                        <td>미공개</td>
+                        <td>+100%+</td>
+                    </tr>
+                    <tr>
+                        <td>파노라마 카메라</td>
+                        <td>250만+ 대</td>
+                        <td>+50%+</td>
+                    </tr>
+                    <tr>
+                        <td>DJI 점유율</td>
+                        <td>1,040만 대</td>
+                        <td>+161.2%</td>
+                    </tr>
+                    <tr>
+                        <td>Insta360 점유율</td>
+                        <td>340만 대</td>
+                        <td>+87.2%</td>
+                    </tr>
+                    <tr>
+                        <td>GoPro 점유율</td>
+                        <td>180만 대</td>
+                        <td>-25.9%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Conclusion -->
+        <section>
+            <h2>결론</h2>
+            <p>
+                2025년 글로벌 핸드헬드 스마트 카메라 시장은 강력한 성장세를 보여주었습니다.
+                DJI의 압도적인 시장 지배력, Insta360의 지속적인 성장, 그리고 다양한 세그먼트의 균형잡힌 발전이 특징입니다.
+                향후 2030년까지 시장이 연간 4,000만 대 이상으로 성장할 것으로 예상되며,
+                콘텐츠 창작 수요와 기술 혁신이 계속해서 시장을 견인할 것으로 보입니다.
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <a href="https://www.ithome.com/0/931/294.htm" class="footer-link" target="_blank">원문 기사 링크</a>
+            <div class="footer-meta">
+                <span>📅 발행일: 2026년 3월 23일</span>
+                <span>🏢 출처: IT之家</span>
+                <span>📊 데이터: IDC</span>
+            </div>
+            <div class="footer-disclaimer">
+                <strong>면책사항:</strong> 본 기사는 IT之家의 기사를 한국어로 번역한 것입니다.
+                원문의 정확한 내용과 출처를 확인하려면 원문 링크를 참조하시기 바랍니다.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeLabel = document.getElementById('themeLabel');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to system preference
+        const getInitialTheme = () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                return savedTheme;
+            }
+            // Check system preference
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                return 'dark';
+            }
+            return 'light';
+        };
+
+        const setTheme = (theme) => {
+            if (theme === 'dark') {
+                html.style.colorScheme = 'dark';
+                themeIcon.textContent = '☀️';
+                themeLabel.textContent = '라이트 모드';
+            } else {
+                html.style.colorScheme = 'light';
+                themeIcon.textContent = '🌙';
+                themeLabel.textContent = '다크 모드';
+            }
+            localStorage.setItem('theme', theme);
+        };
+
+        // Initialize theme
+        const currentTheme = getInitialTheme();
+        setTheme(currentTheme);
+
+        // Handle theme toggle
+        themeToggle.addEventListener('click', () => {
+            const currentScheme = html.style.colorScheme || 'light';
+            const newTheme = currentScheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+
+        // Listen to system preference changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+    </script>
+</body>
+</html>

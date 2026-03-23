@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnePlus 15T 공식 발표 — Snapdragon 8 Elite Gen5, 7500mAh 배터리, ColorOS 16 탑재</title>
+    <meta name="description" content="OnePlus 15T with ColorOS 16 및 5년 메이저 OS 업데이트 지원">
+    <meta name="author" content="IT之家">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Colors */
+            --primary-accent: #EB0029;
+            --primary-dark: #0f172a;
+            --primary-light: #ffffff;
+            --surface-dark: #1e293b;
+            --surface-light: #f8fafc;
+            --text-dark-primary: #0f172a;
+            --text-dark-secondary: #64748b;
+            --text-light-primary: #f1f5f9;
+            --text-light-secondary: #94a3b8;
+            --border-dark: #334155;
+            --border-light: #e2e8f0;
+
+            /* Current theme variables */
+            --bg-primary: var(--primary-light);
+            --bg-secondary: #f1f5f9;
+            --text-primary: var(--text-dark-primary);
+            --text-secondary: var(--text-dark-secondary);
+            --border-color: var(--border-light);
+            --card-bg: var(--primary-light);
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: var(--primary-dark);
+                --bg-secondary: #1e293b;
+                --text-primary: var(--text-light-primary);
+                --text-secondary: var(--text-light-secondary);
+                --border-color: var(--border-dark);
+                --card-bg: #0f172a;
+            }
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .scale-in {
+            animation: scaleIn 0.5s ease-out forwards;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-lg) var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            height: 40px;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        /* Article Header */
+        .article-header {
+            padding: var(--spacing-2xl) var(--spacing-md);
+            text-align: center;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-lg);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .meta-item.category {
+            color: var(--primary-accent);
+            font-weight: 600;
+        }
+
+        .article-title {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: var(--spacing-lg);
+            animation: fadeInUp 0.7s ease-out 0.1s backwards;
+        }
+
+        .article-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            animation: fadeInUp 0.7s ease-out 0.2s backwards;
+        }
+
+        /* Hero Image */
+        .hero-section {
+            position: relative;
+            margin-bottom: var(--spacing-2xl);
+            border-radius: 1rem;
+            overflow: hidden;
+            animation: scaleIn 0.7s ease-out 0.3s backwards;
+        }
+
+        .hero-section img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, transparent, rgba(0,0,0,0.4));
+            padding: var(--spacing-lg);
+            color: white;
+        }
+
+        /* Specs Grid */
+        .specs-section {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .specs-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--primary-accent);
+            animation: fadeInUp 0.6s ease-out 0.4s backwards;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            background: var(--surface-dark);
+            padding: var(--spacing-lg);
+            border-radius: 1rem;
+            animation: fadeInUp 0.6s ease-out 0.5s backwards;
+        }
+
+        .spec-item {
+            padding: var(--spacing-md);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .spec-item:hover {
+            background: rgba(235, 0, 41, 0.1);
+            border-color: var(--primary-accent);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        .spec-label {
+            font-size: 0.85rem;
+            color: var(--text-light-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 600;
+        }
+
+        .spec-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-light-primary);
+            line-height: 1.4;
+        }
+
+        /* Features Section */
+        .features-section {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .features-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--primary-accent);
+            animation: fadeInUp 0.6s ease-out 0.4s backwards;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .feature-card {
+            padding: var(--spacing-lg);
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.5s; }
+        .feature-card:nth-child(2) { animation-delay: 0.6s; }
+        .feature-card:nth-child(3) { animation-delay: 0.7s; }
+        .feature-card:nth-child(4) { animation-delay: 0.8s; }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-accent);
+            box-shadow: 0 12px 24px rgba(235, 0, 41, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Camera Details */
+        .camera-section {
+            margin-bottom: var(--spacing-2xl);
+            padding: var(--spacing-lg);
+            background-color: var(--surface-dark);
+            border-radius: 1rem;
+            animation: fadeInUp 0.6s ease-out 0.6s backwards;
+        }
+
+        .camera-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-light-primary);
+        }
+
+        .camera-detail {
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .camera-detail:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .camera-detail h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-light-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .camera-specs-list {
+            list-style: none;
+        }
+
+        .camera-specs-list li {
+            padding: var(--spacing-sm) 0;
+            color: var(--text-light-secondary);
+            font-size: 0.95rem;
+            padding-left: var(--spacing-lg);
+            position: relative;
+        }
+
+        .camera-specs-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-accent);
+            font-weight: bold;
+        }
+
+        /* Image Gallery */
+        .gallery-section {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .gallery-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--primary-accent);
+            animation: fadeInUp 0.6s ease-out 0.4s backwards;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .gallery-item {
+            border-radius: 1rem;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            background-color: var(--bg-secondary);
+            animation: scaleIn 0.6s ease-out backwards;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.6s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.7s; }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Storage & Colors */
+        .variants-section {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .variants-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--primary-accent);
+            animation: fadeInUp 0.6s ease-out 0.4s backwards;
+        }
+
+        .storage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .storage-item {
+            padding: var(--spacing-md);
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            text-align: center;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .storage-item:nth-child(1) { animation-delay: 0.5s; }
+        .storage-item:nth-child(2) { animation-delay: 0.55s; }
+        .storage-item:nth-child(3) { animation-delay: 0.6s; }
+        .storage-item:nth-child(4) { animation-delay: 0.65s; }
+        .storage-item:nth-child(5) { animation-delay: 0.7s; }
+
+        .storage-item:hover {
+            border-color: var(--primary-accent);
+            transform: translateY(-4px);
+            transition: all 0.3s ease;
+        }
+
+        .storage-item p {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .colors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .color-item {
+            padding: var(--spacing-md);
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .color-item:nth-child(1) { animation-delay: 0.7s; }
+        .color-item:nth-child(2) { animation-delay: 0.75s; }
+        .color-item:nth-child(3) { animation-delay: 0.8s; }
+
+        .color-item:hover {
+            border-color: var(--primary-accent);
+            transform: scale(1.05);
+        }
+
+        .color-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 0.5rem;
+            margin: 0 auto var(--spacing-sm);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .color-swatch {
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .color-item p {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        /* Release Info */
+        .release-section {
+            background: linear-gradient(135deg, var(--primary-accent) 0%, #c0001f 100%);
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            border-radius: 1rem;
+            text-align: center;
+            color: white;
+            margin-bottom: var(--spacing-2xl);
+            animation: fadeInUp 0.6s ease-out 0.7s backwards;
+        }
+
+        .release-section h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .release-time {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: var(--spacing-xl) var(--spacing-md);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer-link {
+            color: var(--primary-accent);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+        }
+
+        .footer-divider {
+            margin: var(--spacing-md) 0;
+            opacity: 0.5;
+        }
+
+        .footer-disclaimer {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: var(--spacing-md);
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: var(--spacing-md) var(--spacing-sm);
+            }
+
+            .article-title {
+                font-size: 1.5rem;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .storage-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .colors-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="https://www.ithome.com" class="header-brand">📱 IT之家</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <span id="themeIcon">🌙</span>
+        </button>
+    </header>
+
+    <main>
+        <article class="container">
+            <div class="article-header">
+                <div class="article-meta">
+                    <span class="meta-item category">📱 스마트폰</span>
+                    <span class="meta-item">2026년 3월 23일</span>
+                    <span class="meta-item">OnePlus</span>
+                </div>
+                <h1 class="article-title">OnePlus 15T 공식 발표</h1>
+                <p class="article-subtitle">Snapdragon 8 Elite Gen5, 7500mAh 배터리, ColorOS 16 탑재 및 5년 메이저 OS 버전 업데이트 지원</p>
+            </div>
+
+            <div class="hero-section">
+                <img src="https://img.ithome.com/newsuploadfiles/2026/3/b38db51e-6e64-4932-9336-b0cd119b0d42.jpg" alt="OnePlus 15T">
+                <div class="hero-overlay">
+                    <p>OnePlus 15T는 최신 기술을 집약한 플래그십 스마트폰입니다</p>
+                </div>
+            </div>
+
+            <section class="specs-section">
+                <h2>핵심 사양</h2>
+                <div class="specs-grid">
+                    <div class="spec-item">
+                        <div class="spec-label">디스플레이</div>
+                        <div class="spec-value">6.32" 1.5K+<br>165Hz LTPS<br>1.1mm 베젤</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">프로세서</div>
+                        <div class="spec-value">Snapdragon 8<br>Elite Gen5</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">전면 카메라</div>
+                        <div class="spec-value">16MP</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">배터리</div>
+                        <div class="spec-value">7500mAh<br>100W 유선<br>50W 무선</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">보안</div>
+                        <div class="spec-value">3D 초음파<br>지문 인식</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">방수/방진</div>
+                        <div class="spec-value">IP66/68/<br>69/69K</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">무게</div>
+                        <div class="spec-value">194g</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">프레임</div>
+                        <div class="spec-value">메탈 프레임<br>글래스 바디</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">OS 업데이트</div>
+                        <div class="spec-value">5년간<br>메이저 버전<br>지원</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features-section">
+                <h2>주요 특징</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📺</div>
+                        <h3>고주사율 디스플레이</h3>
+                        <p>165Hz LTPS 디스플레이로 부드러운 스크롤링과 게이밍 경험을 제공합니다</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>대용량 배터리</h3>
+                        <p>7500mAh 배터리와 100W 고속 충전으로 하루종일 사용 가능</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📷</div>
+                        <h3>듀얼 광학 손떨림 보정</h3>
+                        <p>50MP 메인 센서와 3.5배 망원 렌즈 모두 OIS 탑재</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎮</div>
+                        <h3>Snapdragon 8 Elite Gen5</h3>
+                        <p>최신 프로세서로 게임과 멀티태스킹에 최적화된 성능 제공</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="camera-section">
+                <h2>📷 카메라 상세 사양</h2>
+
+                <div class="camera-detail">
+                    <h3>메인 카메라</h3>
+                    <ul class="camera-specs-list">
+                        <li>센서: 50MP, 1/1.56" 이미지 센서</li>
+                        <li>광학 손떨림 보정 (OIS) 탑재</li>
+                        <li>안정적인 촬영 및 저조도 성능 우수</li>
+                    </ul>
+                </div>
+
+                <div class="camera-detail">
+                    <h3>망원 카메라</h3>
+                    <ul class="camera-specs-list">
+                        <li>센서: 50MP</li>
+                        <li>광학 줌: 3.5배</li>
+                        <li>광학 손떨림 보정 (OIS) 탑재</li>
+                        <li>원거리 촬영도 선명하고 안정적</li>
+                    </ul>
+                </div>
+
+                <div class="camera-detail">
+                    <h3>카메라 특징</h3>
+                    <ul class="camera-specs-list">
+                        <li>메인 카메라와 망원 카메라 모두 OIS 지원</li>
+                        <li>향상된 영상 안정화로 흔들림 없는 촬영 가능</li>
+                        <li>ColorOS 16의 고급 이미지 처리 알고리즘 적용</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="gallery-section">
+                <h2>제품 이미지</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/3/b38db51e-6e64-4932-9336-b0cd119b0d42.jpg" alt="OnePlus 15T - 각도 이미지 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/3/3d63fc37-162e-40a5-9c0b-52da9abdb567.jpg" alt="OnePlus 15T - 각도 이미지 2">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/3/0ba22a35-ab6a-4f9c-bcf9-03e07ed793c4.jpg" alt="OnePlus 15T - 각도 이미지 3">
+                    </div>
+                </div>
+            </section>
+
+            <section class="variants-section">
+                <h2>저장 용량 및 색상 옵션</h2>
+
+                <h3 style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-size: 1.1rem;">저장 용량 구성</h3>
+                <div class="storage-grid">
+                    <div class="storage-item">
+                        <p>12GB + 256GB</p>
+                    </div>
+                    <div class="storage-item">
+                        <p>12GB + 512GB</p>
+                    </div>
+                    <div class="storage-item">
+                        <p>16GB + 256GB</p>
+                    </div>
+                    <div class="storage-item">
+                        <p>16GB + 512GB</p>
+                    </div>
+                    <div class="storage-item">
+                        <p>16GB + 1TB</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-size: 1.1rem;">색상 옵션</h3>
+                <div class="colors-grid">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: linear-gradient(135deg, #8B7355, #A0826D);"></div>
+                        <p>코코아 퓨어<br><span style="font-size: 0.85rem; opacity: 0.7;">Cocoa Pure</span></p>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: linear-gradient(135deg, #F5F5F0, #E8E8E3);"></div>
+                        <p>힐링 화이트<br>초콜릿<br><span style="font-size: 0.85rem; opacity: 0.7;">Healing White Chocolate</span></p>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: linear-gradient(135deg, #A8D5A8, #8FCE8F);"></div>
+                        <p>릴렉스드 말차<br><span style="font-size: 0.85rem; opacity: 0.7;">Relaxed Matcha</span></p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="release-section">
+                <h2>⏰ 출시 정보</h2>
+                <p class="release-time">2026년 3월 24일 (월) 오후 7:00</p>
+                <p style="margin-top: var(--spacing-md); opacity: 0.95;">OnePlus 15T 공식 발표 행사</p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p><strong>원문 출처:</strong> <a href="https://www.ithome.com/0/931/444.htm" class="footer-link">IT之家 (ithome.com)</a></p>
+            <p style="margin-top: var(--spacing-sm);">발행일: 2026년 3월 23일</p>
+            <div class="footer-divider">—</div>
+            <div class="footer-disclaimer">
+                <p>본 문서는 IT之家의 기사를 한국어로 번역한 것입니다. 원본 기사와 이미지에 대한 저작권은 IT之家에 귀속됩니다.</p>
+                <p style="margin-top: var(--spacing-xs);">제품 사양 및 가격은 제조사의 공식 발표 기준이며, 시장 상황에 따라 변경될 수 있습니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+        // Function to update theme
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                htmlElement.style.colorScheme = 'dark';
+                themeIcon.textContent = '☀️';
+            } else {
+                htmlElement.style.colorScheme = 'light';
+                themeIcon.textContent = '🌙';
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        // Initialize theme
+        setTheme(currentTheme);
+
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            const newTheme = localStorage.getItem('theme') === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+
+        // Add animation delays on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const elementsToAnimate = document.querySelectorAll('[class*="fade-in"], [class*="scale-in"], .spec-item, .feature-card, .gallery-item, .storage-item, .color-item');
+            elementsToAnimate.forEach((el, index) => {
+                if (!el.style.animationDelay) {
+                    el.style.animationDelay = `${index * 0.05}s`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
