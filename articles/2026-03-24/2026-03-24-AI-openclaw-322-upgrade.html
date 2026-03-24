@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="OpenClaw 3.22 최대 업그레이드: 하위 아키텍처 대전환">
+    <meta name="author" content="IT之家">
+    <title>OpenClaw 3.22 최대 업그레이드: 하위 아키텍처 대전환, 전 세계가 9일을 기다렸다</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #7C3AED;
+            --primary-dark: #6D28D9;
+            --bg-light: #ffffff;
+            --bg-dark: #0f172a;
+            --text-light: #1e293b;
+            --text-dark: #f1f5f9;
+            --border-light: #e2e8f0;
+            --border-dark: #334155;
+            --spec-bg: #1e293b;
+            --spec-text: #f1f5f9;
+            --accent: #a78bfa;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background-color: var(--bg-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--bg-dark);
+                color: var(--text-dark);
+            }
+        }
+
+        /* Animations */
+        @media (prefers-reduced-motion: no-preference) {
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes scaleIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.95);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            .animate-fade-in-up {
+                animation: fadeInUp 0.6s ease-out forwards;
+            }
+
+            .animate-scale-in {
+                animation: scaleIn 0.6s ease-out forwards;
+            }
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode header {
+            background-color: rgba(15, 23, 42, 0.95);
+            border-bottom-color: var(--border-dark);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(167, 139, 250, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 1rem;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        /* Feature Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--bg-light);
+            border: 1px solid var(--border-light);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        body.dark-mode .feature-card {
+            background-color: #1e293b;
+            border-color: var(--border-dark);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(124, 58, 237, 0.15);
+            border-color: var(--primary);
+        }
+
+        .feature-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .feature-card-content {
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .feature-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .feature-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Spec Grid (dark background always) */
+        .spec-grid {
+            background-color: var(--spec-bg);
+            color: var(--spec-text);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        .spec-grid h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .spec-table th {
+            background-color: rgba(124, 58, 237, 0.2);
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 2px solid rgba(124, 58, 237, 0.5);
+            font-weight: 700;
+        }
+
+        .spec-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .spec-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .spec-highlight {
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        /* Detailed List Section */
+        .detailed-list {
+            margin: 2rem 0;
+        }
+
+        .detailed-list-item {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        body.dark-mode .detailed-list-item {
+            border-bottom-color: var(--border-dark);
+        }
+
+        .detailed-list-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .list-item-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .list-item-content {
+            margin-left: 1rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .list-item-content ul {
+            list-style: none;
+            margin-top: 0.75rem;
+        }
+
+        .list-item-content li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .list-item-content li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Images */
+        .image-section {
+            margin: 3rem 0;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .image-container {
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s ease;
+        }
+
+        .image-container:hover {
+            transform: scale(1.02);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-light);
+            border-top: 1px solid var(--border-light);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode footer {
+            background-color: #0f172a;
+            border-top-color: var(--border-dark);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .footer-section p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .footer-section a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 0.7;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-light);
+            padding-top: 2rem;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        body.dark-mode .footer-bottom {
+            border-top-color: var(--border-dark);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 1rem;
+            }
+
+            .header-title {
+                font-size: 1.25rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero-meta {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            main {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                padding-left: 1rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <h2 class="header-title">OpenClaw 3.22</h2>
+            <button class="theme-toggle" onclick="toggleTheme()">🌓 테마 전환</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>OpenClaw 3.22 최대 업그레이드</h1>
+            <p class="hero-subtitle">하위 아키텍처 대전환, 전 세계가 9일을 기다렸다</p>
+            <div class="hero-meta">
+                <span>📅 2026년 3월 24일</span>
+                <span>📰 IT之家</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Introduction -->
+        <section class="section">
+            <h2 class="section-title">개요</h2>
+            <p class="section-description">
+                OpenClaw 3.22는 역사적인 대규모 업그레이드로, 플러그인 시스템의 완전한 개편부터 보안 강화, 모델 업그레이드, 멀티플랫폼 개선, 그리고 에이전트 엔진의 혁신까지 광범위한 변화를 가져왔습니다. 이번 업그레이드는 전 세계 개발자 커뮤니티가 9일간 기대해온 대규모 아키텍처 전환입니다.
+            </p>
+        </section>
+
+        <!-- 1. Plugin System Overhaul -->
+        <section class="section">
+            <h2 class="section-title">1. 플러그인 시스템 완전 개편</h2>
+            <p class="section-description">
+                OpenClaw 3.22의 가장 획기적인 변화는 플러그인 시스템의 근본적인 재구성입니다. 새로운 공개 Plugin SDK는 개발자들에게 강력한 기능을 제공하며, 구 버전 호환성 제거로 생태계의 정리와 현대화를 추진합니다.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-card-title">새로운 Plugin SDK</div>
+                    <div class="feature-card-content">
+                        <ul>
+                            <li>공개 Plugin SDK 출시 (openclaw/plugin-sdk/*)</li>
+                            <li>확장된 기능 범위</li>
+                            <li>개선된 개발자 경험</li>
+                            <li>표준화된 API 인터페이스</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-title">레거시 정책</div>
+                    <div class="feature-card-content">
+                        <ul>
+                            <li>구 확장 API 완전 제거</li>
+                            <li>호환성 레이어 없음</li>
+                            <li>전환 기간 미제공</li>
+                            <li>모든 3rd party 플러그인 마이그레이션 필수</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-title">ClawHub 플랫폼</div>
+                    <div class="feature-card-content">
+                        <ul>
+                            <li>기본 플러그인 배포 채널</li>
+                            <li>ClawHub에서 미발견시 npm으로만 폴백</li>
+                            <li>중앙 집중식 관리</li>
+                            <li>검증된 플러그인 생태계</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-title">AI 어시스턴트 통합</div>
+                    <div class="feature-card-content">
+                        <ul>
+                            <li>Claude에서 플러그인 발견/설치</li>
+                            <li>Codex 플랫폼 지원</li>
+                            <li>Cursor IDE 통합</li>
+                            <li>Skills 자동 매핑</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detailed-list">
+                <div class="detailed-list-item">
+                    <div class="list-item-title">마이그레이션 전략</div>
+                    <div class="list-item-content">
+                        <p>기존 플러그인 사용자들은 즉시 새로운 Plugin SDK로 마이그레이션해야 합니다. 호환성 레이어나 전환 기간이 제공되지 않으므로, 모든 3rd party 플러그인이 신규 API를 지원해야 합니다. ClawHub은 검증된 플러그인만 호스팅하며, npm은 최후의 폴백 채널로만 기능합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Security Hardening -->
+        <section class="section">
+            <h2 class="section-title">2. 보안 강화 (10개 이상의 패치)</h2>
+            <p class="section-description">
+                OpenClaw 3.22는 10개 이상의 중요한 보안 패치를 포함하여 시스템 전반에 걸친 강화된 보안 태세를 구현합니다. 파일 시스템부터 코드 실행 환경, Unicode 처리, 웹훅 인증까지 다층 방어를 강화했습니다.
+            </p>
+
+            <div class="spec-grid">
+                <h3>보안 패치 목록</h3>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>취약점 유형</th>
+                            <th>설명</th>
+                            <th>대응책</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="spec-highlight">Windows SMB 자격증명 유출</span></td>
+                            <td>파일 경로 처리 취약점</td>
+                            <td>file:// 및 UNC 경로를 미디어 로딩에서 차단</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-highlight">실행 샌드박스 우회</span></td>
+                            <td>JVM 환경 변수 주입</td>
+                            <td>MAVEN_OPTS, SBT_OPTS, GRADLE_OPTS 차단</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-highlight">추가 실행 우회</span></td>
+                            <td>.NET 환경 변수 주입</td>
+                            <td>GLIBC_TUNABLES, DOTNET_ADDITIONAL_DEPS 차단</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-highlight">유니코드 영문자 위장</span></td>
+                            <td>0폭 문자로 승인 프롬프트 위조</td>
+                            <td>한국어 필러 코드포인트 이스케이프 처리</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-highlight">음성 통화 웹훅</span></td>
+                            <td>사전 인증 요청 제한 부족</td>
+                            <td>1MB/30초 → 64KB/5초, IP당 동시 요청 제한</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="detailed-list">
+                <div class="detailed-list-item">
+                    <div class="list-item-title">Windows SMB 자격증명 유출 차단</div>
+                    <div class="list-item-content">
+                        <p>Windows 환경에서 UNC 경로(\\서버\공유)를 처리할 때 자격증명이 의도치 않게 노출되는 취약점을 해결했습니다. 미디어 로딩 기능에서 file:// 프로토콜과 UNC 경로를 모두 차단하여 로컬 파일시스템 접근을 제한합니다.</p>
+                    </div>
+                </div>
+
+                <div class="detailed-list-item">
+                    <div class="list-item-title">실행 샌드박스 강화</div>
+                    <div class="list-item-content">
+                        <p>공격자가 환경 변수를 통해 JVM 또는 .NET 실행 환경을 조작하는 것을 방지합니다:</p>
+                        <ul>
+                            <li><strong>Java:</strong> MAVEN_OPTS, SBT_OPTS, GRADLE_OPTS 차단 - 빌드 프로세스 명령 주입 방지</li>
+                            <li><strong>.NET:</strong> GLIBC_TUNABLES, DOTNET_ADDITIONAL_DEPS 차단 - 라이브러리 로딩 조작 방지</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="detailed-list-item">
+                    <div class="list-item-title">유니코드 0폭 문자 위장 방지</div>
+                    <div class="list-item-content">
+                        <p>가장 정교한 공격 벡터 중 하나는 0폭 문자를 이용해 사용자의 승인 프롬프트를 조작하는 것입니다. 특히 한국어 필러 코드포인트를 악용하여 실행 승인 메시지를 위장할 수 있었습니다. OpenClaw 3.22는 이러한 문자들을 자동으로 이스케이프 처리하여 화면에 표시합니다.</p>
+                    </div>
+                </div>
+
+                <div class="detailed-list-item">
+                    <div class="list-item-title">음성 통화 웹훅 사전 인증 제한</div>
+                    <div class="list-item-content">
+                        <p>웹훅 사전 인증 요청의 크기와 속도를 제한합니다:</p>
+                        <ul>
+                            <li><strong>이전:</strong> 1MB/30초 제한</li>
+                            <li><strong>업그레이드:</strong> 64KB/5초로 강화</li>
+                            <li><strong>추가:</strong> IP당 동시 사전 인증 요청 제한</li>
+                        </ul>
+                        <p>이는 DDoS 및 리소스 고갈 공격을 방어합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Model Upgrades -->
+        <section class="section">
+            <h2 class="section-title">3. 모델 업그레이드</h2>
+            <p class="section-description">
+                OpenClaw 3.22는 다양한 AI 모델 제공자와의 협력을 통해 최신 모델을 지원합니다. OpenAI, Anthropic, MiniMax, xAI, Z.AI, Mistral 등 주요 제공자의 업그레이드가 포함되었습니다.
+            </p>
+
+            <div class="spec-grid">
+                <h3>모델 업그레이드 현황</h3>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>제공자</th>
+                            <th>변경 사항</th>
+                            <th>주요 개선</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="spec-highlight">OpenAI</span></td>
+                            <td>기본 모델 → GPT-5.4</td>
+                            <td>gpt-5.4-mini, gpt-5.4-nano 호환성</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-highlight">MiniMax</span></td>
+                            <td>M2.5 → M2.7</td>
+                            <td>API/OAuth 플러그인 통합</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-highlight">Anthropic Vertex</span></td>
+                            <td>Google Vertex AI 추가</td>
+                            <td>Claude 모델 + GCP 인증</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-highlight">xAI Grok</span></td>
+                            <td>디렉토리 동기화</td>
+                            <td>최신 Grok 모델 지원</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-highlight">Z.AI GLM</span></td>
+                            <td>4.5/4.6 업데이트</td>
+                            <td>최신 언어 모델</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-highlight">Mistral</span></td>
+                            <td>가격 메타데이터 수정</td>
+                            <td>정확한 모델 가격 정보</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="detailed-list">
+                <div class="detailed-list-item">
+                    <div class="list-item-title">OpenAI: GPT-5.4 시대</div>
+                    <div class="list-item-content">
+                        <p>OpenClaw의 기본 모델이 GPT-5.4로 업그레이드되었습니다. gpt-5.4-mini와 gpt-5.4-nano 변형 모델도 전방향 호환성을 갖추고 있어, 성능과 비용을 필요에 맞게 선택할 수 있습니다.</p>
+                    </div>
+                </div>
+
+                <div class="detailed-list-item">
+                    <div class="list-item-title">MiniMax: M2.7 출시 및 플러그인 통합</div>
+                    <div class="list-item-content">
+                        <p>MiniMax의 최신 모델 M2.7이 지원되며, 이전에 분리되어 있던 API와 OAuth 플러그인이 단일 minimax 플러그인으로 통합되어 관리가 간편해졌습니다.</p>
+                    </div>
+                </div>
+
+                <div class="detailed-list-item">
+                    <div class="list-item-title">Anthropic Vertex: Google Cloud 통합</div>
+                    <div class="list-item-content">
+                        <p>Claude 모델들이 이제 Google Vertex AI를 통해 제공됩니다. GCP 인증을 사용하여 Google Cloud 인프라에서 Claude의 강력한 성능을 활용할 수 있습니다.</p>
+                    </div>
+                </div>
+
+                <div class="detailed-list-item">
+                    <div class="list-item-title">xAI, Z.AI, Mistral 업데이트</div>
+                    <div class="list-item-content">
+                        <ul>
+                            <li><strong>xAI Grok:</strong> 디렉토리를 최신 상태로 동기화하여 최신 Grok 모델 지원</li>
+                            <li><strong>Z.AI GLM:</strong> 4.5/4.6 버전으로 업데이트된 언어 모델 제공</li>
+                            <li><strong>Mistral:</strong> 가격 메타데이터가 수정되어 정확한 비용 정보 제공</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Multi-platform Improvements -->
+        <section class="section">
+            <h2 class="section-title">4. 멀티플랫폼 개선사항</h2>
+            <p class="section-description">
+                OpenClaw 3.22는 Android, 제어 UI, Telegram, Feishu, 브라우저, 샌드박스 등 다양한 플랫폼에서 사용자 경험을 크게 향상시켰습니다.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-card-title">🤖 Android</div>
+                    <div class="feature-card-content">
+                        <ul>
+                            <li>시스템 다크모드 지원</li>
+                            <li>운영체제 테마 자동 동기화</li>
+                            <li>배터리 효율성 향상</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-title">🎨 Control UI</div>
+                    <div class="feature-card-content">
+                        <ul>
+                            <li>커스터마이징 가능한 코너 반경 슬라이더</li>
+                            <li>개인화된 UI 디자인</li>
+                            <li>실시간 미리보기</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-title">📱 Telegram</div>
+                    <div class="feature-card-content">
+                        <ul>
+                            <li>DM 포럼 주제 자동 이름 변경 (LLM)</li>
+                            <li>무음 오류 응답 모드</li>
+                            <li>자동화된 대화 관리</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-title">🐥 Feishu</div>
+                    <div class="feature-card-content">
+                        <ul>
+                            <li>구조화된 상호작용 승인 카드</li>
+                            <li>ACP/서브 에이전트 바인딩</li>
+                            <li>Reasoning Stream 렌더링</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-title">🌐 Browser</div>
+                    <div class="feature-card-content">
+                        <ul>
+                            <li>레거시 Chrome 확장 릴레이 제거</li>
+                            <li>userDataDir를 통한 직접 Chromium 연결</li>
+                            <li>성능 개선 및 단순화</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-title">🔒 Sandbox</div>
+                    <div class="feature-card-content">
+                        <ul>
+                            <li>플러그 가능한 백엔드</li>
+                            <li>OpenShell 지원</li>
+                            <li>SSH 백엔드 통합</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detailed-list">
+                <div class="detailed-list-item">
+                    <div class="list-item-title">Android: 시스템 테마 동기화</div>
+                    <div class="list-item-content">
+                        <p>Android 기기의 시스템 다크모드 설정을 자동으로 감지하여 OpenClaw의 테마를 동기화합니다. 이는 사용자의 기기 설정과 일관성을 유지하고 시각적 피로를 줄여줍니다.</p>
+                    </div>
+                </div>
+
+                <div class="detailed-list-item">
+                    <div class="list-item-title">Control UI: 커스터마이징 슬라이더</div>
+                    <div class="list-item-content">
+                        <p>사용자가 UI 요소의 코너 반경을 자유롭게 조정할 수 있는 슬라이더를 추가했습니다. 모던한 둥근 모서리부터 날카로운 각진 디자인까지 취향에 맞게 커스터마이징 가능합니다.</p>
+                    </div>
+                </div>
+
+                <div class="detailed-list-item">
+                    <div class="list-item-title">Telegram: AI 기반 자동 관리</div>
+                    <div class="list-item-content">
+                        <p>Telegram DM의 포럼 주제가 대화 내용을 분석하여 LLM이 자동으로 이름을 변경합니다. 또한 무음 오류 응답 모드로 에러를 조용히 처리하여 채팅 화면의 어수선함을 줄입니다.</p>
+                    </div>
+                </div>
+
+                <div class="detailed-list-item">
+                    <div class="list-item-title">Feishu: 구조화된 상호작용 및 에이전트</div>
+                    <div class="list-item-content">
+                        <p>Feishu에서 복잡한 상호작용을 구조화된 승인 카드로 표현합니다. ACP(Assistant Cloud Platform) 및 서브 에이전트 바인딩을 지원하고, Reasoning Stream 렌더링으로 AI의 사고 과정을 실시간으로 볼 수 있습니다.</p>
+                    </div>
+                </div>
+
+                <div class="detailed-list-item">
+                    <div class="list-item-title">Browser: 직접 Chromium 연결</div>
+                    <div class="list-item-content">
+                        <p>레거시 Chrome 확장 릴레이 시스템을 제거하고, userDataDir를 통해 직접 Chromium 브라우저에 연결합니다. 이는 성능을 개선하고 시스템을 단순화합니다.</p>
+                    </div>
+                </div>
+
+                <div class="detailed-list-item">
+                    <div class="list-item-title">Sandbox: 플러그 가능한 백엔드</div>
+                    <div class="list-item-content">
+                        <p>샌드박스 실행 환경이 플러그 가능한 아키텍처로 개선되어, OpenShell 및 SSH 백엔드를 사용할 수 있습니다. 다양한 배포 환경에서 유연한 격리 환경을 구성할 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Agent Engine -->
+        <section class="section">
+            <h2 class="section-title">5. 에이전트 엔진 혁신</h2>
+            <p class="section-description">
+                OpenClaw 3.22의 에이전트 엔진은 장시간 대화 처리, 타임아웃 관리, 그리고 새로운 명령어로 사용자 경험을 크게 향상시켰습니다.
+            </p>
+
+            <div class="spec-grid">
+                <h3>에이전트 엔진 개선사항</h3>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>기능</th>
+                            <th>이전</th>
+                            <th>업그레이드</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="spec-highlight">장문 대화 압축</span></td>
+                            <td>수동 관리 필요</td>
+                            <td>자동 연장 및 orphaned tool_result 자동 수정</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-highlight">기본 타임아웃</span></td>
+                            <td>600초 (10분)</td>
+                            <td>48시간</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-highlight">추가 기능</span></td>
+                            <td>없음</td>
+                            <td>/btw 명령어로 부가 질문 가능</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="detailed-list">
+                <div class="detailed-list-item">
+                    <div class="list-item-title">장시간 대화 자동 압축</div>
+                    <div class="list-item-content">
+                        <p>에이전트가 장시간 동작할 때 대화 히스토리가 너무 길어지는 문제를 자동으로 해결합니다:</p>
+                        <ul>
+                            <li><strong>자동 연장:</strong> 데드라인이 임박하면 자동으로 연장</li>
+                            <li><strong>자동 수정:</strong> orphaned tool_result 블록 (응답 없는 도구 호출 결과)을 자동으로 정리</li>
+                            <li><strong>컨텍스트 최적화:</strong> 장시간 작업의 효율성 향상</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="detailed-list-item">
+                    <div class="list-item-title">타임아웃 대폭 연장</div>
+                    <div class="list-item-content">
+                        <p>기본 에이전트 타임아웃이 600초(10분)에서 48시간으로 대폭 확대되었습니다. 이는 복잡한 다단계 작업, 대규모 데이터 처리, 대기 시간이 필요한 작업들을 완료할 수 있는 충분한 시간을 제공합니다.</p>
+                    </div>
+                </div>
+
+                <div class="detailed-list-item">
+                    <div class="list-item-title">/btw 명령어: 부가 질문 기능</div>
+                    <div class="list-item-content">
+                        <p>새로운 /btw (By The Way) 명령어는 현재 진행 중인 작업의 컨텍스트에 영향을 주지 않으면서 측면 질문을 할 수 있게 해줍니다. 예를 들어, 대규모 작업을 진행 중일 때 "btw 이 부분이 왜 이렇게 설계되었나?"와 같은 질문을 던질 수 있으며, 에이전트는 메인 작업을 계속 추적하면서 질문에 답할 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Images -->
+        <section class="section image-section">
+            <h2 class="section-title">주요 이미지</h2>
+            <div class="image-grid">
+                <div class="image-container">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/66cb4ff1-c098-4868-aa7f-b8419d314f98.jpg?x-bce-process=image/format,f_auto" alt="OpenClaw 3.22 플러그인 시스템 개편">
+                </div>
+                <div class="image-container">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/0b82fe22-168a-4b00-ab4f-cb7ae911da77.png?x-bce-process=image/format,f_auto" alt="OpenClaw 3.22 모델 업그레이드">
+                </div>
+                <div class="image-container">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/eac00393-25e0-4240-8be9-3700e60751ac.png?x-bce-process=image/format,f_auto" alt="OpenClaw 3.22 에이전트 엔진">
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="section">
+            <h2 class="section-title">결론</h2>
+            <p class="section-description">
+                OpenClaw 3.22는 단순한 기능 추가를 넘어 플랫폼의 근본적인 아키텍처를 재설계한 대규모 업그레이드입니다. 플러그인 시스템의 현대화, 포괄적인 보안 강화, 최신 AI 모델 지원, 그리고 멀티플랫폼 통합까지 모든 영역에서 혁신을 이루었습니다. 이번 업그레이드는 OpenClaw를 차세대 AI 플랫폼으로 도약시키는 중요한 이정표입니다.
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>원본 정보</h3>
+                <p>
+                    <strong>출처:</strong> IT之家<br>
+                    <strong>원본 URL:</strong> <a href="https://www.ithome.com/0/931/915.htm" target="_blank">https://www.ithome.com/0/931/915.htm</a><br>
+                    <strong>게시일:</strong> 2026년 3월 24일
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>관련 정보</h3>
+                <p>
+                    이 페이지는 IT之家의 OpenClaw 3.22 업그레이드 기사를 한국어로 번역한 것입니다. 기술적 정확성을 위해 원본 기사를 참조하시기 바랍니다.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>면책사항</h3>
+                <p>
+                    본 번역은 정보 제공 목적으로만 제공되며, 원본 기사의 모든 내용을 완벽히 반영하지 못할 수 있습니다. 정확한 정보는 원본 링크를 참조하시기 바랍니다.
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 IT之家. 번역 페이지 제작: 2026년 3월 24일</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+
+            // Save preference
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme or detect preference
+        function initTheme() {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else if (saved === 'light') {
+                document.body.classList.remove('dark-mode');
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.classList.add('dark-mode');
+            }
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initTheme);
+
+        // Add animation classes on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in-up');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for animation
+        document.querySelectorAll('.section, .feature-card, .image-container').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

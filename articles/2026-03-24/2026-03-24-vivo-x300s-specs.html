@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="vivo X300s 공식 출시. 6.78인치 1.5K+ 144Hz 디스플레이, 200MP 카메라, 7,100mAh 배터리.">
+    <meta name="author" content="IT之家">
+    <meta name="date" content="2026-03-24">
+    <title>vivo X300s 사양 - 3월 30일 출시</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vivo-blue: #415FFF;
+            --bg-light: #ffffff;
+            --bg-dark: #0f172a;
+            --text-light: #f1f5f9;
+            --text-dark: #1e293b;
+            --spec-bg: #1e293b;
+            --border-light: #e2e8f0;
+            --border-dark: #334155;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--bg-dark);
+                color: var(--text-light);
+            }
+            .navbar {
+                background-color: rgba(15, 23, 42, 0.95);
+                border-bottom-color: var(--border-dark);
+            }
+            .hero {
+                color: var(--text-light);
+            }
+            .section-title {
+                color: var(--text-light);
+            }
+            .feature-card {
+                background-color: #1e293b;
+                border-color: var(--border-dark);
+            }
+            .feature-card h3 {
+                color: var(--vivo-blue);
+            }
+            .feature-card p {
+                color: #cbd5e1;
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: var(--bg-light);
+                color: var(--text-dark);
+            }
+            .navbar {
+                background-color: rgba(255, 255, 255, 0.95);
+                border-bottom-color: var(--border-light);
+            }
+            .hero {
+                color: var(--text-dark);
+            }
+            .section-title {
+                color: var(--text-dark);
+            }
+            .feature-card {
+                background-color: #f8fafc;
+                border-color: var(--border-light);
+            }
+            .feature-card h3 {
+                color: var(--vivo-blue);
+            }
+            .feature-card p {
+                color: #475569;
+            }
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid;
+            transition: all 0.3s ease;
+            padding: 1rem 2rem;
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-light);
+            color: inherit;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--vivo-blue);
+            color: var(--vivo-blue);
+        }
+
+        .hero {
+            position: relative;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(65, 95, 255, 0.1) 0%, rgba(65, 95, 255, 0.05) 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(65, 95, 255, 0.2) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(65, 95, 255, 0.15) 0%, transparent 70%);
+            bottom: -50px;
+            left: -50px;
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .launch-badge {
+            display: inline-block;
+            background-color: var(--vivo-blue);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: scaleIn 0.6s ease-out 0.2s both;
+        }
+
+        .hero-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-top: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--vivo-blue);
+            display: inline-block;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .spec-card {
+            background-color: var(--spec-bg);
+            color: var(--text-light);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 2rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .spec-card h3 {
+            color: var(--vivo-blue);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .spec-card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            line-height: 1.4;
+        }
+
+        .feature-card {
+            border: 1px solid;
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--vivo-blue);
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .display-highlight {
+            background: linear-gradient(135deg, rgba(65, 95, 255, 0.1) 0%, rgba(65, 95, 255, 0.05) 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--vivo-blue);
+            margin-bottom: 2rem;
+        }
+
+        .display-highlight h3 {
+            color: var(--vivo-blue);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .display-highlight ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .display-highlight li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .display-highlight li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--vivo-blue);
+        }
+
+        .camera-module {
+            background: linear-gradient(135deg, rgba(65, 95, 255, 0.1) 0%, rgba(65, 95, 255, 0.05) 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--vivo-blue);
+            margin-bottom: 2rem;
+        }
+
+        .camera-module h3 {
+            color: var(--vivo-blue);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .camera-module .camera-spec {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .camera-spec-item {
+            padding: 1rem;
+            background-color: var(--spec-bg);
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #334155;
+        }
+
+        .camera-spec-item .label {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .camera-spec-item .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .performance-section {
+            background: linear-gradient(135deg, rgba(65, 95, 255, 0.1) 0%, rgba(65, 95, 255, 0.05) 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--vivo-blue);
+            margin-bottom: 2rem;
+        }
+
+        .performance-section h3 {
+            color: var(--vivo-blue);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: start;
+            gap: 0.75rem;
+        }
+
+        .feature-item::before {
+            content: '✓';
+            flex-shrink: 0;
+            color: var(--vivo-blue);
+            font-weight: bold;
+            font-size: 1.25rem;
+            margin-top: 0.125rem;
+        }
+
+        .feature-item span {
+            color: #cbd5e1;
+        }
+
+        .highlight-box {
+            background-color: var(--vivo-blue);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        footer {
+            background-color: var(--spec-bg);
+            color: var(--text-light);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid #334155;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--vivo-blue);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section p {
+            color: #cbd5e1;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .footer-section a {
+            color: var(--vivo-blue);
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background-color: #334155;
+            margin: 2rem 0;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-content {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .section {
+                margin: 2rem auto;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .camera-spec {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <h2 class="navbar-title">vivo X300s</h2>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                🌙 테마 전환
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="launch-badge">2026년 3월 30일 출시</div>
+            <h1>vivo X300s</h1>
+            <p>혁신적인 카메라와 초강력 배터리를 갖춘 플래그십 스마트폰</p>
+            <img src="https://img.ithome.com/newsuploadfiles/2026/3/2301288b-de16-438d-9385-24ae5904a762.jpg?x-bce-process=image/format,f_auto"
+                 alt="vivo X300s" class="hero-image">
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">핵심 사양</h2>
+        <div class="spec-grid">
+            <div class="spec-card">
+                <h3>디스플레이</h3>
+                <div class="value">6.78"<br>1.5K+ 144Hz<br>BOE Q10+</div>
+            </div>
+            <div class="spec-card">
+                <h3>배터리</h3>
+                <div class="value">7,100mAh<br>90W 유선 + 40W 무선</div>
+            </div>
+            <div class="spec-card">
+                <h3>카메라</h3>
+                <div class="value">전방 50MP<br>후방 200MP</div>
+            </div>
+            <div class="spec-card">
+                <h3>프로세서</h3>
+                <div class="value">MediaTek<br>Dimensity 9500<br>(예상)</div>
+            </div>
+            <div class="spec-card">
+                <h3>방수 방진</h3>
+                <div class="value">IP68/IP69</div>
+            </div>
+            <div class="spec-card">
+                <h3>생체인식</h3>
+                <div class="value">3D 초음파<br>지문인식 2.0</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">디스플레이</h2>
+        <div class="display-highlight">
+            <h3>프리미엄 화면 경험</h3>
+            <ul>
+                <li>6.78인치 대화면</li>
+                <li>1.5K+ 해상도 (최고급 사양)</li>
+                <li>144Hz 고주사율</li>
+                <li>BOE Q10+ 스크린 (업계 최신 기술)</li>
+                <li>평면 디자인 (곡면 미적용)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">카메라 시스템</h2>
+        <div class="camera-module">
+            <h3>대형 렌즈 모듈 디자인</h3>
+            <div class="camera-spec">
+                <div class="camera-spec-item">
+                    <div class="label">전방 카메라</div>
+                    <div class="value">50MP</div>
+                </div>
+                <div class="camera-spec-item">
+                    <div class="label">후방 메인</div>
+                    <div class="value">200MP</div>
+                </div>
+                <div class="camera-spec-item">
+                    <div class="label">초광각</div>
+                    <div class="value">50MP</div>
+                </div>
+                <div class="camera-spec-item">
+                    <div class="label">망원</div>
+                    <div class="value">50MP</div>
+                </div>
+            </div>
+        </div>
+        <div class="highlight-box">
+            특별한 "립스틱 200" 이미징 기능 (모든 모델에서 지원)
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(65, 95, 255, 0.1) 0%, rgba(65, 95, 255, 0.05) 100%); padding: 2rem; border-radius: 12px; border-left: 4px solid #415FFF;">
+            <h3 style="color: #415FFF; margin-bottom: 1rem;">카메라 특징</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: #415FFF;">◆</span>
+                    망원 줌 모드 지원 (50MP 망원 렌즈)
+                </li>
+                <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: #415FFF;">◆</span>
+                    초고화질 200MP 메인 센서
+                </li>
+                <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: #415FFF;">◆</span>
+                    대형 렌즈 모듈 (시각적 임팩트)
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">배터리 및 충전</h2>
+        <div class="performance-section">
+            <h3>강력한 에너지</h3>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <span>7,100mAh 대용량 배터리</span>
+                </div>
+                <div class="feature-item">
+                    <span>90W 고속 유선 충전</span>
+                </div>
+                <div class="feature-item">
+                    <span>40W 무선 충전</span>
+                </div>
+                <div class="feature-item">
+                    <span>장시간 사용 가능</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">디자인 및 기능</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>프레임 소재</h3>
+                <p>프리미엄 메탈 프레임으로 견고하고 우아한 디자인</p>
+            </div>
+            <div class="feature-card">
+                <h3>카메라 모듈</h3>
+                <p>대형 원형 카메라 모듈 디자인으로 독특한 비주얼 임팩트</p>
+            </div>
+            <div class="feature-card">
+                <h3>햅틱 피드백</h3>
+                <p>751440 X축 햅틱 모터로 생생한 진동 피드백 제공</p>
+            </div>
+            <div class="feature-card">
+                <h3>스피커</h3>
+                <p>1511 대칭 이중 스피커로 몰입감 있는 오디오 경험</p>
+            </div>
+            <div class="feature-card">
+                <h3>생체인식</h3>
+                <p>3D 초음파 지문인식 2.0으로 빠르고 안전한 잠금 해제</p>
+            </div>
+            <div class="feature-card">
+                <h3>포트 및 연결</h3>
+                <p>USB 3.2 포트로 빠른 데이터 전송 지원</p>
+            </div>
+            <div class="feature-card">
+                <h3>방수 방진</h3>
+                <p>IP68/IP69 등급으로 극한의 환경에서도 견딤</p>
+            </div>
+            <div class="feature-card">
+                <h3>프로세서</h3>
+                <p>MediaTek Dimensity 9500 프로세서 탑재 (예상)</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>출처</h4>
+                <p>
+                    본 기사는 IT之家의 뉴스 기사를 한국어로 번역한 내용입니다.
+                </p>
+                <p>
+                    원문 링크: <a href="https://www.ithome.com/0/931/884.htm" target="_blank">https://www.ithome.com/0/931/884.htm</a>
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>게시 날짜</h4>
+                <p>2026년 3월 24일</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>참고사항</h4>
+                <p>
+                    본 내용은 출시 전 예상 사양을 포함하고 있으며, 공식 출시 시 변경될 수 있습니다.
+                    정확한 사양은 vivo 공식 채널을 통해 확인하시기 바랍니다.
+                </p>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 IT之家 번역 버전. 모든 권리 보유.</p>
+                <p>번역 및 웹 디자인: Claude</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentScheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+            if (currentScheme === 'dark') {
+                html.style.colorScheme = 'light';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.style.colorScheme = 'dark';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // 페이지 로드 시 저장된 테마 복원
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.style.colorScheme = savedTheme;
+            }
+        });
+    </script>
+</body>
+</html>

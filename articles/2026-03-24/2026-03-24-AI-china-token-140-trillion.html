@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>중국 일일 토큰 호출량 140조 돌파, 2년간 1,000배 이상 증가</title>
+    <meta name="description" content="국가데이터국 류리에훙 국장이 중국 발전 포럼 2026에서 발표한 일일 토큰 호출량이 140조를 돌파했습니다.">
+    <meta name="author" content="IT之家">
+    <meta name="publish-date" content="2026-03-24">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #DE2910;
+            --dark-bg: #1e293b;
+            --light-bg: #f1f5f9;
+            --dark-text: #0f172a;
+            --light-text: #f1f5f9;
+            --dark-card: #334155;
+            --light-card: #f8fafc;
+            --dark-border: #475569;
+            --light-border: #e2e8f0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--dark-bg);
+                color: var(--light-text);
+            }
+
+            .card {
+                background-color: var(--dark-card);
+                border-color: var(--dark-border);
+            }
+
+            .nav {
+                background-color: rgba(15, 23, 42, 0.95);
+                border-color: var(--dark-border);
+            }
+
+            .footer {
+                background-color: var(--dark-card);
+                border-color: var(--dark-border);
+            }
+
+            h1, h2, h3 {
+                color: var(--light-text);
+            }
+
+            a {
+                color: var(--primary);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: #ffffff;
+                color: var(--dark-text);
+            }
+
+            .card {
+                background-color: var(--light-card);
+                border-color: var(--light-border);
+            }
+
+            .nav {
+                background-color: rgba(255, 255, 255, 0.95);
+                border-color: var(--light-border);
+            }
+
+            .footer {
+                background-color: var(--light-card);
+                border-color: var(--light-border);
+            }
+
+            h1, h2, h3 {
+                color: var(--dark-text);
+            }
+
+            a {
+                color: var(--primary);
+            }
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            letter-spacing: -0.3px;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes scaleIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.95);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            .hero-content, .section-title {
+                animation: fadeInUp 0.8s ease-out;
+            }
+
+            .stats-item, .feature-card {
+                animation: scaleIn 0.6s ease-out;
+            }
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid;
+            padding: 1rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid;
+            border-color: inherit;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero {
+            position: relative;
+            padding: 4rem 0;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary) 0%, rgba(222, 41, 16, 0.1) 100%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .meta-label {
+            opacity: 0.7;
+            font-size: 0.85rem;
+        }
+
+        .meta-value {
+            font-weight: 600;
+        }
+
+        .hero-image {
+            margin-top: 3rem;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            max-height: 400px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        section {
+            padding: 3rem 0;
+            border-top: 1px solid;
+            border-color: inherit;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+
+        .speaker-info {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+        }
+
+        .speaker-name {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .speaker-title {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .growth-trajectory {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .trajectory-item {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--dark-border);
+        }
+
+        .timeline-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-growth {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .concept-definition {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            padding: 2rem;
+            border-left: 4px solid var(--primary);
+            border-radius: 0.375rem;
+            margin-bottom: 2rem;
+        }
+
+        .concept-term {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .concept-desc {
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .initiatives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid;
+            border-color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stats-item {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            border: 1px solid var(--dark-border);
+        }
+
+        .stats-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .chart-container {
+            margin-top: 2rem;
+            padding: 2rem;
+            background-color: var(--dark-bg);
+            border-radius: 0.75rem;
+            border: 1px solid var(--dark-border);
+            color: var(--light-text);
+        }
+
+        .chart-title {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            gap: 1rem;
+            height: 250px;
+            padding: 1rem 0;
+        }
+
+        .bar-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            max-width: 100px;
+        }
+
+        .bar {
+            width: 100%;
+            background: linear-gradient(to top, var(--primary), rgba(222, 41, 16, 0.5));
+            border-radius: 0.375rem 0.375rem 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+            filter: brightness(1.1);
+        }
+
+        .bar-label {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            text-align: center;
+            word-break: break-word;
+        }
+
+        .bar-value {
+            margin-top: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+
+        .content-section {
+            margin-top: 3rem;
+        }
+
+        .content-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .emphasis {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .footer {
+            border-top: 1px solid;
+            border-color: inherit;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+        }
+
+        .footer-link {
+            display: block;
+            margin-bottom: 0.75rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+        }
+
+        .footer-divider {
+            border-top: 1px solid;
+            border-color: inherit;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            opacity: 0.7;
+            font-size: 0.85rem;
+        }
+
+        .disclaimer {
+            background-color: rgba(222, 41, 16, 0.05);
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 2rem 0;
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .initiatives-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-bars {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">IT之家</div>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙 테마</button>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="hero-badge">IT之家 · 2026년 3월 24일</span>
+                    <h1>중국 일일 토큰 호출량 140조 돌파, 2년간 1,000배 이상 증가</h1>
+
+                    <div class="hero-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">발표자</span>
+                            <span class="meta-value">류리에훙 국장</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">소속</span>
+                            <span class="meta-value">국가데이터국</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">행사</span>
+                            <span class="meta-value">중국 발전 포럼 2026</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-image">
+                        <img src="https://img.ithome.com/newsuploadfiles/2025/11/49e3c3c3-5ece-4eb9-bb3b-fc680292d666.png?x-bce-process=image/format,f_auto" alt="중국 발전 포럼 2026">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="speaker-section">
+            <div class="container">
+                <h2 class="section-title">주요 발표 내용</h2>
+
+                <div class="speaker-info">
+                    <div class="speaker-name">류리에훙(刘烈宏) 국가데이터국 국장</div>
+                    <div class="speaker-title">중국 발전 포럼 2026에서 발표</div>
+                </div>
+
+                <div class="content-section">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 1rem;">일일 토큰 호출량 성장</h3>
+                    <p class="content-text">중국의 일일 토큰 호출량은 지난 2년간 급속한 성장을 거듭했습니다. 이는 인공지능 기술의 발전과 디지털 경제의 확대를 보여주는 핵심 지표입니다.</p>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="growth-trajectory">
+                    <div class="trajectory-item">
+                        <div class="timeline-label">2024년 초</div>
+                        <div class="timeline-value">1,000억</div>
+                        <div class="timeline-growth">일일 토큰</div>
+                    </div>
+                    <div class="trajectory-item">
+                        <div class="timeline-label">2025년 말</div>
+                        <div class="timeline-value">100조</div>
+                        <div class="timeline-growth">일일 토큰</div>
+                    </div>
+                    <div class="trajectory-item">
+                        <div class="timeline-label">2026년 3월</div>
+                        <div class="timeline-value">140조 이상</div>
+                        <div class="timeline-growth">일일 토큰</div>
+                    </div>
+                    <div class="trajectory-item">
+                        <div class="timeline-label">전체 성장률</div>
+                        <div class="timeline-value">1,000배</div>
+                        <div class="timeline-growth">2년간 증가</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="concept-section">
+            <div class="container">
+                <h2 class="section-title">토큰의 의미</h2>
+
+                <div class="concept-definition">
+                    <div class="concept-term">词元(토큰)의 정의</div>
+                    <div class="concept-desc">
+                        국가데이터국 류리에훙 국장은 토큰을 <span class="emphasis">"지능화 시대의 가치 앵커(value anchor)"</span>이자 <span class="emphasis">"기술 공급과 상업 수요를 연결하는 정산 단위"</span>라고 정의했습니다. 이를 통해 정량화 가능한 비즈니스 모델 구현이 가능해집니다.
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">경제적 의미</h3>
+                    <p class="content-text">토큰은 단순한 기술 단위를 넘어 디지털 경제의 핵심 거래 수단으로 자리매김하고 있습니다. 일일 호출량 140조라는 규모는 중국의 인공지능 산업이 이미 대규모 상용화 단계에 접어들었음을 의미합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="initiatives-section">
+            <div class="container">
+                <h2 class="section-title">2026년 데이터 가치 창출의 해</h2>
+                <p class="section-subtitle">국가데이터국이 추진하는 6대 전략 과제</p>
+
+                <div class="initiatives-grid">
+                    <div class="feature-card">
+                        <div class="card-number">1</div>
+                        <div class="card-title">기초 강화 및 확대</div>
+                        <div class="card-description">强基扩容 - 기초 인프라를 강화하고 인공지능 시스템의 규모를 확대합니다.</div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="card-number">2</div>
+                        <div class="card-title">데이터 주석 혁신</div>
+                        <div class="card-description">标注攻坚 - 고품질 데이터 주석 기술을 개선하여 학습 효율을 높입니다.</div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="card-number">3</div>
+                        <div class="card-title">품질 향상 및 효율성</div>
+                        <div class="card-description">提质增效 - 기술 품질을 개선하고 운영 효율성을 극대화합니다.</div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="card-number">4</div>
+                        <div class="card-title">애플리케이션 강화</div>
+                        <div class="card-description">应用赋能 - 산업별 맞춤형 인공지능 애플리케이션 개발을 지원합니다.</div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="card-number">5</div>
+                        <div class="card-title">관리 및 서비스 체계</div>
+                        <div class="card-description">管理服务 - 효율적인 관리 체계와 지원 서비스를 구축합니다.</div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="card-number">6</div>
+                        <div class="card-title">가치 창출</div>
+                        <div class="card-description">价值释放 - 데이터와 인공지능의 경제적 가치를 극대화합니다.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="growth-section">
+            <div class="container">
+                <h2 class="section-title">토큰 호출량 성장 추이</h2>
+
+                <div class="chart-container">
+                    <div class="chart-title">지난 2년간 일일 토큰 호출량 추이</div>
+                    <div class="chart-bars">
+                        <div class="bar-group">
+                            <div class="bar" style="height: 10%;"></div>
+                            <div class="bar-label">2024년 초</div>
+                            <div class="bar-value">1,000억</div>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar" style="height: 71.4%;"></div>
+                            <div class="bar-label">2025년 말</div>
+                            <div class="bar-value">100조</div>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar" style="height: 100%;"></div>
+                            <div class="bar-label">2026년 3월</div>
+                            <div class="bar-value">140조+</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stats-item">
+                        <div class="stats-value">1,000배</div>
+                        <div class="stats-label">2년간 성장률</div>
+                    </div>
+                    <div class="stats-item">
+                        <div class="stats-value">140조</div>
+                        <div class="stats-label">현재 일일 호출량</div>
+                    </div>
+                    <div class="stats-item">
+                        <div class="stats-value">40조</div>
+                        <div class="stats-label">2025년 말 이후 증가</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="energy-section">
+            <div class="container">
+                <h2 class="section-title">그린 컴퓨팅 전략</h2>
+                <p class="section-subtitle">계산 전력 조정 프로젝트</p>
+
+                <div class="content-section">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">신규 컴퓨팅 시설의 그린 에너지 전환</h3>
+                    <p class="content-text">국가데이터국은 계산-전력 조정 프로젝트를 통해 그린 전력의 직접 공급을 촉진하고 있습니다. <span class="emphasis">신규 컴퓨팅 시설의 80% 이상이 그린 에너지를 사용하도록 유도</span>하여 인공지능 산업의 지속 가능한 발전을 추진하고 있습니다.</p>
+
+                    <p class="content-text" style="margin-top: 1rem;">이는 대규모 인공지능 시스템의 전력 소비에 따른 환경 부담을 줄이면서도 산업 경쟁력을 유지하는 균형잡힌 정책입니다.</p>
+                </div>
+
+                <div class="feature-card" style="margin-top: 2rem; border-left: 4px solid var(--primary);">
+                    <h4 style="margin-bottom: 1rem;">그린 컴퓨팅의 목표</h4>
+                    <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                        <li>신규 컴퓨팅 시설 80% 이상 그린 에너지 사용</li>
+                        <li>그린 전력의 직접 공급 체계 구축</li>
+                        <li>지속 가능한 인공지능 산업 발전</li>
+                        <li>탄소 중립 목표 달성에 기여</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="insight-section">
+            <div class="container">
+                <h2 class="section-title">의미 분석</h2>
+
+                <div class="content-section">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">산업 발전의 지표</h3>
+                    <p class="content-text">일일 토큰 호출량 140조는 중국의 인공지능 산업이 다음과 같은 단계에 진입했음을 의미합니다:</p>
+
+                    <ul style="margin: 1.5rem 0 0 1.5rem; line-height: 2;">
+                        <li><strong>대규모 상용화:</strong> 이미 대중적으로 널리 사용되는 단계</li>
+                        <li><strong>경제 통합:</strong> 인공지능이 경제의 중심 역할 수행</li>
+                        <li><strong>기술 성숙:</strong> 안정적이고 효율적인 인프라 구축</li>
+                        <li><strong>글로벌 경쟁:</strong> 국제 시장에서의 중요한 위치 확보</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">향후 전망</h3>
+                    <p class="content-text">"데이터 가치 창출의 해" 2026년의 6대 전략은 토큰 호출량의 더욱 빠른 증가와 품질 향상을 모두 추구하고 있습니다. 이는 <span class="emphasis">양적 성장과 질적 발전의 균형 있는 발전</span>을 목표로 한 정책입니다.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>원문 정보</h3>
+                    <a href="https://www.ithome.com/0/931/873.htm" class="footer-link" target="_blank">IT之家 원문 (중문)</a>
+                    <span class="footer-link">발표일: 2026년 3월 24일</span>
+                </div>
+                <div class="footer-section">
+                    <h3>관련 주제</h3>
+                    <span class="footer-link">인공지능</span>
+                    <span class="footer-link">데이터 경제</span>
+                    <span class="footer-link">그린 컴퓨팅</span>
+                </div>
+                <div class="footer-section">
+                    <h3>더 알아보기</h3>
+                    <span class="footer-link">중국 발전 포럼 2026</span>
+                    <span class="footer-link">국가데이터국</span>
+                </div>
+            </div>
+
+            <div class="footer-divider">
+                <p>본 문서는 IT之家(https://www.ithome.com)의 2026년 3월 24일 기사를 한국어로 번역한 것입니다.</p>
+                <div class="disclaimer">
+                    <strong>면책 조항:</strong> 본 번역은 정보 전달을 목적으로 제작되었습니다. 원문의 정확한 내용은 IT之家의 공식 페이지를 참고하시기 바랍니다. 통계 수치 및 정책 정보는 중국 국가데이터국의 공식 발표 기준입니다.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const htmlElement = document.documentElement;
+            const currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+            if (currentTheme === 'dark') {
+                htmlElement.style.colorScheme = 'light';
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.style.colorScheme = 'dark';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme preference
+        window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.style.colorScheme = savedTheme;
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

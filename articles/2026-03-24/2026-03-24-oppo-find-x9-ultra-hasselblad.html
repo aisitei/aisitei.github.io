@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPPO Find X9 Ultra - Hasselblad 카메라 탑재 프리미엄 스마트폰</title>
+    <meta name="description" content="OPPO가 2026년 4월 출시할 Find X9 Ultra를 공식 발표했습니다. Hasselblad 중형 카메라를 탑재한 프로페셔널 카메라 스마트폰입니다.">
+    <meta name="author" content="IT之家">
+    <meta name="date" content="2026-03-24">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #1BA672;
+            --secondary: #0F766E;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --accent: #1BA672;
+            --background: #FFFFFF;
+            --surface: #F3F4F6;
+            --border: #E5E7EB;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+            --dark-text-primary: #F1F5F9;
+            --dark-text-secondary: #94A3B8;
+            --dark-background: #0F172A;
+            --dark-surface: #1E293B;
+            --dark-border: #334155;
+            --dark-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #F1F5F9;
+                --text-secondary: #94A3B8;
+                --background: #0F172A;
+                --surface: #1E293B;
+                --border: #334155;
+                --shadow: #000000;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Header Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            background-color: var(--background);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--surface);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, #1BA672 0%, #0F766E 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(27, 166, 114, 0.7) 0%, rgba(15, 118, 78, 0.7) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            max-width: 800px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .article-date {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .article-source {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Content Sections */
+        section {
+            margin-bottom: 4rem;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        section p {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background-color: #1E293B;
+            color: #F1F5F9;
+            padding: 2rem;
+            border-radius: 12px;
+            animation: scaleIn 0.6s ease-out;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .feature-card {
+                background-color: #1E293B;
+                color: #F1F5F9;
+            }
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #F1F5F9;
+        }
+
+        .feature-card p {
+            color: #94A3B8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .feature-spec {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #334155;
+            font-size: 0.9rem;
+        }
+
+        .spec-label {
+            color: #94A3B8;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .spec-value {
+            color: #1BA672;
+            font-weight: 600;
+        }
+
+        /* Specs Section */
+        .specs-container {
+            background-color: #1E293B;
+            color: #F1F5F9;
+            padding: 3rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .specs-container h3 {
+            color: #F1F5F9;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .spec-item {
+            padding: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid #1BA672;
+        }
+
+        .spec-item-title {
+            color: #1BA672;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .spec-item-detail {
+            color: #94A3B8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background-color: var(--surface);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .highlight-box {
+                background-color: rgba(27, 166, 114, 0.1);
+                border-left-color: #1BA672;
+            }
+        }
+
+        .highlight-box p {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Gallery */
+        .gallery-section {
+            margin: 4rem 0;
+        }
+
+        .gallery-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 1.5rem 1rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--surface);
+            color: var(--text-secondary);
+            padding: 3rem 1.5rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-link {
+            color: var(--primary);
+            text-decoration: none;
+            word-break: break-all;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--secondary);
+        }
+
+        .footer-divider {
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        .footer-disclaimer {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .footer-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                height: 350px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.75rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            .specs-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">OPPO News</a>
+            <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
+                <span id="themeIcon">🌙</span>
+            </button>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/3/a774f707-5dd0-45cd-88fa-5c616a787735.jpg?x-bce-process=image/format,f_auto" alt="OPPO Find X9 Ultra" class="hero-image">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>OPPO Find X9 Ultra</h1>
+            <p>당신의 주머니에 담긴 Hasselblad 카메라</p>
+        </div>
+    </div>
+
+    <main>
+        <article>
+            <div class="article-meta">
+                <time class="article-date" datetime="2026-03-24">2026년 3월 24일</time>
+                <span class="article-source">출처: IT之家</span>
+            </div>
+
+            <!-- 공식 발표 섹션 -->
+            <section>
+                <h2>공식 발표</h2>
+                <p>OPPO가 2026년 4월 출시 예정인 Find X9 Ultra를 공식 발표했습니다. 이번 신제품은 "당신의 주머니에 담긴 Hasselblad" 이라는 슬로건으로 마케팅되고 있으며, 프로페셔널 카메라 스마트폰으로 위치지어졌습니다.</p>
+                <div class="highlight-box">
+                    <p>🎥 Find X9 Ultra는 Hasselblad 중형 카메라의 크오리티를 스마트폰에 구현하기 위해 설계되었습니다.</p>
+                </div>
+            </section>
+
+            <!-- 카메라 사양 섹션 -->
+            <section>
+                <h2>혁신적인 카메라 기술</h2>
+                <p>OPPO Find X9 Ultra는 업계 최고 수준의 카메라 성능을 자랑합니다. 특히 광학 줌 기술과 센서 크기에서 경쟁 제품들을 능가합니다.</p>
+
+                <div class="specs-container">
+                    <h3>📱 주요 카메라 사양</h3>
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <div class="spec-item-title">10배 망원 줌</div>
+                            <div class="spec-item-detail">
+                                <span class="spec-label">해상도:</span>
+                                <span class="spec-value">5,000만 화소</span>
+                                <br>
+                                <span class="spec-label">조리개:</span>
+                                <span class="spec-value">f/3.5</span>
+                                <br>
+                                <span class="spec-label">특징:</span>
+                                <span class="spec-value">Samsung Galaxy S23 Ultra 대비 약 3배 향상된 광량 수집</span>
+                            </div>
+                        </div>
+
+                        <div class="spec-item">
+                            <div class="spec-item-title">3배 망원 렌즈</div>
+                            <div class="spec-item-detail">
+                                <span class="spec-label">해상도:</span>
+                                <span class="spec-value">2억 화소</span>
+                                <br>
+                                <span class="spec-label">렌즈 타입:</span>
+                                <span class="spec-value">망원식 페리스코프</span>
+                                <br>
+                                <span class="spec-label">특징:</span>
+                                <span class="spec-value">업계 최고 수준의 광량 수집</span>
+                            </div>
+                        </div>
+
+                        <div class="spec-item">
+                            <div class="spec-item-title">광학 줌 기술</div>
+                            <div class="spec-item-detail">
+                                <span class="spec-label">기술:</span>
+                                <span class="spec-value">네이티브 10배 광학 줌</span>
+                                <br>
+                                <span class="spec-label">특징:</span>
+                                <span class="spec-value">업계 유일한 기술</span>
+                                <br>
+                                <span class="spec-label">장점:</span>
+                                <span class="spec-value">손실 없는 고품질 줌</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 특징 카드 섹션 -->
+            <section>
+                <h2>주요 특징</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📸</div>
+                        <h3>Hasselblad 협력</h3>
+                        <p>세계적으로 유명한 Hasselblad와 협력하여 프로페셔널 카메라 품질을 스마트폰에 구현했습니다.</p>
+                        <div class="feature-spec">
+                            <span class="spec-label">시그니처:</span>
+                            <span class="spec-value">Hasselblad Natural Color Reproduction</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3>10배 네이티브 광학 줌</h3>
+                        <p>업계 유일한 10배 네이티브 광학 줌 기술로 손실 없는 고품질 줌을 제공합니다.</p>
+                        <div class="feature-spec">
+                            <span class="spec-label">대비:</span>
+                            <span class="spec-value">기존 디지털 줌 방식 대비 우수</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">💡</div>
+                        <h3>뛰어난 광량 수집</h3>
+                        <p>10배 망원 줌에서도 Samsung Galaxy S23 Ultra 대비 약 3배 향상된 광량을 수집합니다.</p>
+                        <div class="feature-spec">
+                            <span class="spec-label">조리개:</span>
+                            <span class="spec-value">f/3.5 (망원 줌)</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎬</div>
+                        <h3>프로페셔널 영상 촬영</h3>
+                        <p>다양한 초점 거리와 뛰어난 센서 성능으로 전문 스튜디오 수준의 영상 촬영이 가능합니다.</p>
+                        <div class="feature-spec">
+                            <span class="spec-label">초점 거리:</span>
+                            <span class="spec-value">광각 ~ 10배 망원</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 마케팅 전략 섹션 -->
+            <section>
+                <h2>마케팅 및 포지셔닝</h2>
+                <p>OPPO의 Find 시리즈 신임 리더 卓世杰(Zhuo Shijie)는 Weibo에서 Hasselblad 중형 포맷 미러리스 카메라를 들고 있는 사진을 공유했습니다. 이는 Find X9 Ultra의 카메라 능력이 전문가급 수준임을 암시하는 강한 메시지입니다.</p>
+                <div class="highlight-box">
+                    <p>💬 "당신의 주머니에 담긴 Hasselblad" - OPPO의 공식 마케팅 슬로건으로, Find X9 Ultra가 프로페셔널 사진 작가도 만족할 수 있는 카메라 성능을 목표로 개발되었음을 나타냅니다.</p>
+                </div>
+            </section>
+
+            <!-- 미정 정보 섹션 -->
+            <section>
+                <h2>향후 공개 예정 정보</h2>
+                <p>현재 공개 단계에서는 구체적인 판매 가격이 아직 발표되지 않았습니다. 추가 스펙과 가격 정보는 2026년 4월 공식 출시 당시에 발표될 것으로 예상됩니다.</p>
+                <ul style="margin-left: 1.5rem; color: var(--text-primary);">
+                    <li style="margin-bottom: 0.5rem;">🚀 공식 출시일: 2026년 4월 (예상)</li>
+                    <li style="margin-bottom: 0.5rem;">💰 가격: 미정</li>
+                    <li style="margin-bottom: 0.5rem;">📱 추가 사양: 순차 공개 예정</li>
+                </ul>
+            </section>
+
+            <!-- 갤러리 섹션 -->
+            <section class="gallery-section">
+                <h3 class="gallery-title">갤러리</h3>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/3/a774f707-5dd0-45cd-88fa-5c616a787735.jpg?x-bce-process=image/format,f_auto" alt="OPPO Find X9 Ultra 프리뷰">
+                        <div class="gallery-caption">OPPO Find X9 Ultra - Hasselblad 카메라 탑재</div>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>원본 기사</h3>
+                <p><a href="https://www.ithome.com/0/931/670.htm" class="footer-link">https://www.ithome.com/0/931/670.htm</a></p>
+            </div>
+
+            <div class="footer-section">
+                <h3>기사 정보</h3>
+                <p>원문: IT之家<br>발행일: 2026년 3월 24일<br>번역: 한국어</p>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-disclaimer">
+                <strong>면책 조항:</strong> 본 한국어 번역 기사는 IT之家의 원본 콘텐츠를 참고하여 작성되었습니다. 모든 제품 사양과 가격 정보는 공식 발표 시점의 정보를 기반으로 하며, 변경될 수 있습니다. OPPO 공식 채널을 통해 최신 정보를 확인하시기 바랍니다. 이미지는 제시된 출처에서 제공되었습니다.
+            </div>
+
+            <div class="footer-meta">
+                <span>© 2026 OPPO News | 한국어 번역</span>
+                <span>마지막 업데이트: 2026년 3월 24일</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        // Initialize theme based on system preference
+        function initializeTheme() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme');
+
+            if (savedTheme) {
+                htmlElement.style.colorScheme = savedTheme;
+                updateThemeIcon(savedTheme === 'dark');
+            } else {
+                updateThemeIcon(prefersDark);
+            }
+        }
+
+        function updateThemeIcon(isDark) {
+            themeIcon.textContent = isDark ? '☀️' : '🌙';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const newTheme = isDark ? 'light' : 'dark';
+
+            htmlElement.style.colorScheme = newTheme;
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme === 'dark');
+        });
+
+        // Initialize on page load
+        window.addEventListener('load', initializeTheme);
+
+        // Smooth scroll for links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
