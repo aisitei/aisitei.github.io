@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivo X300s 촬영 전문가 에디션 리뷰 - 초능 소V 미러리스</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #415FFF;
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-text: #f1f5f9;
+            --light-bg: #ffffff;
+            --light-card: #f8fafc;
+            --light-text: #1e293b;
+            --accent: #415FFF;
+            --border: #e2e8f0;
+            --dark-border: #334155;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.light-theme {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+        }
+
+        body.dark-theme {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            z-index: 1000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(65, 95, 255, 0.3);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(65, 95, 255, 0.4);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d3dcd 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .light-theme .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d3dcd 100%);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        .header .meta {
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(65, 95, 255, 0.2);
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: heroZoom 0.8s ease-out forwards;
+        }
+
+        @keyframes heroZoom {
+            from {
+                transform: scale(1.05);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero img {
+                animation: none;
+            }
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .section p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .light-theme .feature-card {
+            background: var(--light-card);
+            border: 1px solid var(--border);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(65, 95, 255, 0.15);
+        }
+
+        .feature-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Specs Grid */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .specs-item {
+            padding: 1.5rem;
+            background: rgba(65, 95, 255, 0.05);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+        }
+
+        .specs-item .label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(241, 245, 249, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .specs-item .value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--dark-text);
+        }
+
+        /* Camera System */
+        .camera-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .camera-spec-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            padding: 2rem;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .light-theme .camera-spec-card {
+            background: var(--light-card);
+            border: 1px solid var(--border);
+        }
+
+        .camera-spec-card h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .camera-spec-card ul {
+            list-style: none;
+        }
+
+        .camera-spec-card li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--dark-border);
+            font-size: 0.95rem;
+        }
+
+        .light-theme .camera-spec-card li {
+            border-bottom-color: var(--border);
+        }
+
+        .camera-spec-card li:last-child {
+            border-bottom: none;
+        }
+
+        .camera-spec-card li strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Gallery */
+        .gallery {
+            margin-bottom: 3rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(65, 95, 255, 0.15);
+            aspect-ratio: 4 / 3;
+            cursor: pointer;
+            group/gallery: group;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Design & Display Section */
+        .design-section {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .light-theme .design-section {
+            background: var(--light-card);
+            border: 1px solid var(--border);
+        }
+
+        .design-section h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .design-feature {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .light-theme .design-feature {
+            border-bottom-color: var(--border);
+        }
+
+        .design-feature:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .design-feature .title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(241, 245, 249, 0.7);
+        }
+
+        .light-theme .footer {
+            background: var(--light-card);
+            border-top-color: var(--border);
+            color: rgba(30, 41, 59, 0.6);
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer a:hover {
+            opacity: 0.8;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header .subtitle {
+                font-size: 1rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero {
+                height: 300px;
+            }
+
+            .theme-toggle {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .camera-specs {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .specs-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        /* Utility */
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <button class="theme-toggle" id="themeToggle">라이트 테마</button>
+
+    <header class="header">
+        <div class="container">
+            <h1>Vivo X300s 촬영 전문가 에디션</h1>
+            <p class="subtitle">초능 소V 미러리스 - 전문가를 위한 스마트폰 카메라</p>
+            <div class="meta">
+                <p>📷 카메라 리뷰 | 2026년 3월 25일</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <img src="https://img.ithome.com/newsuploadfiles/2026/3/b40e9571-6607-49e0-a951-95007707931a.jpg" alt="Vivo X300s 촬영 전문가 에디션 실물 이미지">
+        </section>
+
+        <!-- Introduction -->
+        <section class="section">
+            <h2>개요</h2>
+            <p>Vivo X300s 촬영 전문가 에디션은 <span class="highlight">초능 소V 미러리스(超能小V单)</span>로 포지셔닝되며, 전문가 수준의 촬영 경험을 스마트폰에 담아낸 제품입니다. 클래식한 사진 미학의 디자인과 강력한 카메라 시스템을 통해 여행 사진가와 일상 촬영을 즐기는 사용자들을 위한 완벽한 선택지가 될 것으로 예상됩니다.</p>
+        </section>
+
+        <!-- Camera System -->
+        <section class="section">
+            <h2>카메라 시스템</h2>
+            <div class="camera-specs">
+                <div class="camera-spec-card">
+                    <h4>📷 주요 센서</h4>
+                    <ul>
+                        <li><strong>주 센서:</strong> 200MP 고해상도 센서</li>
+                        <li><strong>초광각:</strong> 50MP 초광각 렌즈</li>
+                        <li><strong>망원:</strong> 50MP 페리스코프 망원 렌즈</li>
+                        <li><strong>전면:</strong> 50MP 전면 카메라</li>
+                    </ul>
+                </div>
+
+                <div class="camera-spec-card">
+                    <h4>🎨 색감 및 렌즈</h4>
+                    <ul>
+                        <li><strong>색감 과학:</strong> 네이티브 블루프린트 컬러 사이언스 지원</li>
+                        <li><strong>보조 렌즈:</strong> Lipstick 200 (립스틱 200)</li>
+                        <li><strong>초점 거리:</strong> 200mm 초상화 전용</li>
+                        <li><strong>무게 감소:</strong> 153g (이전 세대 대비 27% 경량화)</li>
+                    </ul>
+                </div>
+
+                <div class="camera-spec-card">
+                    <h4>✨ 촬영 특화</h4>
+                    <ul>
+                        <li><strong>용도:</strong> 여행 촬영 및 캔디드 인물화 전문</li>
+                        <li><strong>포지셔닝:</strong> 미러리스 카메라 수준의 능력</li>
+                        <li><strong>특징:</strong> 전문가급 사진 미학 지원</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Camera Features -->
+        <section class="section">
+            <h2>Lipstick 200 보조 렌즈</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">⚖️</div>
+                    <h3>경량 설계</h3>
+                    <p>153g의 가벼운 무게로 이전 세대보다 27% 가벼워져 휴대성이 대폭 향상되었습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📸</div>
+                    <h3>200mm 초상화 렌즈</h3>
+                    <p>200mm의 초점 거리로 자연스러운 배경 보케와 함께 피사체를 생생하게 표현합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">✈️</div>
+                    <h3>여행 촬영 최적화</h3>
+                    <p>여행 중 캔디드 인물화 촬영을 위해 최적화된 성능을 제공합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design & Display -->
+        <section class="section">
+            <h2>디자인 및 디스플레이</h2>
+            <div class="design-section">
+                <h3>미적 설계</h3>
+                <div class="design-feature">
+                    <div class="title">🎬 세그먼트 카메라 디자인</div>
+                    <p>분절형 카메라 배치로 세련되고 기능적인 외관을 구현했습니다. 클래식한 사진 미학이 현대적으로 해석되었습니다.</p>
+                </div>
+
+                <div class="design-feature">
+                    <div class="title">🌿 필름 그린 컬러</div>
+                    <p>"필름 그린(Film Green)" 컬러 옵션으로 아날로그 카메라의 감성을 담아냈습니다. 이는 클래식 필름 사진의 감성을 현대 스마트폰에 구현한 것입니다.</p>
+                </div>
+
+                <div class="design-feature">
+                    <div class="title">🔗 메탈 프레임</div>
+                    <p>메탈 프레임 구조로 견고하고 프리미엄한 질감을 제공합니다.</p>
+                </div>
+
+                <div class="design-feature">
+                    <div class="title">⭕ 대형 원형 렌즈 모듈</div>
+                    <p>큰 원형의 렌즈 모듈로 카메라 시스템의 강력함을 시각적으로 표현합니다.</p>
+                </div>
+
+                <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;">디스플레이 사양</h3>
+                <div class="design-feature">
+                    <div class="title">6.78인치 BOE Q10+ 플랫 스크린</div>
+                    <ul style="margin-top: 0.8rem;">
+                        <li>✓ 1.5K 해상도</li>
+                        <li>✓ 144Hz 고주사율</li>
+                        <li>✓ 플랫 엣지 디자인</li>
+                        <li>✓ BOE 최신 패널 기술 탑재</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Full Specs -->
+        <section class="section">
+            <h2>전체 사양</h2>
+            <div class="specs-grid">
+                <div class="specs-item">
+                    <div class="label">배터리</div>
+                    <div class="value">7,100mAh + 90W 고속 충전</div>
+                </div>
+
+                <div class="specs-item">
+                    <div class="label">생체 인식</div>
+                    <div class="value">3D 초음파 지문 인식</div>
+                </div>
+
+                <div class="specs-item">
+                    <div class="label">오디오</div>
+                    <div class="value">듀얼 대칭 스피커 (1511 설정)</div>
+                </div>
+
+                <div class="specs-item">
+                    <div class="label">햅틱 피드백</div>
+                    <div class="value">X축 모터 탑재</div>
+                </div>
+
+                <div class="specs-item">
+                    <div class="label">방수 방진</div>
+                    <div class="value">IP68 / IP69 등급</div>
+                </div>
+
+                <div class="specs-item">
+                    <div class="label">카메라 배치</div>
+                    <div class="value">세그먼트 설계</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Gallery -->
+        <section class="section gallery">
+            <h2>갤러리</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/b40e9571-6607-49e0-a951-95007707931a.jpg" alt="Vivo X300s 전면 이미지">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/bb61b1cd-e43f-4960-b515-c156df2d961a.jpg" alt="Vivo X300s 후면 이미지">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/8825a6cc-582f-4ff9-be6e-b768df1b9fb9.jpg" alt="Vivo X300s 디자인 상세">
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="section">
+            <h2>결론</h2>
+            <p>Vivo X300s 촬영 전문가 에디션은 스마트폰 카메라의 경계를 확장하는 제품입니다. 200MP 주 센서와 50MP 초광각, 망원 렌즈로 구성된 강력한 트리플 카메라 시스템과 Lipstick 200 보조 렌즈는 전문가 수준의 촬영을 가능하게 합니다.</p>
+            <p style="margin-top: 1rem;">경량화된 렌즈 설계, 세련된 필름 그린 컬러, 그리고 미러리스 카메라 수준의 성능으로 여행 사진가와 진지한 촬영 애호가들에게 이상적인 선택지가 될 것으로 기대됩니다. 전문가 수준의 색감 과학과 함께 일상 속 모든 순간을 예술로 변환할 준비가 되어 있습니다.</p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <p><strong>원본 기사:</strong> <a href="https://www.ithome.com/0/932/214.htm" target="_blank">IT之家 - Vivo X300s 리뷰</a></p>
+            </div>
+            <div class="footer-section">
+                <p>발행일: 2026년 3월 25일 | 분류: 📷 카메라 (스마트폰 카메라 리뷰)</p>
+            </div>
+            <div class="footer-section">
+                <p style="font-size: 0.85rem; margin-top: 1rem;">⚠️ 면책 조항: 이 페이지는 IT之家 원본 기사를 한국어로 번역한 것입니다. 공식 제품 정보는 Vivo 공식 웹사이트를 참조하시기 바랍니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Initialize theme from localStorage
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        body.classList.add(`${savedTheme}-theme`);
+        updateToggleButton();
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark-theme')) {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            }
+            updateToggleButton();
+        });
+
+        function updateToggleButton() {
+            if (body.classList.contains('dark-theme')) {
+                themeToggle.textContent = '☀️ 라이트 테마';
+            } else {
+                themeToggle.textContent = '🌙 다크 테마';
+            }
+        }
+
+        // Smooth scroll for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Lazy load images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img').forEach(img => imageObserver.observe(img));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI Sora 서비스 종료 | IT Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #1e293b;
+            --text-light: #f1f5f9;
+            --bg-light: #f8fafc;
+            --text-dark: #1e293b;
+            --accent: #10A37F;
+            --accent-hover: #0d8566;
+            --border-dark: #334155;
+            --border-light: #e2e8f0;
+            --card-dark: #0f172a;
+            --card-light: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background-color: var(--bg-dark);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.light-mode {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 8px;
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .theme-toggle {
+            background-color: var(--card-light);
+            border-color: var(--border-light);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--accent);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 640px) {
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                font-size: 18px;
+            }
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Header */
+        header {
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(16, 163, 127, 0.15) 0%, rgba(16, 163, 127, 0.05) 100%);
+            border-bottom: 1px solid var(--border-dark);
+            animation: fadeInDown 0.6s ease;
+        }
+
+        body.light-mode header {
+            border-bottom-color: var(--border-light);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-meta {
+            font-size: 14px;
+            color: var(--accent);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .header-subtitle {
+            font-size: 18px;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+
+        body.light-mode .header-subtitle {
+            color: #64748b;
+        }
+
+        .header-info {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            font-size: 14px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .header-subtitle {
+                font-size: 16px;
+            }
+
+            .header-info {
+                gap: 15px;
+            }
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .content-section {
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section */
+        .hero-section {
+            margin-bottom: 60px;
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 12px;
+            padding: 40px;
+            animation: scaleIn 0.6s ease 0.2s both;
+        }
+
+        body.light-mode .hero-section {
+            background-color: var(--card-light);
+            border-color: var(--border-light);
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .hero-section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .hero-section p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+        }
+
+        body.light-mode .hero-section p {
+            color: #475569;
+        }
+
+        /* Timeline */
+        .timeline {
+            margin: 60px 0;
+            position: relative;
+        }
+
+        .timeline-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .timeline-items {
+            display: grid;
+            gap: 40px;
+            position: relative;
+        }
+
+        .timeline-items::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--border-dark);
+            transform: translateX(-50%);
+        }
+
+        body.light-mode .timeline-items::before {
+            background-color: var(--border-light);
+        }
+
+        @media (max-width: 768px) {
+            .timeline-items::before {
+                left: 20px;
+            }
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .timeline-item:nth-child(even) {
+            direction: rtl;
+        }
+
+        .timeline-item:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+            border: 4px solid var(--bg-dark);
+            box-shadow: 0 0 0 8px var(--accent);
+        }
+
+        body.light-mode .timeline-dot {
+            border-color: var(--bg-light);
+        }
+
+        .timeline-content {
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 8px;
+            padding: 30px;
+            position: relative;
+        }
+
+        body.light-mode .timeline-content {
+            background-color: var(--card-light);
+            border-color: var(--border-light);
+        }
+
+        .timeline-content h3 {
+            color: var(--accent);
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        body.light-mode .timeline-content p {
+            color: #475569;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-items {
+                padding-left: 50px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .timeline-item:nth-child(even) {
+                direction: ltr;
+            }
+
+            .timeline-items::before {
+                left: 20px;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+        }
+
+        /* Feature Cards Grid */
+        .features-section {
+            margin: 60px 0;
+        }
+
+        .features-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+
+        body.light-mode .feature-card {
+            background-color: var(--card-light);
+            border-color: var(--border-light);
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(16, 163, 127, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: var(--accent);
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        body.light-mode .feature-card p {
+            color: #475569;
+        }
+
+        /* Impact Section */
+        .impact-section {
+            margin: 60px 0;
+        }
+
+        .impact-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .impact-item {
+            background-color: var(--card-dark);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        body.light-mode .impact-item {
+            background-color: var(--card-light);
+            border-color: var(--accent);
+        }
+
+        .impact-item:nth-child(1) { animation-delay: 0.1s; }
+        .impact-item:nth-child(2) { animation-delay: 0.2s; }
+        .impact-item:nth-child(3) { animation-delay: 0.3s; }
+        .impact-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .impact-item h3 {
+            color: var(--accent);
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .impact-item p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+        }
+
+        body.light-mode .impact-item p {
+            color: #475569;
+        }
+
+        .impact-item ul {
+            margin-left: 20px;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        body.light-mode .impact-item ul {
+            color: #475569;
+        }
+
+        .impact-item li {
+            margin-bottom: 8px;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            margin: 60px 0;
+        }
+
+        .gallery-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        body.light-mode .gallery-item {
+            background-color: var(--card-light);
+            border-color: var(--border-light);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(16, 163, 127, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item-caption {
+            padding: 15px;
+            font-size: 14px;
+            text-align: center;
+            color: #cbd5e1;
+        }
+
+        body.light-mode .gallery-item-caption {
+            color: #475569;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 60px 0;
+        }
+
+        .stat-box {
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        body.light-mode .stat-box {
+            background-color: var(--card-light);
+            border-color: var(--border-light);
+        }
+
+        .stat-box:nth-child(1) { animation-delay: 0.1s; }
+        .stat-box:nth-child(2) { animation-delay: 0.2s; }
+        .stat-box:nth-child(3) { animation-delay: 0.3s; }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        body.light-mode .stat-label {
+            color: #475569;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--card-dark);
+            border-top: 1px solid var(--border-dark);
+            padding: 40px 20px;
+            margin-top: 80px;
+        }
+
+        body.light-mode footer {
+            background-color: var(--bg-light);
+            border-top-color: var(--border-light);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #cbd5e1;
+            margin-bottom: 10px;
+        }
+
+        body.light-mode .footer-section p {
+            color: #475569;
+        }
+
+        .footer-section a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-dark);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        body.light-mode .footer-bottom {
+            border-top-color: var(--border-light);
+            color: #94a3b8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            main {
+                padding: 40px 20px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" title="테마 전환">🌙</button>
+
+    <header>
+        <div class="header-container">
+            <div class="header-meta">🤖 AI 뉴스</div>
+            <h1>OpenAI Sora 서비스 종료</h1>
+            <p class="header-subtitle">IPO 앞두고 AI 비디오 생성 서비스 중단 결정</p>
+            <div class="header-info">
+                <div class="info-item">
+                    <span>📅</span>
+                    <span>2026년 3월 25일</span>
+                </div>
+                <div class="info-item">
+                    <span>📰</span>
+                    <span>IT Home</span>
+                </div>
+                <div class="info-item">
+                    <span>🔗</span>
+                    <a href="https://www.ithome.com/0/932/307.htm" target="_blank" style="color: var(--accent); text-decoration: none;">원본 기사</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="content-section hero-section">
+            <h2>주요 내용</h2>
+            <p>OpenAI가 AI 비디오 생성 서비스인 Sora의 운영을 중단하기로 결정했습니다. 이는 2026년 상반기 예정된 기업공개(IPO)를 앞두고 상품 포트폴리오를 간소화하기 위한 전략적 결정으로 보입니다. Sora는 2025년 9월 말 출시되었으나, Apple App Store에서 일시적으로 1위를 차지한 후 사용자 관심도가 급격히 떨어졌습니다.</p>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline">
+            <h2 class="timeline-title">주요 일정</h2>
+            <div class="timeline-items">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2025년 9월 말</h3>
+                        <p>Sora 공식 출시</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2025년 출시 직후</h3>
+                        <p>Apple App Store 1위 달성 후 사용자 관심도 급락</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2026년 3월 25일</h3>
+                        <p>Sora 서비스 종료 공식 발표</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stat-box">
+                <div class="stat-number">$730B</div>
+                <div class="stat-label">OpenAI IPO 예상 가치</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">$1B</div>
+                <div class="stat-label">Disney 투자 규모</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">3년</div>
+                <div class="stat-label">Disney 파트너십 기간</div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 class="features-title">서비스 종료 영향</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎥</span>
+                    <h3>개발자 API 중단</h3>
+                    <p>Sora 개발자 API 버전도 함께 중단되어 관련 서비스들이 영향을 받습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">💬</span>
+                    <h3>ChatGPT 비디오 기능 제거</h3>
+                    <p>ChatGPT에서 제공되던 비디오 생성 및 편집 기능이 완전히 제거됩니다.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🏢</span>
+                    <h3>Disney 파트너십 종료</h3>
+                    <p>3년간의 Disney 협력 관계가 종료되며 Star Wars, Pixar, Marvel 콘텐츠 관련 계획이 취소됩니다.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📹</span>
+                    <h3>비디오 모델 기술 단계적 폐기</h3>
+                    <p>CEO Sam Altman이 밝힌 바에 따르면, 비디오 모델 기술을 사용하는 모든 제품을 점진적으로 중단할 예정입니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
+        <section class="impact-section">
+            <h2 class="impact-title">상세 영향 분석</h2>
+
+            <div class="impact-item">
+                <h3>🎬 개발자 및 서비스 제공자</h3>
+                <p>Sora API를 기반으로 구축된 모든 애플리케이션과 서비스가 영향을 받게 됩니다:</p>
+                <ul>
+                    <li>API 버전 완전 중단</li>
+                    <li>기존 통합 서비스 폐기</li>
+                    <li>개발자 지원 종료</li>
+                </ul>
+            </div>
+
+            <div class="impact-item">
+                <h3>🤖 ChatGPT 사용자</h3>
+                <p>ChatGPT 플랫폼 사용자들이 이용하던 비디오 기능이 제거됩니다:</p>
+                <ul>
+                    <li>AI 비디오 생성 기능 삭제</li>
+                    <li>비디오 편집 도구 제거</li>
+                    <li>관련 플러그인 지원 중단</li>
+                </ul>
+            </div>
+
+            <div class="impact-item">
+                <h3>🎞️ Disney 미디어 파트너십</h3>
+                <p>가장 큰 영향을 받는 부분은 Disney와의 협력 관계 종료입니다:</p>
+                <ul>
+                    <li>예상 10억 달러 규모의 투자 및 라이선싱 계약 취소</li>
+                    <li>Star Wars, Pixar, Marvel 콘텐츠 제휴 종료</li>
+                    <li>Disney 개발팀의 Sora 개발자와의 협력 중단</li>
+                    <li>발표 직전날 밤까지 협력 중이던 프로젝트 전면 취소</li>
+                </ul>
+            </div>
+
+            <div class="impact-item">
+                <h3>📺 전체 비디오 모델 기술 단계적 폐기</h3>
+                <p>Sam Altman CEO의 공식 입장:</p>
+                <ul>
+                    <li>비디오 모델 기술을 사용하는 모든 제품 단계적 중단</li>
+                    <li>향후 비디오 기반 AI 서비스 개발 계획 없음</li>
+                    <li>리소스 재배치로 기업공개 준비에 집중</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Rationale Section -->
+        <section class="impact-section">
+            <h2 class="impact-title">서비스 종료 배경</h2>
+
+            <div class="impact-item">
+                <h3>💼 공개 기업 기준 충족 필요성</h3>
+                <p>OpenAI의 CFO는 "우리는 공개 기업 기준을 충족하는 회사를 구축해야 한다"는 입장을 표명했습니다. 이는 다음을 의미합니다:</p>
+                <ul>
+                    <li>엔터프라이즈급 제품 우선순위 상향</li>
+                    <li>소비자 대상 애플리케이션 제거</li>
+                    <li>수익성 있는 사업 포트폴리오 구성</li>
+                </ul>
+            </div>
+
+            <div class="impact-item">
+                <h3>📊 포트폴리오 정렬</h3>
+                <p>OpenAI는 IPO 준비 과정에서 상품 포트폴리오를 간소화하고 있습니다:</p>
+                <ul>
+                    <li>핵심 비즈니스에 집중 (API, 엔터프라이즈 솔루션)</li>
+                    <li>수익 창출이 어려운 소비자 상품 폐지</li>
+                    <li>장기 전략적 가치가 낮은 파트너십 종료</li>
+                </ul>
+            </div>
+
+            <div class="impact-item">
+                <h3>⚠️ 기업공개 관련 위험 요소</h3>
+                <p>OpenAI의 IPO 신청서에 "Microsoft에 대한 의존도"가 잠재적 위험 요소로 명시되어 있습니다:</p>
+                <ul>
+                    <li>Microsoft와의 파트너십 과도 집중</li>
+                    <li>인프라 및 자본 의존성</li>
+                    <li>기술 로드맵의 외부 의존성</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section">
+            <h2 class="gallery-title">관련 이미지</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/4e8dd192-bfe9-4277-afb6-9bb084cc5038.png" alt="OpenAI Sora 종료 소식" onerror="this.parentElement.style.display='none'">
+                    <div class="gallery-item-caption">OpenAI Sora 서비스 종료 관련 뉴스 이미지</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>원본 기사</h3>
+                    <p>이 기사는 다음 원본 기사의 한국어 번역입니다:</p>
+                    <p><a href="https://www.ithome.com/0/932/307.htm" target="_blank">IT Home - OpenAI Sora 종료 관련 기사</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>발행 정보</h3>
+                    <p><strong>발행일:</strong> 2026년 3월 25일</p>
+                    <p><strong>카테고리:</strong> 🤖 AI 뉴스</p>
+                    <p><strong>언어:</strong> 한국어</p>
+                </div>
+                <div class="footer-section">
+                    <h3>면책 조항</h3>
+                    <p>이 문서는 참고 목적으로만 제공됩니다. OpenAI의 공식 발표와 기타 관련 뉴스 소스를 참고하여 작성되었습니다. 최신 정보는 공식 채널을 통해 확인하시기 바랍니다.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 IT Home 번역 자료. 원본 저작권은 IT Home에 있습니다. | 마지막 업데이트: 2026년 3월 25일</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+        const body = document.body;
+
+        // Check for saved theme preference or default to dark mode
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+            themeToggle.textContent = '☀️';
+            htmlElement.style.colorScheme = 'light';
+        } else {
+            htmlElement.style.colorScheme = 'dark';
+        }
+
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+
+            if (body.classList.contains('light-mode')) {
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '☀️';
+                htmlElement.style.colorScheme = 'light';
+            } else {
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '🌙';
+                htmlElement.style.colorScheme = 'dark';
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add intersection observer for animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all content sections
+        document.querySelectorAll('.content-section, .timeline-item, .feature-card, .impact-item, .stat-box, .gallery-item').forEach(el => {
+            el.style.opacity = '0.8';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iQOO Z11 Dimensity 8500 - 스펙 및 출시 정보</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #FF8C00;
+            --dark-bg: #0f172a;
+            --light-bg: #f8fafc;
+            --dark-text: #f1f5f9;
+            --light-text: #0f172a;
+            --spec-bg: #1e293b;
+            --card-dark: #1e293b;
+            --card-light: #ffffff;
+            --border-dark: #334155;
+            --border-light: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary-color);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(255, 140, 0, 0.4);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #FF6B00);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header p {
+            font-size: clamp(14px, 2vw, 18px);
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(255, 107, 0, 0.05));
+            border: 2px solid var(--primary-color);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 50px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h2 {
+            font-size: clamp(24px, 4vw, 36px);
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .launch-info {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        /* Prefers Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Spec Grid */
+        .specs-section {
+            margin-bottom: 50px;
+        }
+
+        .specs-section h2 {
+            font-size: clamp(24px, 4vw, 32px);
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .spec-card {
+            background: var(--spec-bg);
+            color: var(--dark-text);
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .spec-card {
+            background: var(--spec-bg);
+            color: var(--dark-text);
+        }
+
+        body:not(.dark-mode) .spec-card {
+            background: var(--spec-bg);
+            color: var(--dark-text);
+        }
+
+        .spec-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(255, 140, 0, 0.15);
+        }
+
+        .spec-card h3 {
+            color: var(--primary-color);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .spec-card p {
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+
+        .spec-card ul {
+            list-style: none;
+            margin-top: 12px;
+        }
+
+        .spec-card li {
+            font-size: 14px;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .spec-card li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Feature Cards Section */
+        .features-section {
+            margin-bottom: 50px;
+        }
+
+        .features-section h2 {
+            font-size: clamp(24px, 4vw, 32px);
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--card-light);
+            color: var(--light-text);
+            padding: 28px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-light);
+        }
+
+        body.dark-mode .feature-card {
+            background: var(--card-dark);
+            color: var(--dark-text);
+            border-color: var(--border-dark);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 28px rgba(255, 140, 0, 0.15);
+            border-color: var(--primary-color);
+        }
+
+        .feature-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+
+        .gallery-section h2 {
+            font-size: clamp(24px, 4vw, 32px);
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 1;
+            background: var(--spec-bg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 28px rgba(255, 140, 0, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Design Colors Section */
+        .design-section {
+            margin-bottom: 50px;
+        }
+
+        .design-section h2 {
+            font-size: clamp(24px, 4vw, 32px);
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .colors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .color-item {
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            background: var(--card-light);
+            border: 1px solid var(--border-light);
+            transition: transform 0.3s ease;
+        }
+
+        body.dark-mode .color-item {
+            background: var(--card-dark);
+            border-color: var(--border-dark);
+        }
+
+        .color-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .color-swatch {
+            width: 100%;
+            height: 100px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .color-item h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        thead {
+            background: var(--spec-bg);
+            color: var(--dark-text);
+        }
+
+        tbody tr {
+            background: var(--card-light);
+            color: var(--light-text);
+            border-bottom: 1px solid var(--border-light);
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-mode tbody tr {
+            background: var(--card-dark);
+            color: var(--dark-text);
+            border-bottom-color: var(--border-dark);
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 140, 0, 0.05);
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            font-weight: 700;
+            color: var(--dark-text);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card-light);
+            color: var(--light-text);
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border-light);
+            margin-top: 60px;
+        }
+
+        body.dark-mode footer {
+            background: var(--spec-bg);
+            color: var(--dark-text);
+            border-top-color: var(--border-dark);
+        }
+
+        footer p {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 700;
+            transition: opacity 0.3s ease;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        .footer-divider {
+            width: 40px;
+            height: 2px;
+            background: var(--primary-color);
+            margin: 20px auto;
+            border-radius: 1px;
+        }
+
+        .disclaimer {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 30px 15px;
+            }
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+                top: 15px;
+                right: 15px;
+            }
+
+            .hero {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Animation for cards on load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .spec-card, .feature-card, .gallery-item, .color-item {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .spec-card:nth-child(1) { animation-delay: 0.1s; }
+        .spec-card:nth-child(2) { animation-delay: 0.2s; }
+        .spec-card:nth-child(3) { animation-delay: 0.3s; }
+        .spec-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">🌙</button>
+
+    <header>
+        <h1>iQOO Z11</h1>
+        <p>Dimensity 8500 풀사양 버전 - 고성능 게이밍 스마트폰</p>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h2>강력한 성능과 혁신적인 디자인</h2>
+            <p>iQOO의 최신 플래그십 킬러 모델이 출시됩니다. 2,625,016점의 AnTuTu 벤치마크 점수와 165Hz 디스플레이로 최고의 게이밍 경험을 제공합니다.</p>
+            <div class="launch-info">📅 2026년 3월 26일 오후 7시 출시</div>
+        </section>
+
+        <!-- Processor & Performance Section -->
+        <section class="specs-section">
+            <h2>프로세서 및 성능</h2>
+            <div class="specs-grid">
+                <div class="spec-card">
+                    <h3>🚀 프로세서</h3>
+                    <p><strong>MediaTek Dimensity 8500</strong> 풀사양 버전</p>
+                    <ul>
+                        <li>최신 Monster 슈퍼코어 엔진</li>
+                        <li>8나노 공정 기술</li>
+                        <li>강력한 멀티태스킹 지원</li>
+                    </ul>
+                </div>
+
+                <div class="spec-card">
+                    <h3>📊 성능 벤치마크</h3>
+                    <p><strong>AnTuTu 점수: 2,625,016점</strong></p>
+                    <ul>
+                        <li>플래그십 수준의 성능</li>
+                        <li>일상 작업에서 매끄러운 응답성</li>
+                        <li>고사양 게임도 쉽게 구동</li>
+                    </ul>
+                </div>
+
+                <div class="spec-card">
+                    <h3>⚡ 성능 효율성</h3>
+                    <p>효율적인 전력 관리</p>
+                    <ul>
+                        <li>발열 최소화 기술</li>
+                        <li>장시간 게이밍 시에도 안정적</li>
+                        <li>배터리 수명 극대화</li>
+                    </ul>
+                </div>
+
+                <div class="spec-card">
+                    <h3>🎮 게이밍 최적화</h3>
+                    <p>게이밍 전용 기능</p>
+                    <ul>
+                        <li>165Hz 터치 응답 최적화</li>
+                        <li>게이밍 프로세서 부스트</li>
+                        <li>저지연 성능 보장</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Display & Design Section -->
+        <section class="specs-section">
+            <h2>디스플레이 및 디자인</h2>
+            <div class="specs-grid">
+                <div class="spec-card">
+                    <h3>🖥️ 디스플레이</h3>
+                    <ul>
+                        <li><strong>대각선 길이:</strong> 6.83인치</li>
+                        <li><strong>재생률:</strong> 165Hz</li>
+                        <li><strong>응답속도:</strong> 매우 빠름</li>
+                        <li><strong>기술:</strong> 눈 보호 기술 적용</li>
+                    </ul>
+                </div>
+
+                <div class="spec-card">
+                    <h3>✨ 외형 설계</h3>
+                    <ul>
+                        <li><strong>두께:</strong> 8.25mm</li>
+                        <li><strong>무게:</strong> 약 216.5g</li>
+                        <li><strong>디자인:</strong> 스텝 형 베벨 데코</li>
+                        <li><strong>등급:</strong> 프리미엄 슬림 핸드셋</li>
+                    </ul>
+                </div>
+
+                <div class="spec-card">
+                    <h3>🎨 색상 옵션</h3>
+                    <ul>
+                        <li>화이트</li>
+                        <li>플로팅 라이트</li>
+                        <li>미드나잇 블랙</li>
+                    </ul>
+                </div>
+
+                <div class="spec-card">
+                    <h3>🔒 내구성</h3>
+                    <ul>
+                        <li>고강도 유리 전면</li>
+                        <li>프리미엄 소재 후면</li>
+                        <li>정교한 가공 기술</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Battery & Charging Section -->
+        <section class="specs-section">
+            <h2>배터리 및 충전</h2>
+            <div class="specs-grid">
+                <div class="spec-card">
+                    <h3>🔋 배터리 용량</h3>
+                    <p><strong>9,020mAh</strong></p>
+                    <ul>
+                        <li>iQOO 역사상 최대 용량</li>
+                        <li>하루 종일 사용 가능</li>
+                        <li>게이밍 시에도 넉넉한 배터리</li>
+                    </ul>
+                </div>
+
+                <div class="spec-card">
+                    <h3>⚡ 빠른 충전</h3>
+                    <p><strong>90W 고속 충전</strong></p>
+                    <ul>
+                        <li>20% → 80%: 44분</li>
+                        <li>풀웨이브 다이렉트 파워 2.0</li>
+                        <li>안전한 온도 관리</li>
+                    </ul>
+                </div>
+
+                <div class="spec-card">
+                    <h3>🛡️ 배터리 관리</h3>
+                    <ul>
+                        <li>고급 배터리 기술</li>
+                        <li>안전 회로 보호</li>
+                        <li>수명 최적화 알고리즘</li>
+                    </ul>
+                </div>
+
+                <div class="spec-card">
+                    <h3>💡 효율성</h3>
+                    <ul>
+                        <li>에너지 효율적인 공정</li>
+                        <li>소비 전력 최적화</li>
+                        <li>장수명 배터리</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features Section -->
+        <section class="features-section">
+            <h2>주요 기능</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎮</span>
+                    <h3>게이밍 최적화</h3>
+                    <p>165Hz 터치 응답 최적화와 게이밍 전용 엔진으로 최고의 게이밍 경험을 제공합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">👁️</span>
+                    <h3>눈 보호 기술</h3>
+                    <p>장시간 사용해도 눈이 피로하지 않도록 설계된 고급 눈 보호 디스플레이 기술.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>초고속 충전</h3>
+                    <p>90W 고속 충전 기술로 불과 44분만에 80%까지 충전할 수 있습니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🏗️</span>
+                    <h3>프리미엄 빌드</h3>
+                    <p>8.25mm의 슬림한 두께와 스텝 형 베벨 디자인으로 고급스러운 느낌을 연출합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>고성능 프로세서</h3>
+                    <p>Dimensity 8500 풀사양 버전으로 모든 작업과 게임을 매끄럽게 실행합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔌</span>
+                    <h3>대용량 배터리</h3>
+                    <p>9,020mAh의 대용량 배터리로 하루 종일 걱정 없이 사용할 수 있습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Colors Section -->
+        <section class="design-section">
+            <h2>색상 옵션</h2>
+            <div class="colors-grid">
+                <div class="color-item">
+                    <div class="color-swatch" style="background-color: #f5f5f5; border: 2px solid #ddd;"></div>
+                    <h3>화이트</h3>
+                    <p>깔끔하고 우아한 화이트</p>
+                </div>
+
+                <div class="color-item">
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #ffd700, #ffed4e, #fff9e6);"></div>
+                    <h3>플로팅 라이트</h3>
+                    <p>밝고 경쾌한 골드톤</p>
+                </div>
+
+                <div class="color-item">
+                    <div class="color-swatch" style="background-color: #1a1a1a;"></div>
+                    <h3>미드나잇 블랙</h3>
+                    <p>고급스러운 검은색</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specifications Table -->
+        <section class="specs-section">
+            <h2>상세 사양표</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>카테고리</th>
+                        <th>사양</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>프로세서</strong></td>
+                        <td>MediaTek Dimensity 8500 (풀사양)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>디스플레이</strong></td>
+                        <td>6.83인치, 165Hz 재생률</td>
+                    </tr>
+                    <tr>
+                        <td><strong>배터리</strong></td>
+                        <td>9,020mAh</td>
+                    </tr>
+                    <tr>
+                        <td><strong>충전</strong></td>
+                        <td>90W 고속 충전</td>
+                    </tr>
+                    <tr>
+                        <td><strong>두께</strong></td>
+                        <td>8.25mm</td>
+                    </tr>
+                    <tr>
+                        <td><strong>무게</strong></td>
+                        <td>약 216.5g</td>
+                    </tr>
+                    <tr>
+                        <td><strong>색상</strong></td>
+                        <td>화이트, 플로팅 라이트, 미드나잇 블랙</td>
+                    </tr>
+                    <tr>
+                        <td><strong>벤치마크 (AnTuTu)</strong></td>
+                        <td>2,625,016점</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Image Gallery -->
+        <section class="gallery-section">
+            <h2>제품 이미지</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/d0226daa-a537-49d3-b99b-469915efb492.jpg" alt="iQOO Z11 제품 이미지 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/5a5fd247-91ae-4516-bd34-bf4e385b784e.jpg" alt="iQOO Z11 제품 이미지 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/eb7d70a3-efe7-4c4c-ae93-feb1db7c390d.jpg" alt="iQOO Z11 제품 이미지 3">
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="hero" style="margin-top: 50px;">
+            <h2>출시 일정</h2>
+            <p>iQOO Z11은 2026년 3월 26일 오후 7시에 출시되며, 출시 즉시 구매할 수 있습니다.</p>
+            <div class="launch-info">지금 출시 소식을 기다리세요!</div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>원본 기사</strong></p>
+        <p><a href="https://www.ithome.com/0/932/299.htm" target="_blank" rel="noopener noreferrer">IT홈 - iQOO Z11 공식 기사</a></p>
+        <div class="footer-divider"></div>
+        <p>📱 스마트폰 카테고리</p>
+        <p>📅 게시일: 2026년 3월 25일</p>
+        <div class="disclaimer">
+            본 페이지는 IT홈 기사를 한국어로 번역한 자료입니다. 모든 제품 정보는 공식 발표에 기반합니다.<br>
+            상세한 정보는 원본 기사를 참고하시기 바랍니다.
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+        const body = document.body;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+
+            // Update button and save preference
+            const isDarkMode = body.classList.contains('dark-mode');
+            themeToggle.textContent = isDarkMode ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Image lazy loading enhancement
+        const images = document.querySelectorAll('img');
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.style.opacity = '1';
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => {
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.3s ease-in-out';
+                imageObserver.observe(img);
+            });
+        }
+
+        // Accessibility: Announce theme change to screen readers
+        const announcer = document.createElement('div');
+        announcer.setAttribute('role', 'status');
+        announcer.setAttribute('aria-live', 'polite');
+        announcer.style.position = 'absolute';
+        announcer.style.left = '-10000px';
+        document.body.appendChild(announcer);
+
+        const originalToggle = themeToggle.onclick;
+        themeToggle.addEventListener('click', () => {
+            const isDarkMode = body.classList.contains('dark-mode');
+            announcer.textContent = isDarkMode ? '다크 모드 활성화됨' : '라이트 모드 활성화됨';
+        });
+    </script>
+</body>
+</html>

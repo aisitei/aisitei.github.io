@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파나소닉 루믹스 TZ300 컴팩트 카메라 출시</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066cc;
+            --secondary: #0052a3;
+            --text-primary: #1a202c;
+            --text-secondary: #718096;
+            --accent: #0066cc;
+            --background: #ffffff;
+            --surface: #f7fafc;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #f1f5f9;
+                --text-secondary: #cbd5e0;
+                --background: #0f172a;
+                --surface: #1e293b;
+                --border: #334155;
+                --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+                --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        /* Spec Grid Always Dark */
+        .spec-grid {
+            --spec-bg: #1e293b;
+            --spec-text: #f1f5f9;
+            --spec-secondary: #94a3b8;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--background);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            width: 50px;
+            height: 28px;
+            background-color: var(--border);
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+            transition: background-color 0.3s ease;
+            position: relative;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--accent);
+        }
+
+        .theme-toggle-circle {
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        .theme-toggle.dark .theme-toggle-circle {
+            transform: translateX(22px);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            background-color: var(--surface);
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: scaleIn 0.8s ease-out;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 102, 204, 0.3) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 3rem 2rem;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.875rem, 3vw, 1.125rem);
+            font-weight: 400;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Introduction Section */
+        .intro-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background-color: var(--surface);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+        }
+
+        .intro-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .intro-section p {
+            font-size: 1.0625rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Spec Grid Section */
+        .specs-section {
+            margin: 3rem 0;
+        }
+
+        .specs-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            background-color: var(--spec-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+        }
+
+        .spec-item {
+            padding: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .spec-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .spec-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--spec-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--spec-text);
+        }
+
+        .spec-description {
+            font-size: 0.875rem;
+            color: var(--spec-secondary);
+            margin-top: 0.5rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            margin: 3rem 0;
+        }
+
+        .features-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            padding: 1.5rem;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            margin: 3rem 0;
+        }
+
+        .gallery-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 4 / 3;
+            background-color: var(--surface);
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(1.1);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-info div {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-info label {
+            font-weight: 600;
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-info a {
+            color: var(--accent);
+            text-decoration: none;
+            word-break: break-all;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-info a:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+        }
+
+        .footer-disclaimer {
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .hero {
+                height: 300px;
+            }
+
+            .hero-overlay {
+                padding: 1.5rem 1rem;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-info {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">📷 IT Home</a>
+        </div>
+        <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
+            <div class="theme-toggle-circle">🌙</div>
+        </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/3/08fe4d28-abdc-49d6-b335-077d9478959a.jpg" alt="파나소닉 루믹스 TZ300" class="hero-image">
+        <div class="hero-overlay">
+            <h1 class="hero-title">파나소닉 루믹스 TZ300</h1>
+            <p class="hero-subtitle">프리미엄 컴팩트 카메라의 새로운 기준</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Introduction -->
+        <section class="intro-section">
+            <h2>제품 소개</h2>
+            <p>파나소닉이 새로운 프리미엄 컴팩트 카메라 루믹스 TZ300을 출시했습니다. 이 모델은 여행 사진가와 콘텐츠 크리에이터를 위해 설계되었으며, 강력한 광학 성능과 휴대성을 완벽하게 결합한 제품입니다.</p>
+            <p>라이카 인증 렌즈와 고급 이미지 센서를 탑재한 루믹스 TZ300은 전문적인 사진 촬영과 비디오 제작을 가능하게 합니다.</p>
+        </section>
+
+        <!-- Specifications -->
+        <section class="specs-section">
+            <h2>주요 사양</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <div class="spec-label">센서</div>
+                    <div class="spec-value">20.1MP 1인치</div>
+                    <div class="spec-description">백라이트 CMOS 센서</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">렌즈</div>
+                    <div class="spec-value">24-360mm f/3.3-6.4</div>
+                    <div class="spec-description">라이카 인증 15배 광학줌</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">크기</div>
+                    <div class="spec-value">111.2 × 66.4 × 45.2mm</div>
+                    <div class="spec-description">손에 쏙 들어가는 휴대형</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">비디오 녹화</div>
+                    <div class="spec-value">4K + 1080P 120fps</div>
+                    <div class="spec-description">슬로우 모션 및 4K 사진 추출</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">손떨림 보정</div>
+                    <div class="spec-value">5축 HYBRID O.I.S.+</div>
+                    <div class="spec-description">POWER O.I.S. 기술 적용</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">최소 초점 거리</div>
+                    <div class="spec-value">3cm</div>
+                    <div class="spec-description">매크로 촬영에 최적화</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features-section">
+            <h2>주요 특징</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎥</div>
+                    <h3>고화질 비디오</h3>
+                    <p>4K 비디오 녹화와 1080P 120fps 슬로우 모션으로 영상 크리에이터의 모든 요구를 충족합니다. 4K에서 고품질 사진을 추출할 수도 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📸</div>
+                    <h3>라이카 인증 렌즈</h3>
+                    <p>24-360mm의 강력한 15배 광학줌을 갖춘 라이카 인증 렌즈로 다양한 촬영 상황에 대응합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>안정적인 촬영</h3>
+                    <p>5축 HYBRID O.I.S.+ 손떨림 보정 기술과 POWER O.I.S.를 통해 어떤 상황에서도 안정적인 이미지를 얻습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>창의적인 필터</h3>
+                    <p>22가지 내장 필터로 촬영 후 바로 독특한 스타일의 사진을 만들 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>스마트폰 연동</h3>
+                    <p>파나소닉 이미지 앱을 통해 스마트폰과 무선으로 연결하여 원격 촬영과 이미지 전송이 가능합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <h3>USB Type-C 충전</h3>
+                    <p>최신 USB Type-C 포트를 통해 빠르고 편리하게 충전할 수 있습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section class="gallery-section">
+            <h2>제품 이미지</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/08fe4d28-abdc-49d6-b335-077d9478959a.jpg" alt="파나소닉 루믹스 TZ300 - 정면">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/87405c9c-1fc7-4311-9436-3bd6cb22122a.jpg" alt="파나소닉 루믹스 TZ300 - 측면">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/92f4a11c-cbf3-4b5b-8086-cea317223c7d.jpg" alt="파나소닉 루믹스 TZ300 - 상세">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <div>
+                    <label>원문 기사</label>
+                    <a href="https://www.ithome.com/0/932/289.htm" target="_blank" rel="noopener noreferrer">https://www.ithome.com/0/932/289.htm</a>
+                </div>
+                <div>
+                    <label>게시 날짜</label>
+                    2026년 3월 25일
+                </div>
+            </div>
+            <div class="footer-disclaimer">
+                <strong>면책 조항:</strong> 본 문서는 원문 기사에 대한 한국어 번역본입니다. 기술 사양 및 가격은 변경될 수 있으며, 제품 구매 전에 공식 파나소닉 웹사이트에서 최신 정보를 확인하시기 바랍니다. 본 콘텐츠에 포함된 모든 이미지와 정보의 저작권은 원문 기사 제공처에 있습니다.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference or default to 'light'
+        const savedTheme = localStorage.getItem('theme') || 'light';
+
+        // Function to update theme
+        function updateTheme(theme) {
+            if (theme === 'dark') {
+                htmlElement.style.colorScheme = 'dark';
+                themeToggle.classList.add('dark');
+                themeToggle.querySelector('.theme-toggle-circle').textContent = '☀️';
+            } else {
+                htmlElement.style.colorScheme = 'light';
+                themeToggle.classList.remove('dark');
+                themeToggle.querySelector('.theme-toggle-circle').textContent = '🌙';
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        // Set initial theme
+        updateTheme(savedTheme);
+
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            updateTheme(newTheme);
+        });
+
+        // Respect system color scheme changes
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        darkModeMediaQuery.addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                updateTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+    </script>
+</body>
+</html>
