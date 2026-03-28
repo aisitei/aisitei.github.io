@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moto Razr 70 Ultra 렌더링 유출 — 4인치 외부 + 7인치 내부 화면</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #dc2626;
+  --secondary: #1e293b;
+  --text-primary: #1a1a2e;
+  --text-secondary: #64748b;
+  --accent: #dc2626;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --shadow: rgba(0,0,0,0.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #f87171;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --background: #0f172a;
+    --surface: #1e293b;
+    --border: #334155;
+    --shadow: rgba(0,0,0,0.3);
+  }
+}
+[data-theme="dark"] {
+  --primary: #f87171;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --background: #0f172a;
+  --surface: #1e293b;
+  --border: #334155;
+  --shadow: rgba(0,0,0,0.3);
+}
+[data-theme="light"] {
+  --primary: #dc2626;
+  --text-primary: #1a1a2e;
+  --text-secondary: #64748b;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --shadow: rgba(0,0,0,0.08);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans KR', 'Inter', sans-serif;
+  background: var(--background);
+  color: var(--text-primary);
+  line-height: 1.8;
+  transition: background 0.3s, color 0.3s;
+}
+.theme-toggle {
+  position: fixed; top: 20px; right: 20px; z-index: 1000;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 50%; width: 44px; height: 44px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; box-shadow: 0 2px 8px var(--shadow); transition: all 0.3s;
+}
+.theme-toggle:hover { transform: scale(1.1); }
+.hero {
+  position: relative; width: 100%; min-height: 480px;
+  background: linear-gradient(135deg, #7f1d1d 0%, #dc2626 50%, #fca5a5 100%);
+  display: flex; align-items: flex-end; overflow: hidden;
+}
+.hero-image {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; opacity: 0.3;
+}
+.hero-overlay {
+  position: relative; z-index: 2; width: 100%; padding: 60px 40px 50px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+}
+.hero-badge {
+  display: inline-block; background: rgba(220,38,38,0.9);
+  color: #fff; padding: 6px 16px; border-radius: 20px;
+  font-size: 0.85rem; font-weight: 600; margin-bottom: 16px;
+}
+.hero h1 {
+  color: #fff; font-size: 2.4rem; font-weight: 900;
+  line-height: 1.3; margin-bottom: 12px; max-width: 800px;
+}
+.hero p {
+  color: rgba(255,255,255,0.85); font-size: 1.1rem;
+  max-width: 600px; line-height: 1.7;
+}
+.container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+.section-title {
+  font-size: 1.5rem; font-weight: 700; margin-bottom: 24px;
+  padding-bottom: 12px; border-bottom: 3px solid var(--primary);
+  display: inline-block;
+}
+.content-block {
+  background: var(--surface); border-radius: 16px;
+  padding: 32px; margin-bottom: 32px;
+  box-shadow: 0 4px 16px var(--shadow); border: 1px solid var(--border);
+}
+.content-block p { margin-bottom: 16px; color: var(--text-primary); font-size: 1.05rem; }
+.spec-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px; margin: 24px 0;
+}
+.spec-card {
+  background: #1e293b; border-radius: 12px; padding: 20px;
+  text-align: center; border: 1px solid #334155;
+}
+.spec-card .spec-icon { font-size: 2rem; margin-bottom: 8px; }
+.spec-card .spec-label { color: #94a3b8; font-size: 0.85rem; font-weight: 500; margin-bottom: 4px; }
+.spec-card .spec-value { color: #f1f5f9; font-size: 1.3rem; font-weight: 700; }
+.spec-card .spec-detail { color: #94a3b8; font-size: 0.8rem; margin-top: 4px; }
+.comparison-table {
+  width: 100%; border-collapse: collapse; margin: 24px 0;
+  background: #1e293b; border-radius: 12px; overflow: hidden;
+}
+.comparison-table th {
+  background: #0f172a; color: #f1f5f9; padding: 14px 16px;
+  font-weight: 600; text-align: left; font-size: 0.9rem;
+}
+.comparison-table td {
+  padding: 12px 16px; color: #f1f5f9; font-size: 0.95rem;
+  border-top: 1px solid #334155;
+}
+.comparison-table tr:hover td { background: rgba(255,255,255,0.05); }
+.gallery { margin: 24px 0; }
+.gallery img { width: 100%; border-radius: 12px; margin-bottom: 16px; box-shadow: 0 4px 12px var(--shadow); }
+.footer {
+  text-align: center; padding: 40px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary); font-size: 0.9rem;
+}
+.footer a { color: var(--primary); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.animate { animation: fadeInUp 0.6s ease-out forwards; }
+.animate-delay-1 { animation-delay: 0.1s; }
+@media (prefers-reduced-motion: reduce) { .animate { animation: none; opacity: 1; } }
+@media (max-width: 768px) {
+  .hero h1 { font-size: 1.7rem; }
+  .hero-overlay { padding: 40px 20px 30px; }
+  .container { padding: 24px 16px; }
+  .spec-grid { grid-template-columns: repeat(2, 1fr); }
+  .comparison-table { font-size: 0.85rem; }
+}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="테마 전환">🌓</button>
+
+<section class="hero">
+  <img class="hero-image" src="https://img.ithome.com/newsuploadfiles/2026/3/880aab32-1143-48ce-97d3-b542bb28a7b6.png?x-bce-process=image/format,f_auto" alt="Moto Razr 70 Ultra">
+  <div class="hero-overlay">
+    <span class="hero-badge">📱 Motorola</span>
+    <h1>Moto Razr 70 Ultra 렌더링 유출 — 4인치 외부 + 7인치 내부 디스플레이</h1>
+    <p>OnLeaks × XpertPick 협업 유출, 전세대 대비 0.6mm 두꺼워진 보디</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="content-block animate">
+    <h2 class="section-title">개요</h2>
+    <p>유출 전문 소스 OnLeaks와 XpertPick이 협력하여 Lenovo 산하 <strong>Moto Razr 70 Ultra</strong>(Razr Ultra 2026)의 렌더링 이미지와 일부 사양 정보를 공개했습니다.</p>
+    <p>이 기기는 <strong>4인치 외부 화면</strong>과 <strong>7인치 내부 폴더블 화면</strong>을 탑재하며, 전세대 Razr 60 Ultra보다 약 0.6mm 두꺼워졌습니다. 외부 화면에는 가로 배치된 듀얼 카메라와 LED 플래시가 위치합니다.</p>
+  </div>
+
+  <div class="content-block animate animate-delay-1">
+    <h2 class="section-title">Razr 70 Ultra 유출 사양</h2>
+    <div class="spec-grid">
+      <div class="spec-card">
+        <div class="spec-icon">📱</div>
+        <div class="spec-label">외부 화면</div>
+        <div class="spec-value">4인치</div>
+        <div class="spec-detail">OLED 디스플레이</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">📖</div>
+        <div class="spec-label">내부 화면</div>
+        <div class="spec-value">7인치</div>
+        <div class="spec-detail">폴더블 OLED</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-icon">📐</div>
+        <div class="spec-label">두께 변화</div>
+        <div class="spec-value">+0.6mm</div>
+        <div class="spec-detail">전세대 대비</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-block animate">
+    <h2 class="section-title">전세대(Razr 60 Ultra) 사양 비교</h2>
+    <table class="comparison-table">
+      <thead>
+        <tr><th>항목</th><th>Razr 60 Ultra</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>내부 화면</td><td>7인치 165Hz LTPO 1224p OLED, 4500nit 피크</td></tr>
+        <tr><td>외부 화면</td><td>4인치 165Hz 1080p OLED, 3000nit 피크</td></tr>
+        <tr><td>프로세서</td><td>Snapdragon 8 Elite, 16GB RAM</td></tr>
+        <tr><td>카메라</td><td>5000만 화소 트리플 카메라</td></tr>
+        <tr><td>배터리</td><td>4700mAh, 68W 유선 충전</td></tr>
+        <tr><td>두께</td><td>접힘: 15.69mm / 펼침: 7.29mm</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="content-block animate">
+    <h2 class="section-title">갤러리</h2>
+    <div class="gallery">
+      <img src="https://img.ithome.com/newsuploadfiles/2026/3/880aab32-1143-48ce-97d3-b542bb28a7b6.png?x-bce-process=image/format,f_auto" alt="Moto Razr 70 Ultra 렌더링 1">
+      <img src="https://img.ithome.com/newsuploadfiles/2026/3/e2212022-03f3-4987-8480-45728b433a5f.png?x-bce-process=image/format,f_auto" alt="Moto Razr 70 Ultra 렌더링 2">
+      <img src="https://img.ithome.com/newsuploadfiles/2026/3/833e101b-2ba2-4baa-99d0-bd3a92f1bde4.png?x-bce-process=image/format,f_auto" alt="Moto Razr 70 Ultra 렌더링 3">
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>원문: <a href="https://www.ithome.com/0/933/141.htm" target="_blank">IT之家 — 联想旗下moto razr 70 Ultra手机渲染图曝光</a></p>
+  <p>2026년 3월 27일 · IT之家 기사 한국어 번역</p>
+  <p style="margin-top:8px;font-size:0.8rem;">본 페이지는 IT之家 기사를 한국어로 번역한 것으로, 원문의 저작권은 IT之家에 있습니다.</p>
+</footer>
+
+<script>
+function toggleTheme() {
+  const body = document.body;
+  const current = body.getAttribute('data-theme');
+  if (current === 'dark') { body.setAttribute('data-theme', 'light'); }
+  else { body.setAttribute('data-theme', 'dark'); }
+}
+</script>
+</body>
+</html>

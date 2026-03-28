@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google 내부 AI 에이전트 "Smith" — 매트릭스 빌런과 동명, 인기 폭발로 접속 제한</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #4285f4;
+  --secondary: #1e293b;
+  --text-primary: #1a1a2e;
+  --text-secondary: #64748b;
+  --accent: #4285f4;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --shadow: rgba(0,0,0,0.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #8ab4f8;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --background: #0f172a;
+    --surface: #1e293b;
+    --border: #334155;
+    --shadow: rgba(0,0,0,0.3);
+  }
+}
+[data-theme="dark"] {
+  --primary: #8ab4f8;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --background: #0f172a;
+  --surface: #1e293b;
+  --border: #334155;
+  --shadow: rgba(0,0,0,0.3);
+}
+[data-theme="light"] {
+  --primary: #4285f4;
+  --text-primary: #1a1a2e;
+  --text-secondary: #64748b;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --shadow: rgba(0,0,0,0.08);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans KR', 'Inter', sans-serif;
+  background: var(--background);
+  color: var(--text-primary);
+  line-height: 1.8;
+  transition: background 0.3s, color 0.3s;
+}
+.theme-toggle {
+  position: fixed; top: 20px; right: 20px; z-index: 1000;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 50%; width: 44px; height: 44px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; box-shadow: 0 2px 8px var(--shadow); transition: all 0.3s;
+}
+.theme-toggle:hover { transform: scale(1.1); }
+.hero {
+  position: relative; width: 100%; min-height: 480px;
+  background: linear-gradient(135deg, #1a237e 0%, #4285f4 50%, #8ab4f8 100%);
+  display: flex; align-items: flex-end; overflow: hidden;
+}
+.hero-image {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; opacity: 0.25;
+}
+.hero-overlay {
+  position: relative; z-index: 2; width: 100%; padding: 60px 40px 50px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+}
+.hero-badge {
+  display: inline-block; background: rgba(66,133,244,0.9);
+  color: #fff; padding: 6px 16px; border-radius: 20px;
+  font-size: 0.85rem; font-weight: 600; margin-bottom: 16px;
+}
+.hero h1 {
+  color: #fff; font-size: 2.4rem; font-weight: 900;
+  line-height: 1.3; margin-bottom: 12px; max-width: 800px;
+}
+.hero p {
+  color: rgba(255,255,255,0.85); font-size: 1.1rem;
+  max-width: 600px; line-height: 1.7;
+}
+.container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+.section-title {
+  font-size: 1.5rem; font-weight: 700; margin-bottom: 24px;
+  padding-bottom: 12px; border-bottom: 3px solid var(--primary);
+  display: inline-block;
+}
+.content-block {
+  background: var(--surface); border-radius: 16px;
+  padding: 32px; margin-bottom: 32px;
+  box-shadow: 0 4px 16px var(--shadow); border: 1px solid var(--border);
+}
+.content-block p { margin-bottom: 16px; color: var(--text-primary); font-size: 1.05rem; }
+.feature-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px; margin: 24px 0;
+}
+.feature-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.feature-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px var(--shadow); }
+.feature-card .feature-icon { font-size: 2rem; margin-bottom: 12px; }
+.feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+.feature-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
+.highlight-box {
+  background: linear-gradient(135deg, rgba(66,133,244,0.1), rgba(138,180,248,0.1));
+  border: 1px solid rgba(66,133,244,0.3);
+  border-radius: 12px; padding: 24px; margin: 20px 0;
+}
+.highlight-box p { color: var(--text-primary); margin-bottom: 0; }
+.gallery { margin: 24px 0; }
+.gallery img { width: 100%; border-radius: 12px; margin-bottom: 16px; box-shadow: 0 4px 12px var(--shadow); }
+.footer {
+  text-align: center; padding: 40px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary); font-size: 0.9rem;
+}
+.footer a { color: var(--primary); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.animate { animation: fadeInUp 0.6s ease-out forwards; }
+.animate-delay-1 { animation-delay: 0.1s; }
+.animate-delay-2 { animation-delay: 0.2s; }
+@media (prefers-reduced-motion: reduce) { .animate { animation: none; opacity: 1; } }
+@media (max-width: 768px) {
+  .hero h1 { font-size: 1.7rem; }
+  .hero-overlay { padding: 40px 20px 30px; }
+  .container { padding: 24px 16px; }
+  .feature-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="테마 전환">🌓</button>
+
+<section class="hero">
+  <img class="hero-image" src="https://img.ithome.com/newsuploadfiles/2024/10/1e49cd7b-4b1b-4d78-b322-580914f2f7fa.png" alt="Google AI">
+  <div class="hero-overlay">
+    <span class="hero-badge">🤖 AI</span>
+    <h1>Google 직원 전용 AI 에이전트 "Agent Smith" — 폭발적 인기로 접속 제한 조치</h1>
+    <p>매트릭스의 빌런과 동명 — 코딩부터 문서 조회까지, 비동기 자율 작업 수행</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="content-block animate">
+    <h2 class="section-title">개요</h2>
+    <p>Google 직원들이 <strong>"Agent Smith"</strong>라는 이름의 내부 AI 도구를 사용하고 있습니다. 이 도구는 코딩을 포함한 다양한 업무를 자동으로 처리할 수 있으며, 사용자 폭증으로 인해 Google이 <strong>접속 제한 조치</strong>를 시행할 정도로 큰 인기를 끌고 있습니다.</p>
+    <p>"Agent Smith"라는 이름은 영화 &lt;매트릭스&gt;의 빌런 캐릭터 "에이전트 스미스"에서 따온 것입니다.</p>
+  </div>
+
+  <div class="content-block animate animate-delay-1">
+    <h2 class="section-title">Agent Smith의 핵심 기능</h2>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🏗️</div>
+        <h3>Antigravity 플랫폼 기반</h3>
+        <p>Google의 기존 에이전트 코딩 플랫폼인 Antigravity를 기반으로 구축되었으며, 다양한 내부 시스템을 호출할 수 있습니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3>비동기(Async) 실행</h3>
+        <p>비동기 실행을 지원하여, 직원이 컴퓨터 앞에 계속 있을 필요 없이 스마트폰으로도 지시를 내리고 상호작용할 수 있습니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h3>사내 문서 직접 접근</h3>
+        <p>직원 정보 시스템에 연결되어 있어, 관련 문서를 직접 조회하고 참조할 수 있습니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3>사내 메신저 통합</h3>
+        <p>Google 내부 채팅 도구에서 바로 사용할 수 있어, 별도의 플랫폼 전환 없이 업무 흐름에 자연스럽게 통합됩니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-block animate animate-delay-2">
+    <h2 class="section-title">배경과 맥락</h2>
+
+    <div class="highlight-box">
+      <p>Google 공동 창업자 세르게이 브린(Sergey Brin)은 최근 사내 전체 회의에서 <strong>"AI 에이전트가 올해 중요한 역할을 할 것"</strong>이라고 강조했습니다.</p>
+    </div>
+
+    <p>기존 AI 코딩 어시스턴트와 비교했을 때, Agent Smith는 더 자율적으로 완전한 작업 흐름을 계획하고 실행할 수 있다는 점이 차별화됩니다. Google은 직원들의 AI 활용을 적극 장려하고 있으며, 일부 팀에서는 AI 도구 사용 현황을 <strong>성과 평가 지표</strong>에 포함시키고 있습니다.</p>
+    <p>이 도구는 올해 초에 출시되었으며, AI 활용 가속화와 업무 효율 향상이라는 Google의 전략적 방향과 맞닿아 있습니다.</p>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>원문: <a href="https://www.ithome.com/0/933/513.htm" target="_blank">IT之家 — 谷歌员工喜提全新智能体"Smith"</a></p>
+  <p>2026년 3월 27일 · IT之家 기사 한국어 번역</p>
+  <p style="margin-top:8px;font-size:0.8rem;">본 페이지는 IT之家 기사를 한국어로 번역한 것으로, 원문의 저작권은 IT之家에 있습니다.</p>
+</footer>
+
+<script>
+function toggleTheme() {
+  const body = document.body;
+  const current = body.getAttribute('data-theme');
+  if (current === 'dark') { body.setAttribute('data-theme', 'light'); }
+  else { body.setAttribute('data-theme', 'dark'); }
+}
+</script>
+</body>
+</html>
