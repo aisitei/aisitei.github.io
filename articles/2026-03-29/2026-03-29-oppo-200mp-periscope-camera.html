@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스마트폰 카메라의 크기 한계 — 2억 화소 1/1.12" 슈퍼 페리스코프, OPPO만 개발 지속</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-accent: #1BA784;
+            --primary-accent-hover: #158a6f;
+            --dark-bg: #0f172a;
+            --dark-surface: #1e293b;
+            --dark-surface-light: #334155;
+            --dark-text: #f1f5f9;
+            --dark-text-muted: #cbd5e1;
+            --light-bg: #ffffff;
+            --light-surface: #f8fafc;
+            --light-surface-light: #e2e8f0;
+            --light-text: #0f172a;
+            --light-text-muted: #64748b;
+
+            --bg: var(--light-bg);
+            --surface: var(--light-surface);
+            --surface-light: var(--light-surface-light);
+            --text: var(--light-text);
+            --text-muted: var(--light-text-muted);
+            --border-color: #e2e8f0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: var(--dark-bg);
+                --surface: var(--dark-surface);
+                --surface-light: var(--dark-surface-light);
+                --text: var(--dark-text);
+                --text-muted: var(--dark-text-muted);
+                --border-color: #334155;
+            }
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header & Theme Toggle */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--primary-accent);
+            color: var(--primary-accent);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary-accent);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #1BA784 0%, #0f172a 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://img.ithome.com/newsuploadfiles/2026/3/4a841f94-df5e-463c-a40a-65d7f7a75410.jpg?x-bce-process=image/format,f_auto');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            max-width: 800px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 500;
+            opacity: 0.95;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-meta {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Intro Section */
+        .intro-section {
+            background-color: var(--surface);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-accent);
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.6s ease-out 0.1s both;
+        }
+
+        .intro-section h2 {
+            color: var(--primary-accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .intro-section p {
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+            line-height: 1.8;
+        }
+
+        /* Camera Specs Grid */
+        .specs-section {
+            margin-bottom: 3rem;
+        }
+
+        .specs-section h2 {
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .spec-card {
+            background-color: #1e293b;
+            color: #f1f5f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            animation: scaleIn 0.6s ease-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .spec-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(27, 167, 132, 0.15);
+            border-color: var(--primary-accent);
+        }
+
+        .spec-card h3 {
+            color: var(--primary-accent);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .spec-icon {
+            font-size: 1.3rem;
+        }
+
+        .spec-list {
+            list-style: none;
+        }
+
+        .spec-list li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #334155;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .spec-list li:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            color: #cbd5e1;
+            font-weight: 600;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        .spec-value {
+            color: #f1f5f9;
+            font-weight: 500;
+        }
+
+        /* Features Section */
+        .features-section {
+            margin-bottom: 3rem;
+        }
+
+        .features-section h2 {
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--surface);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            animation: fadeInUp 0.6s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary-accent);
+            box-shadow: 0 4px 16px rgba(27, 167, 132, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            color: var(--text);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* Market Context Section */
+        .market-section {
+            background-color: var(--surface);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-accent);
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .market-section h2 {
+            color: var(--primary-accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .market-section p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .market-section ul {
+            margin-left: 1.5rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .market-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--surface);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--primary-accent);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-item {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-divider {
+            margin: 1.5rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            main {
+                padding: 1.5rem 1rem;
+            }
+
+            .specs-section h2,
+            .features-section h2 {
+                font-size: 1.4rem;
+            }
+
+            header {
+                padding: 1rem;
+            }
+
+            .header-title {
+                font-size: 1rem;
+            }
+
+            .theme-toggle {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">📷 OPPO 카메라</div>
+        <button class="theme-toggle" id="themeToggle">🌙 다크 모드</button>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">스마트폰 카메라의 크기 한계</h1>
+            <p class="hero-subtitle">2억 화소 1/1.12" 슈퍼 페리스코프, OPPO만 개발 지속</p>
+            <div class="hero-meta">
+                <span>📅 2026년 3월 28일</span>
+                <span>📱 OPPO Find X9 Ultra</span>
+                <span>📷 카메라 시스템</span>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <!-- 소개 섹션 -->
+        <section class="intro-section">
+            <h2>핵심 요약</h2>
+            <p>
+                디지털 블로거 <strong>@数码闲聊站</strong>에 따르면, "2억 화소 1/1.12인치 슈퍼 페리스코프" 방안은 현재 <strong>OPPO만 개발을 지속</strong> 중입니다.
+            </p>
+            <p>
+                이 2억 화소 1/1.12인치 초대형 센서 페리스코프 망원 렌즈는 이론적으로 뛰어난 망원 화질을 제공하지만, <strong>크기 제어가 한계에 달해</strong> 스마트폰 내부 적층과 본체 디자인에 큰 도전이 됩니다.
+            </p>
+            <p>
+                해당 방안의 카메라 모듈 돌출이 "<strong>비스킷 렌즈(饼干头)</strong>" 수준으로, 현재 주류 플래그십보다 상당히 두꺼울 것으로 예상됩니다.
+            </p>
+        </section>
+
+        <!-- 카메라 사양 섹션 -->
+        <section class="specs-section">
+            <h2>🎥 OPPO Find X9 Ultra 듀얼 2억 화소 카메라 시스템</h2>
+            <div class="specs-grid">
+                <!-- 메인 카메라 -->
+                <div class="spec-card">
+                    <h3><span class="spec-icon">1️⃣</span> 메인 카메라</h3>
+                    <ul class="spec-list">
+                        <li><span class="spec-label">센서:</span> <span class="spec-value">Sony LYT-901</span></li>
+                        <li><span class="spec-label">화소:</span> <span class="spec-value">2억 화소</span></li>
+                        <li><span class="spec-label">센서 크기:</span> <span class="spec-value">1/1.12인치</span></li>
+                        <li><span class="spec-label">용도:</span> <span class="spec-value">프리미엄 메인 센서</span></li>
+                    </ul>
+                </div>
+
+                <!-- 3배 망원 -->
+                <div class="spec-card">
+                    <h3><span class="spec-icon">3️⃣</span> 3배 망원 렌즈</h3>
+                    <ul class="spec-list">
+                        <li><span class="spec-label">센서:</span> <span class="spec-value">OV52A</span></li>
+                        <li><span class="spec-label">화소:</span> <span class="spec-value">2억 화소</span></li>
+                        <li><span class="spec-label">센서 크기:</span> <span class="spec-value">1/1.28인치</span></li>
+                        <li><span class="spec-label">배율:</span> <span class="spec-value">3배 광학줌</span></li>
+                    </ul>
+                </div>
+
+                <!-- 10배 광학줌 페리스코프 -->
+                <div class="spec-card">
+                    <h3><span class="spec-icon">🔭</span> 10배 광학줌 페리스코프</h3>
+                    <ul class="spec-list">
+                        <li><span class="spec-label">화소:</span> <span class="spec-value">5,000만 화소</span></li>
+                        <li><span class="spec-label">센서 크기:</span> <span class="spec-value">1/2.76인치</span></li>
+                        <li><span class="spec-label">센서 제조사:</span> <span class="spec-value">커스텀 JNL</span></li>
+                        <li><span class="spec-label">초점거리:</span> <span class="spec-value">네이티브 230mm</span></li>
+                        <li><span class="spec-label">특징:</span> <span class="spec-value">초원거리 촬영</span></li>
+                    </ul>
+                </div>
+
+                <!-- 초광각 -->
+                <div class="spec-card">
+                    <h3><span class="spec-icon">📐</span> 초광각 렌즈</h3>
+                    <ul class="spec-list">
+                        <li><span class="spec-label">화소:</span> <span class="spec-value">5,000만 화소</span></li>
+                        <li><span class="spec-label">센서:</span> <span class="spec-value">JN5</span></li>
+                        <li><span class="spec-label">센서 크기:</span> <span class="spec-value">1/2.76인치</span></li>
+                        <li><span class="spec-label">용도:</span> <span class="spec-value">광각 촬영</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 기술 특징 섹션 -->
+        <section class="features-section">
+            <h2>⚙️ 혁신적인 기술</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>5회 반사 역전 페리스코프</h3>
+                    <p>
+                        OPPO가 자체 개발한 독점 기술로, 기존 <strong>41mm 광경로를 29mm로 압축</strong>하여 스마트폰 본체에 장착 가능한 크기로 실현했습니다. 이를 통해 초소형 플래그십 본체 설계를 가능하게 합니다.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📏</div>
+                    <h3>초박형 프로파일</h3>
+                    <p>
+                        혁신적인 페리스코프 기술과 설계를 통해 <strong>본체 최박부 약 8mm</strong>를 달성했습니다. 이는 고급 카메라 시스템을 탑재하면서도 세련된 형태를 유지하는 OPPO의 디자인 철학을 보여줍니다.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌋</div>
+                    <h3>화산구 스타일 3단 트랜지션</h3>
+                    <p>
+                        <strong>화산구 스타일의 3단 트랜지션 디자인</strong>을 적용하여 카메라 모듈의 돌출을 최소화했습니다. 이를 통해 미적 완성도와 실용성의 균형을 이루었습니다.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎬</div>
+                    <h3>듀얼 2억 화소 시스템</h3>
+                    <p>
+                        메인 카메라와 3배 망원 렌즈 모두 <strong>2억 화소의 대형 센서</strong>를 탑재했습니다. 이는 다양한 초점거리에서 뛰어난 해상도를 제공하며, 전문가 수준의 이미징을 가능하게 합니다.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>1/1.12인치 초대형 센서</h3>
+                    <p>
+                        <strong>1/1.12인치 크기의 초대형 센서</strong>는 광학식 손떨림 보정, 뛰어난 저광 성능, 탁월한 색감 표현을 제공합니다. 이는 프리미엄 스마트폰 카메라의 새로운 표준입니다.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📡</div>
+                    <h3>고배율 망원 줌</h3>
+                    <p>
+                        네이티브 230mm 초점거리의 페리스코프 망원 렌즈는 <strong>10배 광학줌</strong>을 지원합니다. 이를 통해 원거리 피사체도 뛰어난 세부 표현으로 촬영 가능합니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 시장 배경 섹션 -->
+        <section class="market-section">
+            <h2>📊 시장 동향 및 OPPO의 전략</h2>
+            <p>
+                <strong>vivo가 2025년에 처음으로 2억 화소 페리스코프 망원을 선보인</strong> 이후, OPPO, Honor, Xiaomi 등 주요 제조사들도 자신의 플래그십 제품군에 2억 화소 렌즈를 배치하고 있습니다. 이는 고사양 카메라 경쟁이 얼마나 치열한지를 보여주는 사례입니다.
+            </p>
+            <p>
+                <strong>OPPO는 Find X9 Ultra 외에도 향후 전략을 적극 추진</strong>하고 있습니다:
+            </p>
+            <ul>
+                <li><strong>2026년 OnePlus 플래그십:</strong> 2억 화소 메인 카메라 도입 예정</li>
+                <li><strong>Find N 폴더블:</strong> 2억 화소 메인 카메라 탑재 예정</li>
+                <li><strong>기술 확산:</strong> 자체 개발 페리스코프 기술을 OPPO의 주요 제품 라인에 적용 중</li>
+            </ul>
+            <p>
+                이는 OPPO가 <strong>카메라 기술을 핵심 차별화 요소로 삼고 있으며, 향후 수년간 프리미엄 모바일 이미징 시장에서 주도권을 유지할 계획</strong>임을 의미합니다.
+            </p>
+        </section>
+
+        <!-- 기술적 도전 섹션 -->
+        <section class="intro-section" style="margin-top: 3rem;">
+            <h2>🏆 기술적 의의</h2>
+            <p>
+                2억 화소 1/1.12인치 초대형 센서 페리스코프 망원 렌즈는 <strong>이론적으로 뛰어난 망원 화질</strong>을 제공합니다. 그러나 <strong>크기 제어가 한계에 달해</strong> 있는 상황입니다.
+            </p>
+            <p>
+                주요 설계 도전:
+            </p>
+            <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                <li>• 스마트폰 내부 적층의 공간 제약</li>
+                <li>• 본체 디자인과의 통합 어려움</li>
+                <li>• 카메라 모듈 돌출 최소화의 복잡성</li>
+                <li>• 열 관리 및 신호 처리 최적화</li>
+            </ul>
+            <p style="margin-top: 1rem;">
+                OPPO의 5회 반사 역전 페리스코프 기술은 이러한 도전들을 혁신적으로 해결하며, 스마트폰 카메라 설계의 새로운 가능성을 제시합니다.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-item">
+                <strong>원본 기사:</strong> <a href="https://www.ithome.com/0/933/581.htm" target="_blank" rel="noopener noreferrer">IT Home (https://www.ithome.com)</a>
+            </div>
+            <div class="footer-item">
+                <strong>발행일:</strong> 2026년 3월 28일
+            </div>
+            <div class="footer-item">
+                <strong>카테고리:</strong> 📷 카메라 기술 • 📱 스마트폰
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-item">
+                <small>
+                    본 페이지는 중국의 IT Home 기사를 한국어로 번역한 내용입니다. 모든 기술 사양과 정보는 원본 기사 게시 시점 기준입니다.
+                    스마트폰 카메라 기술은 빠르게 발전하고 있으며, OPPO의 실제 제품 사양은 공식 발표 시 변경될 수 있습니다.
+                </small>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 테마 토글
+        const themeToggle = document.getElementById('themeToggle');
+
+        // 시스템 설정 확인
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        let isDarkMode = prefersDark;
+
+        function updateThemeToggle() {
+            themeToggle.textContent = isDarkMode ? '☀️ 라이트 모드' : '🌙 다크 모드';
+            if (isDarkMode) {
+                document.documentElement.style.colorScheme = 'dark';
+            } else {
+                document.documentElement.style.colorScheme = 'light';
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            updateThemeToggle();
+
+            // 사용자 설정 저장
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+
+        // 저장된 설정 로드
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            isDarkMode = savedTheme === 'dark';
+            updateThemeToggle();
+        } else {
+            updateThemeToggle();
+        }
+
+        // 시스템 테마 변경 감지
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                isDarkMode = e.matches;
+                updateThemeToggle();
+            }
+        });
+    </script>
+</body>
+</html>

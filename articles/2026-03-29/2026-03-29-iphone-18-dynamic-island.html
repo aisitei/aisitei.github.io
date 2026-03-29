@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apple iPhone 18 시리즈 다이나믹 아일랜드 축소, 2nm A20 Pro 칩 및 5,000mAh 배터리 업그레이드">
+    <title>iPhone 18 시리즈, 다이나믹 아일랜드 축소 — 베젤은 변화 없음</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-brand: #86868B;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f3f3f3;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --border-color: #e5e5e7;
+            --spec-bg: #1e293b;
+            --spec-text: #f1f5f9;
+            --accent: #0071e3;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #0a0a0a;
+                --bg-secondary: #1d1d1f;
+                --text-primary: #f5f5f7;
+                --text-secondary: #a1a1a6;
+                --border-color: #424245;
+                --spec-bg: #1e293b;
+                --spec-text: #f1f5f9;
+                --accent: #0a84ff;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header & Theme Toggle */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background: var(--bg-primary);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-brand);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-secondary);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #86868B 0%, #a3a3a8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://img.ithome.com/newsuploadfiles/2026/3/09b25ac8-07c8-4e9e-b462-1b9438dc67da.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(134,134,139,0.5));
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            max-width: 900px;
+            padding: 2rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        section {
+            margin-bottom: 5rem;
+        }
+
+        section > h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            animation: scaleIn 0.6s ease-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .gallery-item, .hero-content {
+                animation: none;
+            }
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Feature Section */
+        .features {
+            background: var(--bg-secondary);
+            padding: 3rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .features h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .feature-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Specs Grid */
+        .specs-grid {
+            background: var(--spec-bg);
+            color: var(--spec-text);
+            padding: 3rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .specs-grid h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .specs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .spec-card {
+            padding: 1.5rem;
+            border: 1px solid rgba(241,245,249,0.1);
+            border-radius: 8px;
+            background: rgba(241,245,249,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .spec-card:hover {
+            background: rgba(241,245,249,0.1);
+            border-color: rgba(241,245,249,0.2);
+        }
+
+        .spec-card h4 {
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .spec-card p {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        /* Content Section */
+        .content-section {
+            line-height: 1.8;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+        }
+
+        .content-section p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .content-section strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            padding-left: 3rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+        }
+
+        .timeline-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .timeline-item p {
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .footer-section p, .footer-section a {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .disclaimer {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .hero {
+                height: 350px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            main {
+                padding: 2rem 1rem;
+            }
+
+            section > h2 {
+                font-size: 1.5rem;
+            }
+
+            .specs-grid,
+            .features {
+                padding: 1.5rem;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            header, footer {
+                background: white;
+            }
+
+            .theme-toggle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">IT홈</div>
+        <button class="theme-toggle" id="themeToggle">🌙 다크 모드</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">📱 스마트폰</div>
+            <h1>iPhone 18 시리즈, 다이나믹 아일랜드 축소</h1>
+            <p>베젤은 변화 없음</p>
+            <p style="font-size: 1rem; margin-top: 1.5rem;">2nm A20 Pro 칩, 5,000mAh 배터리, 대구경 카메라 업그레이드 + 폴더블 iPhone Fold 동시 출시</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Image Gallery -->
+        <section>
+            <h2>iPhone 18 디자인</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/09b25ac8-07c8-4e9e-b462-1b9438dc67da.png" alt="iPhone 18 렌더링 이미지">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/2254c821-9ed9-4603-af23-b607fee5561d.jpg" alt="iPhone 18 Pro 다이나믹 아일랜드">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/16a63e54-cc8d-493f-82a9-dfe06b861a48.jpg" alt="iPhone 18 전체 디자인">
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Features -->
+        <section class="features">
+            <h3>설계 변경사항</h3>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h4>다이나믹 아일랜드 축소</h4>
+                    <p>블로거 @i冰宇宙 보도에 따르면 iPhone 18 시리즈의 다이나믹 아일랜드가 축소될 예정입니다. 베젤과 블랙 보더는 변화 없습니다.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>일관된 베젤 디자인</h4>
+                    <p>베젤 너비는 iPhone 17 시리즈와 동일하게 유지됩니다. 대형 변화는 2027년 이후 세대로 연기되었습니다.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>금형 재활용</h4>
+                    <p>@数码闲聊站의 공급망 정보에 따르면 iPhone 18 Pro 시리즈는 전 세대 금형 일부를 재활용할 예정입니다.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Face ID 계획 변경</h4>
+                    <p>화면 아래 Face ID 축소 방안은 차기 제품으로 연기되었습니다. 더 정교한 기술 개발을 위해 추가 시간이 필요합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specs Section -->
+        <section class="specs-grid">
+            <h3>주요 스펙 및 업그레이드</h3>
+            <div class="specs-container">
+                <div class="spec-card">
+                    <h4>프로세서</h4>
+                    <p>A20 Pro (2nm)</p>
+                </div>
+                <div class="spec-card">
+                    <h4>배터리</h4>
+                    <p>5,000mAh급</p>
+                </div>
+                <div class="spec-card">
+                    <h4>카메라</h4>
+                    <p>대구경 업그레이드</p>
+                </div>
+                <div class="spec-card">
+                    <h4>출시 시기</h4>
+                    <p>2026년 9월</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Details -->
+        <section class="content-section">
+            <h2>상세 정보</h2>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-primary);">설계 변경사항</h3>
+            <p>
+                <strong>블로거 @i冰宇宙</strong>에 따르면 iPhone 18 시리즈의 베젤과 블랙 보더는 변화 없을 것으로 예상됩니다.
+                다이나믹 아일랜드는 축소되지만, 베젤 너비는 iPhone 17 시리즈와 동일하게 유지됩니다.
+            </p>
+
+            <p>
+                <strong>@数码闲聊站</strong>의 공급망 정보에 따르면 iPhone 18 Pro 시리즈는 전 세대 금형 일부를 재활용할 계획입니다.
+                다이나믹 아일랜드의 기본 디자인은 유지되지만, 크기가 축소됩니다. 화면 하단의 Face ID 축소 방안은 기술적 난제로 인해
+                차기 제품(iPhone 19)으로 연기되었습니다.
+            </p>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-primary);">성능 업그레이드</h3>
+            <p>
+                iPhone 18 시리즈는 <strong>TSMC의 2nm 공정</strong>을 기반으로 한 <strong>A20 Pro 칩</strong>을 탑재합니다.
+                이는 에너지 효율을 크게 개선할 것으로 기대됩니다.
+            </p>
+
+            <p>
+                배터리 용량은 <strong>5,000mAh 급대</strong>로 업그레이드되어 더 오래 지속되는 배터리 성능을 제공합니다.
+                카메라 시스템도 <strong>대구경 렌즈</strong>로 개선되어 저조도 촬영과 광학 성능이 향상됩니다.
+            </p>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-primary);">출시 계획</h3>
+            <p>
+                Apple은 <strong>2026년 9월</strong>에 iPhone 18 Pro 시리즈와 첫 폴더블 제품인 <strong>iPhone Fold</strong>를
+                동시에 출시할 계획입니다. 두 제품 모두 <strong>만 위안(약 200만원) 이상의 가격대</strong>에서 판매될 예정입니다.
+            </p>
+
+            <p>
+                일반 iPhone 18 모델은 2026년 9월 이후 별도의 일정으로 출시될 것으로 예상되며, 다양한 가격대에서 선택할 수 있게 될 것으로 기대됩니다.
+            </p>
+        </section>
+
+        <!-- Timeline -->
+        <section>
+            <h2>출시 타임라인</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>2026년 3월 (현재)</h4>
+                    <p>설계 완료 및 공급망 준비 단계. 다이나믹 아일랜드 축소 등 설계 변경사항 확정.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2026년 6월~8월</h4>
+                    <p>대량 생산 단계. 제조 공정 최적화 및 재고 확보 진행.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2026년 9월</h4>
+                    <p>iPhone 18 Pro 시리즈와 iPhone Fold 동시 출시. 공식 발표 및 사전주문 시작 예상.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2026년 10월~</h4>
+                    <p>일반 iPhone 18 모델 순차 출시. 다양한 용량 및 색상 옵션 판매.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>원본 기사</h4>
+                <p><a href="https://www.ithome.com/0/933/492.htm" target="_blank">IT홈: iPhone 18 관련 기사</a></p>
+                <p>기사 작성일: 2026년 3월 27일</p>
+            </div>
+            <div class="footer-section">
+                <h4>정보 출처</h4>
+                <p>• 블로거 @i冰宇宙 (설계 정보)</p>
+                <p>• @数码闲聊站 (공급망 정보)</p>
+            </div>
+            <div class="footer-section">
+                <h4>분류</h4>
+                <p>📱 스마트폰</p>
+                <p>Apple (애플)</p>
+                <p>iPhone 18</p>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <strong>면책 조항:</strong> 이 기사에 포함된 정보는 제3자의 보도와 공급망 정보를 기반으로 합니다.
+            이는 공식적인 Apple의 발표가 아니며, 실제 제품 사양과 출시 계획은 변경될 수 있습니다.
+            최종 확인을 위해서는 Apple의 공식 보도자료를 참고하시기 바랍니다.
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to auto
+        const currentTheme = localStorage.getItem('theme') || 'auto';
+
+        // Initialize theme on page load
+        initializeTheme();
+
+        function initializeTheme() {
+            const theme = localStorage.getItem('theme') || 'auto';
+
+            if (theme === 'dark') {
+                html.style.colorScheme = 'dark';
+                themeToggle.textContent = '☀️ 라이트 모드';
+            } else if (theme === 'light') {
+                html.style.colorScheme = 'light';
+                themeToggle.textContent = '🌙 다크 모드';
+            } else {
+                // Auto mode - respect system preference
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                html.style.colorScheme = prefersDark ? 'dark' : 'light';
+                themeToggle.textContent = prefersDark ? '☀️ 라이트 모드' : '🌙 다크 모드';
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = localStorage.getItem('theme') || 'auto';
+            let newTheme = 'auto';
+
+            if (currentTheme === 'auto') {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                newTheme = prefersDark ? 'light' : 'dark';
+            } else if (currentTheme === 'dark') {
+                newTheme = 'light';
+            } else {
+                newTheme = 'dark';
+            }
+
+            localStorage.setItem('theme', newTheme);
+            initializeTheme();
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (localStorage.getItem('theme') === 'auto' || !localStorage.getItem('theme')) {
+                initializeTheme();
+            }
+        });
+    </script>
+</body>
+</html>

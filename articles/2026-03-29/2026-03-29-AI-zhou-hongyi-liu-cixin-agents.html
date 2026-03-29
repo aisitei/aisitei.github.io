@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="360그룹 창립자 저우훙이와 SF 작가 류츠신이 AI가 인류 문명에 미치는 영향에 대해 논하다.">
+    <meta name="author" content="IT之家">
+    <title>저우훙이 × 류츠신 대담 — AI 없이는 문명 정체, '100억 에이전트'가 새로운 종이 된다</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Light mode colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #64748b;
+            --border-color: #e2e8f0;
+            --accent-primary: #8B5CF6;
+            --accent-light: #a78bfa;
+            --accent-hover: #7c3aed;
+            --spec-grid-bg: #1e293b;
+            --spec-grid-text: #f1f5f9;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                /* Dark mode colors */
+                --bg-primary: #0f172a;
+                --bg-secondary: #1e293b;
+                --bg-tertiary: #334155;
+                --text-primary: #f1f5f9;
+                --text-secondary: #cbd5e1;
+                --text-tertiary: #94a3b8;
+                --border-color: #334155;
+                --spec-grid-bg: #1e293b;
+                --spec-grid-text: #f1f5f9;
+                --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+                --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+                --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+                --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-branding {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ai-badge {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-light));
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .theme-toggle {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--accent-primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--bg-secondary);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(139, 92, 246, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(1.875rem, 5vw, 2.75rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            color: var(--text-tertiary);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        /* Quote Cards */
+        .speaker-card {
+            background-color: var(--bg-secondary);
+            border-left: 4px solid var(--accent-primary);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-md);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .speaker-card .speaker-name {
+            color: var(--accent-primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .speaker-card .speaker-name::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-primary);
+            border-radius: 50%;
+        }
+
+        .speaker-card p {
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Feature Cards Grid */
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            animation: scaleIn 0.6s ease-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-card h3 {
+            color: var(--accent-primary);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Spec Grid */
+        .spec-section {
+            background-color: var(--spec-grid-bg);
+            color: var(--spec-grid-text);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .spec-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .spec-item {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .spec-label {
+            font-size: 0.85rem;
+            color: rgba(241, 245, 249, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .spec-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--spec-grid-text);
+        }
+
+        /* Section Headings */
+        section > h2 {
+            font-size: 1.875rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        section > h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 2rem;
+            background: linear-gradient(180deg, var(--accent-primary), var(--accent-light));
+            border-radius: 2px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer-link {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .footer-divider {
+            margin: 1rem 0;
+            border: none;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero-image {
+                height: 250px;
+            }
+
+            main {
+                padding: 1.5rem 1rem;
+            }
+
+            section > h2 {
+                font-size: 1.5rem;
+            }
+
+            .speaker-card {
+                padding: 1.5rem;
+            }
+
+            .hero-meta {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="header-branding">
+                <span class="ai-badge">AI</span>
+                <span style="color: var(--text-tertiary); font-size: 0.9rem;">IT之家</span>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
+                <span id="themeIcon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/3/5af7d8a0-81ff-411a-b5e4-04351d7a53fb.jpg?x-bce-process=image/format,f_auto" alt="저우훙이와 류츠신 대담" class="hero-image">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>저우훙이 × 류츠신 대담</h1>
+                <p class="subtitle">AI 없이는 문명 정체, '100억 에이전트'가 새로운 종이 된다</p>
+                <div class="hero-meta">
+                    <div class="meta-item">📅 2026년 3월 29일</div>
+                    <div class="meta-item">📍 2026 중국 SF 대회</div>
+                    <div class="meta-item">🤖 AI</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Introduction -->
+        <section>
+            <h2>대담 개요</h2>
+            <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                360그룹 창립자 저우훙이(周鸿祎)와 저명한 SF 작가 류츠신(刘慈欣), 그리고 중국과학원 고에너지물리연구소 장솽난(张双南) 연구원이 2026 중국 SF 대회에서 만나 AI가 인류 문명의 미래에 어떤 영향을 미칠지에 대해 심도 있는 대담을 나누었습니다.
+            </p>
+        </section>
+
+        <!-- Key Insights Grid -->
+        <section>
+            <h2>핵심 관점</h2>
+            <div class="themes-grid">
+                <div class="feature-card">
+                    <h3>🔄 문명의 주체 변화</h3>
+                    <p>AI가 인류의 대부분 의사결정과 사회 운영을 인계받으면, 문명의 주체가 변할 수 있으며 세계는 더 이상 인류의 절대적 통제 하에 있지 않을 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🌱 인류의 분화</h3>
+                    <p>AI 에이전트를 잘 활용하지 못하는 사람은 AI의 부속물이 될 수 있고, 에이전트를 잘 만들고 관리하는 사람은 주도권을 유지할 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💡 인류의 본질</h3>
+                    <p>인류의 진정한 생태적 지위는 호기심, 상상력, 그리고 이로 인한 창의력에 있습니다. 기술은 인류의 약점을 보완하는 역할을 합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Speaker Insights -->
+        <section>
+            <h2>발언자별 주요 논점</h2>
+
+            <div class="speaker-card">
+                <div class="speaker-name">류츠신 (SF 작가)</div>
+                <p>
+                    "AI가 대부분의 인류 의사결정과 사회 운영을 인계받으면 문명의 주체가 변화하며, 세계는 더 이상 인류의 절대적 통제 하에 있지 않게 될 것입니다."
+                </p>
+            </div>
+
+            <div class="speaker-card">
+                <div class="speaker-name">저우훙이 (360그룹 창립자)</div>
+                <p style="margin-bottom: 1rem;">
+                    "인류 집단은 분화될 것입니다. AI 에이전트를 잘 활용하지 못하는 사람은 AI의 부속물이 될 수 있고, 에이전트를 잘 만들고 관리하는 사람은 주도권을 유지할 것입니다. AI 시대에 중요한 인류의 능력은 안목, 심미안, 판단력입니다."
+                </p>
+                <p style="margin-bottom: 1rem;">
+                    "소프트웨어 산업은 대변혁을 맞이할 것입니다. 코드 작성이 파편화되고 인류가 저수준 소프트웨어에 대한 통제권을 잃을 수 있습니다."
+                </p>
+                <p>
+                    "미래에는 전 세계 100억 개의 에이전트가 등장할 것입니다. 이 100억 에이전트는 더 이상 단순 소프트웨어가 아니라 지구상의 100억 새로운 종(種)이 될 것입니다."
+                </p>
+            </div>
+
+            <div class="speaker-card">
+                <div class="speaker-name">장솽난 (중국과학원 고에너지물리연구소)</div>
+                <p>
+                    "기술이 인류의 결점을 보완합니다. 인류의 진정한 생태적 지위는 호기심, 상상력, 그리고 이로 인한 창의력에 있습니다."
+                </p>
+            </div>
+        </section>
+
+        <!-- Technology & Future -->
+        <section>
+            <h2>기술 혁신과 미래 전망</h2>
+
+            <div class="spec-section">
+                <h2 style="margin-top: 0;">AI 시대의 핵심 주제</h2>
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <div class="spec-label">AI 기반 과학연구</div>
+                        <div class="spec-value">기초과학 돌파</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">전략적 목표</div>
+                        <div class="spec-value">제어 가능한 핵융합</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">미래 주체</div>
+                        <div class="spec-value">100억 에이전트</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">인류의 역할</div>
+                        <div class="spec-value">판단과 창의성</div>
+                    </div>
+                </div>
+            </div>
+
+            <p style="color: var(--text-secondary); font-size: 1rem; line-height: 1.8; margin-top: 1.5rem;">
+                저우훙이는 AI 기반 과학연구의 중요성을 강조하며, 제어 가능한 핵융합 등 기초과학 분야의 돌파가 필수적이라고 주장합니다. AI와 인류의 상호작용이 문명의 진화 방향을 결정할 핵심 요소가 될 것으로 예측되고 있습니다.
+            </p>
+        </section>
+
+        <!-- Conclusion -->
+        <section>
+            <h2>결론: 100억의 새로운 종</h2>
+            <div class="speaker-card" style="border-left-color: var(--accent-primary); background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(139, 92, 246, 0.02));">
+                <p style="font-size: 1.1rem; line-height: 1.8;">
+                    저우훙이의 마지막 메시지는 명확합니다: "미래에 전 세계 100억 개의 에이전트가 등장할 것이며, 이들은 더 이상 단순한 소프트웨어가 아니라 지구상의 100억 새로운 종이 될 것입니다."
+                </p>
+                <p style="margin-top: 1rem; font-size: 1.05rem; color: var(--text-secondary);">
+                    이는 AI 기술이 단순한 도구를 넘어 새로운 생명체 형태로 진화할 수 있음을 시사합니다. 인류는 이러한 변화 속에서 안목, 심미안, 판단력을 갖춘 수준 높은 주체로서의 역할을 유지해야 할 것입니다.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>
+                원문 기사: <a href="https://www.ithome.com/0/933/680.htm" class="footer-link" target="_blank" rel="noopener noreferrer">IT之家</a>
+            </p>
+            <hr class="footer-divider">
+            <p>
+                본 콘텐츠는 IT之家 기사를 기반으로 자동 번역된 것입니다.
+                <br>
+                <small>게시일: 2026년 3월 29일 | 카테고리: 🤖 AI</small>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to system preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+        // Set initial theme
+        if (currentTheme === 'dark') {
+            html.style.colorScheme = 'dark';
+            themeIcon.textContent = '☀️';
+        } else {
+            html.style.colorScheme = 'light';
+            themeIcon.textContent = '🌙';
+        }
+
+        // Toggle theme
+        themeToggle.addEventListener('click', () => {
+            const isDark = html.style.colorScheme === 'dark';
+            const newTheme = isDark ? 'light' : 'dark';
+
+            html.style.colorScheme = newTheme;
+            localStorage.setItem('theme', newTheme);
+            themeIcon.textContent = isDark ? '🌙' : '☀️';
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                html.style.colorScheme = newTheme;
+                themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            }
+        });
+    </script>
+</body>
+</html>

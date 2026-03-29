@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>필름은 죽지 않는다 — Kodak, Ektacolor Pro·Ektapan 필름 신제품 출시</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-gold: #FFD700;
+            --color-gold-dark: #D4AF37;
+            --color-bg-light: #FFFFFF;
+            --color-bg-light-secondary: #F5F5F5;
+            --color-text-light: #1F2937;
+            --color-text-light-secondary: #6B7280;
+            --color-border-light: #E5E7EB;
+            --color-bg-dark: #0F172A;
+            --color-bg-dark-secondary: #1E293B;
+            --color-text-dark: #F1F5F9;
+            --color-text-dark-secondary: #CBD5E1;
+            --color-border-dark: #334155;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                --bg: var(--color-bg-light);
+                --bg-secondary: var(--color-bg-light-secondary);
+                --text: var(--color-text-light);
+                --text-secondary: var(--color-text-light-secondary);
+                --border: var(--color-border-light);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                --bg: var(--color-bg-dark);
+                --bg-secondary: var(--color-bg-dark-secondary);
+                --text: var(--color-text-dark);
+                --text-secondary: var(--color-text-dark-secondary);
+                --border: var(--color-border-dark);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: var(--color-gold);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: var(--transition);
+            box-shadow: 0 4px 6px rgba(255, 215, 0, 0.2);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(255, 215, 0, 0.3);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--bg-secondary);
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-gold);
+            letter-spacing: -0.5px;
+        }
+
+        .meta {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .category {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg) 100%);
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.7) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--color-text-dark);
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--color-text-dark-secondary);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: var(--color-gold);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            animation: scaleIn 0.6s ease-out 0.2s both;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .intro-section {
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .intro-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: var(--bg-secondary);
+            border-left: 4px solid var(--color-gold);
+            border-radius: 4px;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 50px 0 30px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 32px;
+            background-color: var(--color-gold);
+            border-radius: 2px;
+        }
+
+        /* Film Series Grid */
+        .film-series {
+            margin-bottom: 80px;
+        }
+
+        .film-card {
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .film-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .film-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .film-series-header {
+            margin-bottom: 20px;
+        }
+
+        .film-series-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .film-series-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Spec Grid - ALWAYS Dark Theme */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .spec-item {
+            background-color: #1e293b;
+            color: #f1f5f9;
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 4px solid var(--color-gold);
+            transition: var(--transition);
+        }
+
+        .spec-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(255, 215, 0, 0.15);
+        }
+
+        .spec-item-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--color-gold);
+        }
+
+        .spec-item-iso {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #f1f5f9;
+        }
+
+        .spec-item-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        /* Features Section */
+        .features-section {
+            margin-top: 60px;
+            padding: 40px;
+            background-color: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .feature-item:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-item:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .feature-item:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 40px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-gold);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-section p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .footer-link {
+            color: var(--color-gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--color-gold-dark);
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            max-width: 900px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+                top: 15px;
+                right: 15px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .hero {
+                height: 350px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .hero-content {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            main {
+                padding: 40px 15px;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
+        <span id="themeIcon">🌙</span>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">📷 KODAK</div>
+            <div class="meta">
+                <span class="category">📷 Camera</span>
+                <span>2026-03-28</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/3/7505ff87-7ca6-4025-adf6-7fb1c9bc7eaa.png?x-bce-process=image/format,f_auto" alt="Kodak Ektacolor Pro and Ektapan Film" class="hero-image">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">필름은 죽지 않는다</h1>
+            <p class="hero-subtitle">Kodak, Ektacolor Pro·Ektapan 필름 신제품 출시</p>
+            <span class="hero-badge">NEW PRODUCTS</span>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Intro Section -->
+        <section class="intro-section">
+            <p class="intro-text">
+                필름의 거장 Kodak이 3월 25일 전문 필름 신제품을 발표했습니다. 컬러 네거티브 필름 Ektacolor Pro 시리즈와 흑백 필름 Ektapan 시리즈로 필름 라인업을 강화합니다.
+            </p>
+        </section>
+
+        <!-- Ektacolor Pro Series -->
+        <section class="film-series">
+            <h2 class="section-title">Ektacolor Pro — 컬러 네거티브 필름</h2>
+
+            <div class="film-card">
+                <div class="film-series-header">
+                    <div class="film-series-title">Ektacolor Pro 시리즈</div>
+                    <p class="film-series-desc">
+                        기존 Portra 시리즈와 유사한 포지셔닝으로 자연스러운 피부톤 재현을 특징으로 합니다. 135, 120 두 가지 규격으로 제공됩니다.
+                    </p>
+                </div>
+
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <div class="spec-item-title">EKTACOLOR PRO 160</div>
+                        <div class="spec-item-iso">ISO 160</div>
+                        <p class="spec-item-desc">부드럽고 깨끗한 색감으로 실내 촬영과 포트레이트에 최적화되었습니다. 세밀한 입자 구조로 확대 인쇄 시에도 우수한 화질을 유지합니다.</p>
+                    </div>
+
+                    <div class="spec-item">
+                        <div class="spec-item-title">EKTACOLOR PRO 400</div>
+                        <div class="spec-item-iso">ISO 400</div>
+                        <p class="spec-item-desc">가장 선명한 ISO 400 컬러 네거티브 필름으로, 다양한 조명 환경에 대응합니다. 우수한 색감 재현과 자연스러운 그라데이션이 특징입니다.</p>
+                    </div>
+
+                    <div class="spec-item">
+                        <div class="spec-item-title">EKTACOLOR PRO 800</div>
+                        <div class="spec-item-iso">ISO 800</div>
+                        <p class="spec-item-desc">저조도 환경과 고속 셔터가 필요한 상황에 최적화되었습니다. 실외 촬영과 스포츠 사진에 탁월한 성능을 발휘합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ektapan Series -->
+        <section class="film-series">
+            <h2 class="section-title">Ektapan — 흑백 필름</h2>
+
+            <div class="film-card">
+                <div class="film-series-header">
+                    <div class="film-series-title">Ektapan 시리즈</div>
+                    <p class="film-series-desc">
+                        기존 T-Max와 유사한 위치에서 고선명도 T-grain 기술을 채용했습니다. 135 규격과 120 규격으로 제공되며, P3200은 135 규격만 지원합니다.
+                    </p>
+                </div>
+
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <div class="spec-item-title">EKTAPAN 100</div>
+                        <div class="spec-item-iso">ISO 100</div>
+                        <p class="spec-item-desc">가장 미세한 입자로 최고 선명도를 자랑합니다. 풍경 사진과 세밀한 디테일 표현이 필요한 작업에 이상적입니다.</p>
+                    </div>
+
+                    <div class="spec-item">
+                        <div class="spec-item-title">EKTAPAN 400</div>
+                        <div class="spec-item-iso">ISO 400</div>
+                        <p class="spec-item-desc">현재 가장 선명한 ISO 400 흑백 필름입니다. 다재다능한 성능으로 일상적인 촬영부터 전문 작업까지 폭넓게 활용 가능합니다.</p>
+                    </div>
+
+                    <div class="spec-item">
+                        <div class="spec-item-title">EKTAPAN P3200</div>
+                        <div class="spec-item-iso">ISO 3200+</div>
+                        <p class="spec-item-desc">야간 스트릿 촬영용으로 설계되었습니다. 푸시 현상을 지원하여 극한의 저조도 환경에서도 뛰어난 성능을 발휘합니다. (135 규격만)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 class="section-title">Kodak의 약속</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">뛰어난 색감</h3>
+                    <p class="feature-desc">자연스러운 색재현으로 전문가들이 신뢰하는 필름 브랜드</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✨</div>
+                    <h3 class="feature-title">선명도</h3>
+                    <p class="feature-desc">최신 기술로 구현한 T-grain과 정교한 입자 구조</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌅</div>
+                    <h3 class="feature-title">다양한 환경 대응</h3>
+                    <p class="feature-desc">ISO 100부터 3200까지 다양한 감도로 모든 상황 대응</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>원문</h3>
+                <p>
+                    <a href="https://www.ithome.com/0/933/562.htm" class="footer-link" target="_blank" rel="noopener noreferrer">
+                        원문 기사 보기 (IT Home)
+                    </a>
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>정보</h3>
+                <p>
+                    <strong>발행일:</strong> 2026-03-28<br>
+                    <strong>카테고리:</strong> 📷 Camera<br>
+                    <strong>브랜드:</strong> Kodak
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>참고사항</h3>
+                <p>
+                    이 문서는 IT Home의 원문을 한국어로 번역한 것입니다. 정확한 제품 정보는 공식 Kodak 웹사이트를 참고하세요.
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Kodak. All rights reserved. | Translated article from IT Home</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference or default to system preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+        // Set initial theme
+        if (initialTheme === 'dark') {
+            htmlElement.style.colorScheme = 'dark';
+            themeIcon.textContent = '☀️';
+        } else {
+            htmlElement.style.colorScheme = 'light';
+            themeIcon.textContent = '🌙';
+        }
+
+        // Toggle theme
+        themeToggle.addEventListener('click', () => {
+            const currentScheme = htmlElement.style.colorScheme || (prefersDark ? 'dark' : 'light');
+            const newScheme = currentScheme === 'dark' ? 'light' : 'dark';
+
+            htmlElement.style.colorScheme = newScheme;
+            localStorage.setItem('theme', newScheme);
+
+            themeIcon.textContent = newScheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!savedTheme) {
+                const newScheme = e.matches ? 'dark' : 'light';
+                htmlElement.style.colorScheme = newScheme;
+                themeIcon.textContent = newScheme === 'dark' ? '☀️' : '🌙';
+            }
+        });
+    </script>
+</body>
+</html>
