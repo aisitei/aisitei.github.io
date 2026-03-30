@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPPO Find N6 폴더블 스마트폰 첫 주 판매량 공개</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --oppo-green: #00A854;
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-text: #f1f5f9;
+            --light-bg: #ffffff;
+            --light-card: #f8fafc;
+            --light-text: #1e293b;
+            --gray-500: #64748b;
+            --gray-400: #cbd5e1;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--light-text);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        /* Animations */
+        @media (prefers-reduced-motion: no-preference) {
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes scaleIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.95);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            .hero-section {
+                animation: fadeInUp 0.8s ease-out;
+            }
+
+            .sales-card, .spec-item, .price-card, .feature-card {
+                animation: fadeInUp 0.6s ease-out backwards;
+            }
+
+            .sales-card { animation-delay: 0.1s; }
+            .spec-item { animation-delay: 0.2s; }
+            .price-card { animation-delay: 0.3s; }
+            .feature-card { animation-delay: 0.4s; }
+        }
+
+        /* Header and Navigation */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid;
+            border-color: var(--gray-400);
+            background: inherit;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--oppo-green);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.5px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--oppo-green);
+            color: var(--oppo-green);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--oppo-green);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            overflow: hidden;
+        }
+
+        body.dark-mode .hero-section {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="15" fill="%2300A854" opacity="0.1"/><circle cx="80" cy="80" r="20" fill="%2300A854" opacity="0.05"/></svg>');
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 8vw, 52px);
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 4vw, 20px);
+            color: var(--gray-500);
+            margin-bottom: 30px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        body.dark-mode .hero-subtitle {
+            color: #cbd5e1;
+        }
+
+        .hero-image {
+            max-width: 500px;
+            width: 100%;
+            height: auto;
+            margin: 40px auto 0;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+        }
+
+        body.dark-mode .hero-image {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 50px;
+            text-align: center;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* Sales Data Section */
+        .sales-section {
+            background: inherit;
+        }
+
+        .sales-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .sales-card {
+            padding: 40px;
+            background: linear-gradient(135deg, var(--oppo-green) 0%, #00c060 100%);
+            color: white;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 168, 84, 0.2);
+        }
+
+        .sales-number {
+            font-size: 48px;
+            font-weight: 900;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .sales-label {
+            font-size: 16px;
+            opacity: 0.95;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* Specs Section */
+        .specs-section {
+            background: inherit;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .spec-item {
+            background-color: var(--dark-card);
+            color: var(--dark-text);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid var(--oppo-green);
+        }
+
+        .spec-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--oppo-green);
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 8px;
+        }
+
+        .spec-value {
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .spec-detail {
+            font-size: 13px;
+            color: #cbd5e1;
+            margin-top: 8px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: inherit;
+        }
+
+        .pricing-table {
+            margin-top: 40px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: var(--oppo-green);
+            color: white;
+        }
+
+        thead th {
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        tbody td {
+            padding: 18px 20px;
+            border-bottom: 1px solid;
+            border-color: var(--gray-400);
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        body.dark-mode tbody td {
+            border-color: #334155;
+            background-color: rgba(30, 41, 59, 0.5);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .price-value {
+            font-weight: 700;
+            color: var(--oppo-green);
+            font-size: 18px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: inherit;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            padding: 40px 30px;
+            border-radius: 12px;
+            text-align: center;
+            background-color: var(--light-card);
+            border: 2px solid var(--gray-400);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .feature-card {
+            background-color: var(--dark-card);
+            border-color: #334155;
+        }
+
+        .feature-card:hover {
+            border-color: var(--oppo-green);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 168, 84, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: var(--gray-500);
+            line-height: 1.6;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        body.dark-mode .feature-desc {
+            color: #cbd5e1;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--light-card);
+            padding: 50px 20px;
+            text-align: center;
+            border-top: 1px solid var(--gray-400);
+            margin-top: 80px;
+        }
+
+        body.dark-mode footer {
+            background-color: var(--dark-card);
+            border-top-color: #334155;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .footer-source {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .footer-source a {
+            color: var(--oppo-green);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .footer-source a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-info {
+            font-size: 12px;
+            color: var(--gray-500);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        body.dark-mode .footer-info {
+            color: #cbd5e1;
+        }
+
+        .footer-disclaimer {
+            font-size: 11px;
+            color: var(--gray-500);
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid;
+            border-color: var(--gray-400);
+            font-style: italic;
+        }
+
+        body.dark-mode .footer-disclaimer {
+            color: #94a3b8;
+            border-color: #334155;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 20px;
+            }
+
+            .section {
+                padding: 50px 20px;
+            }
+
+            .section-title {
+                font-size: 28px;
+                margin-bottom: 30px;
+            }
+
+            .sales-grid {
+                gap: 20px;
+            }
+
+            .sales-card {
+                padding: 30px;
+            }
+
+            .sales-number {
+                font-size: 36px;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            thead th, tbody td {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">OPPO Find N6</div>
+            <button class="theme-toggle" id="themeToggle">다크 모드</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">OPPO Find N6 폴더블 스마트폰</h1>
+            <p class="hero-subtitle">첫 판매 주간 판매량 공개</p>
+            <img src="https://img.ithome.com/newsuploadfiles/2026/3/3fd4b719-df52-4648-8b13-cc5ee5198b72.jpg" alt="OPPO Find N6" class="hero-image">
+        </div>
+    </section>
+
+    <!-- Sales Data Section -->
+    <section class="section sales-section">
+        <div class="container">
+            <h2 class="section-title">판매량 현황</h2>
+            <div class="sales-grid">
+                <div class="sales-card">
+                    <div class="sales-number">56,400</div>
+                    <div class="sales-label">첫 3일 판매량</div>
+                </div>
+                <div class="sales-card">
+                    <div class="sales-number">약 30%</div>
+                    <div class="sales-label">위성통신 모델 비율</div>
+                </div>
+                <div class="sales-card">
+                    <div class="sales-number">1위</div>
+                    <div class="sales-label">폴더블 폰 점유율</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specs Section -->
+    <section class="section specs-section">
+        <div class="container">
+            <h2 class="section-title">주요 사양</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <div class="spec-label">프로세서</div>
+                    <div class="spec-value">Snapdragon 8 Gen 5 Leading Version</div>
+                    <div class="spec-detail">최신 플래그십 칩셋</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">배터리 및 충전</div>
+                    <div class="spec-value">6000mAh + 80W</div>
+                    <div class="spec-detail">급속 유선 충전 지원</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">메인 디스플레이</div>
+                    <div class="spec-value">8.12" (2480×2248)</div>
+                    <div class="spec-detail">AMOLED 내부 폴딩 화면</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">외부 디스플레이</div>
+                    <div class="spec-value">6.62" AMOLED</div>
+                    <div class="spec-detail">세계에서 가장 납작한 폴딩 화면</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">카메라</div>
+                    <div class="spec-value">쿼드 카메라</div>
+                    <div class="spec-detail">200MP 메인 센서 + Hasselblad</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">극저온 성능</div>
+                    <div class="spec-value">-20°C 작동</div>
+                    <div class="spec-detail">극한 환경 테스트 완료</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">방수 등급</div>
+                    <div class="spec-value">IP56/58/59</div>
+                    <div class="spec-detail">다중 등급 방수/방진</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">액세서리 지원</div>
+                    <div class="spec-value">폴더블 키보드</div>
+                    <div class="spec-detail">생산성 기능 확장</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section pricing-section">
+        <div class="container">
+            <h2 class="section-title">가격 정보</h2>
+            <div class="pricing-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>모델</th>
+                            <th>RAM / 저장공간</th>
+                            <th>가격</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>표준 모델</td>
+                            <td>12GB / 256GB</td>
+                            <td class="price-value">¥9,999</td>
+                        </tr>
+                        <tr>
+                            <td>고사양 모델</td>
+                            <td>16GB / 512GB</td>
+                            <td class="price-value">¥10,999</td>
+                        </tr>
+                        <tr>
+                            <td>위성통신 모델</td>
+                            <td>16GB / 1TB</td>
+                            <td class="price-value">¥11,999</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features-section">
+        <div class="container">
+            <h2 class="section-title">주요 특징</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📷</div>
+                    <div class="feature-title">Hasselblad 카메라</div>
+                    <div class="feature-desc">200MP 메인 센서와 Hasselblad 기술로 프로페셔널급 사진 촬영 가능</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛰️</div>
+                    <div class="feature-title">위성통신</div>
+                    <div class="feature-desc">긴급상황 및 오지에서 위성 신호를 통한 통신 지원으로 안전성 강화</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⌨️</div>
+                    <div class="feature-title">폴더블 키보드</div>
+                    <div class="feature-desc">별도 액세서리로 폴더블 키보드 지원으로 랩탑 수준의 생산성 제공</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">❄️</div>
+                    <div class="feature-title">극한 환경 대응</div>
+                    <div class="feature-desc">-20°C 극저온 환경에서도 정상 작동하는 극한 성능</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">초평탄 폴딩</div>
+                    <div class="feature-desc">세계에서 가장 납작한 폴딩 화면으로 접혔을 때의 두께 최소화</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔋</div>
+                    <div class="feature-title">고용량 배터리</div>
+                    <div class="feature-desc">6000mAh 배터리와 80W 급속 충전으로 하루 종일 사용 가능</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-source">
+                출처: <a href="https://www.ithome.com/0/933/793.htm" target="_blank" rel="noopener noreferrer">IT之家 (2026-03-29)</a>
+            </div>
+            <div class="footer-info">
+                <strong>카테고리:</strong> 📱 스마트폰<br>
+                <strong>게시일:</strong> 2026년 3월 29일<br>
+                <strong>원문:</strong> 중국어 (번역: 한국어)
+            </div>
+            <div class="footer-disclaimer">
+                본 페이지는 IT之家의 원문을 한국어로 번역한 것입니다. 원문의 모든 내용에 대한 저작권은 IT之家에 있습니다. 본 페이지의 데이터 및 정보는 번역 시점을 기준으로 작성되었으며, 실제 제품 사양 및 가격은 공식 채널을 통해 확인하시기 바랍니다.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference or default to light mode
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.textContent = '라이트 모드';
+        }
+
+        // Toggle theme
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            themeToggle.textContent = isDark ? '라이트 모드' : '다크 모드';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        // Respect system preference if no saved preference
+        if (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark-mode');
+            themeToggle.textContent = '라이트 모드';
+        }
+    </script>
+</body>
+</html>

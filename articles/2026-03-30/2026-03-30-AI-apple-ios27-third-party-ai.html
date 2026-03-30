@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>애플 iOS 27: 제3자 AI 챗봇 지원 - IT 홈</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #86868B;
+            --bg-light: #FFFFFF;
+            --bg-dark: #1F1F1F;
+            --text-light: #1F1F1F;
+            --text-dark: #F5F5F7;
+            --border-light: #E5E5E7;
+            --border-dark: #424245;
+            --spec-bg: #1e293b;
+            --spec-text: #f1f5f9;
+        }
+
+        html {
+            color-scheme: light dark;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        /* Header & Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-light);
+            background-color: var(--bg-light);
+        }
+
+        body.dark-mode header {
+            border-bottom-color: var(--border-dark);
+            background-color: var(--bg-dark);
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            width: 50px;
+            height: 28px;
+            border-radius: 14px;
+            background-color: var(--border-light);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+            transition: background-color 0.3s ease;
+            position: relative;
+        }
+
+        body.dark-mode .theme-toggle {
+            background-color: var(--border-dark);
+        }
+
+        .theme-toggle::after {
+            content: '☀️';
+            position: absolute;
+            left: 4px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .theme-toggle::after {
+            content: '🌙';
+            left: 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F5F5F7 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .hero {
+            background: linear-gradient(135deg, #1F1F1F 0%, #2A2A2A 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(134, 134, 139, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .source-info {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            font-size: 0.875rem;
+            opacity: 0.7;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .source-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        section p {
+            font-size: 1.0625rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        /* Strategy Cards */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .strategy-card {
+            padding: 2rem;
+            border-radius: 12px;
+            background-color: var(--bg-light);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            animation: scaleIn 0.6s ease;
+        }
+
+        body.dark-mode .strategy-card {
+            background-color: #2A2A2A;
+            border-color: var(--border-dark);
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .strategy-card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .strategy-card h3 {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+        }
+
+        .strategy-card p {
+            font-size: 0.95rem;
+            animation: none;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            padding: 2rem;
+            background-color: var(--bg-light);
+            border-radius: 12px;
+            flex-wrap: wrap;
+            border: 1px solid var(--border-light);
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        body.dark-mode .timeline {
+            background-color: #2A2A2A;
+            border-color: var(--border-dark);
+        }
+
+        .timeline-item {
+            text-align: center;
+        }
+
+        .timeline-date {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-event {
+            font-weight: 600;
+        }
+
+        /* Feature List */
+        .feature-list {
+            background-color: var(--bg-light);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border-light);
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        body.dark-mode .feature-list {
+            background-color: #2A2A2A;
+            border-color: var(--border-dark);
+        }
+
+        .feature-list ul {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        body.dark-mode .feature-list li {
+            border-bottom-color: var(--border-dark);
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            margin-top: -2px;
+        }
+
+        .feature-list li p {
+            margin-bottom: 0;
+            animation: none;
+        }
+
+        /* Spec Grid */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            animation: fadeInUp 0.8s ease 0.5s both;
+        }
+
+        .spec-item {
+            background-color: var(--spec-bg);
+            color: var(--spec-text);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .spec-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-light);
+            border-top: 1px solid var(--border-light);
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            font-size: 0.875rem;
+            opacity: 0.7;
+        }
+
+        body.dark-mode footer {
+            background-color: var(--bg-dark);
+            border-top-color: var(--border-dark);
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-divider {
+            margin: 1rem 0;
+        }
+
+        .disclaimer {
+            font-size: 0.8125rem;
+            opacity: 0.6;
+            margin-top: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            .hero {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            main {
+                padding: 2rem 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            .timeline {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .spec-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">IT 홈</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="테마 전환"></button>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-label">🤖 AI</div>
+            <h1>애플 iOS 27, ChatGPT 외 제3자 AI 챗봇 지원</h1>
+            <p>마크 구르만, WWDC26 앞두고 애플의 이중 AI 전략 공개</p>
+            <div class="source-info">
+                <div class="source-item">
+                    <span>📰 출처: IT之家</span>
+                </div>
+                <div class="source-item">
+                    <span>📅 2026년 3월 29일</span>
+                </div>
+                <div class="source-item">
+                    <span>✍️ 마크 구르만 (블룸버그)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <!-- Overview Section -->
+        <section>
+            <h2>애플의 새로운 AI 전략</h2>
+            <p>블룸버그의 마크 구르만이 "Power On" 뉴스레터를 통해 공개한 바에 따르면, 애플은 WWDC26(2026년 6월 8-9일)을 앞두고 양방향 AI 전략을 추진 중입니다.</p>
+            <p>애플은 운영 체제에 적절히 규모화된 AI를 내장하면서 동시에 Siri와 Apple Intelligence를 제3자 서비스에 개방하는 방식으로 하드웨어 이점을 활용하면서 생태계 통제력을 유지할 계획입니다.</p>
+        </section>
+
+        <!-- Strategy Cards -->
+        <section>
+            <h2>이중 AI 전략</h2>
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <div class="card-icon">📱</div>
+                    <h3>내장형 AI</h3>
+                    <p>운영 체제에 적절히 규모화된 AI를 통합하여 기본적인 인공지능 기능을 모든 사용자에게 제공합니다.</p>
+                </div>
+                <div class="strategy-card">
+                    <div class="card-icon">🔄</div>
+                    <h3>생태계 개방</h3>
+                    <p>Siri와 Apple Intelligence를 제3자 서비스에 개방하여 경쟁 촉진과 혁신을 유도합니다.</p>
+                </div>
+                <div class="strategy-card">
+                    <div class="card-icon">💰</div>
+                    <h3>수익 창출</h3>
+                    <p>App Store의 30% 수수료를 통해 AI 기반 애플리케이션의 판매로부터 지속적인 수익을 창출합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section>
+            <h2>주요 일정</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="timeline-date">현재</span>
+                    <div class="timeline-event">iOS 27 개발 진행 중</div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">6월 8-9일</span>
+                    <div class="timeline-event">WWDC26 공개</div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2026년</span>
+                    <div class="timeline-event">iOS 27 출시</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features -->
+        <section>
+            <h2>iOS 27 주요 기능</h2>
+            <div class="feature-list">
+                <ul>
+                    <li>
+                        <p><strong>제3자 AI 챗봇 설치</strong><br>사용자들이 ChatGPT뿐만 아니라 다양한 제3자 AI 챗봇을 설치할 수 있게 됩니다.</p>
+                    </li>
+                    <li>
+                        <p><strong>Siri 통합</strong><br>제3자 AI 챗봇이 Siri와 직접 통합되어 음성 어시스턴트 기능을 확장합니다.</p>
+                    </li>
+                    <li>
+                        <p><strong>App Store 전용 섹션</strong><br>제3자 AI 통합 앱을 위한 dedicated App Store 섹션이 추가됩니다.</p>
+                    </li>
+                    <li>
+                        <p><strong>생태계 개방</strong><br>다양한 AI 서비스 제공자들이 애플 플랫폼에서 경쟁할 수 있는 공정한 환경을 조성합니다.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Strategy Analysis -->
+        <section>
+            <h2>전략적 의미</h2>
+            <p>구르만은 애플이 OpenAI나 Google과 같은 기업들과 고급 AI 모델 분야에서 직접 경쟁하지 않을 것이라고 지적했습니다. 대신 애플은 자신의 하드웨어 이점과 플랫폼 통제력을 활용하여 높은 수익성을 유지하면서 경쟁사들이 혁신을 주도하도록 유도하는 전략을 취할 것입니다.</p>
+
+            <h3>주요 이점</h3>
+            <p>이 전략은 애플에게 여러 가지 이점을 제공합니다:</p>
+
+            <ul style="list-style: none; padding-left: 0;">
+                <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--primary); font-weight: 700;">•</span>
+                    <strong>iPhone 판매 유지:</strong> AI 기능의 강화로 iPhone의 매력을 높여 판매량을 유지합니다.
+                </li>
+                <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--primary); font-weight: 700;">•</span>
+                    <strong>안정적인 수익:</strong> App Store 수수료를 통해 AI 애플리케이션 판매로부터 지속적인 수익을 얻습니다.
+                </li>
+                <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--primary); font-weight: 700;">•</span>
+                    <strong>혁신 촉진:</strong> 제3자 AI 서비스의 경쟁으로 사용자들이 더 나은 AI 경험을 얻을 수 있습니다.
+                </li>
+                <li style="padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--primary); font-weight: 700;">•</span>
+                    <strong>생태계 통제:</strong> 플랫폼 통제력을 유지하면서 다양한 AI 서비스를 지원합니다.
+                </li>
+            </ul>
+        </section>
+
+        <!-- Specifications -->
+        <section>
+            <h2>핵심 요약</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <div class="spec-label">출시 예정</div>
+                    <div class="spec-value">WWDC26<br>2026년</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">주요 변화</div>
+                    <div class="spec-value">제3자 AI<br>지원</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">혁신 포인트</div>
+                    <div class="spec-value">Siri<br>통합</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">브랜드 전략</div>
+                    <div class="spec-value">개방형<br>생태계</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section>
+            <h2>결론</h2>
+            <p>애플의 이번 AI 전략은 하드웨어 우위를 바탕으로 한 플랫폼 통제력을 유지하면서도 생태계를 개방하여 경쟁과 혁신을 촉진하는 현명한 접근 방식입니다. iOS 27의 도입으로 사용자들은 더 다양한 AI 서비스 중에서 선택할 수 있게 되며, 애플은 안정적인 수익 창출과 iPhone 판매 유지라는 두 가지 목표를 동시에 달성할 수 있을 것으로 기대됩니다.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-divider">
+            <strong>원본 기사</strong><br>
+            <a href="https://www.ithome.com/0/933/903.htm" target="_blank" rel="noopener noreferrer">
+                https://www.ithome.com/0/933/903.htm
+            </a>
+        </div>
+        <div class="footer-divider">
+            출처: IT之家 | 2026년 3월 29일<br>
+            한국어 번역 및 정리: 2026년 3월 30일
+        </div>
+        <div class="disclaimer">
+            본 문서는 원본 기사의 한국어 번역본입니다. 모든 정보는 공개 출처를 기반으로 하며, 내용의 정확성을 위해 최선을 다했습니다.
+            저작권 및 출처 표시에 대해서는 원본 출처(IT之家)를 참고하시기 바랍니다.
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const body = document.body;
+
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme preference
+        function loadTheme() {
+            const saved = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (saved) {
+                if (saved === 'dark') {
+                    document.body.classList.add('dark-mode');
+                }
+            } else if (prefersDark) {
+                document.body.classList.add('dark-mode');
+            }
+        }
+
+        // Initialize theme on page load
+        document.addEventListener('DOMContentLoaded', loadTheme);
+    </script>
+</body>
+</html>

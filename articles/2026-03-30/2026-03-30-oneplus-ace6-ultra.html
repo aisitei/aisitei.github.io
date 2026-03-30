@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="OnePlus Ace6 Supreme Edition 스펙 유출 - 8500mAh 배터리, 165Hz 디스플레이, Dimensity 9500">
+    <meta name="author" content="IT之家">
+    <meta name="publish-date" content="2026-03-29">
+    <title>OnePlus Ace6 Supreme Edition 스펙 유출 - 8500mAh 배터리, 165Hz 디스플레이</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #EB0028;
+            --dark-bg: #0f172a;
+            --dark-surface: #1e293b;
+            --dark-text: #f1f5f9;
+            --light-bg: #ffffff;
+            --light-surface: #f8fafc;
+            --light-text: #1e293b;
+            --spec-bg: #1e293b;
+            --spec-text: #f1f5f9;
+            --border-color: #e2e8f0;
+            --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-medium: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        body.light-mode {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes scaleIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.95);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            .hero-section {
+                animation: fadeInUp 0.8s ease-out;
+            }
+
+            .feature-card {
+                animation: scaleIn 0.6s ease-out;
+            }
+
+            .hero-title {
+                animation: fadeInUp 0.8s ease-out 0.1s both;
+            }
+
+            .hero-subtitle {
+                animation: fadeInUp 0.8s ease-out 0.2s both;
+            }
+
+            .comparison-table {
+                animation: fadeInUp 0.8s ease-out 0.3s both;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        body.dark-mode header {
+            background-color: rgba(15, 23, 42, 0.8);
+            border-bottom-color: rgba(148, 163, 184, 0.1);
+        }
+
+        body.light-mode header {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-bottom-color: var(--border-color);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(235, 0, 40, 0.1) 0%, rgba(235, 0, 40, 0.05) 100%);
+            overflow: hidden;
+        }
+
+        body.dark-mode .hero-section {
+            background: linear-gradient(135deg, rgba(235, 0, 40, 0.15) 0%, rgba(235, 0, 40, 0.05) 100%),
+                        linear-gradient(to bottom, rgba(30, 41, 59, 0.5), rgba(15, 23, 42, 0.8));
+        }
+
+        body.light-mode .hero-section {
+            background: linear-gradient(135deg, rgba(235, 0, 40, 0.08) 0%, rgba(235, 0, 40, 0.03) 100%);
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(235, 0, 40, 0.1), transparent);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .meta-info {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Main Content */
+        main {
+            padding: 4rem 0;
+        }
+
+        /* Article Text */
+        .article-content {
+            margin: 4rem 0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        body.dark-mode .article-content {
+            color: rgba(241, 245, 249, 0.9);
+        }
+
+        body.light-mode .article-content {
+            color: rgba(30, 41, 59, 0.9);
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content strong {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Features Section */
+        .features-section {
+            margin: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        body.dark-mode .feature-card {
+            background-color: rgba(30, 41, 59, 0.6);
+            border-color: rgba(148, 163, 184, 0.1);
+        }
+
+        body.light-mode .feature-card {
+            background-color: rgba(248, 250, 252, 1);
+            border-color: var(--border-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+        }
+
+        body.dark-mode .feature-card:hover {
+            background-color: rgba(30, 41, 59, 0.9);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        body.light-mode .feature-card:hover {
+            box-shadow: var(--shadow-medium);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .feature-desc {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        /* Comparison Table */
+        .comparison-section {
+            margin: 4rem 0;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 12px;
+            background: var(--spec-bg);
+            padding: 2rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: var(--spec-text);
+        }
+
+        .comparison-table thead {
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .comparison-table th {
+            padding: 1.5rem;
+            text-align: left;
+            font-weight: 700;
+            font-size: 1.1rem;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .comparison-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: var(--spec-text);
+            min-width: 150px;
+        }
+
+        .spec-value {
+            opacity: 0.95;
+        }
+
+        .spec-value.highlight {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        /* Article Image */
+        .article-image {
+            margin: 3rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .article-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-caption {
+            padding: 1rem;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.9rem;
+            background: var(--light-surface);
+        }
+
+        body.dark-mode .image-caption {
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(235, 0, 40, 0.1), rgba(235, 0, 40, 0.05));
+            border-left: 4px solid var(--primary-color);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        body.dark-mode .highlight-box {
+            background: linear-gradient(135deg, rgba(235, 0, 40, 0.15), rgba(235, 0, 40, 0.08));
+            border-color: var(--primary-color);
+        }
+
+        body.light-mode .highlight-box {
+            background: linear-gradient(135deg, rgba(235, 0, 40, 0.08), rgba(235, 0, 40, 0.03));
+        }
+
+        .highlight-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, var(--spec-bg), rgba(30, 41, 59, 0.8));
+            color: var(--spec-text);
+            padding: 3rem 2rem;
+            margin-top: 6rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 2rem;
+        }
+
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .footer-link {
+            color: var(--spec-text);
+            text-decoration: none;
+            opacity: 0.8;
+            word-break: break-all;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .footer-disclaimer {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            font-style: italic;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .hero-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .meta-info {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .article-content {
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .table-wrapper {
+                padding: 1rem;
+                overflow-x: auto;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero-section::before {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .meta-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.75rem;
+            }
+
+            footer {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <span>📱 OnePlus</span>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">🌙 다크모드</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">OnePlus Ace6 Supreme Edition 스펙 유출</h1>
+            <p class="hero-subtitle">8500mAh 배터리, 165Hz 디스플레이, Dimensity 9500 칩셋 탑재</p>
+            <div class="meta-info">
+                <div class="meta-item">
+                    <span>📅 2026년 3월 29일</span>
+                </div>
+                <div class="meta-item">
+                    <span>📰 IT之家</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏷️ 스마트폰</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Article Content -->
+        <section class="article-content">
+            <p>
+                블로거 <strong>@熊猫很禿然</strong>에 따르면 OnePlus Ace6 Supreme Edition(일명 Ace6 울트라)은 다음과 같은 사양을 탑재할 예정입니다:
+            </p>
+
+            <div class="highlight-box">
+                <div class="highlight-title">OnePlus Ace6 Supreme Edition의 주요 사양</div>
+                <p>
+                    • <strong>배터리</strong>: 8500mAh<br>
+                    • <strong>디스플레이</strong>: 165Hz 리프레시율<br>
+                    • <strong>프로세서</strong>: MediaTek Dimensity 9500
+                </p>
+            </div>
+
+            <p>
+                IT之家에 따르면 블로거 <strong>@数码闲聊站</strong>는 이전에 4월에 출시될 두 개의 Supreme Edition 모델이 경쟁할 것이라고 보도했습니다. 두 모델 모두 MediaTek Dimensity 9500 프로세서, 8000 시리즈 대용량 배터리, 그리고 165Hz 직형 스크린을 탑재할 것으로 예상됩니다.
+            </p>
+
+            <p>
+                이전 보도를 바탕으로 이러한 모델들은 <strong>OnePlus Ace6 Supreme Edition</strong>과 <strong>Xiaomi Redmi K90 Supreme Edition</strong>으로 예상되고 있습니다.
+            </p>
+        </section>
+
+        <!-- Article Image -->
+        <section class="article-image">
+            <img src="https://img.ithome.com/newsuploadfiles/2026/3/25634c5b-1c81-4563-89ee-d84863c163bc.jpg" alt="OnePlus Ace6 Supreme Edition 렌더링 이미지">
+            <div class="image-caption">OnePlus Ace6 Supreme Edition 예상 이미지</div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 class="section-title">주요 특징</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔋</div>
+                    <div class="feature-title">대용량 배터리</div>
+                    <div class="feature-desc">8500mAh의 초대용량 배터리로 하루 종일 사용 가능</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">고주사율 디스플레이</div>
+                    <div class="feature-desc">165Hz 리프레시율로 매끄러운 스크롤링 경험</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💎</div>
+                    <div class="feature-title">강력한 성능</div>
+                    <div class="feature-desc">MediaTek Dimensity 9500으로 최고의 처리 능력 제공</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <div class="feature-title">프리미엄 경험</div>
+                    <div class="feature-desc">Supreme Edition만의 고급 기능과 디자인</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section class="comparison-section">
+            <h2 class="section-title">Ace6 vs Ace6 Supreme Edition 비교</h2>
+            <div class="table-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>사양</th>
+                            <th>OnePlus Ace6</th>
+                            <th>OnePlus Ace6 Supreme Edition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="spec-label">디스플레이</td>
+                            <td class="spec-value">165Hz</td>
+                            <td class="spec-value highlight">165Hz</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">프로세서</td>
+                            <td class="spec-value">Snapdragon 8 Elite</td>
+                            <td class="spec-value highlight">MediaTek Dimensity 9500</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">배터리</td>
+                            <td class="spec-value">7800mAh</td>
+                            <td class="spec-value highlight">8500mAh</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">충전</td>
+                            <td class="spec-value">120W 고속충전</td>
+                            <td class="spec-value">TBA</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">특수 기능</td>
+                            <td class="spec-value">깜박임 없는 디스플레이<br>바이패스 충전</td>
+                            <td class="spec-value">Supreme 에디션 기능</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">출시일</td>
+                            <td class="spec-value">2025년 10월</td>
+                            <td class="spec-value highlight">2026년 4월 예상</td>
+                        </tr>
+                        <tr>
+                            <td class="spec-label">시작 가격</td>
+                            <td class="spec-value">2599 위안<br>(12+256GB)</td>
+                            <td class="spec-value">TBA</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Reference Section -->
+        <section class="article-content">
+            <h3 style="font-size: 1.5rem; margin: 3rem 0 1rem 0; color: var(--primary-color);">참고 사항</h3>
+            <p>
+                원본 <strong>OnePlus Ace 6</strong> (2025년 10월 출시 기준):
+            </p>
+            <ul style="list-style: none; padding-left: 0; margin: 1.5rem 0;">
+                <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--primary-color);">▪</span>
+                    165Hz 리프레시율 디스플레이
+                </li>
+                <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--primary-color);">▪</span>
+                    Snapdragon 8 Elite 프로세서
+                </li>
+                <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--primary-color);">▪</span>
+                    7800mAh 배터리 용량
+                </li>
+                <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--primary-color);">▪</span>
+                    120W 고속 충전 기술
+                </li>
+                <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--primary-color);">▪</span>
+                    깜박임 없는 디스플레이 인증 및 바이패스 충전
+                </li>
+                <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--primary-color);">▪</span>
+                    기본 가격: 2599 위안 (12+256GB)
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-title">원본 기사</div>
+                <a href="https://www.ithome.com/0/933/872.htm" class="footer-link" target="_blank">
+                    https://www.ithome.com/0/933/872.htm
+                </a>
+            </div>
+            <div class="footer-section">
+                <div class="footer-title">게시 정보</div>
+                <div class="footer-link">원본 게시일: 2026년 3월 29일</div>
+                <div class="footer-link">번역 작성일: 2026년 3월 30일</div>
+                <div class="footer-link">카테고리: 📱 스마트폰 뉴스</div>
+            </div>
+            <div class="footer-section footer-disclaimer">
+                <strong>번역 고지:</strong> 본 기사는 IT之家의 기사를 한국어로 번역한 것입니다. 번역 과정에서 의역이 포함될 수 있으며, 정확한 내용은 원본 기사를 참고하시기 바랍니다. 이 문서의 내용은 정보 제공 목적으로만 사용되며, OnePlus의 공식 발표가 아닙니다.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const button = document.querySelector('.theme-toggle');
+
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                button.textContent = '☀️ 라이트모드';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                button.textContent = '🌙 다크모드';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme preference
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+                document.querySelector('.theme-toggle').textContent = '☀️ 라이트모드';
+            }
+        });
+
+        // Respect system color scheme preferences
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            if (!localStorage.getItem('theme')) {
+                if (e.matches) {
+                    document.body.classList.remove('light-mode');
+                    document.body.classList.add('dark-mode');
+                    document.querySelector('.theme-toggle').textContent = '☀️ 라이트모드';
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    document.body.classList.add('light-mode');
+                    document.querySelector('.theme-toggle').textContent = '🌙 다크모드';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

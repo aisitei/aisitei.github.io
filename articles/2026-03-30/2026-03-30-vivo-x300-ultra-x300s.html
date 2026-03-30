@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vivo X300s / X300 Ultra 신기 핵심 사양 요약</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #415FFF;
+            --color-primary-dark: #2E3FB5;
+            --color-primary-light: #6B7FFF;
+            --color-bg: #ffffff;
+            --color-bg-secondary: #f8fafc;
+            --color-bg-tertiary: #f1f5f9;
+            --color-text: #0f172a;
+            --color-text-secondary: #475569;
+            --color-text-tertiary: #94a3b8;
+            --color-border: #e2e8f0;
+            --color-spec-bg: #1e293b;
+            --color-spec-text: #f1f5f9;
+            --color-spec-secondary: #94a3b8;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-bg: #0f172a;
+                --color-bg-secondary: #1e293b;
+                --color-bg-tertiary: #334155;
+                --color-text: #f1f5f9;
+                --color-text-secondary: #cbd5e1;
+                --color-text-tertiary: #94a3b8;
+                --color-border: #334155;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .scale-in {
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+            transition: background 0.3s ease;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            header {
+                background: rgba(15, 23, 42, 0.95);
+            }
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .theme-toggle {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 9999px;
+            padding: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            transition: background 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--color-bg-tertiary);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 60px;
+            position: relative;
+            padding: 4rem 2rem;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--color-bg-secondary) 0%, var(--color-bg) 100%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            color: var(--color-text-tertiary);
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .meta-value {
+            color: var(--color-text);
+            font-weight: 600;
+        }
+
+        .hero-image {
+            position: relative;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            animation: scaleIn 0.8s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-text p {
+                font-size: 1rem;
+            }
+
+            .hero-image {
+                height: 300px;
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section */
+        .section {
+            padding: 4rem 2rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title .icon {
+            font-size: 1.8rem;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* Product Section */
+        .product-section {
+            margin-bottom: 4rem;
+        }
+
+        .product-header {
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Specs Grid - Always Dark */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .spec-card {
+            background: var(--color-spec-bg);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .spec-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-primary);
+            box-shadow: 0 12px 24px rgba(65, 95, 255, 0.15);
+        }
+
+        .spec-card-title {
+            color: var(--color-spec-text);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .spec-card-value {
+            color: var(--color-spec-text);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            word-break: break-word;
+        }
+
+        .spec-card-details {
+            color: var(--color-spec-secondary);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .spec-card-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .spec-card-details li {
+            padding: 0.3rem 0;
+        }
+
+        .spec-card-details li:before {
+            content: "→ ";
+            color: var(--color-primary-light);
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .feature-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-text);
+        }
+
+        .feature-card p {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Camera Details */
+        .camera-system {
+            background: var(--color-spec-bg);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .camera-system h3 {
+            color: var(--color-spec-text);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .camera-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .camera-list li {
+            color: var(--color-spec-secondary);
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .camera-list li:last-child {
+            border-bottom: none;
+        }
+
+        .camera-list li:before {
+            content: "📷";
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .camera-list span {
+            color: var(--color-spec-text);
+            font-weight: 500;
+        }
+
+        /* Image Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-bg-secondary);
+            border-top: 1px solid var(--color-border);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 2rem;
+        }
+
+        .footer-label {
+            color: var(--color-text-tertiary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-value {
+            color: var(--color-text);
+            font-size: 0.95rem;
+            word-break: break-all;
+        }
+
+        .footer-value a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-value a:hover {
+            color: var(--color-primary-dark);
+        }
+
+        .footer-disclaimer {
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--color-border);
+            margin: 2rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Utility Classes */
+        .text-primary {
+            color: var(--color-primary);
+        }
+
+        .text-small {
+            font-size: 0.85rem;
+            color: var(--color-text-tertiary);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(65, 95, 255, 0.1);
+            color: var(--color-primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">vivo X300</div>
+            <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
+                <span id="themeIcon">🌙</span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text fade-in-up">
+                <h1>vivo X300s / X300 Ultra</h1>
+                <p>신기 핵심 사양 총정리</p>
+                <div class="hero-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">발표</span>
+                        <span class="meta-value">2026년 3월 30일 19:00</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">장소</span>
+                        <span class="meta-value">윈난성 리장</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">판매 시작</span>
+                        <span class="meta-value">4월 3일</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://img.ithome.com/newsuploadfiles/2026/3/11afa341-4edb-4466-849a-a6c191e705b5.jpg" alt="vivo X300 Ultra와 X300s">
+            </div>
+        </div>
+    </section>
+
+    <!-- X300 Ultra Section -->
+    <section class="section">
+        <div class="container">
+            <div class="product-section">
+                <div class="product-header">
+                    <span class="badge">프로페셔널 V폰</span>
+                    <h2 class="section-title">
+                        <span class="icon">📱</span>
+                        vivo X300 Ultra
+                    </h2>
+                    <p class="section-subtitle">시네마급 촬영 능력과 프로페셔널 이미징</p>
+                </div>
+
+                <!-- Camera System -->
+                <div class="camera-system">
+                    <h3>📷 카메라 시스템 (3+2 자이스 마스터 렌즈군)</h3>
+                    <ul class="camera-list">
+                        <li><span>14mm 자이스 초광각 렌즈</span> – 광활한 풍경 촬영</li>
+                        <li><span>35mm 자이스 인물/다큐멘터리 렌즈 II</span> – 자연스러운 인물 표현</li>
+                        <li><span>85mm 자이스 클라우드 스테빌라이저 망원 렌즈</span> – 안정적인 장초점 촬영</li>
+                        <li><span>립스틱 200 익스텐더</span> – 2배 광학 줌 확장</li>
+                        <li><span>캐논 400 익스텐더</span> – 4배 광학 줌 확장</li>
+                    </ul>
+                </div>
+
+                <!-- Pocket Cinema Camera -->
+                <div class="camera-system">
+                    <h3>🎬 포켓 시네마 카메라</h3>
+                    <ul class="camera-list">
+                        <li><span>전 초점 거리 OIS 광학 비디오 손떨림 보정</span> – 모든 초점거리에서 안정적인 영상</li>
+                        <li><span>전 초점 거리 4K 120fps 10bit Log 촬영</span> – 전문 영상 제작 레벨의 색감 표현</li>
+                        <li><span>Pro 전문 녹화 모드</span> – 고급 영상 제작을 위한 수동 제어</li>
+                        <li><span>필름 스타일 (Film Style/Film Look)</span> – 영화 같은 색감 표현</li>
+                    </ul>
+                </div>
+
+                <!-- Color Science -->
+                <div class="camera-system">
+                    <h3>🎨 컬러 사이언스</h3>
+                    <ul class="camera-list">
+                        <li><span>블루프린트 원색 카메라</span> – 더욱 정확한 색상 재현</li>
+                        <li><span>블루프린트 네이티브 컬러</span> – 자연스러운 색감 표현</li>
+                        <li><span>블루프린트 팔레트</span> – 다양한 색감 프리셋</li>
+                        <li><span>전 장면 추광 인물</span> – 역광, 플래시, 소프트라이트 환경에서 최적화된 인물 촬영</li>
+                    </ul>
+                </div>
+
+                <!-- Core Specs -->
+                <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;">핵심 사양</h3>
+                <div class="specs-grid">
+                    <div class="spec-card">
+                        <div class="spec-card-title">⚡ 프로세서</div>
+                        <div class="spec-card-value">스냅드래곤 8 엘리트</div>
+                        <div class="spec-card-details">5세대 플래그십 칩셋 (Gen5)</div>
+                    </div>
+
+                    <div class="spec-card">
+                        <div class="spec-card-title">🖥️ 디스플레이</div>
+                        <div class="spec-card-value">2K 자이스 마스터</div>
+                        <div class="spec-card-details">
+                            <ul>
+                                <li>144Hz Ultra XDR</li>
+                                <li>최고 밝기 4000 nits</li>
+                                <li>10-bit 색감 표현</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="spec-card">
+                        <div class="spec-card-title">🎯 바디 두께</div>
+                        <div class="spec-card-value">8.19mm</div>
+                        <div class="spec-card-details">초슬림 폼팩터</div>
+                    </div>
+
+                    <div class="spec-card">
+                        <div class="spec-card-title">🔋 충전 기술</div>
+                        <div class="spec-card-value">100W 유선 / 40W 무선</div>
+                        <div class="spec-card-details">
+                            <ul>
+                                <li>USB-C 고속 충전</li>
+                                <li>무선 고속 충전</li>
+                                <li>안전한 발열 관리</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="spec-card">
+                        <div class="spec-card-title">🎤 오디오 시스템</div>
+                        <div class="spec-card-value">4 마이크 수음</div>
+                        <div class="spec-card-details">
+                            <ul>
+                                <li>1697 상향 스피커</li>
+                                <li>0.8cc 초대형 음강</li>
+                                <li>공간음 지원</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="spec-card">
+                        <div class="spec-card-title">📳 진동 모터</div>
+                        <div class="spec-card-value">751440 초감각</div>
+                        <div class="spec-card-details">정밀한 햅틱 피드백</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- X300s Section -->
+    <section class="section">
+        <div class="container">
+            <div class="product-section">
+                <div class="product-header">
+                    <span class="badge">슈퍼파워 소형 V폰</span>
+                    <h2 class="section-title">
+                        <span class="icon">⚡</span>
+                        vivo X300s
+                    </h2>
+                    <p class="section-subtitle">강력한 성능과 우수한 이미징이 탑재된 소형 플래그십</p>
+                </div>
+
+                <!-- Camera System -->
+                <div class="camera-system">
+                    <h3>📷 카메라 시스템</h3>
+                    <ul class="camera-list">
+                        <li><span>자이스 2억 화소 슈퍼 메인 카메라</span> – 초고해상도 촬영으로 디테일 표현</li>
+                        <li><span>자이스 APO 슈퍼 망원</span> – 수정된 색수차로 맑은 망원 촬영</li>
+                        <li><span>립스틱 200 익스텐더</span> – 2배 광학 줌 확장</li>
+                        <li><span>블루프린트 이미징 칩 V3+</span> – 고급 이미지 처리 및 AI 최적화</li>
+                        <li><span>전 초점 거리 줌 플래시</span> – 모든 줌 레벨에서 최적화된 플래시</li>
+                    </ul>
+                </div>
+
+                <!-- Core Specs -->
+                <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;">핵심 사양</h3>
+                <div class="specs-grid">
+                    <div class="spec-card">
+                        <div class="spec-card-title">⚡ 프로세서</div>
+                        <div class="spec-card-value">Dimensity 9500</div>
+                        <div class="spec-card-details">MediaTek 플래그십 칩셋</div>
+                    </div>
+
+                    <div class="spec-card">
+                        <div class="spec-card-title">📱 디스플레이</div>
+                        <div class="spec-card-value">6.78인치</div>
+                        <div class="spec-card-details">
+                            <ul>
+                                <li>자이스 마스터 컬러</li>
+                                <li>144Hz 주사율</li>
+                                <li>LTPO 기술</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="spec-card">
+                        <div class="spec-card-title">🔋 배터리</div>
+                        <div class="spec-card-value">7100mAh</div>
+                        <div class="spec-card-details">
+                            <ul>
+                                <li>블루오션 배터리</li>
+                                <li>장시간 사용</li>
+                                <li>안전성 강화</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="spec-card">
+                        <div class="spec-card-title">🚀 성능</div>
+                        <div class="spec-card-value">Monster 울트라코어</div>
+                        <div class="spec-card-details">
+                            <ul>
+                                <li>엔진 최적화</li>
+                                <li>게이밍 성능</li>
+                                <li>멀티태스킹</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="spec-card">
+                        <div class="spec-card-title">❄️ 발열 관리</div>
+                        <div class="spec-card-value">아이스베인 VC</div>
+                        <div class="spec-card-details">
+                            <ul>
+                                <li>대면적 플루이드</li>
+                                <li>효율적인 열 분산</li>
+                                <li>안정적 성능 유지</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="spec-card">
+                        <div class="spec-card-title">📡 연결성</div>
+                        <div class="spec-card-value">환우 신호 증폭</div>
+                        <div class="spec-card-details">
+                            <ul>
+                                <li>시스템 3.0</li>
+                                <li>강력한 신호 수신</li>
+                                <li>5G 최적화</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="icon">🖼️</span>
+                갤러리
+            </h2>
+            <p class="section-subtitle">공식 제품 이미지</p>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/11afa341-4edb-4466-849a-a6c191e705b5.jpg" alt="vivo X300 Ultra와 X300s 제품샷">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/3dcdcd22-e6b2-401e-9e5c-c404b15fd4a5.jpg" alt="카메라 시스템 상세">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/2d900741-888f-4518-a764-16d18b5aab84.jpg" alt="제품 디자인">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-label">원본 출처</div>
+                <div class="footer-value">
+                    <a href="https://www.ithome.com/0/933/858.htm" target="_blank" rel="noopener noreferrer">
+                        IT之家 (2026-03-29)
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <div class="footer-label">번역 및 정보</div>
+                <div class="footer-value">한국어 번역 및 마크업 (2026-03-30)</div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="footer-disclaimer">
+                <strong>면책 조항:</strong> 이 페이지는 IT之家의 원본 기사를 한국어로 번역한 자료입니다. 모든 제품 사양, 이미지, 기술 정보는 vivo 공식 발표에 기반합니다. 정확한 제품 정보는 공식 vivo 웹사이트를 참고해주시기 바랍니다. 이 페이지의 내용은 정보 제공 목적으로만 사용되며, 상업적 목적으로의 사용은 금지됩니다.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference or default to system preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        // Initialize theme
+        if (savedTheme) {
+            htmlElement.style.colorScheme = savedTheme;
+            updateThemeIcon(savedTheme);
+        } else if (prefersDark) {
+            htmlElement.style.colorScheme = 'dark';
+            updateThemeIcon('dark');
+        }
+
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.style.colorScheme || (prefersDark ? 'dark' : 'light');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            htmlElement.style.colorScheme = newTheme;
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in-up, .scale-in').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
