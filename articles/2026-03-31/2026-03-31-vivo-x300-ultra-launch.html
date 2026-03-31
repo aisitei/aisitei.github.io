@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vivo X300 Ultra 출시: Snapdragon 8 Elite 5세대 탑재, Zeiss 마스터 렌즈 시스템</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #415FFF;
+            --primary-dark: #2d42cc;
+            --text-primary-light: #1f2937;
+            --text-secondary-light: #6b7280;
+            --bg-light: #ffffff;
+            --bg-secondary-light: #f9fafb;
+            --border-light: #e5e7eb;
+
+            --text-primary-dark: #f1f5f9;
+            --text-secondary-dark: #cbd5e1;
+            --bg-dark: #0f172a;
+            --bg-secondary-dark: #1e293b;
+            --border-dark: #334155;
+
+            --spec-bg: #1e293b;
+            --spec-text: #f1f5f9;
+            --spec-secondary: #94a3b8;
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                --text-primary: var(--text-primary-light);
+                --text-secondary: var(--text-secondary-light);
+                --bg: var(--bg-light);
+                --bg-secondary: var(--bg-secondary-light);
+                --border: var(--border-light);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                --text-primary: var(--text-primary-dark);
+                --text-secondary: var(--text-secondary-dark);
+                --bg: var(--bg-dark);
+                --bg-secondary: var(--bg-secondary-dark);
+                --border: var(--border-dark);
+            }
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--bg);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        @supports (color-scheme: light) {
+            body {
+                color-scheme: light dark;
+            }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), #6b7ff6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .theme-toggle {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(65, 95, 255, 0.3);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, var(--primary) 0%, #2d42cc 100%);
+            overflow: hidden;
+            margin-top: 2rem;
+            border-radius: 16px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://img.ithome.com/newsuploadfiles/2026/3/c0525746-7d90-4558-81d2-260c0eaea33b.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(65, 95, 255, 0.7) 0%, rgba(45, 66, 204, 0.6) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            color: white;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.3rem;
+            font-weight: 500;
+            opacity: 0.95;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 350px;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* Pricing Section */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-card {
+            background-color: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(65, 95, 255, 0.15);
+        }
+
+        .pricing-card .spec {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+
+        .pricing-card .note {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 1rem;
+        }
+
+        /* Feature Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--bg-secondary);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 8px 20px rgba(65, 95, 255, 0.12);
+            transform: translateY(-3px);
+        }
+
+        .feature-card .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 0.8rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Spec Grid (Always Dark) */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            background-color: var(--spec-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .spec-item {
+            padding: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .spec-item-label {
+            color: var(--spec-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .spec-item-value {
+            color: var(--spec-text);
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-family: 'Inter', monospace;
+        }
+
+        /* Camera Specs Table */
+        .camera-specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--spec-bg);
+            color: var(--spec-text);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .camera-specs-table thead {
+            background-color: rgba(65, 95, 255, 0.2);
+        }
+
+        .camera-specs-table th {
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(65, 95, 255, 0.3);
+            color: var(--spec-text);
+        }
+
+        .camera-specs-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--spec-secondary);
+            font-size: 0.95rem;
+        }
+
+        .camera-specs-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .camera-specs-table .camera-name {
+            color: var(--spec-text);
+            font-weight: 600;
+            font-family: 'Inter', monospace;
+        }
+
+        /* Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: var(--bg-secondary);
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Color Options */
+        .color-options {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .color-option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 1.5rem;
+            background-color: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .color-option:hover {
+            border-color: var(--primary);
+        }
+
+        .color-swatch {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+        }
+
+        .color-option.film-green .color-swatch {
+            background: linear-gradient(135deg, #2d5a4f 0%, #4a8f7f 100%);
+        }
+
+        .color-option.black-ka .color-swatch {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+
+        .color-option.silver-tone .color-swatch {
+            background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--bg-secondary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        tr:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-disclaimer {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+            }
+
+            .pricing-grid,
+            .feature-grid,
+            .spec-grid,
+            .image-gallery,
+            .color-options {
+                grid-template-columns: 1fr;
+            }
+
+            .camera-specs-table {
+                font-size: 0.85rem;
+            }
+
+            .camera-specs-table th,
+            .camera-specs-table td {
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">ITHOME TECH</div>
+        <button class="theme-toggle" id="themeToggle">🌙 다크 모드</button>
+    </header>
+
+    <div class="container">
+        <main>
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>vivo X300 Ultra</h1>
+                    <p class="subtitle">Snapdragon 8 Elite 5세대 탑재, Zeiss 마스터 렌즈 시스템으로 새로운 경험을</p>
+                </div>
+            </section>
+
+            <!-- Overview Section -->
+            <section>
+                <h2>📱 제품 개요</h2>
+                <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem; color: var(--text-primary);">
+                    vivo X300 Ultra는 최신 Snapdragon 8 Elite 5세대 프로세서를 탑재한 플래그십 스마트폰입니다.
+                    3개의 메인 카메라와 2개의 보조 카메라로 구성된 첨단 5원 카메라 시스템과 Zeiss 마스터 렌즈 기술의
+                    결합으로 전문 사진 촬영에 가까운 성능을 제공합니다.
+                </p>
+            </section>
+
+            <!-- Key Specs -->
+            <section>
+                <h2>⚙️ 주요 사양</h2>
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <div class="spec-item-label">프로세서</div>
+                        <div class="spec-item-value">Snapdragon 8 Elite (5세대)</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-item-label">카메라 시스템</div>
+                        <div class="spec-item-value">3+2 Zeiss 마스터</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-item-label">메인 센서</div>
+                        <div class="spec-item-value">Sony LYTIA</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-item-label">망원 촬영</div>
+                        <div class="spec-item-value">최대 400mm</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-item-label">4K 비디오</div>
+                        <div class="spec-item-value">120fps 돌비 비전</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-item-label">설계</div>
+                        <div class="spec-item-value">팬케이크 렌즈 조형</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pricing Section -->
+            <section>
+                <h2>💰 가격 책정</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3>표준 모델</h3>
+                        <div class="spec">12GB RAM / 256GB</div>
+                        <div class="price">6,999元</div>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>프로 모델</h3>
+                        <div class="spec">12GB RAM / 512GB</div>
+                        <div class="price">7,499元</div>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>프리미엄 모델</h3>
+                        <div class="spec">16GB RAM / 512GB</div>
+                        <div class="price">7,999元</div>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>울트라 모델</h3>
+                        <div class="spec">16GB RAM / 1TB 위성통신 버전</div>
+                        <div class="price">8,999元</div>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>포토그래퍼 키트</h3>
+                        <div class="spec">완전한 액세서리 번들</div>
+                        <div class="price">11,999元</div>
+                        <div class="note">정가: 12,999元</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Camera System -->
+            <section>
+                <h2>📸 카메라 시스템</h2>
+
+                <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;">3개의 메인 카메라</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="icon">🌍</div>
+                        <h3>5000만 화소 초광각</h3>
+                        <p><strong>초점거리:</strong> 14mm</p>
+                        <p><strong>센서:</strong> BluePrint × Sony LYTIA 818</p>
+                        <p>광활한 풍경 촬영에 최적화된 초광각 렌즈로 더욱 넓은 시야각을 제공합니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">👤</div>
+                        <h3>2억 화소 휴먼 렌즈 II</h3>
+                        <p><strong>초점거리:</strong> 35mm</p>
+                        <p><strong>센서:</strong> BluePrint × Sony LYTIA 901</p>
+                        <p>인물 사진에 특화된 렌즈로 자연스러운 피부톤과 깊이감을 표현합니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🔭</div>
+                        <h3>2억 화소 짐벌급 망원</h3>
+                        <p><strong>초점거리:</strong> 85mm</p>
+                        <p><strong>센서:</strong> BluePrint × Samsung HP0</p>
+                        <p>전문 망원 촬영 수준의 광학 안정화 기술로 흔들림 없는 선명한 이미지를 제공합니다.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;">보조 카메라 (2개)</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="icon">🔍</div>
+                        <h3>Zeiss 텔레컨버터 G2</h3>
+                        <p><strong>환산 초점거리:</strong> 200mm</p>
+                        <p>중거리 망원 촬영에 최적화되어 있으며 뛰어난 광학 품질을 유지합니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🌟</div>
+                        <h3>Zeiss 텔레컨버터 G2 Ultra</h3>
+                        <p><strong>환산 초점거리:</strong> 400mm</p>
+                        <p>극도의 망원 촬영을 가능하게 하며 먼 거리의 피사체를 생생하게 포착합니다.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem; margin-bottom: 1.5rem;">카메라 상세 사양</h3>
+                <table class="camera-specs-table">
+                    <thead>
+                        <tr>
+                            <th>카메라</th>
+                            <th>초점거리</th>
+                            <th>화소수</th>
+                            <th>센서</th>
+                            <th>특징</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="camera-name">초광각</td>
+                            <td>14mm</td>
+                            <td>5000만</td>
+                            <td>Sony LYTIA 818</td>
+                            <td>BluePrint 원색 기술</td>
+                        </tr>
+                        <tr>
+                            <td class="camera-name">휴먼 렌즈 II</td>
+                            <td>35mm</td>
+                            <td>2억</td>
+                            <td>Sony LYTIA 901</td>
+                            <td>인물 최적화</td>
+                        </tr>
+                        <tr>
+                            <td class="camera-name">짐벌급 망원</td>
+                            <td>85mm</td>
+                            <td>2억</td>
+                            <td>Samsung HP0</td>
+                            <td>광학 안정화</td>
+                        </tr>
+                        <tr>
+                            <td class="camera-name">텔레컨버터 G2</td>
+                            <td>200mm</td>
+                            <td>-</td>
+                            <td>Zeiss</td>
+                            <td>중거리 망원</td>
+                        </tr>
+                        <tr>
+                            <td class="camera-name">텔레컨버터 G2 Ultra</td>
+                            <td>400mm</td>
+                            <td>-</td>
+                            <td>Zeiss</td>
+                            <td>극도 망원</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Video Features -->
+            <section>
+                <h2>🎥 영상 촬영 기능</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="icon">📹</div>
+                        <h3>4K 120fps 돌비 비전</h3>
+                        <p>모든 초점거리에서 4K 해상도 120fps 촬영이 가능하며, 돌비 비전 기술로 영화 같은 영상미를 제공합니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🎨</div>
+                        <h3>BluePrint 원색 카메라</h3>
+                        <p>12개 스펙트럼 채널과 500만 화소의 고급 색감 인식으로 정확한 색재현을 보장합니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">⚙️</div>
+                        <h3>프로 Log 녹화</h3>
+                        <p>전문 영상 제작 용도의 Log 포맷 녹화로 후처리 시 최대한의 편집 자유도를 제공합니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🎬</div>
+                        <h3>3D LUT 임포트 지원</h3>
+                        <p>프로페셔널 색감 그래딩 도구인 3D LUT를 직접 임포트하여 일관된 색감 관리가 가능합니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Design & Colors -->
+            <section>
+                <h2>🎨 디자인 & 색상</h2>
+
+                <h3 style="margin-bottom: 1.5rem;">색상 옵션</h3>
+                <div class="color-options">
+                    <div class="color-option film-green">
+                        <div class="color-swatch"></div>
+                        <span>필름 그린</span>
+                    </div>
+                    <div class="color-option black-ka">
+                        <div class="color-swatch"></div>
+                        <span>블랙 Ka</span>
+                    </div>
+                    <div class="color-option silver-tone">
+                        <div class="color-swatch"></div>
+                        <span>실버 톤</span>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem; margin-bottom: 1rem;">디자인 특징</h3>
+                <ul style="margin-left: 1.5rem; line-height: 2;">
+                    <li><strong>팬케이크 렌즈 조형:</strong> 카메라 모듈이 독특한 팬케이크 렌즈처럼 설계되어 세련된 외형을 연출합니다.</li>
+                    <li><strong>널링 텍스처:</strong> 측면에 정밀한 널링 처리로 인그립감과 고급스러움을 동시에 표현합니다.</li>
+                    <li><strong>세라믹 바디:</strong> 내구성과 촉감을 모두 고려한 프리미엄 소재 선택입니다.</li>
+                </ul>
+            </section>
+
+            <!-- Gallery -->
+            <section>
+                <h2>📷 갤러리</h2>
+                <div class="image-gallery">
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/3/c0525746-7d90-4558-81d2-260c0eaea33b.jpg" alt="vivo X300 Ultra - 전면 디자인">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/3/0ec1daf4-3c57-4534-bce2-84364675f7c9.jpg" alt="vivo X300 Ultra - 후면 카메라">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Comparison Section -->
+            <section>
+                <h2>🏆 경쟁력 분석</h2>
+                <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
+                    vivo X300 Ultra는 최신 Snapdragon 8 Elite 5세대를 탑재하여 Xiaomi 14 Ultra, Huawei Pura 70 Ultra 등
+                    경쟁 기종들과 어깨를 나란히 합니다. 특히 Zeiss와의 협력으로 개발한 차별화된 카메라 시스템과
+                    원색 인식 기술은 전문 사진작가들 사이에서 큰 호평을 받고 있습니다.
+                </p>
+                <div class="feature-card" style="border-left-color: var(--primary); margin-bottom: 2rem;">
+                    <div class="icon">⭐</div>
+                    <h3>핵심 강점</h3>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem; line-height: 1.8;">
+                        <li>차별화된 Zeiss 마스터 렌즈 5원 카메라 시스템</li>
+                        <li>BluePrint 12채널 원색 카메라 기술</li>
+                        <li>전초점거리 4K 120fps 돌비 비전 촬영</li>
+                        <li>프로 포토그래피 수준의 Log 및 LUT 지원</li>
+                        <li>세련된 디자인과 프리미엄 빌드 퀄리티</li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer>
+        <p>
+            <strong>원문:</strong> <a href="https://www.ithome.com/0/934/230.htm" target="_blank" rel="noopener noreferrer">IT之家</a>
+        </p>
+        <p>📅 발행일: 2026년 3월 30일 | 📝 카테고리: 📱 스마트폰</p>
+        <div class="footer-disclaimer">
+            본 기사는 IT之家의 기사를 번역한 것입니다.
+            원문의 내용이 업데이트되었을 수 있으므로 정확한 정보는 원문 사이트를 참고하시기 바랍니다.
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+
+        // Check system preference and localStorage
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme) {
+                document.documentElement.style.colorScheme = savedTheme;
+                updateButtonText(savedTheme);
+            } else if (prefersDark) {
+                document.documentElement.style.colorScheme = 'dark';
+                updateButtonText('dark');
+            }
+        }
+
+        function updateButtonText(theme) {
+            if (theme === 'dark') {
+                themeToggle.textContent = '☀️ 라이트 모드';
+            } else {
+                themeToggle.textContent = '🌙 다크 모드';
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const current = localStorage.getItem('theme') ||
+                           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            const next = current === 'dark' ? 'light' : 'dark';
+
+            document.documentElement.style.colorScheme = next;
+            localStorage.setItem('theme', next);
+            updateButtonText(next);
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initTheme);
+        initTheme();
+    </script>
+</body>
+</html>

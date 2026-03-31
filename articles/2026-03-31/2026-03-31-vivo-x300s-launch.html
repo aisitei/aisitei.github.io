@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vivo X300s 공식 출시 - MediaTek Dimensity 9500 + V3+ 영상 칩</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #415FFF;
+            --primary-dark: #354ACC;
+            --bg-light: #ffffff;
+            --bg-light-secondary: #f8fafc;
+            --text-light: #0f172a;
+            --text-light-secondary: #64748b;
+            --border-light: #e2e8f0;
+
+            --bg-dark: #0f172a;
+            --bg-dark-secondary: #1e293b;
+            --text-dark: #f1f5f9;
+            --text-dark-secondary: #94a3b8;
+            --border-dark: #334155;
+
+            --spec-bg: #1e293b;
+            --spec-text: #f1f5f9;
+            --spec-secondary: #94a3b8;
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: var(--bg-light);
+                color: var(--text-light);
+            }
+            .navbar {
+                background-color: var(--bg-light);
+                border-bottom: 1px solid var(--border-light);
+            }
+            .theme-toggle {
+                color: var(--text-light);
+            }
+            .section-title {
+                color: var(--text-light);
+            }
+            .feature-card {
+                background-color: var(--bg-light-secondary);
+                border: 1px solid var(--border-light);
+            }
+            .feature-card h3 {
+                color: var(--text-light);
+            }
+            .feature-card p {
+                color: var(--text-light-secondary);
+            }
+            .pricing-table {
+                background-color: var(--bg-light);
+                border: 1px solid var(--border-light);
+            }
+            .pricing-table thead {
+                background-color: var(--bg-light-secondary);
+                border-bottom: 1px solid var(--border-light);
+            }
+            .pricing-table th, .pricing-table td {
+                color: var(--text-light);
+                border-color: var(--border-light);
+            }
+            .camera-spec-table {
+                background-color: var(--bg-light);
+                border: 1px solid var(--border-light);
+            }
+            .camera-spec-table thead {
+                background-color: var(--bg-light-secondary);
+            }
+            .camera-spec-table th, .camera-spec-table td {
+                color: var(--text-light);
+                border-color: var(--border-light);
+            }
+            .footer {
+                background-color: var(--bg-light-secondary);
+                border-top: 1px solid var(--border-light);
+            }
+            .footer p {
+                color: var(--text-light-secondary);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--bg-dark);
+                color: var(--text-dark);
+            }
+            .navbar {
+                background-color: var(--bg-dark-secondary);
+                border-bottom: 1px solid var(--border-dark);
+            }
+            .theme-toggle {
+                color: var(--text-dark);
+            }
+            .section-title {
+                color: var(--text-dark);
+            }
+            .feature-card {
+                background-color: var(--bg-dark-secondary);
+                border: 1px solid var(--border-dark);
+            }
+            .feature-card h3 {
+                color: var(--text-dark);
+            }
+            .feature-card p {
+                color: var(--text-dark-secondary);
+            }
+            .pricing-table {
+                background-color: var(--bg-dark);
+                border: 1px solid var(--border-dark);
+            }
+            .pricing-table thead {
+                background-color: var(--bg-dark-secondary);
+                border-bottom: 1px solid var(--border-dark);
+            }
+            .pricing-table th, .pricing-table td {
+                color: var(--text-dark);
+                border-color: var(--border-dark);
+            }
+            .camera-spec-table {
+                background-color: var(--bg-dark);
+                border: 1px solid var(--border-dark);
+            }
+            .camera-spec-table thead {
+                background-color: var(--bg-dark-secondary);
+            }
+            .camera-spec-table th, .camera-spec-table td {
+                color: var(--text-dark);
+                border-color: var(--border-dark);
+            }
+            .footer {
+                background-color: var(--bg-dark-secondary);
+                border-top: 1px solid var(--border-dark);
+            }
+            .footer p {
+                color: var(--text-dark-secondary);
+            }
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Navbar */
+        .navbar {
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: background-color 0.3s;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 0.5rem;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .hero-meta {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 1rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            margin: 3rem 0;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary);
+            display: inline-block;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card {
+            padding: 1.5rem;
+            border-radius: 12px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(65, 95, 255, 0.15);
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Spec Grid (Always Dark) */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .spec-card {
+            background-color: var(--spec-bg);
+            color: var(--spec-text);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(65, 95, 255, 0.2);
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .spec-card h4 {
+            color: var(--primary);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .spec-card p {
+            color: var(--spec-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-card .spec-value {
+            color: var(--spec-text);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Camera Spec Table */
+        .camera-spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .camera-spec-table thead {
+            background-color: var(--spec-bg);
+        }
+
+        .camera-spec-table th {
+            color: var(--spec-text);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid rgba(65, 95, 255, 0.2);
+        }
+
+        .camera-spec-table td {
+            padding: 1rem;
+            border: 1px solid rgba(65, 95, 255, 0.2);
+        }
+
+        .camera-spec-table tbody tr {
+            background-color: var(--spec-bg);
+            color: var(--spec-text);
+        }
+
+        .camera-spec-table tbody tr:nth-child(odd) {
+            background-color: rgba(30, 41, 59, 0.5);
+        }
+
+        /* Pricing Table */
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .pricing-table thead th {
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .pricing-table tbody td {
+            padding: 1.2rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .pricing-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .price-highlight {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(65, 95, 255, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Text Content */
+        .content-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-link {
+            color: var(--primary);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .hero {
+                padding: 4rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .feature-grid, .spec-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item img {
+                height: 250px;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-brand">📱 vivo X300s</div>
+        <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
+            <span id="themeIcon">🌙</span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>vivo X300s 공식 출시</h1>
+            <p>MediaTek Dimensity 9500 + V3+ 영상 칩 탑재</p>
+            <p>프로페셔널 카메라 성능의 새로운 기준</p>
+            <div class="hero-meta">
+                <span>원본 출처: <a href="https://www.ithome.com/0/934/219.htm" style="color: white; text-decoration: underline;">IT之家</a></span>
+                <span style="margin-left: 1rem;">2026년 3월 30일</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Overview Section -->
+        <section class="section">
+            <h2 class="section-title">📋 제품 개요</h2>
+            <p class="content-text">
+                vivo가 새로운 플래그십 스마트폰 <span class="highlight">vivo X300s</span>를 공식 출시했습니다. 이번 신제품은 최신 프로세서와 고급 영상 칩, 프로페셔널급 카메라 시스템을 갖춘 강력한 성능을 자랑합니다.
+            </p>
+            <p class="content-text">
+                <span class="badge">MediaTek Dimensity 9500</span>
+                <span class="badge">V3+ 영상 칩</span>
+                <span class="badge">144Hz 고주사율</span>
+                <span class="badge">프로페셔널 카메라</span>
+            </p>
+        </section>
+
+        <!-- Core Specs Section -->
+        <section class="section">
+            <h2 class="section-title">⚙️ 핵심 사양</h2>
+            <div class="spec-grid">
+                <div class="spec-card">
+                    <h4>프로세서</h4>
+                    <p>최신 기술로 뛰어난 성능을 제공합니다</p>
+                    <div class="spec-value">MediaTek Dimensity 9500</div>
+                </div>
+                <div class="spec-card">
+                    <h4>영상 칩</h4>
+                    <p>전문적인 비디오 처리 기능</p>
+                    <div class="spec-value">V3+ 이미징 칩</div>
+                </div>
+                <div class="spec-card">
+                    <h4>디스플레이</h4>
+                    <p>6.78인치 직선형 디스플레이</p>
+                    <div class="spec-value">X 시리즈 최초 144Hz</div>
+                </div>
+                <div class="spec-card">
+                    <h4>화면 기술</h4>
+                    <p>LTPO 기술과 고급 발광 소재</p>
+                    <div class="spec-value">8T LTPO + Q10 Plus</div>
+                </div>
+                <div class="spec-card">
+                    <h4>최대 밝기</h4>
+                    <p>실내외 모든 환경에서 우수한 가시성</p>
+                    <div class="spec-value">피크 2000nit</div>
+                </div>
+                <div class="spec-card">
+                    <h4>색감 표현</h4>
+                    <p>광색역 지원으로 사진 같은 영상</p>
+                    <div class="spec-value">100% P3 색역</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Display Features -->
+        <section class="section">
+            <h2 class="section-title">🖥️ 디스플레이 특징</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📐 화면 크기</h3>
+                    <p>6.78인치의 넓은 화면으로 영화 감상과 게임 플레이에 최적화되었습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ 고주사율</h3>
+                    <p>X 시리즈 최초로 144Hz 고주사율을 지원하여 부드러운 스크롤과 게이밍 경험을 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>✨ 밝기</h3>
+                    <p>최대 2000nit의 피크 밝기로 햇빛 아래에서도 화면이 선명하게 보입니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎨 색감</h3>
+                    <p>100% P3 색역을 지원하여 정확한 색 표현이 가능합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔧 LTPO 기술</h3>
+                    <p>8T LTPO와 Q10 Plus 발광 소재로 에너지 효율을 극대화합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📱 직선형 디자인</h3>
+                    <p>현대적인 직선형 프레임으로 세련된 외관을 자랑합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Camera System -->
+        <section class="section">
+            <h2 class="section-title">📷 카메라 시스템</h2>
+            <p class="content-text">
+                vivo X300s는 프로페셔널급 카메라 시스템으로 놀라운 이미지 품질을 제공합니다. 각 카메라는 최고 사양의 센서와 렌즈로 구성되어 있습니다.
+            </p>
+
+            <h3 style="margin: 2rem 0 1rem 0; font-size: 1.3rem;">메인 카메라</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🔍 센서</h3>
+                    <p>Samsung HPB 센서로 업계 최고의 이미지 품질을 보장합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 해상도</h3>
+                    <p>2억 화소로 세부 사항을 놓치지 않습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📏 센서 크기</h3>
+                    <p>1/1.4인치의 대형 센서로 빛을 많이 수집합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔐 인증</h3>
+                    <p>Zeiss 인증으로 광학 품질을 보장합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🛡️ OIS</h3>
+                    <p>CIPA 4.5 손떨림 방지로 선명한 사진을 촬영합니다.</p>
+                </div>
+            </div>
+
+            <h3 style="margin: 2rem 0 1rem 0; font-size: 1.3rem;">망원 카메라</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🔭 센서</h3>
+                    <p>Sony LYTIA 602 센서로 뛰어난 망원 성능을 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔐 인증</h3>
+                    <p>Zeiss APO 인증으로 높은 광학 정밀도를 자랑합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🛡️ OIS</h3>
+                    <p>CIPA 4.5 손떨림 방지로 망원촬영도 안정적입니다.</p>
+                </div>
+            </div>
+
+            <h3 style="margin: 2rem 0 1rem 0; font-size: 1.3rem;">혁신 기술</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>💡 줌 플래시 II</h3>
+                    <p>X300s에 처음 탑재되는 고급 플래시 기술로 어두운 환경에서도 완벽한 사진을 촬영합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🌈 색감 개선</h3>
+                    <p>연색지수(CRI)를 14% 향상시켜 더욱 자연스러운 색감을 표현합니다.</p>
+                </div>
+            </div>
+
+            <!-- Camera Specs Table -->
+            <h3 style="margin: 2rem 0 1rem 0; font-size: 1.3rem;">카메라 사양 비교</h3>
+            <table class="camera-spec-table">
+                <thead>
+                    <tr>
+                        <th>카메라</th>
+                        <th>센서</th>
+                        <th>해상도</th>
+                        <th>센서 크기</th>
+                        <th>렌즈 인증</th>
+                        <th>OIS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>메인</strong></td>
+                        <td>Samsung HPB</td>
+                        <td>2억 화소</td>
+                        <td>1/1.4인치</td>
+                        <td>Zeiss</td>
+                        <td>CIPA 4.5</td>
+                    </tr>
+                    <tr>
+                        <td><strong>망원</strong></td>
+                        <td>Sony LYTIA 602</td>
+                        <td>고해상도</td>
+                        <td>전문가급</td>
+                        <td>Zeiss APO</td>
+                        <td>CIPA 4.5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="section">
+            <h2 class="section-title">💰 가격 정보</h2>
+            <p class="content-text">
+                vivo X300s는 다양한 저장 용량 옵션으로 제공되어 모든 사용자의 요구사항을 충족합니다.
+            </p>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>모델</th>
+                        <th>가격</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>12GB + 256GB</td>
+                        <td class="price-highlight">¥4,999</td>
+                    </tr>
+                    <tr>
+                        <td>12GB + 512GB</td>
+                        <td class="price-highlight">¥5,499</td>
+                    </tr>
+                    <tr>
+                        <td>16GB + 512GB</td>
+                        <td class="price-highlight">¥5,999</td>
+                    </tr>
+                    <tr>
+                        <td>16GB + 1TB</td>
+                        <td class="price-highlight">¥6,999</td>
+                    </tr>
+                    <tr>
+                        <td><strong>16GB + 1TB (포토그래퍼 키트)</strong></td>
+                        <td class="price-highlight">¥7,999</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="section">
+            <h2 class="section-title">🎞️ 제품 이미지</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/c0525746-7d90-4558-81d2-260c0eaea33b.jpg" alt="vivo X300s 제품 이미지 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/0ec1daf4-3c57-4534-bce2-84364675f7c9.jpg" alt="vivo X300s 제품 이미지 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/0d461aec-fbb9-4952-8179-37c3c2e7693f.jpg" alt="vivo X300s 제품 이미지 3">
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section class="section">
+            <h2 class="section-title">✅ 종합 평가</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>⚡ 강력한 성능</h3>
+                    <p>MediaTek Dimensity 9500과 V3+ 영상 칩으로 강력하고 효율적인 성능을 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📸 프로페셔널 카메라</h3>
+                    <p>Zeiss 인증 렌즈와 최고 사양의 센서로 전문가 수준의 사진을 촬영할 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🖥️ 뛰어난 디스플레이</h3>
+                    <p>144Hz 고주사율과 2000nit 최대 밝기로 시각적 만족도를 극대화합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💎 프리미엄 디자인</h3>
+                    <p>직선형 프레임과 세련된 마감으로 럭셔리한 외관을 자랑합니다.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>
+            <strong>원본 기사:</strong>
+            <a href="https://www.ithome.com/0/934/219.htm" class="footer-link">IT之家 vivo X300s 공식 출시 기사</a>
+        </p>
+        <p>
+            <strong>발행일:</strong> 2026년 3월 30일 |
+            <strong>번역일:</strong> 2026년 3월 31일
+        </p>
+        <p style="margin-top: 1.5rem; font-size: 0.85rem;">
+            본 기사는 IT之家의 기사를 한국어로 번역한 것입니다.<br>
+            원본 출처의 저작권은 IT之家에 있습니다.
+        </p>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference or default to system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            htmlElement.style.colorScheme = savedTheme;
+            updateThemeIcon(savedTheme);
+        }
+
+        // Listen for system theme changes
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQuery.addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                htmlElement.style.colorScheme = e.matches ? 'dark' : 'light';
+                updateThemeIcon(e.matches ? 'dark' : 'light');
+            }
+        });
+
+        themeToggle.addEventListener('click', () => {
+            const currentScheme = htmlElement.style.colorScheme || (mediaQuery.matches ? 'dark' : 'light');
+            const newScheme = currentScheme === 'dark' ? 'light' : 'dark';
+
+            htmlElement.style.colorScheme = newScheme;
+            localStorage.setItem('theme', newScheme);
+            updateThemeIcon(newScheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+    </script>
+</body>
+</html>

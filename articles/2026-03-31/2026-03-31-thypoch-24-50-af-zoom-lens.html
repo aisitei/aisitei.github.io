@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thypoch 첫 중국산 풀프레임 자동초점 줌 렌즈 공식 발표 - 24-50mm f/2.8</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --accent: #B8860B;
+            --accent-light: #daa520;
+            --spec-bg: #1e293b;
+            --spec-text: #f1f5f9;
+            --spec-secondary: #94a3b8;
+            --border: #e2e8f0;
+            --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #0f172a;
+                --bg-secondary: #1e293b;
+                --text-primary: #f1f5f9;
+                --text-secondary: #cbd5e1;
+                --accent: #daa520;
+                --accent-light: #ffd700;
+                --border: #334155;
+                --card-bg: #1e293b;
+                --shadow: rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        @supports (animation: test 1s) {
+            body.prefers-reduced-motion {
+                --transition-duration: 0s;
+            }
+            body:not(.prefers-reduced-motion) {
+                --transition-duration: 0.3s;
+            }
+        }
+
+        /* Header & Theme Toggle */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            padding: 0.6rem 1rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: background-color var(--transition-duration), color var(--transition-duration);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--bg-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+            z-index: 1;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-meta {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 1.5rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-intro {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid var(--accent);
+            margin-bottom: 3rem;
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .article-intro p {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        /* Specifications Grid */
+        .specs-section {
+            margin: 3rem 0;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .specs-grid {
+            background-color: var(--spec-bg);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .spec-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 0.375rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .spec-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .spec-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .spec-label {
+            color: var(--spec-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .spec-value {
+            color: var(--spec-text);
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .spec-description {
+            color: var(--spec-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.75rem;
+            line-height: 1.5;
+        }
+
+        /* Features Section */
+        .features-section {
+            margin: 3rem 0;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .feature-item:nth-child(1) { animation-delay: 0.2s; }
+        .feature-item:nth-child(2) { animation-delay: 0.3s; }
+        .feature-item:nth-child(3) { animation-delay: 0.4s; }
+        .feature-item:nth-child(4) { animation-delay: 0.5s; }
+
+        .feature-item h3 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .feature-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            margin: 3rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            aspect-ratio: 1;
+            background-color: var(--bg-secondary);
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.5s; }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Release Info */
+        .release-section {
+            background: linear-gradient(135deg, rgba(184, 134, 11, 0.1), rgba(218, 165, 32, 0.1));
+            border-left: 4px solid var(--accent);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            margin: 3rem 0;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .release-section h3 {
+            color: var(--accent);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .release-section p {
+            font-size: 1rem;
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer-link {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-light);
+        }
+
+        .footer-meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+
+        .disclaimer {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-style: italic;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0s !important;
+                animation-delay: 0s !important;
+                transition-duration: 0s !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .header-left {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .hero {
+                height: 300px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+
+            .specs-grid {
+                padding: 1.5rem 1rem;
+            }
+
+            .spec-value {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo">📷</div>
+            <span class="category-badge">카메라</span>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">🌙 어두운 테마</button>
+    </header>
+
+    <div class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/3/03b65cc0-99be-431e-b881-b303b0f18c92.png" alt="Thypoch 24-50mm f/2.8 렌즈" class="hero-image">
+        <div class="hero-content">
+            <h1>Thypoch 첫 자동초점 줌 렌즈</h1>
+            <p class="hero-subtitle">24-50mm f/2.8 풀프레임 렌즈 공식 발표</p>
+            <div class="hero-meta">
+                <span>📅 2026년 3월 30일</span> • <span>⏰ Q2 2026 출시 예정</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="article-intro">
+            <p>Thypoch가 샤오홍슈(小红书) 플랫폼에서 중국 최초의 자동초점 풀프레임 줌 렌즈를 공식 발표했습니다. 이 렌즈는 Thypoch 브랜드 역사상 처음으로 자동초점 기능을 탑재한 렌즈로, 레트로 디자인과 현대 기술의 완벽한 결합을 보여줍니다.</p>
+        </div>
+
+        <section class="specs-section">
+            <h2 class="section-title">🔧 주요 사양</h2>
+            <div class="specs-grid">
+                <div class="spec-card">
+                    <div class="spec-icon">📏</div>
+                    <div class="spec-label">초점거리</div>
+                    <div class="spec-value">24-50mm</div>
+                    <div class="spec-description">다양한 촬영 상황에 대응하는 표준 줌 범위</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-icon">⚪</div>
+                    <div class="spec-label">조리개</div>
+                    <div class="spec-value">f/2.8</div>
+                    <div class="spec-description">고정 조리개, f/2.8~22 조절 범위</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-icon">⚙️</div>
+                    <div class="spec-label">자동초점</div>
+                    <div class="spec-value">지원</div>
+                    <div class="spec-description">Thypoch 렌즈 최초 자동초점 기능</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-icon">🎨</div>
+                    <div class="spec-label">디자인</div>
+                    <div class="spec-value">레트로</div>
+                    <div class="spec-description">미놀타 빈티지 렌즈 스타일 재현</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-icon">🔘</div>
+                    <div class="spec-label">조리개 링</div>
+                    <div class="spec-value">독립형</div>
+                    <div class="spec-description">렌즈 바디에 탑재된 독립 조리개 링</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-icon">📤</div>
+                    <div class="spec-label">출시</div>
+                    <div class="spec-value">Q2 2026</div>
+                    <div class="spec-description">"곧" 발매될 예정입니다</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <h2 class="section-title">✨ 주요 특징</h2>
+            <div class="features-list">
+                <div class="feature-item">
+                    <h3>🎬 레트로 디자인</h3>
+                    <p>포커스 링과 줌 링이 미놀타 시대 빈티지 렌즈의 고전적인 스타일을 재현했습니다. 과거의 매력과 현대 기술의 조화가 특징입니다.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>🎯 자동초점 기능</h3>
+                    <p>Thypoch 브랜드 최초로 자동초점 기능을 탑재하여 더욱 편리한 촬영 경험을 제공합니다. 빠르고 정확한 초점 조절이 가능합니다.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>📐 독립 조리개 링</h3>
+                    <p>렌즈 바디에 탑재된 독립 조리개 링으로 직관적인 노출 조절이 가능합니다. 수동 조작을 선호하는 사진작가를 위한 설계입니다.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>🌟 고정 f/2.8 조리개</h3>
+                    <p>전 줌 범위에서 f/2.8의 밝은 조리개를 유지하여 저조도 환경에서도 안정적인 촬영이 가능합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <h2 class="section-title">📸 제품 이미지</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/03b65cc0-99be-431e-b881-b303b0f18c92.png" alt="Thypoch 24-50mm f/2.8 렌즈 - 정면">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/0ed6ca6c-4484-4ad9-81bf-c4a13209ac0e.png" alt="Thypoch 24-50mm f/2.8 렌즈 - 측면">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/dcd513c6-35bf-424b-a745-dcabced5e6ac.png" alt="Thypoch 24-50mm f/2.8 렌즈 - 상세">
+                </div>
+            </div>
+        </section>
+
+        <section class="release-section">
+            <h3>📢 출시 정보</h3>
+            <p><strong>출시 예정:</strong> 2026년 2분기(Q2)<br>
+            Thypoch는 샤오홍슈(小红书) 플랫폼에서 이 렌즈를 공식 발표했으며, 곧 출시될 예정입니다. 레트로 감성과 현대 기술의 결합으로 많은 사진작가들의 관심을 받고 있습니다.</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>
+                <a href="https://www.ithome.com/0/934/025.htm" class="footer-link" target="_blank">원문 보기</a>
+            </p>
+            <div class="footer-meta">
+                <p>📅 기사 작성일: 2026년 3월 30일</p>
+                <p>🔄 번역 작성일: 2026년 3월 31일</p>
+            </div>
+            <p class="disclaimer">본 기사는 IT之家의 기사를 한국어로 번역한 것입니다. 원본 기사의 내용과 맥락을 그대로 전달하기 위해 번역되었습니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Detect system preference and set initial theme
+        function initTheme() {
+            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const stored = localStorage.getItem('theme');
+            const theme = stored || (isDark ? 'dark' : 'light');
+            applyTheme(theme);
+        }
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.style.colorScheme = 'dark';
+                localStorage.setItem('theme', 'dark');
+                document.querySelector('.theme-toggle').textContent = '☀️ 밝은 테마';
+            } else {
+                document.documentElement.style.colorScheme = 'light';
+                localStorage.setItem('theme', 'light');
+                document.querySelector('.theme-toggle').textContent = '🌙 어두운 테마';
+            }
+        }
+
+        function toggleTheme() {
+            const current = localStorage.getItem('theme') || 'light';
+            const next = current === 'light' ? 'dark' : 'light';
+            applyTheme(next);
+        }
+
+        // Respect user's motion preferences
+        function checkReducedMotion() {
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReduced) {
+                document.body.classList.add('prefers-reduced-motion');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            checkReducedMotion();
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                applyTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoPro 차세대 카메라 GP3 프로세서 탑재 - IT之家</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #00A5E0;
+            --color-primary-dark: #0088B8;
+            --color-bg-light: #ffffff;
+            --color-bg-light-secondary: #f8fafc;
+            --color-text-light: #1e293b;
+            --color-text-light-secondary: #64748b;
+            --color-bg-dark: #0f172a;
+            --color-bg-dark-secondary: #1e293b;
+            --color-text-dark: #f1f5f9;
+            --color-text-dark-secondary: #cbd5e1;
+            --color-spec-bg: #1e293b;
+            --color-spec-text: #f1f5f9;
+            --color-spec-secondary: #94a3b8;
+            --color-border-light: #e2e8f0;
+            --color-border-dark: #334155;
+            --color-accent-yellow: #FDB813;
+            --color-accent-green: #2ecc71;
+            --color-accent-red: #e74c3c;
+
+            --font-primary: 'Noto Sans KR', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                --current-bg: var(--color-bg-dark);
+                --current-bg-secondary: var(--color-bg-dark-secondary);
+                --current-text: var(--color-text-dark);
+                --current-text-secondary: var(--color-text-dark-secondary);
+                --current-border: var(--color-border-dark);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                --current-bg: var(--color-bg-light);
+                --current-bg-secondary: var(--color-bg-light-secondary);
+                --current-text: var(--color-text-light);
+                --current-text-secondary: var(--color-text-light-secondary);
+                --current-border: var(--color-border-light);
+            }
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--current-bg);
+            color: var(--current-text);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--color-primary);
+            border: none;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: var(--font-secondary);
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--color-primary-dark);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 500px;
+            background: linear-gradient(135deg, rgba(0, 165, 224, 0.8), rgba(0, 136, 184, 0.8)),
+                        url('https://img.ithome.com/newsuploadfiles/2026/3/545bc11b-58ef-4f23-83f2-73612a558cee.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            padding: 60px 40px;
+            position: relative;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-content {
+            color: white;
+        }
+
+        .hero-category {
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.9;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-title {
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            font-weight: 300;
+            opacity: 0.95;
+            max-width: 600px;
+        }
+
+        /* Meta Info */
+        .article-meta {
+            background-color: var(--current-bg-secondary);
+            padding: 20px;
+            border-bottom: 1px solid var(--current-border);
+            text-align: center;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .article-date {
+            color: var(--color-primary);
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Main Content */
+        .article-content {
+            padding: 60px 40px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--color-primary);
+            display: inline-block;
+        }
+
+        .section-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--current-text);
+            margin-bottom: 20px;
+        }
+
+        /* Spec Grid */
+        .spec-grid {
+            background-color: var(--color-spec-bg);
+            color: var(--color-spec-text);
+            padding: 40px;
+            border-radius: 12px;
+            margin: 40px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .spec-item {
+            padding: 20px;
+            border-left: 4px solid var(--color-primary);
+            animation: scaleIn 0.6s ease;
+        }
+
+        .spec-label {
+            font-size: 12px;
+            color: var(--color-spec-secondary);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .spec-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-spec-text);
+        }
+
+        /* Feature Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background-color: var(--current-bg-secondary);
+            border: 1px solid var(--current-border);
+            padding: 30px;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.3s; }
+        .feature-card:nth-child(2) { animation-delay: 0.4s; }
+        .feature-card:nth-child(3) { animation-delay: 0.5s; }
+        .feature-card:nth-child(4) { animation-delay: 0.6s; }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 165, 224, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--current-text);
+        }
+
+        .feature-description {
+            font-size: 14px;
+            color: var(--current-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Image Gallery */
+        .gallery-section {
+            margin: 50px 0;
+        }
+
+        .gallery-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--current-text);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+
+        /* Event Info Box */
+        .event-box {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin: 40px 0;
+            animation: fadeInUp 0.8s ease 0.35s both;
+        }
+
+        .event-box-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .event-box-content {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .event-date {
+            font-weight: 600;
+            font-size: 18px;
+            margin-top: 12px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--current-bg-secondary);
+            border-top: 1px solid var(--current-border);
+            padding: 40px;
+            margin-top: 60px;
+            animation: fadeInUp 0.8s ease 0.45s both;
+        }
+
+        .footer-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer-disclaimer {
+            font-size: 13px;
+            color: var(--current-text-secondary);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-link {
+            display: inline-block;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--color-primary-dark);
+            text-decoration: underline;
+        }
+
+        .footer-date {
+            font-size: 12px;
+            color: var(--current-text-secondary);
+            margin-top: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                height: 350px;
+                padding: 40px 20px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .article-content {
+                padding: 40px 20px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .event-box {
+                padding: 30px 20px;
+            }
+
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                height: 300px;
+            }
+
+            .hero-title {
+                font-size: 24px;
+            }
+
+            .hero-subtitle {
+                font-size: 14px;
+            }
+
+            .article-content {
+                padding: 30px 15px;
+            }
+
+            .spec-grid {
+                padding: 20px 15px;
+                gap: 20px;
+            }
+
+            .spec-item {
+                padding: 15px;
+            }
+
+            footer {
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle">🌙 다크 모드</button>
+
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-category">📷 카메라</div>
+            <h1 class="hero-title">GoPro 차세대 카메라 공개 임박</h1>
+            <p class="hero-subtitle">GP3 프로세서 탑재로 프로페셔널 영상 촬영 경험 혁신</p>
+        </div>
+    </div>
+
+    <div class="article-meta">
+        <span class="article-date">공개일: 2026년 3월 30일</span>
+    </div>
+
+    <div class="container">
+        <article class="article-content">
+            <!-- Event Info -->
+            <section class="section">
+                <div class="event-box">
+                    <div class="event-box-title">📢 공식 발표 일정</div>
+                    <div class="event-box-content">
+                        GoPro가 차세대 카메라 제품을 NAB Show에서 처음으로 공개할 예정입니다.
+                        <div class="event-date">2026년 4월 19-22일</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Overview -->
+            <section class="section">
+                <h2 class="section-title">차세대 카메라 소개</h2>
+                <p class="section-text">
+                    GoPro가 최신 GP3 영상 프로세서를 탑재한 차세대 카메라를 곧 선보일 예정입니다. 이번 제품은 프로페셔널 사용자들을 주요 타겟으로 개발되었으며, 영상 촬영 기술의 새로운 기준을 제시할 것으로 기대됩니다.
+                </p>
+                <p class="section-text">
+                    향상된 성능과 안정적인 배터리 관리, 뛰어난 열 제어 능력을 갖춘 이 카메라는 프로페셔널 영상 제작자들의 요구사항을 충족하기 위해 정교하게 설계되었습니다.
+                </p>
+            </section>
+
+            <!-- Key Upgrades -->
+            <section class="section">
+                <h2 class="section-title">주요 업그레이드</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-title">향상된 픽셀 처리 능력</div>
+                        <div class="feature-description">
+                            이전 세대 대비 2배 이상의 향상된 픽셀 처리 능력으로 더욱 세밀하고 정교한 영상 표현이 가능해졌습니다.
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📸</div>
+                        <div class="feature-title">대형 CMOS 센서</div>
+                        <div class="feature-description">
+                            더 큰 CMOS 센서의 도입으로 더욱 풍부한 색감 표현과 명암 대비를 구현합니다.
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌙</div>
+                        <div class="feature-title">저조도 성능 향상</div>
+                        <div class="feature-description">
+                            업계 선두 수준의 저조도 성능으로 어두운 환경에서도 뛰어난 영상 품질을 유지합니다.
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎬</div>
+                        <div class="feature-title">고해상도 & 고프레임레이트</div>
+                        <div class="feature-description">
+                            해상도와 프레임레이트 분야에서 업계 선두 수준의 성능으로 전문가급 영상 제작을 지원합니다.
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-title">컴팩트 & 내구성 디자인</div>
+                        <div class="feature-description">
+                            뛰어난 휴대성과 내구성을 모두 갖춘 설계로 다양한 촬영 환경에서 안정적으로 사용할 수 있습니다.
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔋</div>
+                        <div class="feature-title">업계 최고 수준의 배터리 & 발열 관리</div>
+                        <div class="feature-description">
+                            최적화된 배터리 관리와 뛰어난 열 제어 능력으로 오래 지속되는 촬영 시간을 보장합니다.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Specifications -->
+            <section class="section">
+                <h2 class="section-title">기술 사양 (예상)</h2>
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <div class="spec-label">프로세서</div>
+                        <div class="spec-value">GoPro GP3</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">센서 크기</div>
+                        <div class="spec-value">대형 CMOS</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">저조도 성능</div>
+                        <div class="spec-value">업계 선두</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">해상도</div>
+                        <div class="spec-value">고해상도</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">배터리 수명</div>
+                        <div class="spec-value">업계 최고</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">발열 관리</div>
+                        <div class="spec-value">최적화</div>
+                    </div>
+                </div>
+                <p class="section-text" style="margin-top: 24px; font-size: 14px; color: var(--current-text-secondary);">
+                    ※ 구체적인 기술 사양은 아직 공식 발표되지 않았으며, NAB Show 2026 전시회에서 상세 정보가 공개될 예정입니다.
+                </p>
+            </section>
+
+            <!-- Gallery -->
+            <section class="gallery-section">
+                <h2 class="gallery-title">제품 이미지</h2>
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/3/545bc11b-58ef-4f23-83f2-73612a558cee.png" alt="GoPro 차세대 카메라" class="gallery-image">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Details -->
+            <section class="section">
+                <h2 class="section-title">마치며</h2>
+                <p class="section-text">
+                    GoPro의 차세대 카메라는 프로페셔널 영상 제작자들을 위한 강력한 도구가 될 것으로 예상됩니다. GP3 프로세서의 뛰어난 성능과 최적화된 하드웨어 구성은 4K, 8K 영상 촬영과 고속 프레임레이트 영상 제작에 새로운 가능성을 열어줄 것입니다.
+                </p>
+                <p class="section-text">
+                    오는 4월 NAB Show 2026에서의 공식 발표가 기대되는 만큼, 영상 촬영 산업에 미칠 영향이 상당할 것으로 보입니다. 구체적인 기술 사양과 가격 정보는 전시회에서 확인할 수 있습니다.
+                </p>
+            </section>
+        </article>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-disclaimer">
+                <p>본 기사는 IT之家의 기사를 번역한 것입니다.</p>
+                <a href="https://www.ithome.com/0/933/923.htm" class="footer-link" target="_blank">원본 기사 보기</a>
+            </div>
+            <div class="footer-date">
+                기사 공개일: 2026년 3월 30일
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference or default to system preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = savedTheme ? savedTheme === 'dark' : prefersDark;
+
+        // Apply saved theme
+        if (isDark) {
+            htmlElement.style.colorScheme = 'dark';
+            themeToggle.textContent = '☀️ 라이트 모드';
+        } else {
+            htmlElement.style.colorScheme = 'light';
+            themeToggle.textContent = '🌙 다크 모드';
+        }
+
+        // Theme toggle handler
+        themeToggle.addEventListener('click', () => {
+            const currentScheme = htmlElement.style.colorScheme;
+            const newScheme = currentScheme === 'dark' ? 'light' : 'dark';
+
+            htmlElement.style.colorScheme = newScheme;
+            localStorage.setItem('theme', newScheme);
+            themeToggle.textContent = newScheme === 'dark' ? '☀️ 라이트 모드' : '🌙 다크 모드';
+        });
+
+        // Respect prefers-reduced-motion for animations
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+            document.body.style.animationDuration = '0s';
+        }
+    </script>
+</body>
+</html>

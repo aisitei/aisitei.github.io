@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Intelligence 중국 베타, 의도치 않은 출시 후 즉시 중단 - IT之家</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #AF52DE;
+            --color-bg: #ffffff;
+            --color-bg-secondary: #f8f9fa;
+            --color-text: #1a1a1a;
+            --color-text-secondary: #666666;
+            --color-text-tertiary: #999999;
+            --color-border: #e5e7eb;
+            --color-spec-bg: #1e293b;
+            --color-spec-text: #f1f5f9;
+            --color-spec-secondary: #94a3b8;
+            --transition-duration: 300ms;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-bg: #0f1419;
+                --color-bg-secondary: #1a1f2e;
+                --color-text: #ffffff;
+                --color-text-secondary: #b0b8c4;
+                --color-text-tertiary: #808991;
+                --color-border: #2d3748;
+            }
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            transition: background-color var(--transition-duration), color var(--transition-duration);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--color-primary);
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            transition: transform var(--transition-duration), box-shadow var(--transition-duration);
+            box-shadow: 0 4px 12px rgba(175, 82, 222, 0.3);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(175, 82, 222, 0.4);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        @media (max-width: 768px) {
+            .theme-toggle {
+                top: 16px;
+                right: 16px;
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--color-bg);
+            border-bottom: 1px solid var(--color-border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: border-color var(--transition-duration);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .header-meta {
+            font-size: 12px;
+            color: var(--color-text-tertiary);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 60px;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #AF52DE 0%, #6366f1 50%, #3b82f6 100%);
+            opacity: 0.95;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://img.ithome.com/newsuploadfiles/2026/3/72568bfa-84bd-4e14-8846-4c9f5c88a097.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(175, 82, 222, 0.85) 0%, rgba(99, 102, 241, 0.85) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-category {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: 24px;
+        }
+
+        .hero-meta {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 350px;
+                margin-bottom: 40px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .article-section {
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: var(--color-text);
+            position: relative;
+            padding-bottom: 16px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--color-primary);
+            border-radius: 2px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 32px;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .timeline-item:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 50px;
+            width: 2px;
+            height: 80%;
+            background: var(--color-border);
+        }
+
+        .timeline-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            border: 3px solid var(--color-bg);
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .timeline-content {
+            margin-left: 24px;
+            padding-top: 4px;
+        }
+
+        .timeline-time {
+            font-size: 12px;
+            color: var(--color-text-tertiary);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 8px;
+        }
+
+        .timeline-description {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Feature Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            padding: 24px;
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            transition: all var(--transition-duration);
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-primary);
+            box-shadow: 0 12px 24px rgba(175, 82, 222, 0.1);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--color-text);
+        }
+
+        .feature-description {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Specs Section */
+        .specs-section {
+            background: var(--color-spec-bg);
+            color: var(--color-spec-text);
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 60px;
+            animation: scaleIn 0.8s ease-out;
+        }
+
+        .specs-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .spec-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--transition-duration);
+        }
+
+        .spec-item:hover {
+            background: rgba(175, 82, 222, 0.1);
+            border-color: var(--color-primary);
+        }
+
+        .spec-label {
+            font-size: 12px;
+            color: var(--color-spec-secondary);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .spec-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-spec-text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Content Box */
+        .content-box {
+            background: var(--color-bg-secondary);
+            padding: 24px;
+            border-left: 4px solid var(--color-primary);
+            border-radius: 4px;
+            margin: 24px 0;
+        }
+
+        .content-box p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--color-text);
+            margin-bottom: 12px;
+        }
+
+        .content-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-box strong {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        /* Image Gallery */
+        .gallery {
+            margin: 40px 0;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform var(--transition-duration);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.02);
+        }
+
+        .gallery-caption {
+            font-size: 13px;
+            color: var(--color-text-tertiary);
+            padding: 12px 0;
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-bg-secondary);
+            border-top: 1px solid var(--color-border);
+            padding: 40px 0;
+            margin-top: 80px;
+            transition: background-color var(--transition-duration);
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section {
+            margin-bottom: 24px;
+        }
+
+        .footer-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        .footer-link {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: opacity var(--transition-duration);
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: var(--color-border);
+            margin: 24px 0;
+        }
+
+        .footer-bottom {
+            font-size: 12px;
+            color: var(--color-text-tertiary);
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .section-title {
+                font-size: 24px;
+                margin-bottom: 24px;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">🌙</button>
+
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">IT之家</a>
+            <div class="header-meta">2026년 3월 31일</div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-image"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-category">🤖 AI</div>
+            <h1 class="hero-title">Apple Intelligence 중국에서 의도치 않게 출시</h1>
+            <p class="hero-subtitle">베타 버전이 새벽 잠깐 활성화된 후 즉시 중단</p>
+            <div class="hero-meta">2026년 3월 31일 | 기술 뉴스</div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- 주요 사건 타임라인 -->
+        <section class="article-section">
+            <h2 class="section-title">사건 경과</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot">1</div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">2026년 3월 31일 새벽</div>
+                        <div class="timeline-title">Apple Intelligence 베타 활성화</div>
+                        <div class="timeline-description">
+                            iOS 26.4+ 업데이트 이후, 중국 지역 사용자들의 iPhone에서 Apple Intelligence 베타 버전이 예기치 않게 활성화되었습니다. 기기의 설정에서 "Siri" 항목이 "Apple 智能与 Siri"(Apple Intelligence & Siri)로 변경되었습니다.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot">2</div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">오전 4:13</div>
+                        <div class="timeline-title">Bloomberg 마크 거먼 보도</div>
+                        <div class="timeline-description">
+                            블룸버그의 저명한 Apple 분석가 마크 거먼이 이 사건을 보도했습니다. 거먼은 "Apple Intelligence의 중국 출시는 완전히 의도치 않은 것"이라고 전했으며, Apple이 중국 시장에서 즉각적인 출시 계획이 없다는 입장을 전달했습니다.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot">3</div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">곧바로</div>
+                        <div class="timeline-title">서비스 중단</div>
+                        <div class="timeline-description">
+                            Apple은 신속하게 대응하여 해당 서비스를 즉시 오프라인으로 전환했습니다. 일부 사용자들은 기능 활성화에 실패했으며, GPT 통합 기능도 정상적으로 작동하지 않았습니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 주요 내용 -->
+        <section class="article-section">
+            <h2 class="section-title">Apple Intelligence란?</h2>
+            <div class="content-box">
+                <p>
+                    <strong>Apple Intelligence</strong>는 Apple이 개발한 차세대 AI 어시스턴트 및 기능들의 집합으로,
+                    최신 iPhone, iPad, Mac 모델에 통합될 예정입니다. 오늘 의도치 않은 공개를 통해
+                    중국 사용자들이 이 기술의 기본 기능들을 엿볼 수 있었습니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- 기술 사양 -->
+        <section class="article-section">
+            <div class="specs-section">
+                <h3 class="specs-title">기술 사양</h3>
+                <div class="specs-grid">
+                    <div class="spec-item">
+                        <div class="spec-label">AI 모델 용량</div>
+                        <div class="spec-value">9.5GB</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">지원 기기</div>
+                        <div class="spec-value">iPhone 16+</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">필수 버전</div>
+                        <div class="spec-value">iOS 26.4+</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">배포 상태</div>
+                        <div class="spec-value">중단됨</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 제공 기능 -->
+        <section class="article-section">
+            <h2 class="section-title">Apple Intelligence 주요 기능</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🗣️</div>
+                    <div class="feature-title">새로운 Siri 인터페이스</div>
+                    <div class="feature-description">
+                        AI 기반의 향상된 음성 인식 및 자연어 처리 능력을 갖춘 차세대 Siri 시스템
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <div class="feature-title">실시간 번역</div>
+                    <div class="feature-description">
+                        다양한 언어 간 실시간 자동 번역 기능으로 전 세계 소통을 한층 쉽게
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">👁️</div>
+                    <div class="feature-title">비주얼 인텔리전스</div>
+                    <div class="feature-description">
+                        이미지 인식 및 분석을 통한 스마트한 시각 정보 처리 기능
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📸</div>
+                    <div class="feature-title">사진 정리 도구</div>
+                    <div class="feature-description">
+                        AI 기반의 자동 분류 및 정렬로 사진 라이브러리를 효율적으로 관리
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <div class="feature-title">협업 기능</div>
+                    <div class="feature-description">
+                        여러 사용자 간의 원활한 협업을 위한 AI 지원 기능들
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <div class="feature-title">이모지 및 이미지 생성</div>
+                    <div class="feature-description">
+                        텍스트 설명으로 이모지와 이미지를 자동으로 생성하는 기능
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">카메라 컨트롤 AI</div>
+                    <div class="feature-description">
+                        iPhone 16+ 모델의 카메라 컨트롤 버튼에 통합된 비주얼 인식 기능
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <div class="feature-title">지능형 자동화</div>
+                    <div class="feature-description">
+                        사용자의 패턴을 학습하여 자동으로 작업을 최적화하는 기능
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 이미지 갤러리 -->
+        <section class="article-section">
+            <h2 class="section-title">관련 이미지</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/72568bfa-84bd-4e14-8846-4c9f5c88a097.jpg" alt="Apple Intelligence 중국 베타 출시 화면">
+                    <div class="gallery-caption">Apple Intelligence 베타 버전이 중국에서 예기치 않게 활성화된 모습</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 상세 분석 -->
+        <section class="article-section">
+            <h2 class="section-title">무엇이 일어났는가?</h2>
+            <div class="content-box">
+                <p>
+                    <strong>예기치 않은 출시:</strong> iOS 26.4+ 업데이트를 통해 중국 지역의 일부 iPhone 사용자들에게
+                    Apple Intelligence 베타 버전이 갑자기 활성화되었습니다.
+                </p>
+                <p>
+                    <strong>모델 크기:</strong> AI 모델의 용량은 약 9.5GB로, 상당한 저장 공간이 필요합니다.
+                </p>
+                <p>
+                    <strong>설정 변경:</strong> 기기의 설정에서 "Siri"라는 항목이 "Apple 智能与 Siri"(Apple Intelligence & Siri)로
+                    자동으로 변경되었으며, 여러 AI 기능들이 드러났습니다.
+                </p>
+                <p>
+                    <strong>신속한 대응:</strong> Apple은 블룸버그의 보도 직후 서비스를 즉시 오프라인으로 전환했으며,
+                    이는 이것이 의도된 출시가 아니었음을 명확히 했습니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- Apple의 입장 -->
+        <section class="article-section">
+            <h2 class="section-title">Apple의 공식 입장</h2>
+            <div class="content-box">
+                <p>
+                    Bloomberg의 저명한 Apple 분석가인 <strong>마크 거먼(Mark Gurman)</strong>의 보도에 따르면,
+                    Apple은 다음과 같은 입장을 전달했습니다:
+                </p>
+                <p style="margin-top: 16px; padding: 12px; background: var(--color-primary); color: white; border-radius: 6px;">
+                    "Apple Intelligence의 중국 출시는 완전히 의도치 않은 것이며, 현재 중국 시장에서의
+                    즉각적인 출시 계획은 없습니다. 우리는 이미 해당 서비스를 중단했습니다."
+                </p>
+            </div>
+        </section>
+
+        <!-- 사용자 경험 -->
+        <section class="article-section">
+            <h2 class="section-title">사용자들의 경험</h2>
+            <div class="content-box">
+                <p>
+                    일부 사용자들은 Apple Intelligence의 주요 기능들을 잠시나마 체험했습니다:
+                </p>
+                <p style="margin-top: 12px;">
+                    ✓ 새로운 Siri 인터페이스 접근<br>
+                    ✓ 비주얼 인텔리전스 기능 체험<br>
+                    ✓ 사진 정리 도구 미리보기<br>
+                    ✓ 이모지 생성 기능 시연
+                </p>
+                <p style="margin-top: 12px;">
+                    다만 <strong>일부 사용자는 기능 활성화에 실패</strong>했으며, <strong>GPT 통합 기능도 정상 작동하지 않았습니다.</strong>
+                </p>
+            </div>
+        </section>
+
+        <!-- 향후 전망 -->
+        <section class="article-section">
+            <h2 class="section-title">향후 전망</h2>
+            <div class="content-box">
+                <p>
+                    이번 의도치 않은 출시 사건은 Apple이 중국 시장에서의 Apple Intelligence 배포 계획이
+                    아직 확정되지 않았음을 시사합니다. 중국의 규제 환경과 AI 정책을 고려할 때,
+                    공식적인 출시는 상당한 시간이 더 필요할 것으로 예상됩니다.
+                </p>
+                <p style="margin-top: 12px;">
+                    그러나 이번 사건을 통해 Apple Intelligence의 기능과 성능에 대한 첫 번째 실제 공개가 이루어졌으며,
+                    업계와 사용자들이 이 기술의 수준에 대해 평가할 기회가 생겼습니다.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-title">원본 기사</div>
+                <div class="footer-text">
+                    <a href="https://www.ithome.com/0/934/276.htm" class="footer-link" target="_blank" rel="noopener noreferrer">
+                        원본 링크 보기 (IT之家)
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <div class="footer-title">기사 정보</div>
+                <div class="footer-text">
+                    <strong>발행일:</strong> 2026년 3월 31일<br>
+                    <strong>카테고리:</strong> 🤖 AI / 기술 뉴스<br>
+                    <strong>출처:</strong> IT之家
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-section">
+                <div class="footer-title">저작권 안내</div>
+                <div class="footer-text">
+                    본 기사는 IT之家의 기사를 한국어로 번역하여 게시한 것입니다.<br>
+                    원본 기사의 모든 저작권은 IT之家에 귀속됩니다.
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                © 2026 IT之家 | 한국어 번역 버전
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        // Initialize theme based on system preference
+        function initializeTheme() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const storedTheme = localStorage.getItem('theme');
+
+            if (storedTheme) {
+                html.style.colorScheme = storedTheme;
+                updateThemeToggleIcon(storedTheme === 'dark');
+            } else {
+                html.style.colorScheme = prefersDark ? 'dark' : 'light';
+                updateThemeToggleIcon(prefersDark);
+            }
+        }
+
+        function updateThemeToggleIcon(isDark) {
+            themeToggle.textContent = isDark ? '☀️' : '🌙';
+        }
+
+        function toggleTheme() {
+            const currentScheme = html.style.colorScheme || 'light';
+            const newScheme = currentScheme === 'dark' ? 'light' : 'dark';
+
+            html.style.colorScheme = newScheme;
+            localStorage.setItem('theme', newScheme);
+            updateThemeToggleIcon(newScheme === 'dark');
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                html.style.colorScheme = e.matches ? 'dark' : 'light';
+                updateThemeToggleIcon(e.matches);
+            }
+        });
+
+        // Initialize on page load
+        initializeTheme();
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

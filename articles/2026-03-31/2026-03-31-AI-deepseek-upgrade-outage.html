@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeek 업그레이드 및 서비스 중단 사건</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #4D6BFE;
+            --dark-bg: #0f172a;
+            --light-bg: #ffffff;
+            --dark-surface: #1e293b;
+            --dark-text: #f1f5f9;
+            --dark-secondary: #94a3b8;
+            --light-text: #1e293b;
+            --light-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --spec-dark-bg: #1e293b;
+            --spec-light-text: #f1f5f9;
+            --spec-secondary-text: #94a3b8;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --primary-blue: #4D6BFE;
+                --dark-bg: #ffffff;
+                --light-bg: #f8fafc;
+                --dark-surface: #f1f5f9;
+                --dark-text: #1e293b;
+                --dark-secondary: #64748b;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(77, 107, 254, 0.2);
+        }
+
+        @media (prefers-color-scheme: light) {
+            header {
+                background: rgba(255, 255, 255, 0.95);
+                border-bottom: 1px solid var(--border-color);
+            }
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle {
+            background: var(--dark-surface);
+            border: 1px solid var(--primary-blue);
+            color: var(--dark-text);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            padding: 4rem 2rem;
+        }
+
+        @media (prefers-color-scheme: light) {
+            .hero {
+                background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #f8fafc 100%);
+            }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(77, 107, 254, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: floatBubble 8s ease-in-out infinite;
+        }
+
+        @keyframes floatBubble {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-30px) translateX(20px); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero::before {
+                animation: none;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-content {
+                animation: none;
+            }
+        }
+
+        .category-badge {
+            display: inline-block;
+            background: rgba(77, 107, 254, 0.2);
+            color: var(--primary-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #7c8fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--dark-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            color: var(--dark-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            margin: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--dark-text);
+            border-left: 4px solid var(--primary-blue);
+            padding-left: 1rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary-blue) 0%, rgba(77, 107, 254, 0.2) 100%);
+        }
+
+        .timeline-item {
+            margin-left: 80px;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(77, 107, 254, 0.1);
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .timeline-item {
+                animation: none;
+            }
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-blue);
+            border: 3px solid var(--dark-bg);
+            border-radius: 50%;
+            transform: translateX(-65px);
+            box-shadow: 0 0 0 8px rgba(77, 107, 254, 0.1);
+        }
+
+        .timeline-item.critical::before {
+            background: #ef4444;
+            box-shadow: 0 0 0 8px rgba(239, 68, 68, 0.1);
+        }
+
+        .timeline-time {
+            font-size: 0.9rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .timeline-description {
+            color: var(--dark-secondary);
+            line-height: 1.8;
+        }
+
+        /* Features Grid */
+        .features-section {
+            margin: 4rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--dark-surface);
+            border: 1px solid rgba(77, 107, 254, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .feature-card {
+                animation: none;
+            }
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(77, 107, 254, 0.2);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(77, 107, 254, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--dark-text);
+        }
+
+        .feature-card p {
+            color: var(--dark-secondary);
+            line-height: 1.7;
+        }
+
+        /* Spec Grid */
+        .spec-grid {
+            background: var(--spec-dark-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 4rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .spec-item {
+            padding: 1.5rem;
+            background: rgba(77, 107, 254, 0.05);
+            border: 1px solid rgba(77, 107, 254, 0.3);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .spec-label {
+            font-size: 0.85rem;
+            color: var(--spec-secondary-text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .spec-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--spec-light-text);
+        }
+
+        /* Image Gallery */
+        .gallery-section {
+            margin: 4rem 0;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 16/9;
+            background: var(--dark-surface);
+            border: 1px solid rgba(77, 107, 254, 0.2);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--primary-blue);
+            box-shadow: 0 10px 30px rgba(77, 107, 254, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent);
+            padding: 2rem 1.5rem 1.5rem;
+            color: var(--spec-light-text);
+            font-size: 0.95rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+        }
+
+        /* Content Section */
+        .content-section {
+            margin: 4rem 0;
+            line-height: 2;
+        }
+
+        .content-section h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark-text);
+            border-left: 4px solid var(--primary-blue);
+            padding-left: 1rem;
+        }
+
+        .content-section p {
+            margin-bottom: 1rem;
+            color: var(--dark-secondary);
+            line-height: 1.9;
+        }
+
+        .highlight {
+            background: rgba(77, 107, 254, 0.1);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-blue);
+            border-radius: 6px;
+            margin: 2rem 0;
+        }
+
+        .highlight p {
+            color: var(--dark-text);
+            margin: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-surface);
+            border-top: 1px solid rgba(77, 107, 254, 0.2);
+            margin-top: 4rem;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer-section h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+        }
+
+        .footer-section p {
+            color: var(--dark-secondary);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #7c8fff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(77, 107, 254, 0.2);
+            color: var(--dark-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .hero {
+                min-height: 350px;
+                padding: 2rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-meta {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                margin-left: 60px;
+            }
+
+            .timeline-item::before {
+                transform: translateX(-45px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🤖 DeepSeek News</div>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙 테마 전환</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="category-badge">🤖 인공지능</div>
+                <h1>DeepSeek 업그레이드 및 서비스 중단 사건</h1>
+                <p>3월 29일 발생한 8시간 이상의 대규모 서비스 중단과 이전 버전으로의 긴급 롤백</p>
+                <div class="hero-meta">
+                    <span>📅 2026년 3월 30일</span>
+                    <span>✍️ 멍천 (량자웨이)</span>
+                    <span>📰 IT之家</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- Timeline Section -->
+            <section class="timeline-section">
+                <h2 class="section-title">사건 경과</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-time">사전 단계</div>
+                        <div class="timeline-title">업그레이드 징후 발현</div>
+                        <div class="timeline-description">
+                            3월 29일 중단 전, DeepSeek는 여러 업그레이드 신호를 보였습니다. 모델 식별자가 "DeepSeek-V3"로 업데이트되었으며, 지식 기준일이 2026년 1월로 확장되었습니다. 사용자들은 SVG 그리기 능력의 대폭적인 개선과 코드 생성 품질 향상을 경험했습니다.
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">기술 개선 사항</div>
+                        <div class="timeline-title">주요 기능 강화</div>
+                        <div class="timeline-description">
+                            펠리컨이 자전거를 타는 그림과 같이 복잡한 SVG 이미지 생성 능력이 눈에 띄게 향상되었습니다. 프론트엔드 페이지 효과와 인터랙티브 요소 생성도 크게 개선되었습니다.
+                        </div>
+                    </div>
+
+                    <div class="timeline-item critical">
+                        <div class="timeline-time">3월 29일 이후</div>
+                        <div class="timeline-title">대규모 서비스 중단 발생</div>
+                        <div class="timeline-description">
+                            업그레이드 진행 중 심각한 오류가 발생하여 8시간 이상의 서비스 중단이 발생했습니다. Deep Thinking 모드에서 "사고 종료 후 답변을 본문에 출력하지 않고 멈추는" 치명적인 버그가 보고되었습니다.
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">복구 단계</div>
+                        <div class="timeline-title">긴급 롤백 및 안정화</div>
+                        <div class="timeline-description">
+                            서비스 복구 과정에서 DeepSeek는 이전 버전으로 롤백하는 결정을 내렸습니다. 이는 신규 기능의 안정성 문제로 인한 보수적인 조치로 평가됩니다. 현재 시스템은 안정적으로 운영되고 있습니다.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features-section">
+                <h2 class="section-title">업그레이드 전 개선 사항</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>SVG 그리기 능력</h3>
+                        <p>복잡한 이미지 생성 능력이 대폭 향상되어 고정확도의 벡터 그래픽 렌더링이 가능해졌습니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💻</div>
+                        <h3>코드 생성 개선</h3>
+                        <p>다양한 프로그래밍 언어의 코드 생성 정확도와 가독성이 향상되었습니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎭</div>
+                        <h3>프론트엔드 효과</h3>
+                        <p>인터랙티브 UI 요소와 애니메이션, 스타일링 효과 생성 능력이 크게 개선되었습니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📚</div>
+                        <h3>지식 기준 확장</h3>
+                        <p>모델의 학습 데이터 기준일이 2026년 1월로 업데이트되어 최신 정보 제공이 가능해졌습니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <h3>버전 업그레이드</h3>
+                        <p>DeepSeek-V3로의 주요 버전 업그레이드로 전반적인 성능 향상이 이루어졌습니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>처리 성능</h3>
+                        <p>응답 속도와 처리 효율성이 개선되어 사용자 경험이 향상되었습니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Spec Grid -->
+            <section class="spec-grid">
+                <div class="spec-item">
+                    <div class="spec-label">서비스 중단 시간</div>
+                    <div class="spec-value">8시간+</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">새 모델 버전</div>
+                    <div class="spec-value">V3</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">지식 기준일</div>
+                    <div class="spec-value">2026년 1월</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">주요 개선 영역</div>
+                    <div class="spec-value">5개 분야</div>
+                </div>
+            </section>
+
+            <!-- Gallery Section -->
+            <section class="gallery-section">
+                <h2 class="section-title">관련 이미지</h2>
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/3/77413209-2ed0-4591-9f64-f62d6723c92b.png" alt="DeepSeek 업그레이드 관련 이미지 1" loading="lazy">
+                        <div class="gallery-caption">업그레이드 전 시스템 상태</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/3/48c8bba8-7813-42a0-ac96-6dc35865d69b.png" alt="DeepSeek 업그레이드 관련 이미지 2" loading="lazy">
+                        <div class="gallery-caption">서비스 중단 동안의 상태</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/3/e3a13d42-4e80-4d41-9868-45cddc786300.png" alt="DeepSeek 업그레이드 관련 이미지 3" loading="lazy">
+                        <div class="gallery-caption">롤백 후 복구 상황</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Content Section -->
+            <section class="content-section">
+                <h2>사건 분석</h2>
+                <p>
+                    이번 DeepSeek의 서비스 중단 사건은 대규모 모델 업그레이드 진행 중 발생한 예기치 않은 기술적 문제를 드러냈습니다. 업그레이드 이전 단계에서 보여진 성능 개선은 사용자들 사이에서 긍정적인 반응을 얻었으나, 새로운 버전의 안정성 문제로 인해 서비스가 중단되고 결국 이전 버전으로 롤백되는 상황에 이르렀습니다.
+                </p>
+
+                <div class="highlight">
+                    <p>
+                        <strong>주요 문제점:</strong> Deep Thinking 모드에서 "사고 종료 후 답변을 본문에 출력하지 않고 멈추는" 치명적인 버그가 발생했으며, 이로 인해 사용자들이 모델의 핵심 기능을 정상적으로 이용할 수 없었습니다.
+                    </p>
+                </div>
+
+                <p>
+                    이 사건은 인공지능 모델의 업그레이드 과정이 얼마나 복잡하고 신중하게 진행되어야 하는지를 보여줍니다. 성능 개선과 안정성 사이의 균형을 유지하는 것은 AI 서비스 제공자들에게 항상 중요한 과제입니다.
+                </p>
+
+                <h2>기술적 교훈</h2>
+                <p>
+                    DeepSeek의 이번 경험은 다음과 같은 교훈을 제공합니다:
+                </p>
+                <ul style="margin: 1.5rem 0; margin-left: 2rem; color: var(--dark-secondary);">
+                    <li style="margin-bottom: 1rem;">대규모 모델 업그레이드 시 충분한 테스트 단계의 중요성</li>
+                    <li style="margin-bottom: 1rem;">프로덕션 환경의 변화에 대한 신속한 대응 능력의 필요성</li>
+                    <li style="margin-bottom: 1rem;">사용자 경험에 직접적인 영향을 미치는 핵심 기능의 안정성 검증</li>
+                    <li style="margin-bottom: 1rem;">긴급 상황 발생 시 빠른 롤백 결정과 실행 능력</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>기사 정보</h3>
+                <p>원문 링크: <a href="https://www.ithome.com/0/934/017.htm" class="footer-link">IT之家</a></p>
+                <p>작성자: 멍천 (량자웨이)</p>
+                <p>발행일: 2026년 3월 30일</p>
+                <p>번역일: 2026년 3월 31일</p>
+            </div>
+            <div class="footer-section">
+                <h3>카테고리</h3>
+                <p>주제: 인공지능 (AI)</p>
+                <p>기술 뉴스</p>
+                <p>기술 분석</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>본 기사는 IT之家의 기사를 번역한 것입니다. | © 2026 Tech News | 모든 권리 보유</p>
+            <p style="margin-top: 1rem;">이 페이지는 반응형 디자인과 다크/라이트 테마를 지원합니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (isDark) {
+                html.style.colorScheme = 'light';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.style.colorScheme = 'dark';
+                localStorage.setItem('theme', 'dark');
+            }
+
+            location.reload();
+        }
+
+        // Initialize theme from localStorage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.style.colorScheme = savedTheme;
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Lazy load images with fade-in effect
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.style.opacity = '0';
+                        img.onload = () => {
+                            img.style.transition = 'opacity 0.3s ease';
+                            img.style.opacity = '1';
+                        };
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+            images.forEach(img => imageObserver.observe(img));
+        }
+    </script>
+</body>
+</html>

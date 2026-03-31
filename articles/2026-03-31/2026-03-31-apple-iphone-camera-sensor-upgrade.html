@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple iPhone 카메라 센서 업그레이드 소식 - IT之家</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #86868b;
+            --secondary: #a1a1a6;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent: #0071e3;
+            --background: #ffffff;
+            --surface: #f5f5f7;
+            --border: #e5e5e7;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #f1f5f9;
+                --text-secondary: #cbd5e1;
+                --background: #0f172a;
+                --surface: #1e293b;
+                --border: #334155;
+                --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+                --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Header & Theme Toggle */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-primary);
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, #0071e3 0%, #a29bfe 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://img.ithome.com/newsuploadfiles/2026/3/51aedac3-9d05-4177-81cc-fc69a2a5c8af.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 113, 227, 0.8), rgba(162, 155, 254, 0.8));
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 900px;
+            padding: 2rem;
+            animation: scaleIn 0.8s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            opacity: 0.95;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Article Content */
+        .article-content {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            border-radius: 2px;
+        }
+
+        /* Spec Grid */
+        .spec-grid {
+            background: #1e293b;
+            color: #f1f5f9;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .spec-grid h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #f1f5f9;
+        }
+
+        .spec-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .spec-item {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .spec-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 113, 227, 0.2);
+        }
+
+        .spec-label {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .spec-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        /* Feature Cards */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Image Gallery */
+        .gallery {
+            margin: 3rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* List Styles */
+        .content-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .content-list li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .content-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .footer-section p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--accent);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .footer-section a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 1.5rem 0;
+        }
+
+        .footer-disclaimer {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .hero {
+                height: 350px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .section h2 {
+                font-size: 1.4rem;
+            }
+
+            .spec-grid {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="logo">📷 IT之家</a>
+        <button class="theme-toggle" id="themeToggle">🌙 다크 모드</button>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Apple iPhone 카메라 센서 대규모 업그레이드 예정</h1>
+                <p>디지털 블로거 폭로: 새로운 1/1.12" 커스텀 센서 테스트 진행 중</p>
+                <div class="hero-meta">
+                    <div class="meta-item">
+                        <span>📅</span>
+                        <span>2026년 3월 30일</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>🏷️</span>
+                        <span>Apple, iPhone, 카메라</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="container">
+            <!-- 주요 뉴스 -->
+            <section class="article-content">
+                <article>
+                    <section class="section">
+                        <h2>센서 업그레이드 확정</h2>
+                        <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                            디지털 기술 전문 블로거가 최근 폭로한 정보에 따르면, Apple은 새로운 카메라 센서를 적극 개발 중입니다. 이번 업그레이드는 iPhone의 사진 성능을 획기적으로 개선할 것으로 예상됩니다.
+                        </p>
+                    </section>
+
+                    <!-- 주요 사양 -->
+                    <div class="spec-grid">
+                        <h3>📊 메인 카메라 센서 사양</h3>
+                        <div class="spec-items">
+                            <div class="spec-item">
+                                <div class="spec-label">센서 크기</div>
+                                <div class="spec-value">1/1.12"</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-label">픽셀 사양</div>
+                                <div class="spec-value">미확정 (예상 200MP)</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-label">설계 방식</div>
+                                <div class="spec-value">커스텀 설계</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-label">개발 상태</div>
+                                <div class="spec-value">테스트 단계</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 카메라 기능 업그레이드 -->
+                    <section class="section">
+                        <h2>카메라 기능별 업그레이드</h2>
+
+                        <div class="features">
+                            <div class="feature-card">
+                                <div class="feature-icon">🎯</div>
+                                <h3>초광각 렌즈 개선</h3>
+                                <p>광학 손떨림 방지(OIS) 기능이 추가되어 저조도 환경에서도 더욱 안정적인 촬영이 가능해집니다. 일부 안드로이드 기종과 유사한 방향의 업그레이드입니다.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">⚙️</div>
+                                <h3>가변 조리개 기술</h3>
+                                <p>2026년 목표로 가변 조리개 기술 구현을 계획 중입니다. 이를 통해 다양한 촬영 환경에 자동으로 최적화된 설정을 제공할 수 있습니다.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">📸</div>
+                                <h3>전면 카메라 업그레이드</h3>
+                                <p>iPhone 18 Pro에는 2400만 화소의 전면 카메라가 탑재될 예정입니다. 셀피와 영상통화 품질이 크게 향상될 것입니다.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 출시 계획 -->
+                    <section class="section">
+                        <h2>출시 계획 및 일정</h2>
+                        <ul class="content-list">
+                            <li><strong>iPhone 18:</strong> 새로운 1/1.12" 센서 미탑재 (기존 센서 사용)</li>
+                            <li><strong>2026년 목표:</strong> 가변 조리개 기술 구현 및 초광각 OIS 적용</li>
+                            <li><strong>쿼드 카메라:</strong> 단기적으로는 도입하지 않을 것 (트리플 카메라 유지)</li>
+                            <li><strong>iPhone 20 시리즈:</strong> 200MP 1/1.12" 메인 카메라 탑재 평가 중</li>
+                            <li><strong>iPhone 18 Pro:</strong> 2400만 화소 전면 카메라로 업그레이드 예정</li>
+                        </ul>
+                    </section>
+
+                    <!-- 의미 및 영향 -->
+                    <section class="section">
+                        <h2>기술적 의미</h2>
+                        <p>
+                            이번 업그레이드는 Apple이 카메라 기술에 얼마나 중점을 두고 있는지 보여줍니다.
+                            커스텀 센서 개발은 고가의 투자가 필요하지만, iPhone의 핵심 경쟁력 중 하나인 카메라 성능을
+                            더욱 강화할 수 있는 방법입니다.
+                        </p>
+                        <p style="margin-top: 1rem;">
+                            특히 가변 조리개와 광학 손떨림 방지 기술의 초광각 렌즈 탑재는
+                            사용자가 다양한 촬영 환경에서 일관되게 높은 품질의 사진을 촬영할 수 있도록 합니다.
+                        </p>
+                    </section>
+
+                    <!-- 이미지 갤러리 -->
+                    <section class="gallery">
+                        <h2>이미지 갤러리</h2>
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <img src="https://img.ithome.com/newsuploadfiles/2026/3/51aedac3-9d05-4177-81cc-fc69a2a5c8af.jpg" alt="iPhone 카메라 센서 개념도">
+                            </div>
+                            <div class="gallery-item">
+                                <img src="https://img.ithome.com/newsuploadfiles/2026/3/1fd40722-4d0d-49eb-b453-a263bfe445ec.jpg" alt="새로운 센서 기술 사양">
+                            </div>
+                            <div class="gallery-item">
+                                <img src="https://img.ithome.com/newsuploadfiles/2026/3/16a63e54-cc8d-493f-82a9-dfe06b861a48.jpg" alt="카메라 업그레이드 비교">
+                            </div>
+                        </div>
+                    </section>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>📖 원문 출처</h4>
+                <p>
+                    <a href="https://www.ithome.com/0/934/270.htm" target="_blank" rel="noopener noreferrer">
+                        https://www.ithome.com/0/934/270.htm
+                    </a>
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>📅 발행 정보</h4>
+                <p>원문 발행일: 2026년 3월 30일</p>
+                <p>번역 발행일: 2026년 3월 31일</p>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-disclaimer">
+                본 기사는 IT之家의 기사를 한국어로 번역한 것입니다. 정보는 발행 당시 기준이며,
+                기술 스펙 및 출시 계획은 변경될 수 있습니다.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+
+        // Check for saved theme preference or default to system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+
+        if (currentTheme === 'dark') {
+            document.documentElement.style.colorScheme = 'dark';
+            themeToggle.textContent = '☀️ 라이트 모드';
+        } else {
+            document.documentElement.style.colorScheme = 'light';
+            themeToggle.textContent = '🌙 다크 모드';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.style.colorScheme === 'dark';
+
+            if (isDark) {
+                document.documentElement.style.colorScheme = 'light';
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌙 다크 모드';
+            } else {
+                document.documentElement.style.colorScheme = 'dark';
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️ 라이트 모드';
+            }
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

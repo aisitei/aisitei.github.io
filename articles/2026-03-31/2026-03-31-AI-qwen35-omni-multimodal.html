@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alibaba Cloud Qwen3.5-Omni 멀티모달 AI 모델 출시</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #FF6A00;
+            --color-bg-light: #ffffff;
+            --color-bg-dark: #0f172a;
+            --color-text-light: #1e293b;
+            --color-text-dark: #f1f5f9;
+            --color-text-muted-light: #64748b;
+            --color-text-muted-dark: #94a3b8;
+            --color-spec-bg: #1e293b;
+            --color-spec-text: #f1f5f9;
+            --color-spec-text-secondary: #94a3b8;
+            --color-border-light: #e2e8f0;
+            --color-border-dark: #334155;
+            --color-card-light: #f8fafc;
+            --color-card-dark: #1e293b;
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: var(--color-bg-light);
+                color: var(--color-text-light);
+            }
+            .header, .hero {
+                background-color: var(--color-bg-light);
+            }
+            .nav-bar {
+                background-color: rgba(255, 255, 255, 0.95);
+                border-bottom: 1px solid var(--color-border-light);
+            }
+            .card {
+                background-color: var(--color-card-light);
+                border: 1px solid var(--color-border-light);
+            }
+            .footer {
+                background-color: var(--color-card-light);
+                border-top: 1px solid var(--color-border-light);
+                color: var(--color-text-light);
+            }
+            .text-muted {
+                color: var(--color-text-muted-light);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--color-bg-dark);
+                color: var(--color-text-dark);
+            }
+            .header, .hero {
+                background-color: var(--color-bg-dark);
+            }
+            .nav-bar {
+                background-color: rgba(15, 23, 42, 0.95);
+                border-bottom: 1px solid var(--color-border-dark);
+            }
+            .card {
+                background-color: var(--color-card-dark);
+                border: 1px solid var(--color-border-dark);
+            }
+            .footer {
+                background-color: var(--color-card-dark);
+                border-top: 1px solid var(--color-border-dark);
+                color: var(--color-text-dark);
+            }
+            .text-muted {
+                color: var(--color-text-muted-dark);
+            }
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .nav-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .hero {
+            position: relative;
+            padding: 4rem 2rem;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 106, 0, 0.1) 0%, rgba(255, 106, 0, 0.05) 100%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease-out;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--color-primary), #ff8c42);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--color-primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            padding: 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(255, 106, 0, 0.15);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        .specs-section {
+            background-color: var(--color-spec-bg);
+            color: var(--color-spec-text);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+        }
+
+        .specs-section .section-title {
+            color: var(--color-spec-text);
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .spec-item {
+            padding: 1.5rem;
+            background-color: rgba(255, 106, 0, 0.1);
+            border-left: 4px solid var(--color-primary);
+            border-radius: 8px;
+            animation: scaleIn 0.5s ease-out both;
+        }
+
+        .spec-item:nth-child(1) { animation-delay: 0.1s; }
+        .spec-item:nth-child(2) { animation-delay: 0.2s; }
+        .spec-item:nth-child(3) { animation-delay: 0.3s; }
+        .spec-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .spec-label {
+            font-size: 0.9rem;
+            color: var(--color-spec-text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .spec-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .benchmark-section {
+            background: linear-gradient(135deg, rgba(255, 106, 0, 0.05), rgba(255, 106, 0, 0.02));
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+        }
+
+        .benchmark-highlight {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 2rem 0;
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .benchmark-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .benchmark-text {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 16 / 9;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .capabilities-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .capabilities-list li {
+            padding: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+            border-bottom: 1px solid var(--color-border-light);
+            animation: fadeInUp 0.4s ease-out both;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .capabilities-list li {
+                border-bottom-color: var(--color-border-dark);
+            }
+        }
+
+        .capabilities-list li:last-child {
+            border-bottom: none;
+        }
+
+        .capabilities-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .capabilities-list li:nth-child(1) { animation-delay: 0.1s; }
+        .capabilities-list li:nth-child(2) { animation-delay: 0.2s; }
+        .capabilities-list li:nth-child(3) { animation-delay: 0.3s; }
+        .capabilities-list li:nth-child(4) { animation-delay: 0.4s; }
+        .capabilities-list li:nth-child(5) { animation-delay: 0.5s; }
+
+        .footer {
+            margin-top: 4rem;
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--color-border-light);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                border-top-color: var(--color-border-dark);
+            }
+        }
+
+        .footer-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-meta a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-meta a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .disclaimer {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 1rem;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .nav-bar {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-brand">Qwen3.5-Omni</div>
+        <button class="theme-toggle" onclick="toggleTheme()">🌙 테마 전환</button>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <div class="category-badge">🤖 AI</div>
+            <h1>Alibaba Cloud Qwen3.5-Omni</h1>
+            <p>전체 모달리티 대형 모델 출시 - 차세대 멀티모달 AI의 새로운 기준</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2 class="section-title">📌 핵심 혁신</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">
+                Alibaba Cloud 산하 Qwen(천문)이 혁신적인 멀티모달 AI 모델 Qwen3.5-Omni를 출시했습니다. 이 모델은 텍스트, 이미지, 오디오, 비디오 등 모든 형태의 입력을 원활하게 처리하며, 업계 최고 수준의 성능을 자랑합니다.
+            </p>
+
+            <div class="features-grid">
+                <div class="card">
+                    <div class="card-icon">🎬</div>
+                    <div class="card-title">정밀한 비디오 처리</div>
+                    <div class="card-description">타임스탐프 기반 자막 생성으로 정확하고 자연스러운 영상 설명 제공</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔊</div>
+                    <div class="card-title">고급 음성 분석</div>
+                    <div class="card-description">10시간 오디오 처리 가능한 강력한 음성 인식 및 분석 기능</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎙️</div>
+                    <div class="card-title">음성 복제</div>
+                    <div class="card-description">고급 보이스 클로닝 기술로 자연스러운 음성 생성</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💬</div>
+                    <div class="card-title">시맨틱 인터럽트</div>
+                    <div class="card-description">의미 기반 대화 끊기로 자연스러운 실시간 대화 가능</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌐</div>
+                    <div class="card-title">웹 검색 통합</div>
+                    <div class="card-description">실시간 웹 검색 및 복잡한 함수 호출을 네이티브로 지원</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💻</div>
+                    <div class="card-title">코드 생성</div>
+                    <div class="card-description">웹 코드 생성 및 작업 실행 기능으로 개발 자동화</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section benchmark-section">
+            <h2 class="section-title">📊 벤치마크 성능</h2>
+            <div class="benchmark-highlight">
+                <div class="benchmark-number">215개</div>
+                <div class="benchmark-text">벤치마크 테스트 중 최고 성적 달성</div>
+            </div>
+            <p style="margin: 1.5rem 0; line-height: 1.8;">
+                Qwen3.5-Omni는 오디오/비디오 분석, 추론, 대화, 번역 등 다양한 분야에서 Google의 Gemini 3.1-Pro를 능가하는 성능을 보여줍니다. 이는 멀티모달 AI의 실질적인 우월성을 입증하는 명확한 증거입니다.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">⚙️ 주요 사양</h2>
+            <div class="specs-section">
+                <div class="specs-grid">
+                    <div class="spec-item">
+                        <div class="spec-label">컨텍스트 윈도우</div>
+                        <div class="spec-value">256K</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">지원 언어</div>
+                        <div class="spec-value">113개</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">오디오 처리</div>
+                        <div class="spec-value">10시간</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">비디오 처리</div>
+                        <div class="spec-value">1시간</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">✨ 혁신 기능</h2>
+            <ul class="capabilities-list">
+                <li><strong>시맨틱 인터럽트</strong> - 의미를 이해하는 자연스러운 대화 끊기</li>
+                <li><strong>음성 복제</strong> - 고급 보이스 클로닝으로 자신의 목소리 재현</li>
+                <li><strong>음성 제어</strong> - 직관적인 음성 명령으로 장치 제어</li>
+                <li><strong>초장문 컨텍스트</strong> - 256K 토큰으로 방대한 정보 처리</li>
+                <li><strong>다국어 지원</strong> - 113개 언어 자연스러운 인식</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">📸 갤러리</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/d7849ae2-d17b-4d92-a284-9956c7f18b77.jpg" alt="Qwen3.5-Omni 모델 구조">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/e8df72d3-eeb0-4f7f-83c4-e7add3a9fa46.png" alt="성능 비교 차트">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/02df2770-d257-427f-b7cd-8518c8053291.png" alt="기능 다이어그램">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">🚀 실제 활용</h2>
+            <ul class="capabilities-list">
+                <li><strong>비디오 제작</strong> - AI 기반 자동 편집 및 자막 생성</li>
+                <li><strong>정밀 자막</strong> - 타임스탬프 기반 정확한 자막 작성</li>
+                <li><strong>웹 개발</strong> - 자동 코드 생성 및 웹 페이지 제작</li>
+                <li><strong>실시간 대화</strong> - 자연스러운 음성 기반 대화 및 번역</li>
+                <li><strong>음성 클로닝</strong> - 특정 음성으로의 자동 변환</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">💼 API 접근</h2>
+            <p style="margin-bottom: 1.5rem;">
+                Qwen3.5-Omni는 Alibaba Cloud의 바이롄(百炼) 플랫폼을 통해 접근 가능하며, 다양한 요구사항에 맞는 3가지 등급으로 제공됩니다:
+            </p>
+            <div class="specs-section">
+                <div class="specs-grid">
+                    <div class="spec-item">
+                        <div class="spec-label">Plus 등급</div>
+                        <div class="spec-value">고성능</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Flash 등급</div>
+                        <div class="spec-value">균형형</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Light 등급</div>
+                        <div class="spec-value">경량형</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-meta">
+            <a href="https://www.ithome.com/0/934/257.htm" target="_blank" rel="noopener noreferrer">원본 기사 보기</a>
+            <span>📅 2026년 3월 30일</span>
+        </div>
+        <div class="disclaimer">
+            본 기사는 IT之家의 기사를 번역 및 편집한 것입니다. 원본 출처: https://www.ithome.com/0/934/257.htm
+        </div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const htmlElement = document.documentElement;
+            const currentScheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            const newScheme = currentScheme === 'dark' ? 'light' : 'dark';
+
+            // Create a style element to force the theme
+            let styleElement = document.getElementById('theme-override');
+            if (!styleElement) {
+                styleElement = document.createElement('style');
+                styleElement.id = 'theme-override';
+                document.head.appendChild(styleElement);
+            }
+
+            if (newScheme === 'dark') {
+                styleElement.textContent = '@media (prefers-color-scheme: light) { :root { color-scheme: dark; } }';
+                localStorage.setItem('theme-preference', 'dark');
+            } else {
+                styleElement.textContent = '@media (prefers-color-scheme: dark) { :root { color-scheme: light; } }';
+                localStorage.setItem('theme-preference', 'light');
+            }
+
+            // Toggle button text
+            const button = document.querySelector('.theme-toggle');
+            button.textContent = newScheme === 'dark' ? '☀️ 테마 전환' : '🌙 테마 전환';
+        }
+
+        // Load saved theme preference on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme-preference');
+            if (savedTheme) {
+                const styleElement = document.createElement('style');
+                styleElement.id = 'theme-override';
+                if (savedTheme === 'dark') {
+                    styleElement.textContent = '@media (prefers-color-scheme: light) { :root { color-scheme: dark; } }';
+                    document.querySelector('.theme-toggle').textContent = '☀️ 테마 전환';
+                } else {
+                    styleElement.textContent = '@media (prefers-color-scheme: dark) { :root { color-scheme: light; } }';
+                    document.querySelector('.theme-toggle').textContent = '🌙 테마 전환';
+                }
+                document.head.appendChild(styleElement);
+            }
+        });
+    </script>
+</body>
+</html>
