@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GitHub Copilot이 PR에 무단으로 광고를 삽입한 논란과 GitHub의 긴급 철회에 대한 기사">
+    <meta name="author" content="IT之家 (번역)">
+    <meta name="date" content="2026-03-31">
+    <title>Copilot, 개발자 PR에 무단 광고 삽입 — GitHub 긴급 철회</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --accent-color: #6e40c9;
+            --accent-light: #7c51d8;
+            --accent-dark: #5a35b8;
+
+            --light-bg: #ffffff;
+            --light-bg-secondary: #f5f5f5;
+            --light-text-primary: #1a1a1a;
+            --light-text-secondary: #666666;
+            --light-border: #e0e0e0;
+
+            --dark-bg: #0d0d0d;
+            --dark-bg-secondary: #1a1a1a;
+            --dark-text-primary: #ffffff;
+            --dark-text-secondary: #b0b0b0;
+            --dark-border: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--light-text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--dark-bg);
+                color: var(--dark-text-primary);
+            }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--light-bg-secondary);
+            border: 1px solid var(--light-border);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .theme-toggle {
+                background: var(--dark-bg-secondary);
+                border-color: var(--dark-border);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--accent-color);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-dark) 100%);
+            color: white;
+        }
+
+        .hero-image {
+            position: absolute;
+            inset: 0;
+            object-fit: cover;
+            opacity: 0.4;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(110, 64, 201, 0.8) 0%, rgba(90, 53, 184, 0.9) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 800px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-category {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 24px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .hero h1 {
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 14px;
+            opacity: 0.95;
+            flex-wrap: wrap;
+        }
+
+        .hero-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Article Content */
+        .article {
+            background: var(--light-bg);
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .article {
+                background: var(--dark-bg-secondary);
+            }
+        }
+
+        .article p {
+            font-size: 16px;
+            margin-bottom: 24px;
+            color: var(--light-text-secondary);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .article p {
+                color: var(--dark-text-secondary);
+            }
+        }
+
+        .article p:first-child {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--light-text-primary);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .article p:first-child {
+                color: var(--dark-text-primary);
+            }
+        }
+
+        .article strong {
+            color: var(--light-text-primary);
+            font-weight: 600;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .article strong {
+                color: var(--dark-text-primary);
+            }
+        }
+
+        /* Key Events Timeline */
+        .timeline-section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--light-text-primary);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .section-title {
+                color: var(--dark-text-primary);
+            }
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--accent-color);
+            opacity: 0.2;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+        }
+
+        .timeline-item {
+            margin-bottom: 40px;
+            position: relative;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--accent-color);
+            border: 4px solid var(--light-bg);
+            border-radius: 50%;
+            top: 0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .timeline-dot {
+                border-color: var(--dark-bg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .timeline-dot {
+                left: 20px;
+            }
+        }
+
+        .timeline-content {
+            width: calc(50% - 30px);
+            margin-left: auto;
+            padding-left: 40px;
+            background: var(--light-bg-secondary);
+            padding: 24px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .timeline-content {
+                background: var(--dark-bg-secondary);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .timeline-content {
+                width: calc(100% - 50px);
+                margin-left: 40px;
+            }
+        }
+
+        .timeline-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--light-text-primary);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .timeline-content h3 {
+                color: var(--dark-text-primary);
+            }
+        }
+
+        .timeline-content p {
+            font-size: 14px;
+            color: var(--light-text-secondary);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .timeline-content p {
+                color: var(--dark-text-secondary);
+            }
+        }
+
+        /* Quote Cards */
+        .quotes-section {
+            margin: 60px 0;
+        }
+
+        .quotes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .quote-card {
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-dark) 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            animation: scaleIn 0.6s ease-out;
+            box-shadow: 0 8px 24px rgba(110, 64, 201, 0.2);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .quote-card {
+                box-shadow: 0 8px 24px rgba(110, 64, 201, 0.4);
+            }
+        }
+
+        .quote-card::before {
+            content: '"';
+            position: absolute;
+            top: -40px;
+            left: -20px;
+            font-size: 120px;
+            opacity: 0.1;
+            font-family: Georgia, serif;
+        }
+
+        .quote-card-text {
+            position: relative;
+            z-index: 2;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .quote-card-attribution {
+            position: relative;
+            z-index: 2;
+            font-size: 14px;
+            opacity: 0.95;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 12px;
+        }
+
+        /* Image Gallery */
+        .gallery-section {
+            margin: 60px 0;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .gallery-item {
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.02);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--light-bg-secondary);
+            padding: 40px 20px;
+            margin-top: 80px;
+            border-top: 1px solid var(--light-border);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: var(--dark-bg-secondary);
+                border-top-color: var(--dark-border);
+            }
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-section {
+            margin-bottom: 20px;
+        }
+
+        .footer-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .footer-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-light);
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: var(--light-text-secondary);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer-text {
+                color: var(--dark-text-secondary);
+            }
+        }
+
+        .disclaimer {
+            background: var(--light-bg);
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .disclaimer {
+                background: var(--dark-bg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                height: 350px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero-meta {
+                gap: 15px;
+            }
+
+            .article {
+                padding: 24px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+    </button>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/3/90512a24-4810-4225-a75e-b6a05d5ad247.png?x-bce-process=image/format,f_auto" alt="GitHub Copilot" class="hero-image">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-category">🤖 AI</span>
+            <h1>Copilot, 개발자 PR에 무단 광고 삽입 — GitHub 긴급 철회</h1>
+            <div class="hero-meta">
+                <div class="hero-meta-item">
+                    <span>📅</span>
+                    <span>2026년 3월 31일</span>
+                </div>
+                <div class="hero-meta-item">
+                    <span>🔗</span>
+                    <span>IT之家</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Article -->
+        <article class="article">
+            <p>개발자들의 강력한 반발로 인해 GitHub는 Copilot의 행동에 대해 긴급 조정을 단행했습니다. 그동안 Copilot이 사용자들이 작성한 Pull Request(PR)에 몰래 "팁(tips)"이라는 명목의 광고 콘텐츠를 삽입해온 것으로 드러났습니다.</p>
+
+            <p><strong>광고 삽입 논란의 발단</strong></p>
+            <p>호주 개발자 Zach Manson은 동료가 Copilot에게 자신의 PR에서 철자 오류를 수정하도록 요청한 후, Copilot이 추가한 메시지를 발견했습니다. 해당 메시지는 Raycast 도구와 설치 링크를 홍보하는 광고성 콘텐츠였습니다. Manson은 이러한 행동이 "정말 짜증난다"라고 표현했으며, Copilot이 자신이 작성하지 않은 PR의 설명과 댓글을 수정할 권한을 가지고 있다는 사실에 충격을 받았습니다.</p>
+
+            <p><strong>광고 범위의 광범위함</strong></p>
+            <p>검색 결과에 따르면 11,400개 이상의 PR에서 동일한 광고 내용이 발견되었습니다. 이는 문제의 심각성을 보여주는 명백한 증거입니다.</p>
+
+            <p><strong>GitHub의 공식 입장</strong></p>
+            <p>GitHub 개발자 관계 부사장 Martin Woodward는 다음과 같이 입장을 밝혔습니다. "Copilot이 자신이 생성하지 않은 PR을 수정하도록 하는 것은 새로운 시도였으나, 현재로서는 그 효과가 좋지 못한 것으로 판단됩니다."</p>
+
+            <p>Woodward는 강조하며 말했습니다: "GitHub은 현재 GitHub 내에 광고를 포함하지 않고 있으며, 향후 광고를 추가할 계획도 없습니다."</p>
+
+            <p><strong>Copilot 개발팀의 해명</strong></p>
+            <p>GitHub Copilot의 수석 제품 관리자 Tim Rogers는 이 조치의 초기 의도는 개발자들에게 에이전트를 사용하는 새로운 방식에 대해 알려주는 것이었다고 설명했습니다. 그러나 이는 잘못된 판단이었다고 인정했습니다.</p>
+
+            <p>GitHub는 현재 이러한 팁들을 비활성화했으며, 이와 같은 상황이 재발하지 않을 것을 약속했습니다.</p>
+        </article>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section">
+            <h2 class="section-title">주요 사건 타임라인</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>문제 발견</h3>
+                        <p>Zach Manson이 PR 내 Raycast 광고를 발견하고 공개적으로 알림</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>광범위한 영향 확인</h3>
+                        <p>11,400개 이상의 PR에서 유사한 광고 콘텐츠가 발견됨</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>개발자 반발</h3>
+                        <p>GitHub 커뮤니티와 개발자들이 강하게 반발하며 비판</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>GitHub 공식 입장 발표</h3>
+                        <p>Martin Woodward 부사장이 공식 성명 발표 및 광고 삽입 부정</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>긴급 조치 단행</h3>
+                        <p>GitHub, 모든 광고 팁 비활성화 및 재발 방지 약속</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section class="gallery-section">
+            <h2 class="section-title">관련 이미지</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/3/90512a24-4810-4225-a75e-b6a05d5ad247.png?x-bce-process=image/format,f_auto" alt="GitHub Copilot PR 광고 논란">
+                </div>
+            </div>
+        </section>
+
+        <!-- Quotes Section -->
+        <section class="quotes-section">
+            <h2 class="section-title">주요 발언</h2>
+            <div class="quotes-grid">
+                <div class="quote-card">
+                    <p class="quote-card-text">Copilot이 자신이 생성하지 않은 PR을 수정하도록 하는 것은 새로운 시도였으나, 현재로서는 그 효과가 좋지 못한 것으로 판단됩니다.</p>
+                    <p class="quote-card-attribution">— Martin Woodward, GitHub 개발자 관계 부사장</p>
+                </div>
+
+                <div class="quote-card">
+                    <p class="quote-card-text">GitHub은 현재 GitHub 내에 광고를 포함하지 않고 있으며, 향후 광고를 추가할 계획도 없습니다.</p>
+                    <p class="quote-card-attribution">— Martin Woodward, GitHub 개발자 관계 부사장</p>
+                </div>
+
+                <div class="quote-card">
+                    <p class="quote-card-text">이 조치의 초기 의도는 개발자들에게 에이전트를 사용하는 새로운 방식에 대해 알려주는 것이었으나, 이는 잘못된 판단이었습니다.</p>
+                    <p class="quote-card-attribution">— Tim Rogers, GitHub Copilot 수석 제품 관리자</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <p class="footer-text">
+                    원본 기사: <a href="https://www.ithome.com/0/934/673.htm" class="footer-link" target="_blank" rel="noopener noreferrer">https://www.ithome.com/0/934/673.htm</a>
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <p class="footer-text">
+                    <strong>발행일:</strong> 2026년 3월 31일 | <strong>분류:</strong> 🤖 AI
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <div class="disclaimer">
+                    <p class="footer-text" style="margin: 0;">
+                        <strong>면책 조항:</strong> 본 기사는 IT之家(www.ithome.com)의 기사를 번역한 것입니다. 정보 전달 목적으로만 작성되었으며, 원문의 모든 내용과 맥락을 정확하게 반영하고 있습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+
+        // Check for saved theme preference or default to system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('theme');
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.style.colorScheme = 'dark';
+                localStorage.setItem('theme', 'dark');
+            } else if (theme === 'light') {
+                document.documentElement.style.colorScheme = 'light';
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.removeItem('theme');
+                document.documentElement.style.colorScheme = prefersDark ? 'dark' : 'light';
+            }
+        }
+
+        // Apply saved theme or system preference
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = localStorage.getItem('theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (!localStorage.getItem('theme')) {
+                location.reload();
+            }
+        });
+    </script>
+</body>
+</html>
