@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPPO K15 Pro 시리즈 공식 출시 - Dimensity 8500 SUPER / 9500s</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-green: #00A850;
+            --color-text-dark: #1e293b;
+            --color-text-light: #f1f5f9;
+            --color-bg-light: #ffffff;
+            --color-bg-dark: #0f172a;
+            --color-surface-light: #f8fafc;
+            --color-surface-dark: #1e293b;
+            --color-border-light: #e2e8f0;
+            --color-border-dark: #334155;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--color-text-dark);
+            background-color: var(--color-bg-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            color: var(--color-text-light);
+            background-color: var(--color-bg-dark);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--color-green);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 168, 80, 0.3);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 168, 80, 0.4);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--color-surface-light) 0%, var(--color-bg-light) 100%);
+            border-bottom: 1px solid var(--color-border-light);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-bottom: 1px solid var(--color-border-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-green);
+            letter-spacing: 0.5px;
+        }
+
+        .meta-info {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        body.dark-mode .meta-info {
+            color: #94a3b8;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, var(--color-green) 0%, #008a3d 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 60px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 168, 80, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            font-weight: 400;
+            opacity: 0.95;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Main Content */
+        .main {
+            padding: 60px 20px;
+        }
+
+        .content-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 16px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--color-green);
+            border-radius: 2px;
+        }
+
+        /* Spec Grid - ALWAYS dark background */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .spec-card {
+            background: #1e293b !important;
+            color: #f1f5f9 !important;
+            padding: 28px 24px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(241, 245, 249, 0.1);
+        }
+
+        .spec-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0, 168, 80, 0.15);
+            border-color: var(--color-green);
+        }
+
+        .spec-card h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .spec-card p {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f1f5f9;
+            line-height: 1.4;
+        }
+
+        .spec-card .detail {
+            font-size: 13px;
+            color: #cbd5e1;
+            margin-top: 8px;
+            font-weight: 400;
+        }
+
+        /* Product Section */
+        .product-section {
+            background: var(--color-surface-light);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .product-section {
+            background: #1e293b;
+            border: 1px solid var(--color-border-dark);
+        }
+
+        .product-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 32px;
+            gap: 16px;
+        }
+
+        .product-icon {
+            font-size: 32px;
+            color: var(--color-green);
+        }
+
+        .product-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .product-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            padding: 16px;
+            background: var(--color-bg-light);
+            border-radius: 8px;
+            border-left: 3px solid var(--color-green);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .feature-item {
+            background: #0f172a;
+        }
+
+        .feature-item:hover {
+            transform: translateX(4px);
+        }
+
+        .feature-item strong {
+            display: block;
+            color: var(--color-green);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .feature-item span {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Pricing */
+        .pricing-list {
+            margin-top: 24px;
+            padding: 20px 0;
+        }
+
+        .pricing-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--color-border-light);
+        }
+
+        body.dark-mode .pricing-item {
+            border-bottom-color: var(--color-border-dark);
+        }
+
+        .pricing-item:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-item .variant {
+            font-weight: 600;
+        }
+
+        .pricing-item .price {
+            color: var(--color-green);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .pricing-note {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 8px;
+            font-weight: 400;
+        }
+
+        body.dark-mode .pricing-note {
+            color: #94a3b8;
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 16 / 9;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0);
+            transition: background 0.3s ease;
+        }
+
+        .gallery-item:hover::after {
+            background: rgba(0, 168, 80, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-surface-light);
+            border-top: 1px solid var(--color-border-light);
+            padding: 40px 20px;
+            margin-top: 80px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .footer {
+            background: #1e293b;
+            border-top-color: var(--color-border-dark);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--color-green);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 14px;
+            line-height: 2;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .footer-section a {
+            color: #94a3b8;
+        }
+
+        .footer-section a:hover {
+            color: var(--color-green);
+        }
+
+        .footer-disclaimer {
+            padding: 20px;
+            background: var(--color-bg-light);
+            border: 1px solid var(--color-border-light);
+            border-radius: 8px;
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-top: 24px;
+        }
+
+        body.dark-mode .footer-disclaimer {
+            background: #0f172a;
+            border-color: var(--color-border-dark);
+            color: #94a3b8;
+        }
+
+        .footer-disclaimer strong {
+            color: var(--color-text-dark);
+        }
+
+        body.dark-mode .footer-disclaimer strong {
+            color: var(--color-text-light);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .content-section {
+            animation: slideIn 0.6s ease forwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                height: 350px;
+            }
+
+            .hero-content h1 {
+                font-size: 32px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .product-content {
+                grid-template-columns: 1fr;
+            }
+
+            .main {
+                padding: 40px 20px;
+            }
+
+            .product-section {
+                padding: 24px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                height: 280px;
+            }
+
+            .hero-content h1 {
+                font-size: 24px;
+            }
+
+            .hero-content p {
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 24px;
+                margin-bottom: 24px;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" onclick="toggleTheme()">🌙 다크 모드</button>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">OPPO K15 Pro</div>
+            <div class="meta-info">
+                📅 2026년 4월 1일 | 📱 스마트폰
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/4/6b49dff6-eeb0-4fc4-b9b0-40aa79fe3bb2.jpg?x-bce-process=image/format,f_auto" alt="OPPO K15 Pro Hero" class="hero-bg">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-tag">✨ 공식 출시</div>
+            <h1>OPPO K15 Pro 시리즈</h1>
+            <p>Dimensity 8500 SUPER / 9500s · 2,999위안부터</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Overview Section -->
+            <section class="content-section">
+                <h2 class="section-title">공식 출시</h2>
+                <p style="font-size: 18px; line-height: 1.8; margin-bottom: 24px;">
+                    OPPO K15 Pro 시리즈가 공식적으로 출시되었습니다. 두 가지 버전으로 제공되며, 각각 강력한 성능과 프리미엄 디스플레이를 갖추고 있습니다.
+                </p>
+            </section>
+
+            <!-- K15 Pro -->
+            <section class="content-section">
+                <div class="product-section">
+                    <div class="product-header">
+                        <span class="product-icon">📱</span>
+                        <h2>K15 Pro</h2>
+                    </div>
+
+                    <div class="spec-grid">
+                        <div class="spec-card">
+                            <h3>프로세서</h3>
+                            <p>MediaTek<br>Dimensity 8500<br>SUPER</p>
+                        </div>
+                        <div class="spec-card">
+                            <h3>디스플레이</h3>
+                            <p>6.59"<br>144Hz</p>
+                        </div>
+                        <div class="spec-card">
+                            <h3>카메라</h3>
+                            <p>50MP 메인<br>OIS 지원</p>
+                        </div>
+                    </div>
+
+                    <h3 style="font-size: 18px; font-weight: 700; margin: 32px 0 16px 0;">가격 정보</h3>
+                    <div class="pricing-list">
+                        <div class="pricing-item">
+                            <div>
+                                <div class="variant">12GB + 256GB 스탠다드</div>
+                                <div class="pricing-note">기본 버전</div>
+                            </div>
+                            <div class="price">3,199위안</div>
+                        </div>
+                        <div class="pricing-item">
+                            <div>
+                                <div class="variant">12GB + 512GB 스탠다드</div>
+                                <div class="pricing-note">고용량 저장</div>
+                            </div>
+                            <div class="price">3,499위안</div>
+                        </div>
+                        <div class="pricing-item">
+                            <div>
+                                <div class="variant">12GB + 256GB 심플</div>
+                                <div class="pricing-note">초기 판매 7일 할인가</div>
+                            </div>
+                            <div class="price">2,899위안</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- K15 Pro+ -->
+            <section class="content-section">
+                <div class="product-section">
+                    <div class="product-header">
+                        <span class="product-icon">👑</span>
+                        <h2>K15 Pro+</h2>
+                    </div>
+
+                    <div class="spec-grid">
+                        <div class="spec-card">
+                            <h3>프로세서</h3>
+                            <p>MediaTek<br>Dimensity 9500s</p>
+                        </div>
+                        <div class="spec-card">
+                            <h3>디스플레이</h3>
+                            <p>6.78"<br>165Hz</p>
+                        </div>
+                        <div class="spec-card">
+                            <h3>생체인식</h3>
+                            <p>3D 초음파<br>지문 인식</p>
+                        </div>
+                        <div class="spec-card">
+                            <h3>오디오</h3>
+                            <p>쿼드 스피커<br>동축 배치</p>
+                        </div>
+                    </div>
+
+                    <h3 style="font-size: 18px; font-weight: 700; margin: 32px 0 16px 0;">가격 정보</h3>
+                    <div class="pricing-list">
+                        <div class="pricing-item">
+                            <div>
+                                <div class="variant">12GB + 256GB 심플</div>
+                                <div class="pricing-note">기본 버전</div>
+                            </div>
+                            <div class="price">3,499위안</div>
+                        </div>
+                        <div class="pricing-item">
+                            <div>
+                                <div class="variant">12GB + 256GB 스탠다드</div>
+                                <div class="pricing-note">표준 사양</div>
+                            </div>
+                            <div class="price">3,699위안</div>
+                        </div>
+                        <div class="pricing-item">
+                            <div>
+                                <div class="variant">12GB + 512GB 스탠다드</div>
+                                <div class="pricing-note">고용량 저장</div>
+                            </div>
+                            <div class="price">4,199위안</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Image Gallery -->
+            <section class="content-section">
+                <h2 class="section-title">갤러리</h2>
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/4/6b49dff6-eeb0-4fc4-b9b0-40aa79fe3bb2.jpg?x-bce-process=image/format,f_auto" alt="OPPO K15 Pro 갤러리 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/4/8e8ad36c-5820-4cbd-8c8c-86bf666817fb.jpg?x-bce-process=image/format,f_auto" alt="OPPO K15 Pro 갤러리 2">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://img.ithome.com/newsuploadfiles/2026/4/0e4e4488-9409-4e2a-af8f-400934471238.jpg?x-bce-process=image/format,f_auto" alt="OPPO K15 Pro 갤러리 3">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>원본 기사</h3>
+                    <a href="https://www.ithome.com/0/934/935.htm" target="_blank" rel="noopener noreferrer">IT Home 기사 읽기</a>
+                </div>
+                <div class="footer-section">
+                    <h3>제품 정보</h3>
+                    <a href="#" onclick="scrollToSection('k15-pro'); return false;">K15 Pro</a>
+                    <a href="#" onclick="scrollToSection('k15-pro-plus'); return false;">K15 Pro+</a>
+                </div>
+                <div class="footer-section">
+                    <h3>기술 사양</h3>
+                    <p style="font-size: 14px; color: #64748b; line-height: 1.8;">
+                        Dimensity 8500 SUPER와 9500s는 MediaTek의 최신 프로세서 기술을 대표합니다. 뛰어난 성능과 에너지 효율성을 제공합니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-disclaimer">
+                <strong>면책 조항:</strong> 이 페이지는 원본 기사의 한국어 번역본입니다. 모든 제품 정보, 가격, 사양은 원본 기사를 기반으로 합니다. 정확한 정보는 공식 OPPO 웹사이트를 방문하시기 바랍니다. 이 콘텐츠는 정보 제공 목적이며, 상품 거래 제안이 아닙니다.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const button = document.querySelector('.theme-toggle');
+
+            if (html.classList.contains('dark-mode')) {
+                html.classList.remove('dark-mode');
+                document.body.classList.remove('dark-mode');
+                button.textContent = '🌙 다크 모드';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark-mode');
+                document.body.classList.add('dark-mode');
+                button.textContent = '☀️ 라이트 모드';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        function loadTheme() {
+            const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                document.body.classList.add('dark-mode');
+                document.querySelector('.theme-toggle').textContent = '☀️ 라이트 모드';
+            }
+        }
+
+        // Smooth scroll helper
+        function scrollToSection(sectionId) {
+            const section = document.querySelector(`[data-section="${sectionId}"]`);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', loadTheme);
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

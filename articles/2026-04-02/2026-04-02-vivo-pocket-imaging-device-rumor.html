@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="vivo Pocket 카메라 장치 Q3 출시 예정 소식 및 X500 시리즈 결합 방안">
+    <meta name="keywords" content="vivo, Pocket, 카메라, 휴대용 영상기기">
+    <meta name="author" content="IT之家">
+    <meta property="og:title" content="vivo Pocket Q3 출시 예정, X500 시리즈 결합 방안 있음">
+    <meta property="og:description" content="vivo의 포켓형 영상기기 출시 소식 및 관련 제조사 동향 분석">
+    <meta property="og:image" content="https://img.ithome.com/newsuploadfiles/2026/4/683ee2c0-3619-485b-ae2f-6c416b5d7769.jpg?x-bce-process=image/format,f_auto">
+
+    <title>vivo Pocket Q3 출시 예정 - IT之家</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --vivo-blue: #415FFF;
+            --dark-bg: #0f172a;
+            --dark-surface: #1e293b;
+            --dark-border: #334155;
+            --dark-text: #f1f5f9;
+            --dark-text-secondary: #cbd5e1;
+            --light-bg: #ffffff;
+            --light-surface: #f8fafc;
+            --light-border: #e2e8f0;
+            --light-text: #0f172a;
+            --light-text-secondary: #64748b;
+            --accent: var(--vivo-blue);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background-color: var(--light-bg);
+            color: var(--light-text);
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        header {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--light-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--light-bg);
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-mode header {
+            background-color: var(--dark-surface);
+            border-bottom-color: var(--dark-border);
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--light-surface);
+            transform: scale(1.1);
+        }
+
+        body.dark-mode .theme-toggle:hover {
+            background-color: var(--dark-border);
+        }
+
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, var(--accent) 0%, #2d3ff0 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://img.ithome.com/newsuploadfiles/2026/4/683ee2c0-3619-485b-ae2f-6c416b5d7769.jpg?x-bce-process=image/format,f_auto') center/cover;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(65, 95, 255, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-meta {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .category-badge {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .article-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(65, 95, 255, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .article-image:hover {
+            transform: scale(1.02);
+        }
+
+        .article-content {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .content-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--dark-surface);
+            color: var(--dark-text);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(65, 95, 255, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(65, 95, 255, 0.15);
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: #60a5fa;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--dark-text-secondary);
+        }
+
+        .spec-highlight {
+            background-color: var(--dark-surface);
+            color: var(--dark-text);
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 1px solid var(--dark-border);
+        }
+
+        .spec-highlight strong {
+            color: #60a5fa;
+        }
+
+        .rumor-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rumor-list li {
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            background: linear-gradient(90deg, rgba(65, 95, 255, 0.1) 0%, rgba(65, 95, 255, 0) 100%);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .rumor-list li:hover {
+            background: linear-gradient(90deg, rgba(65, 95, 255, 0.15) 0%, rgba(65, 95, 255, 0) 100%);
+            padding-left: 1.2rem;
+        }
+
+        footer {
+            background-color: var(--light-surface);
+            color: var(--light-text-secondary);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--light-border);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        body.dark-mode footer {
+            background-color: var(--dark-surface);
+            color: var(--dark-text-secondary);
+            border-top-color: var(--dark-border);
+        }
+
+        .footer-link {
+            color: var(--accent);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .disclaimer {
+            background-color: rgba(65, 95, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        body.dark-mode .disclaimer {
+            background-color: rgba(65, 95, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(65, 95, 255, 0.3), transparent);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">IT之家</div>
+        <button class="theme-toggle" id="themeToggle" title="테마 전환">🌙</button>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>vivo Pocket Q3 출시 예정</h1>
+            <div class="hero-meta">
+                <span>📅 2026년 4월 2일</span>
+                <span>📷 카메라 기기</span>
+                <span>🔗 IT之家</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="category-badge">📷 포켓형 영상기기</div>
+
+        <img src="https://img.ithome.com/newsuploadfiles/2026/4/683ee2c0-3619-485b-ae2f-6c416b5d7769.jpg?x-bce-process=image/format,f_auto" alt="vivo Pocket 영상기기" class="article-image">
+
+        <div class="article-content">
+            <div class="content-section">
+                <h2>주요 소식 요약</h2>
+                <p>블로거 <span class="highlight">@数码闲聊站</span>이 최신 정보를 공개했습니다. vivo의 포켓형 영상기기 프로젝트가 Q3에 출시될 예정이며, X500 시리즈와의 결합 방안이 있다는 소식입니다.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📷 다양한 렌즈 개발</h3>
+                    <p>vivo가 기존의 증거경 외에도 다른 유형의 외장 렌즈를 출시할 가능성이 있습니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🎯 제품군 확대</h3>
+                    <p>V 시리즈(국내 S 시리즈 대응)를 포함한 다른 제품 라인으로 확대 가능성이 존재합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>⏰ Q3 출시 예정</h3>
+                    <p>vivo Pocket은 올해 3분기(Q3)에 출시될 예정이며, X500 시리즈와의 결합 방안이 있습니다.</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>시장 배경</h2>
+                <p>해당 블로거는 이달 초, 메모리 가격 지속 상승에 따라 스마트폰 제조사들이 <span class="highlight">다른 카테고리에서 돌파구</span>를 모색하고 있다고 밝혔습니다. 흥미롭게도 TOP5 제조사 중 3곳이 현재 Pocket 타입 영상 제품을 개발 중입니다.</p>
+            </div>
+
+            <div class="spec-highlight">
+                <strong>💡 시장 동향:</strong> 스마트폰 시장의 포화에 따라 주요 제조사들이 휴대용 영상기기 시장에 진출하고 있습니다.
+            </div>
+
+            <div class="content-section">
+                <h2>업계 동향</h2>
+                <p>IT之家의 이전 보도에 따르면, 주요 제조사들의 포켓형 영상기기 개발 현황은 다음과 같습니다:</p>
+
+                <ul class="rumor-list">
+                    <li>
+                        <strong>OPPO:</strong> GoPro, DJI 등 주류 휴대용 영상기기 제조사를 겨냥한 핸드헬드 스마트 영상기기 프로젝트를 확정했습니다.
+                    </li>
+                    <li>
+                        <strong>vivo:</strong> 관련 시장에 적극 진출 중이며, 재작년 말 프로젝트를 시작하여 첫 제품이 이미 금형 제작을 완료했으며 올해 출시 예정입니다.
+                    </li>
+                    <li>
+                        <strong>Honor:</strong> Robot Phone을 공개했으며, AI 스마트폰, 구현 지능, 고화질 촬영을 통합한 혁신적 제품입니다.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="spec-highlight">
+                <strong>🎬 개발 현황:</strong> vivo의 포켓형 영상기기는 금형 제작을 완료한 상태로, 올해 출시를 위해 본격적인 양산 단계에 접어들고 있습니다.
+            </div>
+
+            <div class="content-section">
+                <h2>예상 영향</h2>
+                <p>vivo Pocket의 출시는 휴대용 영상기기 시장에 새로운 경쟁자로 진입한다는 의미입니다. X500 시리즈와의 결합 방안이 있다는 점은 vivo가 스마트폰과 영상기기 간의 생태계 연동을 계획하고 있음을 시사합니다.</p>
+                <p>스마트폰 제조사들이 영상기기 시장으로 진출하는 추세는 콘텐츠 크리에이터와 일반 소비자들에게 다양한 선택지를 제공할 것으로 예상됩니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>
+            원문: <a href="https://www.ithome.com/0/935/128.htm" class="footer-link" target="_blank" rel="noopener noreferrer">消息称 vivo Pocket 预计 Q3 发布，与 X500 系列有组合方案</a>
+        </p>
+        <p>출처: IT之家 (ithome.com) | 게시일: 2026년 4월 2일</p>
+        <div class="disclaimer">
+            <strong>⚠️ 면책 조항:</strong> 본 문서의 내용은 블로거의 리포팅을 기반한 루머입니다. vivo 공식 발표가 아니며, 실제 제품 사양 및 출시 일정은 변경될 수 있습니다. 정보의 정확성을 보장하지 않습니다.
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // 로컬 스토리지에서 테마 설정 로드
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️';
+        }
+
+        // 테마 전환 버튼 클릭 이벤트
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+
+            // 로컬 스토리지에 테마 설정 저장
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+
+            // 아이콘 업데이트
+            themeToggle.textContent = isDarkMode ? '☀️' : '🌙';
+        });
+
+        // 시스템 다크 모드 감지 (사용자가 설정한 값이 없을 때)
+        if (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark-mode');
+            themeToggle.textContent = '☀️';
+        }
+
+        // 시스템 설정 변경 감지
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                if (e.matches) {
+                    document.body.classList.add('dark-mode');
+                    themeToggle.textContent = '☀️';
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    themeToggle.textContent = '🌙';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

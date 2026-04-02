@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honor 분광 프리즘 초슈퍼 원색 센서 - ITHome</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066FF;
+            --secondary: #6B7280;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --accent: #FF6B6B;
+            --background: #FFFFFF;
+            --surface: #F9FAFB;
+            --border: #E5E7EB;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --spec-bg: #1e293b;
+            --spec-text: #f1f5f9;
+            --spec-secondary: #94a3b8;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #F3F4F6;
+                --text-secondary: #D1D5DB;
+                --background: #111827;
+                --surface: #1F2937;
+                --border: #374151;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: var(--background);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-lg);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-image {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.3) 0%, rgba(0, 0, 0, 0.4) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 3rem 2rem;
+            color: white;
+        }
+
+        .hero-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: fit-content;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: rgba(0, 102, 255, 0.9);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .article-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .article-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .article-metadata {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .metadata-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            animation: scaleIn 0.6s ease;
+        }
+
+        .highlight p {
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .highlight p:last-child {
+            margin-bottom: 0;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            background-color: var(--spec-bg);
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        .spec-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .spec-card:hover {
+            border-color: var(--primary);
+            background-color: rgba(0, 102, 255, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .spec-label {
+            font-size: 0.875rem;
+            color: var(--spec-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .spec-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--spec-text);
+        }
+
+        .features {
+            margin: 3rem 0;
+        }
+
+        .features-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: var(--surface);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateX(4px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            min-width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-content h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .feature-content p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .quote-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background-color: var(--surface);
+            border-left: 4px solid var(--primary);
+            border-radius: 4px;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .footer {
+            margin-top: 4rem;
+            padding: 2rem;
+            background-color: var(--surface);
+            border-radius: 8px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .footer-link {
+            color: var(--primary);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .footer-divider {
+            margin: 1rem 0;
+            color: var(--border);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            .hero-image {
+                height: 250px;
+            }
+
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .hero-content {
+                padding: 2rem 1rem;
+            }
+
+            .article-title {
+                font-size: 1.3rem;
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .article-metadata {
+                gap: 1rem;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+
+            .feature-card {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .feature-icon {
+                min-width: auto;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">ITHome</div>
+        <button class="theme-toggle" id="themeToggle">
+            <span id="themeIcon">🌙</span>
+            <span id="themeText">다크</span>
+        </button>
+    </header>
+
+    <main>
+        <article>
+            <div class="hero">
+                <div class="hero-image">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/4/037cee1c-ffa0-4e93-a76d-42d11a488c81.jpg?x-bce-process=image/format,f_auto" alt="Honor 초슈퍼 원색 센서">
+                    <div class="hero-overlay"></div>
+                </div>
+                <div class="hero-content">
+                    <div class="hero-category">📷 카메라</div>
+                    <h1 class="hero-title">Honor 분광 프리즘 초슈퍼 원색 센서 기술</h1>
+                    <div class="hero-meta">
+                        <span>2026년 4월 1일</span>
+                        <span>Honor 영상 기술</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article-header">
+                <h2 class="article-title">Honor, 분광 프리즘 탑재 초슈퍼 원색 센서 개발 성공</h2>
+                <div class="article-metadata">
+                    <div class="metadata-item">
+                        <span>출처:</span>
+                        <a href="https://www.ithome.com/0/934/929.htm" class="footer-link">ITHome</a>
+                    </div>
+                    <div class="metadata-item">
+                        <span>발행일:</span>
+                        <span>2026년 4월 1일</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <p>Honor의 최고 영상 엔지니어인 로위(罗巍)가 획기적인 발표를 했습니다. Honor가 "분광 프리즘을 탑재한 한 픽셀이 세 가지 빛을 감지하는 초슈퍼 원색 센서" 개발에 성공했다고 선언했으며, 이 기술이 "영상 산업의 판도를 완전히 바꿀 것"이라고 주장했습니다.</p>
+
+                <div class="highlight">
+                    <p><strong>혁신적 기술 발표</strong></p>
+                    <p>분광 프리즘을 탑재한 초슈퍼 원색 센서는 카메라 기술의 새로운 경계를 제시합니다. 한 픽셀이 세 가지 광선을 동시에 감지함으로써 기존의 제약을 극복하고, 영상 품질의 혁신을 이룰 것으로 기대됩니다.</p>
+                </div>
+
+                <p>센서의 성능은 두 가지 중요한 사양에 의해 결정됩니다:</p>
+            </div>
+
+            <div class="spec-grid">
+                <div class="spec-card">
+                    <div class="spec-label">FWC</div>
+                    <div class="spec-value">동적 범위</div>
+                    <div class="spec-label" style="margin-top: 1rem;">풀 웰 용량</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Read-out Noise</div>
+                    <div class="spec-value">노이즈 수준</div>
+                    <div class="spec-label" style="margin-top: 1rem;">센서 감도의 핵심</div>
+                </div>
+            </div>
+
+            <div class="content">
+                <p>로위는 "센서의 최고 성능은 한 픽셀이 세 가지 빛을 감지하는 것"이라고 설명했습니다. 이 기술은 AI 기반 압축 해제 알고리즘을 필요로 하며, 센서 감도 기술의 최고 수준을 대표합니다.</p>
+
+                <div class="quote-section">
+                    "센서의 최고 성능은 한 픽셀이 세 가지 빛을 감지하는 것입니다."<br>
+                    — Honor 최고 영상 엔지니어 로위
+                </div>
+
+                <p>이 발표는 10월에 로위가 한 이전 발언을 참고하고 있습니다. 당시 그는 픽셀 크기보다는 이 두 가지 핵심 사양이 더 중요하다고 언급했습니다. 로위는 Honor의 기술이 곧 선보일 것이라고 시사했습니다.</p>
+            </div>
+
+            <div class="features">
+                <h3 class="features-title">핵심 기술 특징</h3>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔬</div>
+                    <div class="feature-content">
+                        <h3>분광 프리즘 기술</h3>
+                        <p>광학 프리즘을 통해 빛을 파장별로 분리하여 한 픽셀이 여러 색상 정보를 동시에 수집합니다.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h3>초고감도 센서</h3>
+                        <p>FWC와 노이즈 수준 최적화로 극도로 낮은 조명 조건에서도 뛰어난 화질을 제공합니다.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-content">
+                        <h3>AI 압축 해제 알고리즘</h3>
+                        <p>인공지능 기반 처리 기술으로 센서로부터 수집된 복잡한 데이터를 효과적으로 압축 해제합니다.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-content">
+                        <h3>초슈퍼 원색 센서</h3>
+                        <p>기존 베이어 패턴을 넘어 한 픽셀이 RGB 삼원색을 모두 감지하여 색감 정확도를 극대화합니다.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-content">
+                        <h3>동적 범위 확대</h3>
+                        <p>높은 FWC(Full Well Capacity)로 밝은 부분과 어두운 부분의 세부사항을 모두 포착합니다.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <div class="feature-content">
+                        <h3>저노이즈 처리</h3>
+                        <p>개선된 Read-out Noise 특성으로 영상의 노이즈를 최소화하고 깨끗한 화질을 보장합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <p>이 기술의 등장은 스마트폰 카메라는 물론 전문 영상 기기 산업에까지 광범위한 영향을 미칠 것으로 예상됩니다. Honor의 이러한 혁신적 센서 기술은 향후 모바일 영상 촬영의 새로운 표준을 정립할 가능성이 높습니다.</p>
+            </div>
+        </article>
+
+        <footer class="footer">
+            <p><strong>기사 정보</strong></p>
+            <p>원본 기사: <a href="https://www.ithome.com/0/934/929.htm" class="footer-link">ITHome (중문)</a></p>
+            <div class="footer-divider">—</div>
+            <p>이 기사는 한국어 읽기의 편의를 위해 중국의 기술 기사를 번역했습니다.</p>
+            <p style="margin-top: 1rem; font-size: 0.75rem; color: var(--text-secondary);">
+                작성: 2026년 4월 2일 | 분류: 📷 카메라 기술
+            </p>
+        </footer>
+    </main>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+
+        // Check system preference or stored preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem('theme');
+        const isDark = storedTheme ? storedTheme === 'dark' : prefersDark;
+
+        function updateTheme(dark) {
+            if (dark) {
+                document.documentElement.style.colorScheme = 'dark';
+                themeIcon.textContent = '☀️';
+                themeText.textContent = '라이트';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.style.colorScheme = 'light';
+                themeIcon.textContent = '🌙';
+                themeText.textContent = '다크';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        updateTheme(isDark);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = localStorage.getItem('theme');
+            const newDark = currentTheme !== 'dark';
+            updateTheme(newDark);
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                updateTheme(e.matches);
+            }
+        });
+    </script>
+</body>
+</html>

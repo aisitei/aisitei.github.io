@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>화웨이 HarmonyOS 6 - Claw AI 에이전트 기능 (한국어 번역)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.light-mode {
+            background-color: #ffffff;
+            color: #1f2937;
+        }
+
+        body.dark-mode {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #f1f5f9;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #CF0A2C;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #f1f5f9;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://img.ithome.com/newsuploadfiles/2026/4/dd1f9fe1-568c-4dbf-90b8-24448495a6ff.jpg?x-bce-process=image/format,f_auto');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(207, 10, 44, 0.3) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .meta-item {
+            background: rgba(207, 10, 44, 0.2);
+            border: 1px solid rgba(207, 10, 44, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .category-badge {
+            background: #CF0A2C;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #1f2937;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        body.dark-mode .section-title {
+            color: #f1f5f9;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: #CF0A2C;
+            border-radius: 2px;
+        }
+
+        /* Introduction */
+        .intro-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #CF0A2C;
+        }
+
+        body.dark-mode .intro-text {
+            background: rgba(207, 10, 44, 0.1);
+            color: #e2e8f0;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            transition: all 0.3s ease;
+            border-top: 4px solid #CF0A2C;
+        }
+
+        body.dark-mode .feature-card {
+            background: #1e293b;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(207, 10, 44, 0.2);
+        }
+
+        body.dark-mode .feature-card:hover {
+            box-shadow: 0 12px 24px rgba(207, 10, 44, 0.3);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: #FEE2E2;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        body.dark-mode .feature-icon {
+            background: rgba(207, 10, 44, 0.2);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: #1f2937;
+        }
+
+        body.dark-mode .feature-card h3 {
+            color: #f1f5f9;
+        }
+
+        .feature-card p {
+            color: #6b7280;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        body.dark-mode .feature-card p {
+            color: #cbd5e1;
+        }
+
+        /* Specs Grid */
+        .specs-grid {
+            background: #1e293b;
+            color: #f1f5f9;
+            padding: 2.5rem;
+            border-radius: 12px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .spec-item {
+            text-align: center;
+        }
+
+        .spec-label {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        /* Image Gallery */
+        .gallery {
+            margin: 3rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #e5e7eb;
+            aspect-ratio: 16/9;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        body.dark-mode .gallery-item {
+            background: #1e293b;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(207, 10, 44, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e293b;
+            color: #f1f5f9;
+            padding: 3rem 1.5rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 2rem;
+        }
+
+        .footer-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #CF0A2C;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        .source-link {
+            color: #60a5fa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .source-link:hover {
+            color: #CF0A2C;
+            text-decoration: underline;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 2rem 0;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-meta {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .specs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .hero {
+                height: 350px;
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            main {
+                padding: 2rem 1rem;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                🚀 Huawei HarmonyOS
+            </div>
+            <button class="theme-toggle" id="themeToggle">🌙 다크모드</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>HarmonyOS 6 Claw AI 에이전트</h1>
+            <p class="hero-subtitle">마이너스 1 스크린으로 만나는 차세대 AI 체험</p>
+            <div class="hero-meta">
+                <div class="meta-item">
+                    <span class="category-badge">🤖 AI</span>
+                </div>
+                <div class="meta-item">
+                    📅 2026년 4월 1일
+                </div>
+                <div class="meta-item">
+                    ⚙️ 베타 테스트 진행 중
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Introduction Section -->
+        <section class="section">
+            <h2 class="section-title">개요</h2>
+            <p class="intro-text">
+                Huawei HarmonyOS 6 시스템의 마이너스 1 스크린(홈 화면 왼쪽 패널) 앱 "스마트 어시스턴트·오늘"이 15.0.22.210 버전 내부 테스트를 시작했으며, Claw 에이전트(智能体) 기능을 연동하여 AI 작업 완료 알림 등의 서비스를 제공합니다.
+            </p>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section">
+            <h2 class="section-title">주요 기능</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌤️</div>
+                    <h3>모닝 브리핑</h3>
+                    <p>날씨, 일정, 배송, 교통 정보를 한 화면에 요약하여 아침 준비를 더욱 효율적으로 관리합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>AI 검색</h3>
+                    <p>검색창에서 AI 검색을 지원하며, 질문을 지능적으로 이해하고 정확한 답변을 즉시 제공합니다. (화이트리스트 접근 필요)</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3>최근 게임</h3>
+                    <p>최근 플레이한 미니게임에 빠르게 접근할 수 있는 카드를 제공하여 게임 경험을 한 단계 업그레이드합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎁</div>
+                    <h3>혜택 관리</h3>
+                    <p>독점 혜택 추적을 위한 "내 혜택" 진입점을 제공하여 모든 특가와 이벤트를 한곳에서 관리합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔋</div>
+                    <h3>역충전 표시</h3>
+                    <p>기기의 전력 공유 배터리 상태를 실시간으로 표시하여 에너지 효율을 극대화합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🚗</div>
+                    <h3>출퇴근 카드</h3>
+                    <p>실시간 알림이 포함된 동적 교통 업데이트로 통근 시간을 더욱 스마트하게 관리합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specifications Section -->
+        <section class="section">
+            <h2 class="section-title">기술 사양</h2>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">앱 버전</div>
+                    <div class="spec-value">15.0.22.210</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">플랫폼</div>
+                    <div class="spec-value">HarmonyOS 6</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">상태</div>
+                    <div class="spec-value">베타 테스트</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">AI 엔진</div>
+                    <div class="spec-value">Claw</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="section gallery">
+            <h2 class="section-title">스크린샷 갤러리</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/4/dd1f9fe1-568c-4dbf-90b8-24448495a6ff.jpg?x-bce-process=image/format,f_auto" alt="HarmonyOS 6 Claw AI 에이전트 메인 화면">
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">메인 인터페이스</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/4/3748d313-bc61-42ce-9086-8dc52c7cc8d7.jpg?x-bce-process=image/format,f_auto" alt="HarmonyOS 6 AI 검색 기능">
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">AI 검색 기능</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/4/fbf3c7c5-32a1-48fb-8864-620ee3606321.jpg?x-bce-process=image/format,f_auto" alt="HarmonyOS 6 마이너스 1 스크린 카드">
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">마이너스 1 스크린 카드</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">원본 기사</h3>
+                <p class="footer-text">
+                    이 페이지는 IT홈(ITHome)의 기사를 한국어로 번역한 것입니다.<br>
+                    <a href="https://www.ithome.com/0/935/081.htm" class="source-link">원본 기사 보기 →</a>
+                </p>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-section">
+                <h3 class="footer-title">번역 정보</h3>
+                <p class="footer-text">
+                    원본 언어: 중국어 (簡體字)<br>
+                    번역 언어: 한국어<br>
+                    번역일: 2026년 4월 2일
+                </p>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="footer-meta">
+                    &copy; 2026 IT홈. 번역 페이지는 참고 용도로만 사용합니다.
+                </div>
+                <div class="footer-meta">
+                    이미지 출처: <a href="https://www.ithome.com" class="source-link">IT홈</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'light-mode';
+        body.classList.remove('light-mode', 'dark-mode');
+        body.classList.add(savedTheme);
+        updateThemeButton();
+
+        themeToggle.addEventListener('click', () => {
+            const isLightMode = body.classList.contains('light-mode');
+
+            body.classList.remove('light-mode', 'dark-mode');
+
+            if (isLightMode) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light-mode');
+            }
+
+            updateThemeButton();
+        });
+
+        function updateThemeButton() {
+            const isDarkMode = body.classList.contains('dark-mode');
+            themeToggle.textContent = isDarkMode ? '☀️ 라이트모드' : '🌙 다크모드';
+        }
+
+        // Detect system preference on first visit
+        if (!localStorage.getItem('theme')) {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = prefersDark ? 'dark-mode' : 'light-mode';
+            body.classList.remove('light-mode', 'dark-mode');
+            body.classList.add(theme);
+            updateThemeButton();
+        }
+    </script>
+</body>
+</html>
