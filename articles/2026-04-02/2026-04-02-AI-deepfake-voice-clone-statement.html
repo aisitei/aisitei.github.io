@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 얼굴 합성·음성 복제 침해 행위 엄정 성명</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #DC2626;
+            --secondary: #991b1b;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --accent: #DC2626;
+            --background: #ffffff;
+            --surface: #f9fafb;
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #f3f4f6;
+                --text-secondary: #d1d5db;
+                --background: #111827;
+                --surface: #1f2937;
+                --border: #374151;
+                --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--background);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            color: var(--text-primary);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, #DC2626 0%, #991b1b 100%);
+            overflow: hidden;
+        }
+
+        .hero-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.5) 0%, rgba(153, 27, 27, 0.5) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 600px;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Spec Grid */
+        .spec-grid {
+            background: #1e293b;
+            color: #f1f5f9;
+            padding: 60px 20px;
+            margin: 60px 0;
+        }
+
+        .spec-grid-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .spec-grid h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .spec-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(241, 245, 249, 0.1);
+            border-radius: 8px;
+            padding: 25px;
+            animation: scaleIn 0.6s ease forwards;
+        }
+
+        .spec-card:nth-child(2) { animation-delay: 0.1s; }
+        .spec-card:nth-child(3) { animation-delay: 0.2s; }
+        .spec-card:nth-child(4) { animation-delay: 0.3s; }
+        .spec-card:nth-child(5) { animation-delay: 0.4s; }
+        .spec-card:nth-child(6) { animation-delay: 0.5s; }
+
+        .spec-card h3 {
+            color: #f1f5f9;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .spec-card p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .article-section {
+            margin-bottom: 40px;
+        }
+
+        .article-section h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .article-section p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .feature-card:nth-child(2) { animation-delay: 0.1s; }
+        .feature-card:nth-child(3) { animation-delay: 0.2s; }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .feature-card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .statement-box {
+            background: var(--surface);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .statement-box h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .statement-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .statement-box li {
+            padding-left: 25px;
+            margin-bottom: 12px;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .statement-box li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 40px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-meta {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .footer-link {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-disclaimer {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            line-height: 1.6;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                height: 350px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+
+            .spec-grid {
+                padding: 40px 20px;
+            }
+
+            .feature-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            main {
+                padding: 30px 15px;
+            }
+
+            .article-section h2 {
+                font-size: 1.4rem;
+            }
+
+            .article-section p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">AI News</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/4/ec91203a-13c6-4f26-93e7-6da22eaf078b.jpg?x-bce-process=image/format,f_auto" alt="AI 딥페이크 문제" class="hero-image">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>AI 딥페이크 규제</h1>
+            <p class="subtitle">중국 방송연맹이 엄정한 성명을 발표했습니다</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Spec Grid -->
+        <section class="spec-grid">
+            <div class="spec-grid-content">
+                <h2>성명의 주요 내용</h2>
+                <div class="grid">
+                    <div class="spec-card">
+                        <h3>법적 보호</h3>
+                        <p>연예인의 초상권·음성권·예술 이미지에 대한 법적 권리</p>
+                    </div>
+                    <div class="spec-card">
+                        <h3>금지 행위</h3>
+                        <p>AI 딥페이크, 음성 모방, 얼굴 합성 영상 금지</p>
+                    </div>
+                    <div class="spec-card">
+                        <h3>플랫폼 책임</h3>
+                        <p>엄격한 콘텐츠 심사 및 인증 메커니즘</p>
+                    </div>
+                    <div class="spec-card">
+                        <h3>기술 제공자 의무</h3>
+                        <p>사용자 인가 자격 확인 필수</p>
+                    </div>
+                    <div class="spec-card">
+                        <h3>집행 조치</h3>
+                        <p>네트워크 모니터링 및 민·형사 책임 추궁</p>
+                    </div>
+                    <div class="spec-card">
+                        <h3>향후 방향</h3>
+                        <p>투명한 산업 표준 제정 및 수익 분배</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Sections -->
+        <section class="article-section">
+            <h2>성명 배경</h2>
+            <p>AI 기술을 이용한 연예인의 초상과 음성 무단 사용이 빈번해지면서, 중국 광전(방송·텔레비전) 사회단체연합회 배우위원회가 엄정한 성명을 발표했습니다.</p>
+            <p>이는 AI 기술의 발전에 따른 딥페이크 콘텐츠의 확산을 규제하고, 연예인들의 기본 권리를 보호하기 위한 업계 차원의 선제적 조치입니다.</p>
+        </section>
+
+        <!-- Statement Boxes -->
+        <section class="article-section">
+            <h2>성명의 핵심 사항</h2>
+
+            <div class="statement-box">
+                <h3>1. 법적 보호</h3>
+                <ul>
+                    <li>연예인은 초상권, 음성권, 예술적 이미지에 대한 법적 권리를 보유</li>
+                    <li>모든 사용에는 명시적 서면 동의가 필수</li>
+                </ul>
+            </div>
+
+            <div class="statement-box">
+                <h3>2. 금지 행위</h3>
+                <ul>
+                    <li>AI 딥페이크 기술을 이용한 얼굴 합성 영상</li>
+                    <li>음성 모방 및 음성 복제</li>
+                    <li>상업적 삽입 및 가상 인간 복제</li>
+                    <li>"비상업적", "개인 리믹스" 등의 면책 표시와 무관하게 모두 금지</li>
+                </ul>
+            </div>
+
+            <div class="statement-box">
+                <h3>3. 플랫폼 책임</h3>
+                <ul>
+                    <li>영상 플랫폼의 엄격한 콘텐츠 심사 의무</li>
+                    <li>인증 메커니즘 구축</li>
+                    <li>기존 침해 콘텐츠 삭제</li>
+                    <li>조사를 위한 기록 보관 의무</li>
+                </ul>
+            </div>
+
+            <div class="statement-box">
+                <h3>4. 기술 제공자 의무</h3>
+                <ul>
+                    <li>AI 개발자는 사용자가 연예인 이미지/오디오 업로드 시 인가 자격 확인</li>
+                    <li>기술 남용 방지를 위한 시스템 구축</li>
+                </ul>
+            </div>
+
+            <div class="statement-box">
+                <h3>5. 집행 조치</h3>
+                <ul>
+                    <li>지속적 네트워크 모니터링</li>
+                    <li>공증을 통한 증거 보전</li>
+                    <li>민·형사·행정 책임 추궁 지원</li>
+                </ul>
+            </div>
+
+            <div class="statement-box">
+                <h3>6. 향후 방향</h3>
+                <ul>
+                    <li>합법적 AI 활용 지지</li>
+                    <li>이미지 라이선싱 및 수익 분배에 대한 투명한 산업 표준 제정</li>
+                    <li>AI 기술과 창작자 보호의 균형 모색</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="article-section">
+            <h2>업계 영향</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="feature-card-icon">⚖️</div>
+                    <h3>법적 규제 강화</h3>
+                    <p>업계 자율규제를 통해 이후 정부 차원의 법적 규제로 이어질 가능성이 높습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card-icon">🛡️</div>
+                    <h3>창작자 보호</h3>
+                    <p>연예인과 창작자들의 기본 권리를 보호하고 명확한 기준을 제시합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card-icon">🤝</div>
+                    <h3>산업 표준 수립</h3>
+                    <p>합법적 AI 활용과 투명한 수익 분배 구조를 위한 표준이 마련될 것으로 예상됩니다.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-meta">
+                <strong>발행일:</strong> 2026년 4월 2일 17:04
+            </div>
+            <a href="https://www.ithome.com/0/935/405.htm" class="footer-link" target="_blank">원문 기사 보기</a>
+            <div class="footer-disclaimer">
+                본 기사는 IT之家의 기사를 번역한 것입니다. 원문의 저작권은 IT之家에 있습니다.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        // Check for saved theme preference or system preference
+        const isDarkMode = () => {
+            return window.matchMedia('(prefers-color-scheme: dark)').matches;
+        };
+
+        // Update icon based on system preference
+        const updateIcon = () => {
+            if (isDarkMode()) {
+                themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+            } else {
+                themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+            }
+        };
+
+        updateIcon();
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateIcon);
+    </script>
+</body>
+</html>

@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소니 Alpha 7R VI 풀프레임 미러리스 카메라 누수</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-bg: #ffffff;
+            --primary-text: #1a1a1a;
+            --secondary-text: #666666;
+            --tertiary-bg: #f5f5f5;
+            --border-color: #e0e0e0;
+            --accent-color: #F47920;
+            --spec-bg: #1e293b;
+            --spec-text: #f1f5f9;
+            --spec-secondary: #94a3b8;
+            --overlay-dark: rgba(0, 0, 0, 0.4);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-bg: #0f1419;
+                --primary-text: #f1f5f9;
+                --secondary-text: #cbd5e1;
+                --tertiary-bg: #1e293b;
+                --border-color: #334155;
+                --overlay-dark: rgba(0, 0, 0, 0.6);
+            }
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        /* Header & Theme Toggle */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: var(--primary-bg);
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border-color);
+            color: var(--primary-text);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            transform: rotate(20deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            animation: scaleIn 1s ease;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to top,
+                var(--overlay-dark) 0%,
+                transparent 50%
+            );
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            max-width: 900px;
+            padding: 3rem 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        section > h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--primary-text);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        section > h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        /* Specifications Grid */
+        .spec-grid {
+            background-color: var(--spec-bg);
+            color: var(--spec-text);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .spec-item {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1.5rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .spec-item h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--spec-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-item p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--spec-text);
+            line-height: 1.6;
+        }
+
+        .spec-item strong {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        /* Feature Cards */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background-color: var(--tertiary-bg);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px rgba(244, 121, 32, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-text);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--secondary-text);
+            line-height: 1.7;
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 4/3;
+            animation: scaleIn 0.8s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Content Section */
+        .content-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .content-text h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-text);
+        }
+
+        .content-text p {
+            color: var(--secondary-text);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .highlight-box {
+            background-color: var(--tertiary-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box strong {
+            color: var(--accent-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 1rem 1.5rem;
+            }
+
+            .hero {
+                height: 400px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            section > h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
+
+            .content-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--tertiary-bg);
+            color: var(--secondary-text);
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-text);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--secondary-text);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+            word-break: break-all;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom p {
+            margin-bottom: 0.5rem;
+        }
+
+        .disclaimer {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* Table */
+        .tech-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background-color: var(--tertiary-bg);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .tech-table th,
+        .tech-table td {
+            padding: 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tech-table th {
+            background-color: var(--spec-bg);
+            color: var(--spec-text);
+            font-weight: 600;
+        }
+
+        .tech-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .tech-table strong {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">📷 카메라 누수</a>
+            <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">🌙</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/4/74d8d18d-78f7-4772-8375-4b40105b290d.jpg?x-bce-process=image/format,f_auto" alt="Sony Alpha 7R VI" class="hero-image">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">🚀 미러리스 혁신</div>
+            <h1>소니 Alpha 7R VI 공식 공개 임박</h1>
+            <p>6700만 화소 풀프레임 미러리스 카메라, 5월 출시 예정</p>
+            <p style="font-size: 0.9rem; margin-top: 1rem; opacity: 0.9;">2026년 4월 2일 보도</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Overview Section -->
+        <section>
+            <h2>기술 혁신의 정점</h2>
+            <div class="content-section">
+                <div class="content-text">
+                    <h3>다음 세대 플래그십 카메라</h3>
+                    <p>
+                        소니가 차세대 풀프레임 미러리스 플래그십 모델인 <strong>Alpha 7R VI</strong>를 4월 말 공식 발표하고 5월 중 출시할 예정입니다. 세 명의 신뢰할 수 있는 소식통에 의하면, 이 카메라는 기술 혁신의 정점을 이룰 것으로 예상됩니다.
+                    </p>
+                    <p>
+                        현행 Alpha 7R V(6100만 화소)를 이어받는 이번 모델은 6700만 화소로 한 단계 업그레이드되며, 완전히 새로운 바디 디자인과 함께 소니의 최신 기술이 집약되어 있습니다.
+                    </p>
+                    <div class="highlight-box">
+                        <strong>예상 일정</strong><br>
+                        발표: 2026년 4월 말<br>
+                        출시: 2026년 5월<br>
+                        센서 양산: 2026년 4분기<br>
+                        정식 출시: 2026년 말~2027년 초
+                    </div>
+                </div>
+                <div>
+                    <img src="https://img.ithome.com/newsuploadfiles/2026/4/fc2103fe-aa0f-4a55-a759-c1397ed1cbf7.jpg?x-bce-process=image/format,f_auto" alt="Sony Alpha 7R VI 세부" style="width: 100%; border-radius: 12px; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Specifications -->
+        <section>
+            <h2>핵심 사양</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <h3>이미지 센서</h3>
+                    <p>
+                        <strong>6700만 화소</strong> Exmor RS 적층형(Stacked) CMOS 센서<br>
+                        부분 적층형 구조: 픽셀 레이어와 회로를 부분적으로 겹쳐 쌓는 고급 기술
+                    </p>
+                </div>
+                <div class="spec-item">
+                    <h3>이미지 처리</h3>
+                    <p>
+                        새로운 <strong>BIONZ XR2</strong> 프로세서<br>
+                        고대역폭 LSI 칩 탑재<br>
+                        전문가급 AI AF 시스템
+                    </p>
+                </div>
+                <div class="spec-item">
+                    <h3>손떨림 보정</h3>
+                    <p>
+                        <strong>8.5스톱</strong> 광학 손떨림 보정(OIS)<br>
+                        렌즈와 바디의 협력을 통한 최강 보정
+                    </p>
+                </div>
+                <div class="spec-item">
+                    <h3>전자 셔터</h3>
+                    <p>
+                        최대 <strong>30fps 연속 촬영</strong><br>
+                        14Bit RAW 형식 지원<br>
+                        전체 화소 읽기 속도 60fps
+                    </p>
+                </div>
+                <div class="spec-item">
+                    <h3>기계식 셔터</h3>
+                    <p>
+                        최대 <strong>16스톱</strong> 다이내믹 레인지<br>
+                        DCG HDR(듀얼 컨버전 게인 HDR) 기술
+                    </p>
+                </div>
+                <div class="spec-item">
+                    <h3>뷰파인더</h3>
+                    <p>
+                        <strong>944만 도트</strong> OLED 전자 뷰파인더<br>
+                        고해상도 실시간 프리뷰
+                    </p>
+                </div>
+                <div class="spec-item">
+                    <h3>무선 연결</h3>
+                    <p>
+                        <strong>6GHz/5GHz/2.4GHz</strong> 트리플밴드 Wi-Fi<br>
+                        빠른 파일 전송 및 안정적인 연결
+                    </p>
+                </div>
+                <div class="spec-item">
+                    <h3>AF 성능</h3>
+                    <p>
+                        전문가급 <strong>AI AF 시스템</strong><br>
+                        정확도 대폭 향상<br>
+                        6700만 화소 전체 인식
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Capabilities -->
+        <section>
+            <h2>비디오 성능</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🎬</div>
+                    <h3>10K 비디오 지원</h3>
+                    <p>
+                        소니 최초 10K 해상도 비디오 지원<br>
+                        해상도: 약 10328×7760(4K의 6배 이상)<br>
+                        최대 30fps로 기록 가능
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>8K 고속 촬영</h3>
+                    <p>
+                        8K 해상도에서 60fps 촬영<br>
+                        고프레임레이트 시네마틱 영상<br>
+                        전문 영상 제작에 최적화
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎞️</div>
+                    <h3>4K 슬로모션</h3>
+                    <p>
+                        4K 해상도에서 120fps 슬로모션<br>
+                        세밀한 동작 포착<br>
+                        드라마틱한 효과 구현
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🖼️</div>
+                    <h3>완벽한 롤링셔터 제거</h3>
+                    <p>
+                        전체 화소 읽기 속도 60fps<br>
+                        롤링셔터(젤리 현상) 완전히 해결<br>
+                        팬 카메라 샷도 왜곡 없음
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- HDR Technology -->
+        <section>
+            <h2>DCG-HDR 기술</h2>
+            <div class="highlight-box" style="margin: 2rem 0; padding: 2rem; border-radius: 12px;">
+                <h3 style="color: var(--primary-text); margin-bottom: 1.5rem;">듀얼 컨버전 게인 HDR</h3>
+                <p style="margin-bottom: 1rem;">
+                    <strong>DCG-HDR(Dual Conversion Gain HDR)</strong>는 소니의 혁신적인 기술로, 단일 프레임 내에서 두 가지 게인 신호를 합성하는 방식으로 작동합니다.
+                </p>
+                <p style="margin-bottom: 1rem;">
+                    이를 통해 <strong>ISO 100~2000 범위에서 다이내믹 레인지가 대폭 향상</strong>되며, 고감도 촬영 시에도 노이즈를 효과적으로 저감할 수 있습니다.
+                </p>
+                <p>
+                    결과적으로 밝은 부분부터 어두운 부분까지 모든 톤을 한 프레임에서 정교하게 표현할 수 있게 되었습니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- Feature Highlights -->
+        <section>
+            <h2>주요 기능</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>고정확도 AF 시스템</h3>
+                    <p>
+                        전문가급 AI AF 시스템으로 피사체 추적 정확도 대폭 향상<br>
+                        인물, 동물, 자동차 등 다양한 피사체 인식
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Creator's App 지원</h3>
+                    <p>
+                        Creator's App을 통한 커스텀 필터 가져오기 지원<br>
+                        창작자 맞춤형 색감 프로필<br>
+                        소셜 미디어 최적화
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>완전히 새로운 바디 디자인</h3>
+                    <p>
+                        인체공학적 개선<br>
+                        전문가 그립감<br>
+                        내구성 강화
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>고속 연사 성능</h3>
+                    <p>
+                        전자 셔터 30fps 연사(14Bit RAW)<br>
+                        6700만 전체 화소 60fps 읽기<br>
+                        고속 버퍼링
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Specs Table -->
+        <section>
+            <h2>상세 기술 사양</h2>
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th>카테고리</th>
+                        <th>사양</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>이미지 센서</strong></td>
+                        <td>6700만 화소 Exmor RS 적층형(Stacked) CMOS / 부분 적층형 구조</td>
+                    </tr>
+                    <tr>
+                        <td><strong>이미지 처리 엔진</strong></td>
+                        <td>BIONZ XR2 프로세서 + 고대역폭 LSI 칩</td>
+                    </tr>
+                    <tr>
+                        <td><strong>광학 이미지 안정화(OIS)</strong></td>
+                        <td>8.5스톱</td>
+                    </tr>
+                    <tr>
+                        <td><strong>전자 셔터 연사</strong></td>
+                        <td>최대 30fps(14Bit RAW)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>기계식 셔터 다이내믹 레인지</strong></td>
+                        <td>최대 16스톱 (DCG HDR)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>전자 뷰파인더</strong></td>
+                        <td>944만 도트 OLED</td>
+                    </tr>
+                    <tr>
+                        <td><strong>무선 연결</strong></td>
+                        <td>6GHz/5GHz/2.4GHz 트리플밴드 Wi-Fi</td>
+                    </tr>
+                    <tr>
+                        <td><strong>비디오: 최고 해상도</strong></td>
+                        <td>10K/30p (약 10328×7760)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>비디오: 8K</strong></td>
+                        <td>8K/60p</td>
+                    </tr>
+                    <tr>
+                        <td><strong>비디오: 4K 슬로모션</strong></td>
+                        <td>4K/120p</td>
+                    </tr>
+                    <tr>
+                        <td><strong>전체 화소 읽기 속도</strong></td>
+                        <td>60fps (롤링셔터/젤리 현상 해결)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AF 시스템</strong></td>
+                        <td>전문가급 AI AF, 6700만 화소 전체 인식</td>
+                    </tr>
+                    <tr>
+                        <td><strong>자동 노출/초점 처리</strong></td>
+                        <td>6700만 전체 화소 60fps 읽기 지원</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HDR 기술</strong></td>
+                        <td>DCG-HDR (ISO 100-2000 범위에서 다이내믹 레인지 대폭 향상)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>센서 양산</strong></td>
+                        <td>2026년 4분기 예상</td>
+                    </tr>
+                    <tr>
+                        <td><strong>정식 출시</strong></td>
+                        <td>2026년 말~2027년 초</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Market Impact -->
+        <section>
+            <h2>시장 파급력</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>플래그십 포지셔닝</h3>
+                    <p>
+                        소니의 풀프레임 미러리스 최고급 모델<br>
+                        전문 사진가와 영상 제작자 타겟<br>
+                        프리미엄 가격대 예상
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>후속 신제품 예정</h3>
+                    <p>
+                        Alpha 7R VI 발표 후 빠르게 2개의 추가 카메라 신제품 출시 예정<br>
+                        라인업 확대 전략
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎥</div>
+                    <h3>비디오 시장 혁신</h3>
+                    <p>
+                        10K 비디오 지원으로 시네마틱 제작 진입<br>
+                        8K/60p로 미래 영상 표준 선도<br>
+                        드론, 시네마 카메라 시장 위협
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>기술 혁신 리더십</h3>
+                    <p>
+                        6700만 화소 고해상도<br>
+                        DCG-HDR 독자 기술<br>
+                        경쟁사 추격 역부족
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>원본 기사</h4>
+                    <a href="https://www.ithome.com/0/935/522.htm" target="_blank" rel="noopener noreferrer">
+                        SonyAlpha Rumors - Sony Alpha 7R VI 누수<br>(2026-04-02 22:54)
+                    </a>
+                </div>
+                <div class="footer-section">
+                    <h4>참고 자료</h4>
+                    <a href="https://www.ithome.com/0/935/369.htm" target="_blank" rel="noopener noreferrer">
+                        thenewcamera - Sony Alpha 7R VI 비디오 기능<br>(2026-04-02 15:46)
+                    </a>
+                </div>
+                <div class="footer-section">
+                    <h4>카메라 정보</h4>
+                    <p>
+                        예상 출시: 2026년 5월<br>
+                        이미지 센서: 6700만 화소<br>
+                        바디: 풀프레임 미러리스
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p><strong>발행일:</strong> 2026년 4월 2일</p>
+                <p><strong>제목:</strong> 소니 Alpha 7R VI 풀프레임 미러리스 카메라 누수</p>
+                <div class="disclaimer">
+                    ⚠️ <strong>면책 조항:</strong> 본 기사는 신뢰할 수 있는 소식통의 정보를 바탕으로 작성되었으나, 공식 발표 이전의 누수 정보입니다. 실제 제품 사양은 공식 발표 시 변경될 수 있습니다. 본 콘텐츠는 정보 제공 목적이며, 투자 조언이나 구매 권장이 아닙니다.
+                </div>
+                <p style="margin-top: 1.5rem; font-size: 0.8rem;">© 2026 카메라 뉴스. 모든 권리 보유.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference or default to 'light'
+        const currentTheme = localStorage.getItem('theme') || 'light';
+
+        // Set initial theme
+        setTheme(currentTheme);
+
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                htmlElement.style.colorScheme = 'dark';
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                htmlElement.style.colorScheme = 'light';
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const theme = localStorage.getItem('theme') || 'light';
+            const newTheme = theme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .spec-item').forEach(el => {
+            el.style.opacity = '0.8';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
