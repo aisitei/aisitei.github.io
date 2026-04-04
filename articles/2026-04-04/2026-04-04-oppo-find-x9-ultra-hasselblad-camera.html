@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="OPPO Find X9 Ultra Hasselblad 카메라 시스템 - 전문 크리에이터용 설계">
+    <meta name="author" content="IT之家">
+    <meta name="date" content="2026-04-03">
+    <title>OPPO Find X9 Ultra Hasselblad 카메라 시스템 | IT之家</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1AAA55;
+            --secondary: #0f172a;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent: #1AAA55;
+            --background: #ffffff;
+            --surface: #f8fafc;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-dark: 0 20px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #f1f5f9;
+                --text-secondary: #cbd5e1;
+                --background: #0f172a;
+                --surface: #1e293b;
+                --border: #334155;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--background);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .breadcrumb {
+            font-size: 13px;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1AAA55 0%, #0d6a3f 100%);
+        }
+
+        .hero-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(26, 170, 85, 0.85) 0%, rgba(13, 106, 63, 0.85) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 60px 40px;
+            color: white;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            width: fit-content;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 600px;
+            font-weight: 400;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        /* Spec Grid - Always Dark */
+        .specs-grid {
+            background-color: #1e293b;
+            color: #f1f5f9;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .specs-grid h2 {
+            font-size: 1.75rem;
+            margin-bottom: 32px;
+            font-weight: 700;
+        }
+
+        .specs-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .spec-item {
+            padding: 24px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .spec-item:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: #1AAA55;
+            transform: translateY(-4px);
+        }
+
+        .spec-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .spec-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            line-height: 1.4;
+        }
+
+        /* Feature Cards */
+        .features-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            padding: 32px 24px;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .feature-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Image Gallery */
+        .gallery-section {
+            margin-bottom: 60px;
+        }
+
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            background-color: var(--surface);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 600px;
+            object-fit: cover;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+            padding: 40px 24px 24px;
+            color: white;
+        }
+
+        .gallery-text {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Info Box */
+        .info-box {
+            background-color: var(--surface);
+            border-left: 4px solid var(--primary);
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 60px;
+        }
+
+        .info-box h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .info-box p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Launch Info */
+        .launch-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #0d6a3f 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .launch-date {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .launch-time {
+            font-size: 1.25rem;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 40px 24px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 24px;
+        }
+
+        .footer-section h4 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .footer-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .footer-text {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .copyright {
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+            margin-top: 24px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Animations */
+        @media (prefers-reduced-motion: no-preference) {
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes scaleIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.95);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            .hero-content {
+                animation: fadeInUp 0.8s ease-out;
+            }
+
+            .spec-item {
+                animation: fadeInUp 0.6s ease-out both;
+            }
+
+            .feature-card {
+                animation: fadeInUp 0.6s ease-out both;
+            }
+
+            .launch-section {
+                animation: scaleIn 0.8s ease-out;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                height: 350px;
+            }
+
+            .hero-content {
+                padding: 40px 24px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .specs-grid {
+                padding: 24px;
+            }
+
+            .specs-list {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .launch-date {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 40px 16px;
+            }
+
+            header {
+                padding: 12px 16px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Focus States */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="테마 전환" title="테마 전환">
+        <svg id="sunIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg id="moonIcon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">IT之家</div>
+            <nav class="breadcrumb">
+                <span>뉴스</span>
+                <span>></span>
+                <span>카메라</span>
+                <span>></span>
+                <span>OPPO</span>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/4/6fdf7e00-8600-43a4-8c77-d183bf31d7e6.jpg?x-bce-process=image/format,f_auto" alt="OPPO Find X9 Ultra" class="hero-image">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">📷 카메라 기술</div>
+            <h1 class="hero-title">Find X9 Ultra</h1>
+            <p class="hero-subtitle">Hasselblad 인증 프리미엄 카메라 시스템 - 전문 크리에이터를 위한 설계</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Specs Grid -->
+        <section class="specs-grid">
+            <h2>카메라 스펙</h2>
+            <div class="specs-list">
+                <div class="spec-item">
+                    <div class="spec-label">망원 렌즈</div>
+                    <div class="spec-value">10배 광학 하셀블라드 천안(天眼) 망원 렌즈</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">집광량</div>
+                    <div class="spec-value">업계 최대 집광량</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">광학 렌즈</div>
+                    <div class="spec-value">내장 16매 정밀 광학 렌즈</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">중망원 렌즈</div>
+                    <div class="spec-value">3배 중망원: 업계 최대 센서</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">메인 카메라</div>
+                    <div class="spec-value">2억 화소 F1.5</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">초망원 카메라</div>
+                    <div class="spec-value">5000만 화소 10X 페리스코프 초망원</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 class="section-title">주요 특징</h2>
+            <p class="section-subtitle">전문 크리에이터와 사진 애호가를 위한 혁신적인 카메라 기술</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔬</div>
+                    <h3 class="feature-title">Hasselblad 인증</h3>
+                    <p class="feature-description">Find X9 Ultra 전 시리즈가 Hasselblad 인증을 통과했으며, 하셀블라드 순정 렌즈 기준으로 설계되고 제작되었습니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">프리미엄 소재</h3>
+                    <p class="feature-description">소재, 금속 질감 디테일에 이르기까지 전문 크리에이터의 요구를 충족하는 품질로 제작되었습니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📸</div>
+                    <h3 class="feature-title">외장 증거 세트</h3>
+                    <p class="feature-description">OPPO 제품 담당자 卓世杰이 공개한 전문 크리에이터용 설계 외장 증거(텔레컨버터) 세트를 지원합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌟</div>
+                    <h3 class="feature-title">고집광 시스템</h3>
+                    <p class="feature-description">업계 최대 집광량을 자랑하는 16매 정밀 광학 렌즈로 뛰어난 이미지 품질을 제공합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔭</div>
+                    <h3 class="feature-title">다중 망원 시스템</h3>
+                    <p class="feature-description">3배 중망원부터 10배 초망원까지 다양한 초점 거리로 창의적인 촬영이 가능합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3 class="feature-title">고성능 센서</h3>
+                    <p class="feature-description">2억 화소 메인 카메라와 5000만 화소 초망원으로 초고해상도 촬영을 지원합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section">
+            <h2 class="section-title">카메라 시스템</h2>
+            <div class="gallery-container">
+                <img src="https://img.ithome.com/newsuploadfiles/2026/4/6fdf7e00-8600-43a4-8c77-d183bf31d7e6.jpg?x-bce-process=image/format,f_auto" alt="OPPO Find X9 Ultra 카메라" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <strong>OPPO Find X9 Ultra</strong><br>
+                        프리미엄 Hasselblad 인증 카메라 시스템 - 전문 크리에이터와 사진 애호가를 위한 최고급 이미징 기술
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <h3>인증 정보</h3>
+            <p>Find X9 Ultra 전 시리즈는 Hasselblad 인증을 획득했습니다. 하셀블라드 순정 렌즈를 기준으로 설계, 소재, 금속 질감 디테일까지 세심하게 제작되었으며, 전문 크리에이터의 높은 요구사항을 충족합니다.</p>
+        </div>
+
+        <!-- Launch Section -->
+        <section class="launch-section">
+            <div class="launch-date">2026년 4월 21일</div>
+            <div class="launch-time">오후 7시 발표 예정</div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>원본 기사</h4>
+                <a href="https://www.ithome.com/0/935/892.htm" class="footer-link" target="_blank" rel="noopener noreferrer">IT之家 - OPPO Find X9 Ultra 카메라 기사</a>
+            </div>
+
+            <div class="footer-section">
+                <h4>기사 정보</h4>
+                <p class="footer-text">
+                    <strong>원본 날짜:</strong> 2026년 4월 3일<br>
+                    <strong>카테고리:</strong> 카메라 기술<br>
+                    <strong>출처:</strong> IT之家
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>면책 조항</h4>
+                <p class="footer-text">본 기사는 IT之家의 기사를 한국어로 번역한 것입니다. 원문의 저작권은 IT之家에 있습니다. 번역 내용이 원문과 다를 수 있으며, 정확한 정보는 원본 기사를 참고하시기 바랍니다.</p>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2026 IT之家. 모든 저작권 보유. | 한국어 번역 버전</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            html.style.colorScheme = 'dark';
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+        } else {
+            html.style.colorScheme = 'light';
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+        }
+
+        // Theme toggle button click
+        themeToggle.addEventListener('click', () => {
+            const isDark = html.style.colorScheme === 'dark';
+
+            if (isDark) {
+                html.style.colorScheme = 'light';
+                localStorage.setItem('theme', 'light');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                html.style.colorScheme = 'dark';
+                localStorage.setItem('theme', 'dark');
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        });
+
+        // Respect user's color scheme preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            if (!localStorage.getItem('theme')) {
+                html.style.colorScheme = 'dark';
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        }
+
+        // Listen for system color scheme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                html.style.colorScheme = e.matches ? 'dark' : 'light';
+                sunIcon.style.display = e.matches ? 'block' : 'none';
+                moonIcon.style.display = e.matches ? 'none' : 'block';
+            }
+        });
+    </script>
+</body>
+</html>

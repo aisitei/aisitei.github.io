@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Gemma 4 오픈소스 대규모 언어 모델 공개</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light-mode {
+            background-color: #ffffff;
+            color: #1f2937;
+        }
+
+        body.dark-mode {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #0f172a;
+                color: #f1f5f9;
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: #ffffff;
+                color: #1f2937;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4285F4;
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Header */
+        header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(66, 133, 244, 0.2);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4285F4;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .meta {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        .meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .category-badge {
+            background: #4285F4;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(135deg, #4285F4 0%, #5f9ff1 100%);
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://img.ithome.com/newsuploadfiles/2026/4/60a660cf-0381-40c2-b6a3-063eaa82f01e.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.6) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 40px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 300px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Model Cards */
+        .models-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #4285F4;
+        }
+
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .model-card {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            border-radius: 12px;
+            padding: 28px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: scaleIn 0.6s ease-out;
+            border: 1px solid #d1d5db;
+        }
+
+        body.dark-mode .model-card {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-color: #475569;
+        }
+
+        .model-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(66, 133, 244, 0.15);
+        }
+
+        .model-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4285F4;
+            margin-bottom: 12px;
+            font-family: 'Inter', monospace;
+        }
+
+        .model-params {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #6b7280;
+        }
+
+        body.dark-mode .model-params {
+            color: #cbd5e1;
+        }
+
+        .model-type {
+            display: inline-block;
+            background: #4285F4;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .model-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #4b5563;
+            margin-bottom: 16px;
+        }
+
+        body.dark-mode .model-description {
+            color: #cbd5e1;
+        }
+
+        .model-highlight {
+            font-size: 13px;
+            font-weight: 600;
+            color: #059669;
+            padding-top: 12px;
+            border-top: 1px solid #d1d5db;
+        }
+
+        body.dark-mode .model-highlight {
+            border-color: #475569;
+            color: #10b981;
+        }
+
+        /* Specs Grid */
+        .specs-section {
+            margin-bottom: 80px;
+        }
+
+        .specs-grid {
+            background: #1e293b;
+            color: #f1f5f9;
+            border-radius: 12px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 32px;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        .spec-item {
+            text-align: center;
+        }
+
+        .spec-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .spec-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #f1f5f9;
+        }
+
+        .spec-value {
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .specs-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                padding: 24px;
+                gap: 20px;
+            }
+        }
+
+        /* Features Section */
+        .features-section {
+            margin-bottom: 80px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+        }
+
+        .feature-card {
+            padding: 28px;
+            border-radius: 12px;
+            border-left: 4px solid #4285F4;
+            background: #f9fafb;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        body.dark-mode .feature-card {
+            background: #1e293b;
+            border-left-color: #4285F4;
+        }
+
+        .feature-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 16px rgba(66, 133, 244, 0.1);
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        body.dark-mode .feature-title {
+            color: #f1f5f9;
+        }
+
+        .feature-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #4b5563;
+        }
+
+        body.dark-mode .feature-description {
+            color: #cbd5e1;
+        }
+
+        /* Comparison Table */
+        .table-section {
+            margin-bottom: 80px;
+            overflow-x: auto;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        body.dark-mode .comparison-table {
+            background: #1e293b;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .comparison-table thead {
+            background: #4285F4;
+            color: white;
+        }
+
+        .comparison-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            border: none;
+        }
+
+        .comparison-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        body.dark-mode .comparison-table td {
+            border-bottom-color: #334155;
+            color: #f1f5f9;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: #f3f4f6;
+        }
+
+        body.dark-mode .comparison-table tbody tr:hover {
+            background: #334155;
+        }
+
+        .highlight-cell {
+            font-weight: 600;
+            color: #059669;
+        }
+
+        body.dark-mode .highlight-cell {
+            color: #10b981;
+        }
+
+        /* Hardware Section */
+        .hardware-section {
+            margin-bottom: 80px;
+        }
+
+        .hardware-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .hardware-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 12px;
+            padding: 28px;
+            border: 1px solid #bae6fd;
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        body.dark-mode .hardware-card {
+            background: linear-gradient(135deg, #0c2e4f 0%, #1e3a5f 100%);
+            border-color: #0e7490;
+        }
+
+        .hardware-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #0369a1;
+        }
+
+        body.dark-mode .hardware-title {
+            color: #22d3ee;
+        }
+
+        .hardware-details {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #0c4a6e;
+        }
+
+        body.dark-mode .hardware-details {
+            color: #cffafe;
+        }
+
+        /* Footer */
+        footer {
+            background: #f3f4f6;
+            color: #4b5563;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 14px;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 80px;
+        }
+
+        body.dark-mode footer {
+            background: #1e293b;
+            color: #cbd5e1;
+            border-top-color: #334155;
+        }
+
+        .footer-link {
+            color: #4285F4;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-disclaimer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        body.dark-mode .footer-disclaimer {
+            color: #94a3b8;
+        }
+
+        .footer-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-meta a {
+            color: #4285F4;
+            text-decoration: none;
+        }
+
+        .footer-meta a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 16px;
+            }
+
+            .section-title {
+                font-size: 24px;
+                margin-bottom: 32px;
+            }
+
+            .models-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .meta {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+
+            .theme-toggle {
+                top: 16px;
+                right: 16px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <button class="theme-toggle" id="themeToggle" title="테마 전환" aria-label="테마 전환">🌙</button>
+
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                🤖 Google Gemma 4
+            </div>
+            <div class="meta">
+                <span class="category-badge">AI</span>
+                <span>2026년 4월 3일</span>
+                <span>IT之家</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div>
+                <h1 class="hero-title">Google Gemma 4 오픈소스</h1>
+                <p class="hero-subtitle">차세대 대규모 언어 모델 4종 공개</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Models Section -->
+        <section class="models-section">
+            <h2 class="section-title">모델 라인업</h2>
+            <div class="models-grid">
+                <div class="model-card">
+                    <div class="model-name">Gemma 2B</div>
+                    <div class="model-params">20억 파라미터</div>
+                    <div class="model-type">효율형</div>
+                    <div class="model-description">엔드 디바이스에 최적화된 초경량 모델</div>
+                    <div class="model-highlight">✓ 스마트폰에서 완전 오프라인 동작</div>
+                </div>
+
+                <div class="model-card">
+                    <div class="model-name">Gemma 4B</div>
+                    <div class="model-params">40억 파라미터</div>
+                    <div class="model-type">효율형</div>
+                    <div class="model-description">엣지 디바이스용 균형잡힌 모델</div>
+                    <div class="model-highlight">✓ Raspberry Pi에서 동작</div>
+                </div>
+
+                <div class="model-card">
+                    <div class="model-name">Gemma 26B MoE</div>
+                    <div class="model-params">혼합 전문가</div>
+                    <div class="model-type">저지연</div>
+                    <div class="model-description">추론 시 38억 파라미터만 활성화</div>
+                    <div class="model-highlight">✓ 벤치마크 6위 달성</div>
+                </div>
+
+                <div class="model-card">
+                    <div class="model-name">Gemma 31B</div>
+                    <div class="model-params">최고 성능</div>
+                    <div class="model-type">Dense</div>
+                    <div class="model-description">최대 성능의 밀집 모델</div>
+                    <div class="model-highlight">✓ Arena AI 벤치마크 전 세계 3위</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specs Section -->
+        <section class="specs-section">
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-icon">🧮</div>
+                    <div class="spec-title">수학 추론</div>
+                    <div class="spec-value">복잡한 논리 연산 완벽 지원</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">⚙️</div>
+                    <div class="spec-title">함수 호출</div>
+                    <div class="spec-value">네이티브 함수 호출 및 JSON 출력</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">💻</div>
+                    <div class="spec-title">코드 생성</div>
+                    <div class="spec-value">오프라인 프로그래밍 지원</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">🎬</div>
+                    <div class="spec-title">멀티모달</div>
+                    <div class="spec-value">영상, 이미지, 오디오 입력</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">📚</div>
+                    <div class="spec-title">컨텍스트</div>
+                    <div class="spec-value">128K 토큰 (엣지) ~ 256K (대형)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon">🌍</div>
+                    <div class="spec-title">다국어</div>
+                    <div class="spec-value">140개 이상 언어 지원</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 class="section-title">핵심 역량</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-title">🧠 고급 추론</div>
+                    <div class="feature-description">수학과 복잡한 논리에 대한 고급 추론 능력을 갖추어 복잡한 문제 해결이 가능합니다.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">⚡ 에이전틱 워크플로</div>
+                    <div class="feature-description">네이티브 함수 호출 및 구조화된 JSON 출력을 통해 자동화된 워크플로를 구현할 수 있습니다.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">🖥️ 오프라인 지원</div>
+                    <div class="feature-description">인터넷 연결 없이도 프로그래밍 지원과 코드 생성이 가능합니다.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">🎯 멀티모달 입력</div>
+                    <div class="feature-description">텍스트뿐만 아니라 영상, 이미지, 오디오 등 다양한 형식의 입력을 네이티브로 지원합니다.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">📖 확장 컨텍스트</div>
+                    <div class="feature-description">최대 256K 토큰의 긴 컨텍스트를 처리하여 더 방대한 정보를 한 번에 이해할 수 있습니다.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">🌐 광범위한 언어</div>
+                    <div class="feature-description">140개 이상의 언어를 지원하여 전 세계 사용자들이 자신의 언어로 사용할 수 있습니다.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hardware Deployment -->
+        <section class="hardware-section">
+            <h2 class="section-title">하드웨어 배포</h2>
+            <div class="hardware-grid">
+                <div class="hardware-card">
+                    <div class="hardware-title">🖥️ 고성능 서버</div>
+                    <div class="hardware-details">단일 80GB H100 GPU에서 전체 정밀도로 실행 가능. Gemma 31B 모델의 완전한 성능을 활용할 수 있습니다.</div>
+                </div>
+                <div class="hardware-card">
+                    <div class="hardware-title">💾 소비자 GPU</div>
+                    <div class="hardware-details">양자화된 버전을 통해 일반 소비자 GPU에서도 실행 가능. 비용 효율적인 배포가 가능합니다.</div>
+                </div>
+                <div class="hardware-card">
+                    <div class="hardware-title">📱 엣지 디바이스</div>
+                    <div class="hardware-details">Gemma 2B/4B는 스마트폰, Raspberry Pi, NVIDIA Jetson Orin Nano에서 완전 오프라인 동작 가능합니다.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Table -->
+        <section class="table-section">
+            <h2 class="section-title">모델 사양 비교</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>모델명</th>
+                        <th>파라미터</th>
+                        <th>유형</th>
+                        <th>특징</th>
+                        <th>배포 환경</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Gemma 2B</strong></td>
+                        <td>20억</td>
+                        <td>효율형</td>
+                        <td>초경량, 빠른 추론</td>
+                        <td>스마트폰, 엣지</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gemma 4B</strong></td>
+                        <td>40억</td>
+                        <td>효율형</td>
+                        <td>균형잡힌 성능</td>
+                        <td>Raspberry Pi, Jetson</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gemma 26B MoE</strong></td>
+                        <td>혼합 전문가</td>
+                        <td>MoE</td>
+                        <td class="highlight-cell">저지연, 벤치마크 6위</td>
+                        <td>표준 서버</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gemma 31B</strong></td>
+                        <td>310억</td>
+                        <td>Dense</td>
+                        <td class="highlight-cell">최고 성능, 3위</td>
+                        <td>H100 GPU</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-meta">
+            <div>원문: <a href="https://www.ithome.com/0/935/537.htm" class="footer-link" target="_blank">IT之家</a></div>
+            <div>발행일: 2026년 4월 3일</div>
+            <div>카테고리: AI</div>
+        </div>
+        <div class="footer-disclaimer">
+            본 기사는 IT之家의 기사를 번역한 것입니다. 원문의 저작권은 IT之家에 있습니다.
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Detect initial preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('theme');
+
+        if (savedTheme) {
+            body.className = savedTheme === 'dark' ? 'dark-mode' : 'light-mode';
+            updateToggleIcon();
+        } else if (prefersDark) {
+            body.className = 'dark-mode';
+            updateToggleIcon();
+        }
+
+        themeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            body.classList.toggle('light-mode');
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+            updateToggleIcon();
+        });
+
+        function updateToggleIcon() {
+            themeToggle.textContent = body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        }
+
+        // Add subtle animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .model-card, .hardware-card').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

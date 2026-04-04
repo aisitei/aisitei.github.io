@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alibaba Wan2.7-Video: 새로운 AI 영상 생성 혁신</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-orange: #FF6A00;
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-text: #f1f5f9;
+            --dark-secondary: #cbd5e1;
+            --light-bg: #ffffff;
+            --light-card: #f8fafc;
+            --light-text: #0f172a;
+            --light-secondary: #475569;
+            --accent: #FF6A00;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--dark-bg);
+                color: var(--dark-text);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: var(--light-bg);
+                color: var(--light-text);
+            }
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        body.light-mode {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary-orange);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 106, 0, 0.3);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 106, 0, 0.4);
+        }
+
+        .theme-toggle::before {
+            content: '☀️';
+            font-size: 24px;
+        }
+
+        body.dark-mode .theme-toggle::before {
+            content: '🌙';
+        }
+
+        /* Header */
+        header {
+            padding: 40px 20px;
+            text-align: center;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        header h1 {
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary-orange);
+        }
+
+        header .meta {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .meta span {
+            margin: 0 10px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            margin: 20px;
+            border-radius: 12px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.4) 0%, rgba(255, 106, 0, 0.2) 100%);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Spec Grid */
+        .spec-grid {
+            background-color: #1e293b;
+            color: #f1f5f9;
+            padding: 40px;
+            border-radius: 12px;
+            margin: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            animation: scaleIn 0.8s ease 0.3s both;
+        }
+
+        .spec-item {
+            border-left: 4px solid var(--primary-orange);
+            padding-left: 20px;
+        }
+
+        .spec-item h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #f1f5f9;
+        }
+
+        .spec-item p {
+            font-size: 14px;
+            opacity: 0.9;
+            color: #cbd5e1;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            font-size: clamp(24px, 5vw, 36px);
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary-orange);
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            padding: 30px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease forwards;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        body.dark-mode .feature-card,
+        @media (prefers-color-scheme: dark) .feature-card {
+            background-color: rgba(30, 41, 59, 0.8);
+            color: var(--dark-text);
+        }
+
+        body.light-mode .feature-card,
+        @media (prefers-color-scheme: light) .feature-card {
+            background-color: rgba(248, 250, 252, 0.9);
+            color: var(--light-text);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        body.dark-mode .feature-card:hover {
+            box-shadow: 0 10px 30px rgba(255, 106, 0, 0.2);
+        }
+
+        body.light-mode .feature-card:hover {
+            box-shadow: 0 10px 30px rgba(255, 106, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+
+        .feature-card p,
+        .feature-card ul {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-card li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+
+        /* Stagger animation */
+        .feature-card:nth-child(1) { animation-delay: 0.2s; }
+        .feature-card:nth-child(2) { animation-delay: 0.3s; }
+        .feature-card:nth-child(3) { animation-delay: 0.4s; }
+        .feature-card:nth-child(4) { animation-delay: 0.5s; }
+        .feature-card:nth-child(5) { animation-delay: 0.6s; }
+        .feature-card:nth-child(6) { animation-delay: 0.7s; }
+
+        /* Access Section */
+        .access-section {
+            background: linear-gradient(135deg, var(--primary-orange) 0%, #ff8c00 100%);
+            padding: 40px;
+            border-radius: 12px;
+            margin: 40px 20px;
+            color: white;
+            text-align: center;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .access-section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .access-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .access-btn {
+            background: white;
+            color: var(--primary-orange);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .access-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-card);
+            color: var(--dark-secondary);
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 106, 0, 0.2);
+        }
+
+        body.light-mode footer {
+            background-color: var(--light-card);
+            color: var(--light-secondary);
+        }
+
+        footer p {
+            font-size: 13px;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        footer a {
+            color: var(--primary-orange);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Respect prefers-reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            .hero {
+                height: 300px;
+                margin: 10px;
+            }
+
+            .spec-grid {
+                padding: 30px 20px;
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .access-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .access-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            footer {
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="테마 전환"></button>
+
+    <header>
+        <h1>Alibaba Wan2.7-Video</h1>
+        <div class="meta">
+            <span>🤖 AI</span>
+            <span>•</span>
+            <span>2026년 4월 3일</span>
+            <span>•</span>
+            <span>IT之家</span>
+        </div>
+    </header>
+
+    <div class="hero">
+        <img src="https://img.ithome.com/newsuploadfiles/2026/4/44820c2b-4515-4cdb-8adb-a0b6f5ad8c42.jpg" alt="Alibaba Wan2.7-Video AI 모델">
+        <div class="hero-overlay"></div>
+    </div>
+
+    <div class="container">
+        <div class="spec-grid">
+            <div class="spec-item">
+                <h3>📺 혁신 기술</h3>
+                <p>Alibaba가 새로운 영상 생성 모델 Wan2.7-Video를 발표했습니다. 연출과 연기 모두 가능하며 창작 전 과정을 커버합니다.</p>
+            </div>
+            <div class="spec-item">
+                <h3>🎬 멀티모달 입력</h3>
+                <p>텍스트, 이미지, 영상, 오디오의 전 모달 입력을 지원하여 다양한 창의적 표현이 가능합니다.</p>
+            </div>
+            <div class="spec-item">
+                <h3>⚡ 정밀 제어</h3>
+                <p>화면 구조, 스토리 전개, 부분 디테일을 자유롭게 제어할 수 있습니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">주요 기능</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✏️</div>
+                    <h3>편집 및 조정</h3>
+                    <p>부분 화면 편집, 요소 삭제/교체, 속성 변경이 가능합니다.</p>
+                    <ul>
+                        <li>기차 삭제, 물체 교체</li>
+                        <li>건물 색상 변경</li>
+                        <li>계절, 예술 스타일 변환</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎭</div>
+                    <h3>창의적 2차 창작</h3>
+                    <p>캐릭터와 영상의 모든 요소를 창의적으로 변경할 수 있습니다.</p>
+                    <ul>
+                        <li>캐릭터 행동/대사/촬영 앵글 변경</li>
+                        <li>감정/립싱크/음색 유지</li>
+                        <li>캐릭터 교체 (플레이어→중세 기사)</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📹</div>
+                    <h3>카메라 설정 조정</h3>
+                    <p>촬영 각도와 렌즈 설정을 정밀하게 제어합니다.</p>
+                    <ul>
+                        <li>카메라 포지션 조정</li>
+                        <li>촬영 앵글 변경</li>
+                        <li>초점거리 제어</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>연장 및 참조</h3>
+                    <p>여러 소스의 정보를 활용하여 일관성 있는 영상을 생성합니다.</p>
+                    <ul>
+                        <li>첫/끝 프레임으로 스토리 정밀 제어</li>
+                        <li>멀티모달 참조 (이미지, 영상, 오디오)</li>
+                        <li>최대 5개 영상 주체로 다중 캐릭터 일관성 유지</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>고급 처리 기능</h3>
+                    <p>기존 영상을 업그레이드하고 분석합니다.</p>
+                    <ul>
+                        <li>화질 향상 (흑백 컬러화)</li>
+                        <li>시각적 이해 (주체 세그먼테이션)</li>
+                        <li>촬영 방식 분석 및 조정</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>접근 방법</h3>
+                    <p>여러 플랫폼에서 Wan2.7-Video를 활용할 수 있습니다.</p>
+                    <ul>
+                        <li>Alibaba Cloud 百炼 플랫폼</li>
+                        <li>万相 공식 사이트</li>
+                        <li>편리한 웹 인터페이스</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="access-section">
+        <h2>지금 체험해보세요</h2>
+        <p>Alibaba의 최신 AI 영상 생성 기술을 지금 바로 사용해 보세요.</p>
+        <div class="access-buttons">
+            <button class="access-btn" onclick="window.open('https://www.aliyun.com/', '_blank')">Alibaba Cloud 방문</button>
+            <button class="access-btn" onclick="window.open('https://www.ithome.com/0/935/731.htm', '_blank')">원문 읽기</button>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>출처:</strong> <a href="https://www.ithome.com/0/935/731.htm" target="_blank">IT之家 원문</a></p>
+        <p><strong>발행일:</strong> 2026년 4월 3일</p>
+        <p style="margin-top: 20px; font-size: 12px; opacity: 0.8;">
+            본 기사는 IT之家의 기사를 번역한 것입니다. 원문의 저작권은 IT之家에 있습니다.
+        </p>
+    </footer>
+
+    <script>
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+        const body = document.body;
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Initialize theme
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else if (prefersDark) {
+            applyTheme('dark');
+        } else {
+            applyTheme('light');
+        }
+
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                applyTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+    </script>
+</body>
+</html>

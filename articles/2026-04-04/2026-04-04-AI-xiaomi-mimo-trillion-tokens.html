@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xiaomi MiMo AI 모델 1조 토큰 돌파</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #FF6900;
+            --color-primary-dark: #E55A00;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+            transition: background-color var(--transition), color var(--transition);
+        }
+
+        body.light-mode {
+            background-color: #ffffff;
+            color: #1f2937;
+        }
+
+        body.dark-mode {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #0f172a;
+                color: #f1f5f9;
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: #ffffff;
+                color: #1f2937;
+            }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--color-primary);
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(255, 105, 0, 0.3);
+            transition: all var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--color-primary-dark);
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(255, 105, 0, 0.4);
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            padding: 20px 0;
+            border-bottom: 1px solid;
+            border-color: rgba(255, 105, 0, 0.2);
+        }
+
+        .light-mode .header {
+            border-color: rgba(255, 105, 0, 0.15);
+        }
+
+        .dark-mode .header {
+            border-color: rgba(255, 105, 0, 0.2);
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 14px;
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background-color: var(--color-primary);
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .publish-date {
+            opacity: 0.7;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 40px 0;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(255, 105, 0, 0.3) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        .hero-title {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 3vw, 24px);
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 24px;
+        }
+
+        /* Main Content */
+        main {
+            padding: 60px 0;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+
+        .section-title {
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 700;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 3px solid var(--color-primary);
+            display: inline-block;
+        }
+
+        /* Benchmark Section */
+        .benchmark-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .benchmark-card {
+            padding: 24px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid rgba(255, 105, 0, 0.2);
+            color: #f1f5f9;
+            transition: all var(--transition);
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .benchmark-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-primary);
+            box-shadow: 0 12px 32px rgba(255, 105, 0, 0.2);
+        }
+
+        .benchmark-name {
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .benchmark-rank {
+            font-size: 32px;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+        }
+
+        .benchmark-detail {
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .benchmark-detail strong {
+            color: #f1f5f9;
+        }
+
+        /* Features Section */
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .feature-item {
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid var(--color-primary);
+            transition: all var(--transition);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .light-mode .feature-item {
+            background-color: #f9fafb;
+        }
+
+        .dark-mode .feature-item {
+            background-color: rgba(255, 105, 0, 0.05);
+        }
+
+        .feature-item:hover {
+            transform: translateX(8px);
+        }
+
+        .feature-item:nth-child(1) { animation-delay: 0.1s; }
+        .feature-item:nth-child(2) { animation-delay: 0.2s; }
+        .feature-item:nth-child(3) { animation-delay: 0.3s; }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--color-primary);
+            font-size: 16px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            padding: 32px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: white;
+            margin: 40px 0;
+            animation: scaleIn 0.8s ease-out;
+        }
+
+        .highlight-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .highlight-content {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* Spec Grid */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 32px;
+            background-color: #1e293b;
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        .spec-item {
+            padding: 20px;
+            background-color: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 105, 0, 0.15);
+            border-radius: 8px;
+            text-align: center;
+            color: #f1f5f9;
+            transition: all var(--transition);
+        }
+
+        .spec-item:hover {
+            border-color: var(--color-primary);
+            background-color: rgba(255, 105, 0, 0.05);
+        }
+
+        .spec-label {
+            font-size: 12px;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .spec-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            border-top: 1px solid;
+            border-color: rgba(255, 105, 0, 0.2);
+        }
+
+        .light-mode footer {
+            border-color: rgba(255, 105, 0, 0.15);
+        }
+
+        .dark-mode footer {
+            border-color: rgba(255, 105, 0, 0.2);
+        }
+
+        .footer-content {
+            font-size: 14px;
+            line-height: 1.8;
+            opacity: 0.8;
+        }
+
+        .footer-link {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: all var(--transition);
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-disclaimer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid;
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
+        .light-mode .footer-disclaimer {
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .footer-disclaimer {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .hero {
+                min-height: 300px;
+                margin: 20px 0;
+            }
+
+            .hero-title {
+                font-size: 24px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            main {
+                padding: 40px 0;
+            }
+
+            .section {
+                margin-bottom: 40px;
+            }
+
+            .benchmark-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-toggle {
+                top: 16px;
+                right: 16px;
+                width: 44px;
+                height: 44px;
+            }
+
+            .theme-toggle svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-meta {
+                font-size: 12px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .highlight-box {
+                padding: 20px;
+            }
+
+            .spec-grid {
+                padding: 20px;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
+        <svg id="themeIcon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+    </button>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-meta">
+                <span class="category-badge">🤖 AI</span>
+                <span class="publish-date">2026년 4월 3일</span>
+                <span class="source-link">
+                    출처: <a href="https://www.ithome.com/0/935/663.htm" class="footer-link" target="_blank" rel="noopener noreferrer">IT之家</a>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <img src="https://img.ithome.com/newsuploadfiles/2026/4/f418e561-4a0f-4b7f-bea6-c2680910f4a6.jpg?x-bce-process=image/format,f_auto" alt="Xiaomi MiMo AI 모델" class="hero-image">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h1 class="hero-title">Xiaomi MiMo AI 모델</h1>
+                    <p class="hero-subtitle">1조 토큰 호출 돌파</p>
+                </div>
+            </section>
+
+            <!-- 핵심 내용 -->
+            <section class="section">
+                <h2 class="section-title">핵심 소식</h2>
+                <div class="highlight-box">
+                    <div class="highlight-title">새로운 이정표 달성</div>
+                    <div class="highlight-content">
+                        레이쥔(雷军) Xiaomi 회장이 Xiaomi 대규모 모델의 새로운 이정표를 발표했습니다.
+                        Xiaomi MiMo 모델의 누적 호출량이 <strong>1조 토큰</strong>을 돌파하였으며,
+                        이는 Xiaomi의 인공지능 기술이 글로벌 수준에 도달했음을 보여줍니다.
+                    </div>
+                </div>
+            </section>
+
+            <!-- 벤치마크 성적 -->
+            <section class="section">
+                <h2 class="section-title">글로벌 벤치마크 성적</h2>
+                <p style="margin-bottom: 24px; opacity: 0.9;">
+                    MiMo-V2-Pro는 다양한 평가 기준에서 글로벌 최상위 수준의 성능을 입증했습니다.
+                </p>
+                <div class="benchmark-grid">
+                    <div class="benchmark-card">
+                        <div class="benchmark-name">Text Arena</div>
+                        <div class="benchmark-rank">4위</div>
+                        <div class="benchmark-detail">
+                            글로벌 랭킹 Top 5 진입<br>
+                            <strong>Anthropic/OpenAI/Google에 이어</strong> 4위
+                        </div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-name">ArenaExpert</div>
+                        <div class="benchmark-rank">4위</div>
+                        <div class="benchmark-detail">
+                            글로벌 벤치마크에서<br>
+                            <strong>4위 달성</strong>
+                        </div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-name">Code Arena</div>
+                        <div class="benchmark-rank">5위</div>
+                        <div class="benchmark-detail">
+                            프로그래밍 능력 평가<br>
+                            <strong>글로벌 5위</strong>
+                        </div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-name">OpenRouter</div>
+                        <div class="benchmark-rank">1위</div>
+                        <div class="benchmark-detail">
+                            MiMo-V2-Pro가 연속<br>
+                            <strong>일간/주간/트렌드 차트 1위</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 기술적 특징 -->
+            <section class="section">
+                <h2 class="section-title">기술적 특징</h2>
+                <div class="features-list">
+                    <div class="feature-item">
+                        <div class="feature-title">고급 추론 능력</div>
+                        <div class="feature-desc">
+                            복잡한 논리 추론, 긴 지시 따르기, 멀티턴 대화에서
+                            안정적이고 우수한 성능을 발휘합니다.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">이중맹검 평가 방식</div>
+                        <div class="feature-desc">
+                            더블 블라인드 테스트 방식으로 글로벌 실제 사용자들의
+                            객관적인 투표를 통해 평가받습니다.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">공정한 벤치마킹</div>
+                        <div class="feature-desc">
+                            기존 벤치마크의 "데이터셋 맞춤 점수 조작" 문제를 방지하여
+                            실제 성능을 정확하게 평가합니다.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 사양 정보 -->
+            <section class="section">
+                <h2 class="section-title">모델 사양</h2>
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <div class="spec-label">누적 호출</div>
+                        <div class="spec-value">1조+</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">모델명</div>
+                        <div class="spec-value">MiMo-V2-Pro</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Text Arena</div>
+                        <div class="spec-value">4위</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">OpenRouter</div>
+                        <div class="spec-value">1위</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <strong>기사 출처:</strong>
+                    <a href="https://www.ithome.com/0/935/663.htm" class="footer-link" target="_blank" rel="noopener noreferrer">
+                        https://www.ithome.com/0/935/663.htm
+                    </a>
+                </div>
+                <div style="margin-top: 12px;">
+                    <strong>발행일:</strong> 2026년 4월 3일
+                </div>
+                <div class="footer-disclaimer">
+                    <strong>면책 조항:</strong> 본 기사는 IT之家의 기사를 번역한 것입니다. 원문의 저작권은 IT之家에 있습니다.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 테마 토글 기능
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+        const body = document.body;
+
+        // 저장된 테마 또는 시스템 설정 사용
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else if (prefersDark) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        }
+
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            }
+            updateIcon();
+        }
+
+        function updateIcon() {
+            if (body.classList.contains('dark-mode')) {
+                themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>';
+            } else {
+                themeIcon.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>';
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+        // 시스템 테마 변경 감지
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+
+        // 초기화
+        initTheme();
+    </script>
+</body>
+</html>
