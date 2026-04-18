@@ -1,0 +1,126 @@
+name: Sync Blog Content
+
+on:
+  # 매일 한국시간 오전 9시 (UTC 0시)에 자동 실행
+  schedule:
+    - cron: '0 0 * * *'
+  # 수동 실행 지원
+  workflow_dispatch:
+  # 외부 레포에서 트리거
+  repository_dispatch:
+    types: [sync-articles]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout blog repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Checkout ITHOME repo
+        uses: actions/checkout@v4
+        with:
+          repository: aisitei/ITHOME
+          ref: main
+          token: ${{ secrets.GH_PAT }}
+          path: _ithome_source
+          fetch-depth: 0
+
+      - name: Checkout cn-smartphone-analysis repo
+        uses: actions/checkout@v4
+        with:
+          repository: aisitei/cn-smartphone-analysis
+          ref: main
+          token: ${{ secrets.GH_PAT }}
+          path: _smartphone_source
+          fetch-depth: 0
+
+      - name: Sync ITHOME articles
+        run: |
+          echo "=== Syncing articles from ITHOME repo ==="
+          mkdir -p articles
+
+          # 구 경로(루트)와 신 경로(report/) 모두 지원
+          for dir in _ithome_source/20*-*-*/ _ithome_source/report/20*-*-*/; do
+            if [ -d "$dir" ]; then
+              date_name=$(basename "$dir")
+              mkdir -p "articles/$date_name"
+              for html_file in "$dir"*.html; do
+                if [ -f "$html_file" ]; then
+                  cp "$html_file" "articles/$date_name/"
+                  echo "  Copied: $(basename $html_file)"
+                fi
+              done
+            fi
+          done
+
+          echo "Total articles: $(find articles -name '*.html' | wc -l)"
+
+      - name: Sync smartphone reports
+        run: |
+          echo "=== Syncing reports from cn-smartphone-analysis repo ==="
+          mkdir -p reports
+
+          if [ -d "_smartphone_source/reports" ]; then
+            for dir in _smartphone_source/reports/*/; do
+              if [ -d "$dir" ]; then
+                report_name=$(basename "$dir")
+                # .DS_Store 등 숨김 파일/폴더 제외
+                if [[ "$report_name" == .* ]]; then continue; fi
+
+                mkdir -p "reports/$report_name"
+
+                # report.html 복사
+                if [ -f "$dir/report.html" ]; then
+                  cp "$dir/report.html" "reports/$report_name/"
+                  echo "  Copied: $report_name/report.html"
+                fi
+
+                # images 폴더 복사
+                if [ -d "$dir/images" ]; then
+                  mkdir -p "reports/$report_name/images"
+                  cp -r "$dir/images/"* "reports/$report_name/images/" 2>/dev/null
+                  echo "  Copied: $report_name/images/"
+                fi
+              fi
+            done
+          fi
+
+          echo "Total reports: $(find reports -name 'report.html' | wc -l)"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build all pages
+        run: python build.py
+
+      - name: Clean up sources
+        run: rm -rf _ithome_source _smartphone_source
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git add -A
+          if git diff --staged --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes to sync"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected, will commit"
+          fi
+
+      - name: Commit and push
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "sync: update blog content $(date +%Y-%m-%d)"
+          git push
