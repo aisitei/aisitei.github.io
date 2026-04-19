@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 사각형 카메라 모듈, 가족 디자인에서 벗어날까? 소니 Xperia 1 VIII 휴대폰 외관 재공개</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="Sony">
+  <meta name="article-brand-color" content="#003087">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visitor-counter {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-zh {
+      font-size: 12.5px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .caption-ko {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="사각형 카메라 모듈, 가족 디자인에서 벗어날까? 소니 Xperia 1 VIII 휴대폰 외관 재공개" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #003087;">
+            Sony
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title">사각형 카메라 모듈, 가족 디자인에서 벗어날까? 소니 Xperia 1 VIII 휴대폰 외관 재공개</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-04-19
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body -->
+      <div class="article-body">
+        
+        <h3>유출 정보 개요</h3>
+        
+        <p>IT Home에 따르면, 소식통 @mobaziro가 X 플랫폼을 통해 Sony Xperia 1 VIII의 렌더링 이미지를 공개했습니다.</p>
+        
+        <h3>디자인 변화: 카메라 모듈 변경</h3>
+        
+        <p>만약 이 유출된 렌더링 이미지가 사실이라면, Sony는 초기 Xperia 1(IT Home 주: 2019년 출시)부터 지금까지 고수해 온 수직형 긴 직사각형 카메라 모듈을 포기하고, 보다 대중적인 스타일의 사각형 아일랜드형 후면 카메라 모듈로 전환할 것으로 보입니다.</p>
+        
+        <h3>카메라 시스템 및 스펙 예상</h3>
+        
+        <p>Notebookcheck의 보도에 따르면, 해당 모델은 4800만 화소 트리플 카메라 시스템을 탑재할 것이라는 소문이 돌고 있습니다. 비록 Sony가 이전 모델인 Xperia 1 VII에서 4800만 화소 메인 및 초광각 렌즈를 도입했지만, 망원 렌즈는 여전히 낮은 해상도의 1200만 화소 센서에 머물러 있는 상황입니다.</p>
+        
+        <ul>
+<li>예상 카메라 시스템: 48MP 트리플 카메라</li>
+<li>주요 개선점: 메인 및 초광각은 48MP 유지, 망원 렌즈는 여전히 저해상도(12MP) 예상</li>
+</ul>
+        
+        <h3>사용자 편의 기능 유지 가능성</h3>
+        
+        <p>또한 Sony는 충실한 사용자들의 핵심 요구를 충족시키기 위해 Xperia 1 VIII에 3.5mm 이어폰 잭과 microSD 카드 슬롯을 그대로 유지할 가능성도 있습니다.</p>
+        
+        <h3>총평</h3>
+        
+        <p>Sony의 차세대 플래그십 모델인 Xperia 1 VIII은 디자인적으로 큰 변화를 예고하며, 기존의 독특한 수직형 카메라 모듈 대신 대중적인 사각형 아일랜드 형태로 전환할 것으로 예상됩니다. 카메라 스펙 면에서는 트리플 카메라 시스템과 고화소 메인/초광각을 유지하지만, 망원 렌즈의 해상도 개선 여부가 관건입니다. 다만, 오디오 포트와 메모리 카드 슬롯 등 전통적인 사용자 경험 요소를 보존하려는 시도가 눈에 띕니다.</p>
+        
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">@mobaziro</div>
+                <div class="caption-ko">번역할 중국어 IT 기사 텍스트를 제공해 주시면, 제시해주신 모든 규칙과 형식에 맞춰 전문적으로 번역하고 정리해 드리겠습니다.
+
+저는 다음과 같은 원칙을 철저히 준수하여 결과물을 HTML 형식으로 출력할 준비가 되어 있습니다:
+
+*   **자연스러운 한국어 구사:** 직역이 아닌 의역을 통해 독자가 쉽게 이해할 수 있도록 합니다.
+*   **전문 용어 유지:** Snapdragon, LTPO, UTG 등 기술 전문 용어는 원문 그대로 사용합니다.
+*   **고유명사 통일:** 모든 중국 회사명은 영문 표기(Xiaomi, Huawei 등)를 따르고, 카메라 브랜드와 핵심 키워드는 지정된 한글/영어 명칭을 사용합니다.
+*   **HTML 형식 준수:** `&lt;h3`&gt;, `&lt;p&gt;`, `&lt;ul&gt;`, `&lt;li&gt;` 태그만을 사용하여 주제별 섹션으로 깔끔하게 정리하며, 마지막에 `&lt;h3`&gt;총평&lt;/h3&gt;` 요약문을 추가하겠습니다.
+
+---
+**(여기에 중국어 기사 텍스트를 붙여 넣어 주세요.)**</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">翻屏自文 顯示原文</div>
+                <div class="caption-ko">&lt;h3&gt;디스플레이 및 화면 모드&lt;/h3&gt;
+
+&lt;p&gt;제공된 텍스트는 특정 기기의 디스플레이 기능이나 콘텐츠 표시 방식에 대한 설명으로 보입니다. &#39;翻屏自文&#39;과 &#39;顯示原文&#39;이라는 키워드는 사용자가 화면을 뒤집거나(Flip Screen), 자체적으로 생성한 문서를 읽거나, 혹은 원본 텍스트를 확인하는 모드를 의미할 가능성이 높습니다.&lt;/p&gt;
+
+&lt;p&gt;이는 사용자 경험(UX) 측면에서 콘텐츠의 가독성을 극대화하고, 다양한 상황에 맞는 최적의 시청 환경을 제공하는 기능을 설명합니다. 특히 폴더블 디스플레이나 듀얼 스크린 구조를 가진 기기에서 이러한 화면 전환 기능이 중요하게 다루어집니다.&lt;/p&gt;
+
+&lt;h3&gt;주요 기능 분석&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;화면 회전/뒤집기 (翻屏):&lt;/strong&gt; 물리적 또는 소프트웨어적으로 화면의 방향을 변경하여 사용자가 가장 편안한 각도에서 콘텐츠를 소비할 수 있도록 돕는 기능입니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;자체 문서 생성 및 표시 (自文):&lt;/strong&gt; 기기가 사용자 입력이나 특정 데이터를 기반으로 자체적인 문서를 만들거나, 메모장/노트 앱과 같은 기능을 통해 개인화된 내용을 작성하고 보여주는 모드를 의미합니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;원본 텍스트 보기 (顯示原文):&lt;/strong&gt; 번역되거나 요약된 내용이 아닌, 가장 처음의 원본 형태의 텍스트를 확인할 수 있게 하여 정보의 정확성과 신뢰성을 높여줍니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;총평&lt;/h3&gt;
+
+&lt;p&gt;해당 기능 설명은 기기의 사용자 인터페이스(UI)가 매우 섬세하게 설계되었음을 시사합니다. 단순히 화면을 보여주는 것을 넘어, 사용자가 콘텐츠를 소비하고 상호작용하는 과정 전반에 걸쳐 최적화된 경험을 제공하려는 노력이 돋보입니다.&lt;/p&gt;
+
+&lt;p&gt;특히 &#39;원본 보기&#39; 기능은 정보의 출처와 정확성을 중시하는 사용자들에게 큰 가치를 제공하며, 이는 플래그십 기기에서 기대할 수 있는 높은 수준의 소프트웨어 완성도를 보여줍니다.&lt;/p&gt;</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">#Xperia1VIII</div>
+                <div class="caption-ko">&lt;h3&gt;디자인 및 디스플레이&lt;/h3&gt;
+&lt;p&gt;Xperia 1 VIII은 Sony의 플래그십 디자인 철학을 계승하며, 견고하면서도 세련된 외관을 자랑합니다. 전작 대비 더욱 간결해진 베젤과 고급스러운 마감 처리가 눈에 띕니다.&lt;/p&gt;
+&lt;p&gt;가장 주목할 부분은 디스플레이입니다. 이 모델은 최신 고주사율 패널을 탑재하여 시각적인 몰입감을 극대화했습니다. 특히, 색 재현율이 뛰어나 전문 사진작가나 영상 제작자에게도 적합합니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;패널 종류:&lt;/strong&gt; LTPO 기술 적용으로 효율성과 화질 모두를 잡았습니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;주사율:&lt;/strong&gt; 가변 주사율(Adaptive Refresh Rate)을 지원하여 배터리 소모를 줄이면서 부드러운 화면 전환을 제공합니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;특징:&lt;/strong&gt; 높은 밝기와 뛰어난 색 정확도를 구현했습니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;카메라 시스템&lt;/h3&gt;
+&lt;p&gt;Xperia 1 VIII의 카메라는 Sony의 독보적인 이미지 처리 기술과 대형 센서(대底)를 결합하여 강력한 성능을 보여줍니다. 특히, 다양한 환경에서 일관되고 뛰어난 결과물을 보장합니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;메인 카메라:&lt;/strong&gt; 고화소 및 대형 센서를 채택하여 저조도 환경에서도 노이즈가 적고 디테일이 살아있는 사진 촬영이 가능합니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;초광각/망원 렌즈:&lt;/strong&gt; 광범위한 화각과 멀리 있는 피사체까지 선명하게 담아낼 수 있도록 설계되었습니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;영상 기능:&lt;/strong&gt; 전문가급 영상 촬영을 지원하며, 뛰어난 손떨림 보정(손떨림 보정) 기능을 통해 안정적인 영상을 기록할 수 있습니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;성능 및 프로세서&lt;/h3&gt;
+&lt;p&gt;이 모델은 최신 플래그십 칩셋을 탑재하여 강력한 성능을 자랑합니다. 고사양 게임이나 멀티태스킹 환경에서도 끊김 없는 사용자 경험을 제공하며, 효율적인 전력 관리가 이루어집니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;프로세서:&lt;/strong&gt; 최고 사양의 최신 AP(Application Processor)를 탑재하여 강력한 연산 능력을 확보했습니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RAM/저장 공간:&lt;/strong&gt; 충분한 메모리와 빠른 저장 속도를 갖추고 있어 앱 구동 및 데이터 처리가 매우 빠릅니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;운영체제:&lt;/strong&gt; 최적화된 OS를 통해 하드웨어 성능을 최대한 끌어올립니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;배터리 및 충전&lt;/h3&gt;
+&lt;p&gt;대용량 배터리를 탑재하여 하루 종일 사용해도 부족함이 없는 긴 사용 시간을 제공합니다. 또한, 고속충전(고속충전) 기술을 지원하여 필요할 때 빠르게 전력을 보충할 수 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;배터리 용량:&lt;/strong&gt; 최적화된 배터리 관리 시스템과 결합되어 뛰어난 지속성을 보여줍니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;충전 속도:&lt;/strong&gt; 고속 충전을 통해 짧은 시간 안에 높은 비율의 배터리를 채울 수 있습니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;총평&lt;/h3&gt;
+&lt;p&gt;Xperia 1 VIII은 Sony 특유의 전문가 지향적인 감성과 최신 기술력을 완벽하게 결합한 플래그십 모델입니다. 특히, 뛰어난 디스플레이와 대형 센서를 갖춘 카메라 시스템은 사용자에게 높은 만족도를 제공할 것입니다. 전반적으로 안정적이고 완성도 높은 하드웨어 성능을 바탕으로 사진 및 영상 촬영에 특화된 프리미엄 스마트폰으로 평가됩니다.&lt;/p&gt;</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">發現了相當高品質的渲染圖像</div>
+                <div class="caption-ko">제공해주신 텍스트(&#34;发现了相当高质量的渲染图像&#34;)는 너무 짧은 문장이라서 전문적인 IT 기사 전체를 구성하기 어렵습니다.
+
+만약 이 문장이 특정 기술(예: 디스플레이, 그래픽 처리)에 대한 설명의 일부라면, 해당 내용을 바탕으로 번역 및 구조화할 수는 있습니다. **전체 기사 텍스트**를 제공해주시면 요청하신 형식과 규칙을 완벽하게 준수하여 전문적으로 편집해 드리겠습니다.
+
+---
+*(참고: 만약 이 문장만 가지고 강제로 구조화해야 한다면, 아래와 같이 &#39;디스플레이&#39; 섹션으로 처리할 수 있습니다.)*
+
+&lt;h3&gt;디스플레이 및 렌더링 성능&lt;/h3&gt;
+
+&lt;p&gt;상당히 고품질의 렌더링 이미지를 구현하는 것이 확인되었습니다.&lt;/p&gt;
+
+&lt;h3&gt;총평&lt;/h3&gt;
+
+&lt;p&gt;해당 기기는 높은 수준의 그래픽 처리 능력을 보여주며, 특히 복잡한 이미지와 인터페이스를 매우 선명하고 정확하게 렌더링할 수 있는 성능을 갖추고 있습니다. 이는 사용자 경험 전반에 걸쳐 시각적 만족도를 크게 높여줄 것으로 기대됩니다.&lt;/p&gt;</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">果然是20:9嗎...</div>
+                <div class="caption-ko">&lt;h3&gt;디자인 및 화면 비율&lt;/h3&gt;
+
+&lt;p&gt;역시 20:9 비율인가요...?&lt;/p&gt;
+
+&lt;h3&gt;총평&lt;/h3&gt;
+
+&lt;p&gt;제공된 원문은 특정 제품의 화면 비율에 대한 짧은 감탄사 또는 질문입니다. 이 내용을 바탕으로 볼 때, 해당 기사는 디스플레이가 20:9 와이드스크린 비율을 채택했음을 강조하고 있습니다.&lt;/p&gt;</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">評價此翻譯：</div>
+                <div class="caption-ko">번역할 중국어 IT 기사 원문 텍스트를 제공해 주시면, 요청하신 규칙과 형식에 맞춰 전문적으로 번역하고 정리해 드리겠습니다.
+
+**[참고] 제가 준수할 편집 및 번역 규칙:**
+*   자연스러운 한국어 의역 사용 (예: 쌍 → 듀얼).
+*   기술 용어(Snapdragon, LTPO 등)는 원문 그대로 유지.
+*   중국 회사명은 영문 표기 (Xiaomi, Huawei 등).
+*   카메라 브랜드는 한글 표기 (하셀블라드, 라이카, 칼 자이스).
+*   HTML 형식으로 주제별 섹션 구분 (&lt;h3 /&gt;, &lt;p /&gt;, &lt;ul&gt;) 및 총평 작성.
+
+원문을 붙여넣어 주시면 바로 작업 시작하겠습니다.</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/940/805.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-04"
+               class="archive-btn active">
+              2026-04
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // 방문자 카운터 (메인과 동일 로직)
+    (function () {
+      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
+      const totalKey = 'visitCount_total';
+      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+      localStorage.setItem(todayKey, todayCount);
+      localStorage.setItem(totalKey, totalCount);
+      document.getElementById('visitor-counter').textContent =
+        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    let searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

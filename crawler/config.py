@@ -97,6 +97,11 @@ KEYWORDS_EXCLUDE = [
     # 게임 신작/플레이 — "游戏" 단독은 "游戏手机"(게이밍폰)와 충돌하므로 문맥 한정 키워드만
     "游戏新作", "新作游戏", "游玩形式", "免费游玩", "游戏玩法", "玩家阵营",
     "PlayStation", "Xbox", "任天堂", "Nintendo", "Steam平台",
+    # 영화 / 영화관 / 헐리우드 IP (镜头 등 카메라 키워드 우회 방지)
+    "迪士尼", "漫威", "复联", "终局之战", "重映", "影院", "巨幕", "银幕",
+    "Marvel", "Disney", "Pixar",
+    # 군사 / 국방 (无人机 키워드 우회 방지)
+    "美军", "军方", "军舰", "舰艇", "国防部", "军用", "蜂群", "战机", "导弹",
     # 기타 주변기기
     "路由器", "充电器", "数据线", "移动电源",
     # 인사 / 기업 일반 뉴스
@@ -109,9 +114,19 @@ KEYWORDS_EXCLUDE = [
 
 KEYWORDS = KEYWORDS_CAMERA + KEYWORDS_PHONE_EXPLICIT + KEYWORDS_AI
 
-# LLM 설정 (Ollama 전용)
-OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434/v1")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gemma4:e4b")
+# LLM 설정 (LM Studio / Ollama 등 OpenAI 호환 로컬 서버)
+# - 기본값은 LM Studio (포트 1234). Ollama 등 다른 서버를 쓰면
+#   LLM_BASE_URL 환경변수로 덮어쓰세요 (예: http://localhost:11434/v1).
+# - 구버전 OLLAMA_BASE_URL/OLLAMA_MODEL 환경변수도 fallback으로 인식합니다.
+LLM_BASE_URL = os.getenv("LLM_BASE_URL") or os.getenv(
+    "OLLAMA_BASE_URL", "http://localhost:1234/v1"
+)
+LLM_MODEL = os.getenv("LLM_MODEL") or os.getenv("OLLAMA_MODEL", "google/gemma-4-e4b")
+LLM_API_KEY = os.getenv("LLM_API_KEY", "lm-studio")  # LM Studio·Ollama 모두 임의 문자열 허용
+
+# 하위 호환 alias — 기존 코드/스크립트가 OLLAMA_* 이름을 참조하더라도 동작하도록 노출.
+OLLAMA_BASE_URL = LLM_BASE_URL
+OLLAMA_MODEL = LLM_MODEL
 
 TITLE_TRANSLATE_PROMPT = "당신은 중국어 IT 기사 제목을 한국어로 번역하는 번역가입니다. 한국어 번역문만 출력하고 다른 텍스트는 절대 추가하지 마세요."
 
@@ -144,16 +159,22 @@ DEEP_CAMERA_PROMPT_SUFFIX = """
 - 카메라 모듈 디자인·배치 설명"""
 
 # OCR 설정
-# - OCR_BACKEND: "ollama" (기본) | "mcp"
-#   · ollama: 아래 OLLAMA_VISION_MODEL 을 사용해 로컬 Ollama 서버에서 OCR.
-#   · mcp:    OCR_MCP_URL 의 사내 MCP OCR 서버 호출.
+# - OCR_BACKEND: "llm" (기본) | "mcp"
+#   · llm: 아래 LLM_VISION_MODEL 을 사용해 로컬 LLM 서버(LM Studio/Ollama)에서 OCR.
+#   · mcp: OCR_MCP_URL 의 사내 MCP OCR 서버 호출.
 # - OCR_ENABLED: 기본 true. 비활성화하려면 환경변수 OCR_ENABLED=false.
 OCR_ENABLED = os.getenv("OCR_ENABLED", "true").lower() == "true"
-OCR_BACKEND = os.getenv("OCR_BACKEND", "ollama").lower()
+# 구 'ollama' 값도 'llm'과 동일하게 처리 (하위 호환).
+_ocr_backend_raw = os.getenv("OCR_BACKEND", "llm").lower()
+OCR_BACKEND = "llm" if _ocr_backend_raw == "ollama" else _ocr_backend_raw
 OCR_MCP_URL = os.getenv("OCR_MCP_URL", "http://localhost:9000/mcp")
-# Ollama vision 모델 — 기본은 번역용 OLLAMA_MODEL 과 동일(gemma4:e4b).
-# 전용 비전 모델을 쓰려면 OLLAMA_VISION_MODEL 환경변수로 덮어쓰세요.
-OLLAMA_VISION_MODEL = os.getenv("OLLAMA_VISION_MODEL", OLLAMA_MODEL)
+# LLM 비전 모델 — 기본은 번역용 LLM_MODEL 과 동일(gemma4:e4b).
+# 전용 비전 모델을 쓰려면 LLM_VISION_MODEL 환경변수로 덮어쓰세요.
+LLM_VISION_MODEL = os.getenv("LLM_VISION_MODEL") or os.getenv(
+    "OLLAMA_VISION_MODEL", LLM_MODEL
+)
+# 하위 호환 alias
+OLLAMA_VISION_MODEL = LLM_VISION_MODEL
 
 # 이미지 캡션 — 기사당 최대 OCR 이미지 수 (대용량 갤러리 방어).
 OCR_MAX_IMAGES_PER_ARTICLE = int(os.getenv("OCR_MAX_IMAGES_PER_ARTICLE", "15"))

@@ -1,7 +1,8 @@
 """
-Ollama 번역기 (gemma4:e4b)
+로컬 LLM 번역기 (LM Studio / Ollama 등 OpenAI 호환 서버)
 
-로컬 Ollama 서버에서 OpenAI 호환 API를 통해 번역합니다.
+기본 백엔드는 LM Studio (http://localhost:1234/v1, gemma4:e4b).
+LLM_BASE_URL / LLM_MODEL / LLM_API_KEY 환경변수로 다른 서버·모델을 지정할 수 있습니다.
 glossary.json의 단어장을 번역 전 소스 텍스트에 적용하고,
 시스템 프롬프트에도 주입합니다.
 """
@@ -15,7 +16,7 @@ import config
 
 logger = logging.getLogger(__name__)
 
-_ollama_client = None
+_llm_client = None
 
 
 # ── 단어장 로딩 ──────────────────────────────────────────────────────────────
@@ -60,17 +61,17 @@ def _build_glossary_prompt() -> str:
     return "\n\n**고유명사 단어장 (반드시 준수)**:\n" + "\n".join(lines)
 
 
-# ── Ollama 클라이언트 ─────────────────────────────────────────────────────────
+# ── 로컬 LLM 클라이언트 (LM Studio / Ollama OpenAI 호환) ────────────────────
 
 def _get_client():
-    global _ollama_client
-    if _ollama_client is None:
+    global _llm_client
+    if _llm_client is None:
         from openai import OpenAI
-        _ollama_client = OpenAI(
-            base_url=config.OLLAMA_BASE_URL,
-            api_key="ollama",
+        _llm_client = OpenAI(
+            base_url=config.LLM_BASE_URL,
+            api_key=config.LLM_API_KEY,
         )
-    return _ollama_client
+    return _llm_client
 
 
 def _chat(system: str, user: str, temperature: float = 0.3,
@@ -78,7 +79,7 @@ def _chat(system: str, user: str, temperature: float = 0.3,
     try:
         client = _get_client()
         response = client.chat.completions.create(
-            model=config.OLLAMA_MODEL,
+            model=config.LLM_MODEL,
             messages=[
                 {"role": "system", "content": system},
                 {"role": "user", "content": user},
@@ -93,7 +94,7 @@ def _chat(system: str, user: str, temperature: float = 0.3,
         text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL).strip()
         return text if text else None
     except Exception as e:
-        logger.error(f"Ollama API 호출 실패: {e}")
+        logger.error(f"LLM API 호출 실패 ({config.LLM_BASE_URL}, {config.LLM_MODEL}): {e}")
         return None
 
 
@@ -112,6 +113,53 @@ def translate_text(chinese_text: str, category: str = "") -> Optional[str]:
         temperature=0.3,
         max_tokens=4096,
     )
+
+
+# ── 캡션 전용 짧은 텍스트 번역 ────────────────────────────────────────────────
+# OCR 결과가 종종 단어/짧은 문구("예약 알림", "휴대폰 번호")이므로 기사 본문용
+# 시스템 프롬프트(HTML 섹션·헤더·총평 출력)를 쓰면 모델이 "본문 부족" 같은
+# 메타 응답을 길게 출력합니다. 캡션 전용 한 줄 번역기를 별도로 둡니다.
+
+CAPTION_TRANSLATE_PROMPT = (
+    "당신은 중국어 IT 이미지 캡션을 한국어로 번역하는 번역가입니다. "
+    "입력은 이미지에서 OCR로 추출한 짧은 문장 또는 라벨일 수 있습니다. "
+    "그 입력 자체를 자연스러운 한국어로 한 줄로 번역해서 출력하세요. "
+    "고유명사·브랜드·모델명은 영문 표기를 유지하세요 (예: 小米→Xiaomi, 华为→Huawei, 天玑→Dimensity). "
+    "절대로 설명·주석·따옴표·마크다운·여러 줄·번역이 부족하다는 메타 답변을 추가하지 마세요. "
+    "오직 번역 결과 한 줄만 출력하세요."
+)
+
+# 모델이 종종 출력하는 메타 응답을 거르기 위한 패턴.
+_META_PATTERNS = re.compile(
+    r"(전체\s*기사|기사\s*본문|원문\s*텍스트|충분한\s*분량|제공해\s*주시|다시\s*첨부|다시\s*제공|"
+    r"번역을\s*원하|편집해\s*드리|번역\s*규칙|출력\s*형식|HTML\s*구조|편집자로서|sufficient|provide)",
+    re.IGNORECASE,
+)
+
+
+def translate_caption(chinese_text: str) -> Optional[str]:
+    """이미지 캡션용 짧은 중국어 한 줄 번역. 메타 응답·여러 줄은 거름."""
+    text = chinese_text.strip()
+    if not text:
+        return None
+    text = apply_glossary(text)
+    out = _chat(
+        system=CAPTION_TRANSLATE_PROMPT + _build_glossary_prompt(),
+        user=text,
+        temperature=0.1,
+        max_tokens=192,
+    )
+    if not out:
+        return None
+    # 첫 줄만, 따옴표 정리
+    out = out.split("\n", 1)[0].strip().strip('"').strip("'").strip()
+    if not out:
+        return None
+    # 메타 응답 거르기 (긴 안내문이면 출력 폐기)
+    if len(out) > max(80, len(text) * 6) or _META_PATTERNS.search(out):
+        logger.warning(f"caption translate dropped meta-text: {out[:60]}...")
+        return None
+    return out
 
 
 def translate_title(chinese_title: str, category: str = "") -> Optional[str]:

@@ -280,11 +280,13 @@ def run_pipeline(limit: int = 0):
     # 3. OCR (선택)
     if config.OCR_ENABLED:
         logger.info("[3/5] 이미지 OCR...")
-        from translator import translate_text
+        # 캡션 전용 짧은 텍스트 번역기 사용 (기사 본문용 프롬프트는 짧은
+        # OCR 결과에 대해 메타 응답을 길게 출력하는 문제가 있어 분리).
+        from translator import translate_caption
         for ta in translated_articles:
             if ta.original.image_urls:
                 ta.image_translations = process_image_translations(
-                    ta.original.image_urls, translate_text,
+                    ta.original.image_urls, translate_caption,
                 )
     else:
         logger.info("[3/5] OCR 비활성화 - 건너뜀")

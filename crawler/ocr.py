@@ -1,13 +1,13 @@
 """
 이미지 OCR 인터페이스.
 
-기본 백엔드는 로컬 Ollama 비전 모델(OLLAMA_VISION_MODEL)이며, 필요 시
-config.OCR_BACKEND='mcp' 로 사내 MCP OCR 서버를 사용할 수 있습니다.
+기본 백엔드는 로컬 LLM 비전 모델(LLM_VISION_MODEL, OpenAI 호환). LM Studio
+혹은 Ollama 어느 쪽이든 동일한 chat/completions 엔드포인트로 호출합니다.
 
-설치 예 (기본):
-    ollama pull qwen2.5vl:7b
-    # 또는
-    OLLAMA_VISION_MODEL=minicpm-v ollama pull minicpm-v
+설정 예:
+    LM Studio (기본):  포트 1234, gemma4:e4b 모델 로드
+    Ollama:            LLM_BASE_URL=http://localhost:11434/v1 \\
+                        LLM_VISION_MODEL=qwen2.5vl:7b
 
 MCP 백엔드 사용 시:
     OCR_BACKEND=mcp OCR_MCP_URL=http://... 로 환경변수를 지정합니다.
@@ -25,7 +25,7 @@ import config
 
 logger = logging.getLogger(__name__)
 
-_ollama_vision_client = None
+_llm_vision_client = None
 
 
 @dataclass
@@ -111,27 +111,27 @@ def call_ocr_mcp(image_base64: str) -> Optional[str]:
         return None
 
 
-def _get_ollama_vision_client():
-    global _ollama_vision_client
-    if _ollama_vision_client is None:
+def _get_llm_vision_client():
+    global _llm_vision_client
+    if _llm_vision_client is None:
         from openai import OpenAI
-        _ollama_vision_client = OpenAI(
-            base_url=config.OLLAMA_BASE_URL,
-            api_key="ollama",
+        _llm_vision_client = OpenAI(
+            base_url=config.LLM_BASE_URL,
+            api_key=config.LLM_API_KEY,
         )
-    return _ollama_vision_client
+    return _llm_vision_client
 
 
-def call_ollama_vision_ocr(image_base64: str, mime: str = "image/jpeg") -> Optional[str]:
-    """로컬 Ollama 비전 모델로 이미지 속 중국어 텍스트를 추출합니다.
+def call_llm_vision_ocr(image_base64: str, mime: str = "image/jpeg") -> Optional[str]:
+    """로컬 LLM 비전 모델(LM Studio/Ollama)로 이미지 속 중국어 텍스트를 추출합니다.
 
     OpenAI 호환 chat/completions 엔드포인트에 image_url(base64 data URI)를 전달.
-    모델이 설치되어 있지 않거나 호출이 실패하면 None을 반환합니다.
+    모델이 로드/설치되어 있지 않거나 호출이 실패하면 None을 반환합니다.
     """
     try:
-        client = _get_ollama_vision_client()
+        client = _get_llm_vision_client()
         response = client.chat.completions.create(
-            model=config.OLLAMA_VISION_MODEL,
+            model=config.LLM_VISION_MODEL,
             messages=[
                 {
                     "role": "user",
@@ -157,10 +157,14 @@ def call_ollama_vision_ocr(image_base64: str, mime: str = "image/jpeg") -> Optio
         return text or None
     except Exception as e:
         logger.warning(
-            f"Ollama vision OCR 실패 ({config.OLLAMA_VISION_MODEL}): {e}. "
-            f"모델이 설치되지 않았다면 `ollama pull {config.OLLAMA_VISION_MODEL}` 실행."
+            f"LLM vision OCR 실패 ({config.LLM_BASE_URL}, {config.LLM_VISION_MODEL}): {e}. "
+            f"LM Studio·Ollama가 실행 중이고 모델이 로드되어 있는지 확인하세요."
         )
         return None
+
+
+# 하위 호환 alias
+call_ollama_vision_ocr = call_llm_vision_ocr
 
 
 def call_ocr_rest_api(image_base64: str) -> Optional[str]:
@@ -200,7 +204,7 @@ def extract_image_text(image_url: str) -> Optional[str]:
     """이미지에서 중국어 텍스트를 추출합니다.
 
     OCR이 비활성화되어 있으면 None을 반환합니다.
-    config.OCR_BACKEND('ollama' 기본 | 'mcp')에 따라 백엔드를 선택합니다.
+    config.OCR_BACKEND('llm' 기본 | 'mcp')에 따라 백엔드를 선택합니다.
     """
     if not config.OCR_ENABLED:
         return None
@@ -220,11 +224,11 @@ def extract_image_text(image_url: str) -> Optional[str]:
     b64 = image_to_base64(image_bytes)
     mime = _detect_mime(image_bytes)
 
-    backend = getattr(config, "OCR_BACKEND", "ollama").lower()
+    backend = getattr(config, "OCR_BACKEND", "llm").lower()
     if backend == "mcp":
         text = call_ocr_mcp(b64)
     else:
-        text = call_ollama_vision_ocr(b64, mime=mime)
+        text = call_llm_vision_ocr(b64, mime=mime)
 
     if not text:
         return None
