@@ -15,6 +15,7 @@ MCP 백엔드 사용 시:
 import base64
 import io
 import logging
+import re
 from typing import Optional
 from dataclasses import dataclass
 
@@ -238,6 +239,56 @@ def extract_image_text(image_url: str) -> Optional[str]:
     return text
 
 
+# Weibo/Twitter/WeChat 스크린샷에서 흔히 잡히는 UI chrome — 완전 일치 시 폐기.
+_UI_CHROME_EXACT = {
+    "翻译", "翻譯", "显示原文", "顯示原文", "显示译文", "顯示譯文",
+    "评价此翻译", "評價此翻譯", "翻屏自文",
+    "转发", "轉發", "转载", "轉載", "评论", "評論", "点赞", "點讚",
+    "收藏", "关注", "關注", "取消关注", "分享",
+    "更多", "加载更多", "載入更多", "查看更多", "查看原文", "查看全文",
+    "回复", "回覆", "私信", "关闭", "關閉", "展开", "收起",
+}
+
+_TOKEN_SPLIT_RE = re.compile(r"[\s:：\.·\-–—!！?？,，、;；|｜/／]+")
+_CJK_RE = re.compile(r"[\u4e00-\u9fff]")
+_WATERMARK_RE = re.compile(r"(it之家|ithome\.com|www\.)", re.IGNORECASE)
+
+
+def _is_all_ui_chrome(line: str) -> bool:
+    """공백·구두점으로 분해한 모든 토큰이 UI chrome 단어이면 True.
+    예: '翻屏自文 顯示原文' → True (Weibo 번역 토글 UI 두 개가 같이 OCR된 케이스)"""
+    tokens = [t for t in _TOKEN_SPLIT_RE.split(line) if t]
+    if not tokens:
+        return False
+    return all(t in _UI_CHROME_EXACT for t in tokens)
+
+
+def _filter_caption_lines(raw: str) -> list[str]:
+    """OCR 결과를 캡션 후보 문장으로 정리.
+    - CJK 한 글자 이상 포함 필수 (`@handle`/`#hashtag` 등 ASCII-only 잡음 제거)
+    - IT之家 워터마크 제거
+    - 소셜 미디어 UI chrome 단어로만 구성된 라인 제거
+    - 공백 trim 후 2자 미만·중복 제외
+    """
+    lines = [ln.strip() for ln in raw.split("\n") if ln.strip()]
+    out: list[str] = []
+    seen: set[str] = set()
+    for ln in lines:
+        if not _CJK_RE.search(ln):
+            continue
+        if _WATERMARK_RE.search(ln):
+            continue
+        if _is_all_ui_chrome(ln):
+            continue
+        if len(ln) < 2 or ln in seen:
+            continue
+        seen.add(ln)
+        out.append(ln)
+        if len(out) >= 6:
+            break
+    return out
+
+
 def process_image_translations(
     image_urls: list[str],
     translate_fn,
@@ -249,7 +300,9 @@ def process_image_translations(
 
     Args:
         image_urls: 이미지 URL 목록
-        translate_fn: 중국어→한국어 번역 함수 (translator.translate_text)
+        translate_fn: 중국어→한국어 번역 함수 (권장: translator.translate_caption).
+            translate_text 같은 기사 본문용 번역기를 쓰면 짧은 캡션에 대해 모델이
+            장황한 메타 답변을 반환할 수 있으므로 주의.
 
     Returns:
         {이미지URL: [ImageTranslation, ...]} 딕셔너리
@@ -262,13 +315,12 @@ def process_image_translations(
         if not chinese_text:
             continue
 
-        # 문장 단위로 분리 — 너무 짧은 조각(아이콘 레이블 등)은 제외
-        sentences = [s.strip() for s in chinese_text.split("\n") if s.strip() and len(s.strip()) >= 2]
+        sentences = _filter_caption_lines(chinese_text)
         if not sentences:
             continue
 
         translations = []
-        for sentence in sentences[:6]:  # 이미지당 최대 6문장
+        for sentence in sentences:
             korean = translate_fn(sentence)
             if korean:
                 translations.append(ImageTranslation(
