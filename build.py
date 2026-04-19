@@ -311,6 +311,128 @@ def archive_months(articles: list[dict]) -> list[tuple[str, int]]:
     return sorted(counts.items(), reverse=True)
 
 
+# ── "공사 중" 페이지 ─────────────────────────────────────────────────────────
+
+def build_under_construction_page(
+    title: str,
+    heading: str,
+    message: str,
+    active_nav: str,  # "index" or "smartphone"
+) -> str:
+    """아직 콘텐츠가 없는 섹션용 페이지. 헤더·네비는 유지하고 본문은 파비콘 +
+    안내 문구만 중앙 정렬로 보여준다.
+    """
+    index_active = ' class="nav-active"' if active_nav == "index" else ""
+    phone_active = ' class="nav-active"' if active_nav == "smartphone" else ""
+
+    return f'''<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title} | AI시테이 블로그</title>
+  <link rel="icon" href="assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <style>
+    :root {{
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }}
+    *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    html, body {{
+      background: var(--bg); color: var(--text); min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+    }}
+    a {{ color: inherit; text-decoration: none; }}
+
+    .site-header {{
+      position: sticky; top: 0; z-index: 100; height: var(--header-height);
+      background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 20px; gap: 16px;
+    }}
+    .header-logo {{ display: flex; align-items: center; gap: 8px;
+      font-size: 17px; font-weight: 800; color: var(--text); flex-shrink: 0; }}
+    .header-logo:hover {{ color: var(--accent); }}
+    .logo-icon {{ width: 32px; height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0; }}
+    .logo-text {{ font-size: 17px; font-weight: 800; }}
+    .logo-accent {{ color: var(--accent); }}
+    .header-nav {{ display: flex; align-items: center; gap: 4px; }}
+    .header-nav a {{ padding: 6px 14px; border-radius: 6px; font-size: 14px;
+      color: var(--text-secondary); transition: background 0.15s, color 0.15s; }}
+    .header-nav a:hover, .header-nav a.nav-active {{
+      background: var(--surface); color: var(--text); }}
+    .header-nav a.nav-active {{ color: var(--accent); font-weight: 600; }}
+
+    .uc-wrap {{
+      min-height: calc(100vh - var(--header-height));
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 48px 20px; gap: 20px;
+    }}
+    .uc-icon {{
+      width: 140px; height: 140px; border-radius: 28px;
+      background: var(--bg-secondary); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px; box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+    }}
+    .uc-icon img {{ width: 100%; height: 100%; object-fit: contain; opacity: 0.95; }}
+    .uc-badge {{
+      font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--accent); font-weight: 700;
+      background: rgba(59, 130, 246, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      padding: 4px 12px; border-radius: 999px;
+    }}
+    .uc-title {{ font-size: clamp(24px, 4vw, 32px); font-weight: 800;
+      letter-spacing: -0.5px; text-align: center; }}
+    .uc-message {{ font-size: 15px; color: var(--text-secondary);
+      line-height: 1.7; text-align: center; max-width: 520px; }}
+    .uc-cta {{
+      margin-top: 4px; display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 18px; background: var(--accent); color: #fff;
+      border-radius: 10px; font-size: 14px; font-weight: 600;
+      transition: opacity 0.15s;
+    }}
+    .uc-cta:hover {{ opacity: 0.9; }}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="header-logo" href="index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="index.html"{index_active}>IT뉴스</a>
+      <a href="reports.html"{phone_active}>발표회 정리</a>
+    </nav>
+  </header>
+
+  <main class="uc-wrap">
+    <div class="uc-icon">
+      <img src="assets/images/apple-touch-icon.png" alt="공사 중">
+    </div>
+    <span class="uc-badge">🚧 Under Construction</span>
+    <h1 class="uc-title">{heading}</h1>
+    <p class="uc-message">{message}</p>
+    <a class="uc-cta" href="index.html">← IT뉴스로 돌아가기</a>
+  </main>
+</body>
+</html>
+'''
+
+
 # ── Page template ─────────────────────────────────────────────────────────────
 
 def build_page(
@@ -990,7 +1112,7 @@ def main():
     index_path.write_text(index_html, encoding="utf-8")
     print(f"Written: {index_path}")
 
-    # reports.html — articles from reports/ directory
+    # reports.html — 발표회 정리 (reports/ 디렉터리의 아티클)
     reports_dir = ROOT / "reports"
     report_articles = []
     if reports_dir.exists():
@@ -1000,7 +1122,17 @@ def main():
                 report_articles.append(meta)
         report_articles.sort(key=lambda a: a["date"] or a["month"] or "0000", reverse=True)
 
-    reports_html = build_page(report_articles, "발표회 정리 - IT뉴스", "smartphone")
+    if report_articles:
+        reports_html = build_page(report_articles, "발표회 정리 - IT뉴스", "smartphone")
+    else:
+        # 정리된 발표회가 아직 없을 때 — "공사 중" 페이지로 렌더
+        reports_html = build_under_construction_page(
+            title="발표회 정리",
+            heading="발표회 정리 페이지는 아직 준비 중입니다",
+            message="신제품 발표회·언팩 이벤트를 한국어로 정리한 콘텐츠를 곧 선보일 예정입니다. "
+                    "조만간 업데이트될 예정이니 잠시만 기다려 주세요.",
+            active_nav="smartphone",
+        )
     reports_path = ROOT / "reports.html"
     reports_path.write_text(reports_html, encoding="utf-8")
     print(f"Written: {reports_path} ({len(report_articles)} articles)")
