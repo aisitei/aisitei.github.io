@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 화웨이 Pura90 시리즈 휴대폰 출시</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Huawei">
+  <meta name="article-brand-color" content="#CF0A2C">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visitor-counter {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-zh {
+      font-size: 12.5px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .caption-ko {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="화웨이 Pura90 시리즈 휴대폰 출시" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #CF0A2C;">
+            Huawei
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title">화웨이 Pura90 시리즈 휴대폰 출시</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-04-21
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body -->
+      <div class="article-body">
+        
+        <p>Huawei Pura 시리즈와 전 영역 신제품 발표회에서 Huawei Pura 90 Pro 및 Pura 90 Pro Max 모델이 공식 출시되었습니다. 두 모델의 시작 가격은 5,499위안부터 책정되었습니다.</p>
+        
+        <h3>가격 정보</h3>
+<p>신규 모델별 상세 출고가는 다음과 같습니다:</p>
+<ul>
+<li><strong>Pura 90 Pro</strong></li>
+<li>12GB+256GB: 5,499위안</li>
+<li>12GB+512GB: 5,999위안</li>
+<li>16GB+512GB: 6,499위안</li>
+<li>16GB+1TB: 7,499위안</li>
+</ul>
+        
+        <ul>
+<li><strong>Pura 90 Pro Max</strong></li>
+<li>12GB+256GB: 6,499위안</li>
+<li>12GB+512GB: 6,999위안</li>
+<li>16GB+512GB: 7,499위안</li>
+<li>16GB+1TB: 8,499위안</li>
+</ul>
+        
+        <h3>디자인 및 디스플레이</h3>
+<p>외관 디자인 측면에서 Pura 90 Pro Max는 감성적인 색채 미학을 적용했으며, 두 모델 모두 깔끔한 바 타입 디자인을 채택했습니다. 업계 최초로 투톤 그라데이션 메탈 프레임과 광감 무한 테마를 선보이며, 총 다섯 가지 색상(오렌지 씨, 비취 호수, 노을 보라, 새벽 금, 요석 블랙)을 제공합니다.</p>
+<p>Pura 90 Pro는 핑크 바나나, 오렌지 사이다, 코코넛 화이트, 망고 블랙 네 가지 색상을 제공하며, 두 모델의 화면 크기는 Pura 90 Pro가 6.6인치, Pura 90 Pro Max가 6.9인치를 탑재하고 단일 카메라 홀 디자인을 적용했습니다.</p>
+        
+        <h3>성능 및 카메라</h3>
+<p>Pura 90 Pro와 Pro Max는 최초로 Kirin 9030S 칩을 장착했으며, 이 칩은 지능형 이미징에 특화되었다고 홍보됩니다. NPU 이미지 이해 능력은 200% 향상되었으며, AI ISP 색채 엔진은 43%, AI ISP 망원 비디오 선명도는 110%, AI ISP 망원 손떨림 보정 정밀도는 30%가 개선되었습니다.</p>
+        
+        <h3 style="margin-top: 20px;">Pura 90 Pro 카메라 스펙</h3>
+<ul>
+<li><strong>메인 카메라:</strong> 5,000만 화소 (1/1.28 대형 센서, F1.4 - 4.0 단계별 가변 조리개, RYYB)</li>
+<li>**초광각:** 1,250만 화소 (조리개 2.2, RYYB)</li>
+<li>**망원/접사:** 초점 미세 접사 망원 렌즈 및 2세대 홍풍 원색 카메라 제공</li>
+</ul>
+        
+        <h3 style="margin-top: 20px;">Pura 90 Pro Max 카메라 스펙</h3>
+<ul>
+<li><strong>메인 카메라:</strong> 초대형 센서 기반의 2억 화소 망원 렌즈 탑재</li>
+<li>**핵심 기술:** 업계 최초 2억 화소 RYYB 센서, 삼합일 초점 미세 프리즘, 2억 RAW 영역 실시간 처리 기술 적용</li>
+<li><strong>특징:</strong> 공식적으로 광량은 경쟁사 대비 5배에 달하며, 손떨림 보정 등급은 CIPA 7.0입니다. '집광 보물 상자' 메인 카메라를 통해 F1.4-F4.0 단계별 물리 가변 조리개를 지원하며, 다이나믹 레인지는 경쟁사 대비 16배 높습니다.</li>
+<li>**추가 기능:** 10미터 초장거리 음성 강화 기능을 지원합니다.</li>
+</ul>
+        
+        <h3>AI 및 소프트웨어</h3>
+<p>신규 모델은 새로운 XMAGE 스마트 촬영 기능을 탑재하여 AI 포즈 추천, AI 보조 구도, 3D 동적 사진, 인물 정교화, XMAGE 스타일 적용, 원터치 완성 등 다양한 기능을 지원합니다.</p>
+<p>하드웨어와 소프트웨어가 수직 통합된 Kirin 9030S 칩 덕분에 전체 성능이 25% 향상되었으며, 초공간 메모리 기술을 통해 12GB의 메모리로도 16GB에 준하는 사용 경험을 제공합니다.</p>
+<p>Pura 90 Pro Max는 반사 방지 및 스크래치 방지 기능이 강화된 군륜(昆仑) 글라스를 채택하여, 화면 반사를 70% 감소시키고 내스크래치성은 16배, 내충격성은 25배 향상되었습니다.</p>
+<p>Pura 90 Pro 시리즈는 HarmonyOS 6.1 운영체제를 탑재했으며, 몰입감 높은 광감 시각 효과와 새로운 AI 기능인 'AI 샤오이(小艺)가 세상을 보다'를 통해 실시간 방향 이해 및 실시간 음성 패턴 인식 기능을 추가했습니다.</p>
+        
+        <h3>총평</h3>
+<p>Huawei Pura 90 Pro 시리즈는 Kirin 9030S 칩을 기반으로 강력한 성능 향상과 함께, 특히 카메라 시스템에서 혁신적인 변화를 보여주었습니다. Pura 90 Pro Max의 초대형 센서와 2억 화소 RYYB 기술은 플래그십 스마트폰 시장에 새로운 기준을 제시합니다. 디자인 측면에서도 바 타입의 세련된 외관과 다양한 색상 옵션이 눈에
+        
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">IT 资讯</div>
+                <div class="caption-ko">IT 뉴스</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">华为 Pura90 系列</div>
+                <div class="caption-ko">Huawei Pura90 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">美学设计</div>
+                <div class="caption-ko">미학 디자인</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">出手就出彩</div>
+                <div class="caption-ko">손댈 때마다 빛을 발하다</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">华为商城 | 授权电商 | 华为体验店 | 授权零售商店</div>
+                <div class="caption-ko">Huawei 스토어 | 공식 온라인 쇼핑몰 | Huawei 체험 매장 | 공식 판매점</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">开售时间 2026.04.29 10:08</div>
+                <div class="caption-ko">판매 시작 시간 2026.04.29 10:08</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">粉红西瓜</div>
+                <div class="caption-ko">핑크 수박</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">橘子汽水</div>
+                <div class="caption-ko">오렌지 에이드</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">森林黑</div>
+                <div class="caption-ko">포레스트 블랙</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.png" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">华为商城 | 授权电商 | 华为体验店 | 授权零售商</div>
+                <div class="caption-ko">Huawei 스토어 | 공식 온라인 쇼핑몰 | Huawei 체험 매장 | 공식 판매점</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">开售时间 2026.04.29 10:08</div>
+                <div class="caption-ko">판매 시작 시간 2026.04.29 10:08</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">橘子海</div>
+                <div class="caption-ko">오렌지 바다</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">翡翠湖</div>
+                <div class="caption-ko">비취 호수</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">橙光紫</div>
+                <div class="caption-ko">주황빛 보라색</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">黑曜石</div>
+                <div class="caption-ko">흑요석</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.png" alt="이미지 4" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">专业摄影套装</div>
+                <div class="caption-ko">전문 사진 세트</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">华为商城 | 授权电商 | 华为体验店</div>
+                <div class="caption-ko">Huawei 스토어 | 공식 온라인 쇼핑몰 | Huawei 체험 매장</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">开售时间 2026.04.29 10:08</div>
+                <div class="caption-ko">판매 시작 시간 2026.04.29 10:08</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.png" alt="이미지 5" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">智能🧸憨货版</div>
+                <div class="caption-ko">스마트 곰돌이 버전</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">对话电子宠物 | 唯一萌交友 | MBTI性格</div>
+                <div class="caption-ko">대화형 전자 반려동물 | 유일한 귀여운 친구 찾기 | MBTI 성격</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">华为商城 | 授权电商 | 华为体验店</div>
+                <div class="caption-ko">Huawei 스토어 | 공식 온라인 쇼핑몰 | Huawei 체험 매장</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">开售时间 2026.04.25 10:08</div>
+                <div class="caption-ko">판매 시작 시간 2026.04.25 10:08</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.jpg" alt="이미지 6" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Pura90 Pro Max 情緒色彩美學</div>
+                <div class="caption-ko">Huawei Pura90 Pro Max 감성 컬러 미학</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">橘子海</div>
+                <div class="caption-ko">오렌지 바다</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">翡翠湖</div>
+                <div class="caption-ko">비취 호수</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">曜石黑</div>
+                <div class="caption-ko">요석 블랙</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img07.jpg" alt="이미지 7" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">IT 酷</div>
+                <div class="caption-ko">IT 멋진 것들</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">橘子汽水</div>
+                <div class="caption-ko">오렌지 에이드</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">椰青白</div>
+                <div class="caption-ko">코코넛 화이트</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img08.jpg" alt="이미지 8" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Pura90 系列</div>
+                <div class="caption-ko">Huawei Pura90 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">美學設計 出手就能</div>
+                <div class="caption-ko">미학 디자인, 바로 사용할 수 있는</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img09.jpg" alt="이미지 9" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">为智慧影像而生</div>
+                <div class="caption-ko">지능형 이미지를 위해 태어났다</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">图像理解能力</div>
+                <div class="caption-ko">이미지 이해 능력</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">A1色彩引擎</div>
+                <div class="caption-ko">A1 컬러 엔진</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">长焦视频清晰度</div>
+                <div class="caption-ko">망원 비디오 선명도</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">长焦防抖精度</div>
+                <div class="caption-ko">망원 손떨림 보정 정밀도</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">IT德</div>
+                <div class="caption-ko">IT 독일</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img10.jpg" alt="이미지 10" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">超广角像头</div>
+                <div class="caption-ko">초광각 렌즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">1250万像素 F2.2 RYYB</div>
+                <div class="caption-ko">1250만 화소, F2.2, RYYB</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">超聚光主摄</div>
+                <div class="caption-ko">초집광 메인 카메라</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">5000万像素 1/1.28&#34;大底</div>
+                <div class="caption-ko">50MP, 1/1.28인치 대형 센서</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">F1.4-F4.0 十轴物理可变光圈 OIS RYYB</div>
+                <div class="caption-ko">F1.4-F4.0 십축 물리 가변 조리개, OIS, RYYB</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">超深光微距长焦</div>
+                <div class="caption-ko">초심도 광학 접사 망원 렌즈</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img11.jpg" alt="이미지 11" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">第二代红枫原色色彩像</div>
+                <div class="caption-ko">제2세대 레드메이플 원색 컬러 이미지</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">处处真实</div>
+                <div class="caption-ko">어디에나 진실한</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img12.jpg" alt="이미지 12" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">长焦微距</div>
+                <div class="caption-ko">망원 접사</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">超近对焦距5cm</div>
+                <div class="caption-ko">초근접 촬영 거리 5cm</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">微观世界</div>
+                <div class="caption-ko">미시 세계</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img13.jpg" alt="이미지 13" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">超广角摄像头</div>
+                <div class="caption-ko">초광각 카메라</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">4000万像素 F2.2 RYYB</div>
+                <div class="caption-ko">4000만 화소, F2.2, RYYB</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">超高动态主摄</div>
+                <div class="caption-ko">초고화질 메인 카메라</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">5000万像素 1/1.28&#34;大底 LOFIC</div>
+                <div class="caption-ko">50MP, 1/1.28인치 대형 센서 LOFIC</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">F1.4-F4.0+补偿增可变光圈 OIS RYYB</div>
+                <div class="caption-ko">F1.4-F4.0+ 보정 증대 가변 조리개 OIS RYYB</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">超大底2亿长焦</div>
+                <div class="caption-ko">초대형 센서 2억 화소 망원 렌즈</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img14.jpg" alt="이미지 14" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">业界首发 2亿像素RYYB传感器</div>
+                <div class="caption-ko">업계 최초 2억 화소 RYYB 센서</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">5倍</div>
+                <div class="caption-ko">5배</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">vs A手机 17 Pro Max长焦</div>
+                <div class="caption-ko">VS A 휴대폰 17 Pro Max 망원 렌즈</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img15.jpg" alt="이미지 15" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">业界首发 三合一超聚光棱镜</div>
+                <div class="caption-ko">업계 최초의 삼합일 초집광 프리즘</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">横组长度</div>
+                <div class="caption-ko">가로 길이</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">vs 业界传统架构</div>
+                <div class="caption-ko">VS 업계 전통 아키텍처</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">业界最高水准</div>
+                <div class="caption-ko">업계 최고 수준</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img16.jpg" alt="이미지 16" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img17.jpg" alt="이미지 17" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img18.jpg" alt="이미지 18" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img19.jpg" alt="이미지 19" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img20.jpg" alt="이미지 20" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img21.jpg" alt="이미지 21" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img22.jpg" alt="이미지 22" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img23.jpg" alt="이미지 23" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img24.jpg" alt="이미지 24" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img25.jpg" alt="이미지 25" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img26.jpg" alt="이미지 26" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img27.jpg" alt="이미지 27" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img28.jpg" alt="이미지 28" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img29.jpg" alt="이미지 29" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img30.jpg" alt="이미지 30" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/941/208.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-04"
+               class="archive-btn active">
+              2026-04
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // 방문자 카운터 (메인과 동일 로직)
+    (function () {
+      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
+      const totalKey = 'visitCount_total';
+      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+      localStorage.setItem(todayKey, todayCount);
+      localStorage.setItem(totalKey, totalCount);
+      document.getElementById('visitor-counter').textContent =
+        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    let searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
