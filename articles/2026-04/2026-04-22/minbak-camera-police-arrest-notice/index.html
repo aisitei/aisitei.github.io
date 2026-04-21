@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - &#39;민박에 초소형 카메라가 있다&#39;? 합비 경찰, 사건 관련자 구속 통보</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visitor-counter {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-zh {
+      font-size: 12.5px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .caption-ko {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="&#39;민박에 초소형 카메라가 있다&#39;? 합비 경찰, 사건 관련자 구속 통보" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title">&#39;민박에 초소형 카메라가 있다&#39;? 합비 경찰, 사건 관련자 구속 통보</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-04-22
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body -->
+      <div class="article-body">
+        
+        <h3>사건 개요 및 피해 내용</h3>
+        
+        <p>최근 안후이성 허페이에 위치한 '정위쉬안 샤오셰(静语轩小舍)'라는 이름의 민박 시설에서 여러 객실에 몰래카메라 장치가 설치되어 있다는 사실이 폭로되었습니다. 이 장치들은 투숙객들의 사적인 순간을 지속적으로 라이브 스트리밍하고 있었습니다.</p>
+        
+        <p>사건은 4월 18일, 반(反)몰래카메라 전문 블로거인 '추수지기(追鼠记)'가 신고하면서 알려졌습니다. 그는 해당 민박의 여러 객실에 몰래카메라가 설치되어 있으며, 카메라 방향이 침대를 직접 향하고 있고 그 화면이 실시간으로 송출되고 있음을 지적했습니다.</p>
+        
+        <p>블로거는 최근 전문대학 입시 기간(IT之家: 이 민박 주변에는 여러 대학이 위치함)이라 학생들이 많이 투숙하는 시기임을 언급하며, 일부 불법 웹사이트에서 학생들의 사생활 영상이 유출된 정황을 포착했다고 밝혔습니다.</p>
+        
+        <h3>수사 과정 및 경찰 발표</h3>
+        
+        <p>허페이 경찰은 4월 21일 공식 통보를 통해 해당 사건에 대한 수사 결과를 발표했습니다. 범죄 용의자로 지목된 무모페이(武某飞, 남, 37세)와 후우모(胡某, 남, 36세)가 이 민박 시설 내에서 몰래카메라 장치를 설치하고 불법적인 범죄 행위를 저지른 것으로 확인되었습니다.</p>
+        
+        <p>경찰은 현재 두 용의자를 법에 따라 형사 구금했으며, 사건을 계속 수사 중이라고 밝혔습니다. 경찰 측은 개인 사생활 침해와 관련된 모든 불법 범죄에 대해 '무관용 원칙'을 고수하며 단호하게 강력히 대응할 것임을 강조했습니다.</p>
+        
+        <h3>블로거의 조사 과정</h3>
+        
+        <p>'추수지기'는 이 사건의 결정적인 단서가 팬들로부터 제공된 정보였다고 설명했습니다. 팬들은 라이브 스트리밍 중 근처 관광지를 언급하는 것을 포착했고, 블로거는 이를 바탕으로 관련 영상을 여러 호텔 예약 플랫폼에 올라온 상점 사진 및 댓글과 대조하며 주변 숙소를 하나씩 추적하여 '정위쉬안 샤오셰'의 위치를 특정할 수 있었습니다.</p>
+        
+        <p>'추수지기'는 또한 팬들이 상황을 확인한 후 자발적으로 민박 시설을 방문해 투숙객들에게 사생활 침해 가능성에 대해 경고했으며, 현장에서 경찰이 장비를 가지고 출동하여 조사하는 장면을 목격했다고 전했습니다.</p>
+        
+        <h3>경찰의 조치 및 추가 정보</h3>
+        
+        <p>사건 담당 경찰관은 이 사건이 형사 범죄에 해당한다고 보고 부서로 인계 처리 중이라고 밝혔습니다. 또한, 민박 주인 역시 상황을 파악한 후 자발적으로 경찰에 신고했다고 덧붙였습니다.</p>
+        
+        <p>경찰 측의 추가 발표 내용은 다음과 같습니다:</p>
+<ul>
+<li>범행 수법: 몰래카메라는 특정 애플리케이션을 통해 투숙객들의 동선을 지속적으로 라이브 스트리밍했습니다.</li>
+<li>피해 영상 유포: 라이브 스트리밍이 종료된 후에도, 피해자의 사생활이 담긴 녹화 영상은 불법 웹사이트에 추가로 업로드될 수 있었습니다.</li>
+<li>현장 조치: 기술 부서가 현장 조사를 완료했으며, 신고 접수 후 투숙객들이 머물던 객실의 카메라는 이미 제거되었습니다.</li>
+</ul>
+        
+        <h3>총평</h3>
+        
+        <p>이번 사건은 사생활 침해와 몰래카메라 설치라는 심각한 범죄 행위를 보여줍니다. 전문 블로거의 적극적인 제보와 경찰의 신속하고 단호한 대응 덕분에 용의자들이 체포되고 증거가 확보되었습니다. 이 사건을 통해 개인 정보 보호 및 공공장소에서의 사생활 안전에 대한 경각심이 매우 높아졌음을 알 수 있습니다.</p>
+        
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">“民宿内有多个针孔摄像头”</div>
+                <div class="caption-ko">민박에 여러 개의 핀홀 카메라가 있습니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">合肥警方发布警通报：</div>
+                <div class="caption-ko">합페이 경찰 발표:</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">犯罪嫌疑人武汉某飞（男，37岁）</div>
+                <div class="caption-ko">범죄 용의자 우한 모 웨이(Wu Han, 남, 37세)</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">胡某（男，36岁）</div>
+                <div class="caption-ko">후 모 씨 (남, 36세)</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">已被刑拘</div>
+                <div class="caption-ko">체포됨</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">资料画面与新闻事件无关</div>
+                <div class="caption-ko">자료 화면은 뉴스 사건과 무관합니다</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">来源：新京报、潇湘晨报</div>
+                <div class="caption-ko">출처: 신징자오, 샤오샹천바오</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">真人主播 AI 播报</div>
+                <div class="caption-ko">실제 방송 진행자 AI 보이스 안내</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">网传“民宿内有针孔摄像头”?涉案人员已刑拘</div>
+                <div class="caption-ko">방문객 숙소 내 &#39;핀홀 카메라&#39; 의혹, 관련자 형사 구속됨</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">合肥警方 2026年4月20日 18:22 安徽 4人</div>
+                <div class="caption-ko">합페이 경찰, 2026년 4월 20일 18:22 안휘 4명</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">对党忠诚 抵抗违法公正</div>
+                <div class="caption-ko">당에 충성하고 불법과 부정함에 저항하다</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">服务人民 纪律严明</div>
+                <div class="caption-ko">인민을 섬기고 규율이 엄격하다</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">针对网传“民宿内有针孔摄像头”相关信息，经核实，公安机关正在侦办的一起案件。</div>
+                <div class="caption-ko">소문으로 떠도는 &#39;민박 내 초소형 카메라&#39; 관련 정보는 경찰이 수사 중인 사건입니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">经查，犯罪嫌疑人武某飞（男，37岁）、胡某（男，36岁），在新址高新区文忠路一民宿内安装针孔摄像头设备，实施违法犯罪行为。目前，武某飞、胡某已被公安机关依法刑事拘留，案件正在进一步侦办中。</div>
+                <div class="caption-ko">조사에 따르면, 범죄 혐의자 무모페이(남, 37세)와 후모(남, 36세)가 신규 주소지 고신구 원중로에 위치한 민박 시설 내에 초소형 카메라 장비를 설치하여 위법 범죄 행위를 저질렀습니다. 현재 무모페이와 후모는 공안 기관에 의해 법에 따라 형사 구금되었으며, 사건은 추가 수사가 진행 중입니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">对侵犯公民个人隐私的违法犯罪行为，公安机关坚持“爱容忍”，坚决依法严厉打击。</div>
+                <div class="caption-ko">개인 사생활 침해 위법 범죄 행위에 대해 공안기관은 &#34;관용&#34;을 유지하며 법에 따라 엄중하게 단속합니다.</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/941/396.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-04"
+               class="archive-btn active">
+              2026-04
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // 방문자 카운터 (메인과 동일 로직)
+    (function () {
+      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
+      const totalKey = 'visitCount_total';
+      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+      localStorage.setItem(todayKey, todayCount);
+      localStorage.setItem(totalKey, totalCount);
+      document.getElementById('visitor-counter').textContent =
+        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    let searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

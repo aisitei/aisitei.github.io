@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 화웨이 창샹 90 플러스/메이트 80 프로 맥스 풍치판, 하모니OS 6.1 꽃가루 베타 버전 사용자 모집</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Huawei">
+  <meta name="article-brand-color" content="#CF0A2C">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visitor-counter {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-zh {
+      font-size: 12.5px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .caption-ko {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="화웨이 창샹 90 플러스/메이트 80 프로 맥스 풍치판, 하모니OS 6.1 꽃가루 베타 버전 사용자 모집" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #CF0A2C;">
+            Huawei
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title">화웨이 창샹 90 플러스/메이트 80 프로 맥스 풍치판, 하모니OS 6.1 꽃가루 베타 버전 사용자 모집</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-04-22
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body -->
+      <div class="article-body">
+        
+        <h3>HarmonyOS 6.1 업데이트 발표 개요</h3>
+        
+        <p>IT之家에 따르면, Huawei가 최근 Pura 시리즈 및 전 제품군 신제품 발표회에서 HarmonyOS 6.1 업그레이드 계획을 공개했습니다. 이번 발표를 통해 최신 버전의 '화분(花粉)' 베타 버전 업그레이드 상황이 구체적으로 알려졌습니다.</p>
+        
+        <h3>베타 테스트 참여 안내</h3>
+        
+        <p>Huawei는 Huawei畅享 90 Plus, 畅享 90m Plus, 畅享 90 Pro Max, HUAWEI Mate 80 Pro Max 등 총 4개 제품에서 HarmonyOS 6.1 '화분' 베타 버전 모집을 시작했다고 밝혔습니다.</p>
+        
+        <p>사용자는 기기 설정 메뉴를 통해 업데이트에 참여할 수 있습니다:</p>
+<ul>
+<li>경로: 설정 → 본체 → 소프트웨어 업데이트 → 우상단∷ → 업그레이드 체험</li>
+</ul>
+        
+        <h3>HarmonyOS 6.1 주요 신규 기능</h3>
+        
+        <p>이번 HarmonyOS 6.1 버전에는 사용자 경험(UX) 개선, 멀티태스킹 강화, AI 기능을 중심으로 다양한 최적화가 이루어졌습니다.</p>
+        
+        <h4>상호작용 및 커뮤니케이션</h4>
+<ul>
+<li><strong>인터랙티브 애완동물 테마 진화:</strong> 일부 애완동물은 털 색깔, 성격, 배경을 사용자 지정할 수 있게 되었으며, 상호작용 능력이 강화되었습니다. 사용자는 봄날 정원의 까칠한 오렌지색 고양이부터 가을 들판의 수줍은 우유색 고양이 등 다양한 모습으로 데스크톱에서 따뜻한 동반자 경험을 할 수 있습니다.</li>
+<li><strong>畅连 메시징 개선:</strong> 다이내믹 이미지를 전송할 수 있게 되어 더욱 생생한 움직임을 공유할 수 있습니다.</li>
+<li><strong>실시간 대화 기능 추가:</strong> 畅连 메시지에는 실시간 대화(Intercom) 기능이 신설되었습니다. 이 기능을 사용 중일 때 위치를 실시간으로 공유할 수 있으며, 백그라운드로 전환해도 볼륨 상단 버튼을 길게 눌러 편리하게 통화를 이어갈 수 있습니다.</li>
+</ul>
+        
+        <h4>멀티태스킹 및 효율성</h4>
+<ul>
+<li><strong>분할 화면(Split Screen) 개선:</strong> 1:9 비율로 분할 화면을 지원하며, 창의 크기를 자유롭게 전환할 수 있습니다.</li>
+<li><strong>플로팅 창(Floating Window) 기능 강화:</strong>
+<ul>
+<li>새로운 스타일 옵션이 추가되어 상단 버튼을 원하는 대로 표시하거나 숨길 수 있습니다 (설정 > 시스템 > 스마트 멀티 윈도우 > 플로팅 창 스타일).</li>
+<li>측면 바는 상하로 자유롭게 드래그하여 이동할 수 있으며, 고정 위치를 사용자가 직접 정의할 수 있습니다.</li>
+</ul>
+</li>
+<li><strong>녹음 편집 기능:</strong> 녹음을 완료한 후 해당 오디오 클립을 바로 자르고 편집할 수 있어 효율적이고 편리합니다.</li>
+</ul>
+        
+        <h4>시스템 및 AI 성능 최적화</h4>
+<ul>
+<li><strong>중요 알림 개선:</strong> 전체 화면 알람 리마인더 설정이 가능해졌습니다. 잠금 화면 상태에서도 전체 화면 알림과 함께 긴 벨소리를 받을 수 있습니다 (새 일정 > 중요 알림 > 알림 방식 > 전체 화면 알람).</li>
+<li><strong>AI 에어 전송(隔空传送) 애니메이션 업그레이드:</strong> 여러 이미지나 파일을 선택하여 공중으로 잡거나 전달할 때, 더욱 멋지고 정교한 공유/수신 애니메이션을 생성합니다. 한 번의 동작으로 빠르고 효율적인 공유 경험을 제공합니다.</li>
+<li><strong>실시간 창(实况窗) 기능 개선:</strong> 가로 방향으로 슬라이드하며 실시간 창을 숨기거나 호출하는 기능이 추가되었습니다.</li>
+<li><strong>방주 엔진(方舟引擎) 최적화:</strong> 초고속 부드러움(超丝滑) 방주 엔진이 전면적으로 업그레이드되어 앱 실행, 로딩 속도가 빨라지고 시스템 전체의 구동감이 더욱 매끄러워졌습니다.</li>
+<li><strong>초공간 메모리 기술:</strong> 전경에서 부드럽고 원활한 사용성을 유지하는 동시에, 백그라운드 생존 효율(배터리 관리)을 대폭 향상시켰습니다.</li>
+</ul>
+        
+        <h3>총평</h3>
+        
+        <p>이번 HarmonyOS 6.1 업데이트는 사용자 경험과 시스템 안정성에 초점을 맞춘 대규모 최적화 패키지입니다. 특히 애완동물 테마와 실시간 통신 기능의 개선은 일상적인 사용 만족도를 높일 것으로 기대됩니다. 또한, AI 기반의 전송 애니메이션 업그레이드와 방주 엔진의 성능 향상은 기기 전체의 반응 속도와 직관성을 한 단계 끌어올린 핵심 업데이트라 할 수 있습니다.</p>
+        
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">4月20日</div>
+                <div class="caption-ko">4월 20일</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">正式版</div>
+                <div class="caption-ko">공식 버전</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Mate 80 系列</div>
+                <div class="caption-ko">Huawei Mate 80 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Mate 70 系列</div>
+                <div class="caption-ko">Huawei Mate 70 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Mate 60 系列</div>
+                <div class="caption-ko">Huawei Mate 60 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Mate X7 系列</div>
+                <div class="caption-ko">Huawei Mate X7 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Mate XT 系列</div>
+                <div class="caption-ko">Huawei Mate XT 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Pura 80 系列</div>
+                <div class="caption-ko">Huawei Pura 80 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Pura 70 系列</div>
+                <div class="caption-ko">Huawei Pura 70 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Nova Y 系列</div>
+                <div class="caption-ko">Huawei Nova Y 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI nova 15 系列</div>
+                <div class="caption-ko">Huawei nova 15 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI MatePad Pro 12.2 系列</div>
+                <div class="caption-ko">Huawei MatePad Pro 12.2 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI MatePad 11.5&#39;&#39; 2024 系列</div>
+                <div class="caption-ko">Huawei MatePad 11.5&#39;&#39; 2024 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI MateBook Fold 银大砖版</div>
+                <div class="caption-ko">Huawei MateBook Fold 실버 대형 버전</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Matebook 14 空港版</div>
+                <div class="caption-ko">Huawei Matebook 14 공항 버전</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">公众版</div>
+                <div class="caption-ko">공개 버전</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Mate X5 系列</div>
+                <div class="caption-ko">Huawei Mate X5 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Mate XT 非大陆版</div>
+                <div class="caption-ko">Huawei Mate XT 비(非) 중국 본토 버전</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Pocket 2 系列</div>
+                <div class="caption-ko">Huawei Pocket 2 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI nova 14 系列</div>
+                <div class="caption-ko">Huawei nova 14 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI nova 13 系列</div>
+                <div class="caption-ko">Huawei nova 13 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI nova 12 系列</div>
+                <div class="caption-ko">Huawei nova 12 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI nova Flex 系列</div>
+                <div class="caption-ko">Huawei nova Flex 시리즈</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">华为载福 70S (首次搭载)</div>
+                <div class="caption-ko">Huawei가 탑재한 70S (최초 적용)</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">花粉 Beta 版</div>
+                <div class="caption-ko">폴렌 베타 버전</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HUAWEI Mate 80 Pro Max 风隐版</div>
+                <div class="caption-ko">Huawei Mate 80 Pro Max 바람 숨김 버전</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">华为载福 90 Pro Max</div>
+                <div class="caption-ko">Huawei Nova 90 Pro Max</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">华为载福 90 Plus</div>
+                <div class="caption-ko">Huawei Pura 90 Plus</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">华为载福 90m Plus</div>
+                <div class="caption-ko">Huawei Mate 90M Plus</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">即将开启升级</div>
+                <div class="caption-ko">업그레이드가 곧 시작됩니다</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">更多产品敬请期待...</div>
+                <div class="caption-ko">더 많은 제품을 기대해주세요...</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">花粉 Beta 版搭载开启</div>
+                <div class="caption-ko">꽃가루 베타 버전 탑재 및 활성화</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">2026年4月20日</div>
+                <div class="caption-ko">2026년 4월 20일</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">活动介绍</div>
+                <div class="caption-ko">활동 소개</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">HarmonyOS 6.1 花粉版，让您体验更智能、更流畅的未来。</div>
+                <div class="caption-ko">HarmonyOS 6.1 꽃가루 버전으로 더욱 스마트하고 매끄러운 미래를 경험하세요.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">更多精彩功能，尽在指尖之间。</div>
+                <div class="caption-ko">더 많은 멋진 기능이 손끝에 있습니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">核心功能</div>
+                <div class="caption-ko">핵심 기능</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">1. 本次活动以苹果账号为您账号主载。单厅通过设备进行登录和使用。</div>
+                <div class="caption-ko">이번 활동은 Apple 계정을 주 계정으로 사용하며, 단일 장소에서 기기를 통해 로그인하고 사용합니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">2. 支持多屏协同，无论您在哪里，都能随时随地连接您的设备。</div>
+                <div class="caption-ko">다중 스크린 협업을 지원하여 어디서든 언제든지 기기를 연결할 수 있습니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">3. 优化了系统性能，让您在使用过程中更加流畅、稳定。</div>
+                <div class="caption-ko">시스템 성능을 최적화하여 사용 중 더욱 부드럽고 안정적으로 사용할 수 있습니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">活动详情</div>
+                <div class="caption-ko">활동 상세 정보</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">花粉 Beta 版流程</div>
+                <div class="caption-ko">꽃가루 베타 버전 프로세스</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">报名时间：2026年4月20日</div>
+                <div class="caption-ko">신청 기간: 2026년 4월 20일</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">本活动旨在让您提前体验HarmonyOS 6.1花粉版的功能特性，不构成购买或使用该系统的承诺。</div>
+                <div class="caption-ko">본 행사는 HarmonyOS 6.1 꽃가루 버전을 미리 체험할 수 있도록 하며, 해당 시스템의 구매나 사용을 보장하지 않습니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">报名方式</div>
+                <div class="caption-ko">신청 방법</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">如需参与本次活动，请点击下方“立即报名”按钮，并按照指引完成报名流程。</div>
+                <div class="caption-ko">참여하려면 아래 &#34;지금 신청&#34; 버튼을 클릭하고 안내에 따라 신청 절차를 완료해 주세요.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">（注意：每次报名仅限一次）</div>
+                <div class="caption-ko">(주의: 접수는 한 번만 가능합니다)</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">隐私声明</div>
+                <div class="caption-ko">개인정보 보호정책</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">您在体验HarmonyOS 6.1花粉版的过程中，可能会涉及个人信息采集和使用。请仔细阅读本页面的《用户协议》及《隐私政策》，了解您的权益保障范围。</div>
+                <div class="caption-ko">HarmonyOS 6.1 꽃가루 버전을 사용하시는 과정에서는 개인 정보의 수집 및 이용이 이루어질 수 있습니다. 본 페이지에 있는 &#39;사용자 계약&#39;과 &#39;개인정보 보호정책&#39;을 자세히 읽고, 고객님의 권리 보호 범위에 대해 확인하시기 바랍니다.</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">软件更新</div>
+                <div class="caption-ko">소프트웨어 업데이트</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">新增功能</div>
+                <div class="caption-ko">추가 기능</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">大家的使用用户，HarmonyOS 6.1 版本已本地化。新版本为您带来更多流畅体验，提升使用感受。本次更新主要优化了系统稳定性、性能和一些小细节的修复。</div>
+                <div class="caption-ko">모든 사용자분들을 위해 HarmonyOS 6.1 버전이 현지화되었습니다. 새 버전은 더욱 부드러운 경험을 제공하고 사용감을 향상시킵니다. 이번 업데이트는 시스템 안정성, 성능 및 몇 가지 사소한 디테일 수정에 중점을 두었습니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">主观</div>
+                <div class="caption-ko">주관적</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">新增蓝牙支持设备选配，部分需要手动连接，性能更稳定。</div>
+                <div class="caption-ko">블루투스 지원 장비 옵션이 추가되었으며, 일부는 수동 연결이 필요하여 성능이 더욱 안정적입니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">通话</div>
+                <div class="caption-ko">통화</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">新增语音支持发送动态图片，让沟通更精彩。</div>
+                <div class="caption-ko">음성 지원을 추가하여 동적 이미지를 전송하고 더욱 생생한 소통을 할 수 있습니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">智慧多圈</div>
+                <div class="caption-ko">지능형 다중 원</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">1. 屏幕模式支持按 1-9 位分辨率，大小窗口随心切换。</div>
+                <div class="caption-ko">화면 모드를 지원하며, 1~9개 해상도와 크기 조절 가능한 창을 자유롭게 전환할 수 있습니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">2. 支持在多个应用间快速跳转，无需手动操作。</div>
+                <div class="caption-ko">여러 앱 간에 수동 조작 없이 빠르게 전환할 수 있습니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">3. 最强侧边条支持上下自动拖动，吸附位置由您决定。</div>
+                <div class="caption-ko">가장 강력한 사이드바는 상하 자동 드래그를 지원하며, 부착 위치를 사용자가 결정할 수 있습니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">录音机</div>
+                <div class="caption-ko">녹음기</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">录音后支持背景剪辑，可灵活编辑录音片段，高效便捷。</div>
+                <div class="caption-ko">녹음 후 배경 편집을 지원하여 녹음 클립을 유연하게 편집하고 효율적이며 편리합니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">系统更新注意事项</div>
+                <div class="caption-ko">시스템 업데이트 주의사항</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">本次更新主要优化了部分场景的系统稳定性，推荐您进行更新。</div>
+                <div class="caption-ko">이번 업데이트는 일부 시나리오의 시스템 안정성을 최적화했으니, 업데이트를 권장합니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">系统扩展性</div>
+                <div class="caption-ko">시스템 확장성</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">对系统扩展性进行同步更新，增强待机功能，提升用户体验。</div>
+                <div class="caption-ko">시스템 확장성을 동기화 업데이트하고, 대기 기능을 강화하여 사용자 경험을 향상합니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">更新注意事项</div>
+                <div class="caption-ko">업데이트 주의사항</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">1. 本次更新不能删除您的用户数据，但建议您在更新前做好备份。</div>
+                <div class="caption-ko">이번 업데이트로 사용자 데이터가 삭제되지는 않지만, 업데이트 전에 백업하는 것을 권장합니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">2. 更新完成后，为提升使用体验，系统会在后台进行一系列优化，本次更新主要修复了部分小问题和性能优化。</div>
+                <div class="caption-ko">업데이트 완료 후, 사용 경험 향상을 위해 시스템이 백그라운드에서 일련의 최적화를 진행하며, 이번 업데이트는 주로 일부 사소한 문제 수정과 성능 최적화에 중점을 두었습니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">3. 首次运行后，请留意提示信息，按指引操作即可完成后续的初始化设置。</div>
+                <div class="caption-ko">첫 실행 후, 안내 메시지를 확인하고 지침에 따라 초기 설정을 완료해 주세요.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">4. 如果您在使用过程中遇到任何问题，请访问“我的”菜单 &gt; “应用下载”下方查看服务热线号 95080 等寻求支持。</div>
+                <div class="caption-ko">사용 중 문제가 발생하면 &#39;나&#39; 메뉴 &gt; &#39;앱 다운로드&#39; 아래의 서비스 핫라인 번호 95080 등을 참고하여 지원받으세요.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">5. 更多精彩功能了解，请访问“手机技巧”应用。</div>
+                <div class="caption-ko">더 많은 멋진 기능은 &#39;폰 트릭&#39; 앱에서 확인하세요.</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/941/752.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-04"
+               class="archive-btn active">
+              2026-04
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // 방문자 카운터 (메인과 동일 로직)
+    (function () {
+      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
+      const totalKey = 'visitCount_total';
+      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+      localStorage.setItem(todayKey, todayCount);
+      localStorage.setItem(totalKey, totalCount);
+      document.getElementById('visitor-counter').textContent =
+        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    let searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
