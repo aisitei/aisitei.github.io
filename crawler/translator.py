@@ -1,5 +1,5 @@
 """
-로컬 LLM 번역기 (LM Studio / Ollama 등 OpenAI 호환 서버)
+로컬 LLM 번역기 (LM Studio, OpenAI 호환 서버)
 
 기본 백엔드는 LM Studio (http://localhost:1234/v1, gemma4:e4b).
 LLM_BASE_URL / LLM_MODEL / LLM_API_KEY 환경변수로 다른 서버·모델을 지정할 수 있습니다.
@@ -9,6 +9,7 @@ glossary.json의 단어장을 번역 전 소스 텍스트에 적용하고,
 import re
 import json
 import logging
+import time
 from pathlib import Path
 from typing import Optional
 
@@ -75,27 +76,31 @@ def _get_client():
 
 
 def _chat(system: str, user: str, temperature: float = 0.3,
-          max_tokens: int = 4096) -> Optional[str]:
-    try:
-        client = _get_client()
-        response = client.chat.completions.create(
-            model=config.LLM_MODEL,
-            messages=[
-                {"role": "system", "content": system},
-                {"role": "user", "content": user},
-            ],
-            temperature=temperature,
-            max_tokens=max_tokens,
-        )
-        content = response.choices[0].message.content
-        if content is None:
-            return None
-        text = content.strip()
-        text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL).strip()
-        return text if text else None
-    except Exception as e:
-        logger.error(f"LLM API 호출 실패 ({config.LLM_BASE_URL}, {config.LLM_MODEL}): {e}")
-        return None
+          max_tokens: int = 4096, retries: int = 3) -> Optional[str]:
+    client = _get_client()
+    for attempt in range(1, retries + 1):
+        try:
+            response = client.chat.completions.create(
+                model=config.LLM_MODEL,
+                messages=[
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user},
+                ],
+                temperature=temperature,
+                max_tokens=max_tokens,
+            )
+            content = response.choices[0].message.content
+            if content is None:
+                return None
+            text = content.strip()
+            text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL).strip()
+            return text if text else None
+        except Exception as e:
+            logger.warning(f"LLM API 호출 실패 (시도 {attempt}/{retries}) - {config.LLM_BASE_URL}: {e}")
+            if attempt < retries:
+                time.sleep(2 ** attempt)
+    logger.error(f"LLM API 호출 {retries}회 모두 실패 ({config.LLM_BASE_URL}, {config.LLM_MODEL})")
+    return None
 
 
 # ── 번역 API ─────────────────────────────────────────────────────────────────

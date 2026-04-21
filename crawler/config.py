@@ -114,19 +114,10 @@ KEYWORDS_EXCLUDE = [
 
 KEYWORDS = KEYWORDS_CAMERA + KEYWORDS_PHONE_EXPLICIT + KEYWORDS_AI
 
-# LLM 설정 (LM Studio / Ollama 등 OpenAI 호환 로컬 서버)
-# - 기본값은 LM Studio (포트 1234). Ollama 등 다른 서버를 쓰면
-#   LLM_BASE_URL 환경변수로 덮어쓰세요 (예: http://localhost:11434/v1).
-# - 구버전 OLLAMA_BASE_URL/OLLAMA_MODEL 환경변수도 fallback으로 인식합니다.
-LLM_BASE_URL = os.getenv("LLM_BASE_URL") or os.getenv(
-    "OLLAMA_BASE_URL", "http://localhost:1234/v1"
-)
-LLM_MODEL = os.getenv("LLM_MODEL") or os.getenv("OLLAMA_MODEL", "google/gemma-4-e4b")
-LLM_API_KEY = os.getenv("LLM_API_KEY", "lm-studio")  # LM Studio·Ollama 모두 임의 문자열 허용
-
-# 하위 호환 alias — 기존 코드/스크립트가 OLLAMA_* 이름을 참조하더라도 동작하도록 노출.
-OLLAMA_BASE_URL = LLM_BASE_URL
-OLLAMA_MODEL = LLM_MODEL
+# LLM 설정 (LM Studio, OpenAI 호환 로컬 서버)
+LLM_BASE_URL = os.getenv("LLM_BASE_URL", "http://localhost:1234/v1")
+LLM_MODEL = os.getenv("LLM_MODEL", "google/gemma-4-e4b")
+LLM_API_KEY = os.getenv("LLM_API_KEY", "lm-studio")
 
 TITLE_TRANSLATE_PROMPT = "당신은 중국어 IT 기사 제목을 한국어로 번역하는 번역가입니다. 한국어 번역문만 출력하고 다른 텍스트는 절대 추가하지 마세요."
 
@@ -160,21 +151,15 @@ DEEP_CAMERA_PROMPT_SUFFIX = """
 
 # OCR 설정
 # - OCR_BACKEND: "llm" (기본) | "mcp"
-#   · llm: 아래 LLM_VISION_MODEL 을 사용해 로컬 LLM 서버(LM Studio/Ollama)에서 OCR.
+#   · llm: LM Studio의 LLM_VISION_MODEL 을 사용해 OCR.
 #   · mcp: OCR_MCP_URL 의 사내 MCP OCR 서버 호출.
 # - OCR_ENABLED: 기본 true. 비활성화하려면 환경변수 OCR_ENABLED=false.
 OCR_ENABLED = os.getenv("OCR_ENABLED", "true").lower() == "true"
-# 구 'ollama' 값도 'llm'과 동일하게 처리 (하위 호환).
-_ocr_backend_raw = os.getenv("OCR_BACKEND", "llm").lower()
-OCR_BACKEND = "llm" if _ocr_backend_raw == "ollama" else _ocr_backend_raw
+OCR_BACKEND = os.getenv("OCR_BACKEND", "llm").lower()
 OCR_MCP_URL = os.getenv("OCR_MCP_URL", "http://localhost:9000/mcp")
-# LLM 비전 모델 — 기본은 번역용 LLM_MODEL 과 동일(gemma4:e4b).
+# LLM 비전 모델 — 기본은 번역용 LLM_MODEL 과 동일.
 # 전용 비전 모델을 쓰려면 LLM_VISION_MODEL 환경변수로 덮어쓰세요.
-LLM_VISION_MODEL = os.getenv("LLM_VISION_MODEL") or os.getenv(
-    "OLLAMA_VISION_MODEL", LLM_MODEL
-)
-# 하위 호환 alias
-OLLAMA_VISION_MODEL = LLM_VISION_MODEL
+LLM_VISION_MODEL = os.getenv("LLM_VISION_MODEL", LLM_MODEL)
 
 # 이미지 캡션 — 기사당 최대 OCR 이미지 수 (대용량 갤러리 방어).
 OCR_MAX_IMAGES_PER_ARTICLE = int(os.getenv("OCR_MAX_IMAGES_PER_ARTICLE", "15"))

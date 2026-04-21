@@ -1,13 +1,9 @@
 """
 이미지 OCR 인터페이스.
 
-기본 백엔드는 로컬 LLM 비전 모델(LLM_VISION_MODEL, OpenAI 호환). LM Studio
-혹은 Ollama 어느 쪽이든 동일한 chat/completions 엔드포인트로 호출합니다.
-
+기본 백엔드는 LM Studio의 LLM_VISION_MODEL (OpenAI 호환 chat/completions).
 설정 예:
     LM Studio (기본):  포트 1234, gemma4:e4b 모델 로드
-    Ollama:            LLM_BASE_URL=http://localhost:11434/v1 \\
-                        LLM_VISION_MODEL=qwen2.5vl:7b
 
 MCP 백엔드 사용 시:
     OCR_BACKEND=mcp OCR_MCP_URL=http://... 로 환경변수를 지정합니다.
@@ -16,6 +12,7 @@ import base64
 import io
 import logging
 import re
+import time
 from typing import Optional
 from dataclasses import dataclass
 
@@ -123,49 +120,44 @@ def _get_llm_vision_client():
     return _llm_vision_client
 
 
-def call_llm_vision_ocr(image_base64: str, mime: str = "image/jpeg") -> Optional[str]:
-    """로컬 LLM 비전 모델(LM Studio/Ollama)로 이미지 속 중국어 텍스트를 추출합니다.
-
-    OpenAI 호환 chat/completions 엔드포인트에 image_url(base64 data URI)를 전달.
-    모델이 로드/설치되어 있지 않거나 호출이 실패하면 None을 반환합니다.
-    """
-    try:
-        client = _get_llm_vision_client()
-        response = client.chat.completions.create(
-            model=config.LLM_VISION_MODEL,
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "text", "text": config.OCR_PROMPT_ZH},
-                        {
-                            "type": "image_url",
-                            "image_url": {"url": f"data:{mime};base64,{image_base64}"},
-                        },
-                    ],
-                }
-            ],
-            temperature=0.0,
-            max_tokens=1024,
-        )
-        content = response.choices[0].message.content
-        if content is None:
-            return None
-        text = content.strip().strip('"').strip("'").strip()
-        # 모델이 종종 출력하는 거부/공백 응답 제거
-        if text.lower() in {"none", "no text", "empty", "n/a"}:
-            return None
-        return text or None
-    except Exception as e:
-        logger.warning(
-            f"LLM vision OCR 실패 ({config.LLM_BASE_URL}, {config.LLM_VISION_MODEL}): {e}. "
-            f"LM Studio·Ollama가 실행 중이고 모델이 로드되어 있는지 확인하세요."
-        )
-        return None
-
-
-# 하위 호환 alias
-call_ollama_vision_ocr = call_llm_vision_ocr
+def call_llm_vision_ocr(image_base64: str, mime: str = "image/jpeg", retries: int = 3) -> Optional[str]:
+    """LM Studio 비전 모델로 이미지 속 중국어 텍스트를 추출합니다."""
+    client = _get_llm_vision_client()
+    for attempt in range(1, retries + 1):
+        try:
+            response = client.chat.completions.create(
+                model=config.LLM_VISION_MODEL,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": config.OCR_PROMPT_ZH},
+                            {
+                                "type": "image_url",
+                                "image_url": {"url": f"data:{mime};base64,{image_base64}"},
+                            },
+                        ],
+                    }
+                ],
+                temperature=0.0,
+                max_tokens=1024,
+            )
+            content = response.choices[0].message.content
+            if content is None:
+                return None
+            text = content.strip().strip('"').strip("'").strip()
+            if text.lower() in {"none", "no text", "empty", "n/a"}:
+                return None
+            return text or None
+        except Exception as e:
+            logger.warning(
+                f"LLM vision OCR 실패 (시도 {attempt}/{retries}) - "
+                f"{config.LLM_BASE_URL}, {config.LLM_VISION_MODEL}: {e}"
+            )
+            if attempt < retries:
+                time.sleep(2 ** attempt)
+    logger.error(f"LLM vision OCR {retries}회 모두 실패. LM Studio가 실행 중이고 모델이 로드되어 있는지 확인하세요.")
+    return None
 
 
 def call_ocr_rest_api(image_base64: str) -> Optional[str]:
