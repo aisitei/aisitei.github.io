@@ -23,6 +23,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from typing import Optional
 
 
 MLX_MODEL_MAP = {
@@ -292,7 +293,7 @@ def _midpoint_offset(audio_path: str) -> float:
     return max(30.0, min(600.0, duration * 0.3))
 
 
-def _detect_speech_segments_vad(audio_path: str) -> list | None:
+def _detect_speech_segments_vad(audio_path: str) -> Optional[list]:
     """faster-whisper Silero VAD로 발화 구간 감지. [(start_sec, end_sec), ...]
     faster-whisper 미설치 또는 실패 시 None 반환 → 전체 오디오 전사로 폴백.
     """
