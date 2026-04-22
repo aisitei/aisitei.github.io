@@ -237,13 +237,25 @@ def suggest_screenshot_timestamps(segments: list) -> list:
 
 
 def main():
-    if len(sys.argv) < 2:
-        print("사용법: python3 step2_preprocess.py <transcript.json> [output_dir]")
+    import argparse
+    ap = argparse.ArgumentParser(description="전처리 (환각 제거 / 섹션 분류 / 스크린샷 후보)")
+    ap.add_argument("report_dir", help="리포트 디렉토리 (transcript.json 포함)")
+    ap.add_argument("--force", action="store_true", help="이미 완료된 파일도 재생성")
+    args = ap.parse_args()
+
+    output_dir = args.report_dir
+    os.makedirs(output_dir, exist_ok=True)
+
+    input_file = os.path.join(output_dir, "transcript.json")
+    if not os.path.exists(input_file):
+        print(f"오류: {input_file} 없음 — step1_transcribe.py를 먼저 실행하세요")
         sys.exit(1)
 
-    input_file = sys.argv[1]
-    output_dir = sys.argv[2] if len(sys.argv) > 2 else os.path.dirname(input_file) or "."
-    os.makedirs(output_dir, exist_ok=True)
+    # --force 없으면 이미 완료된 경우 건너뜀
+    clean_path_check = os.path.join(output_dir, "clean_transcript.txt")
+    if os.path.exists(clean_path_check) and not args.force:
+        print(f"  ✓ 이미 존재: {clean_path_check} (--force로 재생성)")
+        return
 
     with open(input_file, "r", encoding="utf-8") as f:
         data = json.load(f)
