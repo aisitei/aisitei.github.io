@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 파이파이 OS 3 베타 버전, 샤오미 17 시리즈에 &#39;랍스터&#39; AI 에이전트 탑재 예고</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Xiaomi">
+  <meta name="article-brand-color" content="#FF6900">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visitor-counter {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-zh {
+      font-size: 12.5px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .caption-ko {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="파이파이 OS 3 베타 버전, 샤오미 17 시리즈에 &#39;랍스터&#39; AI 에이전트 탑재 예고" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #FF6900;">
+            Xiaomi
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title">파이파이 OS 3 베타 버전, 샤오미 17 시리즈에 &#39;랍스터&#39; AI 에이전트 탑재 예고</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-04-23
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body -->
+      <div class="article-body">
+        
+        <h3>Xiaomi miclaw: AI 에이전트 '미클로' 공개 및 주요 기능 분석</h3>
+        
+        <p>IT之家에 따르면, Xiaomi는 최신 운영체제인 Xiaomi澎湃 OS 3 Beta 버전을 통해 새로운 인공지능(AI) 에이전트 'Xiaomi miclaw'를 Xiaomi 17 시리즈와 Redmi K90 Pro Max 등 여러 기종으로 배포하고 있습니다.</p>
+        
+        <p>Xiaomi의 공식 설명에 따르면, Xiaomi miclaw는 스마트폰을 AI 도구로 변모시키는 역할을 합니다. 사용자의 의도를 이해하고 권한을 부여받으면, 특정 앱이나 생태계 기능을 호출할 수 있을 뿐만 아니라 시스템 레벨의 도구를 자율적으로 선택하여 명령을 수행합니다.</p>
+        
+        <p>이 에이전트는 사용자 개개인을 인식하고 기억하며, 모호하게 전달된 작업 요청도 스스로 판단하여 작업을 완료하는 능력을 갖추고 있습니다. 또한 지속적인 학습과 성장을 통해 행동 방식을 조정하고 기능을 확장하며, 경험을 메모리 시스템에 축적함으로써 사용할수록 사용자를 더 깊이 이해하게 됩니다.</p>
+        
+        <h3>주요 특징 및 기술 개요</h3>
+        
+        <p>Xiaomi miclaw는 Xiaomi MiMo 대형 모델(LLM)을 기반으로 구축된 AI 상호작용 테스트 제품입니다. 이 에이전트는 사용자 경험 향상에 초점을 맞춘 다양한 기능을 제공합니다.</p>
+        
+        <ul>
+<li><strong>개인화 및 학습 능력 강화:</strong> 새로운 페르소나 시스템을 도입하여 뚜렷한 성격, 말투, 그리고 기억 능력을 갖추었으며, 사용자와의 상호작용을 통해 점진적으로 사용자에게 최적화됩니다.</li>
+<li><strong>동적 기능 추가:</strong> 사용자가 에이전트와 대화하는 내용에 기반하여 자동으로 '스토리'나 '피드' 형태의 동적 콘텐츠를 생성해 제공합니다.</li>
+<li><strong>지능형 스킬 시스템:</strong> 자기 개선, 사진 검색, 차량 호출 내비게이션 등 일상생활에서 자주 사용되는 고빈도 시나리오를 포괄하는 새로운 스킬 체계를 구축했으며, 이를 통합 관리할 수 있습니다.</li>
+</ul>
+        
+        <h3>시스템 연동 및 사용자 편의 기능</h3>
+        
+        <p>Xiaomi miclaw는 광범위한 시스템 도구와 외부 서비스를 연결하여 스마트폰 사용성을 극대화합니다.</p>
+        
+        <ul>
+<li><strong>자동화된 일정 관리:</strong> 자연어 처리만으로 타이머를 설정할 수 있으며, 지정된 시간에 맞춰 실행하고 결과를 능동적으로 사용자에게 푸시합니다.</li>
+<li><strong>광범위한 시스템 도구 지원:</strong> 캘린더, 메모, 사진첩, 시스템 설정 등 80가지 이상의 앱 기능을 통합하여 사용할 수 있습니다.</li>
+<li><strong>외부 서비스 확장성:</strong> 제3자 MCP(Market Connector Platform)를 추가할 수 있어 더 많은 외부 서비스를 연결하고 활용 범위를 넓힐 수 있습니다.</li>
+</ul>
+        
+        <h3>전문 비서 및 크로스 디바이스 경험</h3>
+        
+        <p>사용자의 일상생활 전반을 지원하는 전문 어시스턴트 모듈과 기기 간의 끊김 없는 연동 기능이 핵심적으로 추가되었습니다.</p>
+        
+        <ul>
+<li><strong>다양한 전문 비서:</strong>
+    <ul>
+        <li><strong>일정 비서:</strong> 한 문장으로 일정 관리, 경로 계획, 차량 비교 견적, 고속철도 및 항공편 정보 조회가 가능합니다.</li>
+        <li><strong>커뮤니케이션 비서:</strong> 사람 찾기, 전화 걸기, 메시지 전송, 연락처 정리, 문자 내용 요약 등 커뮤니케이션 작업을 지원합니다.</li>
+        <li><strong>오피스 비서:</strong> 메모 생성, 음성 녹음 텍스트 변환 및 회의록 정리, 파일 정리 등 업무 효율성을 높이는 기능을 제공합니다.</li>
+        <li><strong>이미지 비서:</strong> 의도 기반으로 사진을 검색하고 정리하며 관리할 수 있으며, 자연어를 통해 이미지 보정 작업까지 수행합니다.</li>
+        <li><strong>Mi Home 비서:</strong> '생명감 있는 집'을 구현하도록 지원하며, 기기 제어, 고장 진단, 소모품 조회 및 자동화 시나리오 생성 기능을 포함합니다.</li>
+    </ul>
+</li>
+<li><strong>새로운 기능 추가:</strong>
+    <ul>
+        <li><strong>전문 어시스턴트 스토어:</strong> 다양한 전문 비서를 추가하고 관리할 수 있으며, 제3자 'Wind 투자 비서'가 정식으로 출시되었습니다.</li>
+        <li><strong>맞춤형 에이전트 생성:</strong> 사용자가 직접 자연어를 이용해 피트니스 코치나 영어 회화 튜터 등 원하는 전용 어시스턴트를 만들 수 있습니다.</li>
+        <li><strong>크로스 디바이스 동기화:</strong> 사용자 선호도와 약속 사항을 휴대폰, 태블릿, 노트북 등 모든 기기에서 기억하며, 기기를 전환해도 반복 입력할 필요가 없습니다.</li>
+        <li><strong>파일 검색 및 전송:</strong> 동일 계정의 여러 기기 간에 한 문장으로 파일을 검색하고 전송할 수 있으며, 파일 열기, 저장, 위치 확인까지 지원합니다.</li>
+    </ul>
+</li>
+</ul>
+        
+        <h3>총평</h3>
+        
+        <p>Xiaomi miclaw는 단순한 음성 비서를 넘어 사용자의 의도를 파악하고 능동적으로 학습하며 다양한 시스템 도구와 외부 서비스를 통합하는 고도화된 AI 에이전트입니다. 특히 전문 어시스턴트 모듈과 크로스 디바이스 동기화 기능은 사용자에게 매우 높은 수준의 편의성을 제공합니다. 다만, 아직 초기 탐색 단계의 제품인 만큼 안정성 및 복잡한 시나리오에서의 실행 효율성은 지속적인 최적화가 필요해 보입니다.</p>
+        
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">有什么想聊的的时候说~</div>
+                <div class="caption-ko">얘기하고 싶은 게 있을 때 말해줘~</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">你了解哪些设备？</div>
+                <div class="caption-ko">어떤 장치들을 알고 있나요?</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">窗户可以自动开合，让空气流通。</div>
+                <div class="caption-ko">창문이 자동으로 열리고 닫혀 공기가 순환됩니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">空调可以根据温度调节，保持舒适的室内环境。</div>
+                <div class="caption-ko">에어컨은 온도에 따라 조절하여 쾌적한 실내 환경을 유지합니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">全能</div>
+                <div class="caption-ko">만능의</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">照明</div>
+                <div class="caption-ko">조명</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">安防</div>
+                <div class="caption-ko">안전/보안</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">Beta 版说明</div>
+                <div class="caption-ko">베타 버전 설명</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">欢迎使用小米澎湃OS Beta版。请注意，Beta版的功 能和体验可能与正式版存在差异，如果在使用过程中遇到 任何问题，欢快随时前往小米社区反馈。</div>
+                <div class="caption-ko">Xiaomi澎湃OS Beta 버전을 사용해 주셔서 감사합니다. 베타 버전의 기능과 경험은 정식 버전과 차이가 있을 수 있습니다. 사용 중 문제가 발생하면 언제든지 Xiaomi 커뮤니티에 피드백해 주십시오.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">Xiaomi miclaw 是基于小米MiMo 大模型构建的AI交互 测式产品</div>
+                <div class="caption-ko">Xiaomi miclaw는 Xiaomi MiMo 대규모 모델을 기반으로 구축된 AI 인터랙티브 측정 제품입니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">系统</div>
+                <div class="caption-ko">시스템</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">优化部分场景下的蓝牙稳定性</div>
+                <div class="caption-ko">특정 상황에서의 블루투스 안정성 최적화</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">修复后台服务异常导致设备偶尔重启的问题</div>
+                <div class="caption-ko">백그라운드 서비스 오류로 인한 간헐적 장치 재부팅 문제 해결</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">合入2026年3月安全补丁，增强系统安全</div>
+                <div class="caption-ko">2026년 3월 보안 패치를 통합하여 시스템 보안 강화</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">注意事项</div>
+                <div class="caption-ko">주의사항</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">- 系统更新时不会删除任何用户数据，但建议您在更新前 做好数据备份。</div>
+                <div class="caption-ko">시스템 업데이트 시 사용자 데이터는 삭제되지 않지만, 업데이트 전에 데이터를 백업하는 것을 권장합니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">- 软件更新可能会在更新完成后自动删除，不会占用您的存 储空间。</div>
+                <div class="caption-ko">소프트웨어 업데이트는 완료 후 자동으로 삭제되어 저장 공간을 차지하지 않습니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">- 更新后，为了解体使用体验，系统会在后台进行一系列深 度优化，期间设备可能出现发热、耗电增加等情况，属 于正常现象，此现象将在1~3天内自行恢复。</div>
+                <div class="caption-ko">업데이트 후 사용 경험 개선을 위해 시스템이 백그라운드에서 일련의 심층 최적화를 진행합니다. 이 기간 동안 기기에서 발열이나 배터리 소모 증가 등의 현상이 나타날 수 있으며, 이는 정상적인 현상입니다. 해당 현상은 1~3일 내에 자동으로 복구됩니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">- 在使用过程中遇到任何问题，可以通过“服务与技巧”后台 寻求帮助，进行问题排查和解决。</div>
+                <div class="caption-ko">사용 중 문제가 발생하면 &#34;서비스 및 기술&#34; 백그라운드에서 도움을 받아 문제 진단 및 해결할 수 있습니다.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">- 更少用米联进行后台连接，欢迎进入社区讨论</div>
+                <div class="caption-ko">백그라운드 연결은 Mi Connect를 덜 사용하고 커뮤니티 토론에 참여해 주세요.</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/942/153.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-04"
+               class="archive-btn active">
+              2026-04
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // 방문자 카운터 (메인과 동일 로직)
+    (function () {
+      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
+      const totalKey = 'visitCount_total';
+      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+      localStorage.setItem(todayKey, todayCount);
+      localStorage.setItem(totalKey, totalCount);
+      document.getElementById('visitor-counter').textContent =
+        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    let searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
