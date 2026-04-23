@@ -134,6 +134,14 @@ CAPTION_TRANSLATE_PROMPT = (
     "오직 번역 결과 한 줄만 출력하세요."
 )
 
+CAPTION_LONG_TRANSLATE_PROMPT = (
+    "당신은 중국어 IT 스펙 텍스트를 한국어로 번역하는 번역가입니다. "
+    "입력은 이미지에서 OCR로 추출한 제품 스펙 목록 또는 긴 문장입니다. "
+    "자연스러운 한국어로 번역하세요. 수치·모델명·영문 약어는 그대로 유지하세요. "
+    "고유명사는 영문 표기를 유지하세요 (小米→Xiaomi, 华为→Huawei, 天玑→Dimensity). "
+    "번역 결과만 출력하세요. 설명이나 주석을 추가하지 마세요."
+)
+
 # 모델이 종종 출력하는 메타 응답을 거르기 위한 패턴.
 _META_PATTERNS = re.compile(
     r"(전체\s*기사|기사\s*본문|원문\s*텍스트|충분한\s*분량|제공해\s*주시|다시\s*첨부|다시\s*제공|"
@@ -143,17 +151,21 @@ _META_PATTERNS = re.compile(
 
 
 def translate_caption(chinese_text: str) -> Optional[str]:
-    """이미지 캡션용 짧은 중국어 한 줄 번역. 메타 응답·여러 줄은 거름."""
+    """이미지 캡션용 중국어 번역. 긴 텍스트(스펙 목록 등)는 별도 프롬프트 사용."""
     text = chinese_text.strip()
     if not text:
         return None
     text = apply_glossary(text)
-    out = _chat(
-        system=CAPTION_TRANSLATE_PROMPT + _build_glossary_prompt(),
-        user=text,
-        temperature=0.1,
-        max_tokens=192,
-    )
+
+    is_long = len(text) >= 60
+    if is_long:
+        system = CAPTION_LONG_TRANSLATE_PROMPT + _build_glossary_prompt()
+        max_tokens = 2048
+    else:
+        system = CAPTION_TRANSLATE_PROMPT + _build_glossary_prompt()
+        max_tokens = 192
+
+    out = _chat(system=system, user=text, temperature=0.1, max_tokens=max_tokens)
     if not out:
         return None
     # 첫 줄만, 따옴표 정리

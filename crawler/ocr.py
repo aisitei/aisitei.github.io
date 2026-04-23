@@ -11,6 +11,7 @@ MCP 백엔드 사용 시:
 import base64
 import io
 import logging
+import os
 import re
 import time
 from typing import Optional
@@ -120,8 +121,24 @@ def _get_llm_vision_client():
     return _llm_vision_client
 
 
+def _to_jpeg_base64(image_base64: str) -> tuple[str, str]:
+    """base64 이미지를 JPEG으로 변환합니다. 변환 실패 시 원본 반환."""
+    try:
+        img_bytes = base64.b64decode(image_base64)
+        img = Image.open(io.BytesIO(img_bytes))
+        if img.format == "JPEG":
+            return image_base64, "image/jpeg"
+        buf = io.BytesIO()
+        img.convert("RGB").save(buf, format="JPEG", quality=90)
+        return base64.b64encode(buf.getvalue()).decode("utf-8"), "image/jpeg"
+    except Exception:
+        return image_base64, "image/jpeg"
+
+
 def call_llm_vision_ocr(image_base64: str, mime: str = "image/jpeg", retries: int = 3) -> Optional[str]:
     """LM Studio 비전 모델로 이미지 속 중국어 텍스트를 추출합니다."""
+    # WebP 등 비표준 포맷은 JPEG으로 변환하여 호환성 보장
+    image_base64, mime = _to_jpeg_base64(image_base64)
     client = _get_llm_vision_client()
     for attempt in range(1, retries + 1):
         try:
@@ -140,7 +157,7 @@ def call_llm_vision_ocr(image_base64: str, mime: str = "image/jpeg", retries: in
                     }
                 ],
                 temperature=0.0,
-                max_tokens=1024,
+                max_tokens=4096,
             )
             content = response.choices[0].message.content
             if content is None:
@@ -276,8 +293,6 @@ def _filter_caption_lines(raw: str) -> list[str]:
             continue
         seen.add(ln)
         out.append(ln)
-        if len(out) >= 6:
-            break
     return out
 
 
@@ -323,5 +338,67 @@ def process_image_translations(
         if translations:
             results[url] = translations
             logger.info(f"OCR+번역 완료: {len(translations)}건 -> {url[:60]}...")
+
+    return results
+
+
+def process_local_image_translations(
+    url_path_pairs: list[tuple[str, str]],
+    translate_fn,
+) -> dict[str, list[ImageTranslation]]:
+    """로컬 저장된 이미지 파일로 OCR을 수행합니다.
+
+    CDN URL이 만료된 경우 사용. 딕셔너리 키는 원본 CDN URL 그대로 유지하여
+    html_generator와 호환성을 보장합니다.
+
+    Args:
+        url_path_pairs: (cdn_url, local_file_path) 튜플 목록
+        translate_fn: 중국어→한국어 번역 함수
+    """
+    results = {}
+
+    for url, local_path in url_path_pairs:
+        try:
+            with open(local_path, "rb") as f:
+                img_bytes = f.read()
+        except OSError as e:
+            logger.warning(f"로컬 이미지 읽기 실패: {local_path} -> {e}")
+            continue
+
+        try:
+            img = Image.open(io.BytesIO(img_bytes))
+            if img.width < 200 or img.height < 100:
+                continue
+        except Exception:
+            continue
+
+        b64 = image_to_base64(img_bytes)
+        mime = _detect_mime(img_bytes)
+
+        backend = getattr(config, "OCR_BACKEND", "llm").lower()
+        if backend == "mcp":
+            chinese_text = call_ocr_mcp(b64)
+        else:
+            chinese_text = call_llm_vision_ocr(b64, mime=mime)
+
+        if not chinese_text or len(chinese_text.strip()) < 2:
+            continue
+
+        sentences = _filter_caption_lines(chinese_text)
+        if not sentences:
+            continue
+
+        translations = []
+        for sentence in sentences:
+            korean = translate_fn(sentence)
+            if korean:
+                translations.append(ImageTranslation(
+                    original_chinese=sentence,
+                    translated_korean=korean,
+                ))
+
+        if translations:
+            results[url] = translations
+            logger.info(f"로컬OCR+번역 완료: {len(translations)}건 -> {os.path.basename(local_path)}")
 
     return results
