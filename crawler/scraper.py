@@ -191,6 +191,12 @@ def classify_article(title: str) -> Optional[str]:
     if _matches_any_kw(title_lower, config.KEYWORDS_EXCLUDE):
         return None
 
+    # 복합 제외: require_any AND also_any 가 동시에 매칭될 때만 제외
+    for rule in config.KEYWORDS_EXCLUDE_COMPOUND:
+        if (_matches_any_kw(title_lower, rule["require_any"])
+                and _matches_any_kw(title_lower, rule["also_any"])):
+            return None
+
     # ── 2) 카메라 / 액션캠 / 이미징 ──
     if _matches_any_kw(title_lower, config.KEYWORDS_CAMERA):
         return "phone_camera"
