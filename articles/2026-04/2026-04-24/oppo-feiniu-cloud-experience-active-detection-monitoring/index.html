@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - OPPO 휴대폰과 Feiniu 사설 클라우드 결합 경험 공개: 능동적 무감지 발견, 제어 센터 빠른 진입점 및 시스템 레벨 상태 모니터링</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="OPPO">
+  <meta name="article-brand-color" content="#1D6FA4">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visitor-counter {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-zh {
+      font-size: 12.5px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .caption-ko {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="OPPO 휴대폰과 Feiniu 사설 클라우드 결합 경험 공개: 능동적 무감지 발견, 제어 센터 빠른 진입점 및 시스템 레벨 상태 모니터링" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #1D6FA4;">
+            OPPO
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title">OPPO 휴대폰과 Feiniu 사설 클라우드 결합 경험 공개: 능동적 무감지 발견, 제어 센터 빠른 진입점 및 시스템 레벨 상태 모니터링</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-04-24
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body -->
+      <div class="article-body">
+        
+        <h3>OPPO와 fnOS의 깊은 생태계 협력 발표</h3>
+        
+        <p>IT之家에 따르면, fnOS 공식 팀이 지난 4월 20일 OPPO와 심도 있는 생태계 협력을 체결했다고 밝혔습니다. 이와 관련하여 OPPO ColorOS 디자인 총괄 디렉터인 Chen Xi는 어제(4월 22일) OPPO 스마트폰과 fnOS 사설 클라우드의 결합된 사용자 경험을 공유했습니다.</p>
+        
+        <h3>fnOS 시스템 개요</h3>
+        
+        <p>IT之家에 따르면, fnOS는 Linux 커널(Debian 배포판)을 기반으로 개발된 국내 NAS 시스템입니다. 이 시스템은 주류 x86 하드웨어 장치와 호환되며, 올해 2월에는 ARM 아키텍처의 공개 테스트 버전을 출시했습니다.</p>
+        
+        <ul>
+<li><strong>주요 기능:</strong> 영상 및 음원 관리, 사진첩 스마트 백업, Docker 서비스 배포, 원격 접속 등</li>
+</ul>
+        
+        <h3>OPPO와 fnOS 통합 주요 특징</h3>
+        
+        <p>이번 협력을 통해 OPPO 스마트폰은 다음과 같은 편리한 기능을 제공받게 됩니다.</p>
+        
+        <ul>
+<li><strong>자동 발견 및 간편 배치:</strong> 사용자가 별도의 설정 없이도 fnOS 사설 클라우드를 능동적으로 감지하며, 초보자도 쉽게 무선으로 빠르게 배포할 수 있습니다.</li>
+<li><strong>시스템 통합 경험:</strong> OPPO 스마트폰에 제어 센터의 빠른 진입점과 시스템 레벨 상태 모니터링 기능이 통합되었습니다. 또한 네이티브 사진첩 이미지 브라우징을 지원합니다.</li>
+</ul>
+        
+        <p>Chen Xi는 향후에도 시스템과 더욱 깊게 융합된 다양한 네이티브 경험들이 추가될 것이라고 전했습니다.</p>
+        
+        <h3>총평</h3>
+        
+        <p>이번 OPPO와 fnOS의 협력은 스마트폰 사용자들에게 강력한 개인 클라우드 기능을 제공하는 중요한 전환점이 될 것으로 보입니다. OPPO는 ColorOS를 통해 하드웨어와 소프트웨어를 통합하고, fnOS는 안정적인 NAS 시스템을 제공함으로써 사용자가 사진 및 미디어 데이터를 더욱 쉽고 효율적으로 관리할 수 있는 환경을 구축했습니다.</p>
+        
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">昨天 18:00 来自 OPPO Find X9 Ultra</div>
+                <div class="caption-ko">어제 18:00, OPPO Find X9 Ultra에서 전송됨</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">分享一下OPPO手机与飞牛私云的融合体验：</div>
+                <div class="caption-ko">OPPO 휴대폰과 Feiniu 사설 클라우드의 결합 경험을 공유합니다:</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">- 主动式无感发现</div>
+                <div class="caption-ko">능동식 무감지 발견</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">- 侵爪式无线快速部署</div>
+                <div class="caption-ko">클로(claw) 방식 무선 고속 배포</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">- 控制中心快速入口与系统级状态查看</div>
+                <div class="caption-ko">제어 센터의 빠른 진입 및 시스템 상태 확인</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">- 原生相册图片浏览</div>
+                <div class="caption-ko">기본 사진첩 이미지 보기</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">未来还有更多与系统深度融合的原生体验，敬请期待。</div>
+                <div class="caption-ko">앞으로도 시스템과 깊이 통합된 네이티브 경험을 기대해 주세요.</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">NAS 私有云</div>
+                <div class="caption-ko">NAS 개인 클라우드</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">专业素材管理方案</div>
+                <div class="caption-ko">전문 자료 관리 솔루션</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">后续 OTA 升级支持</div>
+                <div class="caption-ko">추후 OTA 업그레이드 지원</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">图集</div>
+                <div class="caption-ko">모음집</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">首页</div>
+                <div class="caption-ko">홈페이지</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">精彩</div>
+                <div class="caption-ko">멋진</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">相机</div>
+                <div class="caption-ko">카메라</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">私有云</div>
+                <div class="caption-ko">프라이빗 클라우드</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">更多图集</div>
+                <div class="caption-ko">더 많은 이미지 모음</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">一点轻松连接</div>
+                <div class="caption-ko">간편하게 연결하세요</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">原生相册接入</div>
+                <div class="caption-ko">네이티브 앨범 접근</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">8K超清晰预览</div>
+                <div class="caption-ko">8K 초고화질 미리보기</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">无城市</div>
+                <div class="caption-ko">도시 없음</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">天气</div>
+                <div class="caption-ko">날씨</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">4月22日 周三</div>
+                <div class="caption-ko">4월</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">发现新的私有云设备</div>
+                <div class="caption-ko">새로운 사설 클라우드 장치 발견</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">开始设置</div>
+                <div class="caption-ko">설정 시작</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg" alt="이미지 4" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">开始使用 fnOS</div>
+                <div class="caption-ko">fnOS 사용 시작</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">设备名称*</div>
+                <div class="caption-ko">기기 이름*</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">超级管理员账号*</div>
+                <div class="caption-ko">슈퍼 관리자 계정*</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">密码*</div>
+                <div class="caption-ko">비밀번호*</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">请输入密码</div>
+                <div class="caption-ko">비밀번호를 입력하세요</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">再次确认密码</div>
+                <div class="caption-ko">비밀번호를 다시 확인하세요</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">我已阅读并同意《隐私协议》和《服务条款》</div>
+                <div class="caption-ko">개인정보 보호정책 및 서비스 약관에 동의했습니다.</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg" alt="이미지 5" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">已连接（局域网）</div>
+                <div class="caption-ko">연결됨 (로컬 네트워크)</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">存储空间</div>
+                <div class="caption-ko">저장 공간</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">网络监控</div>
+                <div class="caption-ko">네트워크 모니터링</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">私有云设备图集</div>
+                <div class="caption-ko">사설 클라우드 장비 모음집</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">在手机相册查看有云设备的照片和视频</div>
+                <div class="caption-ko">휴대폰 앨범에서 클라우드 기기의 사진 및 동영상 확인하기</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">33 项</div>
+                <div class="caption-ko">33 항목</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">私有云设置</div>
+                <div class="caption-ko">사설 클라우드 설정</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">备份设置、私有云应用管理等</div>
+                <div class="caption-ko">백업 설정, 개인 클라우드 앱 관리 등</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.jpg" alt="이미지 6" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">未在播放</div>
+                <div class="caption-ko">재생되지 않음</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">藍牙 开</div>
+                <div class="caption-ko">블루투스 켜기</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">手电筒</div>
+                <div class="caption-ko">손전등</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">定位服务</div>
+                <div class="caption-ko">위치 서비스</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">飞行模式</div>
+                <div class="caption-ko">비행 모드</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">自动旋转</div>
+                <div class="caption-ko">자동 회전</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">免打扰</div>
+                <div class="caption-ko">방해 금지</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">省电模式</div>
+                <div class="caption-ko">절전 모드</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">暗色模式</div>
+                <div class="caption-ko">다크 모드</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">截屏</div>
+                <div class="caption-ko">스크린샷</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">屏幕录制</div>
+                <div class="caption-ko">화면 녹화</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">个⼈热点</div>
+                <div class="caption-ko">개인 핫스팟</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img07.jpg" alt="이미지 7" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">在“相册”便捷浏览</div>
+                <div class="caption-ko">앨범&#34;에서 편리하게 브라우징하기</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">私有云</div>
+                <div class="caption-ko">프라이빗 클라우드</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">全部项目</div>
+                <div class="caption-ko">모든 프로젝트</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">沙滩派对</div>
+                <div class="caption-ko">비치 파티</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">宠物</div>
+                <div class="caption-ko">반려동물</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">完成</div>
+                <div class="caption-ko">완료</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/942/374.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-04"
+               class="archive-btn active">
+              2026-04
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // 방문자 카운터 (메인과 동일 로직)
+    (function () {
+      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
+      const totalKey = 'visitCount_total';
+      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+      localStorage.setItem(todayKey, todayCount);
+      localStorage.setItem(totalKey, totalCount);
+      document.getElementById('visitor-counter').textContent =
+        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    let searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

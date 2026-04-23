@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 화웨이, 건쿤 하오멍 좌창 HarmonySpace 6 출시: 소예 AI 에이전트가 대화하며 운전 가능</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Huawei">
+  <meta name="article-brand-color" content="#CF0A2C">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visitor-counter {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-zh {
+      font-size: 12.5px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .caption-ko {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="화웨이, 건쿤 하오멍 좌창 HarmonySpace 6 출시: 소예 AI 에이전트가 대화하며 운전 가능" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #CF0A2C;">
+            Huawei
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title">화웨이, 건쿤 하오멍 좌창 HarmonySpace 6 출시: 소예 AI 에이전트가 대화하며 운전 가능</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-04-24
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body -->
+      <div class="article-body">
+        
+        <h3>주요 발표 내용</h3>
+        
+        <p>IT之家에 따르면, Huawei의 건쿤(乾崑) 기술 컨퍼런스에서 HarmonyOS Cockpit HarmonySpace 6가 공개되었으며, 업계 최초의 전장면 대화형 AI 비서인 '샤오이 인텔리전트 에이전트'가 공식적으로 선보였습니다.</p>
+        
+        <h3>탑승자 감지 및 안전 시스템</h3>
+        
+        <p>HarmonyOS Cockpit HarmonySpace 6는 새로운 AMS 탑재 AI 멀티모달 감지 시스템을 통해 차량 내부의 안전 감지 측면에서 중요한 업그레이드를 이루었습니다. 이 시스템은 업계 유일의 삼합일(Three-in-One) 탑재 멀티모달 감지 시스템으로, 도플러 효과를 결합하여 호흡이나 심장 박동으로 인한 인체 및 반려동물의 흉곽 미세 움직임을 포착합니다.</p>
+        
+        <p>이를 통해 생명체의 식별과 현존 여부 판단이 가능하며, 사지 행동 인식 능력과 고정밀 이미징 기능까지 갖추고 있습니다. 차량 탑승자 전체의 상태를 지속적으로 감지함으로써, 중앙 디스플레이, 샤오이 인텔리전트 에이전트, 음성 안내, 그리고 차주 앱 등 다중 경로로 능동적인 알림 및 위험 개입을 수행하여 잠재적인 안전 위험 요소를 줄여줍니다.</p>
+        
+        <h3>지능형 상호작용 및 소프트웨어</h3>
+        
+        <p>Huawei는 지능형 인터랙션 측면에서 MoLA 2.0 아키텍처를 공식 발표했습니다. 멀티모달 감지 엔진과 샤오이의 기억 모듈이 깊게 통합되어 이전보다 훨씬 포괄적인 기억 기능을 제공합니다.</p>
+        
+        <p>새롭게 개방된 Agent 플랫폼은 더 많은 서드파티 에이전트를 빠르게 연결할 수 있게 하여, 적용 가능한 시나리오 범위를 더욱 풍부하게 확장했습니다. 시스템 엔진 전체가 천억 파라미터급의 멀티모달 대규모 모델로 업그레이드되어, 코크핏 '두뇌' 자체가 훨씬 더 지능적으로 변모했습니다.</p>
+        
+        <p>새로운 샤오이 인텔리전트 에이전트는 내비게이션, 차량 제어, 채팅, 생활 서비스 등 다양한 시나리오를 연결합니다. 무엇이든 대화하고 무엇이든 처리할 수 있습니다. 동반자형 AI로서 사용자는 대화를 하면서, 차량을 제어하면서, 내비게이션을 따라가면서, 식사 주문까지 할 수 있으며 언제든지 기능을 전환할 수 있습니다.</p>
+        
+        <p>내비게이션 분야에서 샤오이 인텔리전트 에이전트는 Huawei ADS와 깊이 통합되었습니다. 사용자가 대략적인 위치나 목적지의 특징, 심지어 자신이 하고 싶은 활동을 설명하기만 하면, 샤오이는 이를 정확하게 찾아 건쿤 시스템을 통해 안내해 줍니다.</p>
+        
+        <p>또한, 샤오이는 새로운 파트너인 AI 동반 로봇 '하몽몽'을 맞이했습니다. 하몽몽은 외관이 귀엽고 스크린에 부착되어 머리를 움직이며, 샤오이와 실시간으로 연동하여 풍부하고 재미있는 표정을 만들어냅니다. 휴대할 수 있어 샤오이의 친밀한 파트너 역할을 할 것입니다.</p>
+        
+        <h3>디스플레이 및 시각 기술</h3>
+        
+        <p>멀티미디어 영상 분야에서 Huawei 건쿤은 HarmonyOS Cockpit 6에 듀얼 17.2인치 + 3.4K 사양을 공개했습니다. 이 디스플레이는 다음과 같은 특징을 갖습니다.</p>
+<ul>
+<li>98% P3 광색역 지원 및 900 nit의 전역 고휘도 구현</li>
+<li>±0.01의 듀얼 스크린 색온도 일치성 확보</li>
+<li>HDR Vivid 및 저블루라이트 안심 보호 이중 인증 획득</li></ul>
+        
+        <p>두 개의 NFC 인터랙션 지원으로 주 운전자와 부 운전자의 끊김 없는 전환 경험을 제공하며, 21:10의 초광대비 비율 디자인은 시야를 넓고 레이아웃을 실용적으로 만듭니다. 중앙 디스플레이는 새로운 스마트 분할 화면 기능을 지원하고, 부 운전자 전용으로는 21:9 영화관 대화면 감상 경험이 가능해져 스크린 표시 면적이 30% 증가하고 몰입감이 높아졌습니다.</p>
+        
+        <p>Huawei는 평판과 PC에서 이미 사용하던 클라우드 선명도 기술을 차량 디스플레이에 최초로 적용하여 '나비 날개 듀얼 스크린 클라우드 선명도 버전'을 출시했습니다. 고정밀 나노 에칭 공정을 통해 눈부심과 반사를 97% 제거하고, 시각 피로 지수를 37% 낮추었으며, 지문 잔여물까지 줄였습니다.</p>
+        
+        <h3>차량 조명 및 프로젝션</h3>
+        
+        <p>Huawei의 백만 화소 스마트 차량 라이트 모듈도 혁신을 거듭했습니다. 최초로 백만 화소 컬러 스마트 차량 라이트 모듈이 출시되었으며, 색역은 최대 125%에 달하는 고화질 TV 표준을 구현하여 더욱 풍부한 색감을 제공합니다.</p>
+        
+        <p>종단 간(End-to-End) 영역 통합 능력을 바탕으로 안전 조명 경험뿐만 아니라 영화관 수준의 시청 경험까지 선사하며, 이는 웬지에 M9에 최초로 탑재됩니다. 컬러 라이트는 비나 안개 날씨에 스마트하게 색온도를 조절하여 투과성을 높이고, 유효 거리 인지 거리를 기존 30m에서 50m로 향상시켜 66%의 성능 개선을 이루었습니다.</p>
+        
+        <p>또한, 업계 최초의 차량용 레이저 프로젝터가 공개되었습니다. 진레이저 광원과 LCOS 기술을 채택하여 2000:1의 높은 명암비와 98% 영화관급 광색역을 제공합니다. 이 제품은 레이저 눈 안전 인증, 독일 라인 저유해 블루라이트 인증, 그리고 SGS 차량 디스플레이 저운동 금표 인증 세 가지를 모두 통과했습니다.</p>
+        
+        <p>혁신적인 폴더블 광로와 특허받은 폴더블 렌즈 덕분에 후방 좌석 야외 영화관 등 다양한 시나리오에서 사용 가능하며, 실내와 실외 어디든 투영이 가능합니다.</p>
+        
+        <h3>사운드 시스템</h3>
+        
+        <p>Huawei는 AI를 사운드 시스템에 깊게 통합하여 새로운 AI 튜닝 마법 큐브를 출시했습니다. 이 제품은 업계 최고 수준인 260가지 이상의 오디오 파라미터를 보유하고 있어, 소리의 방향, 음량, 잔향 등을 정밀하게 제어할 수 있습니다.</p>
+        
+        <p>업계 최초의 AI 인터랙티브 스타링 스캐터는 좌우 회전 및 상하 고개를 통해 반응하며, 환영 인사 기능, 상호작용 조명 언어, 전용 몰입형 테마를 갖추고 있으며, Qijing GT7에 최초로 탑재됩니다. 차량용 노래방 기능은 3.0 버전으로 업그레이드되어 AI 스마트 반주, 사람 목소리 최적화, AI 재미있는 음색 등 전문적인 실내 노래 경험을 제공합니다.</p>
+        
+        <h3>총평</h3>
+        
+        <p>HarmonyOS Cockpit HarmonySpace 6는 단순한 인포테인먼트 시스템을 넘어선 통합 지능형 플랫폼으로 진화했습니다. AMS 멀티모달 감지 시스템과 MoLA 2.0 아키텍처를 통해 안전성, 상호작용성, 그리고 사용자 경험 전반에 걸쳐 혁신적인 업그레이드를 보여주었습니다.</p>
+        
+        <p>듀얼 스크린의 고화질 사양부터 백만 화소 스마트 라이트 모듈과 차량용 레이저 프로젝터까지, 하드웨어와 소프트웨어가 완벽하게 결합된 것이 특징입니다. 특히 AI 비서 샤오이 에이전트를 중심으로 모든 기능이 유기적으로 연결되어 미래 모빌리티의 새로운 기준을 제시하고 있습니다.</p>
+        
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">央视新闻</div>
+                <div class="caption-ko">CCTV 뉴스</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">正点播</div>
+                <div class="caption-ko">실시간 방송</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">华为乾崑</div>
+                <div class="caption-ko">Huawei 건쿤</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">全新一代鸿蒙底座</div>
+                <div class="caption-ko">새로운 세대 Harmony 기반</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">央视新闻 正点播</div>
+                <div class="caption-ko">CCTV 뉴스 정점재생</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">全新一代 舱内感知</div>
+                <div class="caption-ko">새로운 세대의 실내 감지 기능</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">全新一代 智慧交互</div>
+                <div class="caption-ko">새로운 세대의 스마트 인터랙션</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">全新一代 移动影音</div>
+                <div class="caption-ko">새로운 세대의 모바일 영상 및 오디오</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.png" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">全新一代 鸿蒙座舱 AI 多模态感知系统 AN</div>
+                <div class="caption-ko">차세대 Harmony OS 코크핏 AI 다중 모드 인식 시스템 AN</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">开创舱内融合感知新时代</div>
+                <div class="caption-ko">객실 내 통합 인지 시대의 개척</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">央视新闻 正向播</div>
+                <div class="caption-ko">CCTV 뉴스 긍정적으로 방송</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.png" alt="이미지 4" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">实况新闻 正点播</div>
+                <div class="caption-ko">실시간 뉴스, 정규 방송</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">行业唯一</div>
+                <div class="caption-ko">업계 유일</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">鸿蒙座舱 AI 多模态感知系统 AMS</div>
+                <div class="caption-ko">HarmonyOS 코크핏 AI 다중 모드 인식 시스템 AMS</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">8M RGB摄像头 + 2M IR摄像头 + 2T4R高精度四向传感器</div>
+                <div class="caption-ko">8M RGB 카메라 + 2M IR 카메라 + 2T4R 고정밀 사방 센서</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">IR摄像头</div>
+                <div class="caption-ko">IR 카메라</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">RGB摄像头</div>
+                <div class="caption-ko">RGB 카메라</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.png" alt="이미지 5" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">华为乾崑</div>
+                <div class="caption-ko">Huawei 건쿤</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">鸿蒙座舱 HarmonySpace 6</div>
+                <div class="caption-ko">HarmonySpace 6</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">全新一代鸿蒙座舱小艺智能体</div>
+                <div class="caption-ko">차세대 Harmony OS 코크핏 XiaoYi AI 에이전트</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">行业首个全球场景域空星座舱智能化</div>
+                <div class="caption-ko">업계 최초의 글로벌 시나리오 영역 우주 위성 컨소시엄 지능화</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.png" alt="이미지 6" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">全新一代AI多模态感知系统</div>
+                <div class="caption-ko">차세대 AI 멀티모달 인식 시스템</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">开创舱内融合感知新时代</div>
+                <div class="caption-ko">객실 내 통합 인지 시대의 개척</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">全新一代小艺智能体</div>
+                <div class="caption-ko">새로운 세대의 Xiaomi AI 에이전트</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">全场景跨域交互</div>
+                <div class="caption-ko">전체 환경의 영역 간 상호작용</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">精彩</div>
+                <div class="caption-ko">멋진</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">导航</div>
+                <div class="caption-ko">내비게이션</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">生活服务</div>
+                <div class="caption-ko">생활 서비스</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">鸿蒙座舱</div>
+                <div class="caption-ko">HarmonyOS 코크핏</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">与美好同程</div>
+                <div class="caption-ko">아름다운 여정에 함께합니다</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">全新一代</div>
+                <div class="caption-ko">새로운 세대</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">鸿蒙生态</div>
+                <div class="caption-ko">HarmonyOS 생태계</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">定义移动智能新体验</div>
+                <div class="caption-ko">모바일 지능형 신규 경험 정의</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img07.png" alt="이미지 7" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">央视新闻 正点播</div>
+                <div class="caption-ko">CCTV 뉴스 정점재생</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">鸿蒙座舱 AI 陪伴机器人</div>
+                <div class="caption-ko">HarmonyOS 코크핏 AI 동반 로봇</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">萌宠治愈 | 多模交互 | AI陪伴 | 场景联动 | 主题联动 | 小芝联动</div>
+                <div class="caption-ko">귀여운 반려동물 치유 | 다중 모드 상호작용 | AI 동반 | 시나리오 연동 | 테마 연동 | 샤즈 연동</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img08.png" alt="이미지 8" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">实况新闻</div>
+                <div class="caption-ko">실시간 뉴스</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">行业首发</div>
+                <div class="caption-ko">업계 최초 공개</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">双17.2英寸+3.4K 震撼大屏</div>
+                <div class="caption-ko">듀얼 17.2인치 + 3.4K 초거대 디스플레이</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">900nit 全局高亮度</div>
+                <div class="caption-ko">900니트 전역 고휘도</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">±0.01 双屏色差一致性</div>
+                <div class="caption-ko">±0.01 듀얼 스크린 색차 일치성</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/942/801.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-04"
+               class="archive-btn active">
+              2026-04
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // 방문자 카운터 (메인과 동일 로직)
+    (function () {
+      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
+      const totalKey = 'visitCount_total';
+      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+      localStorage.setItem(todayKey, todayCount);
+      localStorage.setItem(totalKey, totalCount);
+      document.getElementById('visitor-counter').textContent =
+        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    let searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
