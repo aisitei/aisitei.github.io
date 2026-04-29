@@ -130,6 +130,14 @@ KEYWORDS_EXCLUDE_COMPOUND: list[dict] = [
         ],
     },
     {
+        "comment": "索尼/Sony + SIE(인터랙티브 엔터테인먼트) 맥락 → 제외 (게임 사업부 기사가 카메라 브랜드 통해 수집되는 것 차단)",
+        "require_any": ["索尼", "sony"],
+        "also_any": [
+            "sie", "互动娱乐", "3a游戏", "aaa游戏", "3a大作",
+            "PlayStation部门", "游戏部门", "游戏业务",
+        ],
+    },
+    {
         "comment": "游戏 + 스마트폰 브랜드 플랫폼 출시 → 제외 (게임 앱이 폰 브랜드 키워드 통해 수집되는 것 차단)",
         "require_any": ["游戏"],
         "also_any": [
