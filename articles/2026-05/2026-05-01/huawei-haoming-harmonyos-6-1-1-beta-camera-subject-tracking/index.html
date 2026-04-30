@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 화웨이 하오밍 HarmonyOS 6.1.1 (24) 베타 1 버전 출시, 카메라 키트로 카메라 컨트롤러에 &#39;피사체 추적&#39; 기능 제공</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="Huawei">
+  <meta name="article-brand-color" content="#CF0A2C">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visitor-counter {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-zh {
+      font-size: 12.5px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .caption-ko {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="화웨이 하오밍 HarmonyOS 6.1.1 (24) 베타 1 버전 출시, 카메라 키트로 카메라 컨트롤러에 &#39;피사체 추적&#39; 기능 제공" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #CF0A2C;">
+            Huawei
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title">화웨이 하오밍 HarmonyOS 6.1.1 (24) 베타 1 버전 출시, 카메라 키트로 카메라 컨트롤러에 &#39;피사체 추적&#39; 기능 제공</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-05-01
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body -->
+      <div class="article-body">
+        
+        <h3>HarmonyOS 6.1.1 Beta1 개발자 업데이트 주요 내용</h3>
+        
+        <p>IT之家에 따르면, Huawei 개발자 공식 웹사이트를 통해 HarmonyOS 6.1.1 (24) Beta1 버전이 공개되었습니다. 이 버전은 이전 6.1.0 (23) 버전을 기반으로 하며, 개발 역량이 대폭 강화된 것이 특징입니다.</p>
+        
+        <h3>핵심 프레임워크 기능 강화</h3>
+        
+        <p>주요 모듈별로 다음과 같은 성능 및 기능을 개선했습니다:</p>
+<ul>
+<li><strong>Ability Kit:</strong> AbilityStage의 컨텍스트(Context) 능력을 향상시켜 동적 리소스 로딩을 지원합니다.</li>
+<li><strong>ArkUI:</strong> 평행 시야 상태 획득, 사용자 정의 컴포넌트의 Ability 간 마이그레이션, 동적 레이아웃 컨테이너 등 기능을 강화했으며, 여러 컴포넌트에 대한 C API가 추가되었습니다.</li>
+<li><strong>ArkTS:</strong> 가상 머신 측정 능력을 향상시키고 taskpool 작업 타임아웃 설정을 지원합니다.</li>
+<li><strong>ArkWeb:</strong> 다운로드 작업 콜백 기능을 개선하고 URL 화이트리스트 및 보안 제어 인터페이스를 추가했습니다.</li>
+<li><strong>Camera Kit:</strong> 지연 미리보기 출력(Delayed Preview Output)과 인물 추적(Auto Framing) 기능을 새로 추가했습니다.</li>
+<li><strong>Audio Kit:</strong> 외부 장치 연결을 위한 MIDI C API 지원이 추가되었습니다.</li>
+<li><strong>FAST Kit:</strong> 동시 해시 테이블, 벡터 연산 및 필터 기능이 추가되었습니다.</li>
+<li><strong>Performance Analysis Kit:</strong> 리소스 수집 및 충돌 로그 분석 능력이 강화되었습니다.</li>
+</ul>
+        
+        <p>또한, Content Embed Kit(콘텐츠 임베드 서비스)와 Enterprise Threat Protection Kit(기업 위협 방지 서비스) 등 새로운 키트가 추가되었습니다.</p>
+        
+        <h3>개발 환경 (DevEco Studio) 개선 사항</h3>
+        
+        <p>개발 도구인 DevEco Studio의 기능도 크게 향상되었습니다:</p>
+<ul>
+<li><strong>API 지원:</strong> API 24 엔지니어링을 지원합니다.</li>
+<li><strong>Hot Reload 강화:</strong> C++ 코드와 리소스 파일 수정까지 지원하는 Hot Reload 기능을 개선했습니다.</li>
+<li><strong>디버깅 효율성 증대:</strong> Binder 통신 정보, 메인 스레드 작업 큐 및 샘플링 스택 데이터를 포함하여 더 많은 AppFreeze 로그를 분석할 수 있게 되어 개발자가 문제점을 찾는 효율성이 높아졌습니다.</li>
+<li><strong>메모리 누수 진단:</strong> UI 인터페이스 각 컴포넌트의 메모리 할당 상황을 분석하는 ComMemory 템플릿이 추가되어, UI 컴포넌트의 메모리 누수를 찾는 데 도움을 줍니다.</li>
+</ul>
+        
+        <h3>주요 API 및 기능 상세 업데이트</h3>
+        
+        <p>HarmonyOS 6.1.1 (24) Beta1 버전에서 새롭게 지원되거나 개선된 세부 기능들은 다음과 같습니다.</p>
+        
+        <h4>시스템 및 앱 개발</h4>
+<ul>
+<li><strong>Ability 관리:</strong> Ability의 마지막 종료 정보 필드에 '종료 원인'을 가져오는 것이 추가되었습니다.</li>
+<li><strong>AbilityStage 컨텍스트:</strong> `launchElement` 필드가 추가되어, AbilityStage가 onCreate를 호출할 때 현재 로딩 중인 Ability 정보를 앱에 전달함으로써 동적 리소스 로딩이 가능해졌습니다.</li>
+<li><strong>위젯 및 데이터베이스:</strong> 애플리케이션 내 바로가기 검색 및 삭제 기능 지원이 추가되었으며, 관계형 데이터베이스(RdbStore)를 생성하거나 기존 DB를 여는 동기화 방법도 새로 추가되었습니다.</li>
+<li><strong>HDR/AI 지원:</strong> 컴포넌트 내용에 HDR(High Dynamic Range Imaging) 밝기 효과를 적용하는 것이 가능해졌고, 비디오의 AIHDR 포맷을 지원합니다.</li>
+</ul>
+        
+        <h4>가상 머신 및 성능 분석</h4>
+<ul>
+<li><strong>메모리 정보 수집:</strong> 모든 가상 머신 스레드의 힙 메모리 정보(스레드 ID, 이름, 힙 유형, 객체 크기 포함)를 가져오는 것이 가능해졌습니다.</li>
+<li><strong>메모리 누수 방지:</strong> `enableLocalHandleDetection` 인터페이스가 추가되어 EventHandler 및 libuv 메커니즘의 작업이 스코프 내에서 실행되도록 보장하여 메모리 누수를 예방합니다.</li>
+<li><strong>타임아웃 설정:</strong> taskpool의 execute 메서드를 강화하여, 작업이나 작업 그룹에 타임아웃 시간을 지정할 수 있게 되었으며, 초과 시 오류 메시지를 발생시킵니다.</li>
+</ul>
+        
+        <h4>UI/UX 및 컴포넌트</h4>
+<ul>
+<li><strong>평행 시야(Parallel View):</strong> 앱이 평행 시야 기능을 능동적으로 사용할 때, 새로운 API 인터페이스를 통해 현재 분할 화면 상태를 런타임에 가져와 비즈니스 로직이나 UX 애니메이션을 조정하기 편리해졌습니다.</li>
+<li><strong>컴포넌트 유연성:</strong> 사용자 정의 컴포넌트가 Ability 간 마이그레이션을 지원하게 되었습니다.</li>
+<li><strong>C API 확장:</strong> 여러 컴포넌트에 대한 C API(예: OH_ArkUI_DecorationStyleOptions 등)가 추가되었으며, 속성 문자열을 가져오는 C API도 추가되었습니다.</li>
+<li><strong>사용자 경험 개선:</strong> 텍스트 컴포넌트에서 좌표를 기반으로 가장 가까운 문자의 위치 정보를 얻는 것이 가능해졌습니다. 또한, 드래그앤드롭 비동기 알림 인터페이스가 추가되어 복사/잘라내기 처리 방식과 애니메이션 실행 여부를 지정할 수 있습니다.</li>
+<li><strong>소프트 키보드:</strong> `onNeedSoftkeyboard` 콜백이 새로 추가되어 개발자가 포커스 이동 후에도 소프트 키보드가 닫히지 않도록 설정할 수 있게 되었습니다.</li>
+</ul>
+        
+        <h4>미디어 및 카메라</h4>
+<ul>
+<li><strong>오디오 기능:</strong> 오디오 녹음 및 렌더링에 독립적인 오디오 세션 전략과 동작 매개변수를 설정하는 것이 가능해졌습니다.</li>
+<li><strong>MIDI 지원:</strong> OH_MIDI C API가 추가되어, 앱이 USB 또는 블루투스 BLE를 통해 외부 MIDI 장치(키보드, 전자 피아노 등)와 연결하여 MIDI 메시지를 송수신하고 장치를 열거/핫 플러그 감지할 수 있습니다.</li>
+<li><strong>코덱 및 보안:</strong> Cinepak 미디어 포맷의 코덱 지원이 추가되었으며, DRM 보호 콘텐츠를 처리할 때 안전한 링크를 지원하는 '안전 디코더'를 사용하여 특정 MIME 유형을 필터링할 수 있게 되었습니다.</li>
+<li><strong>카메라 기능:</strong> 카메라 컨트롤러에 인물 추적(AUTO_FRAMING) 능력이 제공되어, 사람이 화면 중앙에 항상 위치하도록 자동으로 자르고 확대합니다.</li>
+</ul>
+        
+        <h4>지도 및 보안</h4>
+<ul>
+<li><strong>지리 정보:</strong> 지도 앱에서 오프라인 지도 관리 페이지와 지점 상세 정보를 불러오는 것이 가능해졌습니다. 또한, 마커(Marker)나 POI를 길게 누르는 이벤트 리스너 기능이 추가되었습니다.</li>
+<li><strong>Kiosk 모드:</strong> Kiosk 모드에서 스와이프 업 정지 제스처로 최근 작업 표시줄에 진입하거나, 가장자리 내부 스와이프 정지 제스처로 사이드 DOCK 바에 진입하는 것이 가능해졌습니다.</li>
+<li><strong>보안 및 권한:</strong> 앱 간 문서 임베딩 및 협업 편집을 위한 Content Embed Kit가 제공되며, 코드 서명 정보 조회 기능이 추가되었습니다. 또한, 시스템 보안 관련 이벤트(프로세스 권한 상승, 프로세스 비정상 디버깅 등)를 처리하는 기능들이 대거 추가되었습니다.</li>
+</ul>
+        
+        <h4>디버깅 및 테스트 도구</h4>
+<ul>
+<li><strong>리소스 수집 강화:</strong> HiDebug에서 애플리케이션 프로세스의 물리 메모리 사용 정보를 가져오는 것이 가능해졌으며, 스냅샷을 스레드 단위가 아닌 프로세스 단위로 전송할 수 있게 되었습니다.</li>
+<li><strong>트레이싱 개선:</strong> HiDebug는 커널 정보 등을 포함한 트레이스(Trace) 수집 요청 인터페이스를 제공합니다.</li>
+</ul>
+        
+        <h3>총평</h3>
+        
+        <p>HarmonyOS 6.1.1 Beta1은 개발자 생태계의 깊이와 폭을 동시에 확장하는 대규모 업데이트입니다. 특히 Ability Kit, ArkUI 등 핵심 프레임워크 전반에 걸쳐 동적 로딩, 메모리 관리, 사용자 경험(UX) 관련 기능들이 강화되어 앱 개발의 유연성이 크게 높아졌습니다. 또한, MIDI 지원, AIHDR 포맷 도입, 그리고 강력해진 디버깅 및 보안 기능을 통해 플래그십 기기 수준의 전문적인 애플리케이션 구현이 가능해지면서, HarmonyOS 생태계가 더욱 성숙하고 견고한 플랫폼으로 진화했음을 보여줍니다.</p>
+        
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">版本说明 &gt; HarmonyOS 6.1.1(24) Beta &gt; 版本概览</div>
+                <div class="caption-ko">버전 설명 &gt; HarmonyOS 6.1.1(24) Beta &gt; 버전 개요</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">更新时间：2026-04-30 10:39</div>
+                <div class="caption-ko">업데이트 시간: 2026-04-30 10:39</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">版本概览</div>
+                <div class="caption-ko">버전 개요</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">6.1.1(24) Beta在6.1.0(23)的基础上，发能力得到进一步增强：Ability Kit增强了AbilityStage上下文能力以支持动态加载资源；ArkUI增强了平视界状态缺乏页面回空，新增URL白名单和安全控制接口；Camera Kit新增延近预览输出自动化功能；Audio Kit新增MIDI C API支持外接设备；FAST Kit新增并发布表名、向蓝牙和流程功能；Performance Analysis Kit增强了资源采集和刷新日志不断分析能力；新版Content Embed Kit（内容嵌入服务）和Enterprise Threat Protection Kit（企业威胁防护服务），等等。更多详情可参阅OS平台新增和增强特性。</div>
+                <div class="caption-ko">6.1.1(24) Beta는 6.1.0(23)을 기반으로 기능을 더욱 강화했습니다. 주요 내용은 다음과 같습니다: Ability Kit은 동적 리소스 로드를 지원하기 위해 AbilityStage 컨텍스트 기능을 강화했으며, ArkUI는 평지 상태의 페이지 빈 공간을 개선하고 URL 화이트리스트 및 보안 제어 인터페이스를 추가했습니다. Camera Kit은 근접 미리보기 출력 자동화 기능을 추가했고, Audio Kit은 외부 장치 지원을 위한 MIDI C API를 추가했습니다. FAST Kit은 테이블 이름, 블루투스 전송 및 워크플로우 기능을 추가하고 배포했으며, Performance Analysis Kit은 리소스 수집 및 새로고침 로그 지속 분석 능력을 강화했습니다. 또한 새로운 Content Embed Kit(콘텐츠 임베드 서비스)와 Enterprise Threat Protection Kit(기업 위협 방지 서비스) 등이 추가되었습니다. 더 자세한 내용은 OS 플랫폼의 신규 및 강화된 기능을 참조하십시오.</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">DevEco Studio能力进一步增强：支持开发API 24工程；Hot Reload能力增强，支持修改C++代码和资源文件；支持解析更多AppFreeze日志，包括Binder通信层、主进程任务队列和采样数据，提醒开发者定位效率；新增ComponentMemory模块，用于分析UI页面组件内存的存贮情况，帮助定位UI组件内存泄漏问题，等。更多详情可参阅DevEco Studio新增和增强特性。</div>
+                <div class="caption-ko">DevEco Studio 기능이 더욱 강화되었습니다: API 24 프로젝트 개발을 지원하며, Hot Reload 기능도 향상되어 C++ 코드와 리소스 파일 수정이 가능합니다. Binder 통신 계층, 메인 프로세스 작업 큐 및 샘플 데이터를 포함하여 더 많은 AppFreeze 로그를 분석할 수 있어 개발자가 효율성을 찾도록 도움을 줍니다. 또한 UI 페이지 컴포넌트 메모리 저장 상태를 분석하고 UI 컴포넌트 메모리 누수 문제를 찾는 데 도움을 주는 ComponentMemory 모듈이 추가되었습니다. 자세한 내용은 DevEco Studio의 신규 및 강화된 기능을 참조하십시오.</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/945/408.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-05"
+               class="archive-btn active">
+              2026-05
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // 방문자 카운터 (메인과 동일 로직)
+    (function () {
+      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
+      const totalKey = 'visitCount_total';
+      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+      localStorage.setItem(todayKey, todayCount);
+      localStorage.setItem(totalKey, totalCount);
+      document.getElementById('visitor-counter').textContent =
+        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    let searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
