@@ -93,10 +93,21 @@ def commit_and_push(repo_dir: str, article_dirs: list[str], article_titles: list
         logger.error(f"git commit 실패: {output}")
         return False
 
-    code, output = run_git(["push", "origin", config.GIT_BRANCH], repo_dir)
-    if code != 0:
-        logger.error(f"git push 실패: {output}")
-        return False
+    max_retries = 3
+    for attempt in range(1, max_retries + 1):
+        code, output = run_git(["push", "origin", config.GIT_BRANCH], repo_dir)
+        if code == 0:
+            break
+        logger.warning(f"git push 실패 (시도 {attempt}/{max_retries}): {output}")
+        if attempt == max_retries:
+            logger.error("git push 최종 실패")
+            return False
+        # 원격에 새 커밋이 있을 수 있으므로 rebase 후 재시도
+        pull_code, pull_output = run_git(["pull", "--rebase", "origin", config.GIT_BRANCH], repo_dir)
+        if pull_code != 0:
+            logger.error(f"git pull --rebase 실패: {pull_output}")
+            return False
+        logger.info("원격 변경사항 병합 완료, push 재시도...")
 
     logger.info(f"GitHub push 완료: {count}건")
     return True
