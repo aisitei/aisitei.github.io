@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 텐센트, 오픈서치-VL 공개로 멀티모달 검색 AI 에이전트 학습 병목 현상 돌파</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visitor-counter {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-zh {
+      font-size: 12.5px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .caption-ko {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="텐센트, 오픈서치-VL 공개로 멀티모달 검색 AI 에이전트 학습 병목 현상 돌파" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title">텐센트, 오픈서치-VL 공개로 멀티모달 검색 AI 에이전트 학습 병목 현상 돌파</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-05-08
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body -->
+      <div class="article-body">
+        
+        <h3>OpenSearch-VL 개요 및 배경</h3>
+<p>Tencent Hunyuan은 UCLA, 홍콩중문대 등 유수 학부와 협력하여 오픈소스 멀티모달 학습 솔루션인 OpenSearch-VL을 공개했습니다. 이 솔루션은 강화 학습(RL) 기술을 활용하여 최첨단 능력을 갖춘 심층 검색 에이전트를 구축하는 것을 목표로 합니다.</p>
+        
+        <p>멀티모달 검색 에이전트란 이미지, 텍스트 등 다양한 형태의 입력을 처리할 수 있으며, 외부 도구(검색 엔진, 이미지 처리 도구 등)를 능동적으로 호출하여 다단계 추론, 증거 검증 및 지식 검색을 수행하는 인공지능 시스템입니다. 이는 특히 지식이 집약된 복잡한 시각 질의응답 문제를 해결하기 위해 설계되었습니다.</p>
+        
+        <p>이 연구는 고품질 데이터 파이프라인 구축을 통해 SearchVL-SFT-36k와 같은 데이터셋을 생성하여, 최첨단 멀티모달 심층 검색 에이전트 훈련에 사용됩니다. 연구진은 현재 이 분야의 발전을 가로막는 가장 큰 병목 현상은 바로 '고품질 학습 데이터'라고 지적했습니다. 기존 최고 수준의 시스템들은 상업 기업 주도로 운영되어 데이터 출처, 필터링 기준, 도구 사용 기록 등이 사유화되어 있어, 선진 능력을 재현하거나 체계적으로 연구하는 데 어려움이 있었습니다.</p>
+        
+        <h3>핵심 기술 구성 요소</h3>
+<p>OpenSearch-VL은 데이터부터 도구 환경, 훈련 알고리즘까지 전체 과정을 아우르는 완전한 오픈소스 솔루션을 제공합니다.</p>
+        
+        <h3>데이터 파이프라인 구축</h3>
+<ul>
+<li><strong>다단계 경로 샘플링:</strong> 위키피디아의 하이퍼링크 그래프를 활용하여 여러 단계를 거치는 개체 경로(multi-hop entity path)를 샘플링합니다.</li>
+<li><strong>정보 정제 및 강화:</strong> 중간 단계의 개체를 모호한 설명으로 재작성하고, 앵커 포인트를 원본 이미지에 고정시킵니다. 이를 통해 에이전트가 단일 단계 검색 경로(shortcut)만 학습하는 것을 방지하고, 다단계 검색 및 추론 능력을 습득하도록 유도합니다.</li>
+<li><strong>데이터셋 활용:</strong> 파이프라인을 통해 SearchVL-SFT-36k 데이터셋을 생성하여 지도 미세 조정(Supervised Fine-Tuning)에 사용하며, 평균적으로 각 궤적(trajectory)은 6.3회의 도구 호출을 포함합니다.</li>
+<li><strong>강화 학습:</strong> 무작위로 선택된 10%의 데이터를 모호화하거나 다운샘플링하는 등 '저하 처리'를 적용하고, 쌍으로 강화된 도구를 결합하여 에이전트가 "생각하면서 이미지를 처리"하는 능력을 갖추도록 유도합니다.</li>
+</ul>
+        
+        <h3>통합 도구 환경</h3>
+<ul>
+<li>OpenSearch-VL의 도구 환경은 단순 검색을 넘어선 통합 기능을 제공합니다.</li>
+<li>지원 기능에는 텍스트 검색, 이미지 검색, OCR(광학 문자 인식), 자르기(Cropping), 선명화(Sharpening), 초해상도(Super-resolution), 원근 보정(Perspective Correction) 등이 포함됩니다.</li>
+<li>이 통합 환경 덕분에 에이전트는 외부 지식을 질의하기 전에 먼저 모호하거나 저해상도, 기울어진 시각적 입력을 처리할 수 있게 되어, 능동적인 인식과 지식 획득을 결합하는 것이 가능해졌습니다.</li>
+</ul>
+        
+        <h3>실험 결과 및 성능 향상</h3>
+<ul>
+<li><strong>성능 개선:</strong> OpenSearch-VL-30B-A3B 모델은 기준점(baseline) 평균 점수를 47.8점에서 61.6점으로 크게 끌어올렸으며, VDR, MMSearch 등 여러 벤치마크에서 현저한 성능 향상을 입증했습니다.</li>
+<li><strong>구성 요소 기여도 검증:</strong> 제거 실험(Ablation experiment)을 통해 각 구성 요소의 중요성이 확인되었습니다. 원본 앵커 고정, 모호화 재작성, 또는 단계별 필터링 중 하나를 제거했을 때 평균 점수가 8.2점에서 11.5점까지 하락하는 것을 보여주었습니다.</li>
+</ul>
+        
+        <h3>총평</h3>
+<p>OpenSearch-VL은 멀티모달 검색 에이전트 개발의 핵심 난제였던 데이터와 도구 사용 과정을 오픈소스로 공개했다는 점에서 큰 의미가 있습니다. 특히 위키피디아 그래프를 활용한 다단계 경로 샘플링과 이미지 전처리 기능을 통합함으로써, 단순 지식 검색을 넘어선 복잡하고 능동적인 추론 능력을 에이전트에 부여했습니다.</p>
+<p>이는 향후 AI 기반의 시각적 질의응답 시스템 및 플래그십 제품 개발에 있어 중요한 오픈소스 표준으로 자리매김할 것으로 기대됩니다.</p>
+        
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">图1: 数据库流程概述。(a) 从英文维基百科超链接图出发，我们通过改变路径进行采样、生成知识问答对，构建可复用知识库。使用代表性偏差节点以及知识自动化程度指标，构建高质量的原始多维 VQA 到。(b) 然后，我们分阶段进行筛选，收集可复用知识库。使用代表性偏差节点以及知识自动化程度指标，构建高质量的原始多维 VQA 到。(c) 最后，我们找出其在真实的工具空间中合成多个残余分子ску，并应用基于富茎模型的修正和知识提取，从而得到用于下一阶段训练的最佳高质量知识。</div>
+                <div class="caption-ko">그림 1: 데이터베이스 프로세스 개요. (a) 영어 위키피디아 하이퍼링크 그래프에서 출발하여 경로 변경을 통해 샘플링하고 지식 Q&amp;A 쌍을 생성함으로써 재사용 가능한 지식 기반을 구축합니다. 대표성 편차 노드 및 지식 자동화 정도 지표를 사용하여 고품질의 원본 다차원 VQA를 구축합니다. (b) 다음으로, 단계별로 스크리닝을 수행하여 재사용 가능한 지식 기반을 수집합니다. 대표성 편차 노드 및 지식 자동화 정도 지표를 사용하여 고품질의 원본 다차원 VQA를 구축합니다. (c) 마지막으로, 실제 도구 공간에서 여러 잔여 분자(sku)를 찾아 합성하고, 리치 스템 모델 기반의 수정 및 지식 추출을 적용하여 다음 단계 훈련에 사용될 최적의 고품질 지식을 얻습니다.</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">学2：强化学习训练流程概述。从一个经过监督式微调的模型出发，我们针对真实环境 $\mathcal{E}$ 采样一组多轮轨迹。每条轨迹都会通过一个综合奖励进行评估，该奖励结合了最终任务成功率 ($\text{r}_{\text{acc}}$)、过程搜索质量 ($\text{r}_{\text{query}}$) 以及格式检查 ($\text{r}_{\text{fmt}}$)。为了在最终遭遇致命错误的过程中保留有效的处理过程，我们应用了致命感知的标记掩码来截断序列，并在策略优化过程中采用单侧优势钳位，从而防止早期有歧义步骤被削到。</div>
+                <div class="caption-ko">학 2: 강화 학습 훈련 과정 개요. 지도 미세 조정된 모델에서 출발하여, 우리는 실제 환경 $\mathcal{E}$을 대상으로 다중 라운지 궤적 세트를 샘플링합니다. 각 궤적은 최종 작업 성공률 ($\text{r}_{\text{acc}}$), 과정 검색 품질 ($\text{r}_{\text{query}}$), 그리고 형식 검사 ($\text{r}_{\text{fmt}}$)를 결합한 종합 보상을 통해 평가됩니다. 치명적 오류에 직면하는 과정에서 유효한 처리 과정을 유지하기 위해, 우리는 치명도 인식 토큰 마스크를 적용하여 시퀀스를 절단하고, 정책 최적화 과정에서 단측 이점 클리핑(one-sided advantage clipping)을 채택함으로써 초기 모호한 단계가 잘리는 것을 방지합니다.</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/947/174.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-05"
+               class="archive-btn active">
+              2026-05
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // 방문자 카운터 (메인과 동일 로직)
+    (function () {
+      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
+      const totalKey = 'visitCount_total';
+      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+      localStorage.setItem(todayKey, todayCount);
+      localStorage.setItem(totalKey, totalCount);
+      document.getElementById('visitor-counter').textContent =
+        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    let searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
