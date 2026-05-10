@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 나사 아르테미스 2호 사령관, 천체 사진작가와 협력해 달 뒷면의 절경 촬영</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visitor-counter {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-zh {
+      font-size: 12.5px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .caption-ko {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="나사 아르테미스 2호 사령관, 천체 사진작가와 협력해 달 뒷면의 절경 촬영" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title">나사 아르테미스 2호 사령관, 천체 사진작가와 협력해 달 뒷면의 절경 촬영</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-05-11
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body -->
+      <div class="article-body">
+        
+        <h3>아르테미스 II와 달 사진술의 만남</h3>
+        
+        <p>IT之家에 따르면, 아르테미스 2호가 최초 발사 창을 앞두고 얼마 지나지 않아 천문 사진작가 안드루 맥카시(Andrew McCarthy)는 기발한 아이디어를 떠올렸습니다. 바로 아르테미스 2호 우주비행사들이 그가 달 표면을 촬영하는 방식처럼 달을 찍게 하는 것이었습니다.</p>
+        
+        <p>맥카시는 아르테미스 2호 임무 사령관이자 NASA 우주비행사인 리드 와이스먼(Reid Weissman)에게 개인적으로 연락했습니다. 발사 직전에 요청하는 것이라 성공 가능성이 희박하다는 것을 알았지만, 이 절호의 기회를 놓치고 싶지 않았습니다. 놀랍게도 이처럼 막연했던 시도가 마침내 결실을 맺었습니다.</p>
+        
+        <p>맥카시는 Space.com과의 인터뷰에서 "그가 즉시 흔쾌히 동의해 주었다"며, "이는 꿈이 현실이 된 순간이자 독보적인 기회라고 느꼈다"고 전했습니다.</p>
+        
+        <h3>아르테미스 2호 임무와 달 표면의 비밀</h3>
+        
+        <p>NASA의 아르테미스 2호 임무는 4월 1일에 발사되어 네 명의 우주비행사가 10일간 달 뒷면을 공전하는 여정을 시작했습니다. 우주비행사들은 경이로운 달 사진들을 촬영하며, 특히 달 뒷면의 신비롭고 장엄한 풍경을 담아냈습니다.</p>
+        
+        <p>참가자 중 한 명인 NASA 우주비행사 크리스티나 코흐(Christina Koch)는 이곳을 "내가 본 곳 중 가장 신비로우면서도 깊이 매료되는 장소"라고 묘사했습니다.</p>
+        
+        <p>지구로 돌아온 맥카시는 수백, 심지어 수천 장에 달하는 달 사진들을 합성하고 오버레이하여, 단일 사진으로는 포착할 수 없는 달의 세부적인 디테일을 복원해냈습니다. 완성된 작품은 마치 유화처럼 풍부한 색채 계층을 보여주며, 사람들이 흔히 생각하는 밤하늘의 회백색 달이라는 고정관념을 깨뜨렸습니다.</p>
+        
+        <h3>인간의 시각을 초월한 색채 재현 기술</h3>
+        
+        <p>맥카시는 자신의 작품 속 풍부한 색상이 단순한 예술적 가공이 아니라, 달의 스펙트럼 분석에서 비롯된 실제 현상이라고 설명했습니다. 그는 "어떤 의미에서는 이 모든 광경이 진짜 달 표면의 특징이지만, 인간의 눈 자체적인 색 분별 능력으로는 이러한 미묘한 차이를 직접 포착하기 어렵다"고 말했습니다.</p>
+        
+        <p>"저는 사람이 보는 모습만을 담고 싶지 않습니다. 초인적인 시각으로 볼 수 있는 달을 보여주고 싶습니다... 마치 기계식 안구를 가진 것처럼, 이 특별한 시야가 달의 미묘한 색상 차이를 정확하게 분별할 수 있게 해줍니다. 카메라가 우리가 세상을 인식하는 기계식 안구가 되는 것입니다."</p>
+        
+        <p>그는 추가로 "달 자체에 이러한 자연적인 색상이 존재하지만, 인간의 눈에는 너무 은밀하고 미묘하다"고 덧붙였습니다. 일반적인 디지털카메라로 달 사진을 찍으면 채도를 낮춰야 색조 차이를 볼 수 있으며, 정상 채도로 복원하면 화면이 훨씬 풍부한 색감을 갖게 된다는 기술적 설명을 했습니다.</p>
+        
+        <h3>데이터 합성의 과학: 노이즈와 신호 대 잡음비</h3>
+        
+        <p>맥카시는 아르테미스 2호 임무를 통해 얻은 달 뒷면 이미지를 활용하여, 이처럼 화려한 색채의 달 작품을 재현하는 것을 목표로 했습니다. 그는 "보통 달 뒷면에서는 고화질의 색상 데이터를 얻기가 어렵다"며, NASA의 탐사선이 수집한 데이터는 해상도가 낮아 미세한 지질 구조의 차이를 복원하기 어렵다고 설명했습니다.</p>
+        
+        <p>그는 와이스먼과 NASA 달 사진팀과 함께 촬영 계획을 세웠고, 이 팀은 아르테미스 2호 승무원에게 현장에서 카메라를 운용하는 기술을 지도했습니다. 맥카시는 "와이즈먼은 우주선이 달의 여러 위치와 시간대를 지나가면서 다중 노출 연속 촬영을 진행할 것"이라고 소개했습니다.</p>
+        
+        <p>맥카시 사진술의 핵심 기법은 이미지 합성입니다. 이 기술은 달 표면의 미약한 색상 변화를 작품 속 깊고 진한 갈색과 푸른색으로 구현해냅니다. 이러한 기술 자체는 천문 사진 분야에서 생소하지 않지만, 달 뒷면 실사 자료를 활용하여 창작하는 것은 최초의 시도입니다.</p>
+        
+        <p>달 표면의 색상 차이는 다양한 광물의 분포 특징을 나타내며, 이는 월토와 암석의 화학 성분을 직관적으로 반영합니다. 예를 들어 티타늄이 풍부한 현무암은 옅은 푸른색조를 띠는 반면, 철분 함량이 높고 오래되어 풍화된 지질 물질은 주로 적갈색 계열을 이룹니다.</p>
+        
+        <p>"단일 사진도 색 보정이 가능하지만, 노이즈 관점에서 보면 해상도가 매우 떨어집니다. 여러 장의 사진을 합성하면 노이즈가 평균적으로 상쇄되고 자연스럽게 희미해지기 때문에, 천문 사진작가들이 신호 대 잡음비(SNR)를 중요하게 여기는 것입니다. 합성을 거치면 유효 화면 신호는 유지되지만 노이즈는 크게 줄어듭니다."</p>
+        
+        <p>맥카시는 과거 NASA가 발표했던 '광물 달' 주제의 이미지를 언급했지만, 우주 탐사선이 촬영한 사진은 전문 우주비행사가 고화질 카메라로 직접 찍은 작품에 비해 화면의 깊이나 표현력이 떨어진다고 평가했습니다.</p>
+        
+        <p>"리드(Weissman)가 촬영한 이 초고화질 연속 촬영 자료 덕분에, 저는 섬세하고 자연스러운 색채 포화도를 완벽하게 끌어낼 수 있었습니다."</p>
+        
+        <p>또한 맥카시는 와이스먼이 우주에서 찍은 원본 사진의 화질이 자신이 지구에서 찍은 작품보다 훨씬 뛰어나다는 점을 발견했는데, 핵심 이유는 달에 대기가 없기 때문입니다. 그는 "지구에서 촬영할 경우 대기가 가려짐을 만들고, 달 화면에 색수차 필터를 씌우는 것과 같습니다. 저는 보통 달의 본래 모습을 겨우 복원하기 위해 150장에서 200장의 사진을 찍어야 하며, 전경 합성 작품을 만들려면 수천 장의 자료가 필요합니다."라고 설명했습니다.</p>
+        
+        <p>반면 와이스먼이 달 뒷면에서 보내온 사진들을 처리할 때는 필요한 합성 소재의 양이 대폭 줄었습니다. 그는 "수많은 노출 사진을 쌓아 올릴 필요가 없었고, 와이스먼은 약 50장의 사진만 찍었는데, 저는 최종적으로 10장에서 15장만을 사용해 작품을 완성했습니다."라고 말했습니다.</p>
+        
+        <h3>총평</h3>
+        
+        <p>이번 아르테미스 II 임무를 통해 확보된 달 뒷면의 고화질 이미지는 기존 천문 사진술의 한계를 뛰어넘는 독보적인 소재가 되었습니다. 맥카시는 이 데이터를 활용하여 인간의 눈으로 포착하기 어려운 미묘한 색채와 지질학적 디테일을 성공적으로 복원했습니다. 특히 대기권의 간섭이 없는 우주 촬영 자료 덕분에, 적은 수의 사진만으로도 높은 신호 대 잡음비를 유지하며 예술성과 과학성을 겸비한 작품을 창조할 수 있었습니다.</p>
+        
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.png" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.png" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.png" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/948/488.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-05"
+               class="archive-btn active">
+              2026-05
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // 방문자 카운터 (메인과 동일 로직)
+    (function () {
+      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
+      const totalKey = 'visitCount_total';
+      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+      localStorage.setItem(todayKey, todayCount);
+      localStorage.setItem(totalKey, totalCount);
+      document.getElementById('visitor-counter').textContent =
+        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    let searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
