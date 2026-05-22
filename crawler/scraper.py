@@ -11,6 +11,8 @@ from datetime import datetime, timezone, timedelta
 from typing import Optional
 from dataclasses import dataclass, field
 
+import time
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -103,16 +105,22 @@ def download_image(url: str, dest_path: str) -> bool:
         return False
 
 
-def fetch_page(url: str, timeout: int = 15) -> Optional[str]:
-    """URL에서 HTML을 가져옵니다."""
-    try:
-        resp = requests.get(url, headers=HEADERS, timeout=timeout)
-        resp.raise_for_status()
-        resp.encoding = resp.apparent_encoding
-        return resp.text
-    except requests.RequestException as e:
-        logger.error(f"페이지 가져오기 실패: {url} -> {e}")
-        return None
+def fetch_page(url: str, timeout: int = 15, retries: int = 3) -> Optional[str]:
+    """URL에서 HTML을 가져옵니다. 연결 실패 시 지수 백오프로 최대 retries회 재시도합니다."""
+    for attempt in range(1, retries + 1):
+        try:
+            resp = requests.get(url, headers=HEADERS, timeout=timeout)
+            resp.raise_for_status()
+            resp.encoding = resp.apparent_encoding
+            return resp.text
+        except requests.RequestException as e:
+            if attempt < retries:
+                wait = 2 ** attempt  # 2초, 4초, ...
+                logger.warning(f"페이지 가져오기 실패 ({attempt}/{retries}), {wait}초 후 재시도: {url} -> {e}")
+                time.sleep(wait)
+            else:
+                logger.error(f"페이지 가져오기 실패 (최종): {url} -> {e}")
+    return None
 
 
 def extract_article_id(url: str) -> Optional[str]:
