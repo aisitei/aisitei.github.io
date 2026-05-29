@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 화웨이, 은하 AI 네트워크 전면 업그레이드로 토큰 생산 효율 2~5배 향상</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Huawei">
+  <meta name="article-brand-color" content="#CF0A2C">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visitor-counter {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-zh {
+      font-size: 12.5px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .caption-ko {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="화웨이, 은하 AI 네트워크 전면 업그레이드로 토큰 생산 효율 2~5배 향상" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #CF0A2C;">
+            Huawei
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title">화웨이, 은하 AI 네트워크 전면 업그레이드로 토큰 생산 효율 2~5배 향상</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-05-30
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body -->
+      <div class="article-body">
+        
+        <h3>행사 개요 및 핵심 방향</h3>
+        
+        <p>최근 Huawei 데이터 통신 혁신 정상회원(Summit) 2026이 중국 상하이에서 개최되었으며, 이 자리에는 800명이 넘는 업계 리더, 기술 전문가, 생태계 파트너들이 참여했습니다. 이번 대회에서는 Huawei가 '지능형 연결성(智联)'과 '보안'이라는 두 가지 핵심 역량을 중심으로 Star River AI 네트워크 제품군 및 솔루션을 체계적으로 업그레이드하여 선보였습니다.</p>
+        
+        <p>Huawei 데이터 통신 제품 라인 총괄 책임자인 왕레이(王雷)는 AI 에이전트(AI Agent)의 대규모 적용이 네트워크를 두 방향으로 전면적인 업그레이드를 이끌고 있다고 설명했습니다. 첫째는 토큰 생산성을 극대화하는 'AI 지능형 연결성' 구축이며, 둘째는 'AI 기반 보안 도약'을 통해 "AI로 AI에 맞서고, AI로 AI를 보호"하는 체계를 구현하는 것입니다.</p>
+        
+        <h3>토큰 생산성 및 효율성 강화</h3>
+        
+        <p>Huawei는 AI 추론이 기업 핵심 비즈니스로 이동함에 따라 네트워크의 이상 허용 시간이 7초 수준으로 단축된 현실을 반영하여, Star River AI 데이터센터 네트워크 솔루션을 공개했습니다. 이 솔루션은 네트워크-컴퓨팅-스토리지 협력 능력을 기반으로 NPU와 스토리지 직통(Direct Pass) 기능을 활용해 전송 대역폭을 8배 향상시키고, 토큰 생산 효율성을 2~5배 높였습니다.</p>
+        
+        <ul style="list-style-type: disc;">
+    <li><strong>장애 복구 시간 단축:</strong> Flash Start 2.0 기술을 적용하여 스위치 장비의 장애 재부팅 시간을 기존 업계 주류 수준인 120초에서 5초로 대폭 줄였습니다.</li>
+    <li><strong>가용성 확보:</strong> 분 단위 광 링크 오염 감지 기능을 결합하여 AI 비즈니스의 가용성을 2배 향상시키고, 토큰 생산의 중단을 방지합니다.</li>
+</ul>
+        
+        <h3>AI 기반 보안 및 안전 운송</h3>
+        
+        <p>토큰 유출 위험 증가와 양자 컴퓨팅 공격으로 인해 수억 달러의 손실이 발생한 현실에 대응하여, Huawei는 Star River AI 광역 네트워크 보안 업그레이드 솔루션을 제시했습니다.</p>
+        
+        <ul style="list-style-type: disc;">
+    <li><strong>장비단 방어:</strong> 자체 개발한 지능형 내재 안전 모듈을 통해 APT(지능형 지속 위협) 공격을 100% 정확하게 차단할 수 있습니다.</li>
+    <li><strong>링크 계층 보안 (QKD):</strong> 업계 최초로 내재 QKD(양자 키 분배) 모듈을 공개하여 양자 키와 통신 신호를 같은 광섬유를 통해 전송하며, 네트워크 구축 비용을 60% 이상 절감했습니다.</li>
+</ul>
+        
+        <h3>토큰의 극한 적용 분야</h3>
+        
+        <p>토큰의 초고속 활용은 캠퍼스 네트워크와 데이터센터 운영 관리(O&M)라는 두 가지 주요 시나리오에 걸쳐 구현되었습니다.</p>
+        
+        <h4>캠퍼스 네트워크</h4>
+<ul style="list-style-type: disc;">
+    <li><strong>성능 향상:</strong> Wi-Fi 7 Advanced 다중 AP 협력 기술을 자체 개발 제품에 적용하여, 기존 대비 두 배의 그룹 성능을 달성했습니다.</li>
+    <li><strong>지능형 보안:</strong> Wi-Fi Shield는 전 세계 500여 곳의 고보안 고객에게 서비스를 제공하며, 스위치 내장 AI 알고리즘은 단 몇 초 만에 최종 장비의 비정상적인 행동을 식별하고 차단합니다.</li>
+    <li><strong>신규 기능:</strong> 업계 최초로 도난 방지(Anti-Theft) 기능을 갖춘 AP를 출시하여 누락률이 5% 미만임을 입증했습니다.</li>
+    <li><strong>자율성 확보:</strong> '무선 장애 자가 순환 고리' 솔루션을 통해 네트워크 조정 정확도를 99% 이상으로 끌어올렸습니다.</li>
+</ul>
+        
+        <h4>데이터센터 운영 관리 (O&M)</h4>
+<ul style="list-style-type: disc;">
+    <li><strong>배포 효율성:</strong> 에이전트(Agent) 배포 주기가 길었던 문제점을 해결하기 위해 NetRoPE 인코딩 기술을 도입, 구성 변경의 추천 정확도를 50% 미만에서 95% 이상으로 높여 배치 시간을 '일 단위'로 단축했습니다.</li>
+    <li><strong>자동화 대응:</strong> NetMaster는 AI를 기반으로 80% 이상의 알람 전 과정 처리를 자동화하며, 평균 처리 시간은 단 3분입니다. 이 솔루션은 이미 은행권에 배포되어 장애 상황에서 네트워크 업무 중단을 막고 있습니다.</li>
+</ul>
+        
+        <h3>지능형 보호 및 상용 시장 적용</h3>
+        
+        <p>Huawei는 AI Core 엔진이 내장된 AI 방화벽을 통해 미지의 바이러스 검출률 95%를 달성했으며, 에이전트 보안 가드레일을 구축하여 검출 지연 시간을 20ms까지 줄였습니다.</p>
+        
+        <p>또한, 교육, 의료, 호텔, 리테일, 공장 등 다양한 상업 시장을 위한 솔루션과 '사무실 전용', '호텔 전용' 등의 시나리오별 패키지를 출시했습니다. 특히 금융 산업 분야에서는 큰 성과를 보여주었습니다.</p>
+        
+        <ul style="list-style-type: disc;">
+    <li><strong>보험업계 혁신 (Taibo Tech):</strong> Taibo Technology와 협력하여 보험업 최초의 자체 개발 천억 규모 AI 컴퓨팅 플랫폼을 구축했습니다. 이 플랫폼은 보험금 지급, 판매, 리스크 관리 등 전 과정에 걸쳐 대규모 적용되고 있습니다.</li>
+    <li><strong>해외 시장 대응 (KBank):</strong> 태국 카타이 은행(KBank) 역시 Huawei Star River AI 고탄력 데이터센터 네트워크 솔루션을 도입했습니다. KBank는 사용자 2천만 명, 연간 거래액 2,850억 바트라는 대규모 성장 압박에 직면해 있었습니다. Huawei의 이종 네트워크 종단 간 자동화 기술은 통합 기간을 수개월에서 일 단위로 단축시켰으며, M-LAG 링크 장애 전환이 밀리초(ms) 단위로 이루어지게 하여 서비스 중단을 막았습니다.</li>
+</ul>
+        
+        <h3>총평</h3>
+        
+        <p>이번 Huawei 정상회원은 AI 에이전트 시대를 맞아 네트워크의 연결성, 보안성, 운영 효율성을 전방위적으로 혁신하는 데 초점을 맞추었습니다. 특히 NPU와 QKD 같은 첨단 기술을 결합하여 데이터센터의 생산성과 보안 수준을 극대화했으며, 금융 및 해외 시장 사례를 통해 이러한 기술들이 실제 대규모 상업 환경에서 성공적으로 구현되고 있음을 입증했습니다.</p>
+        
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">| 中国上海</div>
+                <div class="caption-ko">중국 상하이</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">华为中国</div>
+                <div class="caption-ko">Huawei 중국</div>
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">赞 分享 推荐 写留言</div>
+                <div class="caption-ko">좋아요, 공유, 추천, 댓글 쓰기</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/956/878.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          원문 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-05"
+               class="archive-btn active">
+              2026-05
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // 방문자 카운터 (메인과 동일 로직)
+    (function () {
+      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
+      const totalKey = 'visitCount_total';
+      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+      localStorage.setItem(todayKey, todayCount);
+      localStorage.setItem(totalKey, totalCount);
+      document.getElementById('visitor-counter').textContent =
+        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    let searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
