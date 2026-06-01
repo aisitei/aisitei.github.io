@@ -103,6 +103,35 @@ def _chat(system: str, user: str, temperature: float = 0.3,
     return None
 
 
+# ── 영어→한국어 전용 프롬프트 ────────────────────────────────────────────────
+
+_TITLE_TRANSLATE_EN_PROMPT = (
+    "당신은 영어 IT 기사 제목을 한국어로 번역하는 번역가입니다. "
+    "한국어 번역문만 출력하고 다른 텍스트는 절대 추가하지 마세요.\n\n"
+    "번역 규칙:\n"
+    "1. 브랜드·제품명은 원문 영문 표기를 유지합니다 (Samsung, Xiaomi, iPhone 등).\n"
+    "2. 가격 표기: 달러($)는 '달러'로 표기합니다.\n"
+    "3. 자연스러운 한국어 어순으로 재구성합니다.\n"
+    "4. '폰' 대신 '스마트폰'을 사용합니다."
+)
+
+_TRANSLATE_SYSTEM_EN_PROMPT = (
+    "당신은 영어 IT 기사를 한국어로 번역·정리하는 전문 편집자입니다.\n\n"
+    "번역 규칙:\n"
+    "1. 자연스러운 한국어로 번역합니다.\n"
+    "2. 기술 용어(예: Snapdragon, LTPO, UTG)는 원문 그대로 유지합니다.\n"
+    "3. 브랜드명은 원문 영문 표기를 유지합니다.\n"
+    "4. 원문의 의미를 정확히 전달하되, 직역보다는 의역을 선호합니다.\n\n"
+    "출력 형식 (HTML):\n"
+    "- 내용을 주제별 섹션으로 나누고, 각 섹션 앞에 <h3> 헤더를 붙입니다.\n"
+    "- 스펙·수치·목록은 <ul><li>...</li></ul> 불릿으로 정리합니다.\n"
+    "- 일반 서술 단락은 <p>...</p>로 출력합니다.\n"
+    "- 기사 마지막에 <h3>총평</h3> 섹션으로 핵심 내용을 2~4문장으로 요약합니다.\n"
+    "- 마크다운(#, **, - 등)은 사용하지 않고, 순수 HTML 태그만 사용합니다.\n"
+    "- 각 섹션(h3, p, ul)은 빈 줄로 구분합니다."
+)
+
+
 # ── 번역 API ─────────────────────────────────────────────────────────────────
 
 def translate_text(chinese_text: str, category: str = "") -> Optional[str]:
@@ -179,24 +208,36 @@ def translate_caption(chinese_text: str) -> Optional[str]:
     return out
 
 
-def translate_title(chinese_title: str, category: str = "") -> Optional[str]:
-    title = apply_glossary(chinese_title)
-    system = config.TITLE_TRANSLATE_PROMPT + _build_glossary_prompt()
+def translate_title(title: str, category: str = "", source_lang: str = "zh") -> Optional[str]:
+    if source_lang == "en":
+        system = _TITLE_TRANSLATE_EN_PROMPT
+        user_text = title
+    else:
+        user_text = apply_glossary(title)
+        system = config.TITLE_TRANSLATE_PROMPT + _build_glossary_prompt()
     return _chat(
         system=system,
-        user=f"다음 기사 제목을 한국어로 번역하세요:\n\n{title}",
+        user=f"다음 기사 제목을 한국어로 번역하세요:\n\n{user_text}",
         temperature=0.1,
         max_tokens=128,
     )
 
 
-def translate_article(paragraphs: list[str], category: str = "") -> list[str]:
+def translate_article(paragraphs: list[str], category: str = "", source_lang: str = "zh") -> list[str]:
     if not paragraphs:
         return []
-    full_text = apply_glossary("\n\n".join(paragraphs))
-    system = config.TRANSLATE_SYSTEM_PROMPT + _build_glossary_prompt()
-    if category == "phone_camera":
-        system += config.DEEP_CAMERA_PROMPT_SUFFIX
+
+    if source_lang == "en":
+        full_text = "\n\n".join(paragraphs)
+        system = _TRANSLATE_SYSTEM_EN_PROMPT
+        if category == "phone_camera":
+            system += config.DEEP_CAMERA_PROMPT_SUFFIX
+    else:
+        full_text = apply_glossary("\n\n".join(paragraphs))
+        system = config.TRANSLATE_SYSTEM_PROMPT + _build_glossary_prompt()
+        if category == "phone_camera":
+            system += config.DEEP_CAMERA_PROMPT_SUFFIX
+
     max_tokens = 16384 if category == "phone_camera" else 8192
     result = _chat(
         system=system,

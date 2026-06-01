@@ -17,7 +17,8 @@ import schedule
 import time
 
 import config
-from scraper import collect_articles
+from scraper import collect_articles, get_processed_article_ids
+from scraper_gizmochina import scrape_feed as collect_gizmochina
 from translator import translate_title, translate_article, generate_slug
 from ocr import process_image_translations
 from html_generator import TranslatedArticle, save_article
@@ -218,21 +219,27 @@ if __name__ == "__main__":
 def run_pipeline(limit: int = 0):
     """전체 파이프라인 실행. limit > 0 이면 해당 건수만 처리."""
     logger.info("=" * 60)
-    logger.info("IT之家 뉴스 파이프라인 시작")
+    logger.info("IT之家 + Gizmochina 뉴스 파이프라인 시작")
     logger.info("=" * 60)
 
     today = datetime.now().strftime("%Y-%m-%d")
 
-    # 1. 기사 수집
+    # 1. 기사 수집 (IT之家 + Gizmochina 합산)
     logger.info("[1/5] 기사 수집 중...")
-    articles = collect_articles()
+    articles = collect_articles()  # IT之家 (내부에서 dedup 처리)
+
+    articles_root = os.path.abspath(config.OUTPUT_DIR)
+    processed_ids = get_processed_article_ids(articles_root)
+    gc_articles = collect_gizmochina(processed_ids=processed_ids)
+
+    articles = articles + gc_articles
     if not articles:
         logger.info("관련 기사 없음. 종료.")
         return
     if limit > 0:
         articles = articles[:limit]
         logger.info(f"{limit}건으로 제한 (전체 {len(articles)}건 중)")
-    logger.info(f"{len(articles)}건 수집")
+    logger.info(f"총 {len(articles)}건 수집 (IT之家 + Gizmochina)")
 
     # 2. 번역
     logger.info("[2/5] 번역 중...")
@@ -246,8 +253,9 @@ def run_pipeline(limit: int = 0):
             "category": article.category,
         }
         category = article.category
+        source_lang = "en" if article.source == "gizmochina" else "zh"
 
-        korean_title = translate_title(article.title, category=category)
+        korean_title = translate_title(article.title, category=category, source_lang=source_lang)
         if not korean_title:
             err = "제목 번역 실패 (LLM None 반환)"
             logger.warning(f"{err}: {article.title}")
@@ -255,7 +263,7 @@ def run_pipeline(limit: int = 0):
             _write_resume_script(today)
             continue
 
-        korean_paragraphs = translate_article(article.content_paragraphs, category=category)
+        korean_paragraphs = translate_article(article.content_paragraphs, category=category, source_lang=source_lang)
         if not korean_paragraphs:
             err = "본문 번역 실패 (LLM None 반환)"
             logger.warning(f"{err}: {article.title}")
@@ -284,7 +292,8 @@ def run_pipeline(limit: int = 0):
         # OCR 결과에 대해 메타 응답을 길게 출력하는 문제가 있어 분리).
         from translator import translate_caption
         for ta in translated_articles:
-            if ta.original.image_urls:
+            # Gizmochina 이미지는 영어 → 중국어 OCR 불필요, 건너뜀
+            if ta.original.image_urls and ta.original.source != "gizmochina":
                 ta.image_translations = process_image_translations(
                     ta.original.image_urls, translate_caption,
                 )

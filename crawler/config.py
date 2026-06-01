@@ -8,6 +8,9 @@ SCHEDULE_TIME = os.getenv("SCHEDULE_TIME", "07:00")
 ITHOME_BASE_URL = "https://www.ithome.com"
 ITHOME_MOBILE_URL = "https://m.ithome.com/html/{article_id}.htm"
 
+# Gizmochina RSS 설정
+GIZMOCHINA_FEED_URL = os.getenv("GIZMOCHINA_FEED_URL", "https://www.gizmochina.com/feed/")
+
 # ── 수집 대상 키워드 ─────────────────────────────────────────────────────────
 # 카테고리 1: 카메라 / 액션캠 / 이미징
 KEYWORDS_CAMERA = [
@@ -100,6 +103,9 @@ KEYWORDS_EXCLUDE = [
     # 게임 신작/플레이 — "游戏" 단독은 "游戏手机"(게이밍폰)와 충돌하므로 문맥 한정 키워드만
     "游戏新作", "新作游戏", "游玩形式", "免费游玩", "游戏玩法", "玩家阵营",
     "PlayStation", "PS6", "PS5", "PS4", "PS Plus", "PlayStation Plus", "Xbox", "任天堂", "Nintendo", "Steam平台",
+    "PSVR", "PS VR", "掌机",  # VR 게임기 / 휴대용 콘솔
+    # 게이밍 주변기기 (홍마·레드매직 등 폰 브랜드 우회 차단)
+    "电竞鼠标", "游戏鼠标",
     # 게임 장르 / 플랫폼 출시 표현
     "生活模拟", "模拟游戏", "抢先体验", "登陆PS", "登陆Xbox",
     "派对游戏", "社交游戏", "联机游戏", "多人游戏",
@@ -144,7 +150,13 @@ KEYWORDS_EXCLUDE_COMPOUND: list[dict] = [
         "also_any": [
             "sie", "互动娱乐", "3a游戏", "aaa游戏", "3a大作",
             "PlayStation部门", "游戏部门", "游戏业务",
-            "游戏工作室", "游戏开发", "游戏制作", "游戏高管", "开发效率",
+            "游戏工作室", "游戏开发", "游戏制作", "游戏高管", "开发效率", "研发效率",
+            # 게임 특허 / 기술
+            "游戏难度", "游戏高光", "高光时刻", "游戏专利",
+            # PC 이식
+            "PC移植", "pc移植", "移植版", "移植成绩",
+            # 3A 대작 (대소문자 혼용 대응)
+            "3a大作", "3a游戏", "aaa大作",
             # 독점 전략 / 게임 타이틀
             "独占", "平台独占",
             "战神", "地平线", "命运",
@@ -167,6 +179,77 @@ KEYWORDS_EXCLUDE_COMPOUND: list[dict] = [
 ]
 
 KEYWORDS = KEYWORDS_CAMERA + KEYWORDS_PHONE_EXPLICIT + KEYWORDS_AI
+
+# ── Gizmochina 영어 키워드 ────────────────────────────────────────────────────
+
+# 카메라 / 이미징
+KEYWORDS_CAMERA_EN = [
+    "camera", "lens", "sensor", "megapixel", "aperture", "zoom",
+    "mirrorless", "dslr", "action cam", "action camera",
+    "gopro", "insta360", "dji action", "instax", "film camera",
+    "telephoto", "wide-angle", "macro", "night mode", "portrait mode",
+    "periscope", "lidar", "optical image stabilization", "ois",
+    "imaging", "photography",
+]
+
+# 이미지 센서 / 반도체
+KEYWORDS_IMAGE_SENSOR_EN = [
+    "image sensor", "cmos sensor", "imx", "isocell",
+    "semiconductor", "wafer", "chip fabrication",
+    "stacked sensor", "bsi sensor",
+]
+
+# 스마트폰 명시 키워드
+KEYWORDS_PHONE_EXPLICIT_EN = [
+    "smartphone", "phone", "handset", "foldable phone", "flip phone",
+    "flagship phone", "android phone",
+]
+
+# 스마트폰 출시/제품 키워드
+KEYWORDS_PHONE_PRODUCT_EN = [
+    "launched", "launch", "released", "release", "announced", "unveil",
+    "unveiled", "hands-on", "first look", "review", "leaked", "leak",
+    "specs", "specifications", "price", "sale", "pre-order",
+]
+
+# AI 키워드
+KEYWORDS_AI_EN = [
+    "ai", "artificial intelligence", "on-device ai", "generative ai",
+    "llm", "large language model", "neural network", "machine learning",
+]
+
+# AI 맥락 (카메라·스마트폰 맥락 한정)
+KEYWORDS_AI_CONTEXT_EN = [
+    "camera", "photo", "image", "smartphone", "phone", "iphone",
+    "samsung", "xiaomi", "huawei", "pixel", "visual", "imaging",
+    "android", "ios",
+]
+
+# 영어 제외 키워드
+KEYWORDS_EXCLUDE_EN = [
+    # 게임 하드웨어·소프트웨어
+    "playstation", "xbox", "nintendo", "steam", "ps5", "ps6", "ps plus",
+    "gaming console", "game release", "game launch", "game review",
+    "gaming mouse", "gaming keyboard", "gaming headset", "gaming monitor",
+    # 노트북 / PC / 데스크톱
+    "laptop", "notebook", "desktop pc", "gaming pc", "imac", "macbook",
+    "mac mini", "mac pro",
+    # TV / 모니터 / 프로젝터
+    "television", " tv ", "smart tv", "oled tv", "projector",
+    # 이어폰 / 오디오
+    "earbuds", "headphones", "earphones", "tws earbuds",
+    "speaker", "soundbar", "airpods",
+    # 스마트워치 / 웨어러블
+    "smartwatch", "smart watch", "fitness band", "wearable",
+    # 태블릿
+    "tablet", "ipad", "android tablet",
+    # 자동차 / EV
+    "electric vehicle", "ev car", "self-driving", "autonomous car",
+    # 기타 주변기기
+    "router", "charger", "power bank", "cable",
+    # 군사 / 국방
+    "military", "defense", "weapon", "missile",
+]
 
 # LLM 설정 (LM Studio, OpenAI 호환 로컬 서버)
 LLM_BASE_URL = os.getenv("LLM_BASE_URL", "http://localhost:1234/v1")

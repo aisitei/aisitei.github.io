@@ -43,6 +43,7 @@ class Article:
     brand: str = ""
     brand_color: str = ""
     local_image_paths: list[str] = field(default_factory=list)  # relative paths like "images/img1.jpg"
+    source: str = "ithome"  # "ithome" | "gizmochina"
 
 
 def clean_title(title: str) -> str:
@@ -149,9 +150,13 @@ def get_processed_article_ids(articles_root: str) -> set[str]:
                 with open(filepath, "r", encoding="utf-8") as f:
                     content = f.read()
                 for href in pattern.findall(content):
+                    # IT之家: 숫자 article_id 추출
                     article_id = extract_article_id(href)
                     if article_id:
                         processed_ids.add(article_id)
+                    # Gizmochina: 정규화된 URL 자체를 ID로 사용
+                    elif "gizmochina.com" in href:
+                        processed_ids.add(href.rstrip("/"))
             except Exception as e:
                 logger.warning(f"기존 기사 ID 스캔 실패: {filepath} -> {e}")
 
