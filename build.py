@@ -282,7 +282,7 @@ def article_card_html(article: dict) -> str:
     category = article.get("category", "")
     month = article.get("month", "")
 
-    search_title = raw_title.replace("<", "&lt;").replace(">", "&gt;")
+    search_title = raw_title.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
     return f'''    <article class="article-card"
              data-title="{search_title.lower()}"
              data-category="{category}"
