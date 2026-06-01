@@ -91,10 +91,20 @@ def _chat(system: str, user: str, temperature: float = 0.3,
             )
             content = response.choices[0].message.content
             if content is None:
-                return None
+                logger.warning(f"LLM 빈 응답 (시도 {attempt}/{retries}) - content=None")
+                if attempt < retries:
+                    time.sleep(2 ** attempt)
+                continue
             text = content.strip()
+            # <think>...</think> 블록 제거 (reasoning 모델 대응)
             text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL).strip()
-            return text if text else None
+            if not text:
+                # think 블록만 있고 실제 응답이 없는 경우 → 재시도
+                logger.warning(f"LLM 빈 응답 (시도 {attempt}/{retries}) - think 블록만 반환됨")
+                if attempt < retries:
+                    time.sleep(2 ** attempt)
+                continue
+            return text
         except Exception as e:
             logger.warning(f"LLM API 호출 실패 (시도 {attempt}/{retries}) - {config.LLM_BASE_URL}: {e}")
             if attempt < retries:
@@ -215,11 +225,25 @@ def translate_title(title: str, category: str = "", source_lang: str = "zh") -> 
     else:
         user_text = apply_glossary(title)
         system = config.TITLE_TRANSLATE_PROMPT + _build_glossary_prompt()
-    return _chat(
+
+    result = _chat(
         system=system,
         user=f"다음 기사 제목을 한국어로 번역하세요:\n\n{user_text}",
         temperature=0.1,
         max_tokens=128,
+    )
+    if result:
+        return result
+
+    # 폴백: 시스템 프롬프트 없이 최소한의 지시로 재시도
+    logger.warning(f"제목 번역 폴백 시도: {title[:50]}")
+    lang_hint = "영어" if source_lang == "en" else "중국어"
+    return _chat(
+        system="한국어 번역가. 입력된 제목을 한국어로 번역하여 한 줄만 출력하라.",
+        user=f"{lang_hint} 제목을 한국어로 번역:\n{user_text}",
+        temperature=0.1,
+        max_tokens=128,
+        retries=2,
     )
 
 
