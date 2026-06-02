@@ -64,6 +64,8 @@ def render_html(article: TranslatedArticle, date_str: str, local_images: list[st
         images=local_images,  # relative paths
         image_translations=local_image_translations,
         source_url=article.original.url,
+        source_name="Gizmochina" if article.original.source == "gizmochina" else "IT之家 (ithome.com)",
+        source_label="Gizmochina에서 보기" if article.original.source == "gizmochina" else "IT之家에서 보기",
         date_str=date_str,
         author=article.original.author,
         category=normalized_cat,        # "camera" / "phone" / "ai"
