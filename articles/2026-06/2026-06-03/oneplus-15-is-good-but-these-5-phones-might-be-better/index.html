@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - OnePlus 15도 좋지만, 이 스마트폰 5종이 더 좋을 수 있다</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="OnePlus">
+  <meta name="article-brand-color" content="#F5010C">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visitor-counter {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-zh {
+      font-size: 12.5px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .caption-ko {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="OnePlus 15도 좋지만, 이 스마트폰 5종이 더 좋을 수 있다" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #F5010C;">
+            OnePlus
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title">OnePlus 15도 좋지만, 이 스마트폰 5종이 더 좋을 수 있다</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-06-03
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body -->
+      <div class="article-body">
+        
+        <h3>OnePlus 15 개요</h3>
+        
+        <p>OnePlus 15는 스펙이 매우 뛰어난 스마트폰으로, 10만 INR 이하 가격대에서 최고의 플래그십 모델 중 하나입니다. 이 기기는 고품질 AMOLED 디스플레이, 강력한 Snapdragon 8 Elite Gen 5 프로세서, 고급 카메라 시스템, 그리고 빠른 충전 기능을 지원하는 대용량 7300mAh 배터리를 탑재했습니다.</p>
+        
+        <p>OnePlus 15가 가격 대비 우수한 가치를 제공하지만, 시장에는 OnePlus와 성능 면에서 비견되거나 심지어 더 뛰어난 기능을 제공하는 훌륭한 대안들이 존재합니다.</p>
+        
+        <h3>주목해야 할 OnePlus 대체 모델 Top 5</h3>
+        
+        <p>성능 중심의 스마트폰을 찾고 있다면 iQOO 15(리뷰)가 강력한 선택지입니다. 이 스마트폰은 OnePlus 15와 동일한 Snapdragon 8 Elite Gen 5 프로세서를 탑재했지만, 일반적으로 iQOO 기기는 더 뛰어난 성능을 제공하도록 최적화되어 있습니다.</p>
+        
+        <h3>iQOO 15 상세 정보</h3>
+        
+        <p>iQOO 15는 고사양 게이밍에 특히 적합합니다. 프레임 보간 및 그래픽 업스케일링 전용 Q3 칩, 144Hz의 높은 주사율을 가진 대형 디스플레이, 즉각적인 응답 시간을 위한 3200Hz 터치 샘플링 레이트, 그리고 헤비 게이밍 중에도 발열을 제어하는 거대한 8,000 sq. mm 베이퍼 챔버를 갖추고 있습니다. 또한, 낮은 지연 시간의 고프레임 게이밍을 제공하기 위한 광범위한 소프트웨어 최적화와 바이패스 충전 기능까지 지원합니다.</p>
+        
+        <p>후면 카메라는 세 개의 센서가 모두 50MP 해상도를 자랑하며, 메인 카메라, 3배 광학 줌을 갖춘 페리스코프 망원 렌즈, 그리고 초광각 카메라로 구성되어 있습니다. 전면 사진 촬영용으로는 32MP 카메라 유닛이 탑재되었습니다.</p>
+        
+        <p>iQOO 15의 7000mAh 배터리는 OnePlus 15의 7300mAh보다 약간 작지만, 여전히 견고한 성능을 제공합니다. 여기에 100W 유선 충전과 40W 무선 충전을 지원하며, 추가적인 주요 OS 업그레이드도 약속하고 있습니다.</p>
+        
+        <ul style="list-style-type: disc;">
+    <li>디스플레이: 6.85인치 LTPO AMOLED, 1440 x 3168 픽셀, 144Hz 주사율, HDR10+, HDR Vivid, Dolby Vision, 6000 nits (최대 밝기)</li>
+    <li>프로세서: Qualcomm Snapdragon 8 Elite Gen 5 (3 nm)</li>
+    <li>소프트웨어: Android 16, 최대 다섯 번의 주요 Android 업그레이드</li>
+    <li>후면 카메라: 50MP (광각) + 50MP (페리스코프 망원, 3배 광학 줌) + 50MP (초광각)</li>
+    <li>셀카 카메라: 32MP</li>
+    <li>배터리: 7300mAh</li>
+    <li>충전: 100W (유선), 40W (무선), Bypass charging</li>
+    <li>연결성: Wi-Fi 7, Bluetooth 6.0, NFC, USB Type-C 3.2</li>
+</ul>
+        
+        <h3>Xiaomi 17 상세 정보</h3>
+        
+        <p>Xiaomi 17(리뷰)은 전반적으로 뛰어난 패키지를 자랑하며, 핵심에 Snapdragon 8 Elite Gen 5를 탑재하여 우수한 성능과 전력 효율성을 보장합니다. 이 기기는 공장에서 Android 16이 설치된 상태로 출고되며, 5번의 주요 Android OS 업그레이드와 6년간의 보안 패치를 약속합니다.</p>
+        
+        <p>6.3인치 AMOLED 디스플레이를 갖춘 컴팩트한 플래그십 모델이지만, 양쪽에 강력한 카메라 시스템을 탑재했습니다. 후면에는 50MP 메인 센서, 50MP 망원 카메라, 50MP 초광각 카메라로 구성된 트리플 카메라가 있습니다. 셀카 카메라도 50MP 센서를 사용합니다.</p>
+        
+        <p>Xiaomi는 6330mAh 배터리를 장착했으며, 중국 모델은 훨씬 큰 7000mAh 배터리를 탑재했습니다. 이 기기는 100W 유선 및 50W 무선 충전을 지원하며, 리버스 유선 및 무선 충전도 가능합니다.</p>
+        
+        <ul style="list-style-type: disc;">
+    <li>디스플레이: 6.3인치 LTPO AMOLED, 1220 x 2656 픽셀, 120Hz 주사율, HDR10+, HDR Vivid, Dolby Vision, 3500 nits (최대 밝기)</li>
+    <li>프로세서: Qualcomm Snapdragon 8 Elite Gen 5 (3 nm)</li>
+    <li>소프트웨어: Android 16, 최대 다섯 번의 주요 Android 업그레이드</li>
+    <li>후면 카메라: 50MP (광각) + 50MP (망원, 2.6배 광학 줌) + 50MP (초광각)</li>
+    <li>셀카 카메라: 50MP</li>
+    <li>배터리: 6300mAh</li>
+    <li>충전: 100W (유선), 50W (무선), 22.5W (리버스 유선), 22.5W (리버스 무선)</li>
+    <li>연결성: Wi-Fi 7, Bluetooth 5.4, NFC, USB Type-C 3.2</li>
+</ul>
+        
+        <h3>Vivo X300 상세 정보</h3>
+        
+        <p>Vivo X300(리뷰)은 목록에서 최고의 성능을 보여주는 모델은 아닐 수 있지만, 카메라를 중요하게 생각하는 사용자에게는 탁월한 선택지입니다. 후면 카메라는 거대한 200MP 센서가 주축이 되어 있으며, 여기에 50MP 3배 페리스코프 망원 렌즈와 50MP 초광각 카메라가 결합되었습니다. 50MP 셀카 카메라 역시 뛰어난 디테일로 사진과 비디오를 촬영할 수 있습니다.</p>
+        
+        <p>이 스마트폰은 MediaTek의 가장 강력한 모바일 프로세서인 Dimensity 9500 칩셋으로 구동됩니다. 이는 우수한 성능과 배터리 효율성을 제공합니다. 다만, Vivo X300은 견고한 냉각 시스템이 부족하여 장시간 고사양 게이밍 시 발열 문제가 발생할 수 있습니다. 일반적인 작업이나 캐주얼 게임에서는 항상 부드러운 사용감을 보여줍니다.</p>
+        
+        <p>X300은 6,040mAh 배터리를 탑재하고 90W 유선 및 40W 무선 충전을 지원합니다. 다른 목록의 기기들과 마찬가지로 강력한 연결성 기능을 갖추고 있습니다.</p>
+        
+        <ul style="list-style-type: disc;">
+    <li>디스플레이: 6.31인치 LTPO AMOLED, 1216 x 2640 픽셀, 120Hz 주사율, HDR10+, HDR Vivid, 4500 nits (최대 밝기)</li>
+    <li>프로세서: MediaTek Dimensity 9500 (3 nm)</li>
+    <li>소프트웨어: Android 16, 최대 다섯 번의 주요 Android 업그레이드</li>
+    <li>후면 카메라: 200MP (광각) + 50MP (페리스코프 망원, 3배 광학 줌) + 50MP (초광각)</li>
+    <li>셀카 카메라: 50MP</li>
+    <li>배터리: 6040mAh</li>
+    <li>충전: 90W (유선), 40W (무선), Reverse wired</li>
+    <li>연결성: Wi-Fi 7, Bluetooth 5.4, NFC, USB Type-C 3.2</li>
+</ul>
+        
+        <h3>Oppo Find X9 상세 정보</h3>
+        
+        <p>Oppo Find X9(리뷰) 역시 뛰어난 플래그십 스마트폰으로, 준수한 트리플 카메라 시스템을 갖추고 있습니다. 후면에는 50MP 메인 카메라, 50MP 3배 페리스코프 망원 유닛, 그리고 50MP 초광각 카메라가 탑재되어 있습니다. 셀카 카메라는 32MP 해상도를 가집니다.</p>
+        
+        <p>핵심 프로세서로는 Dimensity 9500 플래그십 프로세서를 사용하여 모든 앱과 게임이 부드럽게 실행되도록 보장합니다. 이 스마트폰은 공장에서 Android 16이 설치되어 출고되며, 다섯 번의 주요 Android OS 업데이트를 약속합니다. 고품질 AMOLED 디스플레이와 함께, Find X9는 7025mAh 대용량 배터리를 탑재했으며 80W 유선, 50W 무선, 10W 리버스 무선 충전을 지원합니다.</p>
+        
+        <ul style="list-style-type: disc;">
+    <li>디스플레이: 6.59인치 AMOLED, 1256 x 2760 픽셀, 120Hz 주사율, HDR10+, HDR Vivid, Dolby Vision, 3600 nits (최대 밝기)</li>
+    <li>프로세서: MediaTek Dimensity 9500 (3 nm)</li>
+    <li>소프트웨어: Android 16, 최대 다섯 번의 주요 Android 업그레이드</li>
+    <li>후면 카메라: 50MP (광각) + 50MP (페리스코프 망원, 3배 광학 줌) + 50MP (초광각)</li>
+    <li>셀카 카메라: 32MP</li>
+    <li>배터리: 7025mAh</li>
+    <li>충전: 80W (유선), 50W (무선), 10W (리버스 무선)</li>
+    <li>연결성: Wi-Fi 7, Bluetooth 6.0, NFC, USB Type-C</li>
+</ul>
+        
+        <h3>Realme GT 8 Pro 상세 정보</h3>
+        
+        <p>Realme GT 8 Pro 역시 스펙이 뛰어난 스마트폰으로, 최고 수준의 Snapdragon 8 Elite Gen 5 프로세서를 탑재했습니다. 이 기기는 144Hz 고주사율과 7000nits의 최대 밝기를 자랑하는 6.79인치 AMOLED 디스플레이를 갖추고 있습니다. 다른 목록의 기기들과 마찬가지로 공장 출하 시 Android 16이 탑재되며, 네 번의 주요 Android OS 업그레이드를 보장합니다.</p>
+        
+        <p>후면에는 50MP 메인 센서, 200MP 3배 페리스코프 망원 촬영기, 그리고 50MP 초광각 유닛으로 구성된 고급 트리플 카메라가 특징입니다. 셀카 및 화상 통화를 위한 전용 32MP 카메라도 탑재되었습니다. 또한, 이 기기는 7000mAh 배터리를 장착하고 120W 유선 및 50W 무선 충전은 물론 리버스 충전까지 지원합니다.</p>
+        
+        <ul style="list-style-type: disc;">
+    <li>디스플레이: 6.79인치 AMOLED, 1440 x 3136 픽셀, 144Hz 주사율, HDR10+, HDR Vivid, Dolby Vision, 7000 nits (최대 밝기)</li>
+    <li>프로세서: Qualcomm Snapdragon 8 Elite Gen 5 (3 nm)</li>
+    <li>소프트웨어: Android 16, 최대 네 번의 주요 Android 업그레이드</li>
+    <li>후면 카메라: 50MP (광각) + 200MP (페리스코프 망원, 3배 광학 줌) + 50MP (초광각)</li>
+    <li>셀카 카메라: 32MP</li>
+    <li>배터리: 7000mAh</li>
+    <li>충전: 120W (유선), 50W (무선), 10W (리버스 무선), 5W (리버스 유선)</li>
+    <li>연결성: Wi-Fi 7, Bluetooth 6.0, NFC, USB Type-C 2.0</li>
+</ul>
+        
+        <h3>총평</h3>
+        
+        <p>제시된 모델들은 모두 최신 플래그십 기술을 집약하고 있지만, 사용 목적에 따라 추천 기기가 달라집니다. 최고 수준의 성능과 효율성을 원한다면 Snapdragon 8 Elite Gen 5를 탑재한 iQOO 15나 Realme GT 8 Pro가 적합합니다.</p>
+        
+        <p>반면, 카메라 기능을 최우선으로 고려한다면 200MP 메인 센서를 갖춘 Vivo X300이나 다양한 고화소 카메라 조합을 자랑하는 Oppo Find X9를 선택할 수 있습니다. 전반적으로 배터리 용량과 충전 속도 면에서 Realme GT 8 Pro가 가장 강력한 스펙을 보여줍니다.</p>
+        
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.png" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.png" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.png" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.png" alt="이미지 6" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/06/02/5-best-alternatives-to-oneplus-15/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-06"
+               class="archive-btn active">
+              2026-06
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // 방문자 카운터 (메인과 동일 로직)
+    (function () {
+      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
+      const totalKey = 'visitCount_total';
+      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+      localStorage.setItem(todayKey, todayCount);
+      localStorage.setItem(totalKey, totalCount);
+      document.getElementById('visitor-counter').textContent =
+        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    let searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
