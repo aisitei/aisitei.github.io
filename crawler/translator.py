@@ -235,11 +235,15 @@ def translate_title(title: str, category: str = "", source_lang: str = "zh") -> 
     if result:
         return result
 
-    # 폴백: 시스템 프롬프트 없이 최소한의 지시로 재시도
+    # 폴백: 최소한의 지시로 재시도 (브랜드 보존 규칙 포함)
     logger.warning(f"제목 번역 폴백 시도: {title[:50]}")
     lang_hint = "영어" if source_lang == "en" else "중국어"
     return _chat(
-        system="한국어 번역가. 입력된 제목을 한국어로 번역하여 한 줄만 출력하라.",
+        system=(
+            "한국어 번역가. 입력된 제목을 한국어로 번역하여 한 줄만 출력하라. "
+            "vivo, OPPO, realme, iQOO, Xiaomi, Huawei, Samsung, Apple, Sony, Canon 등 "
+            "브랜드명은 절대 음역하지 말고 원문 그대로 표기하라."
+        ),
         user=f"{lang_hint} 제목을 한국어로 번역:\n{user_text}",
         temperature=0.1,
         max_tokens=128,
