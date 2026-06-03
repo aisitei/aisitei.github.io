@@ -280,6 +280,7 @@ def run_pipeline(limit: int = 0):
         )
         translated_articles.append(translated)
         logger.info(f"  → {korean_title}")
+        time.sleep(1)  # LLM 부하 분산: 연속 호출 간 딜레이
 
     if not translated_articles:
         logger.warning("번역된 기사 없음. 종료.")
@@ -344,6 +345,24 @@ def run_pipeline(limit: int = 0):
     logger.info("=" * 60)
     logger.info(f"완료! {len(saved_results)}건 처리됨")
     logger.info("=" * 60)
+
+    # 자동 resume: 실패 건이 있으면 파이프라인 종료 후 1회 자동 재시도
+    failed_log = _failed_log_path(today)
+    resume_script = _resume_script_path(today)
+    if os.path.exists(failed_log) and os.path.exists(resume_script):
+        failed = _load_failed_log(today)
+        if failed:
+            logger.info(f"[자동 resume] 실패 {len(failed)}건 재처리 시도...")
+            time.sleep(5)  # LLM 안정화 대기
+            import subprocess
+            result = subprocess.run(
+                [sys.executable, resume_script],
+                capture_output=False,
+            )
+            if result.returncode == 0:
+                logger.info("[자동 resume] 완료")
+            else:
+                logger.warning("[자동 resume] 일부 실패 — 수동 확인 필요")
 
 
 def run_test():

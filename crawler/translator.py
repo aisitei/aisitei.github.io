@@ -232,7 +232,7 @@ def translate_title(title: str, category: str = "", source_lang: str = "zh") -> 
         system=system,
         user=f"다음 기사 제목을 한국어로 번역하세요:\n\n{user_text}",
         temperature=0.1,
-        max_tokens=128,
+        max_tokens=256,
     )
     if result:
         return result
