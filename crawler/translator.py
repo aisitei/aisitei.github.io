@@ -76,12 +76,14 @@ def _get_client():
 
 
 def _chat(system: str, user: str, temperature: float = 0.3,
-          max_tokens: int = 4096, retries: int = 3) -> Optional[str]:
+          max_tokens: int = 4096, retries: int = 3,
+          model: Optional[str] = None) -> Optional[str]:
     client = _get_client()
+    use_model = model or config.LLM_MODEL
     for attempt in range(1, retries + 1):
         try:
             response = client.chat.completions.create(
-                model=config.LLM_MODEL,
+                model=use_model,
                 messages=[
                     {"role": "system", "content": system},
                     {"role": "user", "content": user},
@@ -106,10 +108,10 @@ def _chat(system: str, user: str, temperature: float = 0.3,
                 continue
             return text
         except Exception as e:
-            logger.warning(f"LLM API 호출 실패 (시도 {attempt}/{retries}) - {config.LLM_BASE_URL}: {e}")
+            logger.warning(f"LLM API 호출 실패 (시도 {attempt}/{retries}) [{use_model}]: {e}")
             if attempt < retries:
                 time.sleep(2 ** attempt)
-    logger.error(f"LLM API 호출 {retries}회 모두 실패 ({config.LLM_BASE_URL}, {config.LLM_MODEL})")
+    logger.error(f"LLM API 호출 {retries}회 모두 실패 ({config.LLM_BASE_URL}, {use_model})")
     return None
 
 
@@ -235,8 +237,9 @@ def translate_title(title: str, category: str = "", source_lang: str = "zh") -> 
     if result:
         return result
 
-    # 폴백: 최소한의 지시로 재시도 (브랜드 보존 규칙 포함)
-    logger.warning(f"제목 번역 폴백 시도: {title[:50]}")
+    # 폴백: 폴백 모델로 단순 지시 재시도
+    fallback_model = config.LLM_FALLBACK_MODEL
+    logger.warning(f"제목 번역 폴백 시도 [{fallback_model}]: {title[:50]}")
     lang_hint = "영어" if source_lang == "en" else "중국어"
     return _chat(
         system=(
@@ -247,7 +250,8 @@ def translate_title(title: str, category: str = "", source_lang: str = "zh") -> 
         user=f"{lang_hint} 제목을 한국어로 번역:\n{user_text}",
         temperature=0.1,
         max_tokens=128,
-        retries=2,
+        retries=3,
+        model=fallback_model,
     )
 
 

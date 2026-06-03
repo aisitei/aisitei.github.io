@@ -254,6 +254,8 @@ KEYWORDS_EXCLUDE_EN = [
 # LLM 설정 (LM Studio, OpenAI 호환 로컬 서버)
 LLM_BASE_URL = os.getenv("LLM_BASE_URL", "http://localhost:1234/v1")
 LLM_MODEL = os.getenv("LLM_MODEL", "google/gemma-4-e4b")
+# 주 모델이 think 블록만 반환할 때 자동 전환할 폴백 모델
+LLM_FALLBACK_MODEL = os.getenv("LLM_FALLBACK_MODEL", "qwen/qwen3.5-9b")
 LLM_API_KEY = os.getenv("LLM_API_KEY", "lm-studio")
 
 TITLE_TRANSLATE_PROMPT = """당신은 중국어 IT 기사 제목을 한국어로 번역하는 번역가입니다. 한국어 번역문만 출력하고 다른 텍스트는 절대 추가하지 마세요.
