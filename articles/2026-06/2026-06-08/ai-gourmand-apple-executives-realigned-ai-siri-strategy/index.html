@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 구르만: Apple 고위층은 작년 초에 중요한 회의를 개최하여 AI, Siri 전략을 재편하는 데 결정적인 전환이 일어났습니다.</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visitor-counter {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-zh {
+      font-size: 12.5px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .caption-ko {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="구르만: Apple 고위층은 작년 초에 중요한 회의를 개최하여 AI, Siri 전략을 재편하는 데 결정적인 전환이 일어났습니다." loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title">구르만: Apple 고위층은 작년 초에 중요한 회의를 개최하여 AI, Siri 전략을 재편하는 데 결정적인 전환이 일어났습니다.</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-06-08
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body -->
+      <div class="article-body">
+        
+        <h3>배경 및 개요</h3>
+        
+        <p>Bloomberg 통신 보도에 따르면, Apple의 인공지능(AI) 기능과 Siri 재구축 작업은 최근 고위 경영진 회의를 거치며 중대한 전환점을 맞았습니다. 이 회의는 회사 AI 사업 전반의 대규모 구조조정을 촉발했으며, 향후 몇 년간 애플의 AI 전략 방향 자체를 변화시키고 있습니다.</p>
+        
+        <p>업계에서는 다음 주에 열릴 WWDC 26에서 iOS 27과 더 많은 AI 기능이 중점적으로 공개될 것으로 예상하고 있으며, 이번 행사는 애플이 지난 2년간 겪었던 'AI 혼란기'의 종식을 알리는 신호탄이 될 수 있다는 분석도 나옵니다.</p>
+        
+        <h3>위기 인식 및 재편 과정</h3>
+        
+        <p>보도에 따르면, 2025년 초반 AI 산업이 급속도로 발전하는 가운데 애플은 경쟁사들에 비해 뒤처지고 있다는 위기감이 고위 경영진 사이에서 감지되었습니다. 이에 회사 임원들은 해결책을 찾기 위해 긴급 회의를 소집했습니다. 당시 Tim Cook CEO가 직접 참석하지는 않았으며, 전 COO인 Jeff Williams가 회의를 주재했습니다.</p>
+        
+        <p>회의에 참석한 고위 경영진들은 애플 AI 시스템이 위기에 처했으며, Siri 재구축 계획 역시 계속해서 지연되고 있다는 점을 인식했습니다. 이들은 신속하게 대응하지 않으면 장기적인 영향을 받을 수 있다고 판단했습니다.</p>
+        
+        <p>초기 논의 과정에서 당시 AI 책임자였던 John Giannandrea가 언급되었으나, 이미 Tim Cook CEO는 그에 대한 신뢰를 잃은 상태였습니다. 이때 Vision Pro 프로젝트를 담당했던 Mike Rockwell이 자발적으로 AI 및 Siri 개혁 업무를 맡겠다고 제안했습니다. 그는 Vision Pro의 성공적인 출시로 회사 내에서 높은 명성을 얻고 있었기에 그의 주장은 많은 지지를 받았습니다.</p>
+        
+        <h3>경영진의 변화와 구조 조정</h3>
+        
+        <p>과거에도 애플은 AI 리더십에 대한 논의가 있었습니다. 전 Apple 하드웨어 책임자 Dan Riccio는 이미 10년 전부터 회사 고위층이 전문적인 AI 담당 리더를 영입해야 한다고 지적했으며, 심지어 Rockwell에게 'Siri 5개년 재구축 계획'을 수립하도록 요구하기도 했습니다. 하지만 당시 애플 경영진은 이러한 제안들을 중요하게 여기지 않았습니다.</p>
+        
+        <p>하지만 시간이 흘러 2025년에 이르자, 애플 고위 임원들의 태도는 완전히 바뀌었습니다. 그들은 회사에 리더십 교체가 필요하며, Rockwell이 Siri 프로젝트를 전담해야 한다는 데 의견을 모았습니다.</p>
+        
+        <p>Rockwell이 높은 평가를 받았음에도 불구하고, 이 과정은 순탄치 않았습니다. Apple 소프트웨어 엔지니어링 수석 부사장인 Craig Federighi는 Rockwell이 Siri에만 집중하고 자신에게 보고하는 것이 적절하며, Tim Cook CEO에게 직접 보고해서는 안 된다고 의견을 제시했습니다.</p>
+        
+        <p>Rockwell은 처음에 AI의 중요성을 간과했다고 느낀 Federighi 때문에 프로젝트를 포기할까까지 고민했으나, 치열한 논의 끝에 Federighi가 이끄는 체제 하에서 Siri 업무를 담당하기로 합의했습니다. 또한, 애플은 여전히 전체 AI 모델 개발을 총괄할 핵심 인재가 필요했고, 결국 Amar Subramanya가 두 번째 AI 책임자로 선정되어 Federighi에게 보고하게 되었습니다.</p>
+        
+        <h3>전략적 협력과 리더십 변화</h3>
+        
+        <p>Siri를 재건할 인재는 확보했지만, 이 정도의 내부 개편만으로는 충분하지 않았습니다. Rockwell은 외부 자원을 찾기 시작했고, 결국 그와 Federighi, 소프트웨어 사업 책임자 Eddy Cue가 구글(Google)과의 협력을 선택하는 데 합의했습니다.</p>
+        
+        <p>이러한 위기를 계기로 Tim Cook CEO는 AI 전략 수립 과정에 전례 없는 깊이로 참여하게 되었습니다. 그는 직접 애플의 AI 로드맵을 검토하고 회사 전체에 동기 부여 연설을 하는 등 이전과는 완전히 다른 모습을 보였습니다. 과거에는 '권한 위임' 방식을 선호하며 제품 개발 및 실행 권한을 하위 임원들에게 넘기는 방식이 주를 이루었으나, 이번 AI라는 거대한 과제 앞에서는 직접 전면에 나서서 관리하는 스타일로 변화했습니다.</p>
+        
+        <p>Tim Cook CEO는 Federighi 등 고위 경영진에게 "AI를 진지하게 받아들이고 프로젝트가 성공하도록 보장해야 한다"고 직접적으로 촉구했습니다. 이와 동시에, Federighi 역시 AI에 대한 인식이 크게 바뀌어 현재 AI를 운영체제 미래 몇 년간의 핵심 업그레이드 방향으로 간주하고 있습니다.</p>
+        
+        <h3>총평</h3>
+        
+        <p>2025년 초에 열린 고위 경영진 회의는 애플 AI 전략의 결정적인 분수령이었습니다. 내부 리더십 재편과 구글과의 협력이라는 큰 변화를 거치며, 애플은 AI 중심의 새로운 시대로 진입하는 모습을 보였습니다. 하지만 이러한 대대적인 개혁들이 실제로 어떤 성과를 낼 수 있을지는 다가오는 WWDC 26에서 최종적으로 확인될 것으로 기대됩니다.</p>
+        
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-zh">苹果即将发布的AI产品系列可谓是\&#34;\*\*大转弯\*\*, 高管们去年还对聊天机器人嗤之以鼻，并对人工智能在摄影领域的应用持否定态度。而现在，这两项计划都将付诸实施。</div>
+                <div class="caption-ko">Apple이 곧 출시할 AI 제품군은 &#39;큰 변화&#39;라고 할 수 있습니다. 경영진들은 작년에는 챗봇을 무시했고, 사진 분야에서의 인공지능 적용에 대해 부정적인 태도를 보였습니다. 하지만 지금은 이 두 가지 계획 모두 실행될 예정입니다.</div>
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/961/190.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-06"
+               class="archive-btn active">
+              2026-06
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // 방문자 카운터 (메인과 동일 로직)
+    (function () {
+      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
+      const totalKey = 'visitCount_total';
+      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+      localStorage.setItem(todayKey, todayCount);
+      localStorage.setItem(totalKey, totalCount);
+      document.getElementById('visitor-counter').textContent =
+        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    let searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
