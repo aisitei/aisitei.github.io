@@ -220,6 +220,32 @@ def translate_caption(chinese_text: str) -> Optional[str]:
     return out
 
 
+def _looks_untranslated(text: str) -> bool:
+    """번역 결과가 실제로 번역되지 않은 경우를 감지합니다.
+
+    판정 기준:
+    1. 연속 6자 이상 한자(CJK) 포함 → 본문이 중국어 그대로
+    2. 전체 비공백 문자의 35% 이상이 한자 → 대부분 번역 안 됨
+    3. 시스템 프롬프트 유출 패턴 감지 (모델이 지시문을 출력으로 반환한 경우)
+
+    허용 예시: SmartSens(思特威), 커다이쉬엔페이(科大讯飞), Xiaomi HyperOS(小米澎湃 OS)
+    → 괄호 안 브랜드 한자 표기는 6자 미만이고 비율도 낮으므로 통과됨.
+    """
+    # 1. 연속 한자 6자 이상
+    if re.search('[一-鿿]{6,}', text):
+        return True
+    # 2. 한자 비율 35% 초과
+    non_space = [c for c in text if c not in ' \t\n']
+    if non_space:
+        cjk_ratio = sum(1 for c in non_space if '一' <= c <= '鿿') / len(non_space)
+        if cjk_ratio > 0.35:
+            return True
+    # 3. 시스템 프롬프트 유출: 지시문 키워드가 번역 결과에 포함된 경우
+    if '브랜드명은 절대 음역' in text or '원문 그대로 표기하라' in text:
+        return True
+    return False
+
+
 def translate_title(title: str, category: str = "", source_lang: str = "zh") -> Optional[str]:
     if source_lang == "en":
         system = _TITLE_TRANSLATE_EN_PROMPT
@@ -234,6 +260,11 @@ def translate_title(title: str, category: str = "", source_lang: str = "zh") -> 
         temperature=0.1,
         max_tokens=256,
     )
+    # 번역 결과에 한자가 3자 이상 연속 포함되면 번역 실패로 간주 → 폴백
+    if result and _looks_untranslated(result):
+        logger.warning(f"제목 번역 결과에 한자 포함 (번역 실패): {result[:60]}")
+        result = None
+
     if result:
         return result
 
@@ -241,7 +272,7 @@ def translate_title(title: str, category: str = "", source_lang: str = "zh") -> 
     fallback_model = config.LLM_FALLBACK_MODEL
     logger.warning(f"제목 번역 폴백 시도 [{fallback_model}]: {title[:50]}")
     lang_hint = "영어" if source_lang == "en" else "중국어"
-    return _chat(
+    fallback_result = _chat(
         system=(
             "한국어 번역가. 입력된 제목을 한국어로 번역하여 한 줄만 출력하라. "
             "vivo, OPPO, realme, iQOO, Xiaomi, Huawei, Samsung, Apple, Sony, Canon 등 "
@@ -253,6 +284,11 @@ def translate_title(title: str, category: str = "", source_lang: str = "zh") -> 
         retries=3,
         model=fallback_model,
     )
+    # 폴백 결과도 검증
+    if fallback_result and _looks_untranslated(fallback_result):
+        logger.warning(f"폴백 번역도 한자 포함 → 최종 실패: {fallback_result[:60]}")
+        return None
+    return fallback_result
 
 
 def translate_article(paragraphs: list[str], category: str = "", source_lang: str = "zh") -> list[str]:
