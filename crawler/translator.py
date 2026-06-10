@@ -201,10 +201,10 @@ def translate_caption(chinese_text: str) -> Optional[str]:
     is_long = len(text) >= 60
     if is_long:
         system = CAPTION_LONG_TRANSLATE_PROMPT + _build_glossary_prompt()
-        max_tokens = 2048
+        max_tokens = 4096  # thinking 모델 대응
     else:
         system = CAPTION_TRANSLATE_PROMPT + _build_glossary_prompt()
-        max_tokens = 192
+        max_tokens = 2048  # thinking 모델 대응
 
     out = _chat(system=system, user=text, temperature=0.1, max_tokens=max_tokens)
     if not out:
@@ -258,7 +258,7 @@ def translate_title(title: str, category: str = "", source_lang: str = "zh") -> 
         system=system,
         user=f"다음 기사 제목을 한국어로 번역하세요:\n\n{user_text}",
         temperature=0.1,
-        max_tokens=256,
+        max_tokens=4096,  # thinking 모델은 <think> 블록이 수천 토큰을 소비하므로 넉넉히 확보
     )
     # 번역 결과에 한자가 3자 이상 연속 포함되면 번역 실패로 간주 → 폴백
     if result and _looks_untranslated(result):
@@ -280,7 +280,7 @@ def translate_title(title: str, category: str = "", source_lang: str = "zh") -> 
         ),
         user=f"{lang_hint} 제목을 한국어로 번역:\n{user_text}",
         temperature=0.1,
-        max_tokens=128,
+        max_tokens=2048,  # thinking 모델 폴백도 충분한 토큰 확보
         retries=3,
         model=fallback_model,
     )
@@ -332,7 +332,7 @@ def generate_slug(korean_title: str) -> str:
             f"제목: {korean_title}"
         ),
         temperature=0.1,
-        max_tokens=64,
+        max_tokens=1024,  # thinking 모델 대응
     )
     if not result:
         return "article"
