@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Xiaomi AI 및 LLM: 모든 모델, 모든 기능, 알아야 할 모든 것</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Xiaomi">
+  <meta name="article-brand-color" content="#FF6900">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visitor-counter {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-zh {
+      font-size: 12.5px;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .caption-ko {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Xiaomi AI 및 LLM: 모든 모델, 모든 기능, 알아야 할 모든 것" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #FF6900;">
+            Xiaomi
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title">Xiaomi AI 및 LLM: 모든 모델, 모든 기능, 알아야 할 모든 것</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-06-13
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body -->
+      <div class="article-body">
+        
+        <h3>Xiaomi의 AI 여정과 LLM 경쟁 참여</h3>
+        
+        <p>Xiaomi는 그동안 저렴한 스마트폰과 스마트 홈 기기로 잘 알려져 왔으나, 지난 1년 반 동안 조용히 세계에서 가장 야심 찬 AI 플레이어 중 하나로 변모해 왔습니다.</p>
+        
+        <p>거대 언어 모델(LLM)부터 음성 복제, 자율형 휴대폰 에이전트에 이르기까지 Xiaomi는 매우 빠르게 움직이고 있습니다. 다음은 Xiaomi가 거대한 AI 및 LLM 경쟁에서 어느 위치에 와 있는지에 대한 모든 내용입니다.</p>
+        
+        <h3>MiMo-7B: LLM 레이스의 시작</h3>
+        
+        <p>Xiaomi의 AI 이야기는 2025년 4월, 첫 번째 오픈 소스 대형 언어 모델인 MiMo-7B를 출시하며 본격적으로 시작되었습니다. "MiMo"는 Xiaomi Model(MiandMo)을 의미합니다. 초기부터 주목할 점은 Xiaomi가 단순한 채팅보다는 추론과 코딩에 집중했다는 것입니다.</p>
+        
+        <p>MiMo-7B는 70억 개의 파라미터를 가졌음에도 불구하고 뛰어난 성능을 보여주었습니다.</p>
+        
+        <ul>
+<li>MATH-500 같은 수학 벤치마크에서 강화 학습 버전이 95.8%를 기록했습니다.</li>
+<li>AIME 2024 및 2025 수학 경진대회에서 OpenAI의 o1-mini와 Alibaba의 Qwen-32B-Preview를 능가했습니다.</li>
+</ul>
+        
+        <p>이 모델은 2000억 개의 추론 토큰으로 구성된 특별히 선별된 데이터셋과 세 단계의 학습 과정(총 25조 토큰)을 통해 훈련되었습니다. MiMo-7B는 MIT 라이선스로 공개되었으며 Hugging Face에서 이용 가능합니다.</p>
+        
+        <p>개발팀은 DeepSeek 출신의 Luo Fuli가 이끌었습니다.</p>
+        
+        <h3>MiMo-V2-Flash 및 MiMo-V2-Pro</h3>
+        
+        <p>2025년 12월, Xiaomi는 Mixture-of-Experts(MoE) 설계를 통해 대부분의 가중치를 "비활성" 상태로 유지하면서도 높은 성능을 내는 3,090억 파라미터 모델인 MiMo-V2-Flash를 발표했습니다.</p>
+        
+        <p>MiMo-V2-Flash의 특징은 다음과 같습니다.</p>
+        
+        <ul>
+<li>추론 벤치마크에서 오픈 소스 모델 중 상위 2위를 차지했습니다.</li>
+<li>소프트웨어 엔지니어링 테스트(SWE-Bench Verified)에서 GPT-5 및 Claude 4.5 Sonnet과 대등한 성능을 보였습니다.</li>
+<li>초당 150개의 토큰을 생성하며, 추론 비용은 Claude의 약 2.5% 수준으로 매우 경제적입니다.</li>
+</ul>
+        
+        <p>MiMo-V2-Flash는 또한 모델이 한 번에 여러 토큰을 생성하고 검증할 수 있게 하는 Multi-Token Prediction(MTP) 기술을 도입했습니다.</p>
+        
+        <p>2026년 3월에는 더욱 야심 찬 모델인 MiMo-V2-Pro가 등장했습니다. 이 모델은 총 1조 개 이상의 파라미터를 보유하며, 한 번에 수백 페이지 분량의 소설을 처리할 수 있는 100만 토큰의 컨텍스트 창을 지원합니다. 특히 복잡한 계획과 실행이 필요한 "에이전트(agentic)" 작업을 위해 설계되었습니다.</p>
+        
+        <p>MiMo-V2-Pro와 함께 멀티모달 버전인 MiMo-V2-Omni와 텍스트 음성 변환용 MiMo-V2-TTS가 동시 출시되었습니다.</p>
+        
+        <h3>MiMo-V2.5 및 특화 모델군</h3>
+        
+        <p>2026년 4월 말, Xiaomi는 V2 제품군의 장점을 통합한 MiMo-V2.5-Pro를 발표했습니다. 이 모델은 텍스트, 이미지, 오디오, 비디오를 모두 처리할 수 있는 1.02조 파라미터 규모의 모델입니다.</p>
+        
+        <p>V2.5-Pro는 출시 당시 Artificial Analysis 벤치마크에서 에이전트 기능 부문 세계 최고의 오픈 소스 모델로 선정되었습니다. 또한, Xiaomi는 100만 토큰 컨텍스트 창 사용에 대한 추가 비용을 제거하여 개발자 친화적인 환경을 제공했습니다.</p>
+        
+        <p>또한 다양한 목적을 위한 특화 모델들도 출시되었습니다.</p>
+        
+        <ul>
+<li>MiMo Code: 긴 프로젝트에서도 문맥을 유지하는 지속적 메모리 시스템을 갖춘 터미널 기반 AI 코딩 에이전트입니다.</li>
+<li>MiMo-VL 및 MiMo-VL-Miloco-7B: 시각 언어 모델로, 특히 Miloco는 가정 환경을 이해하도록 설계되어 일상적인 제스처와 가사 활동을 인식합니다.</li>
+<li>MiDashengLM-7B 및 MiMo-Audio: 단순 음성 인식을 넘어 음악, 주변 소리, 화자의 감정까지 파악하는 오음(audio) AI 모델입니다.</li>
+</ul>
+        
+        <h3>OmniVoice 및 음성 기술 파이프라인</h3>
+        
+        <p>2026년 5월에 공개된 OmniVoice는 Xiaomi AI Lab의 차세대 Kaldi 팀에서 개발한 TTS 모델입니다.</p>
+        
+        <ul>
+<li>646개 언어를 지원하며, 데이터가 부족한 저자원 언어도 포함합니다.</li>
+<li>단 몇 초의 샘플만으로 목소리를 복제하는 제로샷(zero-shot) 음성 복제 기능을 제공하며, 여러 언어에 걸쳐 원본 목소리의 특징을 유지하면서 자연스러운 음성을 생성합니다.</li>
+</ul>
+        
+        <p>OmniVoice는 단일 트랜스포머 구조를 통해 매우 빠른 추론 속도를 자랑하며, 다양한 발음 교정 도구를 포함합니다. MiMo-V2.5-TTS와 ASR 시스템은 이들과 결합하여 개발자들이 별도의 도구 연결 없이도 엔드포인트 음성 기반 제품을 구축할 수 있게 합니다.</p>
+        
+        <h3>소비자용 서비스: Xiao AI 및 HyperAI</h3>
+        
+        <p>일반 사용자를 위한 Xiaomi의 핵심 경험은 두 가지로 나뉩니다.</p>
+        
+        <p>Xiao AI(小爱)는 스마트폰, 스피커, 웨어러블 기기에서 작동하는 장수 음성 비서입니다. HyperOS 2와 함께 "Super Xiao AI"로 업그레이드되어 더 나은 문맥 기억과 이미지 생성 기능을 갖추게 되었습니다.</p>
+        
+        <p>HyperAI는 Xiaomi 15 시리즈부터 적용된 기능 세트로, 실시간 번역, AI 글쓰기 지원, 스마트 음성 인식(녹음 요약), AI 사진 편집 등을 포함하며 Google Gemini를 백엔드에 통합하기도 했습니다.</p>
+        
+        <h3>미래의 핵심: miclaw</h3>
+        
+        <p>Xiaomi AI 전략의 가장 앞선 부분은 2026년 3월 발표된 miclaw입니다. 이는 단순한 챗봇이 아니라 MiMo 기반의 자율형 AI 에이전트입니다.</p>
+        
+        <p>miclaw는 사용자의 의도를 해석하여 앱 실행, 인터페이스 탐색, 양식 채우기 등 다단계 작업을 스스로 수행합니다. "추론-실행 루프"를 통해 결과가 나올 때까지 과정을 확인하며 진행하며, 개인 정보는 로컬에서 처리되어 보안을 강화했습니다.</p>
+        
+        <p>miclaw는 현재 Xiaomi 17 시리즈를 지원하는 비공개 베타 단계에 있으며, HyperOS 4에서 시스템 수준으로 통합될 예정입니다.</p>
+        
+        <h3>투자 규모와 전략적 목표</h3>
+        
+        <p>2026년 3월, Lei Jun CEO는 향후 3년간 AI 분야에 최소 87억 달러를 투자할 것이라고 발표했습니다. 이는 기존 R&D 예산 외 추가 투자이며, 2026년 연간 R&D 지출은 약 400억 위안(약 57억 달러)에 달할 전망입니다.</p>
+        
+        <p>Xiaomi는 자체 칩, OS, 그리고 독자적인 AI 모델을 하나의 기기에 통합하는 "대통합(grand convergence)"을 목표로 하고 있습니다. 이미 OpenRouter 트래픽의 상당 부분을 점유하며 기술적 경쟁력을 입증하고 있습니다.</p>
+        
+        <h3>총평</h3>
+        
+        <p>Xiaomi는 단순한 하드웨어 제조사를 넘어, 자체 모델부터 에이전트 시스템까지 아우르는 완전한 AI 스택을 구축하며 매우 빠르게 성장하고 있습니다. 특히 강력한 투자 규모와 오픈 소스 전략을 통해 독자적인 생태계를 구축하는 데 박차를 가하고 있으며, 향후 miclaw와 HyperOS 4의 통합을 통해 진정한 AI 플랫폼 기업으로 자리매김할 것으로 기대됩니다.</p>
+        
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/06/12/xiaomi-ai-llm-mimo-miclaw-omnivoice-explained/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-06"
+               class="archive-btn active">
+              2026-06
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // 방문자 카운터 (메인과 동일 로직)
+    (function () {
+      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
+      const totalKey = 'visitCount_total';
+      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+      localStorage.setItem(todayKey, todayCount);
+      localStorage.setItem(totalKey, totalCount);
+      document.getElementById('visitor-counter').textContent =
+        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    let searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
