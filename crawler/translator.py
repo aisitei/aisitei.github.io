@@ -91,6 +91,13 @@ def _chat(system: str, user: str, temperature: float = 0.3,
                 temperature=temperature,
                 max_tokens=max_tokens,
             )
+            finish_reason = response.choices[0].finish_reason
+            if finish_reason == "length":
+                # max_tokens 초과로 응답이 중간에 잘림 → 재시도
+                logger.warning(f"LLM 응답 잘림 (시도 {attempt}/{retries}) - finish_reason=length, max_tokens={max_tokens}")
+                if attempt < retries:
+                    time.sleep(2 ** attempt)
+                continue
             content = response.choices[0].message.content
             if content is None:
                 logger.warning(f"LLM 빈 응답 (시도 {attempt}/{retries}) - content=None")
@@ -258,7 +265,7 @@ def translate_title(title: str, category: str = "", source_lang: str = "zh") -> 
         system=system,
         user=f"다음 기사 제목을 한국어로 번역하세요:\n\n{user_text}",
         temperature=0.1,
-        max_tokens=4096,  # thinking 모델은 <think> 블록이 수천 토큰을 소비하므로 넉넉히 확보
+        max_tokens=8192,  # thinking 모델은 <think> 블록이 수천 토큰을 소비하므로 넉넉히 확보
     )
     # 번역 결과에 한자가 3자 이상 연속 포함되면 번역 실패로 간주 → 폴백
     if result and _looks_untranslated(result):
