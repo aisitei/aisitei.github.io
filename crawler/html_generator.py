@@ -16,12 +16,30 @@ TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "templates")
 
 @dataclass
 class TranslatedArticle:
-    """번역 완료된 기사 데이터"""
+    """번역 완료된 기사 데이터 (4개 언어 지원)"""
     original: Article
-    korean_title: str
-    korean_paragraphs: list[str]
     slug: str
-    image_translations: dict[str, list[ImageTranslation]] = field(default_factory=dict)
+    # 다국어 제목/본문 dict ({"ko", "zh", "ja", "en"})
+    titles: dict = field(default_factory=dict)
+    bodies: dict = field(default_factory=dict)
+    image_translations: dict = field(default_factory=dict)
+
+    # ── 하위 호환 properties ──────────────────────────────────────────────────
+    @property
+    def korean_title(self) -> str:
+        return self.titles.get("ko", "")
+
+    @korean_title.setter
+    def korean_title(self, value: str):
+        self.titles["ko"] = value
+
+    @property
+    def korean_paragraphs(self) -> list:
+        return self.bodies.get("ko", [])
+
+    @korean_paragraphs.setter
+    def korean_paragraphs(self, value: list):
+        self.bodies["ko"] = value
 
 
 # 크롤러 내부 카테고리 → build.py/template 공통 카테고리로 정규화
@@ -38,7 +56,7 @@ CATEGORY_LABEL_KO = {
 }
 
 
-def render_html(article: TranslatedArticle, date_str: str, local_images: list[str]) -> str:
+def render_html(article: TranslatedArticle, date_str: str, local_images: list) -> str:
     """번역된 기사를 HTML로 렌더링합니다. local_images는 'images/img1.jpg' 형식의 상대경로."""
     env = Environment(loader=FileSystemLoader(TEMPLATE_DIR), autoescape=True)
     template = env.get_template("article.html")
@@ -57,10 +75,26 @@ def render_html(article: TranslatedArticle, date_str: str, local_images: list[st
     normalized_cat = CATEGORY_NORMALIZE.get(article.original.category, article.original.category)
     category_label = CATEGORY_LABEL_KO.get(normalized_cat, normalized_cat)
 
+    # 다국어 제목/본문 준비 (ko 폴백)
+    titles = {
+        "ko": article.titles.get("ko", ""),
+        "zh": article.titles.get("zh", article.titles.get("ko", "")),
+        "ja": article.titles.get("ja", article.titles.get("ko", "")),
+        "en": article.titles.get("en", article.titles.get("ko", "")),
+    }
+    bodies = {
+        "ko": article.bodies.get("ko", []),
+        "zh": article.bodies.get("zh", article.bodies.get("ko", [])),
+        "ja": article.bodies.get("ja", article.bodies.get("ko", [])),
+        "en": article.bodies.get("en", article.bodies.get("ko", [])),
+    }
+
     html = template.render(
-        title=article.korean_title,
+        title=titles["ko"],
+        titles=titles,
         original_title=article.original.title,
-        paragraphs=article.korean_paragraphs,
+        paragraphs=article.bodies.get("ko", []),
+        bodies=bodies,
         images=local_images,  # relative paths
         image_translations=local_image_translations,
         source_url=article.original.url,

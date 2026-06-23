@@ -19,7 +19,11 @@ import time
 import config
 from scraper import collect_articles, get_processed_article_ids
 from scraper_gizmochina import scrape_feed as collect_gizmochina
-from translator import translate_title, translate_article, generate_slug
+from translator import (
+    translate_title, translate_article, generate_slug,
+    translate_body_en, translate_body_ja, translate_body_zh_summary,
+    translate_title_en, translate_title_ja,
+)
 from ocr import process_image_translations
 from html_generator import TranslatedArticle, save_article
 from deployer import ensure_repo, commit_and_push
@@ -122,6 +126,7 @@ from scraper import scrape_article_content, scrape_article_images, detect_brand,
 from translator import translate_title, translate_article, generate_slug
 from html_generator import TranslatedArticle, save_article
 from deployer import ensure_repo, commit_and_push
+
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
@@ -271,12 +276,43 @@ def run_pipeline(limit: int = 0):
             _write_resume_script(today)
             continue
 
+        # 4개 언어 번역 (EN / JA / ZH summary)
+        # 소스 텍스트: 한국어 번역 결과를 기반으로 EN/JA 번역
+        ko_body_text = "\n\n".join(korean_paragraphs)
+        zh_orig_text = "\n\n".join(article.content_paragraphs)
+
+        logger.info("  [다국어] EN 번역 중...")
+        en_body_text = translate_body_en(ko_body_text, category=category)
+        en_paragraphs = [p.strip() for p in (en_body_text or "").split("\n\n") if p.strip()] or korean_paragraphs
+
+        logger.info("  [다국어] JA 번역 중...")
+        ja_body_text = translate_body_ja(ko_body_text, category=category)
+        ja_paragraphs = [p.strip() for p in (ja_body_text or "").split("\n\n") if p.strip()] or korean_paragraphs
+
+        logger.info("  [다국어] ZH 요약 중...")
+        zh_summary_text = translate_body_zh_summary(zh_orig_text) if source_lang == "zh" else translate_body_en(ko_body_text, category=category)
+        zh_paragraphs = [p.strip() for p in (zh_summary_text or "").split("\n\n") if p.strip()] or korean_paragraphs
+
+        # 다국어 제목
+        en_title = translate_title_en(article.title) if source_lang == "zh" else article.title
+        ja_title = translate_title_ja(article.title) if source_lang == "zh" else korean_title
+
         slug = generate_slug(korean_title)
         translated = TranslatedArticle(
             original=article,
-            korean_title=korean_title,
-            korean_paragraphs=korean_paragraphs,
             slug=slug,
+            titles={
+                "ko": korean_title,
+                "zh": article.title if source_lang == "zh" else korean_title,
+                "ja": ja_title or korean_title,
+                "en": en_title or korean_title,
+            },
+            bodies={
+                "ko": korean_paragraphs,
+                "zh": zh_paragraphs,
+                "ja": ja_paragraphs,
+                "en": en_paragraphs,
+            },
         )
         translated_articles.append(translated)
         logger.info(f"  → {korean_title}")

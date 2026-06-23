@@ -9,6 +9,10 @@
   <meta name="article-category" content="{{ category }}">
   <meta name="article-brand" content="{{ brand }}">
   <meta name="article-brand-color" content="{{ brand_color }}">
+  <meta name="title-ko" content="{{ titles.ko }}">
+  <meta name="title-zh" content="{{ titles.zh }}">
+  <meta name="title-ja" content="{{ titles.ja }}">
+  <meta name="title-en" content="{{ titles.en }}">
   <style>
     :root {
       --bg: #0f172a;
@@ -106,14 +110,34 @@
       gap: 12px;
     }
 
-    .visitor-counter {
-      font-size: 12px;
-      color: var(--text-secondary);
-      background: var(--surface);
-      border: 1px solid var(--border);
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
       border-radius: 6px;
-      padding: 4px 10px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
       white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
     }
 
     /* ── Page layout: article + sidebar ── */
@@ -258,6 +282,10 @@
       color: var(--text-secondary);
       list-style: disc;
     }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
 
     /* All images section */
     .images-section {
@@ -460,7 +488,7 @@
     @media (max-width: 600px) {
       .site-header { padding: 0 12px; gap: 10px; }
       .header-nav a { padding: 6px 8px; font-size: 13px; }
-      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
@@ -480,7 +508,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -519,7 +552,11 @@
           {% endif %}
         </div>
 
-        <h1 class="article-title">{{ title }}</h1>
+        <h1 class="article-title"
+            data-ko="{{ titles.ko }}"
+            data-zh="{{ titles.zh }}"
+            data-ja="{{ titles.ja }}"
+            data-en="{{ titles.en }}">{{ titles.ko }}</h1>
 
         <div class="article-info">
           {% if date_str %}
@@ -539,11 +576,28 @@
 
       <div class="divider"></div>
 
-      <!-- Body -->
+      <!-- Body — 4개 언어 -->
       <div class="article-body">
-        {% for paragraph in paragraphs %}
-        {{ paragraph|safe }}
-        {% endfor %}
+        <div class="lang-body" data-lang="ko">
+          {% for paragraph in bodies.ko %}
+          {{ paragraph|safe }}
+          {% endfor %}
+        </div>
+        <div class="lang-body" data-lang="zh">
+          {% for paragraph in bodies.zh %}
+          {{ paragraph|safe }}
+          {% endfor %}
+        </div>
+        <div class="lang-body" data-lang="ja">
+          {% for paragraph in bodies.ja %}
+          {{ paragraph|safe }}
+          {% endfor %}
+        </div>
+        <div class="lang-body" data-lang="en">
+          {% for paragraph in bodies.en %}
+          {{ paragraph|safe }}
+          {% endfor %}
+        </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -659,32 +713,73 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
     (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
     })();
 
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
-        const q = this.value.trim();
+        var q = this.value.trim();
         if (q) {
           location.href = '../../../../index.html?search=' + encodeURIComponent(q);
         }
       }
     });
     // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
-    let searchTimer;
+    var searchTimer;
     document.getElementById('article-search').addEventListener('input', function () {
       clearTimeout(searchTimer);
-      const q = this.value.trim();
+      var q = this.value.trim();
       if (q.length >= 2) {
         searchTimer = setTimeout(function () {
           location.href = '../../../../index.html?search=' + encodeURIComponent(q);

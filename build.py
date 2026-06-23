@@ -31,6 +31,10 @@ class ArticleMetaParser(HTMLParser):
         self.brand = ""
         self.brand_color = ""
         self.thumbnail = ""
+        self.title_ko = ""
+        self.title_zh = ""
+        self.title_ja = ""
+        self.title_en = ""
         self._in_title = False
         self._in_h1 = False
         self._first_img_found = False
@@ -50,6 +54,14 @@ class ArticleMetaParser(HTMLParser):
                 self.brand = content
             elif name == "article-brand-color":
                 self.brand_color = content
+            elif name == "title-ko":
+                self.title_ko = content
+            elif name == "title-zh":
+                self.title_zh = content
+            elif name == "title-ja":
+                self.title_ja = content
+            elif name == "title-en":
+                self.title_en = content
 
         elif tag == "img" and not self._first_img_found:
             src = attrs_dict.get("src", "")
@@ -141,8 +153,18 @@ def extract_metadata(html_path: Path, article_root: Path):
     if title.startswith("AI시테이 - "):
         title = title[len("AI시테이 - "):]
 
+    # 다국어 제목: meta 태그에서 추출 (없으면 기본 title로 폴백)
+    title_ko = parser.title_ko or title
+    title_zh = parser.title_zh or title_ko
+    title_ja = parser.title_ja or title_ko
+    title_en = parser.title_en or title_ko
+
     return {
         "title": title,
+        "title_ko": title_ko,
+        "title_zh": title_zh,
+        "title_ja": title_ja,
+        "title_en": title_en,
         "url": relative_url,
         "date": date_str,
         "month": month_str,
@@ -273,6 +295,11 @@ def thumbnail_html(thumbnail: str, title: str) -> str:
     )
 
 
+def _esc(s: str) -> str:
+    """HTML 속성값 이스케이프."""
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
+
+
 def article_card_html(article: dict) -> str:
     raw_title = article["title"]
     card_title = (raw_title[:42] + "…") if len(raw_title) > 43 else raw_title
@@ -282,9 +309,19 @@ def article_card_html(article: dict) -> str:
     category = article.get("category", "")
     month = article.get("month", "")
 
-    search_title = raw_title.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
+    # 다국어 제목 (카드 표시 및 검색용)
+    title_ko = _esc(article.get("title_ko", raw_title))
+    title_zh = _esc(article.get("title_zh", raw_title))
+    title_ja = _esc(article.get("title_ja", raw_title))
+    title_en = _esc(article.get("title_en", raw_title))
+
+    search_title = _esc(raw_title)
     return f'''    <article class="article-card"
              data-title="{search_title.lower()}"
+             data-title-ko="{title_ko.lower()}"
+             data-title-zh="{title_zh.lower()}"
+             data-title-ja="{title_ja.lower()}"
+             data-title-en="{title_en.lower()}"
              data-category="{category}"
              data-month="{month}"
              data-date="{article['date']}">
@@ -294,7 +331,11 @@ def article_card_html(article: dict) -> str:
           <div class="card-badges">
             {article_badges_html(article)}
           </div>
-          <h2 class="card-title">{title}</h2>
+          <h2 class="card-title"
+              data-ko="{title_ko}"
+              data-zh="{title_zh}"
+              data-ja="{title_ja}"
+              data-en="{title_en}">{title}</h2>
           <div class="card-date">{date_display}</div>
         </div>
       </a>
@@ -574,14 +615,34 @@ def build_page(
       gap: 12px;
     }}
 
-    .visitor-counter {{
-      font-size: 12px;
-      color: var(--text-secondary);
-      background: var(--surface);
-      border: 1px solid var(--border);
+    /* ── Language selector ── */
+    .lang-selector {{
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }}
+
+    .lang-btn {{
+      padding: 4px 8px;
       border-radius: 6px;
-      padding: 4px 10px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
       white-space: nowrap;
+    }}
+
+    .lang-btn:hover {{
+      background: var(--surface);
+      color: var(--text);
+    }}
+
+    .lang-btn.active-lang {{
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
     }}
 
     /* ── Page layout ── */
@@ -889,9 +950,9 @@ def build_page(
         gap: 10px;
       }}
 
-      .visitor-counter {{
+      .lang-btn {{
         font-size: 11px;
-        padding: 3px 8px;
+        padding: 3px 6px;
       }}
 
       .page-layout {{
@@ -915,7 +976,12 @@ def build_page(
       <a href="reports.html"{phone_active}>발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -986,20 +1052,39 @@ def build_page(
   </div>
 
   <script>
-    // ── Visitor counter ──────────────────────────────────────────────────────
-    (function () {{
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    var LANG_KEY = 'aisitei_lang';
+    var DEFAULT_LANG = 'ko';
+    var currentLang = localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
 
-      let todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      let totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
+    function applyLang(lang) {{
+      currentLang = lang;
+      localStorage.setItem(LANG_KEY, lang);
 
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
+      // 카드 제목 업데이트
+      document.querySelectorAll('.card-title[data-ko]').forEach(function (el) {{
+        var newTitle = el.getAttribute('data-' + lang) || el.getAttribute('data-ko') || '';
+        if (newTitle) el.textContent = newTitle;
+      }});
 
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    }})();
+      // 버튼 활성화
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {{
+        btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+      }});
+
+      // html lang 속성
+      var langMap = {{ ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' }};
+      document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+
+      // 검색어 재필터 (현재 언어 제목 기준)
+      filterArticles();
+    }}
+
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {{
+      btn.addEventListener('click', function () {{
+        applyLang(btn.getAttribute('data-lang'));
+      }});
+    }});
 
     // ── Filtering logic ──────────────────────────────────────────────────────
     const grid = document.getElementById('articles-grid');
@@ -1015,7 +1100,10 @@ def build_page(
       let visible = 0;
 
       cards.forEach(function (card) {{
-        const title = card.dataset.title || '';
+        // 현재 언어에 맞는 제목으로 검색
+        var titleKey = 'title' + (currentLang !== 'ko' ? currentLang.charAt(0).toUpperCase() + currentLang.slice(1) : '');
+        var titleAttr = 'data-title-' + currentLang;
+        var title = card.getAttribute(titleAttr) || card.dataset.title || '';
         const cat = card.dataset.category || '';
         const month = card.dataset.month || '';
 
@@ -1092,6 +1180,9 @@ def build_page(
       }}
       if (pSearch || pCat || pMonth) filterArticles();
     }})();
+
+    // 초기 언어 적용
+    applyLang(currentLang);
   </script>
 
 </body>

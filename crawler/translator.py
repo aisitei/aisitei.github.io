@@ -330,6 +330,151 @@ def translate_article(paragraphs: list[str], category: str = "", source_lang: st
     return [p.strip() for p in result.split("\n\n") if p.strip()]
 
 
+# ── 다국어 번역 함수 (EN / JA / ZH summary) ─────────────────────────────────
+
+_TRANSLATE_SYSTEM_ZH_SUMMARY_PROMPT = (
+    "你是一位专业的科技新闻编辑，负责将中文IT新闻进行精炼摘要。\n\n"
+    "摘要规则：\n"
+    "1. 用简洁清晰的中文概括文章核心内容。\n"
+    "2. 保留重要的数字、规格和产品名称。\n"
+    "3. 品牌名称保持原文表记（Xiaomi、Huawei、Samsung等）。\n"
+    "4. 不要添加原文没有的规格或事实。\n\n"
+    "输出格式（HTML）：\n"
+    "- 将内容分成若干主题段落，每段前加<h3>标题</h3>。\n"
+    "- 规格、参数、列表用<ul><li>...</li></ul>整理。\n"
+    "- 普通叙述段落用<p>...</p>输出。\n"
+    "- 文章最后加<h3>总结</h3>，用2~4句话概括核心内容。\n"
+    "- 不使用Markdown，只使用纯HTML标签。"
+)
+
+_TRANSLATE_SYSTEM_EN_FULL_PROMPT = (
+    "You are a professional IT news editor who translates and summarizes Chinese/Korean tech articles into English.\n\n"
+    "Translation rules:\n"
+    "1. Write in natural, fluent English.\n"
+    "2. Keep technical terms as-is (Snapdragon, LTPO, UTG, etc.).\n"
+    "3. Keep brand names in their original form (Xiaomi, Huawei, Samsung, etc.).\n"
+    "4. Prefer meaning-accurate translation over literal translation.\n"
+    "5. Do NOT add specs or facts not present in the original text.\n\n"
+    "Output format (HTML):\n"
+    "- Divide content into thematic sections with <h3> headers.\n"
+    "- Use <ul><li>...</li></ul> for specs, numbers, and lists.\n"
+    "- Use <p>...</p> for narrative paragraphs.\n"
+    "- End with a <h3>Summary</h3> section summarizing key points in 2-4 sentences.\n"
+    "- Use only pure HTML tags, no Markdown."
+)
+
+_TRANSLATE_SYSTEM_JA_FULL_PROMPT = (
+    "あなたはプロのITニュース編集者で、中国語/韓国語のテック記事を日本語に翻訳・要約します。\n\n"
+    "翻訳ルール：\n"
+    "1. 自然で流暢な日本語に翻訳します。\n"
+    "2. 技術用語（Snapdragon、LTPO、UTGなど）はそのまま維持します。\n"
+    "3. ブランド名は原文表記を維持します（Xiaomi、Huawei、Samsungなど）。\n"
+    "4. 直訳より意訳を優先します。\n"
+    "5. 原文にないスペックや事実は絶対に追加しないでください。\n\n"
+    "出力形式（HTML）：\n"
+    "- 内容をテーマ別セクションに分け、各セクションの前に<h3>ヘッダー</h3>を付けます。\n"
+    "- スペック・数値・リストは<ul><li>...</li></ul>で整理します。\n"
+    "- 通常の叙述段落は<p>...</p>で出力します。\n"
+    "- 記事の最後に<h3>まとめ</h3>セクションで主要内容を2~4文で要約します。\n"
+    "- MarkdownではなくHTMLタグのみ使用します。"
+)
+
+_TITLE_TRANSLATE_EN_FROM_ZH_PROMPT = (
+    "You are a translator converting Chinese IT article titles to English. "
+    "Output only the English translation, nothing else.\n\n"
+    "Rules:\n"
+    "1. Keep brand/product names in their original form (Samsung, Xiaomi, iPhone, etc.).\n"
+    "2. Currency: express yuan (元/¥) as 'yuan'.\n"
+    "3. Use natural English phrasing.\n"
+    "4. Use 'smartphone' instead of 'phone'."
+)
+
+_TITLE_TRANSLATE_JA_FROM_ZH_PROMPT = (
+    "あなたは中国語のITニュースのタイトルを日本語に翻訳する翻訳者です。"
+    "日本語の翻訳のみを出力し、他のテキストは絶対に追加しないでください。\n\n"
+    "ルール：\n"
+    "1. ブランド名・製品名は原文表記を維持します（Samsung、Xiaomi、iPhoneなど）。\n"
+    "2. 価格：中国元（元/¥）は「元」と表記します。\n"
+    "3. 自然な日本語の語順で再構成します。\n"
+    "4. 「スマホ」ではなく「スマートフォン」を使います。"
+)
+
+
+def translate_body_en(source_text: str, category: str = "") -> Optional[str]:
+    """HTML 본문을 영어로 번역합니다. source_text는 한국어 또는 중국어 HTML."""
+    if not source_text.strip():
+        return ""
+    system = _TRANSLATE_SYSTEM_EN_FULL_PROMPT
+    if category == "phone_camera":
+        system += "\n\nFor camera articles: include all sensor specs, aperture, focal length, and video specs in detail."
+    return _chat(
+        system=system,
+        user=f"Please translate the following article to English:\n\n{source_text}",
+        temperature=0.3,
+        max_tokens=8192,
+    )
+
+
+def translate_body_ja(source_text: str, category: str = "") -> Optional[str]:
+    """HTML 본문을 일본어로 번역합니다. source_text는 한국어 또는 중국어 HTML."""
+    if not source_text.strip():
+        return ""
+    system = _TRANSLATE_SYSTEM_JA_FULL_PROMPT
+    if category == "phone_camera":
+        system += "\n\nカメラ記事の場合：センタースペック、絞り値、焦点距離、動画スペックを詳細に含めてください。"
+    return _chat(
+        system=system,
+        user=f"以下の記事を日本語に翻訳してください：\n\n{source_text}",
+        temperature=0.3,
+        max_tokens=8192,
+    )
+
+
+def translate_body_zh_summary(zh_text: str) -> Optional[str]:
+    """중국어 원문을 중국어로 요약합니다 (HTML 형식 유지)."""
+    if not zh_text.strip():
+        return ""
+    text = apply_glossary(zh_text)
+    return _chat(
+        system=_TRANSLATE_SYSTEM_ZH_SUMMARY_PROMPT,
+        user=f"请对以下文章进行精炼摘要：\n\n{text}",
+        temperature=0.3,
+        max_tokens=8192,
+    )
+
+
+def translate_title_en(zh_title: str) -> Optional[str]:
+    """중국어 제목을 영어로 번역합니다."""
+    if not zh_title.strip():
+        return ""
+    text = apply_glossary(zh_title)
+    result = _chat(
+        system=_TITLE_TRANSLATE_EN_FROM_ZH_PROMPT,
+        user=f"Translate this article title to English:\n\n{text}",
+        temperature=0.1,
+        max_tokens=2048,
+    )
+    if result:
+        return result.split("\n", 1)[0].strip()
+    return None
+
+
+def translate_title_ja(zh_title: str) -> Optional[str]:
+    """중국어 제목을 일본어로 번역합니다."""
+    if not zh_title.strip():
+        return ""
+    text = apply_glossary(zh_title)
+    result = _chat(
+        system=_TITLE_TRANSLATE_JA_FROM_ZH_PROMPT,
+        user=f"以下のタイトルを日本語に翻訳してください：\n\n{text}",
+        temperature=0.1,
+        max_tokens=2048,
+    )
+    if result:
+        return result.split("\n", 1)[0].strip()
+    return None
+
+
 def generate_slug(korean_title: str) -> str:
     result = _chat(
         system="You convert Korean/English titles to English kebab-case file slugs.",
