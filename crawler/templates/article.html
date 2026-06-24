@@ -329,15 +329,14 @@
       gap: 2px;
     }
 
-    .caption-zh {
-      font-size: 12.5px;
-      color: #94a3b8;
-      font-style: italic;
-    }
-
-    .caption-ko {
+    .caption-lang {
+      display: none;
       font-size: 13px;
       color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
     }
 
     /* Source footer */
@@ -611,10 +610,12 @@
           {% if caps %}
           <figcaption class="image-caption">
             {% for t in caps %}
-              {% if t.original_chinese or t.translated_korean %}
+              {% if t.translated_korean or t.translated_english or t.translated_japanese %}
               <div class="caption-pair">
-                {% if t.original_chinese %}<div class="caption-zh">{{ t.original_chinese }}</div>{% endif %}
-                {% if t.translated_korean %}<div class="caption-ko">{{ t.translated_korean }}</div>{% endif %}
+                {% if t.translated_korean %}<div class="caption-lang" data-lang="ko">{{ t.translated_korean }}</div>{% endif %}
+                {% if t.translated_english %}<div class="caption-lang" data-lang="en">{{ t.translated_english }}</div>{% endif %}
+                {% if t.translated_japanese %}<div class="caption-lang" data-lang="ja">{{ t.translated_japanese }}</div>{% endif %}
+                {# ZH: 원문이 중국어이므로 캡션 불필요 #}
               </div>
               {% endif %}
             {% endfor %}
@@ -748,6 +749,11 @@
         // 버튼 활성화
         document.querySelectorAll('.lang-btn').forEach(function (btn) {
           btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
         });
 
         // html lang 속성 업데이트

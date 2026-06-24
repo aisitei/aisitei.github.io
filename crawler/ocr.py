@@ -32,6 +32,8 @@ class ImageTranslation:
     """이미지 내 텍스트 번역 결과"""
     original_chinese: str   # 원문 (중국어)
     translated_korean: str  # 번역 (한국어)
+    translated_english: str = ""  # 번역 (영어)
+    translated_japanese: str = ""  # 번역 (일본어)
 
 
 def download_image(url: str) -> Optional[bytes]:
@@ -299,6 +301,8 @@ def _filter_caption_lines(raw: str) -> list[str]:
 def process_image_translations(
     image_urls: list[str],
     translate_fn,
+    translate_en_fn=None,
+    translate_ja_fn=None,
 ) -> dict[str, list[ImageTranslation]]:
     """이미지 목록에서 중국어 텍스트를 추출하고 번역합니다.
 
@@ -310,6 +314,8 @@ def process_image_translations(
         translate_fn: 중국어→한국어 번역 함수 (권장: translator.translate_caption).
             translate_text 같은 기사 본문용 번역기를 쓰면 짧은 캡션에 대해 모델이
             장황한 메타 답변을 반환할 수 있으므로 주의.
+        translate_en_fn: 중국어→영어 번역 함수 (선택). None이면 영어 캡션 생략.
+        translate_ja_fn: 중국어→일본어 번역 함수 (선택). None이면 일본어 캡션 생략.
 
     Returns:
         {이미지URL: [ImageTranslation, ...]} 딕셔너리
@@ -330,9 +336,13 @@ def process_image_translations(
         for sentence in sentences:
             korean = translate_fn(sentence)
             if korean:
+                english = translate_en_fn(sentence) if translate_en_fn else ""
+                japanese = translate_ja_fn(sentence) if translate_ja_fn else ""
                 translations.append(ImageTranslation(
                     original_chinese=sentence,
                     translated_korean=korean,
+                    translated_english=english or "",
+                    translated_japanese=japanese or "",
                 ))
 
         if translations:
@@ -345,6 +355,8 @@ def process_image_translations(
 def process_local_image_translations(
     url_path_pairs: list[tuple[str, str]],
     translate_fn,
+    translate_en_fn=None,
+    translate_ja_fn=None,
 ) -> dict[str, list[ImageTranslation]]:
     """로컬 저장된 이미지 파일로 OCR을 수행합니다.
 
@@ -354,6 +366,8 @@ def process_local_image_translations(
     Args:
         url_path_pairs: (cdn_url, local_file_path) 튜플 목록
         translate_fn: 중국어→한국어 번역 함수
+        translate_en_fn: 중국어→영어 번역 함수 (선택). None이면 영어 캡션 생략.
+        translate_ja_fn: 중국어→일본어 번역 함수 (선택). None이면 일본어 캡션 생략.
     """
     results = {}
 
@@ -392,9 +406,13 @@ def process_local_image_translations(
         for sentence in sentences:
             korean = translate_fn(sentence)
             if korean:
+                english = translate_en_fn(sentence) if translate_en_fn else ""
+                japanese = translate_ja_fn(sentence) if translate_ja_fn else ""
                 translations.append(ImageTranslation(
                     original_chinese=sentence,
                     translated_korean=korean,
+                    translated_english=english or "",
+                    translated_japanese=japanese or "",
                 ))
 
         if translations:

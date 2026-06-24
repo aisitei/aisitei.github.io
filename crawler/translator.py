@@ -227,6 +227,52 @@ def translate_caption(chinese_text: str) -> Optional[str]:
     return out
 
 
+def translate_caption_en(chinese_text: str) -> Optional[str]:
+    """이미지 캡션용 중국어→영어 번역."""
+    text = chinese_text.strip()
+    if not text:
+        return None
+    text = apply_glossary(text)
+
+    system = (
+        "Translate the following Chinese image caption text into concise English. "
+        "Output only the translated text, one line, no quotes, no explanation."
+    )
+    out = _chat(system=system, user=text, temperature=0.1, max_tokens=1024)
+    if not out:
+        return None
+    out = out.split("\n", 1)[0].strip().strip('"').strip("'").strip()
+    if not out:
+        return None
+    if len(out) > max(80, len(text) * 6) or _META_PATTERNS.search(out):
+        logger.warning(f"caption_en translate dropped meta-text: {out[:60]}...")
+        return None
+    return out
+
+
+def translate_caption_ja(chinese_text: str) -> Optional[str]:
+    """이미지 캡션용 중국어→일본어 번역."""
+    text = chinese_text.strip()
+    if not text:
+        return None
+    text = apply_glossary(text)
+
+    system = (
+        "次の中国語の画像キャプションを簡潔な日本語に翻訳してください。"
+        "翻訳文のみ1行で出力し、引用符や説明は不要です。"
+    )
+    out = _chat(system=system, user=text, temperature=0.1, max_tokens=1024)
+    if not out:
+        return None
+    out = out.split("\n", 1)[0].strip().strip('"').strip("'").strip()
+    if not out:
+        return None
+    if len(out) > max(80, len(text) * 6) or _META_PATTERNS.search(out):
+        logger.warning(f"caption_ja translate dropped meta-text: {out[:60]}...")
+        return None
+    return out
+
+
 def _looks_untranslated(text: str) -> bool:
     """번역 결과가 실제로 번역되지 않은 경우를 감지합니다.
 
