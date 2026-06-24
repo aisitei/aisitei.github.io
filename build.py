@@ -456,7 +456,6 @@ def build_under_construction_page(
     </a>
     <nav class="header-nav">
       <a href="index.html"{index_active}>IT뉴스</a>
-      <a href="reports.html"{phone_active}>발표회 정리</a>
     </nav>
   </header>
 
@@ -973,7 +972,6 @@ def build_page(
     </a>
     <nav class="header-nav">
       <a href="index.html"{index_active}>IT뉴스</a>
-      <a href="reports.html"{phone_active}>발표회 정리</a>
     </nav>
     <div class="header-right">
       <div class="lang-selector" id="lang-selector">
