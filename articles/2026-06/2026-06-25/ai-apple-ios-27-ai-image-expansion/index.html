@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 해외 매체, Apple iOS 27 AI 이미지 확장 기능 체험: 자연스러운 화면 생성이나 실제와 동일한 재현은 보장 불가</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="해외 매체, Apple iOS 27 AI 이미지 확장 기능 체험: 자연스러운 화면 생성이나 실제와 동일한 재현은 보장 불가">
+  <meta name="title-zh" content="外媒上手苹果 iOS 27 AI 扩图功能：生成画面自然，无法保证真实还原">
+  <meta name="title-ja" content="海外メディアがApple iOS 27のAI画像拡張機能を試用：生成される画像は自然だが、正確な再現は保証されない">
+  <meta name="title-en" content="Foreign media hands-on with Apple iOS 27 AI image expansion feature: Natural results, but cannot guarantee realistic reproduction.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="해외 매체, Apple iOS 27 AI 이미지 확장 기능 체험: 자연스러운 화면 생성이나 실제와 동일한 재현은 보장 불가" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="해외 매체, Apple iOS 27 AI 이미지 확장 기능 체험: 자연스러운 화면 생성이나 실제와 동일한 재현은 보장 불가"
+            data-zh="外媒上手苹果 iOS 27 AI 扩图功能：生成画面自然，无法保证真实还原"
+            data-ja="海外メディアがApple iOS 27のAI画像拡張機能を試用：生成される画像は自然だが、正確な再現は保証されない"
+            data-en="Foreign media hands-on with Apple iOS 27 AI image expansion feature: Natural results, but cannot guarantee realistic reproduction.">해외 매체, Apple iOS 27 AI 이미지 확장 기능 체험: 자연스러운 화면 생성이나 실제와 동일한 재현은 보장 불가</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-06-25
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>기능 소개</h3>
+          
+          <p>IT홈은 6월 23일, 기술 매체 AppleInsider가 6월 22일 게시한 글을 인용해 iOS 27 사진 앱에 Apple Intelligence 기반의 Extend 도구가 추가되었다고 보도했습니다.</p>
+          
+          <p>Apple은 iOS 27 시스템의 AI 사진 편집 기능을 더욱 확장하며, Clean Up과 Spatial Reframe에 이어 프레임 바깥 영역을 채워 새로운 장면을 생성하는 Extend 도구를 도입했습니다.</p>
+          
+          <h3>작동 원리</h3>
+          
+          <p>Extend는 Apple Intelligence를 활용해 이미지를 분석하며, 전체 이미지의 내용을 바탕으로 외부 빈 공간을 합리적으로 추론하여 시각적으로 자연스러운 새 요소를 생성합니다.</p>
+          
+          <h3>실제 테스트 결과</h3>
+          
+          <p>매체는 창가에 앉아 있는 고양이 사진을 테스트했으며, Extend 도구 사용 후 iOS 27은 추가적인 커튼과 마른 식물, 그리고 고양이 머리 위쪽의 창문 등의 요소를 보충했습니다. 확장된 사진에서 눈에 띄게 어색한 부분은 발견되지 않았습니다.</p>
+          
+          <p>또한 야경 사진을 테스트했을 때 생성된 도로 말뚝, 기둥 및 교통 요소들은 대체로 장면과 잘 어우러졌으나, 표지판 뒷면의 모양이 다소 부자연스럽거나 기둥 위치가 도로 배치와 완벽하게 일치하지 않는 등의 미세한 결함이 발견되었습니다.</p>
+          
+          <p>로마의 한 Apple Store 계단 사진에서는 Extend가 더 많은 계단과 유리를 채워 넣어 시각적으로 매우 자연스러운 결과를 보여주었습니다. 다만 매체는 원본 정보가 부족할 경우 AI 확장을 통해 생성된 이미지가 실제와 다를 수 있음을 지적했습니다. 예를 들어, 실제로는 문이 있는 위치에 새로운 계단이 추가로 생겨난 사례가 확인되었습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>iOS 27에 도입된 Extend 도구는 Apple Intelligence를 기반으로 사진의 프레임 바깥 영역을 자연스럽게 확장해 주는 기능을 제공합니다. 실제 테스트를 통해 높은 완성도를 보여주었으나, 일부 상황에서는 생성된 결과물이 실제 환경과 차이가 발생할 수 있음이 확인되었습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>iOS 27 新增 Extend 扩图功能</h3>
+<p>Apple 在 iOS 27 的照片应用中加入了基于 Apple Intelligence 的 Extend（扩图）工具。该功能作为 Clean Up 和 Spatial Reframe 之后的又一 AI 修图功能，旨在通过分析图片内容，在照片边框之外补出符合逻辑的新画面。</p>
+          
+          <h3>技术原理与核心能力</h3>
+<p>Extend 功能的核心在于利用 Apple Intelligence 对整张图片进行深度分析。系统会根据现有图像的内容推断外部空白区域的特征，从而生成视觉上自然且合理的新元素。</p>
+          
+          <h3>实测案例与表现</h3>
+<p>媒体对该功能进行了多项测试，结果如下：</p>
+<ul>
+<li><strong>小猫窗台照：</strong> 系统成功补全了额外的窗帘、枯植物以及窗户框架等元素，扩图效果自然且无明显突兀感。</li>
+<li><strong>夜景照片：</strong> 生成的路桩、立杆和交通元素大体符合场景逻辑，但存在细节瑕疵，如路牌形状异常或位置与道路布局未完全对齐。</li>
+<li><strong>罗马楼梯照：</strong> 尽管视觉上补出的台阶和玻璃较为合理，但在原图信息不足的情况下，AI 生成的内容可能与现实情况产生偏差（如将实物门误判为台阶）。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Apple 在 iOS 27 中引入了基于 Apple Intelligence 的 Extend 工具，旨在通过 AI 技术自动扩充照片边界。虽然该功能在多个场景中展现了强大的补全能力，但在处理复杂环境或信息不足的图像时，仍可能出现与现实不符的细节偏差。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>機能紹介</h3>
+<p>ITホームは6月23日、技術メディアAppleInsiderが6月22日に公開した記事を引用し、iOS 27の写真アプリにApple Intelligenceベースの「Extend」ツールが追加されたと報じました。</p>
+<p>AppleはiOS 27システムのAI写真編集機能をさらに拡張しており、「Clean Up」や「Spatial Reframe」に続き、フレームの外側の領域を埋めて新しいシーンを生成する「Extend」ツールを導入しました。</p>
+          
+          <h3>仕組み</h3>
+<p>ExtendはApple Intelligenceを活用して画像を分析します。画像全体のコンテンツに基づいて外側の空白スペースを論理的に推論し、視覚的に自然な新しい要素を生成します。</p>
+          
+          <h3>実証テストの結果</h3>
+<p>メディアによる検証では、窓際に座る猫の写真をテストした際、iOS 27は「Extend」ツールを使用して追加のカーテンやドライフラワー、そして猫の頭上部分の窓などの要素を補完しました。拡張された写真において目立つ違和感は見つかりませんでした。</p>
+<p>また、夜景写真をテストした際には、生成された道路の支柱や柱、交通要素などは概ねシーンと調和していましたが、標識の裏側の形状がやや不自然であったり、柱の位置が道路の配置と完全に一致していなかったりといった微細な欠陥が見つかりました。</p>
+<p>ローマにあるApple Storeの階段の写真では、Extendがより多くの階段やガラスを補完し、視覚的に非常に自然な結果を示しました。ただし、メディアは元の情報が不足している場合、AIによる拡張によって生成された画像が実態と異なる可能性があることを指摘しています。例えば、実際にはドアがある場所に新しい階段が追加されてしまった事例が確認されました。</p>
+          
+          <h3>総評</h3>
+<p>iOS 27に導入されたExtendツールは、Apple Intelligenceを基盤として写真のフレーム外の領域を自然に拡張する機能を提供します。実際のテストを通じて高い完成度を示した一方で、状況によっては生成された結果が実際の環境と乖離する可能性があることも確認されました。</p>
+          
+          <h3>まとめ</h3>
+<p>iOS 27ではApple Intelligenceを活用した「Extend」ツールが追加され、写真のフレーム外を自然に拡張・補完することが可能になります。実証テストでは高い完成度を見せましたが、元の情報が不足している場合には生成結果が現実と異なる可能性があるため注意が必要です。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Feature Introduction</h3>
+<p>IT Home reported on June 23, citing an article by AppleInsider published on June 22, that the "Extend" tool based on Apple Intelligence has been added to the Photos app in iOS 27.</p>
+<p>Apple is expanding its AI-powered photo editing capabilities within the iOS 27 system. Following the introduction of Clean Up and Spatial Reframe, the Extend tool allows users to fill areas outside the frame to generate new scenes.</p>
+          
+          <h3>How it Works</h3>
+<p>The Extend tool utilizes Apple Intelligence to analyze images. Based on the overall content of a photo, it logically infers empty spaces outside the frame and generates visually natural new elements.</p>
+          
+          <h3>Test Results</h3>
+<p>The media outlet conducted several tests to evaluate the accuracy and quality of the Extend tool:</p>
+<ul>
+<li><strong>Cat by a window:</strong> After using the Extend tool, iOS 27 added curtains, dried plants, and a window above the cat's head. No noticeably awkward areas were found in the expanded photo.</li>
+<li><strong>Night scene:</strong> Generated elements such as road bollards, poles, and traffic components blended well with the scene. However, minor flaws were noted, such as slightly unnatural shapes on the back of signs or pole placements that did not perfectly align with the road layout.</li>
+<li><strong>Rome Apple Store stairs:</strong> The tool filled in more stairs and glass, resulting in a very natural appearance. However, it was noted that if original information is insufficient, AI-generated content may differ from reality; for example, a new step was added where a door actually existed.</li>
+</ul>
+          
+          <h3>Summary</h3>
+<p>The Extend tool in iOS 27 leverages Apple Intelligence to seamlessly expand photo frames by generating realistic surrounding elements. While it demonstrates high quality and natural results across various scenes, users should be aware that the AI may occasionally produce details that differ from the actual physical environment when source information is limited.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.jpg" alt="이미지 6" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/967/257.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-06"
+               class="archive-btn active">
+              2026-06
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
