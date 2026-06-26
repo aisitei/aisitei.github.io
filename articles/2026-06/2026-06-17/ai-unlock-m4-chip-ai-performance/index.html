@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="개발자, Apple 소프트웨어 제한 우회하여 M4 칩의 15.8TFLOPS AI 연산 능력 성공적으로 해제">
+  <meta name="title-zh" content="개발자, Apple 소프트웨어 제한 우회하여 M4 칩의 15.8TFLOPS AI 연산 능력 성공적으로 해제">
+  <meta name="title-ja" content="開発者がAppleのソフトウェア制限を回避し、M4チップの15.8TFLOPSのAI演算能力の解放に成功。">
+  <meta name="title-en" content="Developer bypasses Apple software limitations to unlock M4 chip's 15.8 TFLOPS AI performance">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">개발자, Apple 소프트웨어 제한 우회하여 M4 칩의 15.8TFLOPS AI 연산 능력 성공적으로 해제</h1>
+        <h1 class="article-title" data-ko="개발자, Apple 소프트웨어 제한 우회하여 M4 칩의 15.8TFLOPS AI 연산 능력 성공적으로 해제" data-zh="개발자, Apple 소프트웨어 제한 우회하여 M4 칩의 15.8TFLOPS AI 연산 능력 성공적으로 해제" data-ja="開発者がAppleのソフトウェア制限を回避し、M4チップの15.8TFLOPSのAI演算能力の解放に成功。" data-en="Developer bypasses Apple software limitations to unlock M4 chip's 15.8 TFLOPS AI performance">개발자, Apple 소프트웨어 제한 우회하여 M4 칩의 15.8TFLOPS AI 연산 능력 성공적으로 해제</h1>
 
         <div class="article-info">
           
@@ -527,32 +558,73 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>기술적 돌파구</h3>
-        
         <p>Apple M4 등 칩셋에 탑재된 뉴럴 엔진은 본래 추론(Inference) 용도로만 개방되어 있어, 개발자가 사전 학습된 AI 모델을 실행할 수는 있지만 새로운 모델을 직접 학습시키는 데는 제한이 있었습니다. 그러나 X 사용자 @0x0SojalSec가 M4의 소프트웨어 제한을 우회하고 M4 SoC에 대한 역공학(Reverse Engineering)을 성공했다고 밝혔습니다.</p>
-        
         <p>해당 과정에서 모든 데이터를 RAM 내에서 처리함으로써 매우 빠른 속도와 매끄러운 성능을 구현한 것으로 알려졌습니다.</p>
-        
         <h3>구현 방식</h3>
-        
         <p>@0x0SojalSec는 오늘 새벽 X를 통해 M4의 잠재력을 완전히 끌어낼 수 있는 방법을 담은 GitHub 저장소를 공유했습니다. Apple이 해당 칩과 직접 통신하는 권한을 제한했기 때문에, 그는 Core ML이나 Metal 같은 Apple 표준 도구를 사용하거나 GPU를 호출하는 대신, 처음부터 자체 제작한 MIL(모델 중간 언어)을 개발하여 M4와 통신하는 방식을 채택했습니다.</p>
-        
         <p>M4의 관련 하드웨어 기능이 '잠금' 상태였기 때문에 몇 가지 우회 기술이 동원되었습니다. 예를 들어 학습 프로세스가 멈춰 재시작이 필요한 경우, 커스텀 MIL이 "exec()" 명령을 호출하여 프로세스를 재시작하고 학습을 이어가도록 설계되었습니다. 이를 통해 프로그램은 현재 상태를 새로고침하며 충돌을 방지하고 지속적으로 학습을 진행할 수 있습니다.</p>
-        
         <h3>성능 및 사양</h3>
-        
         <p>@0x0SojalSec에 따르면 속도를 높이기 위해 M4 잠금 해제 과정에서 NAND 플래시 메모리에 데이터를 쓰는 작업을 완전히 배제했습니다. 쓰기 속도가 느린 NAND 대신 빠른 RAM을 활용함으로써 전체 프로세스를 고속으로 유지할 수 있었습니다.</p>
-        
         <p>소프트웨어 제한을 돌파한 후, iPad 또는 Mac에 탑재된 M4는 최대 15.8 TFLOPS의 AI 처리 성능을 발휘하며 AI 모델 학습 작업을 수행하기에 충분한 성능을 보여줍니다.</p>
-        
         <p>다만, 현재로서는 동일한 커스텀 MIL이 최신 Apple Silicon에서 작동할지, 혹은 "exec()" 명령이 다른 플랫폼에서 의도대로 작동할지는 확인되지 않았습니다.</p>
-        
         <h3>총평</h3>
-        
         <p>X 사용자가 M4 SoC의 역공학을 통해 소프트웨어 제한을 우회하고 뉴럴 엔진의 성능을 극대화하는 방법을 공개했습니다. 커스텀 MIL과 RAM 기반 처리 방식을 통해 M4가 AI 모델 학습에서도 강력한 성능(15.8 TFLOPS)을 발휘할 수 있음을 입증했으나, 다른 기기와의 호환성은 추가적인 검증이 필요합니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>突破 M4 硬件限制</h3>
+<p>X 用户 @0x0SojalSec 通过逆向工程绕过了 Apple M4 芯片的软件限制。原本 M4 的神经网络引擎仅开放给推理使用，导致开发者无法直接用于训练新模型。通过该技术，开发者成功让 M4 SoC 支持了 AI 模型训练任务。</p>
+<p>由于 Apple 未提供直接与芯片通信的权限，该方案并未采用 Core ML 或 Metal 等官方工具，而是从零开发了一套自定义 MIL（模型中间语言）来与 M4 进行通信。</p>
+        <h3>性能优化与技术细节</h3>
+<p>为了确保训练过程的高效与流畅，该项目采用了以下技术手段：</p>
+<ul>
+<li><strong>内存加速：</strong> 整个流程在 RAM 中运行而非写入 NAND 闪存，利用高速内存显著提升处理速度。</li>
+<li><strong>高性能指标：</strong> 解锁限制后，M4 在 iPad 或 Mac 中可达到 15.8 TFLOPS 的 AI 处理性能。</li>
+<li><strong>容错机制：</strong> 当训练进程卡住时，系统通过调用 "exec ()" 命令让进程重新启动并继续学习，从而避免程序崩溃。</li>
+</ul>
+        <h3>总结</h3>
+<p>研究者通过自定义 MIL 绕过了 Apple M4 的软件限制，使其能够支持 AI 模型训练而非仅限于推理。该方案利用 RAM 加速和特定指令处理，使 M4 在 iPad 和 Mac 上达到 15.8 TFLOPS 的高性能表现。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>技術的な突破口</h3>
+<p>Apple M4などのチップに搭載されているニューラルエンジンは、本来「推論（Inference）」の用途のみに開放されており、開発者が事前学習済みのAIモデルを実行することは可能ですが、新しいモデルを直接学習させることには制限がありました。しかし、Xユーザーの@0x0SojalSec氏がM4のソフトウェア制限を回避し、M4 SoCのリバースエンジニアリングに成功したことを明らかにしました。</p>
+<p>この過程において、すべてのデータをRAM内で処理することで、非常に高速でスムーズなパフォーマンスを実現したと報じられています。</p>
+        <h3>実装方法</h3>
+<p>@0x0SojalSec氏は本日未明、M4の潜在能力を完全に引き出すための手法を含むGitHubリポジトリをXで公開しました。Appleが当該チップとの直接通信権限を制限しているため、彼はCore MLやMetalといったApple標準ツールを使用したりGPUを呼び出したりする代わりに、独自に開発したMIL（モデル中間言語）を用いてM4と通信する手法を採用しました。</p>
+<p>M4の関連ハードウェア機能が「ロック」状態であったため、いくつかの回避技術が動員されました。例えば、学習プロセスが停止して再起動が必要な場合、カスタムMILが「exec()」コマンドを呼び出してプロセスを再起動し、学習を継続できるように設計されています。これにより、プログラムは現在の状態をリフレッシュしてクラッシュを防ぎ、継続的に学習を進めることが可能になります。</p>
+        <h3>性能および仕様</h3>
+<p>@0x0SojalSec氏によると、速度を向上させるためにM4のロック解除プロセスにおいて、NANDフラッシュメモリへのデータ書き込み作業を完全に排除しました。書き込み速度の遅いNANDの代わりに高速なRAMを活用することで、プロセス全体を高速度で維持することが可能となりました。</p>
+<p>ソフトウェア制限を突破した後、iPadまたはMacに搭載されたM4は以下の性能を発揮し、AIモデルの学習作業を実行するのに十分な能力を示しています。</p>
+<ul>
+<li>AI処理性能：最大15.8 TFLOPS</li>
+</ul>
+<p>ただし、現時点では同じカスタムMILが最新のApple Siliconで動作するか、あるいは「exec()」コマンドが他のプラットフォームで意図通りに動作するかは確認されていません。</p>
+        <h3>まとめ</h3>
+<p>XユーザーがM4 SoCのリバースエンジニアリングを通じてソフトウェア制限を回避し、ニューラルエンジンの性能を最大化する方法を公開しました。カスタムMILとRAMベースの処理を採用することで、M4がAIモデルの学習においても強力なパフォーマンス（15.8 TFLOPS）を発揮できることを実証しましたが、他のデバイスとの互換性についてはさらなる検証が必要です。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Technical Breakthrough</h3>
+<p>The Neural Engine in chipsets such as the Apple M4 was originally designed exclusively for inference, meaning that while developers could run pre-trained AI models, they faced significant limitations when attempting to train new models directly. However, X user @0x0SojalSec has announced the successful reverse engineering of the M4 SoC, effectively bypassing these software restrictions.</p>
+<p>It is reported that this method achieves high speeds and smooth performance by processing all data within the RAM.</p>
+        <h3>Implementation Method</h3>
+<p>Early this morning, @0x0SojalSec shared a GitHub repository containing methods to fully unlock the potential of the M4. Because Apple restricted direct communication with the chip, the developer opted not to use standard tools like Core ML or Metal, nor did they call the GPU; instead, they developed a custom MIL (Model Intermediate Language) to communicate directly with the M4.</p>
+<p>Since certain hardware features of the M4 were in a "locked" state, several bypass techniques were employed. For example, if a training process stops and requires a restart, the custom MIL is designed to call an "exec()" command to restart the process and continue training. This allows the program to refresh its current state, preventing crashes and ensuring continuous learning.</p>
+        <h3>Performance and Specifications</h3>
+<p>According to @0x0SojalSec, the process of unlocking the M4 completely excluded writing data to NAND flash memory to maximize speed. By utilizing fast RAM instead of slower NAND, the entire process is maintained at high speeds.</p>
+<ul>
+<li>AI processing performance: Up to 15.8 TFLOPS on M4-powered iPads or Macs after bypassing software limits.</li>
+</ul>
+<p>At this time, it has not been confirmed whether this specific custom MIL will function on other recent Apple Silicon chips or if the "exec()" command will behave as intended on different platforms.</p>
+        <h3>Summary</h3>
+<p>An X user revealed a method to bypass software limitations and maximize the Neural Engine's performance on the M4 SoC through reverse engineering. By utilizing a custom MIL and RAM-based processing, the system can achieve up to 15.8 TFLOPS for AI model training, though its compatibility with other Apple Silicon devices remains unverified.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -663,18 +735,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
