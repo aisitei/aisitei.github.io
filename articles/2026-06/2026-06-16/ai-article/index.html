@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="">
   <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="MiniMax M3 모델 정식 오픈소스 공개: 네이티브 멀티모달, 백만 컨텍스트 지원">
+  <meta name="title-zh" content="MiniMax M3 모델 정식 오픈소스 공개: 네이티브 멀티모달, 백만 컨텍스트 지원">
+  <meta name="title-ja" content="MiniMax M3モデルを正式にオープンソース公開：ネイティブマルチモーダル、100万コンテキストに対応">
+  <meta name="title-en" content="MiniMax M3 Model Officially Released as Open Source: Native Multimodal, Supporting One Million Context">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -507,7 +538,7 @@
           
         </div>
 
-        <h1 class="article-title">MiniMax M3 모델 정식 오픈소스 공개: 네이티브 멀티모달, 백만 컨텍스트 지원</h1>
+        <h1 class="article-title" data-ko="MiniMax M3 모델 정식 오픈소스 공개: 네이티브 멀티모달, 백만 컨텍스트 지원" data-zh="MiniMax M3 모델 정식 오픈소스 공개: 네이티브 멀티모달, 백만 컨텍스트 지원" data-ja="MiniMax M3モデルを正式にオープンソース公開：ネイティブマルチモーダル、100万コンテキストに対応" data-en="MiniMax M3 Model Officially Released as Open Source: Native Multimodal, Supporting One Million Context">MiniMax M3 모델 정식 오픈소스 공개: 네이티브 멀티모달, 백만 컨텍스트 지원</h1>
 
         <div class="article-info">
           
@@ -523,38 +554,85 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>모델 개요</h3>
-        
         <p>MiniMax는 지난 6월 12일(금) MiniMax M3 모델의 가중치를 오픈소스로 공개하고, MSA(MiniMax Sparse Attention) 기술 논문을 발표했습니다. 오늘 공식적으로 MiniMax M3 모델을 대중에 공개하며 본격적인 활용이 가능해졌습니다.</p>
-        
         <p>M3는 MiniMax의 네이티브 멀티모달 플래그십 모델로, 다음과 같은 사양을 갖추고 있습니다.</p>
-        
         <ul>
 <li>총 파라미터: 428B</li>
 <li>활성화 파라미터: 23B</li>
 <li>특징: Step 0부터 멀티모달 혼합 학습을 진행한 최초의 오픈소스 모델</li>
 </ul>
-        
         <h3>성능 및 최적화</h3>
-        
         <p>공식 발표에 따르면, M3는 출시 후 2주 동안 Artificial Analysis 종합 지능 지수 순위에서 글로벌 오픈소스 모델 중 최고 순위를 기록했습니다.</p>
-        
         <p>또한 급증하는 접속량으로 인한 사용자 경험 문제를 해결하기 위해 지속적인 최적화를 진행하고 있습니다. 현재 M3의 출력 속도는 초기 약 30TPS에서 약 80 TPS로 향상되었으며, 향후 30~40% 추가 속도 개선을 통해 더욱 원활한 응답 환경을 제공할 예정입니다.</p>
-        
         <h3>코딩 및 에이전트 능력</h3>
-        
         <p>MiniMax M3는 코딩과 에이전트 평가에서 "업계 최고 수준"에 도달했습니다. 자율적인 작업 분해, 도구 호출, 다단계 추론 능력을 갖추고 있으며, 특히 생성된 코드가 단순히 실행 가능한 수준을 넘어 즉시 배포가 가능한 완성도를 목표로 합니다.</p>
-        
         <h3>공식 링크</h3>
-        
         <p>https://huggingface.co/MiniMaxAI/MiniMax-M3</p>
-        
         <h3>총평</h3>
-        
         <p>MiniX M3는 428B 파라미터 기반의 네이티브 멀티모달 플래그십 모델로, 뛰어난 추론 능력과 높은 처리 속도를 자랑합니다. 특히 실무에 즉시 투입 가능한 수준의 코딩 성능을 갖추어 오픈소스 생태계에서 강력한 경쟁력을 보여줄 것으로 기대됩니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>模型发布与技术开源</h3>
+<p>稀宇科技 MiniMax 已正式开源 MiniMax M3 模型权重，并同步发布了 MSA（MiniMax Sparse Attention）技术论文。M3 是其推出的原生多模态旗舰模型。</p>
+        <h3>核心参数与特性</h3>
+<ul>
+<li>总参数量：428B</li>
+<li>激活参数：23B</li>
+<li>训练特色：作为首个从 Step 0 开始进行多模态混合训练的开源模型。</li>
+</ul>
+        <h3>性能表现与优化</h3>
+<p>M3 在 Artificial Analysis 综合智能指数排行榜上取得了全球开源模型的最高排名。针对用户访问量激增，官方已将输出速度从约 30TPS 提升至约 80 TPS，并计划在后续进一步提速 30-40%。</p>
+        <h3>能力与应用场景</h3>
+<p>MiniMax M3 在编码与智能体评测中达到“行业顶尖水平”，具备自主任务拆解、工具调用与多步推理能力。其生成的代码目标是直接可交付，而非仅能运行。</p>
+        <h3>总结</h3>
+<p>MiniMax 正式开源了拥有 428B 总参数的旗舰模型 MiniMax M3，该模型支持原生多模态并具备极强的逻辑推理与编码能力。目前该模型在国际排行榜中位居开源模型前列，且官方正持续优化其响应速度。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>モデル概要</h3>
+        <p>MiniMaxは、6月12日（金）にMiniMax M3モデルの重みをオープンソースとして公開し、MSA（MiniMax Sparse Attention）技術に関する論文を発表しました。本日、MiniMax M3モデルを正式に一般公開し、本格的な活用が可能となりました。</p>
+        <p>M3はMiniMaxのネイティブマルチモーダル・フラッグシップモデルであり、以下の仕様を備えています。</p>
+        <ul>
+<li>総パラメータ数：428B</li>
+<li>アクティブパラメータ数：23B</li>
+<li>特徴：Step 0からマルチモーダル混合学習を実施した初のオープンソースモデル</li>
+</ul>
+        <h3>パフォーマンスと最適化</h3>
+        <p>公式発表によると、M3はリリース後の2週間、Artificial Analysisの総合知能指数ランキングにおいて、グローバルなオープンソースモデルの中で最高位を記録しました。</p>
+        <p>また、急増するアクセスによるユーザー体験の問題を解決するため、継続的な最適化が行われています。現在、M3の出力速度は初期の約30TPSから約80 TPSへと向上しており、今後はさらに30〜40%の速度改善を目指し、よりスムーズな応答環境を提供する予定です。</p>
+        <h3>コーディングおよびエージェント能力</h3>
+        <p>MiniMax M3はコーディングとエージェントの評価において「業界最高水準」に達しています。自律的なタスク分解、ツール呼び出し、多段階推論能力を備えており、特に生成されるコードは単に実行可能であるだけでなく、即座にデプロイ可能な完成度を目指しています。</p>
+        <h3>公式リンク</h3>
+        <p>https://huggingface.co/MiniMaxAI/MiniMax-M3</p>
+        <h3>まとめ</h3>
+        <p>MiniMax M3は、428Bのパラメータを基盤としたネイティブマルチモーダル・フラッグシップモデルであり、優れた推論能力と高い処理速度を兼ね備えています。特に実務に即座に投入可能なレベルのコーディング性能を備えており、オープンソースのエコシステムにおいて強力な競争力を発揮することが期待されます。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Model Overview</h3>
+        <p>On June 12, MiniMax released the weights for its M3 model as open source and published a research paper on MSA (MiniMax Sparse Attention) technology. The MiniMax M3 has now been officially released to the public, making it available for full-scale utilization.</p>
+        <p>M3 is MiniMax's native multimodal flagship model, featuring the following specifications:</p>
+        <ul>
+<li>Total Parameters: 428B</li>
+<li>Active Parameters: 23B</li>
+<li>Key Feature: The first open-source model to undergo multi-modal mixed training starting from Step 0.</li>
+</ul>
+        <h3>Performance and Optimization</h3>
+        <p>According to official announcements, M3 ranked highest among global open-source models in the Artificial Analysis comprehensive intelligence index for two weeks following its launch.</p>
+        <p>To address user experience issues caused by a surge in traffic, continuous optimization is being conducted. Currently, the output speed of M3 has improved from an initial ~30 TPS to approximately 80 TPS. Future updates are expected to provide an additional 30-40% increase in speed to ensure a smoother response environment.</p>
+        <h3>Coding and Agent Capabilities</h3>
+        <p>MiniMax M3 has reached "industry-leading" levels in coding and agent evaluations. It is equipped with capabilities for autonomous task decomposition, tool calling, and multi-step reasoning. Notably, it aims to produce code that goes beyond mere executability to achieve a level of completion ready for immediate deployment.</p>
+        <h3>Official Link</h3>
+        <p>https://huggingface.co/MiniMaxAI/MiniMax-M3</p>
+        <h3>Summary</h3>
+        <p>The MiniMax M3 is a flagship native multimodal model with 428B total parameters, offering high inference speeds and advanced reasoning capabilities. It stands out in the open-source ecosystem due to its superior agent performance and production-ready coding capabilities.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -665,18 +743,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
