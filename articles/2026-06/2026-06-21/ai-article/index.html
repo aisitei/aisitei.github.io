@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="visionOS 27 올가을 업데이트: M5 Vision Pro 헤드셋 전용 Siri 음성 커스터마이징 및 Apple 최강 로컬 AI 모델 탑재">
+  <meta name="title-zh" content="visionOS 27 올가을 업데이트: M5 Vision Pro 헤드셋 전용 Siri 음성 커스터마이징 및 Apple 최강 로컬 AI 모델 탑재">
+  <meta name="title-ja" content="visionOS 27 今秋アップデート：M5 Vision Proヘッドセット専用のSiri音声カスタマイズおよびApple最強のローカルAIモデルを搭載">
+  <meta name="title-en" content="visionOS 27 Fall Update: Siri Voice Customization for M5 Vision Pro Headset and Inclusion of Apple's Most Powerful Local AI Model">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">visionOS 27 올가을 업데이트: M5 Vision Pro 헤드셋 전용 Siri 음성 커스터마이징 및 Apple 최강 로컬 AI 모델 탑재</h1>
+        <h1 class="article-title" data-ko="visionOS 27 올가을 업데이트: M5 Vision Pro 헤드셋 전용 Siri 음성 커스터마이징 및 Apple 최강 로컬 AI 모델 탑재" data-zh="visionOS 27 올가을 업데이트: M5 Vision Pro 헤드셋 전용 Siri 음성 커스터마이징 및 Apple 최강 로컬 AI 모델 탑재" data-ja="visionOS 27 今秋アップデート：M5 Vision Proヘッドセット専用のSiri音声カスタマイズおよびApple最強のローカルAIモデルを搭載" data-en="visionOS 27 Fall Update: Siri Voice Customization for M5 Vision Pro Headset and Inclusion of Apple's Most Powerful Local AI Model">visionOS 27 올가을 업데이트: M5 Vision Pro 헤드셋 전용 Siri 음성 커스터마이징 및 Apple 최강 로컬 AI 모델 탑재</h1>
 
         <div class="article-info">
           
@@ -527,33 +558,84 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>시스템 업데이트</h3>
-        
         <p>IT홈에 따르면, 기술 매체 9to5Mac이 어제(6월 19일) 게시한 글에서 visionOS 27 시스템을 통해 Apple이 M5 Vision Pro 헤드셋 전용 기능으로 Siri 음성 커스터마이징(Voice Customization)과 로컬 AI 모델인 AFM 3 Core Advanced를 도입했다고 보도했습니다.</p>
-        
         <h3>공통 기능</h3>
-        
         <p>해당 매체는 M2 Vision Pro와 M5 Vision Pro가 visionOS 27의 다양한 기능 업그레이드를 공유한다고 밝혔습니다. 여기에는 Siri AI, 파노라마 사진의 공간 장면 변환, 새롭게 디자인된 제어 센터, 더욱 지능적인 자연어 이해 및 강화된 음성 조작 상호작용 등이 포함됩니다.</p>
-        
         <h3>M5 전용 기능</h3>
-        
         <p>M5 Vision Pro 헤드셋은 다음 두 가지 기능을 독점적으로 제공합니다.</p>
-        
         <ul>
 <li>Siri AI 음성 커스터마이징(Voice Customization): 사용자가 Siri의 목소리 표현력과 속도를 자유롭게 조절하여 개인화된 상호작용을 구현할 수 있습니다.</li>
 <li>AFM 3 Core Advanced 모델: 네이티브 멀티모달 능력을 지원하고 희소 구조(Sparse Architecture)를 채택하여, 로컬에서 더욱 복잡한 AI 기능을 수행할 수 있습니다. 특히 복잡한 작업을 처리할 때 Apple Intelligence가 로컬 강화 모델을 더 빈번하게 호출하므로 M5 칩의 강력한 연산 성능이 요구됩니다.</li>
 </ul>
-        
         <h3>M2 기기 지원</h3>
-        
         <p>M2 사용자는 새로운 공간 환경, 개선된 창 관리, 멀티태스킹 최적화 등 visionOS 27의 대부분의 시각 및 상호작용 업그레이드를 여전히 누릴 수 있습니다. Apple은 향후 클라우드 컴퓨팅을 통해 M2 기기에도 일부 AI 기능을 제공하는 절충안을 마련할 예정이지만, 구체적인 구현 세부 사항은 아직 공개되지 않았습니다.</p>
-        
         <h3>총평</h3>
-        
         <p>Apple은 visionOS 27 업데이트를 통해 M5 Vision Pro에 강력한 로컬 AI 모델과 음성 커스터마이징 기능을 독점 제공하며 하드웨어 성능 차이를 반영했습니다. M2 사용자도 대부분의 시스템 개선 사항을 공유받으며, 일부 AI 기능은 클라우드 기반으로 지원될 예정입니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>visionOS 27 通用功能升级</h3>
+<p>M2 款 Vision Pro 与 M5 款 Vision Pro 在 visionOS 27 系统中共享多项核心功能的更新，旨在提升交互体验与系统性能。</p>
+<ul>
+<li>Siri AI 功能增强</li>
+<li>全景照片转空间场景</li>
+<li>重新设计的控制中心</li>
+<li>更智能的自然语言理解</li>
+<li>更强悍的语音操作交互</li>
+<li>新的空间环境、改进的窗口管理及多任务优化</li>
+</ul>
+        <h3>M5 Vision Pro 独占功能</h3>
+<p>由于 M5 芯片具备更强的算力支持，M5 款 Vision Pro 将获得以下两项专属功能：</p>
+<ul>
+<li>Siri 语音定制（Voice Customization）：用户可自由调整 Siri 的语速和表现力。</li>
+<li>AFM 3 Core Advanced 模型：该模型支持原生多模态能力并采用稀疏架构，可在本地承载更复杂的 AI 功能。</li>
+</ul>
+        <h3>M2 用户兼容性方案</h3>
+<p>对于搭载 M2 芯片的设备，Apple 承诺将通过云端计算提供部分 AI 功能作为折中方案，但目前尚未公布具体的实现细节。</p>
+        <h3>总结</h3>
+<p>visionOS 27 为两款 Vision Pro 提供广泛的功能升级，但在高算力要求的本地 AI 模型及 Siri 个性化语音定制方面仅支持 M5 款设备。M2 用户将通过云端计算技术获取部分相应的 AI 功能支持。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>システムアップデート</h3>
+        <p>ITホームの報道によると、技術メディア「9to5Mac」が昨日（6月19日）公開した記事において、AppleはvisionOS 27を通じてM5 Vision Proヘッドセット専用機能として、Siriの音声カスタマイズ（Voice Customization）およびローカルAIモデルであるAFM 3 Core Advancedを導入したと報じました。</p>
+        <h3>共通機能</h3>
+        <p>同メディアは、M2 Vision ProとM5 Vision Proの両方がvisionOS 27の様々な機能アップグレードを共有すると述べています。これには、Siri AI、パノラマ写真の空間シーン変換、新しくデザインされたコントロールセンター、より高度な自然言語理解、および強化された音声操作インタラクションなどが含まれます。</p>
+        <h3>M5専用機能</h3>
+        <p>M5 Vision Proヘッドセットは、以下の2つの機能を独占的に提供します。</p>
+        <ul>
+<li>Siri AI 音声カスタマイズ（Voice Customization）：ユーザーがSiriの表現力や速度を自由に調整し、パーソナライズされたインタラクションを実現できます。</li>
+<li>AFM 3 Core Advancedモデル：ネイティブなマルチモーダル能力をサポートし、疎構造（Sparse Architecture）を採用することで、ローカルでより複雑なAI機能を実行できます。特に複雑なタスクを処理する際、Apple Intelligenceがローカル強化モデルをより頻繁に呼び出すため、M5チップの強力な演算性能が必要とされます。</li>
+</ul>
+        <h3>M2デバイスのサポート</h3>
+        <p>M2ユーザーも、新しい空間環境、改善されたウィンドウ管理、マルチタスクの最適化など、visionOS 27の大部分の視覚およびインタラクションのアップグレードを享受できます。Appleは今後、クラウドコンピューティングを通じてM2デバイスにも一部のAI機能を提供する対応を行う予定ですが、具体的な実装の詳細はまだ公開されていません。</p>
+        <h3>総評</h3>
+        <p>Appleはvision10 27のアップデートを通じて、M5 Vision Proに強力なローカルAIモデルと音声カスタマイズ機能を独占提供することでハードウェア性能の差を反映させました。M2ユーザーも大部分のシステム改善を共有し、一部のAI機能はクラウドベースでサポートされる予定です。</p>
+        <h3>まとめ</h3>
+<p>AppleはvisionOS 27において、M5 Vision Pro向けに高度なローカルAIモデルと音声カスタマイズ機能を独占提供することでハードウェア性能の差異を反映させます。M2ユーザーも主要なシステム改善や視覚的なアップグレードを享受でき、一部のAI機能についてはクラウド経由で提供される見込みです。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>System Updates</h3>
+<p>According to IT Home, the tech outlet 9to5Mac reported that Apple has introduced Siri Voice Customization and a local AI model called AFM 3 Core Advanced as exclusive features for the M5 Vision Pro headset in visionOS 27.</p>
+        <h3>Shared Features</h3>
+<p>The outlet stated that both the M2 Vision Pro and M5 Vision Pro share various feature upgrades in visionOS 27. These include Siri AI, spatial scene conversion for panorama photos, a redesigned Control Center, more intelligent natural language understanding, and enhanced voice interaction.</p>
+        <h3>M5 Exclusive Features</h3>
+<p>The M5 Vision Pro headset offers the following two exclusive features:</p>
+<ul>
+<li>Siri AI Voice Customization: Allows users to freely adjust Siri's expressiveness and speed to create a personalized interaction.</li>
+<li>AFM 3 Core Advanced Model: Supports native multimodal capabilities and adopts a Sparse Architecture, enabling more complex AI functions to be performed locally. Since Apple Intelligence calls these local enhanced models more frequently when processing complex tasks, the high computational performance of the M5 chip is required.</li>
+</ul>
+        <h3>M2 Device Support</h3>
+<p>M2 users can still enjoy most visual and interaction upgrades in visionOS 27, such as new spatial environments, improved window management, and optimized multitasking. Apple plans to provide some AI features to M2 devices through cloud computing in the future, though specific implementation details have not yet been disclosed.</p>
+        <h3>Summary</h3>
+<p>With the visionOS 27 update, Apple is differentiating hardware tiers by providing exclusive local AI models and voice customization for the M5 Vision Pro. While M2 users will receive most system improvements, their access to certain AI features will be supported via cloud-based solutions.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -658,18 +740,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
