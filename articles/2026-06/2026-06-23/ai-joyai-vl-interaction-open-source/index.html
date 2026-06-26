@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="">
   <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="대형 모델이 &amp;#39;질의응답&amp;#39;에서 &amp;#39;보며 말하기&amp;#39;로 나아가도록, JD.com이 실시간 비디오 시각 언어 상호작용 모델 JoyAI-VL-Interaction 오픈소스 공개">
+  <meta name="title-zh" content="대형 모델이 &amp;#39;질의응답&amp;#39;에서 &amp;#39;보며 말하기&amp;#39;로 나아가도록, JD.com이 실시간 비디오 시각 언어 상호작용 모델 JoyAI-VL-Interaction 오픈소스 공개">
+  <meta name="title-ja" content="JD.com、大規模モデルを「質疑応答」から「見て話す」へと進化させるため、リアルタイムビデオ視覚言語インタラクションモデルJoyAI-VL-Interactionをオープンソースで公開">
+  <meta name="title-en" content="JD.com Open-Sources Real-time Video Vision-Language Interaction Model JoyAI-VL-Interaction to Move Large Models from 'Q&amp;A' to 'Seeing and Speaking'">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -507,7 +538,7 @@
           
         </div>
 
-        <h1 class="article-title">대형 모델이 &#39;질의응답&#39;에서 &#39;보며 말하기&#39;로 나아가도록, JD.com이 실시간 비디오 시각 언어 상호작용 모델 JoyAI-VL-Interaction 오픈소스 공개</h1>
+        <h1 class="article-title" data-ko="대형 모델이 &amp;#39;질의응답&amp;#39;에서 &amp;#39;보며 말하기&amp;#39;로 나아가도록, JD.com이 실시간 비디오 시각 언어 상호작용 모델 JoyAI-VL-Interaction 오픈소스 공개" data-zh="대형 모델이 &amp;#39;질의응답&amp;#39;에서 &amp;#39;보며 말하기&amp;#39;로 나아가도록, JD.com이 실시간 비디오 시각 언어 상호작용 모델 JoyAI-VL-Interaction 오픈소스 공개" data-ja="JD.com、大規模モデルを「質疑応答」から「見て話す」へと進化させるため、リアルタイムビデオ視覚言語インタラクションモデルJoyAI-VL-Interactionをオープンソースで公開" data-en="JD.com Open-Sources Real-time Video Vision-Language Interaction Model JoyAI-VL-Interaction to Move Large Models from 'Q&amp;A' to 'Seeing and Speaking'">대형 모델이 &#39;질의응답&#39;에서 &#39;보며 말하기&#39;로 나아가도록, JD.com이 실시간 비디오 시각 언어 상호작용 모델 JoyAI-VL-Interaction 오픈소스 공개</h1>
 
         <div class="article-info">
           
@@ -523,38 +554,99 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>개요</h3>
-        
         <p>JD.com이 실시간 비디오 시각 언어 상호작용 모델인 JoyAI-VL-Interaction을 오픈소스로 공개했습니다. 이는 세계 최초의 풀스택 오픈 소스 인터랙션 모델 및 시스템으로, vLLM-Omni의 day-0 네이티브 지원을 확보했습니다.</p>
-        
         <p>공식 발표에 따르면, 이 모델은 대규모 언어 모델(LLM)이 "질의응답" 방식에서 벗어나 "보면서 말하기" 단계로 나아가게 합니다. 개발자는 이 프레임워크를 기반으로 지속적인 관찰, 자율적 판단, 즉각적인 응답이 가능한 실시간 AI 비서를 신속하게 구축할 수 있습니다.</p>
-        
         <h3>기술적 돌파구</h3>
-        
         <p>JoyAI-VL-Interaction은 기존 모델과 비교하여 세 가지 주요 혁신을 이루었습니다.</p>
-        
         <ul>
 <li>능동적 판단, 수동적 응답이 아님: 기존 모델은 보통 사용자가 질문을 던진 후에야 현재 화면을 처리하기 시작하지만, JoyAI-VL-Interaction은 비디오 스트림을 지속적으로 관찰하며 언제 말하고 언제 침묵해야 할지 스스로 판단합니다.</li>
 <li>실시간 응답, 사후 요약이 아님: 기존의 비디오 이해는 대개 전체 영상을 업로드한 후 분석하는 방식이지만, 보안 경보, 실시간 번역, 라이브 중계, 작업 안내 등 수 초의 지연이 경험과 가치에 큰 영향을 미치는 시나리오에서 JoyAI-VL-Interaction은 진행 중인 비디오 스트림에 즉각 반응합니다.</li>
 <li>적시 스마트 에이전트 위임 및 관찰/상호작용 유지: JoyAI-VL-Interaction은 백그라운드 작업 할당 능력과 관련 메커니즘을 갖추고 있습니다. 모델이 코드 생성, 도구 호출, 복잡한 추론 등의 과제에 직면하면 이를 백그라운드 대형 모델이나 에이전트에게 맡길 수 있으며, 프런트엔드 모델은 현장을 계속 관찰하고 결과가 돌아오면 자연스럽게 대화를 이어갑니다.</li>
 </ul>
-        
         <h3>지원 및 활용 사례</h3>
-        
         <p>JoyAI-VL-Interaction은 카메라, 라이브 스트림, 감시 스트림 등 다양한 비디오 입력을 지원하며 음성 입력/출력, 시각화 인터페이스, 장기 기억, 백그라운드 모델 인터페이스 및 vLLM 배포 솔루션을 지원합니다. ASR, TTS, 시각화 인터페이스, 백그라운드 모델, 외부 도구 및 비즈니스 모듈은 필요에 따라 교체할 수 있습니다.</p>
-        
         <p>개발자는 자체 음성 서비스, 에이전트, API, 비즈니스 시스템 또는 프런트엔드 인터페이스를 연결할 수 있습니다. 이 모델은 연구용으로 활용될 뿐만 아니라 보안 모니터링, 노인 및 어린이 돌봄, 라이브 중계 설명, 이커머스 가이드, 작업 안내, AI 안경, 접근성 지원 등 다양한 실시간 AI 비전으로 변형하여 사용할 수 있습니다.</p>
-        
         <h3>성능 평가</h3>
-        
         <p>평가에서 JoyAI-VL-Interaction은 모니터링 경보, 실시간 카운팅, 실시간 번역, 시간 인식, 라이브 가이드 설명 등 실제 스트리밍 시나리오를 포괄했습니다. 시각적 트리거에 기반한 능동적 응답 및 실시간성이 높은 58개의 실제 블라인드 테스트 사례에서 JoyAI-VL-Interaction은 Doubao 비디오 통화 어시스턴트 대비 77.6%, Gemini 비디오 통화 어시스턴트 대비 87.9%의 승률을 기록했습니다.</p>
-        
         <h3>총평</h3>
-        
         <p>JD.com이 공개한 JoyAI-VL-Interaction은 실시간 비디오 스트림을 지속적으로 관찰하고 자율적인 판단과 즉각적인 응답을 제공하는 혁신적인 모델입니다. 특히 복잡한 과업을 백그라운드 에이전트에 위임하면서도 상호작용을 유지하며, 실제 시나리오 테스트에서 경쟁 모델 대비 높은 승률을 입증했습니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>产品发布与核心定位</h3>
+<p>京东官方宣布开源实时视频视觉语言交互模型 JoyAI-VL-Interaction。这是全球首种全栈开源的 interaction 模型和系统，并获得 vLLM-Omni 的 day-0 原生支持。</p>
+<p>该模型旨在推动大模型从“一问一答”模式进化为“边看边说”，旨在帮助开发者快速构建具备持续观察、自主判断、即时响应能力的实景 AI 助手。</p>
+        <h3>核心技术突破</h3>
+<p>相比传统模型，JoyAI-VL-Interaction 在以下三个维度实现突破：</p>
+<ul>
+<li>主动判断：能够持续观察视频流并自主决定何时发言或保持沉默，而非被动等待用户提问。</li>
+<li>实时响应：针对正在发生的视频流进行处理（如安防预警、直播解说等），确保在关键时刻提供即时反馈。</li>
+<li>适时智能体委托：具备后台任务委派能力。当遇到复杂推理或工具调用时，由后台模型处理，前台模型继续观察现场并衔接对话。</li>
+</ul>
+        <h3>功能支持与应用场景</h3>
+<p>JoyAI-VL-Interaction 提供高度的可定制化和广泛的兼容性：</p>
+<ul>
+<li>输入源支持：摄像头、直播流、监控流等多种视频输入。</li>
+<li>交互能力：支持语音输入输出、可视化界面、长期记忆、后台模型接口及 vLLM 部署方案。</li>
+<li>模块化设计：ASR、TTS、可视化界面、后台模型、外部工具和业务模块均可按需替换。</li>
+</ul>
+<p>该模型可广泛应用于安防监控、老人小孩看护、直播讲解、电商导购、操作指导、AI 眼镜及无障碍辅助等多个领域。</p>
+        <h3>评测表现</h3>
+<p>在涵盖监控预警、实时计数、实时翻译、时间感知、直播导览解说等 58 个真实流式场景的真人盲评中：</p>
+<ul>
+<li>对比豆包视频通话助手，JoyAI-VL-Interaction 的胜率为 77.6%。</li>
+<li>对比 Gemini 视频通话助手，JoyAI-VL-Interaction 的胜率为 87.9%。</li>
+</ul>
+        <h3>总结</h3>
+<p>京东推出的 JoyAI-VL-Interaction 是全球首个全栈开源的实时视频视觉语言交互模型。它通过主动判断、实时响应和智能体委托等技术突破，显著提升了 AI 在安防、直播等动态场景中的表现。在与豆包及 Gemini 的对比评测中，该模型展现出了极高的胜率。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>概要</h3>
+        <p>JD.comは、リアルタイムビデオ視覚言語相互作用モデルである「JoyAI-VL-Interaction」をオープンソースとして公開しました。これは世界初のフルスタック・オープンソース・インタラクション・モデルおよびシステムであり、vLLM-Omniのday-0ネイティブサポートを確保しています。</p>
+        <p>公式発表によると、このモデルは大規模言語モデル（LLM）を「質疑応答」の枠組みから「見て話す」段階へと進化させます。開発者はこのフレームワークに基づき、継続的な観察、自律的な判断、および即時の反応が可能なリアルタイムAIアシスタントを迅速に構築することが可能になります。</p>
+        <h3>技術的突破口</h3>
+        <p>JoyAI-VL-Interactionは、従来のモデルと比較して以下の3つの主要な革新を実現しました。</p>
+        <ul>
+<li><strong>能動的な判断、受動的な反応ではない：</strong> 従来のモデルは通常、ユーザーが質問を投げた後に初めて現在の画面を処理し始めますが、JoyAI-VL-Interactionはビデオストリームを継続的に監視し、いつ話し、いつ沈黙すべきかを自ら判断します。</li>
+<li><strong>リアルタイムな反応、事後要約ではない：</strong> 従来のビデオ理解は通常、全動画をアップロードした後に分析する手法ですが、セキュリティアラート、リアルタイム翻訳、ライブ中継、作業案内など、数秒の遅延が体験や価値に大きく影響するシナリオにおいて、JoyAI-VL-Interactionは進行中のビデオストリームに即座に反応します。</li>
+<li><strong>適時なスマートエージェントへの委譲と観察/相互作用の維持：</strong> JoyAI-VL-Interactionはバックグラウンド作業の割り当て能力と関連メカニズムを備えています。モデルがコード生成、ツール呼び出し、複雑な推論などの課題に直面した場合、これらをバックグラウンドの大型モデルやエージェントに任せることができ、フロントエンドのモデルは現場を継続的に観察しながら、結果が返ってきた際に自然に会話を継続します。</li>
+</ul>
+        <h3>サポートおよび活用事例</h3>
+        <p>JoyAI-VL-Interactionは、カメラ、ライブストリーム、監視ストリームなど多様なビデオ入力をサポートし、音声入力/出力、視覚化インターフェース、長期記憶、バックグラウンドモデルインターフェース、およびvLLM展開ソリューションをサポートします。ASR、TTS、視覚化インターフェース、バックグラウンドモデル、外部ツール、およびビジネスモジュールは必要に応じて交換可能です。</p>
+        <p>開発者は独自の音声サービス、エージェント、API、ビジネスシステム、またはフロントエンドインターフェースを接続できます。このモデルは研究用としてだけでなく、セキュリティ監視、高齢者や子供のケア、ライブ中継の解説、Eコマースガイド、作業案内、AIメガネ、アクセシビリティ支援など、多様なリアルタイムAIビジョンへと応用することが可能です。</p>
+        <h3>パフォーマンス評価</h3>
+        <p>評価において、JoyAI-VL-Interactionは監視アラート、リアルタイムカウント、リアルタイム翻訳、時間認識、ライブガイド解説など、実際のストリーミングシナリオを網羅しました。視覚的なトリガーに基づく能動的な反応および高いリアルタイム性を備えた58の実際のブラインドテスト事例において、JoyAI-VL-InteractionはDoubaoビデオ通話アシスタントに対して77.6%、Geminiビデオ通話アシスタントに対して87.9%の勝率を記録しました。</p>
+        <h3>まとめ</h3>
+        <p>JD.comが公開したJoyAI-VL-Interactionは、リアルタイムビデオストリームを継続的に監視し、自律的な判断と即時の反応を提供する革新的なモデルです。複雑なタスクをバックグラウンドエージェントに委譲しながらもユーザーとの相互作用を維持する能力を持ち、実証試験において競合モデルよりも高い勝率を証明しました。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Overview</h3>
+<p>JD.com has released JoyAI-VL-Interaction, an open-source real-time video visual language interaction model. It is recognized as the world's first full-stack open-source interaction model and system, featuring day-0 native support for vLLM-Omni.</p>
+<p>According to the official announcement, this model moves Large Language Models (LLMs) beyond a simple "Question & Answer" format toward a "See and Speak" stage. This framework allows developers to rapidly build real-time AI assistants capable of continuous observation, autonomous judgment, and immediate responses.</p>
+        <h3>Technical Breakthroughs</h3>
+<p>JoyAI-VL-Interaction achieves three major innovations compared to existing models:</p>
+<ul>
+<li><strong>Active Judgment vs. Passive Response:</strong> While traditional models typically begin processing the current screen only after a user poses a question, JoyAI-VL-Interaction continuously monitors the video stream and autonomously decides when to speak or remain silent.</li>
+<li><strong>Real-time Response vs. Post-analysis Summary:</strong> Traditional video understanding often involves analyzing an entire uploaded video. In contrast, JoyAI-VL-Interaction reacts instantly to ongoing video streams—a critical feature for scenarios where even a few seconds of delay significantly impacts the experience, such as security alerts, real-time translation, live broadcasting, and task guidance.</li>
+<li><strong>Just-in-Time Smart Agent Delegation & Interaction Maintenance:</strong> The model possesses capabilities for background task assignment. When faced with complex tasks like code generation, tool calls, or complex reasoning, it can delegate these to a larger background model or agent while the front-end model continues to observe the scene and resumes the conversation naturally once the results are returned.</li>
+</ul>
+        <h3>Support and Use Cases</h3>
+<p>JoyAI-VL-Interaction supports various video inputs, including cameras, live streams, and surveillance feeds. It provides support for voice input/output, visual interfaces, long-term memory, background model interfaces, and vLLM deployment solutions. Components such as ASR, TTS, visual interfaces, background models, external tools, and business modules can be replaced according to specific needs.</p>
+<p>Developers can integrate their own voice services, agents, APIs, business systems, or front-end interfaces. Beyond research applications, the model can be adapted for various real-time AI vision scenarios, including security monitoring, elderly and childcare, live broadcast commentary, e-commerce guides, task guidance, AI glasses, and accessibility support.</p>
+        <h3>Performance Evaluation</h3>
+<p>In evaluations covering real streaming scenarios—such as monitoring alerts, real-time counting, real-time translation, time awareness, and live guide descriptions—JoyAI-VL-Interaction demonstrated high performance. In 58 real blind test cases based on visual triggers and high real-time requirements, JoyAI-VL-Interaction achieved a win rate of 77.6% against the Doubao video call assistant and 87.9% against the Gemini video call assistant.</p>
+        <h3>Conclusion</h3>
+<p>JD.com's JoyAI-VL-Interaction is an innovative model that provides continuous observation, autonomous judgment, and immediate responses for real-time video streams. By maintaining interaction while delegating complex tasks to background agents and proving its superiority over competing models in practical tests, it establishes a new standard for interactive AI vision.</p
+        <h3>Summary</h3>
+<p>JD.com has launched JoyAI-VL-Interaction, an open-source model designed for real-time video interaction with "see and speak" capabilities rather than simple Q&A. It features unique innovations such as active judgment, immediate response to live streams, and the ability to delegate complex tasks to background agents while maintaining a continuous front-end presence. In blind testing, it outperformed major competitors like Doubao and Gemini in various real-world streaming scenarios.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -665,18 +757,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {

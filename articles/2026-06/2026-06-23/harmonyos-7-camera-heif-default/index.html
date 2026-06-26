@@ -9,6 +9,10 @@
   <meta name="article-category" content="camera">
   <meta name="article-brand" content="Huawei">
   <meta name="article-brand-color" content="#CF0A2C">
+  <meta name="title-ko" content="Huawei HarmonyOS 7.0 개발자 Beta 1, 카메라 촬영 기본 포맷을 JPG에서 HEIF로 전환">
+  <meta name="title-zh" content="Huawei HarmonyOS 7.0 개발자 Beta 1, 카메라 촬영 기본 포맷을 JPG에서 HEIF로 전환">
+  <meta name="title-ja" content="Huawei HarmonyOS 7.0 開発者向けBeta 1、カメラ撮影の標準フォーマットをJPGからHEIFに変更">
+  <meta name="title-en" content="Huawei HarmonyOS 7.0 Developer Beta 1 changes the default camera capture format from JPG to HEIF">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -513,7 +544,7 @@
           
         </div>
 
-        <h1 class="article-title">Huawei HarmonyOS 7.0 개발자 Beta 1, 카메라 촬영 기본 포맷을 JPG에서 HEIF로 전환</h1>
+        <h1 class="article-title" data-ko="Huawei HarmonyOS 7.0 개발자 Beta 1, 카메라 촬영 기본 포맷을 JPG에서 HEIF로 전환" data-zh="Huawei HarmonyOS 7.0 개발자 Beta 1, 카메라 촬영 기본 포맷을 JPG에서 HEIF로 전환" data-ja="Huawei HarmonyOS 7.0 開発者向けBeta 1、カメラ撮影の標準フォーマットをJPGからHEIFに変更" data-en="Huawei HarmonyOS 7.0 Developer Beta 1 changes the default camera capture format from JPG to HEIF">Huawei HarmonyOS 7.0 개발자 Beta 1, 카메라 촬영 기본 포맷을 JPG에서 HEIF로 전환</h1>
 
         <div class="article-info">
           
@@ -529,28 +560,75 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>시스템 업데이트</h3>
-        
         <p>HarmonyOS 7.0 (API26) Developer Beta 1 버전에서 HarmonyOS 기기의 카메라 촬영 기본 형식이 JPG에서 HEIF로 변경되었습니다.</p>
-        
         <h3>HEIF 도입 배경</h3>
-        
         <p>Huawei는 고화질 사진의 보급으로 파일 크기가 커짐에 따라, 사용자의 앨범과 클라우드 백업을 위한 효율적인 저장이 더욱 중요해졌다고 밝혔습니다. HEIF는 고효율 이미지 포맷으로, 주로 HEVC(H.265) 코딩을 활용하여 뛰어난 화질을 유지하면서도 파일 크기를 줄일 수 있습니다.</p>
-        
         <h3>사용자 편의성</h3>
-        
         <p>카메라 기본 형식이 HEIF로 전환됨에 따라, 동일한 양의 사진 기록 시 저장 공간이 빠르게 소모되는 것을 방지하며 장기적인 촬영, 백업 및 공유가 더욱 용이해집니다. 이는 기존 방식에서 고효율의 사진 저장 방식으로 업그레이드된 것으로 볼 수 있습니다.</p>
-        
         <h3>개발자 가이드</h3>
-        
         <p>HEIF 이미지는 앨범 선택, 콘텐츠 게시, 고객 서비스용 이미지 전송, 클라우드 백업, 이미지 편집 등 다양한 시나리오에서 활용됩니다. 원활한 사용자 경험을 위해 개발자는 앱 내 이미지 업로드 시 파일 확장자 검증 규칙을 조정해야 하며, Image Kit가 제공하는 인코딩 및 디코딩 기능을 통해 HEIF를 JPEG 또는 PNG로 변환하여 처리할 수도 있습니다.</p>
-        
         <h3>총평</h3>
-        
         <p>HarmonyOS 7.0 Developer Beta 1 버전부터 카메라 기본 형식이 고효율 포맷인 HEIF로 변경됩니다. 이를 통해 사용자는 화질을 유지하면서도 저장 공간을 절약할 수 있으며, 개발자는 서비스 연동 시 HEIF를 올바르게 처리하기 위한 기술적 대응이 필요합니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>HarmonyOS 默认拍照格式更新</h3>
+<p>在 HarmonyOS 7.0 (API26) Developer Beta 1 版本中，Huawei 将设备的相机拍照默认格式从 JPG 切换为 HEIF。</p>
+        <h3>HEIF 格式的技术优势</h3>
+<p>由于现代照片分辨率高、文件体积大，采用 HEIF 旨在提供更高效的存储方案：</p>
+<ul>
+<li>基于 HEVC (H.265) 编码。</li>
+<li>在保持良好画质的同时显著降低文件体积。</li>
+<li>优化相册空间占用，使云端备份和分享更加便捷。</li>
+</ul>
+        <h3>对开发者与服务的建议</h3>
+<p>随着 HEIF 图片进入更多应用场景（如内容发布、客服传图等），开发者需注意以下技术适配：</p>
+<ul>
+<li>调整 App 在图片上传时的文件扩展名校验规则。</li>
+<li>可利用 Image Kit 提供的编解码能力，将 HEIF 转码为 JPEG 或 PNG 以确保兼容性。</li>
+</ul>
+        <h3>总结</h3>
+<p>HarmonyOS 7.0 (API26) Developer Beta 1 将默认拍照格式改为 HEIF，旨在通过高效编码平衡画质与存储空间。开发者需相应调整 App 的文件校验规则，并可利用 Image Kit 进行必要的转码处理以确保服务链路的连续性。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>システムアップデート</h3>
+        <p>HarmonyOS 7.0 (API26) Developer Beta 1から、Huaweiデバイスのカメラ撮影におけるデフォルト形式がJPGからHEIFに変更されました。</p>
+        <h3>HEIF導入の背景</h3>
+        <p>Huaweiは、高画質化に伴うファイルサイズの増大により、ユーザーのアルバムやクラウドバックアップのための効率的なストレージ管理がより重要になっていると述べています。HEIFは高効率な画像フォーマットであり、主にHEVC（H.265）コーディングを活用することで、優れた画質を維持しながらファイルサイズを削減することが可能です。</p>
+        <h3>ユーザーの利便性</h3>
+        <p>カメラのデフォルト形式がHEIFに移行したことで、大量の写真を記録する際のストレージ消費を抑え、長期的な撮影、バックアップ、および共有がより容易になります。これは、従来の方式から高効率な写真保存方法へのアップグレードと捉えることができます。</p>
+        <h3>開発者向けガイド</h3>
+        <p>HEIF画像は、以下のような多様なシナリオで活用されます。</p>
+<ul>
+<li>アルバムの選択</li>
+<li>コンテンツの投稿</li>
+<li>カスタマーサービス用画像の送信</li>
+<li>クラウドバックアップ</li>
+<li>画像の編集</li>
+</ul>
+<p>スムーズなユーザー体験を提供するため、開発者はアプリ内での画像アップロード時にファイル拡張子の検証ルールを調整する必要があります。また、Image Kitが提供するエンコードおよびデコード機能を通じて、HEIFをJPEGまたはPNGに変換して処理することも可能です。</p>
+        <h3>まとめ</h3>
+        <p>HarmonyOS 7.0 Developer Beta 1より、カメラの標準フォーマットが高効率なHEIFに変更されます。これによりユーザーは画質を維持したままストレージ容量を節約でき、開発者はサービス連携においてHEIFを適切に処理するための技術的な対応が必要となります。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>System Update</h3>
+<p>With the release of HarmonyOS 7.0 (API26) Developer Beta 1, the default camera capture format for HarmonyOS devices has been changed from JPG to HEIF.</p>
+        <h3>Introduction of HEIF</h3>
+<p>Huawei stated that as high-quality photography becomes more common, file sizes have increased, making efficient storage for user albums and cloud backups increasingly important. HEIF is a high-efficiency image format that utilizes HEVC (H.265) coding to reduce file sizes while maintaining superior image quality.</p>
+        <h3>Enhanced User Experience</h3>
+<p>By switching the default camera format to HEIF, users can prevent rapid storage depletion when capturing large volumes of photos, making long-term shooting, backing up, and sharing more convenient. This transition is considered an upgrade to a high-efficiency photo storage method compared to traditional formats.</p>
+        <h3>Developer Guidelines</h3>
+<p>HEIF images are utilized in various scenarios, including album selection, content publishing, transmitting images for customer service, cloud backups, and image editing. To ensure a seamless user experience, developers should adjust file extension validation rules when uploading images within apps. Additionally, they can utilize the encoding and decoding functions provided by Image Kit to convert HEIF files into JPEG or PNG formats as needed.</p>
+        <h3>Summary</h3>
+<p>Starting with HarmonyOS 7.0 Developer Beta 1, Huawei has adopted HEIF as the default camera format to balance high image quality with storage efficiency for users. While this provides a better experience for managing and sharing photos, it requires developers to implement technical adjustments or use Image Kit tools to ensure proper handling of HEIF files in their applications.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -773,18 +851,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
