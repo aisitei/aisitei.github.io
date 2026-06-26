@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 반도체 업계의 중대한 돌파구! IBM, 세계 최초 1나노 미만 칩 기술 발표</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="image_sensor">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="반도체 업계의 중대한 돌파구! IBM, 세계 최초 1나노 미만 칩 기술 발표">
+  <meta name="title-zh" content="半导体行业重大突破！IBM 推出全球首个亚 1 纳米芯片技术">
+  <meta name="title-ja" content="半導体業界の重大な進歩！IBMが世界初となる1ナノメートル未満のチップ技術を発表">
+  <meta name="title-en" content="Major Breakthrough in the Semiconductor Industry! IBM Unveils the World&#39;s First Sub-1nm Chip Technology">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="반도체 업계의 중대한 돌파구! IBM, 세계 최초 1나노 미만 칩 기술 발표" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="반도체 업계의 중대한 돌파구! IBM, 세계 최초 1나노 미만 칩 기술 발표"
+            data-zh="半导体行业重大突破！IBM 推出全球首个亚 1 纳米芯片技术"
+            data-ja="半導体業界の重大な進歩！IBMが世界初となる1ナノメートル未満のチップ技術を発表"
+            data-en="Major Breakthrough in the Semiconductor Industry! IBM Unveils the World&#39;s First Sub-1nm Chip Technology">반도체 업계의 중대한 돌파구! IBM, 세계 최초 1나노 미만 칩 기술 발표</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-06-26
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>기술적 성과</h3>
+          
+          <p>IBM은 오늘(25일) 세계 최초의 1나노미터(nm) 미만 칩 기술을 발표했으며, 트랜지스터 구조가 혁신적으로 0.7나노(7 옹스트롬) 노드에 도달했습니다. 이 소식으로 인해 IBM의 주가는 장전 거래에서 약 7% 상승했습니다.</p>
+          
+          <p>이 성과는 반도체 산업의 중요한 이정표로 평가됩니다. 현재 반도체 산업은 전통적인 칩 미세화 공정의 물리적 한계에 직면해 있으며, 반도체는 컴퓨팅부터 가전, 통신 장비, 교통 시스템 및 핵심 인프라에 이르기까지 모든 분야에서 매우 중요한 역할을 수행하고 있습니다.</p>
+          
+          <h3>NanoStack 기술</h3>
+          
+          <p>공식 보도 자료에 따르면, 1나노미터 미만 칩 기술은 손톱 크기의 칩에 약 1,000억 개의 트랜지스터를 집적할 수 있으며, 이는 2021년에 발표된 IBM의 2나노미터 칩보다 트랜지스터 밀도가 거의 두 배에 달하는 수준입니다.</p>
+          
+          <p>새로운 기술은 IBM이 독자 개발한 NanoStack 3차원 나노 시트(Nanosheet) 구조를 채택하고 다양한 구조 및 재료 혁신을 결합했습니다. 이를 통해 칩 구조가 원자 크기에 점차 가까워지더라도 성능과 에너지 효율이 지속적으로 향상될 수 있음을 입증했습니다.</p>
+          
+          <h3>성능 및 효율성</h3>
+          
+          <p>IBM이 발표한 기술 결과에 따르면, 새로운 칩은 2나노미터 노드 칩과 비교하여 성능을 최대 50% 향상시키고 에너지 효율을 70% 높일 수 있을 것으로 예상됩니다. 이는 생성형 AI, 클라우드 인프라 및 차세대 전자 기기에 더 강력한 연산 능력을 제공할 것입니다.</p>
+          
+          <p>IBM 연구소 소장이자 IBM 펠로우인 제이 감벨라(Jay Gambella)는 "IBM의 최신 칩 돌파구는 컴퓨팅 분야의 중요한 이정표이며, 기술을 나노 시대 너머 원자 규모로 도약하게 합니다. NanoStack은 단순히 트랜지스터를 더 작게 만드는 것이 아니라 칩 구조를 근본적으로 재설계하여 연산 능력과 에너지 효율을 대폭 향상시킵니다. 이 업계 최초의 성과는 IBM이 차세대 기술 발전을 선도해 온 전통을 이어가며 다음 계산 시대의 기반을 마련할 것입니다."라고 밝혔습니다.</p>
+          
+          <h3>기술적 특징 및 확장성</h3>
+          
+          <p>연구진은 새로운 칩을 위해 NanoStack이라는 새로운 트랜지스터 구조를 개발했습니다. NanoStack은 IBM이 이전에 발명한 나노 시트 구조를 기반으로 한 업계 최초의 3차원 나노 시트 트랜지스터 설계로, 칩 미세화 기술을 더욱 진전시켰습니다.</p>
+          
+          <p>기존 칩은 주로 평면에 트랜지쯔를 배치하지만, NanoStack은 트랜지스터를 수직으로 쌓고 어긋나게 배치하여 동일한 면적에 더 많은 트랜지스터를 포함할 수 있는 3차원 순차 통합 기술을 활용합니다. 또한 각 적층층에 서로 다른 재료를 사용하여 각 층의 트랜지스터 성능과 에너지 효율을 독립적으로 최적화할 수 있습니다.</p>
+          
+          <p>IBM은 CMOS 통합 내 초박형 유전체 결합, 듀얼 채널 엔지니어링, 그리고 예상된 스위칭 성능을 충족하는 CMOS 인버터 등 여러 실험을 통해 NanoStack을 검증했습니다. 실험 결과는 NanoStack이 이론에만 머무는 것이 아니라 실제 장치로 제작되어 연산 작업을 수행할 수 있음을 보여줍니다.</p>
+          
+          <p>또한 연구진은 VLSI 2026에서 NanoStack이 SRAM 크기를 40% 줄일 수 있다고 발표했습니다. 이를 통해 설계자는 효율성을 높이는 동시에 고대역폭 데이터 전송이 필요한 첨단 AI 작업 부하를 충족할 수 있습니다.</p>
+          
+          <h3>미래 전망</h3>
+          
+          <p>NanoStack을 통해 로직 칩 공정이 처음으로 1나노미터 미만 노드에 진입할 가능성이 생겼으며, 칩 미세화는 나노 수준에서 옹스트롬(Angstrom) 수준으로 나아가 내부 구조가 단일 원자 크기에 점차 가까워지고 있습니다. 현재의 공정 노드는 기술 세대를 나타내는 것이며 정확한 물리적 크기를 의미하지 않지만, IBM의 0.7나노 공정은 7 옹스트롬 공정으로도 불리며 칩 미세화의 가능성을 보여줍니다. IBM은 NanoStack이 향후 최소 10년 동안 반도체 공정 발전을 뒷받침할 것으로 예상합니다.</p>
+          
+          <p>IBM은 최근 양자 웨이퍼 제조를 전문으로 하는 독립 회사인 Anderon을 설립할 계획을 발표했습니다. Andern은 IBM의 양자 컴퓨팅 및 반도체 분야 기술력을 결합하여 미국이 전 세계 대부분의 양자 웨이퍼 생산 능력을 확보하는 데 기여할 것입니다.</p>
+          
+          <p>IBM은 NanoStack이 가장 빨리 1나노미터 미만 공정 노드에 적용될 것이며, 향후 5년 내에 생산 단계에 진입할 것으로 예상하고 있습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>IBM은 독자적인 NanoStack 구조를 통해 0.7나노(7 옹스트롬) 공정의 혁신을 이루어내며 반도체 미세화의 물리적 한계를 극복하는 성과를 거두었습니다. 이 기술은 생성형 AI와 클라우드 인프라에 필요한 성능 및 에너지 효율을 대폭 향상시킬 것으로 기대됩니다. 또한, 이를 통해 1나노미터 미만 공정 진입과 양자 컴퓨팅 분야로의 확장 등 차세대 계산 시대의 기반을 마련했습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>技术突破与市场反应</h3>
+<p>IBM 正式推出全球首款亚 1 纳米芯片技术，其晶体管架构达到 0.7 纳米（即 7 埃节点）。这一里程碑式的技术突破引发市场高度关注，导致 IBM 在盘前交易中股价上涨近 7%。</p>
+          
+          <h3>NanoStack 核心架构与性能指标</h3>
+<p>该项新技术采用了由 IBM 首创的 NanoStack 三维纳米堆栈架构。通过将晶体管纵向堆叠并错位排列，配合多项材料创新，实现了在接近原子尺度下的高性能和高能效。</p>
+<ul>
+<li>集成规模：在指甲盖大小的芯片上可集成近 1000 亿个晶体管。</li>
+<li>密度对比：晶体管密度约为 2021 年发布的 IBM 2 纳米芯片的两倍。</li>
+<li>性能提升：相比 2 纳米节点，预计性能最高可提升 50%，能效提高 70%。</li>
+<li>SRAM 优化：NanoStack 可使 SRAM 缩小 40%，满足高带宽数据传输需求。</li>
+</ul>
+          
+          <h3>未来展望与生产计划</h3>
+<p>NanoStack 技术推动芯片微缩从纳米级跨入埃米级，其内部结构尺寸正逐渐接近单个原子。IBM 预计该技术能够支撑未来至少十年的半导体工艺发展。</p>
+<p>在相关战略布局上，IBM 还宣布将成立独立公司 Anderon，作为全球首家专门从事量子晶圆制造的代工厂。此外，NanoStack 最早有望在亚 1 纳米工艺节点投入应用，并计划在未来 5 年内进入生产阶段。</p>
+          
+          <h3>总结</h3>
+<p>IBM 推出的 NanoStack 技术实现了全球首个 0.7 纳米（7 埃）晶体管架构，显著提升了芯片的集成密度、性能及能效。该技术标志着半导体从纳米时代迈向原子尺度的关键跨越，并有望在未来 5 年内进入量产阶段。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>技術的成果</h3>
+          
+          <p>IBMは本日（25日）、世界初の1ナノメートル（nm）未満のチップ技術を発表し、トランジスタ構造が革新的な0.7ナノ（7オングストローム）ノードに到達したことを明らかにしました。この発表を受け、IBMの株価はプレマーケットで約7%上昇しました。</p>
+          
+          <p>この成果は、半導体産業における重要なマイルストーンと評価されています。現在、半導体業界は従来のチップ微細化プロセスの物理的な限界に直面しており、半導体はコンピューティングから家電、通信機器、交通システム、そして基幹インフラに至るまで、あらゆる分野で極めて重要な役割を果たしています。</p>
+          
+          <h3>NanoStack技術</h3>
+          
+          <p>公式プレスリリースによると、1ナノメートル未満のチップ技術により、爪の大きさのチップに約1,000億個のトランジスタを集積することが可能になります。これは、2021年に発表されたIBMの2ナノメートルチップと比較して、トランジスタ密度がほぼ倍増するレベルです。</p>
+          
+          <p>この新技術は、IBMが独自に開発した「NanoStack」と呼ばれる3次元ナノシート（Nanosheet）構造を採用し、さまざまな構造および材料の革新を組み合わせたものです。これにより、チップ構造が原子サイズに近づいても、性能とエネルギー効率を継続的に向上させられることを証明しました。</p>
+          
+          <h3>パフォーマンスと効率性</h3>
+          
+          <p>IBMが発表した技術結果によると、新しいチップは2ナノメートルノードのチップと比較して、以下の向上が見込まれています。</p>
+<ul>
+<li>性能：最大50%向上</li>
+<li>エネルギー効率：70%向上</li>
+</ul>
+<p>これにより、生成AI、クラウドインフラ、および次世代電子機器に対して、より強力な演算能力を提供することが可能になります。</p>
+          
+          <p>IBMの研究部門責任者でありIBMフェローのジェイ・ガンベラ（Jay Gambella）は次のように述べています。「IBMの最新のチップにおける突破口はコンピューティング分野の重要なマイルストーンであり、技術をナノ時代を超えた原子スケールへと飛躍させます。NanoStackは単にトランジスタを小さくするのではなく、チップ構造を根本的に再設計することで、演算能力とエネルギー効率を大幅に向上させます。この業界初の成果は、IBMが次世代の技術発展をリードしてきた伝統を受け継ぎ、次なる計算時代の基盤を築くものです。」</p>
+          
+          <h3>技術的特徴と拡張性</h3>
+          
+          <p>研究チームは、新しいチップのために「NanoStack」という新しいトランジスタ構造を開発しました。NanoStackは、IBMが以前に発明したナノシート構造に基づく業界初の3次元ナノシートトランジスタ設計であり、チップの微細化技術をさらに進化させたものです。</p>
+          
+          <p>従来のチップは主に平面上にトランジスタを配置しますが、NanoStackはトランジスタを垂直に積み上げ、オフセット（ずらして）配置することで、同じ面積により多くのトランジスタを組み込める3次元順次統合技術を活用しています。また、各積層層に異なる材料を使用することで、各層のトランジスタの性能とエネルギー効率を独立して最適化することが可能です。</p>
+          
+          <p>IBMは、CMOS統合内での超薄型誘電体結合、デュアルチャネルエンジニアリング、および予測されるスイッチング性能を満たすCMOSインバータなど、複数の実験を通じてNanoStackを検証しました。これらの実験結果は、NanoStackが理論にとどまるものではなく、実際のデバイスとして製造され、演算作業を実行できることを示しています。</p>
+          
+          <p>さらに、研究チームはVLSI 2026において、NanoStackがSRAMのサイズを40%削減できると発表しました。これにより、設計者は効率を高めると同時に、高帯域幅のデータ転送が必要な高度なAIワークロードに対応できるようになります。</p>
+          
+          <h3>未来の展望</h3>
+          
+          <p>NanoStackを通じて、ロジックチップ工程が初めて1ナノメートル未満のノードに参入する可能性が開かれました。チップの微細化はナノレベルからオングストローム（Angstrom）レベルへと進み、内部構造は次第に単一原子のサイズに近づいています。現在のプロセスノードは技術世代を示すものであり正確な物理的サイズを意味するわけではありませんが、IBMの0.7ナノ工程は7オングストローム工程とも呼ばれ、チップ微細化の可能性を示しています。IBMはNanoStackが今後少なくとも10年間、半導体プロセスの発展を支えると予想しています。</p>
+          
+          <p>また、IBMは最近、量子ウェハー製造を専門とする独立企業「Anderon」を設立する計画を発表しました。AndernはIBMの量子コンピューティングおよび半導体分野の技術力を統合し、米国が世界の大半の量子ウェハー生産能力を確保することに貢献します。</p>
+          
+          <p>IBMは、NanoStackが最も早く1ナノメートル未満のプロセスノードに適用され、今後5年以内に生産段階に進むと予測しています。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>IBMは独自のNanoStack構造を通じて0.7ナノ（7オングストローム）工程の革新を実現し、半導体微細化の物理的限界を克服しました。この技術は生成AIやクラウドインフラに必要な性能とエネルギー効率を大幅に向上させると期待されています。さらに、1ナノメートル未満のプロセスへの参入と量子コンピューティング分野への拡張など、次世代計算時代の基盤を確立する重要な一歩となります。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Technical Achievements</h3>
+          
+          <p>IBM announced its world-first sub-1nm chip technology today (the 25th), reaching an innovative transistor structure at the 0.7nm (7 Angstrom) node. Following this announcement, IBM's stock rose approximately 7% in pre-market trading.</p>
+          
+          <p>This achievement is regarded as a major milestone in the semiconductor industry. The industry currently faces physical limits in traditional chip miniaturization processes, while semiconductors play critical roles across all sectors, including computing, consumer electronics, communication equipment, transportation systems, and core infrastructure.</p>
+          
+          <h3>NanoStack Technology</h3>
+          
+          <p>According to the official press release, sub-1nm chip technology can integrate approximately 100 billion transistors onto a fingernail-sized chip. This represents nearly double the transistor density compared to IBM's 2nm chips announced in 2021.</p>
+          
+          <p>The new technology adopts the "NanoStack" 3D Nanosheet structure developed independently by IBM, combined with various structural and material innovations. This demonstrates that performance and energy efficiency can continue to improve even as chip structures move closer to atomic scales.</p>
+          
+          <h3>Performance and Efficiency</h3>
+          
+          <p>According to the results released by IBM, the new chips are expected to provide significant improvements compared to 2nm node chips:</p>
+<ul>
+<li>Up to a 50% increase in performance.</li>
+<li>A 70% improvement in energy efficiency.</li>
+</ul>
+          
+          <p>These advancements will provide more powerful computing capabilities for generative AI, cloud infrastructure, and next-generation electronic devices.</p>
+          
+          <p>Jay Gambella, IBM's Director of Research and an IBM Fellow, stated, "IBM's latest chip breakthrough is a significant milestone in the field of computing, pushing technology beyond the nano era into the atomic scale. NanoStack does not simply make transistors smaller; it fundamentally redesigns the chip structure to significantly enhance computational power and energy efficiency. This industry-first achievement continues IBM's tradition of leading next-generation technological advancements and lays the foundation for the next era of computing."</p>
+          
+          <h3>Technical Features and Scalability</h3>
+          
+          <p>Researchers developed a new transistor structure called NanoStack specifically for these chips. Based on the Nanosheet structure previously invented by IBM, NanoStack is the industry's first 3D Nanosheet transistor design, pushing the boundaries of chip miniaturization.</p>
+          
+          <p>While traditional chips primarily arrange transistors on a flat plane, NanoStack utilizes a 3D sequential integration technique that stacks and staggers transistors vertically. This allows for more transistors to be packed into the same area. Furthermore, by using different materials in each stacked layer, the performance and energy efficiency of transistors in each layer can be optimized independently.</p>
+          
+          <p>IBM validated NanoStack through various experiments, including ultra-thin dielectric coupling within CMOS integration, dual channel engineering, and CMOS inverters that meet expected switching performance. These results demonstrate that NanoStack is not merely a theoretical concept but a viable structure capable of performing computational tasks as an actual device.</p>
+          
+          <p>Additionally, researchers announced at VLSI 2026 that NanoStack could reduce SRAM size by 40%. This allows designers to improve efficiency while meeting the demands of advanced AI workloads requiring high-bandwidth data transmission.</p>
+          
+          <h3>Future Outlook</h3>
+          
+          <p>NanoStack makes it possible for logic chip processes to enter sub-1nm nodes for the first time. As chip miniaturization moves from the nano level to the Angstrom level, internal structures are moving closer to single atom sizes. While current process nodes represent technological generations rather than exact physical dimensions, IBM's 0.7nm process is also referred to as a 7 Angstrom process, showcasing the possibilities of chip scaling.</p>
+          
+          <p>IBM expects NanoStack to support semiconductor process development for at least the next decade. Furthermore, IBM recently announced plans to establish "Anderon," an independent company specializing in quantum wafer manufacturing. Anderon will combine IBM's expertise in quantum computing and semiconductors to help the U.S. secure a significant portion of global quantum wafer production capacity.</p>
+          
+          <p>IBM expects NanoStack to be applied to sub-1nm process nodes first, with plans to enter the production phase within the next five years.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>IBM has achieved a breakthrough in semiconductor miniaturization by developing the NanoStack 3D Nanosheet structure, enabling a transition to the 0.7nm (7 Angstrom) node. This innovation significantly enhances performance and energy efficiency for high-demand applications like generative AI and cloud infrastructure. Furthermore, it establishes a foundation for future advancements in both sub-1nm logic chips and quantum computing technologies.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">중국</div>
+                <div class="caption-lang" data-lang="en">China</div>
+                <div class="caption-lang" data-lang="ja">中国</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/968/648.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-06"
+               class="archive-btn active">
+              2026-06
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -9,6 +9,10 @@
   <meta name="article-category" content="phone">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Google 안드로이드 17 버전 마이그레이션 도구 업데이트: iPhone에서 안드로이드 스마트폰으로 전환 시 전체 iMessage 기록 이전 가능">
+  <meta name="title-zh" content="Google 안드로이드 17 버전 마이그레이션 도구 업데이트: iPhone에서 안드로이드 스마트폰으로 전환 시 전체 iMessage 기록 이전 가능">
+  <meta name="title-ja" content="Google Android 17バージョンの移行ツールがアップデート：iPhoneからAndroidスマートフォンへの移行時に全iMessage履歴の移行が可能に">
+  <meta name="title-en" content="Google Android 17 Migration Tool Update: Full iMessage history can now be migrated when switching from iPhone to an Android smartphone.">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">Google 안드로이드 17 버전 마이그레이션 도구 업데이트: iPhone에서 안드로이드 스마트폰으로 전환 시 전체 iMessage 기록 이전 가능</h1>
+        <h1 class="article-title" data-ko="Google 안드로이드 17 버전 마이그레이션 도구 업데이트: iPhone에서 안드로이드 스마트폰으로 전환 시 전체 iMessage 기록 이전 가능" data-zh="Google 안드로이드 17 버전 마이그레이션 도구 업데이트: iPhone에서 안드로이드 스마트폰으로 전환 시 전체 iMessage 기록 이전 가능" data-ja="Google Android 17バージョンの移行ツールがアップデート：iPhoneからAndroidスマートフォンへの移行時に全iMessage履歴の移行が可能に" data-en="Google Android 17 Migration Tool Update: Full iMessage history can now be migrated when switching from iPhone to an Android smartphone.">Google 안드로이드 17 버전 마이그레이션 도구 업데이트: iPhone에서 안드로이드 스마트폰으로 전환 시 전체 iMessage 기록 이전 가능</h1>
 
         <div class="article-info">
           
@@ -527,16 +558,14 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>데이터 이전 기능 강화</h3>
-        
         <p>IT홈의 보도에 따르면, 기술 매체 9to5Google은 안드로이드 17 버전에서 Google이 Android Switch 도구를 업데이트했다고 밝혔습니다. 이번 업데이트를 통해 iPhone에서 안드로이드 기기로 데이터를 이전할 때 발생하는 데이터 손실 문제를 크게 개선하고, 더 많은 종류의 데이터를 원활하게 옮길 수 있도록 지원합니다.</p>
-        
         <h3>확장된 데이터 항목</h3>
-        
         <p>이번 업데이트를 통해 사용자가 iPhone에서 안드로이드로 기기를 변경할 때 기존의 연락처, 사진과 같은 기본 콘텐츠뿐만 아니라 다음과 같은 상세 내용도 함께 이전할 수 있습니다.</p>
-        
         <ul>
 <li>iMessage 기록(미디어 파일, 스티커, 커스텀 이모지 포함)</li>
 <li>홈 화면 레이아웃(배경화면, 앱 배치 등)</li>
@@ -545,17 +574,71 @@
 <li>파일 및 폴더</li>
 <li>메모(Apple Notes)의 첨부 파일 및 태그</li>
 </ul>
-        
         <h3>사용자 경험 개선</h3>
-        
         <p>또 다른 주요 개선 사항은 앱 내 데이터의 권한 기반 이전입니다. 이제 개발자가 허용할 경우 사용자는 게임 진행도나 설정 기본값과 같은 개인화된 데이터를 플랫폼 간에 이동시킬 수 있으며, 이는 기기 변경 후에도 연속성 있는 사용자 경험을 제공합니다.</p>
-        
         <p>이와 함께 비밀번호, Passkey, Wi-Fi 자격 증명, 알람 및 주요 접근성 설정도 이전 범위에 포함되었습니다.</p>
-        
         <h3>총평</h3>
-        
         <p>Google은 Android Switch 도구 업데이트를 통해 iPhone에서 안드로이드로 전환하는 사용자의 편의성을 대폭 강화했습니다. 특히 iMessage 기록과 앱 내 데이터까지 지원 범위를 확대함으로써 기기 변경 시 발생하는 불편함을 최소화하고 사용자 경험의 연속성을 확보하려는 의도가 돋보입니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>Android Switch 工具升级</h3>
+<p>谷歌在 Android 17 版本中对 Android Switch 工具进行了重大更新。该工具旨在简化用户从 iPhone 迁移至安卓手机的过程，通过支持更多数据类型的迁移，显著降低跨平台换机时的数据丢失痛点。</p>
+        <h3>新增支持的迁移内容</h3>
+<p>在本次升级中，用户从 iPhone 切换到安卓设备时，除了基础联系人和照片外，还可以迁移以下内容：</p>
+<ul>
+<li>iMessage 历史记录（包含媒体文件、贴纸、自定义表情）</li>
+<li>主屏幕布局（壁纸、应用排列）</li>
+<li>谷歌账号信息</li>
+<li>加密 RCS 消息</li>
+<li>文件与文件夹</li>
+<li>备忘录（Apple Notes）附件及标签</li>
+</ul>
+        <h3>增强的系统兼容性</h3>
+<p>除了数据种类的增加，此次更新还支持应用内数据的授权迁移，允许用户在换机后保留游戏进度和设置偏好。此外，密码、通行密钥、WiFi 凭证、闹钟以及主要无障碍设置也已包含在迁移范围内。</p>
+        <h3>总结</h3>
+<p>谷歌通过升级 Android Switch 工具，大幅扩展了从 iPhone 到安卓手机的迁移范围。此次更新涵盖了 iMessage、主屏幕布局及应用内数据等关键信息，旨在提供更连贯的跨平台换机体验。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>データ移行機能の強化</h3>
+        <p>ITホームの報道によると、テックメディアの9to5Googleは、Android 17においてGoogleが「Android Switch」ツールをアップデートしたことを明らかにしました。このアップデートにより、iPhoneからAndroidデバイスへデータを移行する際に発生するデータ損失の問題が大幅に改善され、より多種多様なデータをスムーズに移行できるようになります。</p>
+        <h3>拡張されたデータ項目</h3>
+        <p>今回のアップデートにより、ユーザーがiPhoneからAndroidへ機種変更する際、連絡先や写真といった基本コンテンツだけでなく、以下のような詳細な内容も移行可能になります。</p>
+        <ul>
+<li>iMessageの履歴（メディアファイル、ステッカー、カスタム絵文字を含む）</li>
+<li>ホーム画面のレイアウト（壁紙、アプリ配置など）</li>
+<li>Googleアカウント情報</li>
+<li>暗号化されたRCSメッセージ</li>
+<li>ファイルおよびフォルダ</li>
+<li>メモ（Apple Notes）の添付ファイルおよびタグ</li>
+</ul>
+        <h3>ユーザー体験の向上</h3>
+        <p>もう一つの主な改善点は、アプリ内データの権限ベースの移行です。開発者が許可した場合、ユーザーはゲームの進行状況や設定のデフォルト値などのパーソナライズされたデータをプラットフォーム間で移動させることができ、機種変更後も継続的なユーザー体験を提供します。</p>
+        <p>これに加え、パスワード、Passkey、Wi-Fi認証情報、アラーム、および主要なアクセシビリティ設定も移行範囲に含まれました。</p>
+        <h3>まとめ</h3>
+        <p>Googleは「Android Switch」ツールのアップデートを通じて、iPhoneからAndroidへの移行における利便性を大幅に向上させました。特にiMessageの履歴やアプリ内データのサポート範囲を拡大することで、機種変更時の不便を最小限に抑え、スムーズなユーザー体験の継続を実現しようとしています。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Enhanced Data Transfer Capabilities</h3>
+<p>According to reports from IT Home, tech outlet 9to5Google revealed that Google has updated the "Android Switch" tool for Android 17. This update is designed to significantly reduce data loss when migrating from iPhone to Android devices and supports a wider variety of data types for a smoother transition.</p>
+        <h3>Expanded Data Items</h3>
+<p>With this update, users switching from an iPhone to an Android device can now migrate more detailed content beyond basic items like contacts and photos:</p>
+<ul>
+<li>iMessage history (including media files, stickers, and custom emojis)</li>
+<li>Home screen layout (wallpaper, app placement, etc.)</li>
+<li>Google account information</li>
+<li>Encrypted RCS messages</li>
+<li>Files and folders</li>
+<li>Attachments and tags from Apple Notes</li>
+</ul>
+        <h3>Improved User Experience</h3>
+<p>Another major improvement is the permission-based transfer of in-app data. If permitted by developers, users can now move personalized data—such as game progress or default settings—across platforms, ensuring a continuous experience after switching devices.</p>
+<p>Additionally, passwords, Passkey, Wi-Fi credentials, alarms, and key accessibility settings have been included in the migration scope.</p>
+        <h3>Summary</h3>
+<p>Google has significantly improved the convenience for users migrating from iPhone to Android by updating the "Android Switch" tool for Android 17. By expanding support to include iMessage history and in-app data, Google aims to minimize friction during device transitions and ensure a seamless user experience.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -649,18 +732,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
