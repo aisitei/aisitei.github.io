@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="">
   <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="마이크로소프트, AI 대규모 언어 모델(LLM) 채팅 시나리오에 최적화된 iOS 스트리밍 마크다운 렌더링 라이브러리 오픈소스 공개">
+  <meta name="title-zh" content="마이크로소프트, AI 대규모 언어 모델(LLM) 채팅 시나리오에 최적화된 iOS 스트리밍 마크다운 렌더링 라이브러리 오픈소스 공개">
+  <meta name="title-ja" content="Microsoft、AI大規模言語モデル（LLM）のチャットシナリオに最適化されたiOSストリーミングMarkdownレンダリングライブラリをオープンソースで公開">
+  <meta name="title-en" content="Microsoft releases open-source iOS streaming Markdown rendering library optimized for AI Large Language Model (LLM) chat scenarios.">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -507,7 +538,7 @@
           
         </div>
 
-        <h1 class="article-title">마이크로소프트, AI 대규모 언어 모델(LLM) 채팅 시나리오에 최적화된 iOS 스트리밍 마크다운 렌더링 라이브러리 오픈소스 공개</h1>
+        <h1 class="article-title" data-ko="마이크로소프트, AI 대규모 언어 모델(LLM) 채팅 시나리오에 최적화된 iOS 스트리밍 마크다운 렌더링 라이브러리 오픈소스 공개" data-zh="마이크로소프트, AI 대규모 언어 모델(LLM) 채팅 시나리오에 최적화된 iOS 스트리밍 마크다운 렌더링 라이브러리 오픈소스 공개" data-ja="Microsoft、AI大規模言語モデル（LLM）のチャットシナリオに最適化されたiOSストリーミングMarkdownレンダリングライブラリをオープンソースで公開" data-en="Microsoft releases open-source iOS streaming Markdown rendering library optimized for AI Large Language Model (LLM) chat scenarios.">마이크로소프트, AI 대규모 언어 모델(LLM) 채팅 시나리오에 최적화된 iOS 스트리밍 마크다운 렌더링 라이브러리 오픈소스 공개</h1>
 
         <div class="article-info">
           
@@ -523,24 +554,18 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>개요</h3>
-        
         <p>Microsoft는 이번 주 수요일 GitHub를 통해 iOS 플랫폼용 SwiftStreamingMarkdown 렌더링 라이브러리를 오픈 소스로 공개했습니다. 이 라이브러리는 대규모 언어 모델(LLM) 채팅 인터페이스 등에서 마크다운(Markdown) 텍스트를 스트리밍 방식으로 렌더링할 때 발생하는 성능 병목 현상을 해결하기 위해 개발되었습니다.</p>
-        
         <p>해당 프로젝트는 MIT 라이선스를 채택하고 있으며, 개발자는 Swift Package Manager를 통해 애플리케이션에 직접 통합할 수 있습니다. 예상되는 추가 다운로드 용량은 약 3MB입니다. 이 라이브러리는 부드러운 스크롤과 글자 단위 애니메이션을 유지하면서도 메인 스레드의 과도한 부하를 방지하도록 설계되었습니다.</p>
-        
         <h3>기술적 특징</h3>
-        
         <p>기존의 마크다운 렌더링 방식과 달리, SwiftStreamingMarkdown은 스트리밍 텍스트 생성에 최적화되어 있습니다. AI가 답변을 생성하거나 대화 내용이 실시간으로 나타날 때, 기존 파서들은 문법 트리를 반복적으로 재구성해야 하므로 화면 끊김 현상이 발생하기 쉽습니다. 반면, 이 라이브러리는 텍스트가 도착하는 즉시 분석과 렌더링을 동시에 수행하며 내장된 전환 애니메이션과 부드러운 스크롤을 제공하여 채팅 인터페이스의 상호작용을 원활하게 유지합니다.</p>
-        
         <p>개발자는 StreamedMarkdownView 컴포넌트를 사용하여 점진적으로 데이터가 추가되는 비동기 데이터 소스를 연결함으로써 매끄러운 렌더링 경험을 얻을 수 있습니다. 정적 텍스트의 경우 MarkdownView 컴포넌트를 통해 일반적인 렌더링이 가능합니다.</p>
-        
         <h3>지원 문법 및 기능</h3>
-        
         <p>SwiftStreamingMarkdown은 CommonMark와 GitHub 스타일 마크다운(GFM)의 핵심 서브셋을 지원하며, 구체적으로 다음과 같은 요소들을 포함합니다:</p>
-        
         <ul>
 <li>제목, 단락</li>
 <li>굵게, 기울임, 취소선</li>
@@ -551,21 +576,100 @@
 <li>인라인 및 블록 수준의 LaTeX 수식</li>
 <li>LLM 출처 추적을 위한 인라인 참조 마크</li>
 </ul>
-        
         <p>지원되지 않는 일부 문법(예: 이미지는 대체 텍스트만 표시, 작업 목록 미구현 등)에 대해서는 원본 텍스트를 읽기 가능한 텍스트로 처리하여 콘텐츠 손실이나 렌더링 중단을 방지합니다.</p>
-        
         <p>또한 수학 공식 렌더링(LaTeX), 설정 가능한 타이포그래피 및 테마 시스템, iOS 컨텍스트 메뉴 등을 기본으로 지원하며, 분석 및 상호작용 추적을 위한 내장 훅(Hook)을 제공합니다. 개발자는 MarkdownRenderConfig 객체를 통해 전역 스타일을 통합 설정하고, MarkdownListener 프로토콜을 구현하여 렌더링 생명주기 이벤트와 사용자 상호작용을 수신할 수 있습니다.</p>
-        
         <h3>성능 및 통합</h3>
-        
         <p>Microsoft에 따르면 iPhone XS에서 진행한 성능 테스트 결과, 높은 부하의 스트리밍 콘텐츠가 지속적으로 전송되는 상황에서도 메인 스레드의 작업 부하가 다른 일반적인 라이브러리보다 효과적으로 제어되었으며 눈에 띄는 UI 끊김이 발생하지 않았습니다.</p>
-        
         <p>개발자는 Xcode에서 "File — Add Package Dependencies"를 통해 GitHub 저장소 주소를 입력하고 버전을 선택하여 통합하거나, Package.swift 파일에 의존성 항목을 추가할 수 있습니다. 또한 공식 GitHub 페이지에서는 SwiftUI 샘플 프로젝트를 제공하며, 이를 통해 스트리밍 데모, 설정 인터페이스 및 로그 리스너 구현 사례를 확인할 수 있습니다.</p>
-        
         <h3>총평</h3>
-        
-        <p>Microsoft가 공개한 SwiftStreamingMarkdown은 특히 LLM 기반의 실시간 채팅 서비스에서 필수적인 스트리밍 마크다운 렌더링 성능을 최적화한 라이브러리입니다. 낮은 메인 스레드 부하와 풍부한 기능 지원을 통해 개발자가 사용자에게 끊김 없는 인터페이스를 제공하는 데 큰 도움을 줄 것으로 기대됩니다.</p
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>项目概述</h3>
+<p>微软在 GitHub 上开源了面向 iOS 平台的 SwiftStreamingMarkdown 渲染库。该库专门针对大语言模型（LLM）聊天界面中的流式文本渲染进行了优化，旨在解决传统解析器在处理动态生成内容时导致的性能瓶颈。</p>
+<ul>
+<li>许可证：MIT</li>
+<li>集成方式：Swift Package Manager</li>
+<li>预计增加体积：约 3 MB</li>
+</ul>
+        <h3>核心技术优势</h3>
+<p>与需要反复重组语法树的传统方案不同，SwiftStreamingMarkdown 支持随文本到达同步进行解析与渲染。该库提供内置的过渡动画和平滑滚动功能，确保在 AI 生成内容时界面交互流畅。</p>
+<ul>
+<li>StreamedMarkdownView：用于绑定异步数据源，实现流式内容的逐段渲染。</li>
+<li>MarkdownView：用于常规静态文本的渲染。</li>
+</ul>
+        <h3>语法支持与功能特性</h3>
+<p>该库定位为 CommonMark 与 GitHub 风格 Markdown（GFM）的核心子集。对于不支持的扩展语法（如图片、任务列表等），系统会自动降级显示为可读文本。</p>
+<ul>
+<li>基础语法：标题、段落、粗体与斜体、删除线、行内代码、链接、围栏式代码块、引用块、有序与无序列表、分隔线、表格。</li>
+<li>高级功能：支持 LaTeX 行内与块级公式渲染、可配置的排版与主题系统、iOS 上下文菜单、用于分析与交互追踪的内置钩子。</li>
+<li>特殊支持：包含面向 LLM 来源溯源的内联引用标记。</li>
+</ul>
+        <h3>性能表现与集成</h3>
+<p>微软在 iPhone XS 上进行的测试表明，该库在持续流式内容推送的高负载场景下，主线程工作负载控制优于其他常见库，且无明显 UI 卡顿。</p>
+<ul>
+<li>支持通过 Swift Package Manager 在 Xcode 中快速添加依赖。</li>
+<li>官方仓库提供完整的 SwiftUI 示例工程，涵盖了流式演示、设置界面及日志监听等功能。</li>
+</ul>
+        <h3>总结</h3>
+<p>微软推出的 SwiftStreamingMarkdown 是一个专门为 iOS 端 LLM 对话场景优化的 Markdown 渲染库。它通过流式解析技术解决了大模型生成内容时的卡顿问题，并提供了丰富的 LaTeX 支持和优秀的性能表现。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>概要</h3>
+        <p>Microsoftは今週水曜日、GitHubを通じてiOSプラットフォーム向けのSwiftStreamingMarkdownレンダリングライブラリをオープンソースとして公開しました。このライブラリは、大規模言語モデル（LLM）のチャットインターフェースなどで、Markdownテキストをストリーミング形式でレンダリングする際に発生するパフォーマンスのボトルネックを解消するために開発されました。</p>
+        <p>本プロジェクトはMITライセンスを採用しており、開発者はSwift Package Managerを通じてアプリケーションに直接統合できます。追加のダウンロード容量は約3MBです。このライブラリは、スムーズなスクロールと文字単位のアニメーションを維持しながら、メインスレッドへの過度な負荷を防ぐように設計されています。</p>
+        <h3>技術的特徴</h3>
+        <p>従来のMarkdownレンダリング方式とは異なり、SwiftStreamingMarkdownはストリーミングテキストの生成に最適化されています。AIが回答を生成したり、会話内容がリアルタイムで表示される際、従来のパーサーは構文ツリーを繰り返し再構築する必要があるため、画面の途切れが発生しやすくなります。一方、このライブラリはテキストが届いた瞬間に解析とレンダリングを同時に実行し、内蔵された遷移アニメーションとスムーズなスクロールを提供することで、チャットインターフェースのインタラクションを円滑に保ちます。</p>
+        <p>開発者はStreamedMarkdownViewコンポーネントを使用して、動的にデータが追加される非同期データソースを接続することで、滑らかなレンダリング体験を得ることができます。静的なテキストの場合は、MarkdownViewコンポーネントを通じて通常のレンダリングが可能です。</p>
+        <h3>サポート構文および機能</h3>
+        <p>SwiftStreamingMarkdownはCommonMarkおよびGitHubスタイルMarkdown（GFM）の主要なサブセットをサポートしており、具体的には以下の要素が含まれます：</p>
+        <ul>
+<li>見出し、段落</li>
+<li>太字、斜体、打ち消し線</li>
+<li>インラインコード、リンク</li>
+<li>フェンス付きコードブロック、引用ブロック</li>
+<li>順序付きおよび順不同のリスト</li>
+<li>区切り線、表</li>
+<li>インラインおよびブロックレベルのLaTeX数式</li>
+<li>LLMのソース追跡のためのインライン参照マーク</li>
+</ul>
+        <p>サポートされていない一部の構文（例：画像は代替テキストのみ表示、タスクリスト未実装など）については、元のテキストを読み取り可能なテキストとして処理することで、コンテンツの損失やレンダリングの中断を防ぎます。</p>
+        <p>また、数学公式のレンダリング（LaTeX）、設定可能なタイポグラフィーおよびテーマシステム、iOSコンテキストメニューなどを標準でサポートしており、解析およびインタラクション追跡のための内蔵フック（Hook）も提供されます。開発者はMarkdownRenderConfigオブジェクトを通じてグローバルスタイルを一括設定し、MarkdownListenerプロトコルを実装することで、レンダリングライフサイクルイベントやユーザーのインタラクションを受信できます。</p>
+        <h3>性能および統合</h3>
+        <p>Microsoftによると、iPhone XSで実施されたパフォーマンステストの結果、高負荷なストリーミングコンテンツが継続的に送信される状況でも、メインスレッドの負荷が他の一般的なライブラリよりも効果的に制御され、目立ったUIの途切れが発生しないことが確認されました。</p>
+        <p>開発者はXcodeで「File — Add Package Dependencies」からGitHubリポジトリのアドレスを入力してバージョンを選択することで統合するか、Package.swiftファイルに依存関係を追加することができます。また、公式GitHubページではSwiftUIのサンプルプロジェクトが提供されており、ストリーミングデモ、設定インターフェース、ログリスナーの実装例を確認できます。</p>
+        <h3>まとめ</h3>
+        <p>MicrosoftはLLMチャットなどのストリーミングテキスト表示に最適化されたiOS向けMarkdownレンダリングライブラリ「SwiftStreamingMarkdown」を公開しました。このライブラリは、リアルタイムなコンテンツ更新時でもメインスレッドの負荷を抑えつつ、スムーズなスクロールやアニメーションを実現します。CommonMarkやGFMの主要機能を網羅しており、LaTeX数式やカスタマイズ可能なテーマなど、高度な機能も備えています。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Overview</h3>
+        <p>Microsoft released the SwiftStreamingMarkdown rendering library for the iOS platform on GitHub this Wednesday. This library was developed to resolve performance bottlenecks that occur when rendering Markdown text in a streaming manner, particularly in Large Language Model (LLM) chat interfaces.</p>
+        <p>The project is released under the MIT license and can be integrated directly into applications via Swift Package Manager. The estimated additional download size is approximately 3MB. The library is designed to maintain smooth scrolling and character-level animations while preventing excessive load on the main thread.</p>
+        <h3>Technical Features</h3>
+        <p>Unlike traditional Markdown rendering methods, SwiftStreamingMarkdown is optimized for streaming text generation. When AI generates responses or content appears in real-time, standard parsers often cause screen stuttering because they must repeatedly reconstruct the syntax tree. In contrast, this library performs analysis and rendering simultaneously as text arrives, providing built-in transition animations and smooth scrolling to maintain a fluid interaction within chat interfaces.</p>
+        <p>Developers can achieve a seamless rendering experience by using the StreamedMarkdownView component to connect asynchronous data sources where data is added incrementally. For static text, the MarkdownView component can be used for standard rendering.</p>
+        <h3>Supported Syntax and Features</h3>
+        <p>SwiftStreamingMarkdown supports core subsets of CommonMark and GitHub Flavored Markdown (GFM), specifically including the following elements:</p>
+        <ul>
+<li>Headers and paragraphs</li>
+<li>Bold, italics, and strikethrough</li>
+<li>Inline code and links</li>
+<li>Fenced code blocks and blockquotes</li>
+<li>Ordered and unordered lists</li>
+<li>Horizontal rules and tables</li>
+<li>Inline and block-level LaTeX formulas</li>
+<li>Inline reference marks for LLM source tracking</li>
+</ul>
+        <p>For certain unsupported syntaxes (e.g., images only display alt text, task lists are not implemented), the library processes the original text as readable plain text to prevent content loss or rendering interruptions.</p>
+        <p>Additionally, it provides native support for mathematical formula rendering (LaTeX), configurable typography and theme systems, and iOS context menus. It also includes built-in hooks for analytics and interaction tracking. Developers can configure global styles through the MarkdownRenderConfig object and implement the MarkdownListener protocol to receive rendering lifecycle events and user interactions.</p>
+        <h3>Performance and Integration</h3>
+        <p>According to Microsoft, performance tests conducted on an iPhone XS showed that even when high-load streaming content was continuously transmitted, the main thread workload was managed more effectively than with other common libraries, resulting in no noticeable UI stuttering.</p>
+        <p>Developers can integrate the library by entering the GitHub repository address and selecting a version via "File — Add Package Dependencies" in Xcode, or by adding the dependency entry to the Package.swift file. Furthermore, the official GitHub page provides a SwiftUI sample project where developers can review examples of streaming demos, configuration interfaces, and log listener implementations.</p>
+        <h3>Summary</h3>
+        <p>Microsoft has released SwiftStreamingMarkdown, an iOS library designed to provide smooth, real-time Markdown rendering for applications like LLM chat interfaces. By processing text as it arrives rather than rebuilding the syntax tree repeatedly, it ensures high performance and fluid animations on mobile devices. The library supports a wide range of features including GFM, LaTeX math, and customizable themes, with easy integration via Swift Package Manager.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -676,18 +780,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
