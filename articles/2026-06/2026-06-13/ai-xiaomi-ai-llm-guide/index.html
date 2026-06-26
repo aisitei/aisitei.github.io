@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="Xiaomi">
   <meta name="article-brand-color" content="#FF6900">
+  <meta name="title-ko" content="Xiaomi AI 및 LLM: 모든 모델, 모든 기능, 알아야 할 모든 것">
+  <meta name="title-zh" content="Xiaomi AI 및 LLM: 모든 모델, 모든 기능, 알아야 할 모든 것">
+  <meta name="title-ja" content="Xiaomi AI 및 LLM: 모든 모델, 모든 기능, 알아야 할 모든 것">
+  <meta name="title-en" content="Xiaomi AI 및 LLM: 모든 모델, 모든 기능, 알아야 할 모든 것">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">Xiaomi AI 및 LLM: 모든 모델, 모든 기능, 알아야 할 모든 것</h1>
+        <h1 class="article-title" data-ko="Xiaomi AI 및 LLM: 모든 모델, 모든 기능, 알아야 할 모든 것" data-zh="Xiaomi AI 및 LLM: 모든 모델, 모든 기능, 알아야 할 모든 것" data-ja="Xiaomi AI 및 LLM: 모든 모델, 모든 기능, 알아야 할 모든 것" data-en="Xiaomi AI 및 LLM: 모든 모델, 모든 기능, 알아야 할 모든 것">Xiaomi AI 및 LLM: 모든 모델, 모든 기능, 알아야 할 모든 것</h1>
 
         <div class="article-info">
           
@@ -527,98 +558,234 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>Xiaomi의 AI 여정과 LLM 경쟁 참여</h3>
-        
         <p>Xiaomi는 그동안 저렴한 스마트폰과 스마트 홈 기기로 잘 알려져 왔으나, 지난 1년 반 동안 조용히 세계에서 가장 야심 찬 AI 플레이어 중 하나로 변모해 왔습니다.</p>
-        
         <p>거대 언어 모델(LLM)부터 음성 복제, 자율형 휴대폰 에이전트에 이르기까지 Xiaomi는 매우 빠르게 움직이고 있습니다. 다음은 Xiaomi가 거대한 AI 및 LLM 경쟁에서 어느 위치에 와 있는지에 대한 모든 내용입니다.</p>
-        
         <h3>MiMo-7B: LLM 레이스의 시작</h3>
-        
         <p>Xiaomi의 AI 이야기는 2025년 4월, 첫 번째 오픈 소스 대형 언어 모델인 MiMo-7B를 출시하며 본격적으로 시작되었습니다. "MiMo"는 Xiaomi Model(MiandMo)을 의미합니다. 초기부터 주목할 점은 Xiaomi가 단순한 채팅보다는 추론과 코딩에 집중했다는 것입니다.</p>
-        
         <p>MiMo-7B는 70억 개의 파라미터를 가졌음에도 불구하고 뛰어난 성능을 보여주었습니다.</p>
-        
         <ul>
 <li>MATH-500 같은 수학 벤치마크에서 강화 학습 버전이 95.8%를 기록했습니다.</li>
 <li>AIME 2024 및 2025 수학 경진대회에서 OpenAI의 o1-mini와 Alibaba의 Qwen-32B-Preview를 능가했습니다.</li>
 </ul>
-        
         <p>이 모델은 2000억 개의 추론 토큰으로 구성된 특별히 선별된 데이터셋과 세 단계의 학습 과정(총 25조 토큰)을 통해 훈련되었습니다. MiMo-7B는 MIT 라이선스로 공개되었으며 Hugging Face에서 이용 가능합니다.</p>
-        
         <p>개발팀은 DeepSeek 출신의 Luo Fuli가 이끌었습니다.</p>
-        
         <h3>MiMo-V2-Flash 및 MiMo-V2-Pro</h3>
-        
         <p>2025년 12월, Xiaomi는 Mixture-of-Experts(MoE) 설계를 통해 대부분의 가중치를 "비활성" 상태로 유지하면서도 높은 성능을 내는 3,090억 파라미터 모델인 MiMo-V2-Flash를 발표했습니다.</p>
-        
         <p>MiMo-V2-Flash의 특징은 다음과 같습니다.</p>
-        
         <ul>
 <li>추론 벤치마크에서 오픈 소스 모델 중 상위 2위를 차지했습니다.</li>
 <li>소프트웨어 엔지니어링 테스트(SWE-Bench Verified)에서 GPT-5 및 Claude 4.5 Sonnet과 대등한 성능을 보였습니다.</li>
 <li>초당 150개의 토큰을 생성하며, 추론 비용은 Claude의 약 2.5% 수준으로 매우 경제적입니다.</li>
 </ul>
-        
         <p>MiMo-V2-Flash는 또한 모델이 한 번에 여러 토큰을 생성하고 검증할 수 있게 하는 Multi-Token Prediction(MTP) 기술을 도입했습니다.</p>
-        
         <p>2026년 3월에는 더욱 야심 찬 모델인 MiMo-V2-Pro가 등장했습니다. 이 모델은 총 1조 개 이상의 파라미터를 보유하며, 한 번에 수백 페이지 분량의 소설을 처리할 수 있는 100만 토큰의 컨텍스트 창을 지원합니다. 특히 복잡한 계획과 실행이 필요한 "에이전트(agentic)" 작업을 위해 설계되었습니다.</p>
-        
         <p>MiMo-V2-Pro와 함께 멀티모달 버전인 MiMo-V2-Omni와 텍스트 음성 변환용 MiMo-V2-TTS가 동시 출시되었습니다.</p>
-        
         <h3>MiMo-V2.5 및 특화 모델군</h3>
-        
         <p>2026년 4월 말, Xiaomi는 V2 제품군의 장점을 통합한 MiMo-V2.5-Pro를 발표했습니다. 이 모델은 텍스트, 이미지, 오디오, 비디오를 모두 처리할 수 있는 1.02조 파라미터 규모의 모델입니다.</p>
-        
         <p>V2.5-Pro는 출시 당시 Artificial Analysis 벤치마크에서 에이전트 기능 부문 세계 최고의 오픈 소스 모델로 선정되었습니다. 또한, Xiaomi는 100만 토큰 컨텍스트 창 사용에 대한 추가 비용을 제거하여 개발자 친화적인 환경을 제공했습니다.</p>
-        
         <p>또한 다양한 목적을 위한 특화 모델들도 출시되었습니다.</p>
-        
         <ul>
 <li>MiMo Code: 긴 프로젝트에서도 문맥을 유지하는 지속적 메모리 시스템을 갖춘 터미널 기반 AI 코딩 에이전트입니다.</li>
 <li>MiMo-VL 및 MiMo-VL-Miloco-7B: 시각 언어 모델로, 특히 Miloco는 가정 환경을 이해하도록 설계되어 일상적인 제스처와 가사 활동을 인식합니다.</li>
 <li>MiDashengLM-7B 및 MiMo-Audio: 단순 음성 인식을 넘어 음악, 주변 소리, 화자의 감정까지 파악하는 오음(audio) AI 모델입니다.</li>
 </ul>
-        
         <h3>OmniVoice 및 음성 기술 파이프라인</h3>
-        
         <p>2026년 5월에 공개된 OmniVoice는 Xiaomi AI Lab의 차세대 Kaldi 팀에서 개발한 TTS 모델입니다.</p>
-        
         <ul>
 <li>646개 언어를 지원하며, 데이터가 부족한 저자원 언어도 포함합니다.</li>
 <li>단 몇 초의 샘플만으로 목소리를 복제하는 제로샷(zero-shot) 음성 복제 기능을 제공하며, 여러 언어에 걸쳐 원본 목소리의 특징을 유지하면서 자연스러운 음성을 생성합니다.</li>
 </ul>
-        
         <p>OmniVoice는 단일 트랜스포머 구조를 통해 매우 빠른 추론 속도를 자랑하며, 다양한 발음 교정 도구를 포함합니다. MiMo-V2.5-TTS와 ASR 시스템은 이들과 결합하여 개발자들이 별도의 도구 연결 없이도 엔드포인트 음성 기반 제품을 구축할 수 있게 합니다.</p>
-        
         <h3>소비자용 서비스: Xiao AI 및 HyperAI</h3>
-        
         <p>일반 사용자를 위한 Xiaomi의 핵심 경험은 두 가지로 나뉩니다.</p>
-        
         <p>Xiao AI(小爱)는 스마트폰, 스피커, 웨어러블 기기에서 작동하는 장수 음성 비서입니다. HyperOS 2와 함께 "Super Xiao AI"로 업그레이드되어 더 나은 문맥 기억과 이미지 생성 기능을 갖추게 되었습니다.</p>
-        
         <p>HyperAI는 Xiaomi 15 시리즈부터 적용된 기능 세트로, 실시간 번역, AI 글쓰기 지원, 스마트 음성 인식(녹음 요약), AI 사진 편집 등을 포함하며 Google Gemini를 백엔드에 통합하기도 했습니다.</p>
-        
         <h3>미래의 핵심: miclaw</h3>
-        
         <p>Xiaomi AI 전략의 가장 앞선 부분은 2026년 3월 발표된 miclaw입니다. 이는 단순한 챗봇이 아니라 MiMo 기반의 자율형 AI 에이전트입니다.</p>
-        
         <p>miclaw는 사용자의 의도를 해석하여 앱 실행, 인터페이스 탐색, 양식 채우기 등 다단계 작업을 스스로 수행합니다. "추론-실행 루프"를 통해 결과가 나올 때까지 과정을 확인하며 진행하며, 개인 정보는 로컬에서 처리되어 보안을 강화했습니다.</p>
-        
         <p>miclaw는 현재 Xiaomi 17 시리즈를 지원하는 비공개 베타 단계에 있으며, HyperOS 4에서 시스템 수준으로 통합될 예정입니다.</p>
-        
         <h3>투자 규모와 전략적 목표</h3>
-        
         <p>2026년 3월, Lei Jun CEO는 향후 3년간 AI 분야에 최소 87억 달러를 투자할 것이라고 발표했습니다. 이는 기존 R&D 예산 외 추가 투자이며, 2026년 연간 R&D 지출은 약 400억 위안(약 57억 달러)에 달할 전망입니다.</p>
-        
         <p>Xiaomi는 자체 칩, OS, 그리고 독자적인 AI 모델을 하나의 기기에 통합하는 "대통합(grand convergence)"을 목표로 하고 있습니다. 이미 OpenRouter 트래픽의 상당 부분을 점유하며 기술적 경쟁력을 입증하고 있습니다.</p>
-        
         <h3>총평</h3>
-        
         <p>Xiaomi는 단순한 하드웨어 제조사를 넘어, 자체 모델부터 에이전트 시스템까지 아우르는 완전한 AI 스택을 구축하며 매우 빠르게 성장하고 있습니다. 특히 강력한 투자 규모와 오픈 소스 전략을 통해 독자적인 생태계를 구축하는 데 박차를 가하고 있으며, 향후 miclaw와 HyperOS 4의 통합을 통해 진정한 AI 플랫폼 기업으로 자리매김할 것으로 기대됩니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>Xiaomi's AI Journey and LLM Competition</h3>
+        <p>While Xiaomi has traditionally been known for its affordable smartphones and smart home devices, the company has quietly transformed into one of the world's most ambitious AI players over the past 1.5 years.</p>
+        <p>From Large Language Models (LLMs) to voice cloning and autonomous mobile agents, Xiaomi is moving at a rapid pace. Here is everything regarding Xiaomi's position in the massive AI and LLM competition.</p>
+        <h3>MiMo-7B: The Start of the LLM Race</h3>
+        <p>Xiaomi's AI narrative began in earnest in April 2025 with the release of its first open-source large language model, MiMo-7B. "MiMo" stands for Xiaomi Model (MiandMo). From the beginning, it was notable that Xiaomi focused on reasoning and coding rather than simple chatting.</p>
+        <p>Despite having only 7 billion parameters, MiMo-7B demonstrated exceptional performance.</p>
+        <ul>
+<li>The reinforced learning version scored 95.8% on math benchmarks such as MATH-500.</li>
+<li>It outperformed OpenAI's o1-mini and Alibaba's Qwen-32B-Preview in the AIME 2024 and 2025 math competitions.</li>
+</ul>
+        <p>The model was trained using a specially curated dataset of 200 billion reasoning tokens through a three-stage training process (totaling 25 trillion tokens). MiMo-7B is released under the MIT license and is available on Hugging Face.</p>
+        <p>The development team was led by Luo Fuli, formerly of DeepSeek.</p>
+        <h3>MiMo-V2-Flash and MiMo-V2-Pro</h3>
+        <p>In December 2025, Xiaomi announced MiMo-V2-Flash, a 309-billion parameter model utilizing a Mixture-of-Experts (MoE) design to maintain high performance while keeping most weights "inactive."</p>
+        <p>Key features of MiMo-V2-Flash include:</p>
+        <ul>
+<li>Ranked second among open-source models in reasoning benchmarks.</li>
+<li>Demonstrated performance comparable to GPT-5 and Claude 4.5 Sonnet in software engineering tests (SWE-Bench Verified).</li>
+<li>Generates 150 tokens per second with inference costs at approximately 2.5% of Claude's level, making it highly economical.</li>
+</ul>
+        <p>MiMo-V2-Flash also introduced Multi-Token Prediction (MTP) technology, allowing the model to generate and verify multiple tokens simultaneously.</p>
+        <p>In March 2026, the even more ambitious MiMo-V2-Pro was released. This model features over 1 trillion parameters and supports a 1 million token context window capable of processing hundreds of pages of text at once. It is specifically designed for "agentic" tasks requiring complex planning and execution.</p>
+        <p>Launched alongside MiMo-V2-Pro were the multimodal version, MiMo-V2-Omni, and the text-to-speech model, MiMo-V2-TTS.</p>
+        <h3>MiMo-V2.5 and Specialized Model Families</h3>
+        <p>In late April 2026, Xiaomi released MiMo-V2.5-Pro, which integrates the advantages of the V2 series. This is a 1.02 trillion parameter model capable of processing text, images, audio, and video.</p>
+        <p>At launch, V2.5-Pro was selected as the world's best open-source model for agent capabilities in the Artificial Analysis benchmark. Additionally, Xiaomi provided a developer-friendly environment by removing extra costs for using the 1 million token context window.</p>
+        <p>Several specialized models were also released for specific purposes:</p>
+        <ul>
+<li>MiMo Code: A terminal-based AI coding agent with a continuous memory system to maintain context in long projects.</li>
+<li>MiMo-VL and MiMo-VL-Miloco-7B: Vision language models; specifically, Miloco is designed to understand home environments and recognize daily gestures and household activities.</li>
+<li>MiDashengLM-7B and MiMo-Audio: Audio AI models that go beyond simple speech recognition to identify music, ambient sounds, and the speaker's emotions.</li>
+</ul>
+        <h3>OmniVoice and Voice Technology Pipeline</h3>
+        <p>Released in May 2026, OmniVoice is a TTS model developed by the next-generation Kaldi team at Xiaomi AI Lab.</p>
+        <ul>
+<li>Supports 646 languages, including low-resource languages with limited data.</li>
+<li>Provides zero-shot voice cloning, capable of cloning a voice from just a few seconds of samples while maintaining original characteristics across multiple languages.</li>
+</ul>
+        <p>OmniVoice boasts very fast inference speeds through a single transformer architecture and includes various pronunciation correction tools. Combined with MiMo-V2.5-TTS and ASR systems, these allow developers to build endpoint voice-based products without connecting separate tools.</p>
+        <h3>Consumer Services: Xiao AI and HyperAI</h3>
+        <p>Xiaomi's core experience for general users is divided into two main areas.</p>
+        <p>Xiao AI (小爱) is a long-standing voice assistant operating on smartphones, speakers, and wearable devices. It was upgraded to "Super Xiao AI" with HyperOS 2, featuring improved context memory and image generation capabilities.</p>
+        <p>HyperAI is a suite of features introduced starting with the Xiaomi 15 series, including real-time translation, AI writing assistance, smart voice recognition (recording summaries), and AI photo editing. It also integrates Google Gemini as a backend in certain applications.</p>
+        <h3>The Future Core: miclaw</h3>
+        <p>The most advanced part of Xiaomi's AI strategy is miclaw, announced in March 2026. This is not a simple chatbot but an autonomous AI agent based on MiMo.</p>
+        <p>miclaw interprets user intent to perform multi-step tasks such as executing apps, navigating interfaces, and filling out forms. Through a "reasoning-execution loop," it verifies the process until a result is achieved, while personal information is processed locally to enhance security.</p>
+        <p>miclaw is currently in a private beta phase supporting the Xiaomi 17 series and is scheduled for system-level integration in HyperOS 4.</p>
+        <h3>Investment Scale and Strategic Goals</h3>
+        <p>In March 2026, CEO Lei Jun announced an investment of at least $8.7 billion in the AI field over the next three years. This is additional funding beyond the existing R&D budget; annual R&D spending for 2026 is expected to reach approximately 40 billion yuan (roughly $5.7 billion).</p>
+        <p>Xiaomi aims for a "grand convergence" by integrating its own chips, OS, and proprietary AI models into a single device. It has already demonstrated technical competitiveness by capturing a significant portion of OpenRouter traffic.</p>
+        <h3>Conclusion</h3>
+        <p>Xiaomi is evolving rapidly from a hardware manufacturer into a company building a complete AI stack, ranging from internal models to agent systems. Through massive investment and an open-source strategy, the company is establishing its own ecosystem and is expected to establish itself as a true AI platform company through the integration of miclaw and HyperOS 4.</p>
+        <h3>Summary</h3>
+<p>Xiaomi has rapidly transitioned from a hardware-focused brand to a major player in the AI space by developing a comprehensive suite of models, including the MiMo series and the OmniVoice system. The company is investing billions into "grand convergence," integrating proprietary chips, OS, and autonomous agents like miclaw into its ecosystem. This strategy positions Xiaomi as a full-stack AI platform provider rather than just a consumer electronics manufacturer.</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>XiaomiのAIへの歩みとLLM競争への参戦</h3>
+        <p>Xiaomiはこれまで、手頃な価格のスマートフォンやスマートホーム機器で広く知られてきましたが、過去1年半の間に、世界で最も野心的なAIプレーヤーの一人へと静かに変貌を遂げてきました。</p>
+        <p>大規模言語モデル（LLM）から音声複製、自律型スマートフォンエージェントに至るまで、Xiaomiは非常に迅速な動きを見せています。以下は、Xiaomiが巨大なAIおよびLLM競争においてどのような位置にいるかを示す詳細です。</p>
+        <h3>MiMo-7B：LLMレースの始まり</h3>
+        <p>XiaomiのAIへの歩みは、2025年4月に最初のオープンソース大規模言語モデルであるMiMo-7Bをリリースしたことで本格的に始まりました。「MiMo」はXiaomi Model（MiandMo）を意味します。初期段階から注目すべき点は、Xiaomiが単なるチャットよりも推論とコーディングに焦点を当てたことです。</p>
+        <p>MiMo-7Bは70億のパラメータを持ちながらも、優れた性能を示しました。</p>
+        <ul>
+<li>MATH-500などの数学ベンチマークにおいて、強化学習バージョンが95.8%を記録。</li>
+<li>AIME 2024および2025の数学競技において、OpenAIのo1-miniやAlibabaのQwen-32B-Previewを上回る性能を達成。</li>
+</ul>
+        <p>このモデルは、特別に選定された2,000億の推論トークンを含むデータセットと、3段階の学習プロセス（計25兆トークン）を通じてトレーニングされました。MiMo-7BはMITライセンスで公開されており、Hugging Faceで利用可能です。</p>
+        <p>開発チームはDeepSeek出身のLuo Fuliによって率いられました。</p>
+        <h3>MiMo-V2-FlashおよびMiMo-V2-Pro</h3>
+        <p>2025年12月、XiaomiはMixture-of-Experts（MoE）設計を採用し、ほとんどの重みを「非アクティブ」な状態に保ちながらも高い性能を発揮する3,090億パラメータモデルであるMiMo-V2-Flashを発表しました。</p>
+        <p>MiMo-V2-Flashの特徴は以下の通りです。</p>
+        <ul>
+<li>推論ベンチマークにおいて、オープンソースモデルの中で上位2位を獲得。</li>
+<li>ソフトウェアエンジニアリングテスト（SWE-Bench Verified）において、GPT-5およびClaude 4.5 Sonnetに匹敵する性能を実証。</li>
+<li>毎秒150トークンを生成し、推論コストはClaudeの約2.5%という非常に経済的な水準を実現。</li>
+</ul>
+        <p>MiMo-V2-Flashはさらに、モデルが一度に複数のトークンを生成・検証できるようにするMulti-Token Prediction（MTP）技術を採用しています。</p>
+        <p>2026年3月には、より野心的なモデルであるMiMo-V2-Proが登場しました。このモデルは計10億以上のパラメータを持ち、一度に数百ページ分の小説を処理できる100万トークンのコンテキストウィンドウをサポートします。特に、複雑な計画と実行を必要とする「エージェント（agentic）」のタスク向けに設計されています。</p>
+        <p>MiMo-V2-Proと同時に、マルチモーダル版のMiMo-V2-Omniおよびテキストから音声への変換用MiMo-V2-TTSもリリースされました。</p>
+        <h3>MiMo-V2.5および特化型モデル群</h3>
+        <p>2026年4月末、XiaomiはV2シリーズの利点を統合したMiMo-V2.5-Proを発表しました。このモデルはテキスト、画像、オーディオ、ビデオのすべてを処理可能な1.02兆パラメータ規模のモデルです。</p>
+        <p>V2.5-Proはリリース当時、Artificial Analysisベンチマークにおいてエージェント機能部門で世界最高のオープンソースモデルに選ばれました。また、Xiaomiは100万トークンのコンテキストウィンドウの使用に関する追加費用を撤廃し、開発者フレンドリーな環境を提供しました。</p>
+        <p>さらに、さまざまな目的のための特化型モデルもリリースされました。</p>
+        <ul>
+<li>MiMo Code：長いプロジェクトでも文脈を維持する持続的なメモリシステムを備えた、ターミナルベースのAIコーディングエージェント。</li>
+<li>MiMo-VLおよびMiMo-VL-Miloco-7B：視覚言語モデル（VLM）であり、特にMilocoは家庭環境を理解するように設計され、日常的なジェスチャーや家事活動を認識します。</li>
+<li>MiDashengLM-7BおよびMiMo-Audio：単なる音声認識を超え、音楽、周囲の音、話者の感情まで把握するオーディオAIモデル。</li>
+</ul>
+        <h3>OmniVoiceと音声技術パイプライン</h3>
+        <p>2026年5月に公開されたOmniVoiceは、Xiaomi AI Labの次世代Kaldiチームによって開発されたTTSモデルです。</p>
+        <ul>
+<li>646の言語をサポートしており、データが不足している低リソース言語も含まれます。</li>
+<li>わずか数秒のサンプルだけで声を複製するゼロショット（zero-shot）音声複製機能を提供し、複数の言語にわたって元の声の特徴を維持しながら自然な音声を生成します。</li>
+</ul>
+        <p>OmniVoiceは単一のトランスフォーマー構造を通じて非常に高速な推論速度を誇り、さまざまな発音補正ツールを含んでいます。MiMo-V2.5-TTSとASRシステムはこれらと統合され、開発者が個別のツール接続なしにエンドポイント音声ベースの製品を構築できるようにします。</p>
+        <h3>消費者向けサービス：Xiao AIおよびHyperAI</h3>
+        <p>一般ユーザー向けのXiaomiの主要な体験は、大きく2つの要素に分かれます。</p>
+        <p>Xiao AI（小愛）は、スマートフォン、スピーカー、ウェアラブルデバイスで動作する長寿の音声アシスタントです。HyperOS 2とともに「Super Xiao AI」へとアップグレードされ、より優れた文脈記憶と画像生成機能を備えるようになりました。</p>
+        <p>HyperAIはXiaomi 15シリーズから適用された機能セットであり、リアルタイム翻訳、AIライティング支援、スマート音声認識（録音の要約）、AI写真編集などを含み、バックエンドにGoogle Geminiを統合することもあります。</p>
+        <h3>未来の核心：miclaw</h3>
+        <p>XiaomiのAI戦略の最前線は、2026年3月に発表されたmiclawです。これは単なるチャットボットではなく、MiMoベースの自律型AIエージェントです。</p>
+        <p>miclawはユーザーの意図を解釈し、アプリの実行、インターフェスの探索、フォームの入力など、多段階のタスクを自ら遂行します。「推論-実行ループ」を通じて結果が出るまでプロセスを確認しながら進行し、個人情報はローカルで処理されるためセキュリティも強化されています。</p>
+        <p>miclawは現在Xiaomi 17シリーズをサポートする非公開ベータ段階にあり、HyperOS 4でシステムレベルに統合される予定です。</p>
+        <h3>投資規模と戦略的目標</h3>
+        <p>2026年3月、Lei Jun CEOは今後3年間でAI分野に少なくとも87億ドルを投資すると発表しました。これは既存のR&D予算とは別の追加投資であり、2026年の年間R&D支出は約400億元（約57億ドル）に達する見込みです。</p>
+        <p>Xiaomiは自社チップ、OS、そして独自のAIモデルを一つのデバイスに統合する「大統合（grand convergence）」を目指しています。すでにOpenRouterのトラフィックのかなりの部分を占有しており、技術的な競争力を証明しています。</p>
+        <h3>総評</h3>
+        <p>Xiaomiは単なるハードウェアメーカーの枠を超え、独自モデルからエージェントシステムまで網羅する完全なAIスタックを構築し、急速な成長を遂げています。特に強力な投資規模とオープンソース戦略を通じて独自のエコシステムを構築しており、将来的にmiclawとHyperOS 4の統合を通じて真のAIプラットフォーム企業としての地位を確立することが期待されます。</p>
+        <h3>まとめ</h3>
+<p>Xiaomiはハードウェア製造から、独自モデルや高度な推論能力を持つ「MiMo」シリーズを展開する本格的なAI企業へと変貌を遂げています。独自のチップ、OS、そして自律型エージェント「miclaw」を統合する戦略により、包括的なAIエコシステムの構築を目指しています。大規模な投資とオープンソースへの注力により、次世代のAIプラットフォームとしての地位を確立しようとしています。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Xiaomi's AI Journey and LLM Competition</h3>
+        <p>While Xiaomi has long been recognized for its affordable smartphones and smart home devices, it has quietly transformed into one of the world's most ambitious AI players over the past year and a half.</p>
+        <p>From Large Language Models (LLMs) to voice cloning and autonomous mobile agents, Xiaomi is moving at an accelerated pace. Here is everything regarding Xiaomi's position in the massive AI and LLM competition.</p>
+        <h3>MiMo-7B: The Start of the LLM Race</h3>
+        <p>Xiaomi's AI narrative began in earnest in April 2025 with the release of its first open-source large language model, MiMo-7B. "MiMo" stands for Xiaomi Model (MiandMo). From the beginning, it was notable that Xiaomi focused on reasoning and coding rather than simple chatting.</p>
+        <p>Despite having only 7 billion parameters, MiMo-7B demonstrated exceptional performance.</p>
+        <ul>
+<li>The reinforced learning version scored 95.8% on math benchmarks such as MATH-500.</li>
+<li>It outperformed OpenAI's o1-mini and Alibaba's Qwen-32B-Preview in the AIME 2024 and 2025 math competitions.</li>
+</ul>
+        <p>The model was trained using a specially curated dataset of 200 billion reasoning tokens through a three-stage training process (totaling 25 trillion tokens). MiMo-7B is released under the MIT license and is available on Hugging Face.</p>
+        <p>The development team was led by Luo Fuli, who previously worked at DeepSeek.</p>
+        <h3>MiMo-V2-Flash and MiMo-V2-Pro</h3>
+        <p>In December 2025, Xiaomi unveiled MiMo-V2-Flash, a 309 billion parameter model. Utilizing a Mixture-of-Experts (MoE) design, it maintains high performance while keeping most weights "inactive."</p>
+        <p>Key features of MiMo-V2-Flash include:</p>
+        <ul>
+<li>Ranked second among open-source models in reasoning benchmarks.</li>
+<li>Demonstrated performance comparable to GPT-5 and Claude 4.5 Sonnet in software engineering tests (SWE-Bench Verified).</li>
+<li>Generates 150 tokens per second, making it highly economical with inference costs at approximately 2.5% of Claude's levels.</li>
+</ul>
+        <p>MiMo-V2-Flash also introduced Multi-Token Prediction (MTP) technology, allowing the model to generate and verify multiple tokens simultaneously.</p>
+        <p>In March 2026, an even more ambitious model, MiMo-V2-Pro, was released. This model features over 1 trillion parameters and supports a 1 million token context window capable of processing hundreds of pages of text at once. It is specifically designed for "agentic" tasks requiring complex planning and execution.</p>
+        <p>Alongside MiMo-V2-Pro, the multimodal version MiMo-V2-Omni and the text-to-speech model MiMo-V2-TTS were released simultaneously.</p>
+        <h3>MiMo-V2.5 and Specialized Model Families</h3>
+        <p>In late April 2026, Xiaomi launched MiMo-V2.5-Pro, which integrates the advantages of the V2 series. This is a 1.02 trillion parameter model capable of processing text, images, audio, and video.</p>
+        <p>At launch, V2.5-Pro was selected as the world's best open-source model for agent capabilities in the Artificial Analysis benchmark. Additionally, Xiaomi provided a developer-friendly environment by removing extra costs for using the 1 million token context window.</p>
+        <p>Furthermore, several specialized models were released for specific purposes:</p>
+        <ul>
+<li>MiMo Code: A terminal-based AI coding agent with a continuous memory system to maintain context in long projects.</li>
+<li>MiMo-VL and MiMo-VL-Miloco-7B: Vision language models; specifically, Miloco is designed to understand home environments and recognize everyday gestures and household activities.</li>
+<li>MiDashengLM-7B and MiMo-Audio: Audio AI models that go beyond simple speech recognition to identify music, ambient sounds, and the speaker's emotions.</li>
+</ul>
+        <h3>OmniVoice and Voice Technology Pipeline</h3>
+        <p>Released in May 2026, OmniVoice is a TTS model developed by the next-generation Kaldi team at Xiaomi AI Lab.</p>
+        <ul>
+<li>Supports 646 languages, including low-resource languages with limited data.</li>
+<li>Features zero-shot voice cloning, capable of cloning a voice with only a few seconds of samples while maintaining original characteristics across multiple languages.</li>
+</ul>
+        <p>OmniVoice boasts very fast inference speeds through a single transformer structure and includes various pronunciation correction tools. Combined with MiMo-V2.5-TTS and ASR systems, it allows developers to build endpoint voice-based products without connecting separate tools.</p>
+        <h3>Consumer Services: Xiao AI and HyperAI</h3>
+        <p>Xiaomi's core experience for general users is divided into two main areas.</p>
+        <p>Xiao AI (小爱) is a long-standing voice assistant operating on smartphones, speakers, and wearable devices. It was upgraded to "Super Xiao AI" with HyperOS 2, featuring improved context memory and image generation capabilities.</p>
+        <p>HyperAI is a suite of features introduced starting with the Xiaomi 15 series, including real-time translation, AI writing assistance, smart voice recognition (recording summaries), and AI photo editing. It also integrates Google Gemini as a backend for certain functions.</p>
+        <h3>The Future Core: miclaw</h3>
+        <p>The most advanced part of Xiaomi's AI strategy is miclaw, announced in March 2026. This is not a simple chatbot but an autonomous AI agent based on MiMo.</p>
+        <p>miclaw interprets user intent to perform multi-step tasks such as executing apps, navigating interfaces, and filling out forms. Through a "reasoning-execution loop," it verifies the process until a result is achieved, while personal information is processed locally to enhance security.</p>
+        <p>miclaw is currently in a private beta stage supporting the Xiaomi 17 series and is scheduled to be integrated at the system level in HyperOS 4.</p>
+        <h3>Investment Scale and Strategic Goals</h3>
+        <p>In March 2026, CEO Lei Jun announced that Xiaomi would invest at least $8.7 billion in the AI field over the next three years. This is an additional investment beyond the existing R&D budget; annual R&D spending for 2026 is expected to reach approximately 40 billion yuan (about $5.7 billion).</p>
+        <p>Xiaomi aims for a "grand convergence" by integrating its own chips, OS, and proprietary AI models into a single device. It has already demonstrated technical competitiveness by capturing a significant portion of OpenRouter traffic.</p>
+        <h3>Overall Assessment</h3>
+        <p>Xiaomi is evolving rapidly from a hardware manufacturer into a full-stack AI company, encompassing everything from internal models to agent systems. Through massive investment and an open-source strategy, the company is building its own ecosystem and is expected to establish itself as a true AI platform provider through the integration of miclaw and HyperOS 4.</p>
+        <h3>Summary</h3>
+<p>Xiaomi has rapidly transitioned from a hardware-focused brand into a major player in the AI space by developing a comprehensive suite of models, including the MiMo series and specialized tools for coding and vision. With significant investments and a focus on "grand convergence," the company aims to integrate proprietary chips, OS, and autonomous agents like miclaw into its ecosystem. This strategy positions Xiaomi as a full-stack AI platform provider rather than just a device manufacturer.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -747,18 +914,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
