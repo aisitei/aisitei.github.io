@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="완벽한 맥 게임 생태계: Apple 업데이트 도구, AI를 활용하여 게임 이식 가속">
+  <meta name="title-zh" content="완벽한 맥 게임 생태계: Apple 업데이트 도구, AI를 활용하여 게임 이식 가속">
+  <meta name="title-ja" content="完璧なMacゲームエコシステム：AppleのアップデートツールがAIを活用してゲーム移植を加速">
+  <meta name="title-en" content="Perfect Mac Gaming Ecosystem: Apple Update Tools Accelerate Game Porting Using AI">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">완벽한 맥 게임 생태계: Apple 업데이트 도구, AI를 활용하여 게임 이식 가속</h1>
+        <h1 class="article-title" data-ko="완벽한 맥 게임 생태계: Apple 업데이트 도구, AI를 활용하여 게임 이식 가속" data-zh="완벽한 맥 게임 생태계: Apple 업데이트 도구, AI를 활용하여 게임 이식 가속" data-ja="完璧なMacゲームエコシステム：AppleのアップデートツールがAIを活用してゲーム移植を加速" data-en="Perfect Mac Gaming Ecosystem: Apple Update Tools Accelerate Game Porting Using AI">완벽한 맥 게임 생태계: Apple 업데이트 도구, AI를 활용하여 게임 이식 가속</h1>
 
         <div class="article-info">
           
@@ -527,30 +558,75 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>Game Porting Toolkit 4 공개 및 개요</h3>
-        
         <p>IT之家에 따르면, 6월 9일 IT之家는 기술 매체 AppleInsider가 보도한 내용을 전했습니다. 이 보도에 따르면, Apple은 2026년 글로벌 개발자 대회(WWDC)의 기조연설을 마친 후 Mac 게임 생태계를 위해 'Game Porting Toolkit 4' 도구 키트를 출시할 예정입니다.</p>
-        
         <p>참고로, Game Porting Toolkit은 Apple이 개발자들에게 제공하는 게임 포팅(移植) 도구 키트로, 주로 게임의 Mac 환경 적응 속도를 높이는 데 사용됩니다. 이 도구 키트는 게임 스튜디오와 기술 팀이 적응 작업, 디버깅, 성능 최적화에 드는 노력을 줄여줍니다.</p>
-        
         <h3>주요 개선 사항 및 AI 통합</h3>
-        
         <p>Game Porting Toolkit 4의 가장 큰 변화는 새로운 버전의 도구 키트가 GitHub 코드 저장소와 함께 출시되었다는 점입니다. 이 저장소에는 오픈 소스 AI 에이전트 기능과 예제 코드가 집중적으로 제공되어, 개발자들이 AI 프로그래밍 능력을 쉽게 활용할 수 있도록 지원합니다.</p>
-        
         <p>Apple은 또한 이러한 AI 에이전트가 포팅 과정에서 더욱 심층적인 Metal 지식을 갖추게 되었다고 언급했습니다. 이들은 명령줄을 통해 Metal 도구에 접근하여 Metal 워크로드를 직접 캡처하고, 디버깅하며, 성능 분석까지 수행할 수 있습니다.</p>
-        
         <h3>기술적 특징 및 환경 지원</h3>
-        
         <p>Game Porting Toolkit 4의 평가 환경은 이제 Metal 4를 지원합니다. 이를 통해 개발자들은 최신 인터페이스를 기반으로 호환성과 성능을 테스트할 수 있어, 문제를 더 일찍 발견하고 해결할 수 있습니다.</p>
-        
         <p>Metal 4는 Apple이 출시한 최신 세대 그래픽 및 컴퓨팅 인터페이스 버전입니다. 이 기술은 주로 게임 화면 렌더링, 그래픽 계산, 그리고 일부 고성능 작업을 처리하는 데 사용되며, 개발자들은 이를 활용하여 호환성과 성능을 테스트할 수 있습니다.</p>
-        
         <h3>총평</h3>
-        
         <p>Apple이 Game Porting Toolkit 4를 통해 Mac 게임 생태계의 발전을 강력하게 추진하고 있음을 보여줍니다. 특히 AI 에이전트와 Metal 4 지원을 통합함으로써, 개발자들이 더욱 빠르고 효율적으로 고성능 포팅 작업을 수행할 수 있는 환경을 제공하는 것이 핵심입니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>Game Porting Toolkit 4 发布</h3>
+<p>Apple 推出了 Game Porting Toolkit 4，旨在为开发者提供更高效的 Mac 游戏移植工具。该工具包主要用于加速游戏适配过程，显著减少游戏工作室在适配、调试以及性能优化方面的重复工作量。</p>
+        <h3>AI 赋能与开源支持</h3>
+<p>Game Porting Toolkit 4 的核心变化在于配套上线了 GitHub 代码仓库。该仓库提供开源智能体技能和示例代码，旨在帮助开发者更便捷地调用 AI 编程能力。</p>
+<p>这些集成的 AI 智能体具备深厚的 Metal 知识储备，能够通过命令行访问相关工具，直接完成 Metal 工作负载的捕获、调试与性能分析。</p>
+        <h3>技术规格与兼容性</h3>
+<ul>
+<li>支持 Metal 4：作为 Apple 最新一代图形与计算接口，Metal 4 用于处理游戏渲染、图形计算及高性能任务。</li>
+<li>评估环境优化：开发者可基于最新接口测试兼容性并更早发现性能问题。</li>
+</ul>
+        <h3>总结</h3>
+<p>Apple 推出的 Game Porting Toolkit 4 通过引入 GitHub 开源代码仓库和具备深厚 Metal 知识的 AI 智能体，显著提升了游戏在 Mac 平台上的移植效率。该版本支持最新的 Metal 4 接口，旨在为开发者提供更强大的性能分析与调试工具。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>Game Porting Toolkit 4の公開と概要</h3>
+<p>IT之家の報道（AppleInsiderによる情報）によると、Appleは2026年のWWDC基調講演を終えた後、Macゲームエコシステム向けの「Game Porting Toolkit 4」をリリースする予定です。</p>
+<p>Game Porting Toolkitは、開発者がゲームをMac環境へ移植（ポート）する際のスピードを向上させるためのツールキットです。このツールにより、ゲームスタジオや技術チームは、アダプテーション、デバッグ、およびパフォーマンスの最適化にかかる労力を削減することができます。</p>
+        <h3>主な改善点とAIの統合</h3>
+<p>Game Porting Toolkit 4における大きな変化は、GitHubリポジトリと共にリリースされることです。このリポジトリにはオープンソースのAIエージェント機能やサンプルコードが重点的に提供されており、開発者がAIプログラミング能力を容易に活用できるよう支援します。</p>
+<p>Appleはまた、これらのAIエージェントが移植プロセスにおいてより深いMetalの知識を備えるようになったと述べています。これらはコマンドラインを通じてMetalツールにアクセスし、以下の操作を実行することが可能です。</p>
+<ul>
+<li>Metalワークロードのキャプチャ</li>
+<li>デバッグ</li>
+<li>パフォーマンス分析</li>
+</ul>
+        <h3>技術的特徴と環境サポート</h3>
+<p>Game Porting Toolkit 4の評価環境は、新たにMetal 4をサポートします。これにより、開発者は最新のインターフェースに基づいて互換性とパフォーマンスをテストでき、問題をより早期に発見し解決することが可能になります。</p>
+<p>Metal 4はAppleが提供する最新世代のグラフィックスおよびコンピューティングインターフェースです。この技術は主に以下の処理に使用されます。</p>
+<ul>
+<li>ゲーム画面のレンダリング</li>
+<li>グラフィック計算</li>
+<li>一部の高パフォーマンスなタスクの処理</li>
+</ul>
+        <h3>まとめ</h3>
+<p>AppleはGame Porting Toolkit 4を通じてMacゲームエコシステムの発展を強力に推進しています。AIエージェントの統合とMetal 4への対応により、開発者はより迅速かつ効率的に高性能な移植作業を行うことができる環境が提供されます。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Game Porting Toolkit 4 Release and Overview</h3>
+        <p>According to IT House, which reported on information from AppleInsider, Apple plans to release the "Game Porting Toolkit 4" for the Mac gaming ecosystem following the keynote at the 2026 Worldwide Developers Conference (WWDC).</p>
+        <p>The Game Porting Toolkit is a suite of tools provided by Apple to help developers port games to the Mac environment more efficiently. This toolkit is designed to reduce the effort required by game studios and technical teams during adaptation, debugging, and performance optimization.</p>
+        <h3>Key Improvements and AI Integration</h3>
+        <p>The most significant change in Game Porting Toolkit 4 is its release alongside a GitHub code repository. This repository focuses on providing open-source AI agent features and example codes, allowing developers to easily leverage AI programming capabilities.</p>
+        <p>Apple also noted that these AI agents have gained deeper knowledge of Metal during the porting process. These agents can access Metal tools via the command line to directly capture, debug, and perform performance analysis on Metal workloads.</p>
+        <h3>Technical Features and Environment Support</h3>
+        <p>The evaluation environment for Game Porting Toolkit 4 now supports Metal 4. This allows developers to test compatibility and performance based on the latest interface, enabling them to identify and resolve issues earlier in the development cycle.</p>
+        <p>Metal 4 is Apple's latest generation of graphics and computing interfaces. This technology is primarily used for rendering game scenes, performing graphic calculations, and handling high-performance tasks, which developers can utilize to test both compatibility and performance.</p>
+        <h3>Summary</h3>
+        <p>Apple is actively promoting the growth of the Mac gaming ecosystem through the release of Game Porting Toolkit 4. By integrating AI agents and Metal 4 support, Apple provides a more efficient environment for developers to perform high-performance porting tasks quickly and effectively.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -693,18 +769,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {

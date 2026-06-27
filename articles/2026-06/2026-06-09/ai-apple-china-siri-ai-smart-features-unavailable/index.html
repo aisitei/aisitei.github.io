@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple, 중국 본토에서 Siri AI 및 기타 스마트 기능 미제공">
+  <meta name="title-zh" content="Apple, 중국 본토에서 Siri AI 및 기타 스마트 기능 미제공">
+  <meta name="title-ja" content="Apple、中国本土でSiri AIおよびその他のスマート機能を提供せず">
+  <meta name="title-en" content="Apple won't offer Siri AI and other smart features in mainland China.">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">Apple, 중국 본토에서 Siri AI 및 기타 스마트 기능 미제공</h1>
+        <h1 class="article-title" data-ko="Apple, 중국 본토에서 Siri AI 및 기타 스마트 기능 미제공" data-zh="Apple, 중국 본토에서 Siri AI 및 기타 스마트 기능 미제공" data-ja="Apple、中国本土でSiri AIおよびその他のスマート機能を提供せず" data-en="Apple won't offer Siri AI and other smart features in mainland China.">Apple, 중국 본토에서 Siri AI 및 기타 스마트 기능 미제공</h1>
 
         <div class="article-info">
           
@@ -527,42 +558,97 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>WWDC26: Siri AI 및 새로운 스마트 기능 공개</h3>
-        
         <p>IT之家에 따르면, Apple은 WWDC26 주제 발표회에서 Siri AI와 여러 가지 새로운 Apple 스마트 기능을 공개했습니다.</p>
-        
         <h3>지역별 출시 제한 사항</h3>
-        
         <p>Apple은 공식 발표 자리에서 중국 본토 지역의 경우, Siri AI 및 기타 Apple 스마트 신기능을 제공하기 위해서는 규제 요건에 맞춰 관련 작업을 진행해야 하므로 현재는 제공되지 않는다고 밝혔습니다.</p>
-        
         <p>또한 초기에는 유럽 연합(EU) 지역의 iOS와 iPadOS에서도 Siri AI가 제공되지 않을 예정입니다.</p>
-        
         <h3>유럽연합(EU) 시장 출시 계획 및 규제 장벽</h3>
-        
         <p>Apple 공식 발표에 따르면, Siri AI는 macOS 27, visionOS 27, watchOS 27을 통해 EU 사용자에게 공개될 예정입니다.</p>
-        
         <p>하지만 《디지털 시장법》(DMA)으로 인해 Apple은 iOS 27 및 iPadOS 27용 Siri AI를 유럽 연합에 출시할 수 없습니다. 지난 몇 달 동안 EU 규제 기관은 Apple이 제시한 어떤 방안도 승인하지 않았습니다.</p>
-        
         <ul>
 <li><strong>규제 요구 사항:</strong> DMA는 Apple에게 모든 AI가 사용자 장치에 거의 무제한으로 접근할 권한을 부여하고, 사용자의 지속적인 가시성이나 통제 없이 자율적으로 이 접근 권한을 사용할 수 있도록 요구합니다.</li>
 <li><strong>Apple의 해결책:</strong> Apple은 사용자에게 심각한 위험이 될 수 있다는 점을 고려하여 '신뢰 시스템 에이전트(Trusted System Agent)'라는 솔루션을 설계했습니다. 이는 가상 비서가 EU 장치 내에서 Siri AI와 동일한 기능과 능력을 안전하게 접근할 수 있도록 하는 중개자 역할을 합니다.</li>
 <li><strong>향후 계획:</strong> Apple은 이 신규 방안을 EU에 출시하고 18개월에 걸쳐 점진적으로 확대할 계획이지만, 유럽 위원회는 이에 동의하지 않았습니다.</li>
 </ul>
-        
         <h3>기기 및 하드웨어 요구 사항</h3>
-        
         <p>Apple 스마트 신기능이 적용되는 기기의 하드웨어 사양 요건에 대해 Apple은 다음과 같이 밝혔습니다.</p>
-        
         <ul>
 <li><strong>적용 가능 모델:</strong> 현재 Apple 스마트 기능을 지원하는 기존 제품군에서도 사용 가능합니다.</li>
 <li><strong>최상위 성능 모델 제한:</strong> 가장 강력한 온디바이스(on-device) 모델은 iPhone Air, iPhone 17 Pro 시리즈, M4 iPad, M3 Mac 및 이후 출시되는 기기에서만 사용할 수 있습니다.</li>
 </ul>
-        
         <h3>총평</h3
 <p>이번 WWDC26 발표는 Siri AI와 새로운 스마트 기능을 전격 공개했지만, 지역별 규제 장벽에 직면해 있다는 점이 가장 큰 특징입니다. 특히 유럽 연합의 DMA는 Apple에게 강력한 접근 권한을 요구하며 출시 계획에 차질을 빚게 했습니다. 그럼에도 불구하고 신뢰 시스템 에이전트와 같은 독자적인 해결책을 제시하며 향후 소프트웨어 생태계 확장에 대한 의지를 보여주었습니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>Siri AI 与区域可用性</h3>
+<p>Apple 在 WWDC26 主题演讲中发布了 Siri AI 及多项 Apple 智能新功能。然而，由于监管要求，这些功能在中国大陆暂不提供。</p>
+<p>在欧盟地区，Siri AI 的推出受到《数字市场法案》（DMA）的影响：</p>
+<ul>
+<li>Siri AI 将在 macOS 27、visionOS 27 和 watchOS 27 上向欧盟用户开放。</li>
+<li>由于监管机构未接受 Apple 关于“可信系统代理”的方案，Siri AI 目前无法在欧盟地区的 iOS 27 和 iPadOS 27 上提供。</li>
+</ul>
+        <h3>硬件配置要求</h3>
+<p>Apple 智能新功能的可用性取决于具体的设备型号：</p>
+<ul>
+<li>基础 Apple 智能功能：可在当前已支持的 Apple 智能产品机型上使用。</li>
+<li>最强端侧模型：仅限 iPhone Air、iPhone 17 Pro 系列手机，以及 M4 iPad 和 M3 Mac 及后续机型。</li>
+</ul>
+        <h3>总结</h3>
+<p>Apple 在 WWDC26 发布了 Siri AI 等核心功能，但受限于不同地区的监管政策，相关功能在中国大陆暂不提供。同时，由于欧盟 DMA 法案的影响，Siri AI 在欧洲的 iOS 和 iPadOS 系统上推迟上线，且高性能模型仅支持特定高端机型。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>WWDC26: Siri AIおよび新機能の公開</h3>
+        <p>ITハウスの報道によると、AppleはWWDC26の基調講演においてSiri AIおよび複数の新しいスマート機能を発表しました。</p>
+        <h3>地域別の提供制限</h3>
+        <p>Appleは公式発表の中で、中国本土においては規制要件に合わせた対応が必要なため、Siri AIおよびその他の新機能は現在提供されないことを明らかにしました。</p>
+        <p>また、初期段階では欧州連合（EU）地域のiOSおよびiPadOSにおいてもSiri AIは提供されない予定です。</p>
+        <h3>欧州連合（EU）市場の展開計画と規制の壁</h3>
+        <p>Appleの公式発表によると、Siri AIはmacOS 27、visionOS 27、watchOS 27を通じてEUユーザーに公開される予定です。</p>
+        <p>しかし、デジタル市場法（DMA）の影響により、iOS 27およびiPadOS 27向けのSiri AIを欧州連合でリリースすることはできません。過去数ヶ月間、EUの規制当局はAppleが提示したいかなる案も承認していません。</p>
+        <ul>
+<li><strong>規制要件:</strong> DMAはAppleに対し、すべてのAIがユーザーデバイスへのほぼ無制限なアクセス権を持つこと、およびユーザーの継続的な監視や制御なしに自律的にその権限を使用することを求めています。</li>
+<li><strong>Appleの解決策:</strong> Appleは深刻なリスクを考慮し、「信頼システムエージェント（Trusted System Agent）」というソリューションを設計しました。これは、仮想アシスタントがEUデバイス内においてSiri AIと同等の機能と能力に安全にアクセスするための仲介役として機能します。</li>
+<li><strong>今後の計画:</strong> Appleはこの新案をEUでリリースし、18ヶ月かけて段階的に拡大する計画ですが、欧州委員会はこれに同意していません。</li>
+</ul>
+        <h3>デバイスおよびハードウェア要件</h3>
+        <p>Appleのスマート新機能が適用されるデバイスのハードウェア要件について、Appleは次のように述べています。</p>
+        <ul>
+<li><strong>対応モデル:</strong> 現在のスマート機能をサポートする既存の製品群でも利用可能です。</li>
+<li><strong>最上位性能モデルの制限:</strong> 最も強力なオンデバイス（on-device）モデルは、iPhone Air、iPhone 17 Proシリーズ、M4 iPad、M3 Macおよびその後に発売されるデバイスでのみ使用可能です。</li>
+</ul>
+        <h3>まとめ</h3>
+        <p>WWDC26においてSiri AIと新機能が発表されましたが、EUのDMAなどの規制により地域ごとに提供制限が生じています。Appleは「信頼システムエージェント」を提案するなど独自の解決策を模索しており、今後のソフトウェアエコシステムの拡大に向けた意欲を示しています。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>WWDC26: Siri AI and New Smart Features Unveiled</h3>
+        <p>According to IT House, Apple unveiled Siri AI and a variety of new smart features during its WWDC26 keynote presentation.</p>
+        <h3>Regional Availability Restrictions</h3>
+        <p>During the official announcement, Apple stated that these features will not be available in Mainland China at this time, as they must undergo adjustments to comply with local regulatory requirements. Furthermore, Siri AI is initially scheduled to be unavailable on iOS and iPadOS devices within the European Union (EU).</p>
+        <h3>EU Market Launch Plans and Regulatory Barriers</h3>
+        <p>According to Apple's official announcement, Siri AI will be made available to EU users through macOS 27, visionOS 27, and watchOS 27.</p>
+        <p>However, due to the Digital Markets Act (DMA), Apple is currently unable to launch Siri AI for iOS 27 and iPadOS 27 in the European Union. For several months, EU regulators have not approved any of the proposals submitted by Apple regarding these platforms.</p>
+        <ul>
+<li><strong>Regulatory Requirements:</strong> The DMA requires that all AI be granted nearly unlimited access to user devices, allowing them to operate autonomously without constant visibility or control from the user.</li>
+<li><strong>Apple's Solution:</strong> Considering potential risks to users, Apple designed a "Trusted System Agent." This serves as an intermediary to ensure virtual assistants can safely access capabilities equivalent to Siri AI on EU devices.</li>
+<li><strong>Future Plans:</strong> Apple plans to introduce this new approach in the EU and gradually expand it over 18 months; however, the European Commission has not yet agreed to this plan.</li>
+</ul>
+        <h3>Device and Hardware Requirements</h3>
+        <p>Apple provided the following hardware specifications for devices supporting these new smart features:</p>
+        <ul>
+<li><strong>Compatible Models:</strong> These features are available on existing product lines that currently support Apple's smart functions.</li>
+<li><strong>High-Performance Model Limitations:</strong> The most powerful on-device models will only be accessible on iPhone Air, the iPhone 17 Pro series, M4 iPad, M3 Mac, and subsequent devices.</li>
+</ul>
+        <h3>Summary</h3>
+        <p>Apple's WWDC26 announcement introduced Siri AI and new smart features while highlighting significant regional hurdles caused by the Digital Markets Act in Europe. While Apple has proposed a "Trusted System Agent" to navigate safety concerns and regulatory demands, it currently faces pushback from EU regulators. Despite these obstacles, the move demonstrates Apple's commitment to expanding its intelligent software ecosystem.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -759,18 +845,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {

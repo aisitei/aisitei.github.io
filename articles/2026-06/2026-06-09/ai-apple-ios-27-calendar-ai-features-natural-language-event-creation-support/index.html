@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple iOS 27 버전 캘린더/미리 알림에 AI 기능 추가: 자연어 기반 이벤트 생성 지원">
+  <meta name="title-zh" content="Apple iOS 27 버전 캘린더/미리 알림에 AI 기능 추가: 자연어 기반 이벤트 생성 지원">
+  <meta name="title-ja" content="Apple iOS 27でカレンダーとリマインダーにAI機能を追加：自然言語によるイベント作成をサポート">
+  <meta name="title-en" content="Apple iOS 27 adds AI features to Calendar/Reminders: Support for natural language-based event creation">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">Apple iOS 27 버전 캘린더/미리 알림에 AI 기능 추가: 자연어 기반 이벤트 생성 지원</h1>
+        <h1 class="article-title" data-ko="Apple iOS 27 버전 캘린더/미리 알림에 AI 기능 추가: 자연어 기반 이벤트 생성 지원" data-zh="Apple iOS 27 버전 캘린더/미리 알림에 AI 기능 추가: 자연어 기반 이벤트 생성 지원" data-ja="Apple iOS 27でカレンダーとリマインダーにAI機能を追加：自然言語によるイベント作成をサポート" data-en="Apple iOS 27 adds AI features to Calendar/Reminders: Support for natural language-based event creation">Apple iOS 27 버전 캘린더/미리 알림에 AI 기능 추가: 자연어 기반 이벤트 생성 지원</h1>
 
         <div class="article-info">
           
@@ -527,39 +558,94 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>iOS 27: 캘린더 및 리마인더에 탑재된 AI 기능</h3>
-        
         <p>IT之家에 따르면, 6월 9일 개최된 2026년 WWDC(세계 개발자 회의)에서 Apple은 iOS 27 시스템을 통해 '캘린더(Calendar)'와 '리마인더(Reminders)' 앱에 다수의 AI 기능을 추가했습니다.</p>
-        
         <h3>자연어 입력 기반 일정 자동 생성</h3>
-        
         <p>테크 미디어 MacRumors가 직접 체험한 결과, Apple은 캘린더 및 리마인더의 사용 방식을 기존의 '수동 입력'에서 '자연어 입력' 방식으로 전환하고 있습니다.</p>
-        
         <p>사용자는 캘린더 앱의 '+' 버튼을 누른 후 "목요일 저녁 8시에 여자친구 Sarah와 영화 보기"와 같은 문장을 직접 입력할 수 있으며, 시스템이 자동으로 시간, 날짜, 이벤트 내용을 인식하여 해당 일정을 생성해줍니다. 이로써 항목별로 일정을 채워 넣는 번거로운 과정을 생략할 수 있습니다.</p>
-        
         <h3>주요 기능 개선 사항</h3>
-        
         <ul>
 <li><strong>직관적인 일정 생성:</strong> 사용자가 특정 날짜로 이동하거나 새 이벤트를 만들 필요 없이, 입력 과정 중에 시스템이 제시하는 날짜 및 시간 제안을 바로 클릭하여 일정을 완성할 수 있습니다.</li>
 <li><strong>반복 이벤트 설정:</strong> 문장에 "매주"와 같은 주기적 빈도 설명이 포함될 경우, 시스템이 자동으로 반복되는 이벤트를 설정해 줍니다. 이는 정기 회의, 수업 일정, 고정된 여정 관리 등에 유용합니다.</li>
 </ul>
-        
         <h3>리마인더 및 편집 기능 강화</h3>
-        
         <p>리마인더 앱 역시 동일한 로직을 적용받았습니다. 예를 들어 "목요일 오후 2시에 장보기 알림"이라고 입력하면, 시스템이 자동으로 할 일 내용과 알림 시간을 추출하여 빠르게 할 일을 생성해줍니다.</p>
-        
         <p>또한, Apple은 캘린더 이벤트 편집 기능도 간소화했습니다. 만약 어떤 회의가 원래 매주 반복되도록 설정되어 있다가 나중에 '2주마다'로 변경될 경우, 캘린더 앱이 미래 일정의 반복 주기를 지능적으로 조정해줍니다.</p>
-        
         <h3>시각적 인텔리전스(Visual Intelligence) 연동</h3>
-        
         <p>Apple은 Visual Intelligence 기능을 캘린더 및 리마인더와 더욱 긴밀하게 연결했습니다. 사용자가 온라인에서 활동 정보를 보고 스크린샷을 찍거나, iPhone으로 행사 전단지를 촬영할 경우, 시스템이 이미지 속 관련 내용을 인식하여 자동으로 캘린더 앱에 추가하는 것이 가능해졌습니다.</p>
-        
         <h3>총평</h3>
-        
         <p>iOS 27은 AI 기반의 자연어 처리 기능을 핵심적으로 도입하여 사용자가 일정을 관리하는 방식을 혁신했습니다. 특히, 단순한 입력 과정을 넘어 문장만으로 복잡한 반복 일정이나 외부 정보를 자동으로 인식하고 정리해주는 기능들은 사용자 편의성을 극대화하며 스마트폰 운영체제의 새로운 기준을 제시합니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>日历与提醒事项引入自然语言输入</h3>
+<p>在 WWDC 2026 上，Apple 宣布 iOS 27 将为 Calendar 和 Reminders 应用加入多项 AI 功能。核心变化是将“手动填写”转变为“自然输入”，用户可以通过描述性文字快速创建日程。</p>
+<ul>
+<li>支持直接输入如“周四晚上 8 点和女友 Sarah 看电影”等内容，系统会自动识别并提取时间、日期及事件详情。</li>
+<li>在输入过程中，用户可直接点击系统提供的日期和时间建议来完成创建。</li>
+<li>Reminders 应用同步采用该逻辑，例如输入“周四下午 2 点提醒我去买菜”，系统将自动生成对应的待办任务。</li>
+</ul>
+        <h3>智能日程管理与编辑优化</h3>
+<p>Apple 进一步提升了对周期性事件的处理能力，并简化了复杂的修改流程。</p>
+<ul>
+<li>系统能够识别“每周”等频率描述，自动为例会、课程或固定行程设置重复提醒。</li>
+<li>增强了日历事件的智能编辑功能：当用户修改已存在的重复事件频率（如从“每周一次”改为“每两周一次”）时，系统会自动调整所有后续相关事件的周期。</li>
+</ul>
+        <h3>Visual Intelligence 视觉智能联动</h3>
+<p>Apple 强化了 Visual Intelligence 与日历、提醒事项的协同能力，提升信息采集效率。</p>
+<ul>
+<li>用户可以通过截取网页上的活动信息或使用 iPhone 拍摄活动传单/海报。</li>
+<li>系统能够识别图片中的相关内容，并自动将其添加到 Calendar 应用中。</li>
+</ul>
+        <h3>总结</h3>
+<p>Apple 在 WWDC 2026 上展示了 iOS 27 对 Calendar 和 Reminders 的深度 AI 赋能。通过引入自然语言输入、智能识别重复频率以及 Visual Intelligence 视觉抓取，显著简化了用户在处理日程和待办事项时的操作步骤。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>iOS 27：カレンダーおよびリマインダーに搭載されるAI機能</h3>
+        <p>IT之家の報道によると、2016年6月9日に開催されたWWDC（世界開発者会議）において、AppleはiOS 27システムを通じて「カレンダー」と「リマインダー」アプリに多数のAI機能を統合しました。</p>
+        <h3>自然言語入力に基づくスケジュールの自動生成</h3>
+        <p>テックメディアのMacRumorsによる実機検証の結果、Appleはカレンダーおよびリマインダーの操作を従来の「手動入力」から「自然言語入力」へと転換させています。</p>
+        <p>ユーザーがカレンダーアプリの「+」ボタンを押した後、「木曜日の午後8時に彼女のSarahと映画を見る」といった文章を直接入力すると、システムが自動的に時間、日付、イベントの内容を認識し、スケジュールを作成します。これにより、項目ごとに情報を入力する手間を省くことが可能になります。</p>
+        <h3>主な機能改善点</h3>
+        <ul>
+<li><strong>直感的なスケジュール作成：</strong> ユーザーが特定の日付へ移動したり新しいイベントを作成する操作を行う必要がなく、入力の過程でシステムが提示する日付や時間の提案を直接タップすることでスケジュールを完成させることができます。</li>
+<li><strong>繰り返しイベントの設定：</strong> 文中に「毎週」といった周期的な頻度の説明が含まれる場合、システムが自動的に繰り返しの設定を行います。これは定期的な会議、授業のスケジュール、固定された旅程の管理などに非常に便利です。</li>
+</ul>
+        <h3>リマインダーおよび編集機能の強化</h3>
+        <p>リマインダーアプリにも同様のロジックが適用されています。例えば「木曜日の午後2時に買い物をする」と入力すると、システムが自動的にタスクの内容と通知時間を抽出し、迅速にToDoを作成します。</p>
+        <p>さらに、Appleはカレンダーイベントの編集機能も簡略化しました。例えば、ある会議が元々「毎週」繰り返されるように設定されていたものを後から「2週間ごと」に変更した場合、カレンダーアプリが将来のスケジュールの繰り返し周期をインテリジェントに調整します。</p>
+        <h3>ビジュアル・インテリジェンス（Visual Intelligence）との連携</h3>
+        <p>AppleはVisual Intelligence機能をカレンダーおよびリマインダーとより密接に連携させました。ユーザーがオンライン上の活動情報をスクリーンショットで保存したり、iPhoneでイベントのチラシを撮影した場合、システムが画像内の関連情報を認識し、自動的にカレンダーアプリに追加することが可能になりました。</p>
+        <h3>総評</h3>
+        <p>iOS 27はAIベースの自然言語処理機能を核として導入し、ユーザーのスケジュール管理方法に革新をもたらしました。単なる入力プロセスの簡略化にとどまらず、文章から複雑な繰り返し予定や外部情報を自動的に認識・整理する機能は、利便性を最大化し、スマートフォンOSの新たな基準を提示しています。</p>
+        <h3>まとめ</h3>
+<p>iOS 27ではAIによる自然言語処理の導入により、カレンダーとリマインダーでの入力が大幅に簡略化されます。ユーザーの入力した文章から時間や繰り返し設定を自動で判別するほか、Visual Intelligenceとの連携により画像からイベント情報を抽出することも可能になります。これらの機能は、スケジュール管理における利便性を飛躍的に向上させます。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>iOS 27: AI Features in Calendar and Reminders</h3>
+        <p>According to IT之家, Apple introduced several AI features for the "Calendar" and "Reminders" apps within the iOS 27 system during WWDC held on June 9.</p>
+        <h3>Natural Language Input for Automatic Schedule Creation</h3>
+        <p>Based on testing by tech media MacRumors, Apple is transitioning the user experience of Calendar and Reminders from "manual input" to "natural language input."</p>
+        <p>After tapping the "+" button in the Calendar app, users can enter a sentence such as "Watch a movie with my girlfriend Sarah at 8 PM on Thursday." The system then automatically recognizes the time, date, and event details to generate the schedule, eliminating the need for manually filling out individual fields.</p>
+        <h3>Key Feature Enhancements</h3>
+        <ul>
+<li><strong>Intuitive Schedule Creation:</strong> Users can complete an entry by clicking on dates and times suggested by the system during the input process, without needing to navigate to a specific date or create a new event from scratch.</li>
+<li><strong>Recurring Event Settings:</strong> If a sentence includes frequency descriptions such as "every week," the system automatically configures the event as a recurring one. This is particularly useful for managing regular meetings, class schedules, and fixed itineraries.</li>
+</ul>
+        <h3>Enhanced Reminders and Editing Capabilities</h3>
+        <p>The Reminders app also utilizes the same logic. For example, entering "Grocery shopping reminder at 2 PM on Thursday" allows the system to automatically extract the task content and notification time to create a reminder quickly.</p>
+        <p>Furthermore, Apple has streamlined the editing process for Calendar events. If an event that was originally set to repeat weekly is changed to "every two weeks," the Calendar app intelligently adjusts the frequency of all future scheduled occurrences.</p>
+        <h3>Integration with Visual Intelligence</h3>
+        <p>Apple has more closely integrated its Visual Intelligence feature with Calendar and Reminders. When a user takes a screenshot of online information or captures a photo of an event flyer with an iPhone, the system can recognize relevant details within the image and automatically add them to the Calendar app.</p>
+        <h3>Summary</h3>
+        <p>iOS 27 introduces significant AI-driven natural language processing to revolutionize how users manage their schedules. By automating complex recurring events and extracting data from images via Visual Intelligence, Apple aims to maximize user convenience and set a new standard for mobile operating systems.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -664,18 +750,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {

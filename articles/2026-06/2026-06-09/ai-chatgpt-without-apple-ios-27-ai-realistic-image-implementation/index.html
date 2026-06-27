@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="ChatGPT 없이 Apple iOS 27 버전에서 AI 실사 생생 이미지 구현">
+  <meta name="title-zh" content="ChatGPT 없이 Apple iOS 27 버전에서 AI 실사 생생 이미지 구현">
+  <meta name="title-ja" content="ChatGPTなしでApple iOS 27において、AIによる実写のような鮮明な画像を生成">
+  <meta name="title-en" content="Generating Realistic AI Images on Apple iOS 27 Without ChatGPT">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">ChatGPT 없이 Apple iOS 27 버전에서 AI 실사 생생 이미지 구현</h1>
+        <h1 class="article-title" data-ko="ChatGPT 없이 Apple iOS 27 버전에서 AI 실사 생생 이미지 구현" data-zh="ChatGPT 없이 Apple iOS 27 버전에서 AI 실사 생생 이미지 구현" data-ja="ChatGPTなしでApple iOS 27において、AIによる実写のような鮮明な画像を生成" data-en="Generating Realistic AI Images on Apple iOS 27 Without ChatGPT">ChatGPT 없이 Apple iOS 27 버전에서 AI 실사 생생 이미지 구현</h1>
 
         <div class="article-info">
           
@@ -527,28 +558,86 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>iOS 27: Image Playground에 네이티브 사실적 이미지 생성 기능 추가</h3>
-        
         <p>IT Home의 보도에 따르면, 지난 6월 9일에 개최된 WWDC 2026에서 Apple은 iOS 27 시스템을 통해 'Image Playground'에 처음으로 네이티브(Native) 사실적 이미지 생성 기능을 탑재했습니다. 이 기능을 사용하면 사용자가 텍스트 프롬프트만 입력하는 것만으로 사진과 매우 유사한 스타일의 AI 이미지를 직접 생성할 수 있게 됩니다.</p>
-        
         <h3>iOS 버전별 기능 비교 및 개선점</h3>
-        
         <p>이전 iOS 26 시스템에서는 'Any Style' 옵션을 사용하기 위해 ChatGPT 연결을 거쳐야 했으며, 이를 통해 Apple이 미리 설정한 몇 가지 시각적 템플릿에서 벗어나 실제 사진과 같은 이미지를 만들 수 있었습니다.</p>
-        
         <p>하지만 iOS 27로 오면서 사실적인 이미지 생성 기능은 더 이상 외부 연결(ChatGPT)에 의존하지 않습니다. 사용자는 단순히 텍스트 프롬프트를 입력하는 것만으로도 더욱 현실적인 사진 스타일의 이미지를 바로 생성할 수 있으며, 기존에 제공되던 애니메이션, 일러스트레이션, 스케치 등의 다양한 스타일 역시 그대로 활용 가능합니다.</p>
-        
         <h3>활용 범위 확장 및 사용자 가치</h3>
-        
         <p>기술 매체 Appleinsider는 이번 사실적 이미지 생성 기능 추가가 Image Playground의 실용적인 사용 사례를 크게 넓혀준다고 분석했습니다. 이 기능을 통해 제작된 이미지는 프레젠테이션 자료, 초대장, 모델 스케치, 배경화면 등 다양한 분야에 활용될 수 있습니다.</p>
-        
         <p>일반 사용자 관점에서 볼 때, 이는 콘텐츠 생성의 영역이 단순히 재미 위주의 표현을 넘어 일상적인 창작 활동과 가벼운 생산성 작업까지 포괄할 수 있게 되었다는 의미입니다.</p>
-        
         <h3>총평</h3>
-        
         <p>이번 iOS 27 업데이트를 통해 Image Playground는 외부 의존성을 제거하고 네이티브로 사실적 이미지 생성 기능을 통합함으로써 사용자 경험을 혁신했습니다. 사용자는 복잡한 절차 없이도 고품질의 사진 같은 이미지를 손쉽게 만들 수 있게 되었으며, 이는 일상적인 창작과 전문적인 활용 영역 모두를 아우르는 강력한 생산성 도구가 될 것으로 기대됩니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>iOS 27 新增原生写实图像生成功能</h3>
+<p>在 WWDC 2026 上，Apple 宣布在 iOS 27 系统中的图乐园（Image Playground）首次加入原生写实图像生成功能。用户现在可以通过直接输入文本提示词，生成具有高度真实感的 AI 图片。</p>
+        <h3>与前代系统的技术演进</h3>
+<p>相比于之前的版本，iOS 27 在生成逻辑上进行了简化：</p>
+<ul>
+<li>iOS 26：需要通过接入 ChatGPT 的 Any Style 选项来跳出预设模板，从而生成接近真实照片的图像。</li>
+<li>iOS 27：不再依赖 ChatGPT 入口，用户可直接通过文字提示生成写实风格内容。</li>
+<li>通用功能：系统仍保留动画、插画和素描等原有视觉风格。</li>
+</ul>
+        <h3>应用场景与生产力提升</h3>
+<p>随着写实功能的加入，图乐园的实用性显著增强。该功能更适合以下场景：</p>
+<ul>
+<li>演示文稿</li>
+<li>邀请函</li>
+<li>模型草图</li>
+<li>壁纸制作</li>
+</ul>
+<p>对于普通用户而言，这意味着生成的图像不再仅限于趣味表达，而是能够覆盖更多日常创作与轻量生产的需求。</p>
+        <h3>总结</h3>
+<p>Apple 在 iOS 27 中为图乐园引入了原生写实图像生成功能，去除了对 ChatGPT 入口的依赖。这一更新显著提升了工具的实用性，使其能更好地支持从壁纸到演示文稿等多种实际生产场景。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>iOS 27：Image Playgroundにネイティブな実写系画像生成機能を追加</h3>
+        <p>IT Homeの報道によると、2026年6月9日に開催されたWWDC 2026において、AppleはiOS 27システムを通じて「Image Playground」に初めてネイティブな実写系画像生成機能を搭載しました。この機能により、ユーザーはテキストプロンプトを入力するだけで、写真と非常に近いスタイルのAI画像を直接生成できるようになります。</p>
+        <h3>iOSバージョン別の機能比較および改善点</h3>
+        <p>以前のiOS 26システムでは、「Any Style」オプションを使用するためにChatGPTとの連携が必要であり、それを通じてAppleがあらかじめ設定したいくつかの視覚的なテンプレートから外れた、実写のような画像を生成することが可能でした。</p>
+        <p>しかし、iOS 27への移行により、実写系の画像生成機能はもはや外部接続（ChatGPT）に依存しません。ユーザーは単にテキストプロンプトを入力するだけで、よりリアルな写真スタイルの画像を即座に生成でき、従来提供されていたアニメーション、イラストレーション、スケッチなどの多様なスタイルも引き続き活用可能です。</p>
+        <h3>利用範囲の拡大とユーザー価値</h3>
+        <p>テックメディアのAppleinsiderは、今回の実写系画像生成機能の追加により、Image Playgroundの実用的なユースケースが大幅に広がると分析しています。この機能で生成された画像は、以下のような様々な分野で活用できます。</p>
+        <ul>
+<li>プレゼンテーション資料</li>
+<li>招待状</li>
+<li>モデルスケッチ</li>
+<li>壁紙</li>
+</ul>
+        <p>一般ユーザーの視点で見れば、これはコンテンツ制作の領域が単なる娯楽的な表現を超え、日常的な創作活動や軽微な生産性作業までカバーできるようになったことを意味します。</p>
+        <h3>総評</h3>
+        <p>iOS 27のアップデートにより、Image Playgroundは外部への依存を排除し、ネイティブな実写系画像生成機能を統合することでユーザー体験を革新しました。ユーザーは複雑な手順を踏むことなく高品質な写真のような画像を簡単に作成できるようになり、日常的なクリエイティビティから専門的な活用までを網羅する強力な生産性ツールとなることが期待されます。</p>
+        <h3>まとめ</h3>
+<p>iOS 27のImage Playgroundでは、外部連携なしでネイティブに実写風の画像を生成できる機能が追加されました。これにより、ユーザーはより手軽に高品質なコンテンツを作成でき、クリエイティブな創作からビジネス用途まで幅広く活用することが可能になります。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>iOS 27: Native Realistic Image Generation Added to Image Playground</h3>
+        <p>According to a report by IT Home, Apple introduced native realistic image generation within the 'Image Playground' feature for the iOS 27 system at WWDC 2026 on June 9. This feature allows users to generate AI images that closely resemble actual photographs simply by inputting text prompts.</p>
+        <h3>Feature Comparison and Improvements Across iOS Versions</h3>
+        <p>In the previous iOS 26 system, users had to connect via ChatGPT to access the 'Any Style' option, which allowed them to create realistic images that moved beyond Apple's pre-set visual templates.</p>
+        <p>With the move to iOS 27, the realistic image generation feature no longer relies on external connections like ChatGPT. Users can now generate high-quality photo-style images directly from text prompts while still retaining access to existing styles such as animation, illustration, and sketch.</p>
+        <h3>Expanded Scope and User Value</h3>
+        <p>The tech outlet Appleinsider analyzed that the addition of this realistic image generation feature significantly expands the practical use cases for Image Playground. Images created with this feature can be utilized in various fields, including:</p>
+<ul>
+<li>Presentation materials</li>
+<li>Invitations</li>
+<li>Model sketches</li>
+<li>Wallpapers</li>
+</ul>
+        <p>From a general user perspective, this signifies that the scope of content creation has evolved from simple entertainment to include everyday creative activities and light productivity tasks.</p>
+        <h3>Overall Review</h3>
+        <p>The iOS 27 update innovates the user experience by integrating native realistic image generation into Image Playground while removing external dependencies. Users can now easily create high-quality, photo-like images without complex procedures, establishing it as a powerful tool for both casual creation and professional applications.</p>
+        <h3>Summary</h3>
+<p>iOS 27 introduces native realistic image generation to the Image Playground feature, eliminating the need for third-party connections like ChatGPT. This update expands the functionality of the tool, making it useful for practical tasks such as creating presentation materials and invitations while maintaining various artistic styles.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -677,18 +766,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
