@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple iOS 27 코드 암시: Siri AI에 &amp;#39;중독 방지&amp;#39; 기능 추가, 장시간 대화 시 사용자에게 휴식 권고">
+  <meta name="title-zh" content="Apple iOS 27 코드 암시: Siri AI에 &amp;#39;중독 방지&amp;#39; 기능 추가, 장시간 대화 시 사용자에게 휴식 권고">
+  <meta name="title-ja" content="Apple iOS 27のコードから示唆：Siri AIに「依存防止」機能を追加、長時間の対話時にユーザーへ休憩を促す">
+  <meta name="title-en" content="Apple iOS 27 code hints: Siri AI to add 'addiction prevention' feature, recommending breaks for users during long conversations.">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">Apple iOS 27 코드 암시: Siri AI에 &#39;중독 방지&#39; 기능 추가, 장시간 대화 시 사용자에게 휴식 권고</h1>
+        <h1 class="article-title" data-ko="Apple iOS 27 코드 암시: Siri AI에 &amp;#39;중독 방지&amp;#39; 기능 추가, 장시간 대화 시 사용자에게 휴식 권고" data-zh="Apple iOS 27 코드 암시: Siri AI에 &amp;#39;중독 방지&amp;#39; 기능 추가, 장시간 대화 시 사용자에게 휴식 권고" data-ja="Apple iOS 27のコードから示唆：Siri AIに「依存防止」機能を追加、長時間の対話時にユーザーへ休憩を促す" data-en="Apple iOS 27 code hints: Siri AI to add 'addiction prevention' feature, recommending breaks for users during long conversations.">Apple iOS 27 코드 암시: Siri AI에 &#39;중독 방지&#39; 기능 추가, 장시간 대화 시 사용자에게 휴식 권고</h1>
 
         <div class="article-info">
           
@@ -527,34 +558,84 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>배경 및 이슈</h3>
-        
         <p>최근 대화형 챗봇에 대한 우려가 커지고 있습니다. 일부 사용자들이 챗봇에 과도하게 의존하거나, 상대방이 실제 사람인 것처럼 느끼며 장시간 대화를 나누는 사례가 늘고 있기 때문입니다.</p>
-        
         <p>관련 보도에 따르면 일부 극단적인 사례로 소위 '인공지능 망상증' 또는 '챗봇 망상증'이 나타나고 있습니다. 사용자가 챗봇과 장시간 상호작용한 후 망상 증상을 보이거나, 기존의 심리적 문제가 더욱 악화되는 현상이 보고되고 있습니다.</p>
-        
         <h3>업계의 대응</h3>
-        
         <p>이에 대응하여 OpenAI, Anthropic, Google 등 주요 기업들은 인공지능 동반 도구의 한계를 알리고 건강한 사용 방식을 권장하기 위해 안전 장치를 추가하고 있습니다.</p>
-        
         <p>예를 들어, ChatGPT는 대화가 너무 길어질 경우 사용자에게 휴식을 권고하는 알림을 띄우며, Claude 역시 장시간 사용 시 잠시 쉬거나 물을 마시고 기기를 내려놓으라는 안내를 제공합니다.</p>
-        
         <h3>Siri 관련 동향</h3>
-        
         <p>IT홈은 이번 주 Apple 글로벌 개발자 컨퍼런스(WWDC) 기조연설에서 Apple이 Siri AI 개발 과정에서 발생하는 개인정보 보호 및 사용 책임 문제를 언급했으나, 대화 시간이 너무 길어지는 상황에 대해서는 구체적인 설명을 내놓지 않았다고 전했습니다.</p>
-        
         <p>소셜 플랫폼 사용자 에런 페리스(Aaron Peris)는 iOS 27 코드 내에 '휴식 알림 문구'라는 텍스트 코드가 포함된 것을 발견했습니다. 이는 Siri AI가 장시간 대화 후 휴식 알림을 보내는 동시에, Siri가 실제 사람이 아님을 사용자에게 고지할 가능성이 높음을 시사합니다.</p>
-        
         <p>페리스가 공유한 코드 내용에 따르면, 현재 고정된 알림 트리거 시간은 설정되어 있지 않습니다. Apple은 대화 시간뿐만 아니라 다른 종합적인 판단 조건을 결합하여 알림 표시 여부를 결정할 것으로 보이며, 이는 제한 조건이 단순히 시간에만 의존하지 않고 다양한 요소의 영향을 받는다는 것을 의미합니다.</p>
-        
         <p>Apple은 아직 이 기능을 공식적으로 확인하거나 구체적인 작동 방식을 밝히지 않았으며, 현재 해당 기능이 실제 서비스로 출시된 상태도 아닙니다. 현재 관련 내용은 시스템 코드 내에만 존재합니다. 그럼에도 이러한 코드 문구는 Apple이 인공지능 챗봇 제품을 출시할 때 수반되는 사회적 책임을 충분히 인지하고 있음을 보여줍니다.</p>
-        
         <h3>총평</h3>
-        
         <p>Apple은 Siri AI의 장기 대화 시 발생할 수 있는 사용자 의존 및 심리적 문제에 대비해 '휴식 알림' 기능을 코드에 포함한 것으로 보입니다. 이는 단순한 기능 추가를 넘어 인공지능 서비스가 가져올 수 있는 부작용에 대한 기술적, 윤리적 책임을 고려한 조치로 풀이됩니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>Siri 引入休息提醒功能</h3>
+<p>在 iOS 27 的代码中发现相关内容，表明 Siri 在用户与其进行长时间对话后，可能会弹出提示。该提醒不仅旨在建议用户休息，还会明确告知用户：Siri 并非真人。</p>
+        <h3>行业背景与安全考量</h3>
+<p>由于部分用户对 AI 产生过度依赖或出现“人工智能妄想症”等心理问题，多家科技巨头已采取相关安全措施：</p>
+<ul>
+<li>OpenAI (ChatGPT)：在对话时间过长时弹出提醒。</li>
+<li>Anthropic (Claude)：提示用户喝水、休息或暂时放下设备。</li>
+<li>Google：已增设相关安全机制并倡导健康使用方式。</li>
+</ul>
+        <h3>技术细节与当前状态</h3>
+<p>目前代码中尚未设定固定的触发时长，Apple 可能结合多种综合判定条件来决定是否弹出提示。该功能目前仅存在于系统代码中，尚未正式上线或由 Apple 官方确认。</p>
+        <h3>总结</h3>
+<p>Apple 在 iOS 27 代码中加入了 Siri 的休息提醒内容，旨在应对用户过度依赖 AI 或产生相关心理问题的风险。此举与 OpenAI 和 Anthropic 等竞品的安全策略一致，体现了 Apple 对人工智能产品社会责任的重视。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>背景と課題</h3>
+        <p>近年、対話型チャットボットに対する懸念が高まっています。一部のユーザーがチャットボットに過度に依存したり、相手を実在の人間であるかのように錯覚して長時間会話を続けるケースが増加しているためです。</p>
+        <p>関連する報道によると、極端な事例として「AI妄想症」や「チャットボット妄送症」といった現象が現れています。ユーザーがチャットボットと長時間やり取りした後に妄想症状を見せたり、既存の心理的問題が悪化したりするケースが報告されています。</p>
+        <h3>業界の対応</h3>
+        <p>これに対応するため、OpenAI、Anthropic、Googleなどの主要企業は、AIコンパニオンツールの限界を周知し、健全な利用方法を推奨するための安全策を追加しています。</p>
+        <p>具体的な対応例は以下の通りです。</p>
+<ul>
+<li>ChatGPT：会話が長くなりすぎた場合に、ユーザーに休憩を促す通知を表示。</li>
+<li>Claude：長時間使用する際に、一時的に休んだり水を飲んだりしてデバイスを置くよう案内を提供。</li>
+</ul>
+        <h3>Siriに関する動向</h3>
+        <p>ITホームの報道によると、今週開催されたAppleのグローバル開発者会議（WWDC）の基調講演において、AppleはSiri AIの開発過程におけるプライバシー保護および使用責任の問題に言及しましたが、会話時間が長くなりすぎる状況については具体的な説明を行いませんでした。</p>
+        <p>しかし、ソーシャルプラットフォームのユーザーであるAaron Peris氏がiOS 27のコード内に「休憩通知文言」というテキストコードが含まれているのを発見しました。これはSiri AIが長時間対話の後に休憩を促すとともに、Siriが実在の人間ではないことをユーザーに通知する可能性が高いことを示唆しています。</p>
+        <p>Peris氏が共有したコードの内容によると、現在の仕様は以下の通りです。</p>
+<ul>
+<li>固定されたアラートのトリガー時間は設定されていない。</li>
+<li>Appleは会話時間だけでなく、他の総合的な判断条件を組み合わせて通知の表示を決定する見込み。</li>
+</ul>
+        <p>これは、制限条件が単に時間にのみ依存するのではなく、さまざまな要素の影響を受けることを意味します。Appleはこの機能を公式に確認したり具体的な動作方法を明らかにしたりしておらず、現時点でサービスとしてリリースされたわけではありません。これらのコードはシステム内にのみ存在しますが、この文言の存在は、AppleがAIチャットボット製品の提供に伴う社会的責任を十分に認識していることを示しています。</p>
+        <h3>総評</h3>
+        <p>AppleはSiri AIの長期対話によって発生する可能性のあるユーザー依存や心理的問題に備え、「休憩通知」機能をコードに組み込んだ模様です。これは単なる機能追加にとどまらず、AIサービスがもたらし得る副作用に対する技術的・倫理的な責任を考慮した措置と解釈されます。</p>
+        <h3>まとめ</h3>
+<p>AppleはSiri AIの長時間利用によるユーザーの依存や心理的問題への対策として、「休憩通知」機能をシステムコードに組み込んでいます。これは、AI技術の普及に伴う社会的・倫理的責任に対するAppleの姿勢を反映した動きです。現時点で公式発表はないものの、開発段階でこれらの安全策が検討されていることが判明しました。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Background and Concerns</h3>
+<p>Concerns regarding interactive chatbots are growing as an increasing number of users become overly dependent on these systems or engage in prolonged conversations while perceiving the AI as a real human being.</p>
+<p>Reports indicate that extreme cases, referred to as "AI Delusion" or "Chatbot Delusion," are emerging. These instances involve users exhibiting delusional symptoms or experiencing exacerbated psychological issues after interacting with chatbots for extended periods.</p>
+        <h3>Industry Responses</h3>
+<p>In response, major tech companies including OpenAI, Anthropic, and Google are implementing safety measures to highlight the limitations of AI companion tools and promote healthy usage habits.</p>
+<p>For example, ChatGPT displays a notification advising users to take a break when conversations become too long. Similarly, Claude provides guidance for users to pause, drink water, and put down their devices after prolonged use.</p>
+        <h3>Siri Trends</h3>
+<p>IT Home reported that while Apple addressed privacy and responsibility issues during the WWDC keynote regarding Siri AI development, they did not provide specific details regarding situations where conversation times become excessively long.</p>
+<p>Social platform user Aaron Peris discovered "break notification text" within the iOS 27 code. This suggests a high likelihood that Siri AI will send rest notifications after long conversations while simultaneously informing users that it is not a human being.</p>
+<p>According to the code shared by Peris, there is currently no fixed time set for triggering these alerts. It appears Apple will determine whether to display an alert by combining various conditions rather than relying solely on a timer, meaning the constraints are influenced by multiple factors.</p>
+<p>While Apple has not officially confirmed this feature or its specific operation—and it has not been released as a live service yet—the presence of these phrases in the system code indicates that Apple is fully aware of the social responsibilities involved in launching AI chatbot products.</p>
+        <h3>Overall Analysis</h3>
+<p>Apple appears to have included "break notification" features in its code to prepare for potential user dependency and psychological issues caused by long-term interaction with Siri AI. This move goes beyond a simple feature addition, reflecting an effort to address the technical and ethical responsibilities associated with the side effects of AI services.</p>
+        <h3>Summary</h3>
+<p>Major tech companies are implementing "break" notifications to mitigate the risks of user dependency and psychological issues caused by prolonged interaction with AI chatbots. Evidence found in iOS 27 code suggests Apple is preparing similar measures for Siri, demonstrating a proactive approach toward the ethical responsibilities of AI technology.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -665,18 +746,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {

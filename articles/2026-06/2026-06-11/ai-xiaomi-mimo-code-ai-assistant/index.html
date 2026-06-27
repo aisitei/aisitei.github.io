@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="Xiaomi">
   <meta name="article-brand-color" content="#FF6900">
+  <meta name="title-ko" content="Xiaomi MiMo Code V0.1.0 탐색형 AI 프로그래밍 도우미 출시 및 오픈소스화: OpenCode 기반 2차 개발 및 MIT 라이선스 채택">
+  <meta name="title-zh" content="Xiaomi MiMo Code V0.1.0 탐색형 AI 프로그래밍 도우미 출시 및 오픈소스화: OpenCode 기반 2차 개발 및 MIT 라이선스 채택">
+  <meta name="title-ja" content="Xiaomi MiMo Code V0.1.0 探索型AIプログラミングアシスタントをリリースおよびオープンソース化：OpenCodeベースの二次開発およびMITライセンスを採用">
+  <meta name="title-en" content="Xiaomi MiMo Code V0.1.0 Exploratory AI Programming Assistant Released and Open-Sourced: Secondary Development Based on OpenCode and Adoption of MIT License">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">Xiaomi MiMo Code V0.1.0 탐색형 AI 프로그래밍 도우미 출시 및 오픈소스화: OpenCode 기반 2차 개발 및 MIT 라이선스 채택</h1>
+        <h1 class="article-title" data-ko="Xiaomi MiMo Code V0.1.0 탐색형 AI 프로그래밍 도우미 출시 및 오픈소스화: OpenCode 기반 2차 개발 및 MIT 라이선스 채택" data-zh="Xiaomi MiMo Code V0.1.0 탐색형 AI 프로그래밍 도우미 출시 및 오픈소스화: OpenCode 기반 2차 개발 및 MIT 라이선스 채택" data-ja="Xiaomi MiMo Code V0.1.0 探索型AIプログラミングアシスタントをリリースおよびオープンソース化：OpenCodeベースの二次開発およびMITライセンスを採用" data-en="Xiaomi MiMo Code V0.1.0 Exploratory AI Programming Assistant Released and Open-Sourced: Secondary Development Based on OpenCode and Adoption of MIT License">Xiaomi MiMo Code V0.1.0 탐색형 AI 프로그래밍 도우미 출시 및 오픈소스화: OpenCode 기반 2차 개발 및 MIT 라이선스 채택</h1>
 
         <div class="article-info">
           
@@ -527,50 +558,127 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>개요</h3>
-        
         <p>Xiaomi는 오늘 새벽 터미널에서 구동되는 탐색형 AI 프로그래밍 도우미인 MiMo Code V0.1.0을 공식 발표하고 오픈소스로 공개했습니다.</p>
-        
         <h3>기술적 특징</h3>
-        
         <p>MiMo Code는 오픈소스 프로젝트인 OpenCode를 기반으로 2차 개발되었으며, MIT 라이선스를 따릅니다. 이 도구는 한정 기간 무료로 제공되는 멀티모달 모델 MiMo-V2.5를 내장하고 있으며, DeepSeek, Kimi, GLM 등 주요 모델 및 제3자 토큰 플랜을 지원하여 다양한 개발자의 요구사항을 충족합니다.</p>
-        
         <p>MiMo Code는 독창적인 지속 기억 시스템을 탑재했습니다. 프로젝트 기억, 세션 체크포인트, 작업 진행 상황이라는 세 가지 메커니즘을 통해 긴 대화 과정에서 정보가 누락되는 문제를 해결합니다. Xiaomi 측은 메인 에이전트가 업무에 집중하는 동안 독립적인 서브 에이전트(sub-agent)가 상태를 자동으로 저장하고 요약본을 생성하게 함으로써, 장기 세션에서도 일관된 품질을 유지하도록 설계했다고 밝혔습니다.</p>
-        
         <h3>협업 및 워크플로우</h3>
-        
         <p>MiMo Code는 MiMo 시리즈 모델에 최적화된 전용 Harness 시스템을 갖추고 있어 모델의 능력과 프레임워크가 긴밀하게 조화됩니다. 특히 'Compose' 모드를 통해 1+1보다 큰 시너지 효과를 제공합니다. 사용자가 Tab 키로 Compose 모드 전환 후 간단한 아이디어를 입력하면, 설계, 계획, 코딩, 테스트, 검토에 이르는 전 과정을 자동으로 수행하여 산업 수준의 결과물을 도출합니다.</p>
-        
         <p>또한 독특한 /dream 명령어가 포함되어 있습니다. 7일마다 자동 실행되는 이 기능은 독립적인 에이전트가 과거 대화와 기존 기억 파일을 읽어 중복을 제거하고 압축하며, 현재 상태를 간결하게 업데이트합니다. 이를 통해 MiMo Code는 매번 처음부터 시작하는 것이 아니라 프로젝트에 대한 이해도를 바탕으로 지속적으로 성장합니다.</p>
-        
         <h3>사용자 편의성</h3>
-        
         <p>MiMo Code는 MiMo-V2.5-ASR 기술을 활용한 음성 입력 및 제어 기능을 지원합니다. 사용자는 음성으로 잘못된 명령을 수정하거나 "전송", "실행"과 같은 동작 명령을 직접 내릴 수 있어, 입력부터 조작까지 키보드 조작 없이도 원활하게 진행할 수 있습니다.</p>
-        
         <h3>설치 및 주요 기능</h3>
-        
         <p>설치 및 시작 방법은 다음과 같습니다.</p>
-        
         <ul>
 <li>Mac 및 Linux 사용자 권장: curl -fsSLhttps://mimo.xiaomi.com/install | bash</li>
 <li>Windows 사용자 권장(npm 사용): npm install -g @mimo-ai / cli</li>
 </ul>
-        
         <p>설치 후 터미널에 mimo를 입력하여 시작할 수 있습니다. 최적의 경험을 위해 Mac 사용자는 iTerm 또는 VS Code 터미널 환경에서 사용하는 것을 권장합니다.</p>
-        
         <ul>
 <li>MiMo-V2.5 한정 기간 무료 채널 내장 (별도 등록 불필요)</li>
 <li>DeepSeek, Kimi, GLM 등 주요 모델 API 및 제3자 토큰 플랜 호환</li>
 <li>모든 설정 항목의 중국어 지원으로 로컬 환경에 최적화</li>
 <li>TUI 페이지 우측에 상시 상태바를 배치하여 작업 진행 상황을 실시간 확인 가능</li>
 </ul>
-        
         <h3>총평</h3>
-        
         <p>Xiaomi가 공개한 MiMo Code는 강력한 기억 시스템과 자동화된 워크플로우를 결합하여 개발자의 생산성을 극대화하는 터미널 기반 AI 도구입니다. 특히 멀티모달 모델 지원, 음성 제어 기능, 그리고 독창적인 /dream 명령을 통한 지식 축적 기능이 돋보이는 완성도 높은 솔루션입니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>产品发布与核心架构</h3>
+<p>Xiaomi MiMo 官方正式发布并开源 MiMo Code V0.1.0。这是一款运行在终端中的探索性 AI 编程助手，基于开源项目 OpenCode 二次开发，并采用 MIT 协议开源。该工具旨在为开发者提供高效的命令行交互式编程体验。</p>
+<p>MiMo Code 支持多种模型接入方案：</p>
+<ul>
+<li>内置限时免费的多模态模型 MiMo-V2.5；</li>
+<li>支持集成 DeepSeek、Kimi 和 GLM 等主流模型；</li>
+<li>支持第三方 Token Plan。</li>
+</ul>
+        <h3>核心技术特性</h3>
+<p>MiMo Code 引入了多项创新机制来提升长程对话的稳定性与效率：</p>
+<ul>
+<li><strong>持久记忆系统：</strong> 通过项目记忆、会话检查点、任务进度三重机制，解决长篇幅对话中 AI 容易遗忘关键信息的问题。</li>
+<li><strong>Sub-agent 架构：</strong> 采用主 agent 执行任务、独立 sub-agent 负责记录状态的思路，在窗口接近上限时自动生成简报并重建上下文。</li>
+<li><strong>Harness 与 Compose 模式：</strong> 通过专属 Harness 系统让模型能力与框架深度配合；用户可通过按 Tab 键进入 Compose 模式，实现从设计、规划、编码到测试、审查的全流程自动化。</li>
+</ul>
+        <h3>特色功能与交互</h3>
+<p>MiMo Code 提供了一些独特的交互式功能以增强用户体验：</p>
+<ul>
+<li><strong>/dream 命令：</strong> 每 7 天自动触发一次，由独立 Agent 对历史会话和记忆文件进行合并、去重、验证及压缩，确保全局记忆的紧凑与准确。</li>
+<li><strong>语音输入与控制：</strong> 搭载 MiMo-V2.5-ASR 能力，支持用户通过语音修改指令或执行“发送”、“执行”等操作命令，实现免键盘操作。</li>
+</ul>
+        <h3>安装与配置说明</h3>
+<p>MiMo Code 提供多种安装方式并支持全中文界面：</p>
+<ul>
+<li><strong>Mac 和 Linux 用户：</strong> 推荐使用 curl 命令：curl -fsSLhttps://mimo.xiaomi.com/install | bash</li>
+<li><strong>Windows 用户：</strong> 建议通过 npm 安装：npm install -g @mimo-ai / cli</li>
+<li><strong>界面与本地化：</strong> 支持全中文汉化，并提供 TUI 页面右侧常驻状态看板，方便用户实时监控工作进度。</li>
+</ul>
+        <h3>总结</h3>
+<p>Xiaomi 推出的 MiMo Code 是一个功能丰富的开源终端 AI 编程助手，通过独特的持久记忆系统和 sub-agent 架构解决了长对话的上下文丢失问题。它集成了多模型支持、语音控制以及自动化 Compose 工作流，旨在为开发者提供从设计到交付的全流程辅助工具。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>概要</h3>
+<p>Xiaomiは本日、ターミナルで動作する探索型AIプログラミングアシスタント「MiMo Code V0.1.0」を公式に発表し、オープンソースとして公開しました。</p>
+        <h3>技術的特徴</h3>
+<p>MiMo CodeはオープンソースプロジェクトであるOpenCodeをベースに二次開発されたもので、MITライセンスに従っています。このツールには、期間限定で無料提供されるマルチモーダルモデル「MiMo-V2.5」が内蔵されており、DeepSeek、Kimi、GLMなどの主要なモデルやサードパーティのトークンプランにも対応しており、多様な開発者のニーズを満たします。</p>
+<p>MiMo Codeは独自の持続的記憶システムを搭載しています。「プロジェクトの記憶」「セッションのチェックポイント」「作業の進捗状況」という3つのメカニズムにより、長時間の対話において情報が欠落する問題を解決します。Xiaomi側は、メインエージェントが業務に集中する一方で、独立したサブエージェント（sub-agent）が状態を自動的に保存し要約を作成することで、長期セッションにおいても一貫した品質を維持するように設計されたと述べています。</p>
+        <h3>協力およびワークフロー</h3>
+<p>MiMo Codeは、MiMoシリーズのモデルに最適化された専用のHarnessシステムを備えており、モデルの能力とフレームワークが密接に調和しています。特に「Compose」モードを通じて、1+1以上の相乗効果を提供します。ユーザーがTabキーでComposeモードに切り替えた後、簡単なアイデアを入力するだけで、設計、計画、コーディング、テスト、レビューに至る全工程を自動的に実行し、産業レベルの結果を導き出します。</p>
+<p>さらに、独自の「/dream」コマンドが含まれています。この機能は7日ごとに自動実行され、独立したエージェントが過去の会話や既存の記憶ファイルを読み取って重複を除去・圧縮し、現在の状態を簡潔に更新します。これにより、MiMo Codeは毎回最初からやり直すのではなく、プロジェクトに対する理解度に基づいて継続的に成長します。</p>
+        <h3>ユーザーの利便性</h3>
+<p>MiMo Codeは、MiMo-V2.5-ASR技術を活用した音声入力および制御機能をサポートしています。ユーザーは音声で誤ったコマンドを修正したり、「送信」や「実行」といった動作命令を直接出したりすることができ、入力から操作までキーボード操作なしでスムーズに進めることができます。</p>
+        <h3>インストールおよび主な機能</h3>
+<p>インストールおよび開始方法は以下の通りです。</p>
+<ul>
+<li>MacおよびLinuxユーザー推奨: curl -fsSLhttps://mimo.xiaomi.com/install | bash</li>
+<li>Windowsユーザー推奨（npm使用）: npm install -g @mimo-ai / cli</li>
+</ul>
+<p>インストール後、ターミナルで「mimo」と入力することで開始できます。最適な体験のために、MacユーザーはiTermまたはVS Codeのターミナル環境での使用を推奨します。</p>
+<ul>
+<li>MiMo-V2.5 期間限定無料チャネル内蔵（別途登録不要）</li>
+<li>DeepSeek、Kimi、GLMなどの主要モデルAPIおよびサードパーティのトークンプランに対応</li>
+<li>すべての設定項目で中国語をサポートし、ローカル環境に最適化</li>
+<li>TUIページの右側に常時ステータスバーを配置し、作業の進捗状況をリアルタイムで確認可能</li>
+</ul>
+        <h3>総評</h3>
+<p>Xiaomiが公開したMiMo Codeは、強力な記憶システムと自動化されたワークフローを組み合わせることで、開発者の生産性を最大化するターミナルベースのAIツールです。特にマルチモーダルモデルのサポート、音声制御機能、そして独自の「/dream」コマンドによる知識蓄積機能など、完成度の高いソリューションとなっています。</p>
+        <h3>まとめ</h3>
+<p>Xiaomiが公開したMiMo Codeは、高度な記憶システムと自動化されたワークフローを備えたターミナルベースのAIプログラミング支援ツールです。マルチモーダルモデルの統合や音声操作、独自の「/dream」コマンドによる知識蓄積機能により、開発者の生産性を大幅に向上させる設計となっています。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Overview</h3>
+<p>Xiaomi has officially announced and open-sourced MiMo Code V0.1.0, an exploratory AI programming assistant that operates within a terminal environment.</p>
+        <h3>Technical Features</h3>
+<p>Developed as a secondary project based on the OpenCode open-source project, MiMo Code follows the MIT license. The tool features the MiMo-V2.5 multimodal model (available for free for a limited period) and supports major models such as DeepSeek, Kimi, and GLM, along with third-party token plans to accommodate various developer requirements.</p>
+<p>MiMo Code is equipped with a unique persistent memory system. It addresses the issue of information loss during long conversations through three mechanisms: project memory, session checkpoints, and task progress. Xiaomi stated that while the main agent focuses on the primary task, independent sub-agents are designed to automatically save states and generate summaries, ensuring consistent quality even in long-running sessions.</p>
+        <h3>Collaboration and Workflow</h3>
+<p>MiMo Code features a dedicated Harness system optimized for MiMo series models, ensuring a close integration between model capabilities and framework. In particular, the "Compose" mode provides significant synergy; after switching to Compose mode via the Tab key, users can input simple ideas to trigger an automated process encompassing design, planning, coding, testing, and review to produce industrial-grade results.</p>
+<p>Additionally, it includes a unique "/dream" command. This feature runs automatically every seven days, where independent agents read past conversations and existing memory files to remove duplicates, compress data, and update the current state concisely. This allows MiMo Code to continuously grow its understanding of a project rather than starting from scratch each time.</p>
+        <h3>User Convenience</h3>
+<p>MiMo Code supports voice input and control using MiMo-V2.5-ASR technology. Users can use their voices to correct incorrect commands or issue direct action commands such as "send" or "execute," allowing for smooth operation from input to execution without relying solely on keyboard inputs.</p>
+        <h3>Installation and Key Features</h3>
+<p>The installation and startup methods are as follows:</p>
+<ul>
+<li>Recommended for Mac and Linux users: curl -fsSLhttps://mimo.xiaomi.com/install | bash</li>
+<li>Recommended for Windows users (using npm): npm install -g @mimo-ai / cli</li>
+</ul>
+<p>After installation, you can start the tool by typing "mimo" in the terminal. For the best experience, Mac users are recommended to use it within iTerm or a VS Code terminal environment.</p>
+<ul>
+<li>Built-in MiMo-V2.5 limited-time free channel (no separate registration required)</li>
+<li>Compatible with major model APIs such as DeepSeek, Kimi, and GLM, as well as third-party token plans</li>
+<li>All configuration items support Chinese to optimize for local environments</li>
+<li>A status bar is placed on the right side of the TUI page to allow real-time monitoring of task progress</li>
+</ul>
+        <h3>Summary</h3>
+<p>Xiaomi's MiMo Code is a terminal-based AI tool that enhances developer productivity by combining a robust memory system with automated workflows. It stands out for its multimodal model support, voice control capabilities, and the unique "/dream" command designed to accumulate project knowledge over time.</</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -800,18 +908,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
