@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple, 계정 보안 강화: iOS 27 버전 &amp;#39;암호&amp;#39; 앱에 AI 자동 비밀번호 변경 기능 지원">
+  <meta name="title-zh" content="Apple, 계정 보안 강화: iOS 27 버전 &amp;#39;암호&amp;#39; 앱에 AI 자동 비밀번호 변경 기능 지원">
+  <meta name="title-ja" content="Apple、アカウントのセキュリティを強化：iOS 27の「パスワード」アプリにAIによる自動パスワード変更機能をサポート">
+  <meta name="title-en" content="Apple enhances account security: iOS 27 adds AI-powered automatic password change feature to the Passwords app">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">Apple, 계정 보안 강화: iOS 27 버전 &#39;암호&#39; 앱에 AI 자동 비밀번호 변경 기능 지원</h1>
+        <h1 class="article-title" data-ko="Apple, 계정 보안 강화: iOS 27 버전 &amp;#39;암호&amp;#39; 앱에 AI 자동 비밀번호 변경 기능 지원" data-zh="Apple, 계정 보안 강화: iOS 27 버전 &amp;#39;암호&amp;#39; 앱에 AI 자동 비밀번호 변경 기능 지원" data-ja="Apple、アカウントのセキュリティを強化：iOS 27の「パスワード」アプリにAIによる自動パスワード変更機能をサポート" data-en="Apple enhances account security: iOS 27 adds AI-powered automatic password change feature to the Passwords app">Apple, 계정 보안 강화: iOS 27 버전 &#39;암호&#39; 앱에 AI 자동 비밀번호 변경 기능 지원</h1>
 
         <div class="article-info">
           
@@ -527,33 +558,85 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>iOS 27, AI 기반 비밀번호 자동 수정 기능 도입</h3>
-        
         <p>IT之家에 따르면, 지난 6월 9일에 개최된 2026년 글로벌 개발자 컨퍼런스(WWDC)에서 Apple은 iOS 27의 '암호(Passwords)' 앱에 새로운 AI 기능을 도입한다고 발표했습니다. 이 기능은 다양한 상황에서 사용자 대신 자동으로 비밀번호를 수정해주어 계정 복구 과정을 간소화하는 것이 핵심입니다.</p>
-        
         <h3>기존 암호 관리 시스템</h3>
-        
         <p>Apple은 2년 전부터 '암호' 앱을 독립적인 영역으로 출시하여 로그인 정보, 2FA 인증 코드, Wi-Fi 자격 증명 등을 한곳에서 통합 관리할 수 있게 했습니다. 이 앱은 이미 다음과 같은 비밀번호 위험 감지 능력을 갖추고 있습니다.</p>
-        
         <ul>
 <li>데이터 유출 사건에 해당 비밀번호가 포함되었는지 여부 확인</li>
 <li>동일한 비밀번호가 여러 계정에서 반복 사용되는지 점검</li>
 </ul >
         
         <h3>기존 시스템의 한계점</h3>
-        
         <p>IT之家이 인용한 보도 자료에 따르면, 기존 버전의 기능들은 주로 '문제 발견' 단계에 머물러 있습니다. 시스템이 보안 경고를 보내더라도, 사용자가 직접 관련 웹사이트나 앱으로 이동하여 비밀번호를 수동으로 변경해야 하는 과정이 필요합니다. 이러한 절차는 번거롭고, 지연될 경우 위험한 비밀번호가 계속 유지되는 문제가 발생할 수 있었습니다.</p>
-        
         <h3>iOS 27의 혁신: AI 에이전트 기반 자동 수정</h3>
-        
         <p>하지만 iOS 27에서는 상황에 따라 이 '암호' 앱이 인공지능(AI) 에이전트 기능을 갖추게 되면서, 사용자 대신 비밀번호를 직접 수정할 수 있게 됩니다. 이는 사용자가 여러 계정의 영향을 받는 경우에도 반복적인 수동 처리 과정을 거칠 필요가 없다는 것을 의미합니다.</p>
-        
         <h3>총평</h3>
-        
         <p>iOS 27에 탑재된 AI 기반 암호 기능은 사용자 경험을 근본적으로 개선하는 플래그십 업데이트입니다. 단순히 위험 요소를 알려주는 수준을 넘어, 사용자가 실제로 비밀번호를 자동으로 수정해주기 때문에 보안 유지의 문턱이 크게 낮아졌습니다. 이로써 사용자는 강력한 비밀번호 정책을 지속적으로 따르면서도 번거로운 수동 작업 없이 안전성을 확보할 수 있게 되었습니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>iOS 27 Passwords 应用新增 AI 功能</h3>
+<p>Apple 在 WWDC 上宣布，为 iOS 27 的密码（Passwords）应用引入了全新的 AI 功能。该功能旨在多种场景下自动替用户修改密码，从而减少手动修复账号的繁琐步骤。</p>
+        <h3>核心管理内容与历史背景</h3>
+<p>Apple 于两年前为密码应用提供独立入口，用于集中管理以下信息：</p>
+<ul>
+<li>登录信息</li>
+<li>2FA 验证码</li>
+<li>Wi-Fi 凭证</li>
+</ul>
+        <h3>从风险识别到自动处理的转变</h3>
+<p>以往系统提供的功能主要侧重于“发现问题”，包括：</p>
+<ul>
+<li>检测密码是否出现在数据泄露事件中</li>
+<li>识别多个账户重复使用同一密码的情况</li>
+</ul>
+<p>在 iOS 27 中，具备智能体能力的 AI 可以直接代为执行修改流程。这一转变旨在降低用户维护强密码的门槛，避免因手动操作繁琐而导致高风险密码长期存在。</p>
+        <h3>总结</h3>
+<p>Apple 在 iOS 27 中为 Passwords 应用引入了具备智能体能力的 AI 功能。该功能实现了从“识别风险”到“自动处理”的跨越，能够自动代用户完成密码修改流程，显著提升了账户安全的便捷性。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>iOS 27、AIによるパスワード自動修正機能を導入</h3>
+        <p>IT之家の報道によると、6月9日に開催されたWWDC 2026において、AppleはiOS 27の「パスワード（Passwords）」アプリに新たなAI機能を導入すると発表しました。この機能の核心は、さまざまな状況においてユーザーに代わって自動的にパスワードを修正し、アカウント復旧やセキュリティ強化のプロセスを簡素化することにあります。</p>
+        <h3>従来のパスワード管理システム</h3>
+        <p>Appleは2年前から「パスワード」アプリを独立した領域として提供しており、ログイン情報、2FA認証コード、Wi-Fi資格情報などを一元的に管理できるようにしています。このアプリはすでに以下のパスワードリスク検知機能を備えています。</p>
+        <ul>
+<li>データ漏洩の事案に該当するパスワードが含まれているかの確認</li>
+<li>同一のパスワードが複数のアカウントで繰り返し使用されているかのチェック</li>
+</ul>
+        <h3>従来システムの限界</h3>
+        <p>IT之家が引用した報道資料によると、従来の機能は主に「問題の発見」段階にとどまっていました。システムがセキュリティ警告を発しても、ユーザー自身が該当するウェブサイトやアプリに移動し、手動でパスワードを変更する必要がありました。このプロセスは手間がかかるだけでなく、対応が遅れた場合には危険なパスワードが放置され続けるリスクがありました。</p>
+        <h3>iOS 27の革新：AIエージェントによる自動修正</h3>
+        <p>しかしiOS 27では、状況に応じて「パスワード」アプリが人工知能（AI）エージェント機能を備えるようになり、ユーザーに代わって直接パスワードを修正することが可能になります。これにより、複数のアカウントに影響がある場合でも、繰り返しの手動操作を行う必要がなくなります。</p>
+        <h3>総評</h3>
+        <p>iOS 27に搭載されるAIベースのパスワード機能は、ユーザー体験を根本的に改善するフラッグシップアップデートです。単にリスクを通知する段階を超え、システムが実際にパスワードを自動で修正するため、セキュリティ維持のハードルが大幅に下がります。これにより、ユーザーは煩雑な手動作業を行うことなく、強力なパスワードポリシーを継続し、安全性を確保できるようになります。</p>
+        <h3>まとめ</h3>
+<p>iOS 27ではAIエージェントの導入により、パスワードの危険検知から自動修正までを一貫して行う機能が追加されます。これにより、ユーザーは手動での変更作業に煩わされることなく、より高度なセキュリティを維持することが可能になります。このアップデートは、利便性と安全性の両立を実現する重要な進化と言えます。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>iOS 27 Introduces AI-Powered Automatic Password Correction</h3>
+        <p>According to IT之家, Apple announced the integration of a new AI feature into the "Passwords" app for iOS 27 during the Global Developer Conference (WWDC) held on June 9. The core of this feature is its ability to automatically update passwords across various scenarios, streamlining the account recovery and management process for users.</p>
+        <h3>Existing Password Management System</h3>
+        <p>Two years ago, Apple launched the "Passwords" app as a dedicated space to manage login information, 2FA codes, and Wi-Fi credentials in one location. The app currently possesses the following risk detection capabilities:</p>
+        <ul>
+<li>Checking if passwords are included in known data breach incidents.</li>
+<li>Identifying instances where the same password is reused across multiple accounts.</li>
+</ul>
+        <h3>Limitations of the Current System</h3>
+        <p>According to reports cited by IT之家, existing features primarily remain at the "problem detection" stage. Even when the system issues a security warning, users must manually navigate to the relevant websites or apps to change their passwords. This manual process can be cumbersome, and if delayed, it may result in compromised passwords remaining active.</p>
+        <h3>iOS 27 Innovation: AI Agent-Based Automatic Correction</h3>
+        <p>With the introduction of an artificial intelligence (AI) agent in iOS 27, the "Passwords" app will be capable of directly updating passwords on behalf of the user. This means that even when multiple accounts are affected by a security issue, users no longer need to undergo repetitive manual correction processes.</p>
+        <h3>Overall Review</h3>
+        <p>The AI-powered password feature in iOS 27 is a flagship update that fundamentally improves the user experience. By moving beyond simply notifying users of risks and actually automating the correction process, it significantly lowers the barrier to maintaining security. This allows users to adhere to strong password policies while ensuring safety without the hassle of manual tasks.</p>
+        <h3>Summary</h3>
+<p>iOS 27 introduces an AI agent into the "Passwords" app to automatically update compromised credentials rather than just alerting the user to potential risks. This transition from passive detection to active, automated correction simplifies account management and significantly lowers the effort required for users to maintain high security standards.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -664,18 +747,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
