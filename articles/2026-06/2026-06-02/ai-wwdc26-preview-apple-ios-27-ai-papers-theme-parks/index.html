@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="WWDC26 사전 예고: 애플, 다음 주에 iOS 27 버전 및 테마파크와 관련된 AI 논문 14편 공개 예정">
+  <meta name="title-zh" content="WWDC26 사전 예고: 애플, 다음 주에 iOS 27 버전 및 테마파크와 관련된 AI 논문 14편 공개 예정">
+  <meta name="title-ja" content="WWDC26 事前予告：Apple、来週にiOS 27およびテーマパークに関連するAI論文14本を公開予定">
+  <meta name="title-en" content="WWDC26 Preview: Apple to unveil iOS 27 and 14 AI papers related to theme parks next week">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">WWDC26 사전 예고: 애플, 다음 주에 iOS 27 버전 및 테마파크와 관련된 AI 논문 14편 공개 예정</h1>
+        <h1 class="article-title" data-ko="WWDC26 사전 예고: 애플, 다음 주에 iOS 27 버전 및 테마파크와 관련된 AI 논문 14편 공개 예정" data-zh="WWDC26 사전 예고: 애플, 다음 주에 iOS 27 버전 및 테마파크와 관련된 AI 논문 14편 공개 예정" data-ja="WWDC26 事前予告：Apple、来週にiOS 27およびテーマパークに関連するAI論文14本を公開予定" data-en="WWDC26 Preview: Apple to unveil iOS 27 and 14 AI papers related to theme parks next week">WWDC26 사전 예고: 애플, 다음 주에 iOS 27 버전 및 테마파크와 관련된 AI 논문 14편 공개 예정</h1>
 
         <div class="article-info">
           
@@ -527,16 +558,14 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>Apple의 CVPR 2026 발표 계획</h3>
-        
         <p>IT之家에 따르면, IT 전문 매체 Appleinsider가 지난 5월 28일 보도 자료를 통해 애플이 다음 주 덴버에서 열리는 IEEE / CVF 컴퓨터 비전 및 패턴 인식 학회(CVPR)에서 총 14편의 AI 연구 논문을 발표할 계획이라고 전했습니다.</p>
-        
         <h3>연구 주제와 범위</h3>
-        
         <p>애플이 공개한 논문 링크를 분석한 결과, 이번 연구들은 매우 광범위한 최신 기술 트렌드를 포괄하고 있습니다. 주요 연구 주제는 다음과 같습니다.</p>
-        
         <ul>
 <li>이미지 생성(Image Generation)</li>
 <li>공간 이해(Spatial Understanding)</li>
@@ -545,26 +574,99 @@
 <li>이미지 압축 기술(Image Compression)</li>
 <li>수어(Sign Language) 주석 처리</li>
 </ul>
-        
         <h3>주요 제품 연관성 분석</h3>
-        
         <p>이번 논문들 중 일부는 애플의 기존 제품 및 차기 운영체제에 직접적인 영향을 미칠 것으로 예상됩니다.</p>
-        
         <ul>
 <li><strong>Live Recognition 기능:</strong> 한 논문은 공간 및 기능 이해에 초점을 맞추고 있으며, 이는 iOS 27의 'Live Recognition' 보조 기능을 연상시킵니다. 나아가 카메라가 장착된 AirPods 등에 적용될 가능성도 제기되었습니다.</li>
 <li><strong>Image Playground 활용:</strong> 또 다른 논문에서는 이미지 생성 최적화, 텍스트 기반 이미지 편집(Text-guided Image Editing), 그리고 보상 통합 강화 학습(Reward Unified Reinforcement Learning) 등이 다루어졌습니다. 이 기술들은 iOS 27에 탑재될 것으로 예상되는 'Image Playground' 기능과 연관성이 높다고 분석됩니다.</li>
 </ul>
-        
         <h3>기술 발표의 의미와 시점</h3>
-        
         <p>업계에서는 이번 CVPR 학회가 WWDC(세계 개발자 컨퍼런스)를 앞두고 진행되는 기술적 예열 단계로 해석하고 있습니다.</p>
-        
         <p>애플은 먼저 학술 커뮤니티를 통해 기초 모델, 데이터셋, 평가 방법론 등 근본적인 연구 성과를 공개할 것으로 보입니다. 이후 6월 8일에 열리는 WWDC에서는 주제 발표를 통해 이러한 연구 결과들이 실제로 시스템 기능이나 개발자 도구로 구현되는 모습을 대중에게 보여줄 가능성이 높다고 전망됩니다.</p>
-        
         <h3>총평</h3>
-        
         <p>이번 CVPR에서의 애플의 논문 발표는 단순한 학술 발표를 넘어, 차세대 iOS 27에 적용될 핵심 AI 기술들을 미리 공개하는 중요한 신호탄입니다. 특히 공간 이해와 이미지 생성 관련 연구 결과들은 향후 스마트 기기 사용자 경험을 근본적으로 변화시킬 잠재력을 보여주고 있습니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>CVPR 参展计划</h3>
+<p>Apple 将在下周于丹佛举行的 2026 IEEE / CVF 计算机视觉与模式识别会议（CVPR）上展示 14 篇 AI 研究论文。</p>
+        <h3>研究领域涵盖</h3>
+<p>这些论文涵盖了多个前沿 AI 技术领域：</p>
+<ul>
+<li>图像生成</li>
+<li>空间理解</li>
+<li>多模态推理</li>
+<li>视频建模</li>
+<li>图像压缩</li>
+<li>手语标注</li>
+</ul>
+        <h3>与产品功能的关联</h3>
+<p>部分研究内容被认为与 iOS 27 的特定功能高度相关：</p>
+<ul>
+<li>关于空间与功能理解的论文，呼应 iOS 27 的 Live Recognition 辅助功能，并可能应用于带摄像头的 AirPods。</li>
+<li>涉及图像生成优化、文本引导图像编辑及奖励统一强化学习的论文，预计将用于 iOS 27 中的 Image Playground 功能。</li>
+</ul>
+        <h3>WWDC 技术预热</h3>
+<p>CVPR 被视为 WWDC 前的技术预热环节。Apple 通过在学术会议上展示底层模型、数据集和评测方法，为 6 月 8 日 WWDC 正式发布的系统功能和开发者工具做铺垫。</p>
+        <h3>总结</h3>
+<p>Apple 将在 CVPR 会议上展示 14 篇涵盖图像生成、空间理解等领域的 AI 研究论文。这些研究内容预估将直接支持 iOS 27 的 Live Recognition 和 Image Playground 等核心功能，作为 WWDC 前的技术铺垫。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>AppleのCVPR 2026発表計画</h3>
+        <p>ITInsiderの報道によると、Appleは来週デンバーで開催されるIEEE/CVFコンピュータビジョンおよびパターン認識会議（CVPR）において、計14件のAI研究論文を発表する計画であることが明らかになりました。</p>
+        <h3>研究テーマと範囲</h3>
+        <p>Appleが公開した論文リンクを分析した結果、これらの研究は非常に幅広い最新技術トレンドを網羅しています。主な研究テーマは以下の通りです。</p>
+        <ul>
+<li>画像生成（Image Generation）</li>
+<li>空間理解（Spatial Understanding）</li>
+<li>マルチモーダル推論（Multi-modal Reasoning）</li>
+<li>ビデオモデリング（Video Modeling）</li>
+<li>画像圧縮技術（Image Compression）</li>
+<li>手話（Sign Language）のアノテーション</li>
+</ul>
+        <h3>主要製品との関連性分析</h3>
+        <p>これらの論文の一部は、Appleの既存製品や次期オペレーティングシステムに直接的な影響を与えることが予想されます。</p>
+        <ul>
+<li><strong>Live Recognition機能:</strong> 一部の論文は空間および機能の理解に焦点を当てており、これはiOS 27の「Live Recognition」アシスト機能を想起させます。さらに、カメラを搭載したAirPodsなどへの応用も示唆されています。</li>
+<li><strong>Image Playgroundの活用:</strong> 別の論文では、画像生成の最適化、テキストベースの画像編集（Text-guided Image Editing）、および報酬統合強化学習（Reward Unified Reinforcement Learning）などが取り上げられています。これらの技術は、iOS 27に搭載される見込みの「Image Playground」機能と密接に関連していると分析されています。</li>
+</ul>
+        <h3>技術発表の意味と時期</h3>
+        <p>業界では、今回のCVPRはWWDC（世界開発者会議）を控えた技術的なウォーミングアップ段階として捉えられています。</p>
+        <p>Appleはまず学術コミュニティを通じて、基礎モデル、データセット、評価手法など根本的な研究成果を公開する方針のようです。その後、6月8日に開催されるWWDCでは、これらの研究結果が実際のシステム機能や開発者ツールとして実装された姿を一般に披露する可能性が高いと予測されています。</p>
+        <h3>総評</h3>
+        <p>今回のCVPRにおけるAppleの論文発表は、単なる学術的な発表にとどまらず、次世代iOS 27に搭載される核となるAI技術を先行公開する重要なシグナルです。特に空間理解や画像生成に関する研究成果は、将来のスマートデバイスのユーザー体験を根本から変える可能性を秘めています。</p>
+        <h3>まとめ</h3>
+<p>AppleはCVPRにて14件のAI論文を発表し、iOS 27で期待される「Live Recognition」や「Image Playground」に関連する高度な技術基盤を公開します。これらの発表はWWDCに向けた技術的な布石であり、特に空間理解と画像生成の分野で次世代のユーザー体験を支える重要な役割を果たすと見られています。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Apple's CVPR 2026 Presentation Plans</h3>
+        <p>According to IT House, the tech outlet Appleinsider reported on May 28 that Apple plans to present a total of 14 AI research papers at the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) held in Denver next week.</p>
+        <h3>Research Topics and Scope</h3>
+        <p>An analysis of the paper links released by Apple indicates that these studies encompass a wide range of cutting-edge technology trends. The primary research topics include:</p>
+        <ul>
+<li>Image Generation</li>
+<li>Spatial Understanding</li>
+<li>Multi-modal Reasoning</li>
+<li>Video Modeling</li>
+<li>Image Compression</li>
+<li>Sign Language Annotation</li>
+</ul>
+        <h3>Analysis of Major Product Relevance</h3>
+        <p>Some of these papers are expected to have a direct impact on Apple's existing products and upcoming operating systems.</p>
+        <ul>
+<li><strong>Live Recognition Feature:</strong> One paper focuses on spatial and functional understanding, which is reminiscent of the "Live Recognition" assistive feature in iOS 27. Furthermore, there are suggestions that this could be applied to devices such as AirPods equipped with cameras.</li>
+<li><strong>Image Playground Utilization:</strong> Another paper covers image generation optimization, text-guided image editing, and Reward Unified Reinforcement Learning. These technologies are analyzed to have a high correlation with the "Image Playground" feature expected to be included in iOS 27.</li>
+</ul>
+        <h3>Significance and Timing of Technical Announcements</h3>
+        <p>The industry interprets this CVPR conference as a technical warm-up phase preceding WWDC (Worldwide Developers Conference).</p>
+        <p>Apple appears to be first unveiling fundamental research—such as base models, datasets, and evaluation methodologies—through the academic community. It is then anticipated that these results will be showcased as actual system features or developer tools during the public presentations at WWDC on June 8.</p>
+        <h3>Overall Assessment</h3>
+        <p>Apple's paper presentations at CVPR are more than just academic contributions; they serve as a significant signal of the core AI technologies to be integrated into the next-generation iOS 27. In particular, research findings regarding spatial understanding and image generation demonstrate the potential to fundamentally transform the user experience for smart device users.</p>
+        <h3>Summary</h3>
+<p>Apple is set to present 14 AI research papers at CVPR covering critical fields like image generation and spatial understanding. These advancements are expected to underpin major features in iOS 27, such as "Live Recognition" and "Image Playground." The academic presentations serve as a technical precursor to the official feature reveals planned for WWDC.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -669,18 +771,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
