@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Apple iPhone 18 Pro A20 Pro 칩 유출: 강화된 방열 및 NPU, 96비트 대역폭 LPDDR6 메모리 지원</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple iPhone 18 Pro A20 Pro 칩 유출: 강화된 방열 및 NPU, 96비트 대역폭 LPDDR6 메모리 지원">
+  <meta name="title-zh" content="苹果 iPhone 18 Pro 芯片 A20 Pro 爆料：更强散热和 NPU，支持 96-bit 位宽 LPDDR6 内存">
+  <meta name="title-ja" content="Apple iPhone 18 ProのチップA20 Proに関するリーク：強化された放熱性能とNPU、96ビット幅のLPDDR6メモリをサポート">
+  <meta name="title-en" content="Apple iPhone 18 Pro A20 Pro Chip Leak: Better Cooling and NPU, Supporting 96-bit LPDDR6 Memory">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="Apple iPhone 18 Pro A20 Pro 칩 유출: 강화된 방열 및 NPU, 96비트 대역폭 LPDDR6 메모리 지원" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Apple iPhone 18 Pro A20 Pro 칩 유출: 강화된 방열 및 NPU, 96비트 대역폭 LPDDR6 메모리 지원"
+            data-zh="苹果 iPhone 18 Pro 芯片 A20 Pro 爆料：更强散热和 NPU，支持 96-bit 位宽 LPDDR6 内存"
+            data-ja="Apple iPhone 18 ProのチップA20 Proに関するリーク：強化された放熱性能とNPU、96ビット幅のLPDDR6メモリをサポート"
+            data-en="Apple iPhone 18 Pro A20 Pro Chip Leak: Better Cooling and NPU, Supporting 96-bit LPDDR6 Memory">Apple iPhone 18 Pro A20 Pro 칩 유출: 강화된 방열 및 NPU, 96비트 대역폭 LPDDR6 메모리 지원</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-06-28
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>메인보드 및 패키징</h3>
+          
+          <p>IT 소식에 따르면, 정보원 @Reptalicant가 X 플랫폼을 통해 Apple iPhone 18 Pro의 메인보드 정보를 공유했습니다. 해당 정보에 따르면 A20 Pro 칩은 기존 A19 Pro에서 채택한 PoP 방식을 대신하여 WMCM 패키징을 도입할 예정입니다.</p>
+          
+          <h3>기술 사양 설명</h3>
+          
+          <p>PoP(Package on Package)는 저장용 메모리 칩을 메인 칩 패키지 위에 직접 쌓아 올리는 방식으로, 공간 절약과 배선 효율이 뛰어나 스마트폰 프로세서 설계에 흔히 사용됩니다. 이 방식은 소형 모바일 기기에 적합하지만, 고전력 소비 상황에서는 상단 적층 구조로 인해 방열 관리가 어려워질 수 있다는 단점이 있습니다.</p>
+          
+          <p>WMCM(Wafer-level Multi-Chip Module)은 여러 개의 칩이나 구성 요소를 하나의 패키지 내에 더 밀접하게 통합하는 기술입니다. 이 방식은 공간, 신호 경로 및 열 관리 사이의 균형을 더 잘 맞출 수 있어 고성능 스마트폰 SoC나 성능과 방열 관리가 동시에 필요한 모바일 칩셋에 적합합니다.</p>
+          
+          <h3>디자인 및 방열</h3>
+          
+          <p>공개된 회로도에서 가장 주목할 만한 변화는 DRAM 메모리가 더 이상 칩 상단에 쌓이지 않고 칩 패키지 측면으로 이동했다는 점입니다. 이러한 패키징 방식은 열 방출에 유리하며, 고부하 상황에서의 발열 압력을 완화하는 데 도움이 됩니다.</p>
+          
+          <h3>메모리 및 성능</h3>
+          
+          <ul>
+<li>A20 Pro는 96-bit 대역폭의 LPDDR6 메모리를 지원합니다.</li>
+</ul>
+          
+          <p>공개된 도표에 따르면 A20 Pro의 Neural Engine(신경망 엔진) 면적은 확대되었으나, 전체 패키지 크기는 A19 Pro와 유사한 수준을 유지합니다. 이는 Apple이 패키지 부피를 확장하지 않으면서 내부 자원을 재배치하여 온디바이스 AI 연산 모듈을 강화하는 데 집중하고 있음을 시사합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Apple은 A20 Pro 칩에 WMCM 패키징을 도입함으로써 기존 PoP 방식보다 개선된 방열 성능과 효율적인 공간 활용을 도모하고 있습니다. 특히 Neural Engine 면적 확대를 통해 전체 크기를 유지하면서도 온디바이스 AI 기능을 강화하는 데 집중한 것이 특징입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>封装技术变革</h3>
+<p>根据相关消息，iPhone 18 Pro 的 A20 Pro 芯片将采用 WMCM（晶圆级多芯片模块）封装方案。这一变动旨在取代 A19 Pro 所采用的 PoP（封装叠封）方案。PoP 虽然节省空间但散热管理难度大，而 WMCM 能在保持高密度的同时更好地平衡信号路径与热管理。</p>
+          
+          <h3>内存与散热优化</h3>
+<p>在新的封装设计中，DRAM 内存不再堆叠在芯片顶部，而是移至芯片封装侧面。这种结构变化旨在降低高负载下的散热压力。相关技术参数如下：</p>
+<ul>
+<li>支持 96-bit 位宽的 LPDDR6 内存</li>
+</ul>
+          
+          <h3>端侧 AI 能力强化</h3>
+<p>尽管 A20 Pro 的整体封装尺寸与 A19 Pro 基本持平，但其内部的 Neural Engine（神经网络引擎）面积有所增加。这表明 Apple 在不扩大物理体积的前提下，通过重新分配资源来优先提升面向端侧 AI 的计算性能。</p>
+          
+          <h3>总结</h3>
+<p>iPhone 18 Pro 的 A20 Pro 芯片将从 PoP 转向 WMCM 封装技术，旨在通过改变内存布局来优化散热性能。同时，该芯片在保持紧凑尺寸的同时扩大了神经网络引擎面积，以强化端侧 AI 能力。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>メインボードとパッケージング</h3>
+          
+          <p>ITニュースによると、情報源@ReptalicantがXプラットフォームを通じてiPhone 18 Proのメインボード情報を公開しました。この情報によると、A20 Proチップは従来のA19 Proで採用されていたPoP方式に代わり、WMCMパッケージングを採用する予定です。</p>
+          
+          <h3>技術仕様の解説</h3>
+          
+          <p>PoP（Package on Package）は、ストレージ用メモリチップをメインチップのパッケージ上に直接積み重ねる手法であり、省スペースと配線の効率化に優れているため、スマートフォンのプロセッサ設計で一般的に使用されます。この方式は小型モバイルデバイスに適していますが、高電力消費の状況下では上部積層構造により放熱管理が困難になるという欠点があります。</p>
+          
+          <p>WMCM（Wafer-level Multi-Chip Module）は、複数のチップやコンポーネントを1つのパッケージ内に密接に統合する技術です。この手法は空間、信号経路、および熱管理のバランスをより良く保つことができるため、高性能なスマートフォンSoCや、性能と放熱管理の両立が必要なモバイルチップセットに適しています。</p>
+          
+          <h3>デザインと放熱</h3>
+          
+          <p>公開された回路図で最も注目すべき変化は、DRAMメモリがもはやチップ上部に積層されるのではなく、チップパッケージの側面に配置されるようになった点です。このパッケージング手法は放熱に有利であり、高負荷時における発熱圧力を緩和するのに役立ちます。</p>
+          
+          <h3>メモリとパフォーマンス</h3>
+          
+          <ul>
+<li>A20 Proは96-bit帯域幅のLPDDR6メモリをサポートします。</li>
+</ul>
+          
+          <p>公開された図表によると、A20 ProのNeural Engine（ニューラルエンジン）の面積は拡大していますが、パッケージ全体のサイズはA19 Proとほぼ同等のレベルを維持しています。これはAppleがパッケージの体積を拡大することなく、内部リソースを再配置することでオンデバイスAI演算モジュールの強化に注力していることを示唆しています。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>AppleはA20 ProチップにWMCMパッケージングを採用することで、従来のPoP方式よりも優れた放熱性能と効率的な空間活用を実現しようとしています。特にNeural Engineの面積拡大により、全体のサイズを維持しながらオンデバイスAI機能の強化に重点を置いているのが特徴です。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Mainboard and Packaging</h3>
+          
+          <p>According to IT news, source @Reptalicant shared information regarding the mainboard of the Apple iPhone 18 Pro via the X platform. The report indicates that the A20 Pro chip will adopt WMCM packaging instead of the PoP method utilized in the previous A19 Pro.</p>
+          
+          <h3>Technical Specifications</h3>
+          
+          <p>PoP (Package on Package) is a method where memory chips are stacked directly on top of the main chip package. While this approach is commonly used in smartphone processor designs due to its excellent space-saving and wiring efficiency, it can lead to difficulties in heat management during high power consumption scenarios because of its vertical stacking structure.</p>
+          
+          <p>WMCM (Wafer-level Multi-Chip Module) is a technology that integrates multiple chips or components more closely within a single package. This method provides a better balance between space, signal paths, and thermal management, making it ideal for high-performance smartphone SoCs or mobile chipsets that require both high performance and effective heat dissipation.</p>
+          
+          <h3>Design and Heat Dissipation</h3>
+          
+          <p>The most notable change in the disclosed circuit diagrams is that DRAM memory will no longer be stacked on top of the chip but moved to the side of the chip package. This packaging method facilitates better heat dissipation and helps alleviate thermal pressure during high-load scenarios.</p>
+          
+          <h3>Memory and Performance</h3>
+          
+          <ul>
+<li>The A20 Pro supports LPDDR6 memory with a 96-bit bandwidth.</li>
+</ul>
+          
+          <p>According to the released diagrams, while the area of the Neural Engine has been expanded, the overall package size remains similar to that of the A19 Pro. This suggests that Apple is focusing on strengthening on-device AI computing modules by rearranging internal resources without increasing the physical volume of the package.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>By adopting WMCM packaging for the A20 Pro chip, Apple aims to achieve improved thermal performance and more efficient space utilization compared to the traditional PoP method. The design specifically focuses on enhancing on-device AI capabilities by expanding the Neural Engine while maintaining a consistent package size.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/969/326.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-06"
+               class="archive-btn active">
+              2026-06
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
