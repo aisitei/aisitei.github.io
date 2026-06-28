@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple은 NVIDIA Blackwell B200 처리기를 사용하여 iOS 27의 일부 Siri AI 요청을 호출할 것으로 알려졌다.">
+  <meta name="title-zh" content="Apple은 NVIDIA Blackwell B200 처리기를 사용하여 iOS 27의 일부 Siri AI 요청을 호출할 것으로 알려졌다.">
+  <meta name="title-ja" content="AppleはiOS 27の一部のSiri AIリクエストにNVIDIA Blackwell B200プロセッサを使用する見通しです。">
+  <meta name="title-en" content="Apple is reported to use NVIDIA Blackwell B200 processors to handle some Siri AI requests for iOS 27.">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">Apple은 NVIDIA Blackwell B200 처리기를 사용하여 iOS 27의 일부 Siri AI 요청을 호출할 것으로 알려졌다.</h1>
+        <h1 class="article-title" data-ko="Apple은 NVIDIA Blackwell B200 처리기를 사용하여 iOS 27의 일부 Siri AI 요청을 호출할 것으로 알려졌다." data-zh="Apple은 NVIDIA Blackwell B200 처리기를 사용하여 iOS 27의 일부 Siri AI 요청을 호출할 것으로 알려졌다." data-ja="AppleはiOS 27の一部のSiri AIリクエストにNVIDIA Blackwell B200プロセッサを使用する見通しです。" data-en="Apple is reported to use NVIDIA Blackwell B200 processors to handle some Siri AI requests for iOS 27.">Apple은 NVIDIA Blackwell B200 처리기를 사용하여 iOS 27의 일부 Siri AI 요청을 호출할 것으로 알려졌다.</h1>
 
         <div class="article-info">
           
@@ -527,32 +558,82 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>iOS 27 Siri, Google Cloud와 NVIDIA Blackwell B200으로 구동</h3>
-        
         <p>IT之家에 따르면, IT 전문 매체 The Information이 지난 6월 3일 보도한 바에 의하면, Apple의 iOS 27 버전에서 일부 Siri 검색 기능은 Google Cloud를 통해 인증된 Gemini 모델을 호출하고, 처리 과정에는 구글의 NVIDIA Blackwell B200 클러스터가 사용될 수 있습니다.</p>
-        
         <h3>개인 정보 보호와 서버 부하 분산 메커니즘</h3>
-        
         <p>이전에 IT之家는 Apple이 개인 정보 보호를 최우선 원칙으로 삼아 기기 내장(로컬) 및 사설 클라우드 기반의 작동 방식을 추진할 계획이라고 보도한 바 있습니다. 다만, Apple 서버의 부하를 줄이기 위해 iOS 27 버전 Siri에서 일부 사용자의 요청은 Google Cloud로 전송되어 인증된 Gemini 모델을 통해 처리될 것이라는 내용이 추가되었습니다.</p>
-        
         <h3>고성능 AI 처리를 위한 기술적 배경</h3>
-        
         <p>The Information의 최신 보도에 따르면, Google Cloud로 전환되는 Siri 관련 요청들은 구글의 NVIDIA Blackwell B200 클러스터에서 처리됩니다.</p>
-        
         <p>Blackwell B200은 NVIDIA가 데이터 센터를 겨냥하여 개발한 고급 GPU이며, Blackwell 아키텍처를 기반으로 합니다. NVIDIA는 Blackwell을 수조 개의 파라미터를 가진 모델을 포함하는 대규모 AI 학습 및 추론 플랫폼으로 포지셔닝하고 있습니다.</p>
-        
         <h3>하드웨어급 보안 기능 도입: Confidential Compute</h3>
-        
         <p>클라우드 처리로 인해 발생할 수 있는 개인 정보 보호 우려를 낮추기 위해, Apple은 NVIDIA의 기밀 컴퓨팅(confidential compute) 기능을 활용할 예정입니다. 이 기능은 하드웨어 수준의 보안 메커니즘으로, GPU가 데이터를 처리하는 과정 자체를 암호화하여 안전하게 만듭니다.</p>
-        
         <p>NVIDIA에 따르면, 이 기술은 Rubin, Blackwell, Hopper GPU에 배포된 AI 모델의 기밀성과 무결성을 보호할 수 있으며, 민감한 AI 워크로드를 공유 클라우드 환경에서 실행할 수 있게 합니다.</p>
-        
         <h3>총평</h3>
-        
         <p>iOS 27 Siri는 개인 정보 보호를 중시하는 로컬 처리를 기본으로 하되, 대규모 요청이나 서버 부하 분산이 필요할 경우 Google Cloud와 NVIDIA의 최신 Blackwell B200 GPU 자원을 활용하여 처리될 것으로 보입니다. 특히 Confidential Compute 기능을 도입함으로써 고성능 AI 모델을 사용하면서도 데이터 보안 수준을 최고 단계로 유지하는 것이 핵심 포인트입니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>Siri 与 Google Cloud 及 Gemini 合作</h3>
+<p>据 The Information 报道，Apple 计划在 iOS 27 版 Siri 中推行“本地 + 私有云”的运行机制。为了减轻 Apple 服务器压力，部分用户提出的请求将转至 Google Cloud，并调用授权版本的 Gemini 模型进行处理。</p>
+        <h3>底层硬件架构与算力支持</h3>
+<p>被转发至 Google Cloud 的相关 Siri 请求将由谷歌提供的 NVIDIA Blackwell B200 集群进行处理。该硬件具备以下特性：</p>
+<ul>
+<li>产品名称：NVIDIA Blackwell B200</li>
+<li>技术架构：基于 Blackwell 架构的高端 GPU</li>
+<li>应用场景：定位为大型 AI 训练与推理平台，支持包括万亿参数模型在内的大模型工作负载。</li>
+</ul>
+        <h3>隐私保护机制</h3>
+<p>为了解决云端处理带来的隐私顾虑，Apple 将启用 NVIDIA 的“机密计算”（confidential compute）功能。该功能作为硬件级安全机制，能够在 GPU 处理数据时进行加密，确保敏感 AI 工作负载在共享云环境中运行时的安全性。</p>
+        <h3>总结</h3>
+<p>Apple 计划在 iOS 27 中通过 Google Cloud 调用 Gemini 模型来辅助 Siri 处理部分请求，以缓解服务器压力。相关计算将依托 NVIDIA Blackwell B200 高性能 GPU 集群，并配合“机密计算”技术确保用户数据的隐私安全。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>iOS 27のSiri、Google CloudとNVIDIA Blackwell B200を活用</h3>
+        <p>IT之家の報道（The Informationによる6月3日の報じた内容）によると、AppleのiOS 27において、一部のSiri検索機能がGoogle Cloudを通じて認証済みのGeminiモデルを呼び出す仕組みが導入される見込みです。この処理プロセスには、GoogleのNVIDIA Blackwell B200クラスターが活用される可能性があります。</p>
+        <h3>プライバシー保護とサーバー負荷分散のメカニズム</h3>
+        <p>これまでIT之家は、Appleがプライバシー保護を最優先事項とし、デバイス内（ローカル）およびプライベートクラウドベースの動作を推進する方針であると報じてきました。これに加え、Appleサーバーの負荷を軽減するため、iOS 27のSiriにおいて一部のユーザーリクエストがGoogle Cloudへ転送され、認証済みのGeminiモデルを通じて処理される仕組みが追加されました。</p>
+        <h3>高性能AI処理のための技術的背景</h3>
+        <p>The Informationの最新の報道によると、Google Cloudに転送されるSiri関連のリクエストは、NVIDIA Blackwell B200クラスターで処理されます。</p>
+        <p>Blackwell B200に関する主な特徴は以下の通りです：</p>
+<ul>
+<li>データセンター向けに開発された高度なGPUであり、Blackwellアーキテクチャに基づいている。</li>
+<li>数兆のパラメータを持つモデルを含む、大規模AI学習および推論プラットフォームとして位置づけられている。</li>
+</ul>
+        <h3>ハードウェアレベルのセキュリティ機能：Confidential Compute</h3>
+        <p>クラウド処理に伴うプライバシーへの懸念を軽減するため、AppleはNVIDIAの「Confidential Compute」機能を活用する予定です。この機能はハードウェアレベルのセキュリティ機構であり、GPUがデータを処理するプロセス自体を暗号化することで安全性を確保します。</p>
+        <p>NVIDIAの説明によれば、この技術により以下のことが可能になります：</p>
+<ul>
+<li>Rubin、Blackwell、Hopper GPUに展開されたAIモデルの機密性と完全性の保護。</li>
+<li>共有クラウド環境における機密性の高いAIワークロードの実行。</li>
+</ul>
+        <h3>まとめ</h3>
+        <p>iOS 27のSiriは、プライバシー保護を重視したローカル処理を基本としつつ、負荷分散が必要な場合にはGoogle CloudとNVIDIA Blackwell B200を活用するハイブリッドな仕組みを採用します。特にConfidential Compute機能を導入することで、高度なAIモデルの活用と強固なデータセキュリティの両立を目指しています。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>iOS 27 Siri Powered by Google Cloud and NVIDIA Blackwell B200</h3>
+        <p>According to a report from The Information via IT House, certain Siri search functions in iOS 27 may call Gemini models through Google Cloud. These processes are expected to utilize Google's NVIDIA Blackwell B200 clusters for processing.</p>
+        <h3>Privacy and Server Load Balancing Mechanisms</h3>
+        <p>Apple has previously been reported to prioritize privacy by pushing for on-device (local) and private cloud-based operations. However, it has been added that to reduce the load on Apple's servers, some user requests in iOS 27 will be routed to Google Cloud to be processed via verified Gemini models.</p>
+        <h3>Technical Background for High-Performance AI Processing</h3>
+        <p>The latest reports from The Information indicate that Siri-related requests redirected to Google Cloud are processed on NVIDIA Blackwell B200 clusters. The Blackwell B200 is a high-end GPU developed by NVIDIA for data centers based on the Blackwell architecture.</p>
+        <p>NVIDIA positions the Blackwell architecture as an AI training and inference platform capable of supporting models with trillions of parameters. Key details include:</p>
+<ul>
+<li>High-performance GPU designed for data center environments.</li>
+<li>Capable of handling large-scale AI training and inference.</li>
+<li>Support for models containing trillions of parameters.</li>
+</ul>
+        <h3>Hardware-Level Security: Confidential Compute</h3>
+        <p>To mitigate privacy concerns arising from cloud processing, Apple plans to utilize NVIDIA's "confidential compute" feature. This is a hardware-level security mechanism that encrypts data during the actual GPU processing stage to ensure safety.</p>
+        <p>According to NVIDIA, this technology protects the confidentiality and integrity of AI models deployed on Rubin, Blackwell, and Hopper GPUs. This allows sensitive AI workloads to be executed securely within shared cloud environments.</p>
+        <h3>Summary</h3>
+        <p>iOS 27's Siri will primarily utilize local processing for privacy but can leverage Google Cloud and NVIDIA Blackwell B200 clusters to manage high demand and server load. By integrating "Confidential Compute" technology, Apple aims to maintain high-level data security while providing the power of advanced AI models in cloud environments.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -646,18 +727,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {

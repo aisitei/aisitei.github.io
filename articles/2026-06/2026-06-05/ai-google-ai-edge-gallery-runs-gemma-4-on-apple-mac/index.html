@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="구글 AI 에지 갤러리가 Apple Mac 기기에 출시되면서, 16GB 메모리로 Gemma 4 12B 모델을 실행할 수 있습니다.">
+  <meta name="title-zh" content="구글 AI 에지 갤러리가 Apple Mac 기기에 출시되면서, 16GB 메모리로 Gemma 4 12B 모델을 실행할 수 있습니다.">
+  <meta name="title-ja" content="Google AI Edge GalleryがApple Macデバイスにリリースされ、16GBのメモリでGemma 4 12Bモデルを実行できるようになります。">
+  <meta name="title-en" content="With the release of Google AI Edge Gallery on Apple Mac devices, the Gemma 4 12B model can now be run with 16GB of memory.">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">구글 AI 에지 갤러리가 Apple Mac 기기에 출시되면서, 16GB 메모리로 Gemma 4 12B 모델을 실행할 수 있습니다.</h1>
+        <h1 class="article-title" data-ko="구글 AI 에지 갤러리가 Apple Mac 기기에 출시되면서, 16GB 메모리로 Gemma 4 12B 모델을 실행할 수 있습니다." data-zh="구글 AI 에지 갤러리가 Apple Mac 기기에 출시되면서, 16GB 메모리로 Gemma 4 12B 모델을 실행할 수 있습니다." data-ja="Google AI Edge GalleryがApple Macデバイスにリリースされ、16GBのメモリでGemma 4 12Bモデルを実行できるようになります。" data-en="With the release of Google AI Edge Gallery on Apple Mac devices, the Gemma 4 12B model can now be run with 16GB of memory.">구글 AI 에지 갤러리가 Apple Mac 기기에 출시되면서, 16GB 메모리로 Gemma 4 12B 모델을 실행할 수 있습니다.</h1>
 
         <div class="article-info">
           
@@ -527,20 +558,16 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>Google AI Edge Gallery, macOS 지원으로 로컬 LLM 구동 시대 개막</h3>
-        
         <p>IT之家에 따르면, 6월 4일 IT 전문 매체 9to5Mac이 보도한 바에 의하면, Google의 AI Edge Gallery가 마침내 macOS를 지원하며 Apple Mac 사용자들은 기기 자체에서 Gemma AI 모델을 구동할 수 있게 되었습니다.</p>
-        
         <h3>AI Edge Gallery란 무엇인가요?</h3>
-        
         <p>IT之家는 AI Edge Gallery가 Google이 개발한 실험적인 애플리케이션으로, 사용자가 생성형 AI 모델을 완전히 로컬 환경에서 직접 실행하는 것을 목표로 합니다. 이 앱의 핵심 강점은 인터넷 연결 없이도 채팅, 이미지 처리, 의미 이해 등의 작업을 수행할 수 있다는 점입니다. 즉, 완벽하게 오프라인 구동이 가능하며 사생활 보호 수준이 높고 속도가 빠릅니다.</p>
-        
         <h3>지원 모델 및 주요 기능</h3>
-        
         <p>현재 Mac용 Google AI Edge Gallery는 Google 자체의 5가지 모델에 대한 접근 권한을 제공합니다. 여기서 'it'은 instruct(지시어 튜닝)을 의미합니다.</p>
-        
         <ul>
 <li>Gemma-4-12B-it</li>
 <li>Gemma-4-E2B-it</li>
@@ -548,19 +575,80 @@
 <li>Gemma-3n-E2B-it</li>
 <li>Gemma-3n-E4B-it</li>
 </ul>
-        
         <p>이 중 가장 주목할 만한 모델은 Gemma 4 12B입니다. Google에 따르면, 이 모델은 16GB 메모리 Mac에서도 텍스트, 비전, 오디오를 처리할 수 있으며 일정 수준의 코딩 능력까지 갖추고 있습니다. 이는 노트북을 단순한 기기를 넘어 데이터를 분석하고 정보를 추출하는 지능형 멀티모달 장치로 진화시킬 잠재력을 보여줍니다.</p>
-        
         <h3>Google AI Edge Eloquent (음성 인식 및 교정)</h3>
-        
         <p>한편, Google은 Mac용 AI Edge Gallery와 함께 무료 받아쓰기 애플리케이션인 Google AI Edge Eloquent도 출시했습니다. 이 앱은 사용자의 음성을 포착하여 텍스트로 전사(transcribe)할 뿐만 아니라, 구어체상의 실수나 가벼운 문장 다듬기를 통해 표현을 더욱 명확하게 만들어줍니다.</p>
-        
         <p>이 모든 처리 과정은 클라우드에 업로드되는 것이 아니라 기기 자체에서 완료됩니다. 또한 Eloquent는 다양한 작문 스타일에 맞춰 사용자가 이름, 산업 전문 용어, 자주 사용하는 구절 등을 추가할 수 있어, 받아쓰기 소프트웨어가 특정 단어를 잘못 수정하는 오류를 줄여줍니다.</p>
-        
         <h3>총평</h3>
-        
         <p>Google AI Edge Gallery의 macOS 지원은 개인 기기에서 강력한 생성형 AI 기능을 오프라인으로 구현할 수 있게 함으로써 사용자 경험을 혁신적으로 개선하고 있습니다. 특히 Gemma 4 12B와 같은 고성능 모델이 로컬 환경에서 멀티모달 작업을 수행한다는 점은 주목할 만합니다. 이는 클라우드 의존도를 낮추고 개인 정보 보호를 극대화하며, 노트북의 지능형 활용 범위를 한 단계 끌어올리는 중요한 전환점이 될 것으로 보입니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>Google AI Edge Gallery 登陆 macOS</h3>
+<p>Google 推出的实验性应用 AI Edge Gallery 已正式登陆 macOS。该工具旨在让用户在本地运行生成式 AI 模型，核心优势在于完全离线运行、高私密性以及快速的响应速度，支持聊天、图像处理和语义理解。</p>
+<p>目前该应用提供以下 5 个模型供 Mac 用户使用：</p>
+<ul>
+<li>Gemma-4-12B-it</li>
+<li>Gemma-4-E2B-it</li>
+<li>Gemma-4-E4B-it</li>
+<li>Gemma-3n-E2B-it</li>
+<li>Gemma-3n-E4B-it</li>
+</ul>
+<p>其中 Gemma 4 12B 模型支持在 16GB 内存的 Mac 上处理文本、视觉和音频，并具备一定的代码能力。该模型旨在让设备端具备多模态能力，方便用户进行数据分析和信息提取。</p>
+        <h3>Google AI Edge Eloquent 语音转文字工具</h3>
+<p>Google AI Edge Eloquent 也同步登陆了 Mac。这是一款免费的听写应用，能够捕捉用户的语音并转换为文字。该工具在设备端完成处理过程（而非上传云端），会自动去除口误并对文本进行轻度润色。</p>
+<p>Eloquent 支持多种写作风格和自定义词汇功能。用户可以添加姓名、行业术语及常用短语，以确保特定词汇不会被软件错误修改。</p>
+        <h3>总结</h3>
+<p>Google 推出的 AI Edge Gallery 和 Eloquent 现已登陆 Mac，旨在提供本地化的 AI 能力。用户可以在本地离线运行 Gemma 系列模型或使用具备智能润色功能的语音转文字工具，在保证数据隐私的同时提升多模态处理和内容创作效率。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>Google AI Edge Gallery、macOS対応によりローカルLLMの時代へ</h3>
+        <p>IT之家の報道（9to5Macによる6月4日の報じた内容）によると、GoogleのAI Edge GalleryがついにmacOSをサポートしました。これにより、Apple Macユーザーはデバイス自体上でGemma AIモデルを実行することが可能になります。</p>
+        <h3>AI Edge Galleryとは？</h3>
+        <p>IT之家によれば、AI Edge GalleryはGoogleが開発した実験的なアプリケーションであり、ユーザーが生成AIモデルを完全にローカル環境で直接実行することを目的としています。このアプリの主な強みは、インターネット接続なしでチャット、画像処理、意味理解などのタスクを実行できる点にあります。つまり、完全なオフライン動作が可能であるため、プライバシー保護のレベルが高く、高速な処理が期待できます。</p>
+        <h3>対応モデルと主な機能</h3>
+        <p>現在、Mac向けのGoogle AI Edge Galleryでは、Google独自の5つのモデルへのアクセス権を提供しています。なお、モデル名の「it」はinstruction-tuned（指示語チューニング）を意味します。</p>
+        <ul>
+<li>Gemma-4-12B-it</li>
+<li>Gemma-4-E2B-it</li>
+<li>Gemma-4-E4B-it</li>
+<li>Gemma-3n-E2B-it</li>
+<li>Gemma-3n-E4B-it</li>
+</ul>
+        <p>これらの中で特に注目されるのはGemma 4 12Bです。Googleの発表によると、このモデルは16GBのメモリを搭載したMacでもテキスト、ビジョン、オーディオを処理でき、一定レベルのコーディング能力も備えています。これは、ノートPCを単なるデバイスとしてだけでなく、データを分析し情報を抽出するインテリジェントなマルチモーダルデバイスへと進化させる可能性を示しています。</p>
+        <h3>Google AI Edge Eloquent（音声認識および校正）</h3>
+        <p>一方、GoogleはmacOS用AI Edge Galleryと同時に、無料の書き起こしアプリケーション「Google AI Edge Eloquent」もリリースしました。このアプリはユーザーの音声をキャッチしてテキストに変換するだけでなく、口語的なミスを修正したり、軽い文章の整えを行うことで表現をより明確にします。</p>
+        <p>これらの処理プロセスはクラウドにアップロードされることはなく、すべてデバイス内で完結します。また、Eloquentはさまざまな執筆スタイルに合わせて、ユーザーが名前や業界用語、頻繁に使用するフレーズなどを追加できるため、書き起こしソフトが特定の単語を誤って修正するエラーを減らすことができます。</p>
+        <h3>総評</h3>
+        <p>Google AI Edge GalleryのmacOSサポートは、個人のデバイスで強力な生成AI機能をオフラインで実現可能にすることで、ユーザー体験を革新的に向上させています。特にGemma 4 12Bのような高性能モデルがローカル環境でマルチモーダルなタスクを実行できる点は注目に値します。これはクラウドへの依存度を下げ、プライバシー保護を最大化し、ノートPCのインテリジェントな活用範囲を一段階引き上げる重要な転換点となるでしょう。</p>
+        <h3>まとめ</h3>
+<p>Google AI Edge GalleryがmacOSに対応したことで、MacユーザーはGemmaシリーズを含む複数のモデルをローカル環境でオフライン実行できるようになります。これにより、プライバシーを保護しながら高度なマルチモーダル処理や音声の書き起こし・校正が可能となります。この展開は、クラウドに依存しないインテリジェントなデバイス体験を実現する重要なステップとなります。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Google AI Edge Gallery Brings Local LLM Era to macOS</h3>
+        <p>According to IT之家, as reported by tech outlet 9to5Mac on June 4, Google's AI Edge Gallery now supports macOS. This allows Apple Mac users to run Gemma AI models directly on their own devices.</p>
+        <h3>What is AI Edge Gallery?</h3>
+        <p>IT하자 describes AI Edge Gallery as an experimental application developed by Google, designed to let users run generative AI models entirely within a local environment. The core strength of this app is its ability to perform tasks such as chatting, image processing, and semantic understanding without an internet connection. This enables fully offline operation, ensuring high levels of privacy and faster performance.</p>
+        <h3>Supported Models and Key Features</h3>
+        <p>Currently, the Google AI Edge Gallery for Mac provides access to five of Google's own models. Note: "it" stands for instruct (instruction-tuned).</p>
+        <ul>
+<li>Gemma-4-12B-it</li>
+<li>Gemma-4-E2B-it</li>
+<li>Gemma-4-E4B-it</li>
+<li>Gemma-3n-E2B-it</li>
+<li>Gemma-3n-E4B-it</li>
+</ul>
+        <p>Among these, the Gemma 4 12B model is particularly noteworthy. According to Google, this model can process text, vision, and audio on Macs with 16GB of memory, while also possessing a certain level of coding capability. This demonstrates the potential to evolve laptops from simple devices into intelligent multimodal tools capable of analyzing data and extracting information.</p>
+        <h3>Google AI Edge Eloquent (Voice Recognition and Correction)</h3>
+        <p>Alongside the AI Edge Gallery for Mac, Google has also released a free transcription application called Google AI Edge Eloquent. This app not only captures user voice and transcribes it into text but also refines expressions by correcting colloquial mistakes and polishing sentences.</p>
+        <p>All processing occurs locally on the device rather than being uploaded to the cloud. Additionally, Eloquent allows users to add names, industry-specific terminology, and frequently used phrases to suit various writing styles, reducing errors where transcription software might incorrectly correct specific terms.</p>
+        <h3>Overall Assessment</h3>
+        <p>The macOS support for Google AI Edge Gallery significantly enhances the user experience by enabling powerful generative AI capabilities offline on personal devices. In particular, the ability of high-performance models like Gemma 4 12B to perform multimodal tasks in a local environment is noteworthy. This marks a significant turning point that reduces cloud dependency, maximizes privacy, and elevates the scope of intelligent utility for laptops.</p>
+        <h3>Summary</h3>
+<p>Google's AI Edge Gallery now supports macOS, allowing users to run Gemma models locally to ensure high privacy and offline functionality. The accompanying Eloquent tool provides advanced voice-to-text capabilities without cloud reliance. This integration transforms Mac devices into powerful tools for local multimodal AI processing.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -665,18 +753,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
