@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="">
   <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="네이버 유도, &amp;#39;공자어&amp;#39; 기반 멀티모달 모델 및 음성 합성 모델 전량 오픈소스 공개">
+  <meta name="title-zh" content="네이버 유도, &amp;#39;공자어&amp;#39; 기반 멀티모달 모델 및 음성 합성 모델 전량 오픈소스 공개">
+  <meta name="title-ja" content="네이버 유도, &amp;#39;공자어&amp;#39; 기반 멀티모달 모델 및 음성 합성 모델 전량 오픈소스 공개">
+  <meta name="title-en" content="Naver releases 'Gongja'-based multimodal and speech synthesis models as open source.">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -507,7 +538,7 @@
           
         </div>
 
-        <h1 class="article-title">네이버 유도, &#39;공자어&#39; 기반 멀티모달 모델 및 음성 합성 모델 전량 오픈소스 공개</h1>
+        <h1 class="article-title" data-ko="네이버 유도, &amp;#39;공자어&amp;#39; 기반 멀티모달 모델 및 음성 합성 모델 전량 오픈소스 공개" data-zh="네이버 유도, &amp;#39;공자어&amp;#39; 기반 멀티모달 모델 및 음성 합성 모델 전량 오픈소스 공개" data-ja="네이버 유도, &amp;#39;공자어&amp;#39; 기반 멀티모달 모델 및 음성 합성 모델 전량 오픈소스 공개" data-en="Naver releases 'Gongja'-based multimodal and speech synthesis models as open source.">네이버 유도, &#39;공자어&#39; 기반 멀티모달 모델 및 음성 합성 모델 전량 오픈소스 공개</h1>
 
         <div class="article-info">
           
@@ -523,49 +554,122 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>핵심 발표: '자월(子曰)' LLM 4.0 엔진 전면 오픈소스 공개</h3>
-        
         <p>NetEase Youdao는 오늘 자사 개발한 대규모 언어 모델(LLM)인 ‘자월(子曰)’ 4.0의 핵심 두 가지 엔진, 즉 ‘멀티모달 모델’과 ‘음성 합성(TTS) 모델’을 전 세계에 공식적으로 오픈소스화한다고 발표했습니다.</p>
-        
         <p>이번 공개를 통해 개발자들은 해당 모델들을 무료로 다운로드하고 배포할 수 있으며, 이를 기반으로 다양한 2차 개발 작업을 진행할 수 있게 되었습니다.</p>
-        
         <h3>멀티모달 모델 (Multimodal Model)</h3>
-        
         <p>이번에 오픈소스화된 ‘자월 4’ 멀티모달 모델은 27B 파라미터 규모로, 교육 분야의 시각적 수리 능력 지원에 초점을 맞추었으며 업계 최고 수준(SOTA)을 달성했습니다.</p>
-        
         <p>주요 특징 및 성능은 다음과 같습니다:</p>
-<ul>
+        <ul>
 <li><strong>시각 수리 문제 처리:</strong> 동일한 파라미터 규모의 모델 대비, 도표가 포함된 고난도 시각적 수리 문제를 처리하는 능력이 뛰어납니다.</li>
 <li><strong>정확도:</strong> 순수 텍스트 기반의 중국어 수리 난제에서 81.4%의 정확도를 기록했습니다.</li>
 </ul>
-        
         <p>또한, 새로운 모델은 정교화된 사고 사슬(Chain-of-Thought) 재구성 방식을 채택하여 성능을 끌어올렸습니다.</p>
-<ul>
+        <ul>
 <li><strong>효율성 개선:</strong> 대규모 고품질 추론 샘플을 깊이 있게 최적화함으로써, 사고 사슬 출력 길이를 43.2% 단축했습니다.</li>
 <li><strong>실제 효과:</strong> 이는 동일한 질문에 대해 더 적은 토큰으로 답변하고, 추론 경로가 짧아져 결과 도출 속도가 빨라짐을 의미하며, 개발 및 기업 입장에서는 곧 추론 비용 감소로 이어집니다.</li>
 </ul>
-        
         <p>NetEase Youdao 팀은 국내 학생들의 실제 숙제, 시험, 질문 시나리오에 맞춰 모델을 깊이 있게 최적화하여, 학습 과정에서 겪는 복잡한 문제점들을 해결할 수 있도록 했습니다.</p>
-        
         <h3>음성 합성(TTS) 모델</h3>
-        
         <p>오픈소스된 음성 합성(TTS) 모델은 다국어 음색 감정 전이 클로닝을 지원합니다. 사용자가 중국어 오디오를 업로드하기만 하면, 해당 화자의 목소리를 복제하여 영어, 한국어, 베트남어 등 다양한 언어로 유창하게 말할 수 있으며, '중국식 억양'의 느낌이 없습니다.</p>
-        
         <p>가장 주목할 만한 점은 감정까지 정확하게 전이 클로닝된다는 것입니다. 예를 들어 화난 목소리로 한 문장을 녹음하면, 합성된 외국어 음성 역시 분노하는 어조를 유지합니다.</p>
-        
         <p>주요 성능 지표는 다음과 같습니다:</p>
-<ul>
+        <ul>
 <li><strong>클로닝 속도:</strong> 임의의 오디오 소스를 업로드하면 3초 이내에 제로샷(Zero-shot) 원음 복제가 완료됩니다.</li>
 <li><strong>정확도 및 유사성:</strong> 클로닝 작업에서 정확도는 97%를 초과하며, 클로닝된 음색은 원본 음성과 85% 이상의 높은 유사도를 보입니다.</li>
 <li><strong>지원 언어:</strong> 중국어, 영어, 일본어, 한국어, 독일어, 프랑스어, 스페인어, 인도네시아어, 이탈리아어, 태국어, 포르투갈어, 러시아어, 말레이어, 베트남어를 포함한 총 14개 언어를 지원합니다.</li>
 </ul>
-        
         <h3>총평</h3>
-        
         <p>이번 NetEase Youdao의 오픈소스 공개는 교육 및 AI 커뮤니케이션 분야에 큰 변화를 예고합니다. 특히 멀티모달 모델은 학술적이고 복잡한 시각 자료 기반 문제 해결 능력을 업계 최고 수준으로 끌어올렸으며, TTS 모델은 다국어 환경에서 감정까지 재현하는 고성능 음성 클로닝 기술을 제공합니다. 이 두 엔진의 공개는 개발자들에게 강력하고 접근성이 높은 플래그십 AI 도구를 제공하며, 관련 산업 전반의 혁신 가속화에 기여할 것으로 기대됩니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>子曰 4 多模态模型开源</h3>
+<p>网易有道宣布将“子曰”大模型 4.0 的核心多模态模型正式面向全球全量开源。该模型专门针对教育场景设计，在处理涉及图表的高难度视觉数理问题时达到行业顶尖水平（SOTA）。</p>
+<ul>
+<li>参数规模：27B</li>
+<li>性能指标：纯文本的中文数理难题准确率达 81.4%。</li>
+<li>技术优化：采用精细化思维链重构方案，将思维链输出长度压缩了 43.2%，旨在减少 Token 消耗、缩短推理路径并降低推理成本。</li>
+<li>场景适配：针对学生真实的作业、考试和提问等学习痛点进行了深度优化。</li>
+</ul>
+        <h3>语音合成（TTS）模型开源</h3>
+<p>配套开源的 TTS 模型支持跨语种音色情感迁移克隆，能够实现从中文到多种外语的流畅转换，且不带“中式口音”，并能精准保留原说话人的情绪状态。</p>
+<ul>
+<li>处理速度：仅需 3 秒即可完成零样本原声复制。</li>
+<li>准确度：在克隆任务中准确度超过 97%，克隆音色与原声的相似度达 85% 以上。</li>
+<li>支持语种：涵盖中、英、日、韩、德、法、西、印尼、意、泰、葡、俄、马来、越南语等 14 种语言。</li>
+</ul>
+        <h3>总结</h3>
+<p>网易有道将“子yll”大模型 4.0 的多模态与 TTS 模型核心引擎全量开源，旨在为教育领域提供高性能的视觉数理处理能力和高保真的跨语种语音克隆技术。该系列模型通过优化思维链显著降低了推理成本，并支持多种语言的情感迁移。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>核心的な発表：'子曰（Ziwu）' LLM 4.0 エンジンの全面オープンソース公開</h3>
+        <p>NetEase Youdaoは本日、自社開発した大規模言語モデル（LLM）「子曰（Ziwu）」4.0の主要な2つのエンジン、すなわち「マルチモーダルモデル」と「音声合成（TTS）モデル」を世界に向けて公式にオープンソース化すると発表しました。</p>
+        <p>今回の公開により、開発者はこれらのモデルを無料でダウンロードおよび配布することが可能になり、これらを基盤とした多様な二次開発を進めることができるようになります。</p>
+        <h3>マルチモーダルモデル (Multimodal Model)</h3>
+        <p>今回オープンソース化された「子曰 4」マルチモーールモデルは、27Bパラメータ規模で、教育分野における視覚的な数理能力のサポートに焦点を当てており、業界最高水準（SOTA）を達成しています。</p>
+        <p>主な特徴と性能は以下の通りです：</p>
+        <ul>
+<li><strong>視覚的数理問題の処理：</strong> 同一のパラメータ規模を持つモデルと比較して、図表を含む高度な視覚的数理問題を処理する能力に優れています。</li>
+<li><strong>正確性：</strong> 純粋なテキストベースの中国語数理難問において81.4%の正確性を記録しました。</li>
+</ul>
+        <p>また、新しいモデルは洗練された思考の連鎖（Chain-of-Thought）再構成方式を採用することで性能を引き上げています。</p>
+        <ul>
+<li><strong>効率性の改善：</strong> 大規模で高品質な推論サンプルを深く最適化することで、思考の連鎖の出力長を43.2%短縮しました。</li>
+<li><strong>実質的な効果：</strong> これは同じ質問に対してより少ないトークンで回答し、推論経路が短縮されることを意味します。これにより結果の導出速度が向上し、開発者や企業にとっては推論コストの削減に直結します。</li>
+</ul>
+        <p>NetEase Youdaoチームは、国内の学生の実際の宿題、試験、質問シナリオに合わせてモデルを深く最適化しており、学習過程で直面する複雑な問題を解決できるように設計されています。</p>
+        <h3>音声合成（TTS）モデル</h3>
+        <p>オープンソース化された音声合成（TTS）モデルは、多言語の音色・感情転送クローニングをサポートしています。ユーザーが中国語のオーディオをアップロードするだけで、その話者の声を複製し、英語、韓国語、ベトナム語など多様な言語で流暢に話すことが可能になり、「中国式アクセント」を感じさせません。</p>
+        <p>最も注目すべき点は、感情まで正確に転送クローニングされることです。例えば、怒った声で一文を録音すれば、合成された外国語音声も怒りのトーンを維持します。</p>
+        <p>主な性能指標は以下の通りです：</p>
+        <ul>
+<li><strong>クローニング速度：</strong> 任意のオーディオソースをアップロードすると、3秒以内にゼロショット（Zero-shot）の原音複製が完了します。</li>
+<li><strong>正確性と類似性：</strong> クローニング作業における正確性は97%を超え、クローニングされた音色は元の音声と85%以上の高い類似度を示します。</li>
+<li><strong>対応言語：</strong> 中国語、英語、日本語、韓国語、ドイツ語、フランス語、スペイン語、インドネシア語、イタリア語、タイ語、ポルトガル語、ロシア語、マレー語、ベトナム語を含む計14言語をサポートします。</li>
+</ul>
+        <h3>総評</h3>
+        <p>今回のNetEase Youdaoによるオープンソース公開は、教育およびAIコミュニケーション分野に大きな変化をもたらすことが予想されます。特にマルチモーダルモデルは、学術的で複雑な視覚資料に基づく問題解決能力を業界最高水準へと引き上げ、TTSモデルは多言語環境において感情まで再現する高性能な音声クローニング技術を提供します。これら2つのエンジンの公開は、開発者に対して強力でアクセスの高いフラッグシップAIツールを提供し、関連産業全体の革新を加速させることに寄与すると期待されます。</p>
+        <h3>まとめ</h3>
+        <p>NetEase Youdaoは、教育向けに最適化された「子曰 4」のマルチモーダルモデルと高性能なTTSモデルをオープンソース化しました。マルチモーダルモデルは高度な視覚的数理問題においてSOTAを達成しており、効率的なChain-of-Thoughtにより推論コストを削減します。また、TTSモデルは感情を維持したまま14言語への高品質な音声クローニングを実現し、教育やAIコミュニケーション分野の革新を加速させることが期待されています。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Core Announcement: 'Ziyue' LLM 4.0 Engines Fully Open-Sourced</h3>
+        <p>NetEase Youdao announced today that it is officially open-sourcing two core engines of its Large Language Model (LLM), "Ziyue" 4.0: a Multimodal Model and a Text-to-Speech (TTS) model.</p>
+        <p>With this release, developers can download and distribute these models for free, enabling them to develop various secondary applications based on the provided technology.</p>
+        <h3>Multimodal Model</h3>
+        <p>The "Ziyue 4" multimodal model, which has been open-sourced, features a scale of 27B parameters. It focuses on supporting visual reasoning in education and has achieved State-of-the-Art (SOTA) performance.</p>
+        <p>Key features and performance metrics include:</p>
+        <ul>
+<li><strong>Visual Reasoning:</strong> Superior ability to handle complex visual problems involving diagrams compared to other models of the same parameter size.</li>
+<li><strong>Accuracy:</strong> Achieved 81.4% accuracy on challenging Chinese math problems based on pure text.</li>
+</ul>
+        <p>Additionally, the new model utilizes a refined Chain-of-Thought (CoT) reconstruction method to enhance performance.</p>
+        <ul>
+<li><strong>Efficiency Improvement:</strong> By deeply optimizing large volumes of high-quality reasoning samples, the length of CoT outputs was reduced by 43.2%.</li>
+<li><strong>Practical Impact:</strong> This means fewer tokens are required for responses to the same questions and shorter inference paths lead to faster results. For developers and enterprises, this translates directly into lower inference costs.</li>
+</ul>
+        <p>The NetEase Youdao team optimized the model specifically for real-world scenarios such as homework, exams, and student inquiries to solve complex problems encountered during the learning process.</p>
+        <h3>Text-to-Speech (TTS) Model</h3>
+        <p>The open-sourced TTS model supports multi-language voice emotion transfer cloning. By uploading Chinese audio, users can clone a speaker's voice and have it speak fluently in various languages, including English, Korean, and Vietnamese, without any "Chinese accent."</p>
+        <p>A notable feature is the accurate reproduction of emotions during cloning; for example, if a sentence is recorded with an angry tone, the synthesized foreign language audio will maintain that same sense of anger.</p>
+        <p>Key performance indicators include:</p>
+        <ul>
+<li><strong>Cloning Speed:</strong> Zero-shot original voice replication is completed in under 3 seconds upon uploading any audio source.</li>
+<li><strong>Accuracy and Similarity:</strong> Accuracy exceeds 97% in cloning tasks, with cloned voices showing over 85% similarity to the original audio.</li>
+<li><strong>Supported Languages:</strong> Supports a total of 14 languages, including Chinese, English, Japanese, Korean, German, French, Spanish, Indonesian, Italian, Thai, Portuguese, Russian, Malay, and Vietnamese.</li>
+</ul>
+        <h3>Overall Outlook</h3>
+        <p>NetEase Youdao's open-source release signals a significant shift in the education and AI communication sectors. The multimodal model has elevated the ability to solve complex problems based on visual data to SOTA levels, while the TTS model provides high-performance voice cloning that preserves emotions across multiple languages. These tools provide developers with powerful, accessible flagship AI capabilities, expected to accelerate innovation across related industries.</p>
+        <h3>Summary</h3>
+<p>NetEase Youdao has open-sourced two core components of its "Ziyue" 4.0 LLM: a 27B parameter multimodal model and an advanced TTS model. The multimodal engine excels in visual reasoning for education with optimized Chain-of-Thought processing, while the TTS model offers high-accuracy, emotion-aware voice cloning across 14 languages. These tools provide developers with powerful resources to drive innovation in educational technology and AI communication.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -693,18 +797,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
