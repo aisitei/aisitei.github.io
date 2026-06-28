@@ -9,6 +9,10 @@
   <meta name="article-category" content="camera">
   <meta name="article-brand" content="">
   <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="마이크로소프트, Windows 11 카메라 제한 완화... 화상 회의와 녹화 충돌 해소">
+  <meta name="title-zh" content="마이크로소프트, Windows 11 카메라 제한 완화... 화상 회의와 녹화 충돌 해소">
+  <meta name="title-ja" content="Microsoft、Windows 11のカメラ制限を緩和...ビデオ会議と録画の競合を解消">
+  <meta name="title-en" content="Microsoft Eases Windows 11 Camera Restrictions... Resolving Conflicts Between Video Conferencing and Recording">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -507,7 +538,7 @@
           
         </div>
 
-        <h1 class="article-title">마이크로소프트, Windows 11 카메라 제한 완화... 화상 회의와 녹화 충돌 해소</h1>
+        <h1 class="article-title" data-ko="마이크로소프트, Windows 11 카메라 제한 완화... 화상 회의와 녹화 충돌 해소" data-zh="마이크로소프트, Windows 11 카메라 제한 완화... 화상 회의와 녹화 충돌 해소" data-ja="Microsoft、Windows 11のカメラ制限を緩和...ビデオ会議と録画の競合を解消" data-en="Microsoft Eases Windows 11 Camera Restrictions... Resolving Conflicts Between Video Conferencing and Recording">마이크로소프트, Windows 11 카메라 제한 완화... 화상 회의와 녹화 충돌 해소</h1>
 
         <div class="article-info">
           
@@ -523,47 +554,112 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>Windows 11 카메라 사용 제한 완화: 멀티 카메라 모드 도입</h3>
-        
         <p>IT之家에 따르면, IT 전문 매체 Windows Latest가 5월 30일 보도한 내용에 의하면, Microsoft는 Windows 11의 카메라 사용 제한을 완화하여 두 개 이상의 애플리케이션이 동시에 카메라를 호출할 수 있도록 기능을 개선했습니다.</p>
-        
         <h3>기존 문제점</h3>
-        
         <p>현재 Windows 11 시스템에서는 사용자가 Microsoft Teams에서 회의를 진행하며 카메라를 점유하고 있는 경우, OBS와 같은 다른 애플리케이션을 사용하여 화면 녹화를 할 수 없었습니다. 이 경우 장치를 인식하지 못한다는 오류 코드(0xC00D3704)가 발생했습니다.</p>
-        
         <h3>멀티 카메라 모드 도입 및 사용 방법</h3>
-        
         <p>사용자가 Windows 11의 선택적 업데이트 KB5089573 (Build 26200.8524)을 설치한 후, Microsoft는 화상 회의 중 화면 녹화가 동시에 불가능했던 불편함을 해소하기 위해 '멀티 카메라 모드'를 도입했습니다.</p>
-        
         <p>이 기능을 사용하려면 수동으로 설정을 변경해야 합니다:</p>
-<ul>
+        <ul>
 <li>설정 앱을 열고 "블루투스 및 장치 > 카메라"로 이동합니다.</li>
 <li>사용할 카메라를 선택한 후, 고급 설정까지 스크롤하여 "편집"을 클릭합니다.</li>
 <li>"여러 애플리케이션이 카메라 사용 허용" 옵션을 활성화하면 됩니다.</li>
 </ul>
-        
         <p>이 설정을 통해 화상 회의와 화면 녹화를 동시에 병렬로 실행할 수 있게 되었습니다.</p>
-        
         <h3>카메라 문제 진단 기능 개선</h3>
-        
         <p>이번 선택적 업데이트에서는 카메라 관련 오류 진단 기능도 개선되었습니다. 새로운 "Basic Camera" 기능을 활성화하면 시스템이 Microsoft 기본 드라이버로 돌아가 카메라를 구동합니다.</p>
-        
         <p>이를 통해 사용자는 다음과 같이 문제를 초기 진단할 수 있습니다:</p>
-<ul>
+        <ul>
 <li>만약 이 상태에서 카메라가 정상적으로 작동한다면, 문제는 OEM(Original Equipment Manufacturer) 드라이버에 있음을 의미합니다.</li>
 <li>여전히 사용할 수 없다면, 하드웨어 자체의 고장일 가능성이 높습니다.</li>
 </ul>
-        
         <p>이러한 개선점 덕분에 사용자는 드라이버를 재설치할 필요 없이 문제의 근본 원인을 빠르고 간편하게 파악할 수 있습니다.</p>
-        
         <h3>총평</h3>
-        
         <p>이번 Windows 11 업데이트는 화상 회의와 콘텐츠 제작 등 현대적인 작업 환경에서 발생하는 카메라 사용 제약을 해소하는 데 중점을 두었습니다. '멀티 카메라 모드' 도입은 여러 애플리케이션 간의 자원 충돌 문제를 해결하여 사용자 편의성을 크게 높였습니다.</p>
-        
         <p>또한, 기본적인 진단 기능을 강화함으로써 소프트웨어적 문제와 하드웨어적 문제를 명확히 분리할 수 있게 되어 시스템 안정성과 유지보수 측면에서도 큰 개선을 가져왔습니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>Windows 11 支持多应用同时调用摄像头</h3>
+<p>微软在最新的 Windows 11 更新中放宽了系统限制，允许多个应用程序同时调用摄像头。此举旨在解决用户在进行视频会议（如使用 Microsoft Teams）时，无法同时使用其他软件（如 OBS）录制屏幕并报错 0xC00D3704 的痛点。</p>
+        <h3>更新版本与功能详情</h3>
+<p>该功能包含在 Windows 11 的可选更新中，具体信息如下：</p>
+<ul>
+<li>更新编号：KB5089573</li>
+<li>版本号：Build 26200.8524</li>
+<li>核心功能：引入“多摄像头模式”，允许视频会议与屏幕录制并行运行。</li>
+</ul>
+<p>用户可以通过以下路径手动开启该功能：设置 > 蓝牙和设备 > 摄像头 > 选择对应摄像头 > 高级设置 > 编辑 > 开启“让多个应用使用你的摄像头”。</p>
+        <h3>增强的故障诊断工具</h3>
+<p>在本次更新中，微软还改进了摄像头的故障诊断功能。新增的“Basic Camera”模式允许系统回退至基础驱动运行：</p>
+<ul>
+<li>若开启后摄像头正常工作，则说明问题源于 OEM 驱动。</li>
+<li>若仍无法使用，则可能属于硬件故障。</li>
+</ul>
+<p>此功能旨在帮助用户在无需重装驱动的情况下快速定位问题的根源。</p>
+        <h3>总结</h3>
+<p>微软通过 KB5089573 更新为 Windows 11 增加了多应用同时调用摄像头的支持，解决了视频会议与录屏软件冲突的问题。此外，新增的“Basic Camera”功能能帮助用户更快速地判断摄像头故障是源于驱动程序还是硬件本身。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>Windows 11のカメラ使用制限緩和：マルチカメラモードの導入</h3>
+        <p>IT之家の報道（Windows Latestによる5月30日の報じた内容）によると、MicrosoftはWindows 11におけるカメラの使用制限を緩和し、2つ以上のアプリケーションが同時にカメラを呼び出せるよう機能を改善しました。</p>
+        <h3>従来の問題点</h3>
+        <p>これまでのWindows 11システムでは、ユーザーがMicrosoft Teamsで会議を行いカメラを使用している間、OBSなどの他のアプリケーションを使用して画面録画を行うことができませんでした。この場合、デバイスを認識できないというエラーコード（0xC00D3704）が発生していました。</p>
+        <h3>マルチカメラモードの導入と設定方法</h3>
+        <p>Microsoftは、選択的更新プログラムKB5089573（Build 26200.8524）をインストールしたユーザー向けに、ビデオ会議中に画面録画が同時に行えない不便さを解消するための「マルチカメラモード」を導入しました。</p>
+        <p>この機能を使用するには、手動で設定を変更する必要があります：</p>
+        <ul>
+<li>設定アプリを開き、「Bluetoothとデバイス > カメラ」に移動します。</li>
+<li>使用するカメラを選択し、詳細設定までスクロールして「編集」をクリックします。</li>
+<li>「複数のアプリケーションによるカメラの使用を許可」のオプションを有効にします。</li>
+</ul>
+        <p>この設定により、ビデオ会議と画面録画を並行して同時に実行できるようになります。</p>
+        <h3>カメラ問題の診断機能の改善</h3>
+        <p>今回の選択的更新では、カメラ関連のエラー診断機能も改善されました。新しい「Basic Camera」機能を有効にすると、システムはMicrosoft標準ドライバに戻ってカメラを動作させます。</p>
+        <p>これにより、ユーザーは以下のように初期診断を行うことができます：</p>
+        <ul>
+<li>この状態でカメラが正常に動作する場合、問題はOEM（Original Equipment Manufacturer）ドライバにあることを意味します。</li>
+<li>依然として使用できない場合は、ハードウェア自体の故障の可能性が高いです。</li>
+</ul>
+        <p>これらの改善により、ユーザーはドライバを再インストールすることなく、問題の根本原因を迅速かつ簡単に特定できるようになります。</p>
+        <h3>まとめ</h3>
+        <p>今回のWindows 11アップデートでは、ビデオ会議やコンテンツ制作といった現代的な作業環境におけるカメラ使用の制約を解消することに重点が置かれています。「マルチカメラモード」の導入により、複数のアプリケーション間でのリソース競合問題が解決され、利便性が大幅に向上しました。また、診断機能の強化によってソフトウェアとハードウェアの問題を明確に切り分けられるようになり、システムの安定性とメンテナンス性の両面で大きな改善が見込まれます。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Windows 11 Camera Restrictions Eased: Multi-Camera Mode Introduced</h3>
+        <p>According to IT House and a report from tech media Windows Latest on May 30, Microsoft has improved Windows 11 by relaxing camera usage restrictions, allowing multiple applications to access the camera simultaneously.</p>
+        <h3>Existing Issues</h3>
+        <p>Previously in Windows 11, if a user was participating in a meeting via Microsoft Teams and the camera was occupied, other applications such as OBS would be unable to use the camera for screen recording. In these instances, an error code (0xC00D3704) would appear, indicating that the device could not be recognized.</p>
+        <h3>Introduction of Multi-Camera Mode and How to Use</h3>
+        <p>Microsoft introduced "Multi-Camera Mode" in optional update KB5089573 (Build 26200.8524) to resolve the inconvenience where screen recording was impossible during video calls.</p>
+        <p>To use this feature, users must manually adjust the settings:</p>
+        <ul>
+<li>Open the Settings app and navigate to "Bluetooth & devices > Camera."</li>
+<li>Select the camera you intend to use, scroll down to advanced settings, and click "Edit."</li>
+<li>Enable the option "Allow multiple applications to use the camera."</li>
+</ul>
+        <p>With this setting enabled, users can now run video conferencing and screen recording in parallel.</p>
+        <h3>Improved Camera Diagnostic Features</h3>
+        <p>This optional update also improves diagnostic features for camera-related errors. By enabling the new "Basic Camera" feature, the system will revert to using Microsoft's default drivers to operate the camera.</p>
+        <p>This allows users to perform initial diagnostics as follows:</p>
+        <ul>
+<li>If the camera functions normally in this state, it indicates that the problem lies with the OEM (Original Equipment Manufacturer) driver.</li>
+<li>If the camera still cannot be used, there is a high probability of hardware failure.</li>
+</ul>
+        <p>These improvements allow users to quickly and easily identify the root cause of an issue without the need to reinstall drivers.</p>
+        <h3>Overall Review</h3>
+        <p>This Windows 11 update focuses on removing camera usage constraints in modern work environments, such as video conferencing and content creation. The introduction of "Multi-Camera Mode" significantly improves user convenience by resolving resource conflicts between multiple applications.</p>
+        <p>Furthermore, the enhancement of basic diagnostic features allows for a clear distinction between software and hardware issues, leading to significant improvements in system stability and maintenance.</p>
+        <h3>Summary</h3>
+<p>Microsoft has introduced "Multi-Camera Mode" in a Windows 11 update to allow multiple apps like Teams and OBS to access the camera simultaneously. The update also includes a "Basic Camera" feature that helps users quickly determine if camera issues are caused by faulty OEM drivers or hardware malfunctions.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -686,18 +782,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
