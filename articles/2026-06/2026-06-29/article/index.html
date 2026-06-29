@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI시테이 - 루머, 20주년 기념 아이폰 &#39;4면 커브드 디스플레이&#39;에 &#39;엣지 밝기 저하&#39; 설계 결함 존재... Apple, Samsung/LG와 협력 해결 예정</title>
+  <title>AI시테이 - 안드로이드 진영 주요 제조사, 플래그십 라인업 업데이트 및 Huawei Pura 90 시리즈 스마트폰의 등급 상향 전략 검토 (표준·Pro·Pro Max로 구분)</title>
   <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
   <meta name="article-category" content="phone">
-  <meta name="article-brand" content="Samsung">
-  <meta name="article-brand-color" content="#1428A0">
-  <meta name="title-ko" content="루머, 20주년 기념 아이폰 &amp;#39;4면 커브드 디스플레이&amp;#39;에 &amp;#39;엣지 밝기 저하&amp;#39; 설계 결함 존재... Apple, Samsung/LG와 협력 해결 예정">
-  <meta name="title-zh" content="루머, 20주년 기념 아이폰 &amp;#39;4면 커브드 디스플레이&amp;#39;에 &amp;#39;엣지 밝기 저하&amp;#39; 설계 결함 존재... Apple, Samsung/LG와 협력 해결 예정">
-  <meta name="title-ja" content="噂、20周年記念iPhoneの「4面カーブドディスプレイ」に「エッジ輝度低下」の設計上の欠陥が存在... AppleはSamsung/LGと協力して解決へ">
-  <meta name="title-en" content="Rumor: 20th Anniversary iPhone's 'four-sided curved display' has an 'edge brightness drop' design flaw; Apple plans to resolve it in collaboration with Samsung and LG.">
+  <meta name="article-brand" content="Huawei">
+  <meta name="article-brand-color" content="#CF0A2C">
+  <meta name="title-ko" content="안드로이드 진영 주요 제조사, 플래그십 라인업 업데이트 및 Huawei Pura 90 시리즈 스마트폰의 등급 상향 전략 검토 (표준·Pro·Pro Max로 구분)">
+  <meta name="title-zh" content="消息称某安卓阵营大厂迭代旗舰线在评估华为 Pura 90 系列手机升杯策略，分标准版、Pro 和 Pro Max">
+  <meta name="title-ja" content="報道によると、あるAndroid陣営の大手メーカーがフラッグシップラインを刷新するにあたり、Huawei Pura 90シリーズのスマートフォンにおいて標準版、Pro、Pro Maxの3モデルに分ける展開戦略を検討している。">
+  <meta name="title-en" content="Reports say a major Android manufacturer is evaluating a tiering strategy for its flagship line, with the Huawei Pura 90 series smartphones divided into Standard, Pro, and Pro Max versions.">
   <style>
     :root {
       --bg: #0f172a;
@@ -110,14 +110,34 @@
       gap: 12px;
     }
 
-    .visitor-counter {
-      font-size: 12px;
-      color: var(--text-secondary);
-      background: var(--surface);
-      border: 1px solid var(--border);
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
       border-radius: 6px;
-      padding: 4px 10px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
       white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
     }
 
     /* ── Page layout: article + sidebar ── */
@@ -263,6 +283,10 @@
       list-style: disc;
     }
 
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
     /* All images section */
     .images-section {
       margin-top: 48px;
@@ -305,15 +329,14 @@
       gap: 2px;
     }
 
-    .caption-zh {
-      font-size: 12.5px;
-      color: #94a3b8;
-      font-style: italic;
-    }
-
-    .caption-ko {
+    .caption-lang {
+      display: none;
       font-size: 13px;
       color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
     }
 
     /* Source footer */
@@ -464,32 +487,10 @@
     @media (max-width: 600px) {
       .site-header { padding: 0 12px; gap: 10px; }
       .header-nav a { padding: 6px 8px; font-size: 13px; }
-      .visitor-counter { font-size: 11px; padding: 3px 8px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
-
-    /* ── Language selector ── */
-    .lang-selector {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .lang-btn {
-      padding: 4px 8px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text-secondary);
-      font-size: 12px;
-      cursor: pointer;
-      transition: background 0.15s, color 0.15s, border-color 0.15s;
-      white-space: nowrap;
-    }
-    .lang-btn:hover { background: var(--surface); color: var(--text); }
-    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .lang-body { display: none; }
-    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -523,7 +524,7 @@
 
       
       <div class="hero-image-wrap">
-        <img src="images/img01.jpg" alt="루머, 20주년 기념 아이폰 &#39;4면 커브드 디스플레이&#39;에 &#39;엣지 밝기 저하&#39; 설계 결함 존재... Apple, Samsung/LG와 협력 해결 예정" loading="eager">
+        <img src="images/img01.png" alt="안드로이드 진영 주요 제조사, 플래그십 라인업 업데이트 및 Huawei Pura 90 시리즈 스마트폰의 등급 상향 전략 검토 (표준·Pro·Pro Max로 구분)" loading="eager">
       </div>
       
 
@@ -531,8 +532,8 @@
       <div class="article-meta">
         <div class="badge-row">
           
-          <span class="badge brand-badge" style="background: #1428A0;">
-            Samsung
+          <span class="badge brand-badge" style="background: #CF0A2C;">
+            Huawei
           </span>
           
           
@@ -542,13 +543,17 @@
           
         </div>
 
-        <h1 class="article-title" data-ko="루머, 20주년 기념 아이폰 &amp;#39;4면 커브드 디스플레이&amp;#39;에 &amp;#39;엣지 밝기 저하&amp;#39; 설계 결함 존재... Apple, Samsung/LG와 협력 해결 예정" data-zh="루머, 20주년 기념 아이폰 &amp;#39;4면 커브드 디스플레이&amp;#39;에 &amp;#39;엣지 밝기 저하&amp;#39; 설계 결함 존재... Apple, Samsung/LG와 협력 해결 예정" data-ja="噂、20周年記念iPhoneの「4面カーブドディスプレイ」に「エッジ輝度低下」の設計上の欠陥が存在... AppleはSamsung/LGと協力して解決へ" data-en="Rumor: 20th Anniversary iPhone's 'four-sided curved display' has an 'edge brightness drop' design flaw; Apple plans to resolve it in collaboration with Samsung and LG.">루머, 20주년 기념 아이폰 &#39;4면 커브드 디스플레이&#39;에 &#39;엣지 밝기 저하&#39; 설계 결함 존재... Apple, Samsung/LG와 협력 해결 예정</h1>
+        <h1 class="article-title"
+            data-ko="안드로이드 진영 주요 제조사, 플래그십 라인업 업데이트 및 Huawei Pura 90 시리즈 스마트폰의 등급 상향 전략 검토 (표준·Pro·Pro Max로 구분)"
+            data-zh="消息称某安卓阵营大厂迭代旗舰线在评估华为 Pura 90 系列手机升杯策略，分标准版、Pro 和 Pro Max"
+            data-ja="報道によると、あるAndroid陣営の大手メーカーがフラッグシップラインを刷新するにあたり、Huawei Pura 90シリーズのスマートフォンにおいて標準版、Pro、Pro Maxの3モデルに分ける展開戦略を検討している。"
+            data-en="Reports say a major Android manufacturer is evaluating a tiering strategy for its flagship line, with the Huawei Pura 90 series smartphones divided into Standard, Pro, and Pro Max versions.">안드로이드 진영 주요 제조사, 플래그십 라인업 업데이트 및 Huawei Pura 90 시리즈 스마트폰의 등급 상향 전략 검토 (표준·Pro·Pro Max로 구분)</h1>
 
         <div class="article-info">
           
           <span class="info-item">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            2026-05-15
+            2026-06-29
           </span>
           
           
@@ -557,83 +562,116 @@
 
       <div class="divider"></div>
 
-      <!-- Body -->
-            <!-- Body — 4개 언어 -->
+      <!-- Body — 4개 언어 -->
       <div class="article-body">
-      <!-- lang-body: ko -->
-      <div class="lang-body" data-lang="ko">
-        <h3>애플의 '사방 곡면' 디스플레이 개발 현황</h3>
-        <p>한국 언론 매체 ETNews에 따르면, 애플이 20주년 기념 아이폰(iPhone 20)을 위해 '사방 곡면(Quad-curved)' 패널을 개발하고 있다는 소식이 전해졌습니다. 하지만 현재 이 패널은 가장자리에서 밝기가 저하되는 문제가 발견되었으며, 애플은 삼성전자와 LG전자 등과 협력하여 이 문제를 해결하는 데 주력하고 있습니다.</p>
-        <h3>기술적 문제점: 엣지(Edge) 밝기 저하</h3>
-        <p>현재 보고된 '왜곡 문제'는 사방 곡면 OLED 스크린에 사용되는 음극 재료에서 주로 발생합니다. 현재 적용된 방식은 마그네슘-은 합금(Magnesium-Silver Alloy) 음극층을 사용하고 있으나, 이 소재가 화면 가장자리 영역에서 변형 위험성을 가지고 있어 엣지 밝기 저하를 초래하며 전체적인 기기의 시각적 완성도를 떨어뜨리는 것이 문제입니다.</p>
-        <h3>해결 방안 및 개발 일정</h3>
-        <p>애플은 음극 재료를 IZO(Indium-Zinc Oxide, 인듐-아연 산화물)로 교체하는 방안을 검토하고 있습니다. 이는 소재학적 관점에서 곡면 영역의 디스플레이 안정성과 밝기 균일성을 개선하기 위함입니다.</p>
-        <ul style="list-style-type: disc;">
-    <li><strong>기술 목표:</strong> 음극 재료 변경을 통한 곡면 디스플레이의 안정성 및 밝기 일관성 확보.</li>
-    <li><strong>예상 시점:</strong> 다만, 개발 일정 등을 고려했을 때 애플이 이 소재 교체를 진행하는 것은 2028년 아이폰 21 모델에 이르러서일 가능성이 높습니다.</li>
-</ul>
-        <h3>대안 및 향후 전망</h3>
-        <p>한편, 만약 애플이 양산 전에 이 가장자리 왜곡 문제를 해결하지 못한다면, 회사 측은 사방 곡면 디자인을 잠정적으로 포기하고 아이폰 20에는 기존의 전통적인 평면 베젤 설계를 유지할 가능성도 있습니다.</p>
-        <p>현재까지의 보도를 종합해 볼 때, 완성도 높은 사방 곡면 스크린이 실제로 양산 단계에 진입하는 시점이 2028년경으로 예상되므로, 애플은 이 기술을 서둘러 상용화하기보다는 디스플레이 문제가 완전히 해결될 때까지 출시를 미룰 가능성도 있습니다.</p>
-        <h3>총평</h3>
-        <p>애플이 개발 중인 사방 곡면 패널은 엣지 밝기 저하라는 근본적인 기술적 난제에 직면해 있습니다. 애플은 IZO와 같은 신소재를 통해 이 문제를 해결하려 하지만, 해당 기술의 안정화 및 상용화 시점이 다가오는 플래그십 모델보다 훨씬 먼 미래로 예상됩니다. 따라서 단기적으로는 기존 평면 디자인을 유지하거나, 혹은 기술적 완성도를 높이는 데 집중하며 출시 일정을 조정할 가능성이 큽니다.</p>
-      </div>
-      <!-- lang-body: zh -->
-      <div class="lang-body" data-lang="zh">
-        <h3>四曲面面板研发进展</h3>
-<p>Apple 正在为 20 周年纪念版 iPhone（iPhone 20）开发“四曲面”面板。目前，Apple 正与 Samsung 和 LG 合作解决该面板在边缘区域出现的亮度下降问题。</p>
-        <h3>技术挑战与材料分析</h3>
-<p>相关“失真问题”主要源于 OLED 屏幕所使用的阴极材料：</p>
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>전략 분석</h3>
+          
+          <p>IT홈의 6월 28일 보도에 따르면, 한 블로거가 안드로이드 진영의 특정 대형 제조사가 차기 플래그십 라인업에서 Huawei Pura 90 시리즈의 모델 체계 조정 전략을 검토 중이라고 밝혔습니다.</p>
+          
+          <p>해당 계획은 중급 라인업을 별도의 접미사가 없는 표준 플래그십 버전으로 격상시키고, 기존의 표준 모델을 Pro로, 성능을 강화한 모델을 Pro Max로 명명하는 방식입니다. 현재 어떤 제조사가 이 계획을 추진 중인지는 밝혀지지 않았으며 구체적인 상황은 지켜봐야 합니다.</p>
+          
+          <p>일부 네티즌들은 "이름에 더 많은 접미사를 추가하여 가격 인상에 따른 비교를 피하려는 의도"라고 분석했습니다. 이에 대해 해당 블로거는 "접미사가 붙는 것은 수용 가능하지만, 정식 플래그십으로 출시되는 것이 우려된다"고 답변했습니다.</p>
+          
+          <h3>시장 상황</h3>
+          
+          <p>이러한 움직임은 메모리 등 주요 부품의 가격 상승에 대응하기 위한 전략 중 하나로 풀이됩니다. 메모리 가격 상승의 원인으로는 AI 연산 능력 폭발로 인한 생산량 흡수, 3대 거대 기업의 공급 통제, 업계 재고 고갈, DDR4/DDR5 교체기 따른 수급 불안 등 네 가지 요인이 복합적으로 작용하고 있습니다.</p>
+          
+          <p>이미 여러 안드로이드 스마트폰 제조사가 일부 제품의 가격 조정을 발표했으며, 최근 iQOO 15 및 15 Ultra 모델도 새로운 가격 인상이 단행되었습니다.</p>
+          
+          <h3>Apple의 대응</h3>
+          
+          <p>또한, 이번 달 초 Apple 역시 AI 데이터 센터 확장으로 인한 메모리 칩 및 저장 장치의 전례 없는 부족에 따른 비용 압박에 대응하기 위해 Mac, iPad 등의 제품 가격을 인상한다고 발표했습니다. Apple의 CEO 팀 쿡은 지난 6월 18일 인터뷰에서도 제품 가격 인상이 불가피하다고 경고한 바 있습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>메모리 부품 수요 급증과 공급 부족으로 인해 안드로이드 및 Apple 등 주요 제조사들이 제품 가격을 인상하거나 모델 체계를 조정하고 있습니다. 특히 AI 산업의 팽창이 하드웨어 비용 상승에 직접적인 영향을 미치고 있는 상황입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>安卓阵营大厂旗舰产品线策略调整</h3>
+<p>某安卓阵营大厂正评估其旗舰系列产品的“升杯”策略。该计划拟将原本的中端系列更名为不带后缀的“标准版”旗舰，而原有的 Pro 和 Pro Max 版本则继续增加配置。此举旨在通过复杂的命名体系来避免与竞品进行直接的价格对比。</p>
+          
+          <h3>元器件成本上涨原因</h3>
+<p>该策略主要是为了应对内存等核心元器件价格上涨带来的压力。导致涨价的主要因素包括：</p>
 <ul>
-<li>当前采用材料：镁银合金（Magnesium-Silver Alloy）。</li>
-<li>存在问题：该材料在曲面边缘区域有形变风险，导致亮度下降并影响整机观感。</li>
-<li>潜在替代方案：IZO（Indium-Zinc Oxide，韟锌氧化物），旨在从材料学层面改善曲面区域的显示稳定性与亮度一致性。</li>
+<li>AI 算力爆发导致的产能虹吸</li>
+<li>三大寡头控制生产能力</li>
+<li>行业库存处于低位</li>
+<li>DDR4/DDR5 换代过程中的供应断档</li>
 </ul>
-        <h3>量产计划与时间线</h3>
-<p>考虑到生产周期和技术成熟度，Apple 目前面临两种可能的路径：</p>
+          
+          <h3>相关品牌动态</h3>
+<p>目前已有多个厂商采取应对措施。iQOO 15 及 15 Ultra 已进行新一轮涨价。此外，Apple 也因 AI 数据中心扩张导致的内存芯片及存储器短缺，上调了 Mac 和 iPad 等产品价格。</p>
+          
+          <h3>总结</h3>
+<p>由于 AI 需求导致内存等核心元器件成本大幅上涨，安卓阵营大厂正通过调整产品命名策略来应对市场压力。这一趋势已影响到多个品牌，包括 iQOO 以及 Apple 的相关产品线。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>戦略分析</h3>
+<p>ITホームの6月28日の報道によると、あるブロガーがAndroid陣営の特定の大手メーカーが次期フラッグシップラインアップにおいて、Huawei Pura 90シリーズに似たモデル体系の調整を検討していることを明らかにしました。</p>
+<p>この計画は、ミドルレンジラインナップを特定の接尾辞のない標準フラッグシップへと格上げし、従来の標準モデルを「Pro」、さらに性能を高めたモデルを「Pro Max」と命名する手法です。現在、どのメーカーがこの計画を進めているかは明かされていませんが、今後の動向に注目が集まっています。</p>
+<p>一部のネットユーザーは、「名称に多くの接尾辞を追加することで、価格上昇に伴う比較を回避しようとする意図がある」と分析しています。これに対し、該当のブロガーは「接尾辞が付くことは許容範囲内だが、正式なフラッグシップとしてリリースされることには懸念がある」と回答しています。</p>
+          
+          <h3>市場動向</h3>
+<p>この動きは、メモリなど主要部品の価格高騰に対応するための戦略の一つと考えられています。メモリ価格上昇の要因としては、以下の4つの要素が複合的に影響していると分析されています。</p>
 <ul>
-<li>若采用 IZO 材料，可能要到 2028 年的 iPhone 21 才会正式完成切换。</li>
-<li>若在量产前无法解决当前材料的边缘失真问题，iPhone 20 可能将继续采用传统的平面边框设计。</li>
+<li>AI演算能力の爆発的な増加に伴う生産量の吸収</li>
+<li>大手3社による供給のコントロール</li>
+<li>業界内での在庫枯渇</li>
+<li>DDR4からDDR5への移行に伴う需給の不安定化</li>
 </ul>
-        <h3>总结</h3>
-<p>Apple 正与 Samsung 和 LG 合作攻克 iPhone 20 四曲面屏幕的边缘亮度缺陷。由于技术成熟度限制，若无法在量产前解决当前材料问题，iPhone 20 可能维持传统平整边框，而更稳定的 IZO 材料可能推迟至 2028 年才进入商用。</p>
-      </div>
-      <!-- lang-body: ja -->
-      <div class="lang-body" data-lang="ja">
-        <h3>Appleの「4面曲面」ディスプレイ開発状況</h3>
-        <p>韓国のメディアETNewsの報道によると、Appleは20周年記念モデルとなるiPhone 20に向けて「4面曲面（Quad-curved）」パネルの開発を進めているとのことです。しかし、現在このパネルは端部の輝度が低下する問題が確認されており、AppleはSamsungやLGなどのメーカーと協力してこの課題の解決に注力しています。</p>
-        <h3>技術的課題：エッジ部分の輝度低下</h3>
-        <p>報告されている「歪み問題」は、4面曲面OLEDスクリーンに使用される陰極（カソード）材料に起因するものです。現在採用されているマグネシウム・銀合金（Magnesium-Silver Alloy）の陰極層は、画面の端の領域で変形のリスクがあり、それがエッジ部分の輝度低下を招き、デバイス全体の視覚的な完成度を下げる要因となっています。</p>
-        <h3>解決策と開発スケジュール</h3>
-        <p>Appleは、陰極材料をIZO（Indium-Zinc Oxide、インジウム亜鉛酸化物）に置き換える方針を検討しています。これは素材科学の観点から、曲面領域におけるディスプレイの安定性と輝度の均一性を改善するためのものです。</p>
-        <ul>
-    <li><strong>技術目標：</strong> 陰極材料の変更により、曲面ディスプレイの安定性と輝度の均一性を確保する。</li>
-    <li><strong>予想時期：</strong> ただし、開発スケジュールを考慮すると、この素材への置き換えが実用化されるのは2028年発売のiPhone 21モデルになる可能性が高いと見られています。</li>
+<p>すでに複数のAndroidスマートフォンメーカーが一部製品の価格調整を発表しており、最近ではiQOO 15および15 Ultraモデルも新たな値上げが行われました。</p>
+          
+          <h3>Appleの対応</h3>
+<p>また、今月初め、AppleもAIデータセンターの拡張によるメモリチップおよびストレージの深刻な不足に伴うコスト圧迫に対応するため、MacやiPadなどの製品価格を引き上げると発表しました。AppleのCEOであるティム・クック氏も、6月18日のインタビューにおいて、製品価格の上昇が不可避であることを警告しています。</p>
+          
+          <h3>総評</h3>
+<p>メモリ部品の需要急増と供給不足により、AndroidおよびAppleなどの主要メーカーは製品価格の引き上げやモデル体系の調整を行っています。特にAI産業の拡大がハードウェアコストの上昇に直接的な影響を与えている状況です。</p>
+          
+          <h3>まとめ</h3>
+<p>AIブームに伴うメモリチップの需要急増と供給不足により、AndroidおよびAppleの主要メーカーは製品価格の引き上げやモデル体系の変更を余儀なくされています。特にAI分野の急速な拡大がハードウェアコストに直結しており、今後のフラッグシップ戦略において重要な要因となっています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Strategic Analysis</h3>
+          
+          <p>According to a report by IT Home on June 28, a blogger revealed that a major Android manufacturer is considering a model lineup restructuring strategy similar to the Huawei Pura 90 series for its next flagship lineup.</p>
+          
+          <p>The proposed plan involves elevating the mid-range lineup to standard flagship versions without suffixes, renaming existing standard models to "Pro," and designating high-performance models as "Pro Max." While it has not been confirmed which manufacturer is pursuing this specific plan, the situation remains under observation.</p>
+          
+          <p>Some netizens analyzed the move as an attempt to avoid direct price comparisons following price hikes by adding more suffixes. In response, the blogger noted that while the addition of suffixes is acceptable, the concern lies in the products being released as "official" flagships.</p>
+          
+          <h3>Market Situation</h3>
+          
+          <p>This movement is interpreted as a strategy to counter the rising costs of key components, such as memory. The surge in memory prices is attributed to four complex factors:</p>
+<ul>
+<li>Production absorption due to the explosion of AI computing capabilities</li>
+<li>Supply control by the three major manufacturers</li>
+<li>Industry-wide inventory shortages</li>
+<li>Supply instability during the transition from DDR4 to DDR5</li>
 </ul>
-        <h3>代替案と今後の展望</h3>
-        <p>一方で、Appleが量産前にこのエッジの歪み問題を解決できない場合、4面曲面デザインを一時的に断念し、iPhone 20では従来のフラットなベゼル設計を維持する可能性もあります。</p>
-        <p>これまでの報道を総合すると、完成度の高い4面曲面スクリーンが実際に量産段階に入るのは2028年頃と予想されるため、Appleは技術を急いで商用化するよりも、ディスプレイの問題が完全に解決するまで発売を見送る可能性も考えられます。</p>
-        <h3>まとめ</h3>
-        <p>AppleはiPhone 20に向けた4面曲面パネルの開発を進めていますが、エッジの輝度低下という技術的課題に直面しています。IZOへの素材変更による解決策は検討されているものの、その実用化は2028年のiPhone 21以降になる可能性が高く、短期的には従来のフラットデザインを維持する見通しです。</p>
-      </div>
-      <!-- lang-body: en -->
-      <div class="lang-body" data-lang="en">
-        <h3>Status of Apple's "Quad-curved" Display Development</h3>
-        <p>According to the Korean news outlet ETNews, Apple is reportedly developing "quad-curved" panels for its 20th-anniversary iPhone (iPhone 20). However, these panels currently face issues with brightness degradation at the edges. Apple is currently collaborating with Samsung Electronics and LG Electronics to resolve this technical hurdle.</p>
-        <h3>Technical Challenges: Edge Brightness Degradation</h3>
-        <p>The reported "distortion issues" primarily occur in the cathode material used in quad-curved OLED screens. The current implementation utilizes a Magnesium-Silver Alloy for the cathode layer, but this material is susceptible to deformation at the screen's edges. This leads to a drop in brightness at the periphery, which compromises the overall visual quality of the device.</p>
-        <h3>Solutions and Development Timeline</h3>
-        <p>Apple is considering replacing the current cathode material with IZO (Indium-Zinc Oxide) to improve display stability and brightness uniformity in curved regions from a materials science perspective.</p>
-        <ul>
-    <li><strong>Technical Goal:</strong> Ensure the stability and consistent brightness of curved displays by switching the cathode material.</li>
-    <li><strong>Estimated Timeline:</strong> Given the complexities of development, it is highly likely that Apple will not implement this material change until the iPhone 21 in 2028.</li>
-</ul>
-        <h3>Alternatives and Future Outlook</h3>
-        <p>If Apple fails to resolve these edge distortion issues before mass production, the company may temporarily abandon the quad-curved design and maintain traditional flat bezel designs for the iPhone 20.</p>
-        <p>Based on current reports, since a high-quality quad-curved screen is not expected to reach full mass-production readiness until approximately 2028, Apple is likely to delay the adoption of this technology until it is fully perfected rather than rushing an imperfect design to market.</p>
-        <h3>Summary</h3>
-<p>Apple is currently facing technical challenges with "quad-curved" displays due to brightness degradation at the edges caused by current cathode materials. While a transition to IZO material is planned as a solution, it may not be ready for mass production until 2028. Consequently, Apple may stick to traditional flat designs for the iPhone 20 if the technology is not perfected in time.</p>
-      </div>
+          
+          <p>Several Android smartphone manufacturers have already announced price adjustments for some products, and recently, the iQOO 15 and 15 Ultra models also underwent a new price hike.</p>
+          
+          <h3>Apple's Response</h3>
+          
+          <p>Earlier this month, Apple also announced price increases for products such as Mac and iPad to respond to cost pressures caused by an unprecedented shortage of memory chips and storage devices due to the expansion of AI data centers. Apple CEO Tim Cook previously warned in an interview on June 18 that product price increases were inevitable.</p>
+          
+          <h3>Overall Review</h3>
+          
+          <p>Due to a surge in demand and shortages of memory components, major manufacturers across both Android and Apple platforms are raising product prices or restructuring their model lineups. The expansion of the AI industry is directly impacting hardware costs.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>Major smartphone manufacturers are adjusting their product naming conventions and increasing prices to combat rising component costs caused by the global AI boom. Both Android and Apple brands are facing these supply chain pressures, specifically regarding memory chips and storage devices.</p>
+          
+        </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -643,7 +681,7 @@
         
         
         <div class="image-item">
-          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
           
         </div>
         
@@ -657,9 +695,9 @@
           IT之家 (ithome.com)
         </div>
         
-        <a class="btn-original" href="https://www.ithome.com/0/950/588.htm" target="_blank" rel="noopener noreferrer">
+        <a class="btn-original" href="https://www.ithome.com/0/969/556.htm" target="_blank" rel="noopener noreferrer">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          원문 보기
+          IT之家에서 보기
         </a>
         
       </div>
@@ -715,9 +753,9 @@
         <div class="sidebar-title">📅 아카이브</div>
         <ul class="archive-list">
           <li>
-            <a href="../../../../index.html?month=2026-05"
+            <a href="../../../../index.html?month=2026-06"
                class="archive-btn active">
-              2026-05
+              2026-06
             </a>
           </li>
         </ul>
@@ -738,46 +776,78 @@
   </div>
 
   <script>
-    
-
-    // ── 언어 선택기 ──
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
     (function () {
       var LANG_KEY = 'aisitei_lang';
       var DEFAULT_LANG = 'ko';
-      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
       function setLang(lang) {
         localStorage.setItem(LANG_KEY, lang);
         applyLang(lang);
       }
+
       function applyLang(lang) {
-        document.querySelectorAll('.lang-body').forEach(function (el) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
           el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
         });
-        var titleEl = document.querySelector('.article-title');
-        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
-        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
-        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
-        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
       }
+
+      // 버튼 이벤트
       document.querySelectorAll('.lang-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
       });
+
+      // 초기화
       applyLang(getLang());
     })();
+
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
-        const q = this.value.trim();
+        var q = this.value.trim();
         if (q) {
           location.href = '../../../../index.html?search=' + encodeURIComponent(q);
         }
       }
     });
     // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
-    let searchTimer;
+    var searchTimer;
     document.getElementById('article-search').addEventListener('input', function () {
       clearTimeout(searchTimer);
-      const q = this.value.trim();
+      var q = this.value.trim();
       if (q.length >= 2) {
         searchTimer = setTimeout(function () {
           location.href = '../../../../index.html?search=' + encodeURIComponent(q);

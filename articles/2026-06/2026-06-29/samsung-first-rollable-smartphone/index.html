@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Samsung, 10인치 디스플레이를 탑재한 첫 상용 롤러블 스마트폰 개발 중</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Samsung">
+  <meta name="article-brand-color" content="#1428A0">
+  <meta name="title-ko" content="Samsung, 10인치 디스플레이를 탑재한 첫 상용 롤러블 스마트폰 개발 중">
+  <meta name="title-zh" content="Samsung, 10인치 디스플레이를 탑재한 첫 상용 롤러블 스마트폰 개발 중">
+  <meta name="title-ja" content="Samsung, 10인치 디스플레이를 탑재한 첫 상용 롤러블 스마트폰 개발 중">
+  <meta name="title-en" content="Samsung developing first commercial rollable phone with 10-inch display">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="Samsung, 10인치 디스플레이를 탑재한 첫 상용 롤러블 스마트폰 개발 중" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #1428A0;">
+            Samsung
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Samsung, 10인치 디스플레이를 탑재한 첫 상용 롤러블 스마트폰 개발 중"
+            data-zh="Samsung, 10인치 디스플레이를 탑재한 첫 상용 롤러블 스마트폰 개발 중"
+            data-ja="Samsung, 10인치 디스플레이를 탑재한 첫 상용 롤러블 스마트폰 개발 중"
+            data-en="Samsung developing first commercial rollable phone with 10-inch display">Samsung, 10인치 디스플레이를 탑재한 첫 상용 롤러블 스마트폰 개발 중</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-06-29
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>롤러블 스마트폰 개발 가속화</h3>
+          
+          <p>Samsung은 필요할 때마다 컴팩트한 크기에서 태블릿에 가까운 크기로 부드럽게 확장되는 롤러블 스마트폰 개발에 속도를 내고 있습니다.</p>
+          
+          <h3>출시 계획 및 예상 사양</h3>
+          
+          <p>한국 매체인 Maeil Business의 보도에 따르면, Samsung Display는 이 기술을 강력하게 추진하고 있습니다. 목표는 2028년 상반기 내에 첫 번째 상용 롤러블 폰을 출시하는 것이며, 이는 Galaxy S28 시리즈와 함께 또는 그 일부로 출시될 가능성이 높습니다. 해당 기기는 Galaxy Z Slide라는 명칭으로 불릴 것으로 예상됩니다.</p>
+          
+          <ul>
+<li>10인치 크기의 16:9 디스플레이</li>
+<li>약 440 PPI의 고해상도</li>
+<li>2030년 두 번째 모델 출시 가능성</li>
+</ul>
+          
+          <h3>시장 경쟁과 전략적 배경</h3>
+          
+          <p>이러한 행보는 Samsung에 매우 전략적인 선택입니다. 현재 폴더블 시장을 주도하고는 있지만, Omdia에 따르면 폴더블 디스플레이 패널 점유율이 2025년 4분기 약 41.8%에서 2026년 1분기 27%로 눈에 띄게 하락했습니다. 경쟁이 치열해지는 상황에서, 롤러블 폰은 혁신의 아이콘으로 다시 주목받고 기술적 장벽을 높이는 수단이 될 수 있습니다.</p>
+          
+          <h3>기술적 도전 과제</h3>
+          
+          <p>롤러블 스크린은 폴더블보다 훨씬 까다로운 기술입니다. 가장 큰 과제는 디스플레이가 울거나 구겨지거나 고르지 않게 되지 않으면서 수백, 수천 번의 롤링을 안정적으로 수행하게 만드는 것입니다. 롤러와 내부 레이어, 지지 구조 등 모든 요소가 매우 정밀해야 하며 동시에 일상적인 사용에 적합하도록 얇고 가벼워야 합니다.</p>
+          
+          <h3>연구 개발의 역사</h3>
+          
+          <p>Samsung은 수년간 이 기술을 실험해 왔습니다. CES 2023에서 폴딩과 슬라이딩을 결합한 Flex Hybrid를 선보였으며, 같은 해 SID Display Week에서는 49mm의 작은 화면을 254mm 이상으로 확장하는 Rollable Flex 프로토타입을 공개하여 큰 주목을 받았습니다.</p>
+          
+          <h3>미래 전망</h3>
+          
+          <p>기술이 성공적으로 구현된다면, 롤러블 폰은 게임 체인저가 될 수 있습니다. 주머니에 들어갈 만큼 작으면서도 동영상 시청이나 멀티태스킹을 위해 태블릿급 경험을 제공하며, 현재 폴더블 기기에서 발생하는 눈에 띄는 주름 문제도 해결할 수 있기 때문입니다. 만약 Samsung이 고가의 가격을 정당화할 수 있는 프리미엄 품질을 구현해낸다면, 이는 스마트폰 디자인의 다음 큰 진화가 될 것입니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Samsung은 경쟁 심화에 대응하고 기술적 우위를 확보하기 위해 롤러블 디스플레이 기술 개발에 박차를 가하고 있습니다. Galaxy Z Slide는 휴대성과 대화면이라는 두 마리 토끼를 잡으면서 기존 폴더블의 한계인 주름 문제를 해결할 핵심 혁신으로 기대됩니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Accelerating Rollable Smartphone Development</h3>
+<p>Samsung is accelerating the development of rollable smartphones that can smoothly expand from a compact size to a tablet-like scale whenever needed.</p>
+          
+          <h3>Launch Plans and Expected Specifications</h3>
+<p>According to reports from the Korean outlet Maeil Business, Samsung Display is aggressively pushing this technology. The goal is to launch the first commercial rollable phone in the first half of 2028, which is likely to be released as part of or alongside the Galaxy S28 series. The device is expected to be named the "Galaxy Z Slide."</p>
+<ul>
+<li>10-inch 16:9 display</li>
+<li>High resolution of approximately 440 PPI</li>
+<li>Potential for a second model in 2030</li>
+</ul>
+          
+          <h3>Market Competition and Strategic Context</h3>
+<p>This move is highly strategic for Samsung. While it currently leads the foldable market, Omdia reports that its share of the foldable display panel market dropped significantly from approximately 41.8% in Q4 2025 to 27% in Q1 2026. Amid intensifying competition, rollable phones can serve as a symbol of innovation and a means to establish higher technical barriers.</p>
+          
+          <h3>Technical Challenges</h3>
+<p>Rollable screens are much more technically demanding than foldables. The primary challenge lies in ensuring the display remains stable through thousands of rolls without wrinkling, buckling, or becoming uneven. Every component—including the rollers, internal layers, and support structures—must be extremely precise while remaining thin and light enough for everyday use.</p>
+          
+          <h3>R&D History</h3>
+<p>Samsung has been experimenting with this technology for years. At CES 2023, it showcased the Flex Hybrid, which combines folding and sliding mechanisms. Later that year at SID Display Week, it unveiled a Rollable Flex prototype that expanded from a small 49mm screen to over 254mm, garnering significant attention.</p>
+          
+          <h3>Future Outlook</h3>
+<p>If successfully implemented, rollable phones could be a game-changer. They offer the ability to fit in a pocket while providing a tablet-like experience for video consumption and multitasking, while also solving the noticeable crease issues found in current foldable devices. If Samsung can deliver premium quality that justifies a high price point, it will mark the next major evolution in smartphone design.</p>
+          
+          <h3>Overall Assessment</h3>
+<p>Samsung is pushing rollable display technology to counter growing competition and secure a technical advantage. The Galaxy Z Slide is expected to be a key innovation that balances portability with a large screen while resolving the crease issues inherent in existing foldable devices.</p
+          
+          <h3>Summary</h3>
+<p>Samsung is accelerating the development of "Galaxy Z Slide" rollable phones, aiming for a commercial launch in the first half of 2028. This technology aims to provide a tablet-like experience in a compact form factor while overcoming the crease issues common in current foldables. The move is a strategic effort to maintain market leadership and establish high technical barriers against competitors.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>ロール型スマートフォンの開発加速</h3>
+<p>Samsungは、必要な時にコンパクトなサイズからタブレットに近いサイズへとスムーズに拡張する「ロール型（Rollable）」スマートフォンの開発を加速させています。</p>
+          
+          <h3>リリース計画と予想スペック</h3>
+<p>韓国のメディア「Maeil Business」の報道によると、Samsung Displayはこの技術を強力に推進しています。目標は2028年上半期までに最初の商用ロール型スマートフォンを発売することであり、これはGalaxy S28シリーズと同時、あるいはその一部としてリリースされる可能性が高いです。このデバイスは「Galaxy Z Slide」という名称で呼ばれると予想されています。</p>
+<ul>
+<li>10インチの16:9ディスプレイ</li>
+<li>約440 PPIの高解像度</li>
+<li>2030年に第2モデルを発売する可能性</li>
+</ul>
+          
+          <h3>市場競争と戦略的背景</h3>
+<p>この動きはSamsungにとって非常に戦略的な選択です。現在、折りたたみ（Foldable）市場を主導しているものの、Omdiaのデータによると、折りたたみディスプレイパネルのシェアは2025年第4四半期の約41.8%から2026年第1四半期には27%へと顕著に低下しています。競争が激化する中で、ロール型スマートフォンは革新の象徴として再び注目を集め、技術的な参入障壁を高める手段となり得ます。</p>
+          
+          <h3>技術的な課題</h3>
+<p>ロール型スクリーンは、折りたたみ式よりもはるかに高度な技術を要します。最大の課題は、ディスプレイが波打ったり、しわができたり、不均一になったりすることなく、数百から数千回の巻き取りを安定して行えるようにすることです。ローラー、内部レイヤー、支持構造など、すべての要素が非常に精密であると同時に、日常的な使用に適した薄さと軽さを両立させる必要があります。</p>
+          
+          <h3>研究開発の歴史</h3>
+<p>Samsungはこの技術を長年にわたり試験してきました。CES 2023では、折りたたみとスライドを組み合わせた「Flex Hybrid」を発表し、同年同じSID Display Weekでは、49mmの小さな画面を254mm以上に拡張する「Rollable Flex」のプロトタイプを公開して大きな注目を集めました。</p>
+          
+          <h3>未来の展望</h3>
+<p>技術が成功裏に実装されれば、ロール型スマートフォンはゲームチェンジャーとなる可能性があります。ポケットに入るほど小さく保ちながら、動画視聴やマルチタスクのためにタブレット級の体験を提供でき、現在の折りたたみデバイスで見られる顕著な「しわ」の問題も解決できるためです。もしSamsungが高価格を正当化できるプレミアムな品質を実現できれば、これはスマートフォンデザインにおける次の大きな進化となるでしょう。</p>
+          
+          <h3>総評</h3>
+<p>Samsungは競争の激化に対応し、技術的優位性を確保するためにロール型ディスプレイ技術の開発に拍車をかけています。Galaxy Z Slideは、携帯性と大画面の両立を実現しつつ、従来の折りたたみデバイスの限界であった「しわ」の問題を解決する核心的な革新として期待されています。</p>
+          
+          <h3>まとめ</h3>
+<p>Samsungは競合他社への対抗と技術的優位性の確保のため、ロール型ディスプレイ技術の開発を加速させています。2028年までに登場が期待される「Galaxy Z Slide」は、折りたたみ式の課題である「しわ」を解消しつつ、携帯性と大画面を両立する革新的なデバイスとなる可能性があります。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Accelerating Rollable Smartphone Development</h3>
+<p>Samsung is accelerating the development of rollable smartphones that can smoothly expand from a compact size to a tablet-like dimension when needed.</p>
+          
+          <h3>Release Plans and Expected Specifications</h3>
+<p>According to reports from the Korean outlet Maeil Business, Samsung Display is aggressively pushing this technology. The goal is to launch the first commercial rollable phone by the first half of 2028, which is likely to be released as part of or alongside the Galaxy S28 series. The device is expected to be named "Galaxy Z Slide."</p>
+<ul>
+<li>10-inch 16:9 display</li>
+<li>High resolution of approximately 440 PPI</li>
+<li>Potential for a second model in 2030</li>
+</ul>
+          
+          <h3>Market Competition and Strategic Context</h3>
+<p>This move is highly strategic for Samsung. While currently leading the foldable market, Omdia reports that foldable display panel market share dropped significantly from approximately 41.8% in Q4 2025 to 27% in Q1 2026. Amid intensifying competition, rollable phones can serve as a symbol of innovation and a means to establish higher technical barriers.</p>
+          
+          <h3>Technical Challenges</h3>
+<p>Rollable screens are technically more demanding than foldables. The primary challenge is ensuring the display remains stable through hundreds or thousands of rolls without wrinkling, buckling, or becoming uneven. Every component—including the rollers, internal layers, and support structures—must be extremely precise while remaining thin and light enough for everyday use.</p>
+          
+          <h3>R&D History</h3>
+<p>Samsung has been experimenting with this technology for years. At CES 2023, it showcased the Flex Hybrid, which combined folding and sliding. Later that year at SID Display Week, it unveiled the Rollable Flex prototype, which expanded a small 49mm screen to over 254mm, garnering significant attention.</p>
+          
+          <h3>Future Outlook</h3>
+<p>If successfully implemented, rollable phones could be a game-changer. They offer the ability to fit in a pocket while providing a tablet-like experience for video watching or multitasking, and they solve the noticeable crease issues found in current foldable devices. If Samsung can deliver premium quality that justifies a high price point, it will mark the next major evolution in smartphone design.</p>
+          
+          <h3>Summary</h3>
+<p>Samsung is accelerating rollable display technology to counter increasing competition and establish a new technical edge in the mobile market. The "Galaxy Z Slide" aims to combine portability with a large screen while eliminating the crease issues common in current foldables. If successful, this technology could represent the next major evolution in smartphone design.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/06/28/samsung-developing-first-commercial-rollable-phone-with-10-inch-display/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-06"
+               class="archive-btn active">
+              2026-06
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
