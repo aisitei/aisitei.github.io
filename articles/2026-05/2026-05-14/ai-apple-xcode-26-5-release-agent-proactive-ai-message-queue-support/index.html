@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple, Xcode 26.5 출시: 에이전트가 먼저 질문하고 행동하도록 하고, AI 메시지 큐 지원">
+  <meta name="title-zh" content="Apple, Xcode 26.5 출시: 에이전트가 먼저 질문하고 행동하도록 하고, AI 메시지 큐 지원">
+  <meta name="title-ja" content="Apple、Xcode 26.5をリリース：エージェントが自ら質問して行動する機能やAIメッセージキューに対応">
+  <meta name="title-en" content="Apple Releases Xcode 26.5: Support for Proactive Agent Actions and AI Message Queues">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">Apple, Xcode 26.5 출시: 에이전트가 먼저 질문하고 행동하도록 하고, AI 메시지 큐 지원</h1>
+        <h1 class="article-title" data-ko="Apple, Xcode 26.5 출시: 에이전트가 먼저 질문하고 행동하도록 하고, AI 메시지 큐 지원" data-zh="Apple, Xcode 26.5 출시: 에이전트가 먼저 질문하고 행동하도록 하고, AI 메시지 큐 지원" data-ja="Apple、Xcode 26.5をリリース：エージェントが自ら質問して行動する機能やAIメッセージキューに対応" data-en="Apple Releases Xcode 26.5: Support for Proactive Agent Actions and AI Message Queues">Apple, Xcode 26.5 출시: 에이전트가 먼저 질문하고 행동하도록 하고, AI 메시지 큐 지원</h1>
 
         <div class="article-info">
           
@@ -527,16 +558,15 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>Xcode 26.5 업데이트 개요</h3>
-        
         <p>Apple은 지난 12월(현지시간) Xcode 26.5 버전을 새롭게 출시하며, 이전 버전인 26.3에서 도입된 AI 에이전트 프로그래밍 기능을 한층 강화했습니다.</p>
-        
         <h3>주요 업데이트 내용</h3>
-        
         <p>Xcode 26.5는 Swift 6.3.2 버전 업데이트를 포함하고 있으며, 다음 운영체제용 SDK를 지원합니다:</p>
-<ul>
+        <ul>
 <li>iOS 26.5</li>
 <li>iPadOS 26.5</li>
 <li>tvOS 26.5</li>
@@ -544,29 +574,98 @@
 <li>visionOS 26.5</li>
 <li>macOS 26.5</li>
 </ul>
-        
         <p>이번 업데이트의 핵심 기능은 AI 에이전트 메시지 큐 기능을 지원한다는 점입니다. 이 기능을 통해 AI 에이전트는 응답 생성이 진행되는 동안에도 명확하게 이해하기 어려운 부분이 있을 경우 사용자에게 질문을 던져 더 정확한 결과를 얻도록 도와줍니다.</p>
-        
         <h3>개발 워크플로우 개선 및 안정성 강화</h3>
-        
         <p>이번 업데이트에서는 StoreKit Testing에서 새로운 결제 플랜(billing scheme) 지원이 추가되었으며, 전반적인 안정성을 높이기 위한 여러 오류 수정 작업도 진행되었습니다.</p>
-        
         <p>특히 Xcode 26.3 버전에서 Apple은 OpenAI의 Codex나 Anthropic의 Claude Agent 같은 AI 도구를 통합하여 개발자들이 보일러플레이트 코드 처리, 프로젝트 문서 기반 엔지니어링 업데이트, 파일 구조를 결합한 복잡한 수정 작업을 수행할 수 있게 했습니다.</p>
-        
         <p>Xcode 26.5는 이러한 26.3 버전의 기능을 계승하면서도 협업 흐름을 대폭 개선했습니다. 개발자가 코드 어시스턴트가 이전 답변을 완전히 생성하기를 기다릴 필요 없이 연속적으로 여러 메시지를 전송할 수 있게 되었습니다.</p>
-        
         <p>이러한 기능은 반복적인 세부 작업(task refinement)이 필요한 시나리오에서 지연 시간을 현저히 줄여줍니다. 특히 대규모 프로젝트에서는 개발자가 제한 조건을 추가하거나, 목표를 수정하거나, 파일 범위를 확장하는 등의 작업을 연속적으로 수행해야 하는데, 메시지 큐잉 방식은 일방적인 순차적 대기보다 실제 작업 흐름에 훨씬 가깝습니다.</p>
-        
         <h3>AI 에이전트 상호작용 최적화</h3>
-        
         <p>Apple은 AI 에이전트의 상호작용 방식을 최적화하여, 에이전트가 작업을 수행하기 전에 먼저 "명확히 질문"하도록 했습니다. 만약 사용자의 작업 설명이 불완전할 경우, Agent는 임의로 진행하는 대신 먼저 명확화 질문을 던진 후 다음 단계를 진행하게 됩니다.</p>
-        
         <h3>추가 기능 및 총평</h3>
-        
         <p>AI 관련 업데이트 외에도 Xcode 26.5에서는 StoreKit Testing 지원이 추가되어 Apple의 새로운 12개월 약정제 월간 구독 모델을 시뮬레이션할 수 있게 되었습니다.</p>
-        
         <p>Xcode 26.5는 AI 에이전트와의 상호작용 경험 자체를 혁신적으로 개선한 것이 가장 큰 특징입니다. 메시지 전송의 연속성을 확보하고, 불완전한 요청에 대해 먼저 질문하는 지능적인 프로세스를 도입하여 개발자의 실제 작업 흐름과 유사하게 만듦으로써 생산성을 극대화했습니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>版本更新与SDK支持</h3>
+<p>Apple 推出了 Xcode 26.5 版本，在强化智能体编程能力的同时，提供了全面的软件生态支持：</p>
+<ul>
+<li>涵盖 Swift 6.3.2 版本更新。</li>
+<li>提供适用于 iOS 26.5、iPadOS 26.5、tvOS 26.5、watchOS 26.5、visionOS 26.5 和 macOS 26.5 的 SDK。</li>
+</ul>
+        <h3>智能体编程功能增强</h3>
+<p>Xcode 26.5 在 26.3 版本的基础上，进一步优化了与 OpenAI Codex 及 Anthropic Claude Agent 等工具的协作流程：</p>
+<ul>
+<li>新增消息队列功能：允许 AI 智能体在生成响应时提出澄清问题，以确保结果更准确。</li>
+<li>提升交互流畅度：支持开发者连续发送多条指令，无需等待前一轮回复完成即可输入后续要求，减少大型项目中的操作停顿。</li>
+<li>优化互动逻辑：当任务描述不完整时，智能体会先进行提问确认，避免任务偏离预设目标。</li>
+</ul>
+        <h3>StoreKit 与稳定性优化</h3>
+<p>除了 AI 功能的迭代，Xcode 26.5 还包含以下功能更新：</p>
+<ul>
+<li>新增 StoreKit Testing 支持，可模拟 Apple 新推出的 12 个月承诺制月订阅计费方案。</li>
+<li>修复相关错误并提升系统稳定性。</li>
+</ul>
+        <h3>总结</h3>
+<p>Apple 推出的 Xcode 26.5 版本在提供最新 Swift 和多平台 SDK 支持的同时，显著增强了 AI 智能体编程的交互体验。通过引入消息队列和主动提问机制，开发者在处理复杂项目时能获得更高效、准确的协作流程。此外，该版本还增加了对新计费模式的支持并提升了整体稳定性。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>Xcode 26.5 アップデートの概要</h3>
+        <p>Appleは昨年12月、Xcode 26.5をリリースしました。このバージョンでは、前バージョンの26.3で導入されたAIエージェントプログラミング機能がさらに強化されています。</p>
+        <h3>主なアップデート内容</h3>
+        <p>Xcode 26.5にはSwift 6.3.2のアップデートが含まれており、以下のOS向けのSDKをサポートしています：</p>
+        <ul>
+<li>iOS 26.5</li>
+<li>iPadOS 26.5</li>
+<li>tvOS 26.5</li>
+<li>watchOS 26.5</li>
+<li>visionOS 26.5</li>
+<li>macOS 26.5</li>
+</ul>
+        <p>今回のアップデートの核となる機能は、AIエージェントのメッセージキュー（Message Queue）機能をサポートしたことです。この機能により、AIエージェントは回答を生成する過程で不明瞭な点がある場合、ユーザーに質問を投げかけることで、より正確な結果を得られるよう支援します。</p>
+        <h3>開発ワークフローの改善と安定性の向上</h3>
+        <p>今回のアップデートでは、StoreKit Testingにおいて新しい請求プラン（billing scheme）のサポートが追加され、全体的な安定性を高めるための様々なバグ修正が行われました。</p>
+        <p>特にXcode 26.3において、AppleはOpenAIのCodexやAnthropicのClaude AgentといったAIツールを統合しました。これにより、開発者はボイラープレートコードの処理、プロジェクトドキュメントに基づくエンジニアリングの更新、ファイル構造を組み合わせた複雑な修正作業などを実行できるようになりました。</p>
+        <p>Xcode 26.5はこれらの機能を継承しつつ、共同作業の流れを大幅に改善しています。開発者は、コードアシスタントが前の回答を完全に生成し終えるのを待つことなく、連続して複数のメッセージを送信できるようになります。</p>
+        <p>この機能は、反復的な詳細タスク（task refinement）が必要なシナリオにおいて遅延を大幅に削減します。特に大規模プロジェクトでは、制約の追加や目標の修正、ファイル範囲の拡張などを連続的に行う必要があり、メッセージキューイング方式は単なる順次待機よりも実際の作業フローに近い形を実現します。</p>
+        <h3>AIエージェントとのインタラクション最適化</h3>
+        <p>AppleはAIエージェントの対話方法を最適化し、エージェントがタスクを実行する前に「明確な質問」を行うように設計しました。ユーザーの指示が不完全な場合、エージェントは勝手に推測して進めるのではなく、まず内容を確認するための質問を行い、その後に次のステップへ進みます。</p>
+        <h3>追加機能と総評</h3>
+        <p>AI関連のアップデートに加え、Xcode 26.5ではStoreKit Testingのサポートが拡張され、Appleの新しい「12ヶ月契約の月額サブスクリプションモデル」をシミュレートできるようになりました。</p>
+        <p>Xcode 26.5の最大の特徴は、AIエージェントとのインタラクション体験そのものを革新的に改善した点にあります。メッセージ送信の連続性を確保し、不完全な要求に対して事前に質問を行うインテリジェントなプロセスを導入することで、開発者の実務に近いワークフローを実現し、生産性を最大限に高めています。</p>
+        <h3>まとめ</h3>
+        <p>Xcode 26.5は、AIエージェントとの対話におけるメッセージキュー機能や、不完全な指示に対する確認プロセスの導入により、開発者のワークフローを大幅に最適化しました。また、Swift 6.3.2のサポートやStoreKit Testingの新プラン対応など、実用的な機能強化も同時に行われています。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Xcode 26.5 Overview</h3>
+        <p>Apple released Xcode version 26.5 last December, significantly enhancing the AI agent programming features that were first introduced in version 26.3.</p>
+        <h3>Key Updates</h3>
+        <p>Xcode 26.5 includes the Swift 6.3.2 update and supports the following operating system SDKs:</p>
+        <ul>
+<li>iOS 26.5</li>
+<li>iPadOS 26.5</li>
+<li>tvOS 26.5</li>
+<li>watchOS 26.5</li>
+<li>visionOS 26.5</li>
+<li>macOS 26.5</li>
+</ul>
+        <p>A core feature of this update is the support for an AI agent message queue. This functionality allows the AI agent to ask the user clarifying questions when it encounters ambiguous information during the response generation process, helping to ensure more accurate results.</p>
+        <h3>Development Workflow Improvements and Stability</h3>
+        <p>This update introduces support for new billing schemes in StoreKit Testing and includes various bug fixes to improve overall system stability.</p>
+        <p>Previously, in version 26.3, Apple integrated AI tools such as OpenAI's Codex and Anthropic's Claude Agent. These integrations allow developers to handle boilerplate code, perform documentation-based engineering updates, and execute complex modifications involving multiple file structures.</p>
+        <p>While inheriting these features from version 26.3, Xcode 26.5 significantly improves the collaboration flow. Developers can now send multiple messages consecutively without having to wait for the code assistant to finish generating a previous response.</p>
+        <p>This functionality significantly reduces latency in scenarios requiring "task refinement." Especially in large-scale projects, developers often need to perform continuous actions such as adding constraints, modifying goals, or expanding the scope of files. The message queuing method aligns much more closely with actual work flows compared to a strictly sequential waiting process.</p>
+        <h3>Optimized AI Agent Interaction</h3>
+        <p>Apple has optimized how users interact with AI agents by requiring them to "ask clearly" before performing a task. If a user's description is incomplete, the agent will now ask clarifying questions first instead of proceeding with assumptions, ensuring the next steps are taken based on clear information.</p>
+        <h3>Additional Features and Conclusion</h3>
+        <p>In addition to AI-related updates, Xcode 26.5 includes StoreKit Testing support that allows developers to simulate Apple's new 12-month commitment monthly subscription model.</p>
+        <p>The most significant feature of Xcode 26.5 is the revolutionary improvement in the interaction experience with AI agents. By ensuring message continuity and implementing an intelligent process where agents ask questions regarding incomplete requests, the update aligns more closely with real-world developer workflows to maximize productivity.</p>
+        <h3>Summary</h3>
+<p>Xcode 26.5 introduces significant enhancements to AI agent integration, specifically through a new message queue system that allows for continuous interaction and proactive clarification from the AI. It also provides updated SDK support for various Apple platforms and includes new features for simulating subscription models in StoreKit Testing. These updates are designed to reduce latency during complex task refinements and improve overall developer productivity.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -671,18 +770,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
