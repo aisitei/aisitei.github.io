@@ -9,6 +9,10 @@
   <meta name="article-category" content="phone">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="전 Apple 디자이너, 아이폰 삭제 키 신규 제안: 슬라이드 늘여서 삭제 속도 조절 가능">
+  <meta name="title-zh" content="전 Apple 디자이너, 아이폰 삭제 키 신규 제안: 슬라이드 늘여서 삭제 속도 조절 가능">
+  <meta name="title-ja" content="元AppleデザイナーがiPhoneの削除機能に新提案：スライド距離を調整して削除速度をコントロール可能に。">
+  <meta name="title-en" content="Former Apple Designer Proposes New iPhone Delete Key: Adjust Deletion Speed by Extending Slide Distance">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">전 Apple 디자이너, 아이폰 삭제 키 신규 제안: 슬라이드 늘여서 삭제 속도 조절 가능</h1>
+        <h1 class="article-title" data-ko="전 Apple 디자이너, 아이폰 삭제 키 신규 제안: 슬라이드 늘여서 삭제 속도 조절 가능" data-zh="전 Apple 디자이너, 아이폰 삭제 키 신규 제안: 슬라이드 늘여서 삭제 속도 조절 가능" data-ja="元AppleデザイナーがiPhoneの削除機能に新提案：スライド距離を調整して削除速度をコントロール可能に。" data-en="Former Apple Designer Proposes New iPhone Delete Key: Adjust Deletion Speed by Extending Slide Distance">전 Apple 디자이너, 아이폰 삭제 키 신규 제안: 슬라이드 늘여서 삭제 속도 조절 가능</h1>
 
         <div class="article-info">
           
@@ -527,34 +558,93 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>개요</h3>
-        
         <p>IT之家에 따르면, 전 Apple 디자이너 Eli Guerron이 지난 5월 8일 X 플랫폼을 통해 아이폰용 삭제 키 개념 디자인을 공개했습니다. 이 디자인의 핵심 변화는 기존의 단순 '탭' 방식 삭제를 넘어선 "늘리며 속도를 조절하는(Stretchable Speed)" 상호작용 방식을 도입한 것입니다.</p>
-        
         <h3>문제점 분석</h3>
-        
         <p>Guerron은 자신의 게시물에서 아이폰 입력기 내 삭제 키가 사용 빈도가 매우 높음에도 불구하고, 사용자들에게 가장 큰 불편함을 주는 요소 중 하나라고 지적했습니다. 현재의 방식이 가진 주요 문제점들은 다음과 같습니다.</p>
-<ul>
+        <ul>
 <li>단순히 '한 번 탭'하거나 '길게 눌러 연속 삭제'하는 두 가지 투박한 모드만 존재합니다.</li>
 <li>클릭 정확도가 불안정하며, 연속으로 삭제할 때 속도 변화가 눈에 띄게 불규칙합니다.</li>
 </ul>
-        
         <h3>개념 디자인 및 작동 원리</h3>
-        
         <p>Guerron의 개념 디자인은 단순히 버튼 크기를 키우는 수준을 넘어, 삭제 키의 상호작용 로직 자체를 재설계하는 데 초점을 맞추었습니다.</p>
-<ul>
+        <ul>
 <li>전통적인 가벼운 탭 방식의 삭제 기능은 유지합니다.</li>
 <li>여기에 "속도 제어" 메커니즘이 추가됩니다. 사용자가 버튼을 늘리면(스트레칭), 그에 비례하여 삭제 속도가 빨라집니다.</li>
 </ul>
-        
         <p>이러한 상호작용 방식 덕분에 사용자는 필요에 따라 삭제의 리듬과 속도를 직접 제어할 수 있게 됩니다. 이로써 너무 많이 지우거나, 혹은 너무 느리게 지우는 상황을 방지하고, 몇 글자만 지울지, 단어 단위로 지울지, 아니면 긴 문장을 한 번에 처리할지 자유롭게 선택할 수 있습니다.</p>
-        
         <h3>총평</h3>
-        
         <p>Eli Guerron이 제안한 이 삭제 키 개념 디자인은 사용자가 직관적으로 속도를 조절할 수 있게 함으로써 기존 입력 방식의 불편함을 해소하는 데 중점을 두었습니다. 단순한 기능 개선을 넘어, 사용자 경험(UX) 측면에서 '속도 제어'라는 새로운 차원의 상호작용을 도입했다는 점에서 주목할 만합니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>iPhone 删除键交互概念设计</h3>
+<p>前 Apple 设计师 Eli Guerron 在 X 平台分享了一项针对 iPhone 输入法的删除键概念设计。该设计的核心在于将传统的“点按”式删除扩展为一种“可拉伸调速”的交互模式。</p>
+        <h3>现有功能的痛点分析</h3>
+<p>Guerron 指出，尽管删除键是高频使用的功能，但目前的交互逻辑存在显著缺陷：</p>
+<ul>
+<li>仅支持“单次点击”或“长按连删”两种粗放模式。</li>
+<li>点击精度不稳定，难以精准控制删除范围。</li>
+<li>在连续删除时，删除速度往往出现明显波动。</li>
+</ul>
+        <h3>“可拉伸调速”解决方案</h3>
+<p>该概念设计并非简单放大按钮尺寸，而是重构了交互逻辑：</p>
+<ul>
+<li>保留轻点删除的传统方式以处理少量字符。</li>
+<li>引入“速度控制”机制：用户通过拉伸按钮来提升删除速度。</li>
+<li>提供更灵活的选择：用户可以根据需求自由选择删除几个字符、一个单词或长段文字，从而避免删多或删慢的情况。</li>
+</ul>
+        <h3>总结</h3>
+<p>前 Apple 设计师 Eli Guerron 提出了一种基于“可拉伸调速”逻辑的 iPhone 删除键新设计。该方案旨在解决当前输入法中删除速度不稳、操作精度低的问题，通过提供更丰富的交互反馈让用户能更精准地控制删除节奏。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>概要</h3>
+        <p>IT之家によると、元AppleデザイナーのEli Guerron氏が5月8日、Xプラットフォームを通じてiPhone用の削除キーのコンセプトデザインを公開しました。このデザインの核心は、従来の単純な「タップ」による削除を超え、「引き伸ばして速度を調整する（Stretchable Speed）」というインタラクション方式を導入した点にあります。</p>
+        <h3>問題点の分析</h3>
+        <p>Guerron氏は自身の投稿において、iPhoneの入力キーボードにおける削除キーは使用頻度が非常に高いにもかかわらず、ユーザーにとって最も不便な要素の一つであると指摘しました。現在の方式には以下のような主な問題点があります。</p>
+        <ul>
+<li>単に「一度タップ」するか「長押しして連続削除」するだけの、粗い2つのモードしか存在しないこと。</li>
+<li>クリックの精度が不安定で、連続して削除する際の速度変化が著しく不規則であること。</li>
+</ul>
+        <h3>コンセプトデザインと動作原理</h3>
+        <p>Guerron氏のコンセプトデザインは、単にボタンのサイズを大きくするのではなく、削除キーのインタラクションロジックそのものを再設計することに焦点を当てています。</p>
+        <ul>
+<li>従来の軽いタップによる削除機能は維持。</li>
+<li>これに「速度制御」メカニズムを追加。ユーザーがボタンを伸ばす（ストレッチする）ことで、それに比例して削除速度が速くなる。</li>
+</ul>
+        <p>このインタラクション方式により、ユーザーは必要に応じて削除のリズムと速度を直接コントロールできるようになります。これにより、削除しすぎたり、あるいは遅すぎたりする状況を防ぎ、数文字だけ消すのか、単語単位で消すか、あるいは長い文章を一括で処理するかを自由に選択することが可能になります。</p>
+        <h3>総評</h3>
+        <p>Eli Guerron氏が提案したこの削除キーのコンセプトデザインは、ユーザーが直感的に速度を調整できるようにすることで、従来の入力方式の不便さを解消することに重点を置いています。単なる機能改善にとどまらず、ユーザーエクスペリエンス（UX）の観点から「速度制御」という新しい次元のインタラクションを導入した点で注目に値します。</p>
+        <h3>まとめ</h3>
+        <p>元AppleデザイナーのEli Guerron氏は、iPhone向けに「Stretchable Speed」という革新的な削除キーのコンセプトを提案しました。このデザインは、ボタンを伸ばす動作によって削除速度を動的に制御する仕組みを取り入れ、ユーザーの操作性を向上させます。UXの観点から、従来の二択の制約を打破し、直感的なコントロールを可能にする独創的なアプローチとして注目されています。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Overview</h3>
+<p>According to IT Home, former Apple designer Eli Guerron shared a concept design for an iPhone delete key on the X platform on May 8th. The core innovation of this design is the introduction of a "Stretchable Speed" interaction method, moving beyond the traditional simple "tap" mechanism.</p>
+        <h3>Problem Analysis</h3>
+<p>In his post, Guerron pointed out that while the delete key in iPhone input methods is used very frequently, it remains one of the most inconvenient elements for users. The primary issues with the current system include:</p>
+<ul>
+<li>Only two crude modes exist: a single "tap" or a "long press" for continuous deletion.</li>
+<li>Click accuracy is unstable, and the speed of continuous deletion varies noticeably and irregularly.</li>
+</ul>
+        <h3>Concept Design and Mechanism</h3>
+<p>Guerron's concept design goes beyond simply increasing button size; it focuses on redesigning the interaction logic of the delete key itself.</p>
+<ul>
+<li>The traditional light-tap deletion function is maintained.</li>
+<li>A "speed control" mechanism is added: as a user stretches the button, the deletion speed increases proportionally.</li>
+</ul>
+<p>This interactive approach allows users to directly control the rhythm and speed of deletion based on their needs. It prevents over-deleting or deleting too slowly, allowing users to freely choose whether to delete just a few characters, word by word, or clear an entire long sentence at once.</p>
+        <h3>Overall Review</h3>
+<p>The concept design proposed by Eli Guerron focuses on resolving the inconveniences of existing input methods by allowing users to intuitively adjust speed. It is noteworthy because it introduces a new dimension of interaction—"speed control"—from a user experience (UX) perspective rather than just being a simple functional improvement.</p>
+        <h3>Summary</h3>
+<p>Former Apple designer Eli Guerron proposed a "Stretchable Speed" concept for the iPhone delete key to address current usability issues like inconsistent deletion speeds. By allowing users to control speed through a stretching gesture, the design aims to provide a more intuitive and customizable typing experience.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -683,18 +773,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
