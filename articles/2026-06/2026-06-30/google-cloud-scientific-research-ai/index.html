@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 구글 클라우드, 바이오 제약·재료 과학·반도체 제조 등 과학 연구용 전문 AI 모델 제공</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="image_sensor">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="구글 클라우드, 바이오 제약·재료 과학·반도체 제조 등 과학 연구용 전문 AI 모델 제공">
+  <meta name="title-zh" content="谷歌云将提供用于科学研究的专业 AI 模型：可加速生物制药、材料科学和半导体制造等">
+  <meta name="title-ja" content="Google Cloudが科学研究向けの専門AIモデルを提供：バイオ医薬品、材料科学、半導体製造などを加速">
+  <meta name="title-en" content="Google Cloud to offer specialized AI models for scientific research: accelerating biopharmaceuticals, materials science, and semiconductor manufacturing.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+      <a href="../../../../reports.html">발표회 정리</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap hero-image-fallback">
+        <img src="../../../../assets/images/apple-touch-icon.png" alt="구글 클라우드, 바이오 제약·재료 과학·반도체 제조 등 과학 연구용 전문 AI 모델 제공" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="구글 클라우드, 바이오 제약·재료 과학·반도체 제조 등 과학 연구용 전문 AI 모델 제공"
+            data-zh="谷歌云将提供用于科学研究的专业 AI 模型：可加速生物制药、材料科学和半导体制造等"
+            data-ja="Google Cloudが科学研究向けの専門AIモデルを提供：バイオ医薬品、材料科学、半導体製造などを加速"
+            data-en="Google Cloud to offer specialized AI models for scientific research: accelerating biopharmaceuticals, materials science, and semiconductor manufacturing.">구글 클라우드, 바이오 제약·재료 과학·반도체 제조 등 과학 연구용 전문 AI 모델 제공</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-06-30
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>파트너십 개요</h3>
+          
+          <p>Bloomberg 보도에 따르면, Google은 자사의 클라우드 플랫폼을 통해 소프트웨어 기업 SandboxAQ의 전문 AI 모델을 제공할 예정입니다. 이 모델들은 신약 개발, 재료 과학 및 반도체 제조 분야의 속도를 높이는 데 활용됩니다.</p>
+          
+          <h3>기업 정보</h3>
+          
+          <p>SandboxAQ는 양자 기술과 인공지능(AI)의 결합을 전문으로 하는 미국의 기술 기업입니다. 이 회사는 원래 Google의 모기업인 Alphabet이 2016년에 설립한 양자 기술 부문이었으며, 2022년 3월 독립된 회사로 분사되었습니다.</p>
+          
+          <h3>제공 모델</h3>
+          
+          <p>SandboxAQ는 Google Cloud에 다음 두 가지 모델을 출시할 예정입니다:</p>
+          
+          <ul>
+<li>AQCat: 반도체 제조, 배터리 개발 등의 응용 분야에서 잠재력이 있는 촉매제 및 소재 후보를 식별</li>
+<li>AQPotency: 신약 개발 분야에 적용되어 연구자들이 질병 타겟과 결합할 가능성이 가장 높은 분자를 찾는 데 도움을 제공</li>
+</ul>
+          
+          <h3>자금 조달 및 활용</h3>
+          
+          <p>SandboxAQ는 Google과의 협력에 앞서 미국 정부의 '반도체법(CHIPS Act)'을 통해 반도체 제조 분야의 AI 모델 개발을 위해 5억 달러(현재 환율로 약 34.02억 위안)를 지원받았습니다.</p>
+          
+          <p>SandboxAQ의 CEO Jack Hidary는 바이오 제약 연구가 현재 회사의 가장 큰 단기적 기회라고 밝혔습니다. 고객들은 이 기술을 활용해 교모세포종 및 전립선암과 같은 암, 그리고 알츠하이머병, 파킨슨병, 심혈관 질환 등을 연구하고 있습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Google은 SandboxAQ의 전문 AI 모델을 클라우드 플랫폼에 도입하여 신약 개발과 반도체 제조 등 핵심 산업 분야를 지원합니다. 이 기술은 다양한 질병 치료제 연구 및 소재 발굴 분야에서 중요한 역할을 할 것으로 기대됩니다.</p
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>谷歌云平台提供 SandboxAQ 专业人工智能模型</h3>
+<p>Google 将通过其云服务平台，提供来自软件公司 SandboxAQ 的专业人工智能模型。这些模型旨在加速药物发现、材料科学以及半导体制造等关键领域的研发进程。</p>
+          
+          <h3>核心模型功能与应用领域</h3>
+<p>SandboxAQ 将在 Google 云上推出两款主要模型：</p>
+<ul>
+<li>AQCat：用于识别半导体制造、电池开发等应用中的潜在催化剂和材料候选物。</li>
+<li>AQPotency：应用于药物发现，帮助研究人员寻找最可能与疾病靶点结合的分子。</li>
+</ul>
+          
+          <h3>公司背景与资金支持</h3>
+<p>SandboxAQ 是一家专注于量子技术与人工智能融合的科技企业，原为 Alphabet 的量子技术部门，于 2022 年 3 月正式独立。该公司此前已获得美国政府《芯片法案》提供的 5 亿美元（约合 34.02 亿元人民币）拨款，用于开发半导体制造领域的 AI 模型。</p>
+<p>目前，该技术正被应用于研究胶质母细胞瘤、前列腺癌等癌症，以及阿尔茨海默病、帕金森病和心血管疾病等多种重大疾病。</p>
+          
+          <h3>总结</h3>
+<p>Google 与 SandboxAQ 合作在云端提供专门用于材料科学和药物研发的 AI 模型。这些模型获得了显著的政府资金支持，旨在通过人工智能技术加速半导体制造及多种严重疾病的科研突破。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>パートナーシップの概要</h3>
+          
+          <p>Bloombergの報道によると、Googleは自社のクラウドプラットフォームを通じて、ソフトウェア企業SandboxAQが提供する専門的なAIモデルを提供することを発表しました。これらのモデルは、新薬開発、材料科学、および半導体製造のプロセスを加速するために活用されます。</p>
+          
+          <h3>企業情報</h3>
+          
+          <p>SandboxAQは、量子技術と人工知能（AI）の融合を専門とする米国のテクノロジー企業です。同社はもともとGoogleの親会社であるAlphabetが2016年に設立した量子技術部門でしたが、2022年3月に独立した企業として分社化されました。</p>
+          
+          <h3>提供モデル</h3>
+          
+          <p>SandboxAQはGoogle Cloudにおいて、以下の2つのモデルをリリースする予定です。</p>
+          
+          <ul>
+<li>AQCat：半導体製造やバッテリー開発などの応用分野において、有望な触媒および材料候補を特定します。</li>
+<li>AQPotency：新薬開発分野に適用され、研究者が疾患ターゲットと結合する可能性が最も高い分子を見つけるための支援を提供します。</li>
+</ul>
+          
+          <h3>資金調達と活用</h3>
+          
+          <p>SandboxAQはGoogleとの提携に先立ち、米国政府の「半導体法（CHIPS Act）」を通じて、半導体製造分野のAIモデル開発のために5億ドル（現在の為替レートで約34.02億元）の支援を受けています。</p>
+          
+          <p>SandboxAQのCEOであるJack Hidary氏は、バイオ医薬品の研究が現在の同社にとって最大の短期的な機会であると述べています。顧客はこれらの技術を活用して、膠芽腫や前立腺がんなどの癌、さらにはアルツハイマー病、パーキンソン病、心血管疾患などの研究に取り組んでいます。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>GoogleはSandboxAQの専門AIモデルをクラウドプラットフォームに統合することで、新薬開発や半導体製造といった重要産業分野の支援を強化します。これらの技術は、高度な疾患治療の研究や革新的な材料の発見において重要な役割を果たすことが期待されています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Partnership Overview</h3>
+          
+          <p>According to a report by Bloomberg, Google will offer specialized AI models from software company SandboxAQ through its cloud platform. These models are designed to accelerate progress in drug discovery, material science, and semiconductor manufacturing.</p>
+          
+          <h3>Company Information</h3>
+          
+          <p>SandboxAQ is a U.S.-based technology company specializing in the integration of quantum technology and artificial intelligence (AI). The company was originally established in 2016 as Alphabet's quantum technology division and was spun off into an independent entity in March 2022.</p>
+          
+          <h3>Offered Models</h3>
+          
+          <p>SandboxAQ plans to launch the following two models on Google Cloud:</p>
+          
+          <ul>
+<li>AQCat: Identifies potential catalysts and material candidates for applications such as semiconductor manufacturing and battery development.</li>
+<li>AQPotency: Applied in the field of drug discovery, helping researchers identify molecules with the highest likelihood of binding with disease targets.</li>
+</ul>
+          
+          <h3>Funding and Utilization</h3>
+          
+          <p>Prior to its collaboration with Google, SandboxAQ received $500 million (approximately 3.402 billion yuan at current exchange rates) through the U.S. government's "CHIPS Act" to develop AI models for semiconductor manufacturing.</p>
+          
+          <p>SandboxAQ CEO Jack Hidary stated that biopharmaceutical research represents the company's largest short-term opportunity. Customers are currently utilizing this technology to research conditions such as glioblastoma, prostate cancer, Alzheimer's disease, Parkinson's disease, and cardiovascular diseases.</p>
+          
+          <h3>Overall Analysis</h3>
+          
+          <p>By integrating SandboxAQ's specialized AI models into its cloud platform, Google aims to support critical industrial sectors including drug discovery and semiconductor manufacturing. This technology is expected to play a significant role in researching treatments for various diseases and identifying new materials.</p>
+          
+          <h3>Summary</h3>
+<p>Google is partnering with SandboxAQ to provide specialized AI models on its cloud platform to accelerate innovation in the semiconductor and pharmaceutical industries. These tools, specifically AQCat and AQPotency, are designed to streamline material discovery and drug development. The collaboration leverages significant investment from the CHIPS Act to advance critical technologies for both manufacturing and healthcare.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/970/161.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-06"
+               class="archive-btn active">
+              2026-06
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+          <a href="../../../../reports.html" class="cat-btn">📋 발표회 정리</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
