@@ -9,6 +9,10 @@
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="">
   <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="딥시크, 멀티모달 모델 기술 보고서 발표">
+  <meta name="title-zh" content="딥시크, 멀티모달 모델 기술 보고서 발표">
+  <meta name="title-ja" content="DeepSeek、マルチモーダルモデルの技術レポートを発表">
+  <meta name="title-en" content="DeepSeek Releases Multimodal Model Technical Report">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -507,7 +538,7 @@
           
         </div>
 
-        <h1 class="article-title">딥시크, 멀티모달 모델 기술 보고서 발표</h1>
+        <h1 class="article-title" data-ko="딥시크, 멀티모달 모델 기술 보고서 발표" data-zh="딥시크, 멀티모달 모델 기술 보고서 발표" data-ja="DeepSeek、マルチモーダルモデルの技術レポートを発表" data-en="DeepSeek Releases Multimodal Model Technical Report">딥시크, 멀티모달 모델 기술 보고서 발표</h1>
 
         <div class="article-info">
           
@@ -523,44 +554,97 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>딥시크(DeepSeek)의 멀티모달 대형 모델 발표</h3>
-        
         <p>IT之家에 따르면, DeepSeek이 GitHub 플랫폼을 통해 자체 개발한 멀티모달 대형 모델(MLLMs)을 공식 출시하고 관련 기술 보고서를 공개했습니다. 이 보고서는 '비주얼 프리미티브(Visual Primitives)' 기반의 혁신적인 추론 프레임워크를 제시하며, 현재 MLLMs가 공간 참조 작업에서 겪는 핵심 병목 현상을 해결하는 것을 목표로 합니다.</p>
-        
         <h3>기존 모델의 한계점 분석: '참조 격차'</h3>
-        
         <p>기술 보고서는 최근 몇 년간 MLLMs가 상당한 발전을 이루었음에도 불구하고, 주류인 체인 오브 사고(CoT) 추론 방식이 여전히 언어학적 영역에 국한되어 있음을 지적합니다. 기존 연구들은 고해상도 이미지 자르기 등의 기술을 통해 '인지 격차(Perception Gap)'를 줄이는 데 초점을 맞추었지만, DeepSeek 팀은 더 근본적인 제한점인 '참조 격차(Reference Gap)'가 간과되었다고 주장합니다.</p>
-        
         <p>자연어의 본질적인 모호성 때문에 모델이 복잡한 공간 배치를 정확하고 명확하게 지시하기 어렵습니다. 따라서 엄격한 공간 참조가 필요한 작업을 수행할 때, 이러한 언어적 표현의 한계는 추론 과정의 단절과 논리적 붕괴를 초래합니다.</p>
-        
         <h3>새로운 접근 방식: 비주얼 프리미티브 기반 사고 프레임워크</h3>
-        
         <p>이러한 문제점을 해결하기 위해 DeepSeek은 '비주얼 프리미티브 기반 사고(Thinking with Visual Primitives)' 프레임워크를 제안했습니다. 이 프레임워크는 점(Point)이나 경계 상자(Bounding Box)와 같은 공간적 마커들을 단순한 시각 입력 요소가 아닌, 추론 과정 자체의 '기본적인 사고 단위'로 격상시킵니다.</p>
-        
         <p>DeepSeek은 이러한 비주얼 프리미티브를 모델의 사고 흐름에 직접 통합함으로써, 모델이 추론하는 과정에서 '지시대(Referencing)' 능력을 갖추게 했습니다. 즉, 추상적인 인지 경로를 이미지의 구체적인 물리적 좌표에 고정할 수 있게 되어 공간 관계를 정밀하게 추론해낼 수 있습니다.</p>
-        
         <h3>성능 및 기술적 특징</h3>
-        
         <p>기술 보고서에 따르면, 이 프레임워크는 매우 최적화된 모델 아키텍처를 채택하여 높은 비주얼 마킹 효율성을 자랑합니다. 모델 규모가 간결하고 이미지 마킹 예산이 상당히 낮음에도 불구하고, DeepSeek의 멀티모달 모델은 다음과 같은 최고 수준의 성능을 보여줍니다.</p>
-        
         <ul>
 <li>GPT-5.4</li>
 <li>Claude-Sonnet-4.6</li>
 <li>Gemini-3-Flash</li>
 </ul>
-        
         <p>이는 까다로운 개수 세기 및 공간 추론 벤치마크 테스트에서 최신 플래그십 모델들과 대등한 성능을 발휘함을 의미하며, 더욱 효율적이고 확장 가능한 System-2급 멀티모달 지능 개발의 방향성을 제시합니다.</p>
-        
         <h3>제품 기능 업데이트</h3>
-        
         <p>IT之家는 DeepSeek이 기존에 '이미지 인식 모드'를 출시했으며, 이 모드가 '빠른 모드', '전문가 모드'와 함께 제공된다고 언급했습니다. 이는 단순한 OCR 텍스트 인식을 넘어선 진정한 멀티모달 인식 능력을 갖추었음을 의미합니다.</p>
-        
         <h3>총평</h3>
-        
         <p>DeepSeek이 발표한 새로운 프레임워크는 기존 MLLMs의 한계였던 '참조 격차'를 해결하는 데 중점을 두었습니다. 공간적 마커를 추론 과정의 핵심 단위로 활용함으로써, 모델은 단순 인식 단계를 넘어 물리적 좌표에 기반한 정교한 논리적 추론이 가능해졌습니다. 이는 차세대 System-2급 멀티모달 AI가 나아가야 할 중요한 방향성을 제시하는 기술적 진보로 평가됩니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>DeepSeek 发布多模态大模型及技术报告</h3>
+<p>DeepSeek 在 GitHub 平台正式发布了其多模态大模型，并同步公开了配套的技术报告。该报告提出了一种基于“视觉原语”的创新推理框架，旨在解决当前多模态大语言模型（MLLMs）在空间参照任务中因自然语言模糊性导致的逻辑断裂问题。</p>
+        <h3>核心技术：基于视觉原语的思考</h3>
+<p>DeepSeek 推出的“基于视觉原语的思考”（Thinking with Visual Primitives）框架，将点、边界框等空间标记从单纯的视觉输入提升为推理过程中的“基本思维单元”。通过这种方式，模型能够将抽象的认知轨迹锚定到图像的具体物理坐标上，从而在处理复杂空间关系时实现更精确的推演。</p>
+        <h3>性能表现与对比</h3>
+<p>尽管 DeepSeek 的多模态模型采用的是紧凑型架构且视觉标记预算较低，但在具有挑战性的计数和空间推理基准测试中，其表现能够与以下前沿模型相媲美：</p>
+<ul>
+<li>GPT-5.4</li>
+<li>Claude-Sonnet-4.6</li>
+<li>Gemini-3-Flash</li>
+</ul>
+        <h3>产品功能更新</h3>
+<p>DeepSeek 已上线“识图模式”，该模式与“快速模式”和“专家模式”并列。该功能并非简单的 OCR 文字识别，而是具备了完整的多模态识别能力。</p>
+        <h3>总结</h3>
+<p>DeepSeek 发布了基于“视觉原语”的创新多模态模型，通过将空间标记融入推理链条解决了复杂任务中的空间参照难题。该模型在保持高效架构的同时，在关键基准测试中展现出与顶级模型相当的性能。此外，其官方产品已同步上线具备多模态识别能力的“识图模式”。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>DeepSeekのマルチモーダル大規模モデル発表</h3>
+        <p>IT之家によると、DeepSeekはGitHubプラットフォームを通じて自社開発のマルチモーダル大規模モデル（MLLMs）を正式にリリースし、関連する技術レポートを公開しました。このレポートでは、「Visual Primitives」に基づく革新的な推論フレームワークを提示しており、現在のMLLMsが空間参照タスクにおいて直面している主要なボトルネックの解決を目指しています。</p>
+        <h3>既存モデルの限界：「リファレンス・ギャップ（Reference Gap）」</h3>
+        <p>技術レポートでは、近年のMLLMsが大きな進歩を遂げている一方で、主流であるChain of Thought（CoT）推論の手法がいまだに言語的な領域に限定されていることを指摘しています。これまでの研究は、高解像度画像のクロッピングなどの技術を通じて「知覚のギャップ（Perception Gap）」を埋めることに焦点を当ててきましたが、DeepSeekチームはより根本的な制約である「リファレンス・ギャップ（Reference Gap）」が見過ごされていると主張しています。</p>
+        <p>自然言語の本質的な曖昧さにより、モデルが複雑な空間配置を正確かつ明確に指示することは困難です。そのため、厳密な空間参照を必要とするタスクを実行する際、これらの言語表現の限界が推論過程の断絶や論理的な崩壊を引き起こす原因となります。</p>
+        <h3>新たなアプローチ：Visual Primitivesに基づく思考フレームワーク</h3>
+        <p>これらの課題を解決するため、DeepSeekは「Thinking with Visual Primitives」フレームワークを提案しました。このフレームワークでは、点（Point）や境界ボックス（Bounding Box）といった空間的なマーカーを単なる視覚入力要素としてではなく、推論プロセス自体の「基本的な思考単位」へと格上げします。</p>
+        <p>DeepSeekはこれらのVisual Primitivesをモデルの思考フローに直接統合することで、モデルが推論する過程において「参照（Referencing）」能力を備えるようにしました。つまり、抽象的な認知経路を画像内の具体的な物理的座標に固定できるようになり、空間関係を精密に推論することが可能になります。</p>
+        <h3>性能および技術的特徴</h3>
+        <p>技術レポートによると、このフレームワークは高度に最適化されたモデルアーキテクチャを採用しており、高いビジュアルマーキング効率を誇ります。モデル規模がコンパクトで画像マーキングの予算（コスト）が大幅に低いにもかかわらず、DeepSeekのマルチモーダルモデルは以下の最高レベルの性能を示しています。</p>
+        <ul>
+<li>GPT-5.4</li>
+<li>Claude-Sonnet-4.6</li>
+<li>Gemini-3-Flash</li>
+</ul>
+        <p>これは、困難な数え上げや空間推論のベンチマークテストにおいて、最新のフラッグシップモデルと同等の性能を発揮することを意味しており、より効率的で拡張可能なSystem-2レベルのマルチモーダル知能開発に向けた方向性を示しています。</p>
+        <h3>製品機能のアップデート</h3>
+        <p>IT之家は、DeepSeekがすでに「画像認識モード」をリリースしており、このモードが「高速モード（Fast Mode）」および「エキスパートモード（Expert Mode）」と共に提供されていると伝えています。これは、単純なOCRテキスト認識を超えた、真のマルチモーダル認識能力を備えていることを意味します。</p>
+        <h3>まとめ</h3>
+        <p>DeepSeekが発表した新フレームワークは、従来のMLLMsの課題であった「リファレンス・ギャップ」を解消することに焦点を当てています。空間的マーカーを推論の核心的な単位として活用することで、モデルは単なる認識を超え、物理的座標に基づいた精緻な論理推論を行うことが可能になりました。これは次世代のSystem-2レベルのマルチモーダルAIに向けた重要な技術的進歩と評価されています。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>DeepSeek Announces Multimodal Large Model</h3>
+        <p>According to IT House, DeepSeek has officially released its self-developed Multimodal Large Models (MLLMs) via the GitHub platform and published a corresponding technical report. The report introduces an innovative reasoning framework based on "Visual Primitives," aimed at solving core bottlenecks in spatial reference tasks that current MLLMs face.</p>
+        <h3>Analysis of Existing Model Limitations: The 'Reference Gap'</h3>
+        <p>The technical report points out that despite significant progress in MLLMs over the past few years, mainstream Chain of Thought (CoT) reasoning methods remain largely confined to the linguistic domain. While existing research has focused on narrowing the "Perception Gap" through techniques such as high-resolution image cropping, the DeepSeek team argues that a more fundamental limitation—the "Reference Gap"—has been overlooked.</p>
+        <p>Due to the inherent ambiguity of natural language, it is difficult for models to provide accurate and clear instructions for complex spatial arrangements. Consequently, when performing tasks requiring strict spatial reference, these limitations in linguistic expression lead to interruptions in the reasoning process and logical breakdowns.</p>
+        <h3>New Approach: Reasoning Framework Based on Visual Primitives</h3>
+        <p>To address these issues, DeepSeek proposed the "Thinking with Visual Primitives" framework. This framework elevates spatial markers, such as points or bounding boxes, from simple visual input elements to "fundamental units of thought" within the reasoning process itself.</p>
+        <p>By directly integrating these visual primitives into the model's flow of thought, DeepSeek has equipped the model with "referencing" capabilities. This allows the model to anchor abstract cognitive paths to specific physical coordinates in an image, enabling it to accurately infer spatial relationships.</p>
+        <h3>Performance and Technical Features</h3>
+        <p>According to the technical report, this framework utilizes a highly optimized model architecture that boasts high visual marking efficiency. Despite having a concise model scale and a significantly low image marking budget, DeepSeek's multimodal model demonstrates top-tier performance comparable to leading flagship models in demanding counting and spatial reasoning benchmark tests.</p>
+        <ul>
+<li>GPT-5.4</li>
+<li>Claude-Sonnet-4.6</li>
+<li>Gemini-3-Flash</li>
+</ul>
+        <p>This indicates that the model performs on par with latest flagship models in challenging count-based and spatial inference benchmarks, providing a direction for developing more efficient and scalable System-2 level multimodal intelligence.</p>
+        <h3>Product Feature Updates</h3>
+        <p>IT House noted that DeepSeek has released an "Image Recognition Mode," which is available in both "Fast Mode" and "Expert Mode." This signifies that the model possesses true multimodal recognition capabilities that go beyond simple OCR text recognition.</p>
+        <h3>Overall Review</h3>
+        <p>The new framework announced by DeepSeek focuses on solving the "Reference Gap," a major limitation of existing MLLMs. By utilizing spatial markers as core units in the reasoning process, the model can move beyond simple perception to sophisticated logical inference based on physical coordinates. This is regarded as a significant technical advancement toward the development of next-generation System-2 level multimodal AI.</p>
+        <h3>Summary</h3>
+<p>DeepSeek has introduced a "Thinking with Visual Primitives" framework to overcome the "Reference Gap" in current MLLMs by integrating spatial markers into the core reasoning process. This allows the model to perform high-level spatial inference and counting tasks comparable to leading flagship models like GPT, Claude, and Gemini. The advancement represents a significant step toward more advanced System-2 level multimodal intelligence.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -689,18 +773,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
