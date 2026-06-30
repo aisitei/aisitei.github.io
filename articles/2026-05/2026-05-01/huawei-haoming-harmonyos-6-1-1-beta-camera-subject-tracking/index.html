@@ -9,6 +9,10 @@
   <meta name="article-category" content="camera">
   <meta name="article-brand" content="Huawei">
   <meta name="article-brand-color" content="#CF0A2C">
+  <meta name="title-ko" content="화웨이 하오밍 HarmonyOS 6.1.1 (24) 베타 1 버전 출시, 카메라 키트로 카메라 컨트롤러에 &amp;#39;피사체 추적&amp;#39; 기능 제공">
+  <meta name="title-zh" content="화웨이 하오밍 HarmonyOS 6.1.1 (24) 베타 1 버전 출시, 카메라 키트로 카메라 컨트롤러에 &amp;#39;피사체 추적&amp;#39; 기능 제공">
+  <meta name="title-ja" content="Huawei HarmonyOS 6.1.1 (24) Beta 1をリリース、カメラキットのカメラコントローラーに「被写体追跡」機能を追加">
+  <meta name="title-en" content="Huawei HarmonyOS 6.1.1 (24) Beta 1 Released, Adding 'Subject Tracking' Feature to Camera Controller via Camera Kit">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -513,7 +544,7 @@
           
         </div>
 
-        <h1 class="article-title">화웨이 하오밍 HarmonyOS 6.1.1 (24) 베타 1 버전 출시, 카메라 키트로 카메라 컨트롤러에 &#39;피사체 추적&#39; 기능 제공</h1>
+        <h1 class="article-title" data-ko="화웨이 하오밍 HarmonyOS 6.1.1 (24) 베타 1 버전 출시, 카메라 키트로 카메라 컨트롤러에 &amp;#39;피사체 추적&amp;#39; 기능 제공" data-zh="화웨이 하오밍 HarmonyOS 6.1.1 (24) 베타 1 버전 출시, 카메라 키트로 카메라 컨트롤러에 &amp;#39;피사체 추적&amp;#39; 기능 제공" data-ja="Huawei HarmonyOS 6.1.1 (24) Beta 1をリリース、カメラキットのカメラコントローラーに「被写体追跡」機能を追加" data-en="Huawei HarmonyOS 6.1.1 (24) Beta 1 Released, Adding 'Subject Tracking' Feature to Camera Controller via Camera Kit">화웨이 하오밍 HarmonyOS 6.1.1 (24) 베타 1 버전 출시, 카메라 키트로 카메라 컨트롤러에 &#39;피사체 추적&#39; 기능 제공</h1>
 
         <div class="article-info">
           
@@ -529,16 +560,15 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>HarmonyOS 6.1.1 Beta1 개발자 업데이트 주요 내용</h3>
-        
         <p>IT之家에 따르면, Huawei 개발자 공식 웹사이트를 통해 HarmonyOS 6.1.1 (24) Beta1 버전이 공개되었습니다. 이 버전은 이전 6.1.0 (23) 버전을 기반으로 하며, 개발 역량이 대폭 강화된 것이 특징입니다.</p>
-        
         <h3>핵심 프레임워크 기능 강화</h3>
-        
         <p>주요 모듈별로 다음과 같은 성능 및 기능을 개선했습니다:</p>
-<ul>
+        <ul>
 <li><strong>Ability Kit:</strong> AbilityStage의 컨텍스트(Context) 능력을 향상시켜 동적 리소스 로딩을 지원합니다.</li>
 <li><strong>ArkUI:</strong> 평행 시야 상태 획득, 사용자 정의 컴포넌트의 Ability 간 마이그레이션, 동적 레이아웃 컨테이너 등 기능을 강화했으며, 여러 컴포넌트에 대한 C API가 추가되었습니다.</li>
 <li><strong>ArkTS:</strong> 가상 머신 측정 능력을 향상시키고 taskpool 작업 타임아웃 설정을 지원합니다.</li>
@@ -548,72 +578,215 @@
 <li><strong>FAST Kit:</strong> 동시 해시 테이블, 벡터 연산 및 필터 기능이 추가되었습니다.</li>
 <li><strong>Performance Analysis Kit:</strong> 리소스 수집 및 충돌 로그 분석 능력이 강화되었습니다.</li>
 </ul>
-        
         <p>또한, Content Embed Kit(콘텐츠 임베드 서비스)와 Enterprise Threat Protection Kit(기업 위협 방지 서비스) 등 새로운 키트가 추가되었습니다.</p>
-        
         <h3>개발 환경 (DevEco Studio) 개선 사항</h3>
-        
         <p>개발 도구인 DevEco Studio의 기능도 크게 향상되었습니다:</p>
-<ul>
+        <ul>
 <li><strong>API 지원:</strong> API 24 엔지니어링을 지원합니다.</li>
 <li><strong>Hot Reload 강화:</strong> C++ 코드와 리소스 파일 수정까지 지원하는 Hot Reload 기능을 개선했습니다.</li>
 <li><strong>디버깅 효율성 증대:</strong> Binder 통신 정보, 메인 스레드 작업 큐 및 샘플링 스택 데이터를 포함하여 더 많은 AppFreeze 로그를 분석할 수 있게 되어 개발자가 문제점을 찾는 효율성이 높아졌습니다.</li>
 <li><strong>메모리 누수 진단:</strong> UI 인터페이스 각 컴포넌트의 메모리 할당 상황을 분석하는 ComMemory 템플릿이 추가되어, UI 컴포넌트의 메모리 누수를 찾는 데 도움을 줍니다.</li>
 </ul>
-        
         <h3>주요 API 및 기능 상세 업데이트</h3>
-        
         <p>HarmonyOS 6.1.1 (24) Beta1 버전에서 새롭게 지원되거나 개선된 세부 기능들은 다음과 같습니다.</p>
-        
-        <h4>시스템 및 앱 개발</h4>
-<ul>
+        <ul>
 <li><strong>Ability 관리:</strong> Ability의 마지막 종료 정보 필드에 '종료 원인'을 가져오는 것이 추가되었습니다.</li>
 <li><strong>AbilityStage 컨텍스트:</strong> `launchElement` 필드가 추가되어, AbilityStage가 onCreate를 호출할 때 현재 로딩 중인 Ability 정보를 앱에 전달함으로써 동적 리소스 로딩이 가능해졌습니다.</li>
 <li><strong>위젯 및 데이터베이스:</strong> 애플리케이션 내 바로가기 검색 및 삭제 기능 지원이 추가되었으며, 관계형 데이터베이스(RdbStore)를 생성하거나 기존 DB를 여는 동기화 방법도 새로 추가되었습니다.</li>
 <li><strong>HDR/AI 지원:</strong> 컴포넌트 내용에 HDR(High Dynamic Range Imaging) 밝기 효과를 적용하는 것이 가능해졌고, 비디오의 AIHDR 포맷을 지원합니다.</li>
 </ul>
-        
-        <h4>가상 머신 및 성능 분석</h4>
-<ul>
+        <ul>
 <li><strong>메모리 정보 수집:</strong> 모든 가상 머신 스레드의 힙 메모리 정보(스레드 ID, 이름, 힙 유형, 객체 크기 포함)를 가져오는 것이 가능해졌습니다.</li>
 <li><strong>메모리 누수 방지:</strong> `enableLocalHandleDetection` 인터페이스가 추가되어 EventHandler 및 libuv 메커니즘의 작업이 스코프 내에서 실행되도록 보장하여 메모리 누수를 예방합니다.</li>
 <li><strong>타임아웃 설정:</strong> taskpool의 execute 메서드를 강화하여, 작업이나 작업 그룹에 타임아웃 시간을 지정할 수 있게 되었으며, 초과 시 오류 메시지를 발생시킵니다.</li>
 </ul>
-        
-        <h4>UI/UX 및 컴포넌트</h4>
-<ul>
+        <ul>
 <li><strong>평행 시야(Parallel View):</strong> 앱이 평행 시야 기능을 능동적으로 사용할 때, 새로운 API 인터페이스를 통해 현재 분할 화면 상태를 런타임에 가져와 비즈니스 로직이나 UX 애니메이션을 조정하기 편리해졌습니다.</li>
 <li><strong>컴포넌트 유연성:</strong> 사용자 정의 컴포넌트가 Ability 간 마이그레이션을 지원하게 되었습니다.</li>
 <li><strong>C API 확장:</strong> 여러 컴포넌트에 대한 C API(예: OH_ArkUI_DecorationStyleOptions 등)가 추가되었으며, 속성 문자열을 가져오는 C API도 추가되었습니다.</li>
 <li><strong>사용자 경험 개선:</strong> 텍스트 컴포넌트에서 좌표를 기반으로 가장 가까운 문자의 위치 정보를 얻는 것이 가능해졌습니다. 또한, 드래그앤드롭 비동기 알림 인터페이스가 추가되어 복사/잘라내기 처리 방식과 애니메이션 실행 여부를 지정할 수 있습니다.</li>
 <li><strong>소프트 키보드:</strong> `onNeedSoftkeyboard` 콜백이 새로 추가되어 개발자가 포커스 이동 후에도 소프트 키보드가 닫히지 않도록 설정할 수 있게 되었습니다.</li>
 </ul>
-        
-        <h4>미디어 및 카메라</h4>
-<ul>
+        <ul>
 <li><strong>오디오 기능:</strong> 오디오 녹음 및 렌더링에 독립적인 오디오 세션 전략과 동작 매개변수를 설정하는 것이 가능해졌습니다.</li>
 <li><strong>MIDI 지원:</strong> OH_MIDI C API가 추가되어, 앱이 USB 또는 블루투스 BLE를 통해 외부 MIDI 장치(키보드, 전자 피아노 등)와 연결하여 MIDI 메시지를 송수신하고 장치를 열거/핫 플러그 감지할 수 있습니다.</li>
 <li><strong>코덱 및 보안:</strong> Cinepak 미디어 포맷의 코덱 지원이 추가되었으며, DRM 보호 콘텐츠를 처리할 때 안전한 링크를 지원하는 '안전 디코더'를 사용하여 특정 MIME 유형을 필터링할 수 있게 되었습니다.</li>
 <li><strong>카메라 기능:</strong> 카메라 컨트롤러에 인물 추적(AUTO_FRAMING) 능력이 제공되어, 사람이 화면 중앙에 항상 위치하도록 자동으로 자르고 확대합니다.</li>
 </ul>
-        
-        <h4>지도 및 보안</h4>
-<ul>
+        <ul>
 <li><strong>지리 정보:</strong> 지도 앱에서 오프라인 지도 관리 페이지와 지점 상세 정보를 불러오는 것이 가능해졌습니다. 또한, 마커(Marker)나 POI를 길게 누르는 이벤트 리스너 기능이 추가되었습니다.</li>
 <li><strong>Kiosk 모드:</strong> Kiosk 모드에서 스와이프 업 정지 제스처로 최근 작업 표시줄에 진입하거나, 가장자리 내부 스와이프 정지 제스처로 사이드 DOCK 바에 진입하는 것이 가능해졌습니다.</li>
 <li><strong>보안 및 권한:</strong> 앱 간 문서 임베딩 및 협업 편집을 위한 Content Embed Kit가 제공되며, 코드 서명 정보 조회 기능이 추가되었습니다. 또한, 시스템 보안 관련 이벤트(프로세스 권한 상승, 프로세스 비정상 디버깅 등)를 처리하는 기능들이 대거 추가되었습니다.</li>
 </ul>
-        
-        <h4>디버깅 및 테스트 도구</h4>
-<ul>
+        <ul>
 <li><strong>리소스 수집 강화:</strong> HiDebug에서 애플리케이션 프로세스의 물리 메모리 사용 정보를 가져오는 것이 가능해졌으며, 스냅샷을 스레드 단위가 아닌 프로세스 단위로 전송할 수 있게 되었습니다.</li>
 <li><strong>트레이싱 개선:</strong> HiDebug는 커널 정보 등을 포함한 트레이스(Trace) 수집 요청 인터페이스를 제공합니다.</li>
 </ul>
-        
         <h3>총평</h3>
-        
         <p>HarmonyOS 6.1.1 Beta1은 개발자 생태계의 깊이와 폭을 동시에 확장하는 대규모 업데이트입니다. 특히 Ability Kit, ArkUI 등 핵심 프레임워크 전반에 걸쳐 동적 로딩, 메모리 관리, 사용자 경험(UX) 관련 기능들이 강화되어 앱 개발의 유연성이 크게 높아졌습니다. 또한, MIDI 지원, AIHDR 포맷 도입, 그리고 강력해진 디버깅 및 보안 기능을 통해 플래그십 기기 수준의 전문적인 애플리케이션 구현이 가능해지면서, HarmonyOS 생태계가 더욱 성숙하고 견고한 플랫폼으로 진화했음을 보여줍니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>版本发布概况</h3>
+<p>Huawei 发布了 HarmonyOS 6.1.1 (24) Beta1 版本。该版本在 6.1.0 (23) 的基础上，显著增强了开发能力，涵盖了核心框架、多媒体处理、性能分析以及企业级安全等多个维度。</p>
+        <h3>核心 Kit 能力增强</h3>
+<p>HarmonyOS 6.1.1 (24) Beta1 在多个基础组件上进行了功能扩展：</p>
+<ul>
+<li>Ability Kit：支持 AbilityStage 上下文动态加载资源，并提供更丰富的退出原因信息。</li>
+<li>ArkUI：强化了平行视界状态获取、跨 Ability 迁移及动态布局能力，并新增大量 C API 支持。</li>
+<li>ArkTS：增强虚拟机维测能力，支持 taskpool 任务超时设置。</li>
+<li>ArkWeb：增加下载任务回调、URL 白名单和安全控制接口，支持 User-Agent Client Hints 等功能。</li>
+<li>Camera Kit：新增延迟预览输出及“影随人动”自动对焦能力。</li>
+<li>Audio Kit：支持 MIDI C API 以连接外接设备（如键盘、控制器），并增加 Cinepak 编解码支持。</li>
+<li>FAST Kit：提供并发哈希表、向量运算和滤波器功能。</li>
+<li>Performance Analysis Kit：提升资源采集与崩溃日志分析的深度。</li>
+<li>新增专用服务：包含 Content Embed Kit（内容嵌入服务）和 Enterprise Threat Protection Kit（企业威胁防护服务）。</li>
+</ul>
+        <h3>DevEco Studio 工具升级</h3>
+<p>配套的开发工具 DevEco Studio 6.1.1 Beta1 也同步进行了功能强化：</p>
+<ul>
+<li>支持开发 API 24 工程。</li>
+<li>Hot Reload 能力增强，现已支持修改 C++ 代码和资源文件。</li>
+<li>提升调试效率：支持解析更多 AppFreeze 日志（包括 Binder 通信、主线程任务队列等）。</li>
+<li>内存分析工具：新增 ComMemory 模板，用于精准定位 UI 组件的内存泄漏问题。</li>
+</ul>
+        <h3>细分功能与技术特性</h3>
+<p>在具体的技术实现上，本次更新涵盖了多个维度：</p>
+<ul>
+<li><strong>多媒体与交互：</strong> 支持 HDR/AIHDR 效果、自动对焦（AUTO_FRAMING）、以及更丰富的卡片和菜单自定义。</li>
+<li><strong>网络与连接：</strong> 通过 C API 获取 Wi-Fi 信息，支持 A2DP 和 SCO 广播，并优化了多种数据传输模式。</li>
+<li><strong>安全与企业级功能：</strong> 数字盾服务扩展至 Tablet 和 PC/2in1 设备；新增一系列系统安全专项事件监控及企业威胁防护能力。</li>
+<li><strong>地图与位置：</strong> 增强了搜索结果相关性展示、区划层级选择以及离线地图管理等交互逻辑。</li>
+</ul>
+        <h3>总结</h3>
+<p>HarmonyOS 6.1.1 (24) Beta1 版本是针对开发者能力的深度优化版本，在提升 ArkUI、ArkWeb 等核心框架性能的同时，显著增强了多媒体处理和企业级安全防护功能。配套的 DevEco Studio 也同步升级，通过更强的热更新能力和内存分析工具，大幅提升开发者的调试与定位效率。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>HarmonyOS 6.1.1 Beta1 개발자 업데이트 주요 내용</h3>
+        <p>IT之家에 따르면, Huawei 개발자 공식 웹사이트를 통해 HarmonyOS 6.1.1 (24) Beta1 버전이 공개되었습니다. 이 버전은 이전 6.1.0 (23) 버전을 기반으로 하며, 개발 역량이 대폭 강화된 것이 특징입니다.</p>
+        <h3>핵심 프레임워크 기능 강화</h3>
+        <p>주요 모듈별로 다음과 같은 성능 및 기능을 개선했습니다:</p>
+        <ul>
+<li><strong>Ability Kit:</strong> AbilityStage의 컨텍스트(Context) 능력을 향상시켜 동적 리소스 로딩을 지원합니다.</li>
+<li><strong>ArkUI:</strong> 평행 시야 상태 획득, 사용자 정의 컴포넌트의 Ability 간 마이그레이션, 동적 레이아웃 컨테이너 등 기능을 강화했으며, 여러 컴포넌트에 대한 C API가 추가되었습니다.</li>
+<li><strong>ArkTS:</strong> 가상 머신 측정 능력을 향상시키고 taskpool 작업 타임아웃 설정을 지원합니다.</li>
+<li><strong>ArkWeb:</strong> 다운로드 작업 콜백 기능을 개선하고 URL 화이트리스트 및 보안 제어 인터페이스를 추가했습니다.</li>
+<li><strong>Camera Kit:</strong> 지연 미리보기 출력(Delayed Preview Output)과 인물 추적(Auto Framing) 기능을 새로 추가했습니다.</li>
+<li><strong>Audio Kit:</strong> 외부 장치 연결을 위한 MIDI C API 지원이 추가되었습니다.</li>
+<li><strong>FAST Kit:</strong> 동시 해시 테이블, 벡터 연산 및 필터 기능이 추가되었습니다.</li>
+<li><strong>Performance Analysis Kit:</strong> 리소스 수집 및 충돌 로그 분석 능력이 강화되었습니다.</li>
+</ul>
+        <p>또한, Content Embed Kit(콘텐츠 임베드 서비스)와 Enterprise Threat Protection Kit(기업 위협 방지 서비스) 등 새로운 키트가 추가되었습니다.</p>
+        <h3>개발 환경 (DevEco Studio) 개선 사항</h3>
+        <p>개발 도구인 DevEco Studio의 기능도 크게 향상되었습니다:</p>
+        <ul>
+<li><strong>API 지원:</strong> API 24 엔지니어링을 지원합니다.</li>
+<li><strong>Hot Reload 강화:</strong> C++ 코드와 리소스 파일 수정까지 지원하는 Hot Reload 기능을 개선했습니다.</li>
+<li><strong>디버깅 효율성 증대:</strong> Binder 통신 정보, 메인 스레드 작업 큐 및 샘플링 스택 데이터를 포함하여 더 많은 AppFreeze 로그를 분석할 수 있게 되어 개발자가 문제점을 찾는 효율성이 높아졌습니다.</li>
+<li><strong>메모리 누수 진단:</strong> UI 인터페이스 각 컴포넌트의 메모리 할당 상황을 분석하는 ComMemory 템플릿이 추가되어, UI 컴포넌트의 메모리 누수를 찾는 데 도움을 줍니다.</li>
+</ul>
+        <h3>주요 API 및 기능 상세 업데이트</h3>
+        <p>HarmonyOS 6.1.1 (24) Beta1 버전에서 새롭게 지원되거나 개선된 세부 기능들은 다음과 같습니다.</p>
+        <ul>
+<li><strong>Ability 관리:</strong> Ability의 마지막 종료 정보 필드에 '종료 원인'을 가져오는 것이 추가되었습니다.</li>
+<li><strong>AbilityStage 컨텍스트:</strong> `launchElement` 필드가 추가되어, AbilityStage가 onCreate를 호출할 때 현재 로딩 중인 Ability 정보를 앱에 전달함으로써 동적 리소스 로딩이 가능해졌습니다.</li>
+<li><strong>위젯 및 데이터베이스:</strong> 애플리케이션 내 바로가기 검색 및 삭제 기능 지원이 추가되었으며, 관계형 데이터베이스(RdbStore)를 생성하거나 기존 DB를 여는 동기화 방법도 새로 추가되었습니다.</li>
+<li><strong>HDR/AI 지원:</strong> 컴포넌트 내용에 HDR(High Dynamic Range Imaging) 밝기 효과를 적용하는 것이 가능해졌고, 비디오의 AIHDR 포맷을 지원합니다.</li>
+</ul>
+        <ul>
+<li><strong>메모리 정보 수집:</strong> 모든 가상 머신 스레드의 힙 메모리 정보(스레드 ID, 이름, 힙 유형, 객체 크기 포함)를 가져오는 것이 가능해졌습니다.</li>
+<li><strong>메모리 누수 방지:</strong> `enableLocalHandleDetection` 인터페이스가 추가되어 EventHandler 및 libuv 메커니즘의 작업이 스코프 내에서 실행되도록 보장하여 메모리 누수를 예방합니다.</li>
+<li><strong>타임아웃 설정:</strong> taskpool의 execute 메서드를 강화하여, 작업이나 작업 그룹에 타임아웃 시간을 지정할 수 있게 되었으며, 초과 시 오류 메시지를 발생시킵니다.</li>
+</ul>
+        <ul>
+<li><strong>평행 시야(Parallel View):</strong> 앱이 평행 시야 기능을 능동적으로 사용할 때, 새로운 API 인터페이스를 통해 현재 분할 화면 상태를 런타임에 가져와 비즈니스 로직이나 UX 애니메이션을 조정하기 편리해졌습니다.</li>
+<li><strong>컴포넌트 유연성:</strong> 사용자 정의 컴포넌트가 Ability 간 마이그레이션을 지원하게 되었습니다.</li>
+<li><strong>C API 확장:</strong> 여러 컴포넌트에 대한 C API(예: OH_ArkUI_DecorationStyleOptions 등)가 추가되었으며, 속성 문자열을 가져오는 C API도 추가되었습니다.</li>
+<li><strong>사용자 경험 개선:</strong> 텍스트 컴포넌트에서 좌표를 기반으로 가장 가까운 문자의 위치 정보를 얻는 것이 가능해졌습니다. 또한, 드래그앤드롭 비동기 알림 인터페이스가 추가되어 복사/잘라내기 처리 방식과 애니메이션 실행 여부를 지정할 수 있습니다.</li>
+<li><strong>소프트 키보드:</strong> `onNeedSoftkeyboard` 콜백이 새로 추가되어 개발자가 포커스 이동 후에도 소프트 키보드가 닫히지 않도록 설정할 수 있게 되었습니다.</li>
+</ul>
+        <ul>
+<li><strong>오디오 기능:</strong> 오디오 녹음 및 렌더링에 독립적인 오디오 세션 전략과 동작 매개변수를 설정하는 것이 가능해졌습니다.</li>
+<li><strong>MIDI 지원:</strong> OH_MIDI C API가 추가되어, 앱이 USB 또는 블루투스 BLE를 통해 외부 MIDI 장치(키보드, 전자 피아노 등)와 연결하여 MIDI 메시지를 송수신하고 장치를 열거/핫 플러그 감지할 수 있습니다.</li>
+<li><strong>코덱 및 보안:</strong> Cinepak 미디어 포맷의 코덱 지원이 추가되었으며, DRM 보호 콘텐츠를 처리할 때 안전한 링크를 지원하는 '안전 디코더'를 사용하여 특정 MIME 유형을 필터링할 수 있게 되었습니다.</li>
+<li><strong>카메라 기능:</strong> 카메라 컨트롤러에 인물 추적(AUTO_FRAMING) 능력이 제공되어, 사람이 화면 중앙에 항상 위치하도록 자동으로 자르고 확대합니다.</li>
+</ul>
+        <ul>
+<li><strong>지리 정보:</strong> 지도 앱에서 오프라인 지도 관리 페이지와 지점 상세 정보를 불러오는 것이 가능해졌습니다. 또한, 마커(Marker)나 POI를 길게 누르는 이벤트 리스너 기능이 추가되었습니다.</li>
+<li><strong>Kiosk 모드:</strong> Kiosk 모드에서 스와이프 업 정지 제스처로 최근 작업 표시줄에 진입하거나, 가장자리 내부 스와이프 정지 제스처로 사이드 DOCK 바에 진입하는 것이 가능해졌습니다.</li>
+<li><strong>보안 및 권한:</strong> 앱 간 문서 임베딩 및 협업 편집을 위한 Content Embed Kit가 제공되며, 코드 서명 정보 조회 기능이 추가되었습니다. 또한, 시스템 보안 관련 이벤트(프로세스 권한 상승, 프로세스 비정상 디버깅 등)를 처리하는 기능들이 대거 추가되었습니다.</li>
+</ul>
+        <ul>
+<li><strong>리소스 수집 강화:</strong> HiDebug에서 애플리케이션 프로세스의 물리 메모리 사용 정보를 가져오는 것이 가능해졌으며, 스냅샷을 스레드 단위가 아닌 프로세스 단위로 전송할 수 있게 되었습니다.</li>
+<li><strong>트레이싱 개선:</strong> HiDebug는 커널 정보 등을 포함한 트레이스(Trace) 수집 요청 인터페이스를 제공합니다.</li>
+</ul>
+        <h3>총평</h3>
+        <p>HarmonyOS 6.1.1 Beta1은 개발자 생태계의 깊이와 폭을 동시에 확장하는 대규모 업데이트입니다. 특히 Ability Kit, ArkUI 등 핵심 프레임워크 전반에 걸쳐 동적 로딩, 메모리 관리, 사용자 경험(UX) 관련 기능들이 강화되어 앱 개발의 유연성이 크게 높아졌습니다. 또한, MIDI 지원, AIHDR 포맷 도입, 그리고 강력해진 디버깅 및 보안 기능을 통해 플래그십 기기 수준의 전문적인 애플리케이션 구현이 가능해지면서, HarmonyOS 생태계가 더욱 성숙하고 견고한 플랫폼으로 진화했음을 보여줍니다.</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Key Features of HarmonyOS 6.1.1 Beta1 Developer Update</h3>
+        <p>According to IT之家, Huawei has released the HarmonyOS 6.1.1 (24) Beta1 version via its official developer website. This version is based on the previous 6.1.0 (23) version and features significantly enhanced development capabilities.</p>
+        <h3>Core Framework Enhancements</h3>
+        <p>Performance and functionality have been improved across major modules as follows:</p>
+        <ul>
+<li><strong>Ability Kit:</strong> Improved Context capabilities for AbilityStage to support dynamic resource loading.</li>
+<li><strong>ArkUI:</strong> Enhanced features including Parallel View status acquisition, migration of custom components between Abilities, dynamic layout containers, and the addition of C APIs for multiple components.</li>
+<li><strong>ArkTS:</strong> Improved virtual machine measurement capabilities and added support for taskpool operation timeout settings.</li>
+<li><strong>ArkWeb:</strong> Improved download task callback functions and added URL whitelist and security control interfaces.</li>
+<li><strong>Camera Kit:</strong> Added new features including Delayed Preview Output and Auto Framing (person tracking).</li>
+<li><strong>Audio Kit:</strong> Added MIDI C API support for connecting to external devices.</li>
+<li><strong>FAST Kit:</strong> Added concurrent hash tables, vector operations, and filtering functions.</li>
+<li><strong>Performance Analysis Kit:</strong> Enhanced resource collection and crash log analysis capabilities.</li>
+</ul>
+        <p>Additionally, new kits such as Content Embed Kit (content embedding service) and Enterprise Threat Protection Kit (enterprise threat prevention service) have been added.</p>
+        <h3>DevEco Studio Improvements</h3>
+        <p>The functionality of the development tool, DevEco Studio, has also seen significant improvements:</p>
+        <ul>
+<li><strong>API Support:</strong> Supports API 24 engineering.</li>
+<li><strong>Hot Reload Enhancement:</strong> Improved Hot Reload to support modifications to C++ code and resource files.</li>
+<li><strong>Debugging Efficiency:</strong> Enhanced analysis of AppFreeze logs by including Binder communication information, main thread task queues, and sampling stack data, allowing developers to identify issues more efficiently.</li>
+<li><strong>Memory Leak Diagnosis:</strong> Added the ComMemory template to analyze memory allocation for each UI component, assisting in identifying memory leaks within UI components.</li>
+</ul>
+        <h3>Detailed API and Feature Updates</h3>
+        <p>The following specific features have been newly supported or improved in HarmonyOS 6.1.1 (24) Beta1:</p>
+        <ul>
+<li><strong>Ability Management:</strong> Added the ability to retrieve "exit reason" from the Ability's last termination information field.</li>
+<li><strong>AbilityStage Context:</strong> Added the `launchElement` field, allowing AbilityStage to pass information about the currently loading Ability to the app during onCreate for dynamic resource loading.</li>
+<li><strong>Widgets and Databases:</strong> Added support for searching and deleting shortcuts within applications, and introduced synchronous methods for creating RdbStore (relational database) or opening existing databases.</li>
+<li><strong>HDR/AI Support:</strong> Enabled applying HDR (High Dynamic Range Imaging) brightness effects to component content and added support for the AIHDR format in videos.</li>
+</ul>
+        <ul>
+<li><strong>Memory Information Collection:</strong> It is now possible to retrieve heap memory information (including thread ID, name, heap type, and object size) for all virtual machine threads.</li>
+<li><strong>Memory Leak Prevention:</strong> Added the `enableLocalHandleDetection` interface to ensure that EventHandler and libuv mechanism tasks run within scope, preventing memory leaks.</li>
+<li><strong>Timeout Settings:</strong> Enhanced the execute method of taskpool to allow specifying timeout durations for tasks or task groups, triggering an error message if exceeded.</li>
+</ul>
+        <ul>
+<li><strong>Parallel View:</strong> When apps actively use Parallel View features, new API interfaces allow developers to retrieve current split-screen status at runtime to adjust business logic or UX animations.</li>
+<li><strong>Component Flexibility:</strong> Custom components now support migration between different Abilities.</li>
+<li><strong>C API Expansion:</strong> Added C APIs for multiple components (e.g., OH_ArkUI_DecorationStyleOptions) and added C APIs to retrieve attribute strings.</li>
+<li><strong>User Experience Improvements:</strong> It is now possible to obtain the location of the nearest character based on coordinates in text components. Additionally, a drag-and-drop asynchronous notification interface was added to specify copy/paste processing methods and whether animations should run.</li>
+<li><strong>Soft Keyboard:</strong> Added the `onNeedSoftkeyboard` callback, allowing developers to prevent the soft keyboard from closing after a focus change.</li>
+</ul>
+        <ul>
+<li><strong>Audio Features:</strong> It is now possible to set independent audio session strategies and operation parameters for audio recording and rendering.</li>
+<li><strong>MIDI Support:</strong> Added OH_MIDI C API, enabling apps to connect to external MIDI devices (keyboards, electronic pianos, etc.) via USB or Bluetooth BLE to send/receive MIDI messages and detect hot-plugging.</li>
+<li><strong>Codec and Security:</strong> Added support for the Cinepak media format codec and introduced "Safe Decoder" to filter specific MIME types when processing DRM-protected content using secure links.</li>
+<li><strong>Camera Features:</strong> Provided Auto Framing (AUTO_FRAMING) capabilities in the camera controller, which automatically crops and zooms so that people remain centered on the screen.</li>
+</ul>
+        <ul>
+<li><strong>Geographic Information:</strong> Enabled fetching of offline map management pages and point details in map apps. Also added event listeners for long-pressing Markers or POIs.</li>
+<li><strong>Kiosk Mode:</strong> In Kiosk mode, it is now possible to enter the recent tasks bar via a swipe-up stop gesture or enter the side DOCK bar via an inner edge swipe stop gesture.</li>
+<li><strong>Security and Permissions:</strong> Provided Content Embed Kit for cross-app document embedding and collaborative editing, added code signing information retrieval, and included numerous features to handle system security events (e.g., process privilege escalation, abnormal process debugging).</li>
+</ul>
+        <ul>
+<li><strong>Enhanced Resource Collection:</strong> HiDebug can now retrieve physical memory usage of application processes and transmit snapshots at the process level rather than the thread level.</li>
+<li><strong>Tracing Improvements:</strong> HiDebug provides a trace collection request interface that includes kernel information.</li>
+</ul>
+        <h3>Summary</h3>
+<p>HarmonyOS 6.1.1 Beta1 is a major update that expands both the depth and breadth of the developer ecosystem by enhancing core frameworks like Ability Kit and ArkUI with features for dynamic loading, memory management, and improved UX. The inclusion of advanced capabilities such as MIDI support, AIHDR format, and robust security protocols demonstrates the platform's evolution into a mature environment capable of supporting high-end, professional applications.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -757,18 +930,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
