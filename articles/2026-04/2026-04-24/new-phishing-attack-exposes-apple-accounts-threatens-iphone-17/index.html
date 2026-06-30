@@ -9,6 +9,10 @@
   <meta name="article-category" content="phone">
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="신종 피싱 공격 노출: Apple 계정 알림 악용, iPhone 17 등 사용자 위협">
+  <meta name="title-zh" content="신종 피싱 공격 노출: Apple 계정 알림 악용, iPhone 17 등 사용자 위협">
+  <meta name="title-ja" content="新種のフィッシング攻撃が判明：Appleアカウントの通知を悪用し、iPhone 17などのユーザーを脅かす">
+  <meta name="title-en" content="New Phishing Attack Exposed: Exploiting Apple Account Notifications to Threaten iPhone 17 Users">
   <style>
     :root {
       --bg: #0f172a;
@@ -464,6 +468,28 @@
       .page-layout { padding: 16px 12px 60px; }
       .logo-text { display: none; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--surface); color: var(--text); }
+    .lang-btn.active-lang { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
 </head>
@@ -480,7 +506,12 @@
       <a href="../../../../reports.html">발표회 정리</a>
     </nav>
     <div class="header-right">
-      <div class="visitor-counter" id="visitor-counter">오늘: — / 누적: —</div>
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
     </div>
   </header>
 
@@ -511,7 +542,7 @@
           
         </div>
 
-        <h1 class="article-title">신종 피싱 공격 노출: Apple 계정 알림 악용, iPhone 17 등 사용자 위협</h1>
+        <h1 class="article-title" data-ko="신종 피싱 공격 노출: Apple 계정 알림 악용, iPhone 17 등 사용자 위협" data-zh="신종 피싱 공격 노출: Apple 계정 알림 악용, iPhone 17 등 사용자 위협" data-ja="新種のフィッシング攻撃が判明：Appleアカウントの通知を悪用し、iPhone 17などのユーザーを脅かす" data-en="New Phishing Attack Exposed: Exploiting Apple Account Notifications to Threaten iPhone 17 Users">신종 피싱 공격 노출: Apple 계정 알림 악용, iPhone 17 등 사용자 위협</h1>
 
         <div class="article-info">
           
@@ -527,37 +558,85 @@
       <div class="divider"></div>
 
       <!-- Body -->
+            <!-- Body — 4개 언어 -->
       <div class="article-body">
-        
+      <!-- lang-body: ko -->
+      <div class="lang-body" data-lang="ko">
         <h3>사기 유형 개요</h3>
-        
         <p>기술 매체 bleepingcomputer는 4월 20일 보도를 통해 공격자들이 Apple 계정 변경 알림 기능을 악용하여 사기를 치고 있다는 내용을 공개했습니다. 이들은 iPhone 17 사용자 등을 표적으로 삼아, 마치 Apple 공식 서버를 이용한 것처럼 위장한 피싱 메일을 발송하고 있습니다.</p>
-        
         <h3>피싱 메일의 특징 및 내용</h3>
-        
         <p>해당 메일은 일반적인 보안 알림처럼 보이지만, 실제로는 사용자의 계정 정보가 업데이트되었다는 허위 내용을 담고 있습니다. 이와 함께 가짜 899달러 상당의 iPhone 구매 알림을 삽입하고, 사용자들을 유인하기 위한 사기 전용 전화번호를 첨부하는 것이 특징입니다.</p>
-        
         <h3>기술적 분석 및 위장 수법</h3>
-        
         <p>이 메일들은 발신지가 Apple 인프라(appleid@id.apple.com)로 설정되어 있으며, SPF, DKIM, DMARC와 같은 주요 이메일 인증 절차를 통과했습니다.</p>
-        
         <ul>
 <li><strong>발신지 신뢰도:</strong> 메일 헤더 정보는 Apple 서버에서 온 것처럼 보이며, IP 주소 17.111.110.47 역시 Apple 회사에 귀속되어 있습니다.</li>
 <li><strong>필터 우회:</strong> 이러한 합법적인 서명 덕분에 일반적인 스팸 필터를 쉽게 우회할 수 있어 공격 성공률을 높이고 있습니다.</li>
 </ul>
-        
         <p>사기 메일은 사용자의 계정 구매 경고로 위장하여, 최근 iPhone 거래가 완료되었다는 메시지와 함께 주문 취소를 위한 전화번호를 제공합니다. 하지만 이 번호는 공식 고객센터가 아닌 사기범에게 직접 연결되는 통로입니다.</p>
-        
         <h3>사기 목표 및 위험성</h3>
-        
         <p>사기범들은 Apple 지원 직원인 척하며, 사용자의 계정이 도난당했다고 속여 금전적 정보를 제공하도록 유도합니다. 나아가 원격 접속 소프트웨어 설치까지 요구하여 피해자의 기기를 완전히 장악하고 개인 정보를 탈취하는 것이 최종 목표입니다.</p>
-        
         <p>조사 결과에 따르면, 공격자들은 Apple ID를 생성하고 시스템의 보안 허점을 이용해 메일을 발송함으로써 일반적인 보안 검증 체계를 우회했습니다. 이 때문에 단순히 발신 주소나 메일 헤더만 확인하는 기존 방식으로는 사기를 막기 어렵습니다.</p>
-        
         <h3>총평</h3>
-        
         <p>이번 사례는 공격자들이 Apple의 공식 인프라와 인증 시스템을 악용하여 매우 정교한 피싱 메일을 만들고 있음을 보여줍니다. 사용자는 아무리 신뢰도가 높아 보이는 이메일이라도, 계정 정보 변경이나 구매 알림 등 중요한 요청이 있을 경우 반드시 해당 서비스의 공식 웹사이트나 앱을 통해 직접 확인하는 습관을 들여야 합니다.</p>
-        
+      </div>
+      <!-- lang-body: zh -->
+      <div class="lang-body" data-lang="zh">
+        <h3>攻击手段与目标</h3>
+<p>攻击者利用Apple账户变更通知功能，向iPhone 17等用户发送包含钓鱼内容的邮件。这些邮件伪装成标准的官方安全通知，声称用户的账户信息已更新。</p>
+        <h3>技术特征分析</h3>
+<p>由于此类邮件源自Apple基础设施并具备合法签名，能够轻易绕过大多数垃圾邮件过滤器。相关技术细节如下：</p>
+<ul>
+<li>发件人地址：appleid@id.apple.com</li>
+<li>验证协议：通过了SPF、DKIM和DMARC身份验证</li>
+<li>IP地址：17.111.110.47（归属Apple公司）</li>
+</ul>
+        <h3>诈骗流程与目的</h3>
+<p>邮件内容包含一笔虚假的899美元iPhone购买提醒，并提供一个非官方的电话号码供用户“取消订单”。当受害者拨打该号码时，诈骗者会冒充Apple支持人员，谎称账户被盗，进而诱导用户提供财务信息或安装远程访问软件，从而获取设备控制权并窃取隐私。</p>
+        <h3>总结</h3>
+<p>攻击者利用Apple官方服务器漏洞发送具备合法签名的钓鱼邮件，成功绕过常规安全验证。此类诈骗通过虚假的iPhone购买提醒诱导用户联系诈骗人员，旨在获取用户的财务信息及远程访问权限。</p>
+      </div>
+      <!-- lang-body: ja -->
+      <div class="lang-body" data-lang="ja">
+        <h3>詐欺の手法に関する概要</h3>
+<p>技術メディアのbleepingcomputerは4月20日の報道において、攻撃者がAppleアカウントの変更通知機能を悪用した詐欺を行っていることを明らかにしました。彼らはiPhone 17ユーザーなどを標的にし、あたかもAppleの公式サーバーから送信されたかのように偽装したフィッシングメールを配信しています。</p>
+        <h3>フィッシングメールの特徴と内容</h3>
+<p>これらのメールは一見すると一般的なセキュリティ通知のように見えますが、実際にはユーザーのアカウント情報が更新されたという虚偽の内容が含まれています。これに加え、899ドル相当のiPhone購入通知を偽装して挿入し、ユーザーを誘導するための詐欺専用電話番号を記載しているのが特徴です。</p>
+        <h3>技術的な分析と偽装の手法</h3>
+<p>これらのメールは送信元がAppleのインフラ（appleid@id.apple.com）に設定されており、SPF、DKIM、DMARCといった主要なメール認証プロセスを通過しています。</p>
+<ul>
+<li><strong>送信元の信頼性：</strong> メールヘッダー情報はAppleサーバーから届いたように見え、IPアドレス「17.111.110.47」もApple社に帰属しています。</li>
+<li><strong>フィルタの回避：</strong> これらの正当な署名により、一般的なスパムフィルターを容易に回避でき、攻撃の成功率を高めています。</li>
+</ul>
+<p>詐欺メールはユーザーの「アカウント購入警告」を装い、最近iPhoneの取引が完了したというメッセージと共に注文キャンセル用の電話番号を提供します。しかし、この番号は公式カスタマーセンターではなく、詐欺師に直接つながるルートとなっています。</p>
+        <h3>詐欺の目的とリスク</h3>
+<p>詐欺師はAppleのサポートスタッフを装い、ユーザーのアカウントが盗まれたと偽って金銭情報の提供を促します。さらに、遠隔操作ソフトウェアのインストールまで要求し、被害者のデバイスを完全に掌握して個人情報を窃取することが最終的な目的です。</p>
+<p>調査結果によると、攻撃者はApple IDを作成し、システムのセキュリティ上の隙を利用してメールを送信することで、一般的なセキュリティ検証体制を回避しています。このため、単に送信元アドレスやメールヘッダーを確認する従来の手法では、この詐欺を防ぐことは困難です。</p>
+        <h3>総評</h3>
+<p>今回の事例は、攻撃者がAppleの公式インフラと認証システムを悪用し、非常に巧妙なフィッシングメールを作成していることを示しています。ユーザーは、たとえ信頼度が高く見えるメールであっても、アカウント情報の変更や購入通知など重要なリクエストがある場合は、必ず該当サービスの公式サイトやアプリを通じて直接確認する習慣をつける必要があります。</p>
+        <h3>まとめ</h3>
+<p>攻撃者はAppleの公式インフラを悪用し、高度な認証をパスする巧妙なフィッシングメールを用いてユーザーを欺いています。被害者は偽の購入通知から誘導され、個人情報の窃取やデバイスの乗っ取りのリスクにさらされる可能性があります。信頼できる送信元に見える場合でも、重要な通知は必ず公式アプリや公式サイトで確認することが推奨されます。</p>
+      </div>
+      <!-- lang-body: en -->
+      <div class="lang-body" data-lang="en">
+        <h3>Overview of Scam Tactics</h3>
+        <p>The technology news outlet bleepingcomputer reported on April 20 that attackers are exploiting Apple's account change notification features to conduct scams. These attackers target users, such as those using the iPhone, by sending phishing emails designed to appear as if they originated from official Apple servers.</p>
+        <h3>Characteristics and Content of Phishing Emails</h3>
+        <p>While these emails resemble standard security notifications, they contain false information claiming that a user's account details have been updated. These messages include a fraudulent notification for an iPhone purchase worth approximately $899 and provide a dedicated scam phone number to lure users into interacting with the attackers.</p>
+        <h3>Technical Analysis and Disguise Tactics</h3>
+        <p>These emails are configured with a sender address from Apple infrastructure (appleid@id.apple.com) and have successfully passed major email authentication protocols, including SPF, DKIM, and DMARC.</p>
+        <ul>
+<li><strong>Sender Credibility:</strong> The email header information appears to originate from Apple servers, and the IP address 17.111.110.47 is registered to Apple's corporation.</li>
+<li><strong>Filter Evasion:</strong> Due to these legitimate signatures, the emails can easily bypass standard spam filters, significantly increasing the success rate of the attacks.</li>
+</ul>
+        <p>The scam email masquerades as a purchase warning, claiming that a recent iPhone transaction was completed and providing a phone number for order cancellation. However, this number connects directly to scammers rather than an official customer service center.</p>
+        <h3>Scam Objectives and Risks</h3>
+        <p>The scammers impersonate Apple Support staff and deceive users into providing financial information by claiming their accounts have been stolen. Furthermore, they demand that the victim install remote access software, which allows them to take full control of the device and steal personal information.</p>
+        <p>Investigations reveal that attackers bypass standard security verification systems by creating legitimate Apple IDs and exploiting system vulnerabilities to send these emails. Consequently, traditional methods of blocking scams—such as simply checking the sender address or email headers—are insufficient to stop these sophisticated attacks.</p>
+        <h3>Overall Assessment</h3>
+        <p>This case demonstrates how attackers are crafting highly sophisticated phishing emails by leveraging Apple's official infrastructure and authentication systems. Even if an email appears highly trustworthy, users must cultivate the habit of verifying any critical requests, such as account changes or purchase notifications, directly through the service's official website or application.</p>
+        <h3>Summary</h3>
+<p>Attackers are exploiting legitimate Apple infrastructure and credentials to bypass spam filters and target iPhone users with sophisticated phishing emails. These messages lure victims into providing financial information and installing remote access software under the guise of account security issues. Users are advised to always verify such notifications through official apps or websites rather than following links or phone numbers provided in suspicious emails.</p>
+      </div>
       </div>
 
       <!-- All images (one by one, full width) -->
@@ -662,18 +741,32 @@
   </div>
 
   <script>
-    // 방문자 카운터 (메인과 동일 로직)
-    (function () {
-      const todayKey = 'visitCount_today_' + new Date().toISOString().slice(0, 10);
-      const totalKey = 'visitCount_total';
-      const todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
-      const totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10) + 1;
-      localStorage.setItem(todayKey, todayCount);
-      localStorage.setItem(totalKey, totalCount);
-      document.getElementById('visitor-counter').textContent =
-        '오늘: ' + todayCount.toLocaleString() + ' / 누적: ' + totalCount.toLocaleString();
-    })();
+    
 
+    // ── 언어 선택기 ──
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+      function getLang() { return localStorage.getItem(LANG_KEY) || DEFAULT_LANG; }
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+      function applyLang(lang) {
+        document.querySelectorAll('.lang-body').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) { var t = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || ''; if (t) titleEl.textContent = t; }
+        document.querySelectorAll('.lang-btn').forEach(function (b) { b.classList.toggle('active-lang', b.getAttribute('data-lang') === lang); });
+        var lm = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', lm[lang] || 'ko');
+      }
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+      });
+      applyLang(getLang());
+    })();
     // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
     document.getElementById('article-search').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
