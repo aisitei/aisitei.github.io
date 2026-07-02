@@ -425,6 +425,15 @@ _TRANSLATE_SYSTEM_JA_FULL_PROMPT = (
     "- MarkdownではなくHTMLタグのみ使用します。"
 )
 
+_TITLE_TRANSLATE_ZH_FROM_KO_PROMPT = (
+    "你是一位将韩语IT新闻标题翻译成中文的翻译者。"
+    "只输出中文翻译，不要添加任何其他文字。\n\n"
+    "规则：\n"
+    "1. 品牌/产品名称保持原文表记（Samsung、Xiaomi、iPhone等）。\n"
+    "2. 货币：韩元（원/₩）表示为'韩元'。\n"
+    "3. 使用自然流畅的中文表达。"
+)
+
 _TITLE_TRANSLATE_EN_FROM_ZH_PROMPT = (
     "You are a translator converting Chinese IT article titles to English. "
     "Output only the English translation, nothing else.\n\n"
@@ -476,6 +485,34 @@ def translate_body_ja(source_text: str, category: str = "") -> Optional[str]:
     )
 
 
+_TRANSLATE_SYSTEM_ZH_FULL_PROMPT = (
+    "你是一位专业的科技新闻编辑，负责将韩语IT新闻翻译并整理成中文。\n\n"
+    "翻译规则：\n"
+    "1. 用简洁清晰的中文翻译全文内容。\n"
+    "2. 保留重要的数字、规格和产品名称。\n"
+    "3. 品牌名称保持原文表记（Xiaomi、Huawei、Samsung等）。\n"
+    "4. 不要添加原文没有的规格或事实。\n\n"
+    "输出格式（HTML）：\n"
+    "- 将内容分成若干主题段落，每段前加<h3>标题</h3>。\n"
+    "- 规格、参数、列表用<ul><li>...</li></ul>整理。\n"
+    "- 普通叙述段落用<p>...</p>输出。\n"
+    "- 文章最后加<h3>总结</h3>，用2~4句话概括核心内容。\n"
+    "- 不使用Markdown，只使用纯HTML标签。"
+)
+
+
+def translate_body_zh(source_text: str) -> Optional[str]:
+    """한국어 본문을 중국어로 번역합니다."""
+    if not source_text.strip():
+        return ""
+    return _chat(
+        system=_TRANSLATE_SYSTEM_ZH_FULL_PROMPT,
+        user=f"请将以下韩语文章翻译成中文：\n\n{source_text}",
+        temperature=0.3,
+        max_tokens=8192,
+    )
+
+
 def translate_body_zh_summary(zh_text: str) -> Optional[str]:
     """중국어 원문을 중국어로 요약합니다 (HTML 형식 유지)."""
     if not zh_text.strip():
@@ -487,6 +524,22 @@ def translate_body_zh_summary(zh_text: str) -> Optional[str]:
         temperature=0.3,
         max_tokens=8192,
     )
+
+
+def translate_title_zh(ko_title: str) -> Optional[str]:
+    """한국어 제목을 중국어로 번역합니다."""
+    if not ko_title.strip():
+        return ""
+    text = apply_glossary(ko_title)
+    result = _chat(
+        system=_TITLE_TRANSLATE_ZH_FROM_KO_PROMPT,
+        user=f"请将以下韩语新闻标题翻译成中文：\n\n{text}",
+        temperature=0.1,
+        max_tokens=1024,
+    )
+    if result:
+        return result.split("\n", 1)[0].strip()
+    return None
 
 
 def translate_title_en(zh_title: str) -> Optional[str]:

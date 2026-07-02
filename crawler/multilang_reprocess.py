@@ -30,8 +30,8 @@ sys.path.insert(0, str(SCRIPT_DIR))
 
 import config
 from translator import (
-    translate_body_en, translate_body_ja, translate_body_zh_summary,
-    translate_title_en, translate_title_ja,
+    translate_body_en, translate_body_ja, translate_body_zh, translate_body_zh_summary,
+    translate_title_en, translate_title_ja, translate_title_zh,
 )
 
 logging.basicConfig(
@@ -146,30 +146,31 @@ def build_lang_body(lang: str, paragraphs: list) -> str:
 def patch_html(html: str, titles: dict, bodies: dict) -> str:
     """기존 article-body를 4개 언어 lang-body div로 교체하고 meta/h1 속성 추가."""
 
-    # 1) head에 title-xx meta 태그 추가 (article-brand-color 뒤에 삽입)
+    # 1) head에 title-xx meta 태그 추가/교체
     meta_block = (
         f'  <meta name="title-ko" content="{_esc_attr(titles.get("ko", ""))}">\n'
         f'  <meta name="title-zh" content="{_esc_attr(titles.get("zh", ""))}">\n'
         f'  <meta name="title-ja" content="{_esc_attr(titles.get("ja", ""))}">\n'
         f'  <meta name="title-en" content="{_esc_attr(titles.get("en", ""))}">\n'
     )
-    # article-brand-color meta 뒤에 삽입 (없으면 </head> 직전)
+    if 'name="title-ko"' in html:
+        # 기존 title-xx 메타 4개를 교체
+        html = re.sub(r'\s*<meta name="title-ko"[^>]*>\n?', '', html)
+        html = re.sub(r'\s*<meta name="title-zh"[^>]*>\n?', '', html)
+        html = re.sub(r'\s*<meta name="title-ja"[^>]*>\n?', '', html)
+        html = re.sub(r'\s*<meta name="title-en"[^>]*>\n?', '', html)
     if 'name="article-brand-color"' in html:
         html = re.sub(
             r'(<meta name="article-brand-color"[^>]*>)',
             r'\1\n' + meta_block.rstrip('\n'),
             html, count=1,
         )
-    elif 'name="title-ko"' not in html:
+    else:
         html = html.replace('</head>', meta_block + '</head>', 1)
 
-    # 2) <h1 class="article-title">에 data-xx 속성 추가
+    # 2) <h1 class="article-title">에 data-xx 속성 추가/교체
     def replace_h1(m):
-        tag_open = m.group(1)
         content = m.group(2)
-        # 이미 data-ko가 있으면 그냥 반환
-        if 'data-ko' in tag_open:
-            return m.group(0)
         new_tag = (
             f'<h1 class="article-title"'
             f' data-ko="{_esc_attr(titles.get("ko", ""))}"'
@@ -356,6 +357,11 @@ def process_article(html_path: Path) -> bool:
         return False
 
     ko_body_text = "\n\n".join(ko_paragraphs)
+    # 로컬 LLM 컨텍스트 초과 방지: 입력이 너무 길면 앞부분만 사용
+    MAX_BODY_CHARS = 2000
+    if len(ko_body_text) > MAX_BODY_CHARS:
+        logger.warning(f"본문 길이 초과 ({len(ko_body_text)}자) → {MAX_BODY_CHARS}자로 자름")
+        ko_body_text = ko_body_text[:MAX_BODY_CHARS]
     zh_orig_text = ""
 
     # ZH 요약을 위해 원문 스크레이핑 (IT之家만)
@@ -377,7 +383,7 @@ def process_article(html_path: Path) -> bool:
     if zh_orig_text:
         zh_body = translate_body_zh_summary(zh_orig_text)
     else:
-        zh_body = translate_body_en(ko_body_text)  # 영어→중국어 폴백 대신 KO 사용
+        zh_body = translate_body_zh(ko_body_text)
     zh_paragraphs = [p.strip() for p in (zh_body or "").split("\n\n") if p.strip()] or ko_paragraphs
 
     # 제목
@@ -393,12 +399,18 @@ def process_article(html_path: Path) -> bool:
     else:
         original_zh_title = ko_title
 
-    en_title = translate_title_en(original_zh_title) if is_ithome else ko_title
-    ja_title = translate_title_ja(original_zh_title) if is_ithome else ko_title
+    if is_ithome:
+        en_title = translate_title_en(original_zh_title) or ko_title
+        ja_title = translate_title_ja(original_zh_title) or ko_title
+        zh_title = original_zh_title
+    else:
+        en_title = translate_title_en(ko_title) or ko_title
+        ja_title = translate_title_ja(ko_title) or ko_title
+        zh_title = translate_title_zh(ko_title) or ko_title
 
     titles = {
         "ko": ko_title,
-        "zh": original_zh_title or ko_title,
+        "zh": zh_title,
         "ja": ja_title or ko_title,
         "en": en_title or ko_title,
     }
