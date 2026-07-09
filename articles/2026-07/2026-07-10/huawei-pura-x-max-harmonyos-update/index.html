@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Huawei Pura X Max 폴더블 스마트폰, HarmonyOS 6.1.0.130 업데이트 및 갤러리 내 한 문장 이미지 처리 기능 추가</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Huawei">
+  <meta name="article-brand-color" content="#CF0A2C">
+  <meta name="title-ko" content="Huawei Pura X Max 폴더블 스마트폰, HarmonyOS 6.1.0.130 업데이트 및 갤러리 내 한 문장 이미지 처리 기능 추가">
+  <meta name="title-zh" content="华为 Pura X Max 横阔折手机获 HarmonyOS 6.1.0.130 升级，图库新增一句话图片处理能力">
+  <meta name="title-ja" content="Huawei Pura X Max 横型折りたたみ式スマートフォンがHarmonyOS 6.1.0.130にアップデート、ギャラリーにワンフレーズの画像処理機能を追加">
+  <meta name="title-en" content="Huawei Pura X Max foldable smartphone receives HarmonyOS 6.1.0.130 update, adding one-sentence image processing capability to the Gallery.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Huawei Pura X Max 폴더블 스마트폰, HarmonyOS 6.1.0.130 업데이트 및 갤러리 내 한 문장 이미지 처리 기능 추가" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #CF0A2C;">
+            Huawei
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Huawei Pura X Max 폴더블 스마트폰, HarmonyOS 6.1.0.130 업데이트 및 갤러리 내 한 문장 이미지 처리 기능 추가"
+            data-zh="华为 Pura X Max 横阔折手机获 HarmonyOS 6.1.0.130 升级，图库新增一句话图片处理能力"
+            data-ja="Huawei Pura X Max 横型折りたたみ式スマートフォンがHarmonyOS 6.1.0.130にアップデート、ギャラリーにワンフレーズの画像処理機能を追加"
+            data-en="Huawei Pura X Max foldable smartphone receives HarmonyOS 6.1.0.130 update, adding one-sentence image processing capability to the Gallery.">Huawei Pura X Max 폴더블 스마트폰, HarmonyOS 6.1.0.130 업데이트 및 갤러리 내 한 문장 이미지 처리 기능 추가</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-10
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>업데이트 정보</h3>
+          
+          <p>IT홈의 보도에 따르면, Huawei Pura X Max 가로형 폴더블 디스플레이 스마트폰을 대상으로 HarmonyOS 6.1.0.130 SP16 버전 업데이트가 배포되었습니다. 시스템 패키지 크기는 약 4.63GB이며, 이번 업데이트는 전면 카메라 자동 워터마크 추가 및 갤러리 내 한 문장 이미지 처리 기능 등을 포함하고 있습니다.</p>
+          
+          <h3>주요 기능</h3>
+          
+          <ul>
+<li>전면 카메라 자동 워터마크: 전면 카메라 촬영 시 시간, 장소 등의 워터마크를 자동으로 추가하여 셀피에 고유한 스타일을 부여합니다.</li>
+<li>AI 컬러 매칭(沾色): 역광 인물 사진에서 한 번의 클릭으로 실루엣 효과를 생성하며, 색조를 유지하면서 인물의 빛과 그림자 대비를 강화해 더욱 분위기 있는 이미지를 연출합니다.</li>
+<li>한 문장 이미지 처리: 한 문장의 명령어를 통해 이미지 편집, 원클릭 영상 제작, 이미지 정리 등을 수행하여 보다 신속하게 이미지를 처리할 수 있습니다.</li>
+<li>분할 화면 창 교체 기능: 분할 화면의 상단 메뉴 아이콘을 클릭하고 '창 교체'를 선택하면 현재 앱을 닫고 다른 앱으로 즉시 교체할 수 있습니다.</li>
+</ul>
+          
+          <h3>시스템 최적화</h3>
+          
+          <ul>
+<li>시스템 확장 기능 업데이트: 시스템 확장 기능을 동기화하여 기능을 강화하고 사용자 경험을 향상했습니다.</li>
+</ul>
+          
+          <p>Huawei는 현재 순차적으로 업데이트를 배포하고 있으며, 아직 업데이트를 받지 못한 사용자는 기다려야 합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Huawei Pura X Max용 HarmonyOS 6.1.0.130 SP16 업데이트가 배포되었습니다. 이번 업데이트는 전면 카메라 워터마크 추가, AI 기반 이미지 편집 및 한 문장 명령을 통한 간편한 처리 기능, 분할 화면 편의성 개선 등 다양한 기능을 포함하고 있습니다.</p
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>系统版本更新信息</h3>
+<p>Huawei Pura X Max 横向阔折叠手机已推送 HarmonyOS 6.1.0.130 SP16 版本更新。本次更新的系统包大小约为 4.63GB。</p>
+          
+          <h3>新增功能与优化内容</h3>
+<ul>
+<li><strong>前置相机水印：</strong> 支持在自拍时自动添加时间、地点等信息，提供更多个性化风格。</li>
+<li><strong>AI沾色：</strong> 为逆光人物图一键生成剪影效果，增强光影对比度。</li>
+<li><strong>一句话图片处理：</strong> 用户可通过唤醒小艺并输入指令，快速实现图片编辑、一键成片及图片清理。</li>
+<li><strong>分屏功能优化：</strong> 新增“替换窗口”功能，支持在分屏模式下快速切换当前应用窗口。</li>
+<li><strong>系统扩展特性：</strong> 同步更新相关特性，旨在提升整体用户体验。</li>
+</ul>
+          
+          <h3>推送说明</h3>
+<p>Huawei 目前采取分批推送策略，尚未收到系统升级通知的用户需继续等待。</p>
+          
+          <h3>总结</h3>
+<p>Huawei Pura X Max 推送了 HarmonyOS 6.1.0.130 SP16 版本更新。本次更新包含约 4.63GB 的包体，重点强化了前置相机水印、AI 沾色及一句话图片处理等影像功能，并优化了分屏操作体验。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>アップデート情報</h3>
+<p>ITホームの報道によると、Huawei Pura X Max 横型折りたたみディスプレイスマートフォン向けにHarmonyOS 6.1.0.130 SP16バージョンのアップデートが配信されました。システムパッケージサイズは約4.63GBで、今回のアップデートにはフロントカメラの自動ウォーターマーク追加やギャラリー内の一文画像処理機能などが含まれています。</p>
+          
+          <h3>主な機能</h3>
+<ul>
+<li>フロントカメラの自動ウォーターマーク：フロントカメラでの撮影時に時間や場所などのウォーターマークを自動的に追加し、自撮りに独自のスタイルを付与します。</li>
+<li>AIカラーマッチング（沾色）：逆光の人物写真において、ワンタップでシルエット効果を生成します。色調を維持しながら人物の光と影のコントラストを強調し、より情緒的な画像を演出します。</li>
+<li>一文画像処理：一文のコマンド入力によって、画像の編集、ワンクリックでの動画制作、画像の整理などを実行でき、より迅速な画像処理が可能になります。</li>
+<li>分割画面ウィンドウの入れ替え機能：分割画面の上部メニューアイコンをクリックし「ウィンドウの入れ替え」を選択することで、現在のアプリを閉じずに別のアプリへ即座に切り替えることができます。</li>
+</ul>
+          
+          <h3>システム最適化</h3>
+<ul>
+<li>システム拡張機能のアップデート：システム拡張機能を同期させることで機能を強化し、ユーザー体験を向上させました。</li>
+</ul>
+          
+          <p>Huaweiは現在順次アップデートを配信しており、まだ更新を受け取っていないユーザーは待機する必要があります。</p>
+          
+          <h3>総評</h3>
+<p>Huawei Pura X Max向けにHarmonyOS 6.1.0.130 SP16が配信されました。今回のアップデートでは、フロントカメラのウォーターマーク追加、AIベースの画像編集および一文コマンドによる簡便な処理機能、分割画面の利便性向上など、多様な機能が含まれています。</p>
+          
+          <h3>まとめ</h3>
+<p>Huawei Pura X Max向けにHarmonyOS 6.1.0.130 SP16が配信され、フロントカメラのウォーターマーク追加やAIによる高度な画像編集機能が追加されました。また、一文コマンドによる迅速な処理や分割画面の操作性向上など、ユーザー体験を向上させるためのシステム最適化が含まれています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Update Information</h3>
+          
+          <p>According to a report by IT Home, the HarmonyOS 6.1.0.130 SP16 update has been released for the Huawei Pura X Max horizontal foldable display smartphone. The system package size is approximately 4.63GB. This update includes features such as automatic watermarks for the front camera and "one-sentence" image processing within the Gallery.</p>
+          
+          <h3>Key Features</h3>
+          
+          <ul>
+<li>Front Camera Auto-Watermark: Automatically adds details such as time and location when using the front camera, providing a unique style to selfies.</li>
+<li>AI Color Matching: Creates silhouette effects for backlit portraits with a single click, enhancing the contrast between light and shadow while maintaining original tones to create more atmospheric images.</li>
+<li>One-Sentence Image Processing: Enables users to perform image editing, one-click video production, and image organization through a single text command for faster processing.</li>
+<li>Split Screen Window Swap: Allows users to instantly replace the current app with another by selecting "Swap Window" from the top menu icon in split-screen mode.</li>
+</ul>
+          
+          <h3>System Optimization</h3>
+          
+          <ul>
+<li>System Expansion Update: Synchronized system expansion features to enhance functionality and improve the overall user experience.</li>
+</ul>
+          
+          <p>Huawei is currently rolling out the update sequentially; users who have not yet received the update may need to wait.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>The HarmonyOS 6.1.0.130 SP16 update for the Huawei Pura X Max introduces several new features, including front camera watermarks and AI-powered image processing tools. It also improves split-screen navigation and optimizes system expansion functions to enhance the overall user experience.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Yizu</div>
+                <div class="caption-lang" data-lang="en">Easy Tribe</div>
+                <div class="caption-lang" data-lang="ja">易氏</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">소프트웨어 업데이트</div>
+                <div class="caption-lang" data-lang="en">Software update</div>
+                <div class="caption-lang" data-lang="ja">ソフトウェア更新</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">새 버전 기능</div>
+                <div class="caption-lang" data-lang="en">New Features</div>
+                <div class="caption-lang" data-lang="ja">新バージョンの機能</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">호환 기능: 이번 업데이트에서 스마트 알림 워터마크 추가 기능이 새롭게 추가되어 시간, 장소 등의 정보를 자동으로 추가하는 시나리오에 적합합니다. 갤러리에 시(詩) 처리 능력이 추가되었으며, 동시에 AI 밈의 AI 기능이 더욱 강화되어 사용자의 이미지가 더 창의적인 공간을 제공합니다. 또한 스마트 컷 등 핵심 기능의 사용성이 향상되었으며, 더 많은 조작을 지원합니다.</div>
+                <div class="caption-lang" data-lang="en">New Features: Added smart notification watermarks (time/location), poetry processing in Gallery, enhanced AI Meme capabilities, and improved usability for core functions like Smart Cut.</div>
+                <div class="caption-lang" data-lang="ja">新機能：通知への透かし追加、ライブラリでの詩の処理、AIミームの強化、および「スマートカット」等の操作性の向上。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">앨범</div>
+                <div class="caption-lang" data-lang="en">Album</div>
+                <div class="caption-lang" data-lang="ja">アルバム</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">호환 기능: 스마트 알림 워터마크 추가 기능이 새롭게 추가되어, 스마트 앨범 사용 시 시간, 장소 등의 내용이 자동으로 추가됩니다. 셀피에 전용 스타일을 적용할 수 있습니다(카메라를 열고 프레임에 워터마크 스탬프를 추가하거나, 셔터 버튼에 추가하려면 &#39;크리에이티브&#39; -&gt; &#39;설정&#39; -&gt; &#39;자동 워터마크&#39; 선택).</div>
+                <div class="caption-lang" data-lang="en">Compatibility Features: Added smart notification watermarks (Smart Albums auto-include time/location). Customize selfie styles via &#34;Creative&#34; &gt; &#34;Settings&#34; &gt; &#34;Auto Watermark&#34;.</div>
+                
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">편집</div>
+                <div class="caption-lang" data-lang="en">Editing</div>
+                <div class="caption-lang" data-lang="ja">編集</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">1. AI 기능은 빛과 그림자 속 인물을 생성하거나 강화하는 효과를 지원하며, 색상을 재현함과 동시에 인물의 표정 대비를 강조하여 사진의 분위기를 더욱 살려줍니다(갤러리 편집 -&gt; AI 강화).</div>
+                <div class="caption-lang" data-lang="en">AI features enhance lighting and characters by intensifying facial expressions while preserving original colors for a more atmospheric look (Gallery Edit -&gt; AI Enhance).</div>
+                <div class="caption-lang" data-lang="ja">AI機能で色味を保ちつつ人物の表情や光影を強調し、よりドラマチックな雰囲気を演出します（ギャラリー編集 ＞ AI強化）。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">2. 일시사(一诗词) 처리 기능 지원, 일시사 등을 통해 시문 카드 편집 및 콘텐츠 편집 가능, 빠른 처리 속도 (갤러리에서 사진을 열고 &#39;더보기&#39; -&gt; &#39;시문&#39; 클릭).</div>
+                <div class="caption-lang" data-lang="en">Supports Yi ShiCi for fast poetry card editing and clipping (Gallery &gt; More &gt; ShiCi).</div>
+                
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">스마트 멀티 윈도우</div>
+                <div class="caption-lang" data-lang="en">Smart Multi-Window</div>
+                <div class="caption-lang" data-lang="ja">スマートマルチウィンドウ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">스마트 멀티 윈도우 기능: 현재 앱 창의 메뉴 아이콘을 클릭하고 &#39;창 전환&#39;을 선택하면, 현재 앱 창을 닫고 새로운 앱으로 교체할 수 있습니다.</div>
+                <div class="caption-lang" data-lang="en">Smart Multi-Window Feature: Tap the menu icon on your current window and select &#34;Switch Window&#34; to replace it with another app.</div>
+                <div class="caption-lang" data-lang="ja">スマートマルチウィンドウ機能：メニューの「ウィンドウ切替」を選択することで、現在のアプリアプリを別のアプリアップに置き換えることができます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">시스템 부드러움</div>
+                <div class="caption-lang" data-lang="en">System smoothness</div>
+                <div class="caption-lang" data-lang="ja">システムの滑らかさ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">시스템의 원활한 작동을 위한 범용 업데이트를 통해 성능을 강화하고 사용자 경험을 개선합니다.</div>
+                <div class="caption-lang" data-lang="en">General updates to improve system smoothness, performance, and user experience.</div>
+                <div class="caption-lang" data-lang="ja">システムを最適化し、パフォーマンスとユーザー体験を向上。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">업데이트 주의사항:</div>
+                <div class="caption-lang" data-lang="en">Update Notes:</div>
+                <div class="caption-lang" data-lang="ja">更新の注意事項：</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">1. 업데이트 전 중요한 데이터를 백업하십시오. 여전히 업데이트 전에 중요 데이터를 백업하는 것을 권장합니다.</div>
+                <div class="caption-lang" data-lang="en">1. Back up your important data before updating.</div>
+                <div class="caption-lang" data-lang="ja">1. 更新前に重要なデータのバックアップをお願いします。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">2. 업데이트 기간 동안 원활한 사용 경험을 위해 백그라운드에서 연속적인 작업을 수행하는 것을 피해주시기 바랍니다. 최적화 과정 중 끊김이나 배터리 소모 증가 등의 현상이 발생할 수 있으며, 이는 정상적인 현상입니다. 전력이 충분한 상태에서 충전기를 분리하지 마십시오.</div>
+                
+                <div class="caption-lang" data-lang="ja">更新中はバックグラウンドでの連続操作を控え、最適化中の遅延や消費電力の増加は正常な挙動です。充電器は抜かずに接続したままにしてください。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">3. 업데이트 후 끊김 현상이 발생할 수 있으니 당황하지 마세요.</div>
+                <div class="caption-lang" data-lang="en">3. Lag may occur after the update; do not panic.</div>
+                
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">4. 사용 중 문제가 발생할 경우, &#39;내 정보&#39;의 모델명 또는 Tencent 광고 고객 서비스 번호 96111, 9600 등으로 문의하십시오.</div>
+                
+                <div class="caption-lang" data-lang="ja">問題が発生した場合は「マイ」の機種情報を添えるか、テンセント広告のカスタマーサービス（96111 9600）へお問い合わせください。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">5. 업데이트 후 기능이 변경되므로 &#39;업데이트 알림&#39; 앱을 확인하세요.</div>
+                <div class="caption-lang" data-lang="en">5. Features changed after update; please check the &#34;Update Notification&#34; app.</div>
+                <div class="caption-lang" data-lang="ja">5. アップデート後の機能変更は「更新通知」アプリをご確認ください。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">다운로드 및 설치</div>
+                <div class="caption-lang" data-lang="en">Download and install</div>
+                <div class="caption-lang" data-lang="ja">ダウンロードしてインストール</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/974/149.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

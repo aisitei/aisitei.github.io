@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Nubia, 세계 최초의 AI 에이전트 스마트폰 출시</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="Nubia, 세계 최초의 AI 에이전트 스마트폰 출시">
+  <meta name="title-zh" content="Nubia, 세계 최초의 AI 에이전트 스마트폰 출시">
+  <meta name="title-ja" content="Nubia, 세계 최초의 AI 에이전트 스마트폰 출시">
+  <meta name="title-en" content="Nubia to launch world’s first AI agent smartphone">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="Nubia, 세계 최초의 AI 에이전트 스마트폰 출시" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Nubia, 세계 최초의 AI 에이전트 스마트폰 출시"
+            data-zh="Nubia, 세계 최초의 AI 에이전트 스마트폰 출시"
+            data-ja="Nubia, 세계 최초의 AI 에이전트 스마트폰 출시"
+            data-en="Nubia to launch world’s first AI agent smartphone">Nubia, 세계 최초의 AI 에이전트 스마트폰 출시</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-10
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>Nubia의 차세대 AI 에이전트 스마트폰 출시 예고</h3>
+          
+          <p>Nubia가 이번 달 말 새로운 형태의 AI 스마트폰을 선보일 예정이라고 공식 발표했습니다. 단순히 기존 기능에 AI를 추가하는 수준을 넘어, 사용자를 대신해 복잡한 작업을 수행할 수 있는 시스템 레벨의 AI 에이전트를 탑재한 플래그십 모델을 출시할 계획입니다.</p>
+          
+          <h3>WAIC 2026에서 공개될 Nubia의 AI 에이전트 스마트폰</h3>
+          
+          <p>ZTE의 수석 부사장이자 모바일 기기 사업부 사장인 Ni Fei는 Nubia의 차세대 플래그십 모델이 세계 최초의 'AI 에이전트 스마트폰'이 될 것이라고 발표했습니다. 이 기기는 7월 17일부터 20일까지 상하이에서 개최되는 2026 World Artificial Intelligence Conference(WAIC)에서 처음으로 공개될 예정입니다.</p>
+          
+          <p>업계에서는 해당 기기가 ByteDance와 협력하여 개발한 Nubia의 2세대 Doubao 스마트폰의 상용 버전일 것으로 추측하고 있습니다. 이전 모델인 Nubia M153은 기술 미리보기로 소개되었으며, 출시 첫날 준비된 30,000대의 물량이 모두 매진된 것으로 알려졌습니다. 또한, 상하이 관계자들의 발표에 따르면 이번 신제품는 올해 행사의 주요 제품 중 하나로 포함될 예정입니다.</p>
+          
+          <h3>단순한 AI를 넘어선 시스템 통합형 에이전트</h3>
+          
+          <p>질문에 답변하거나 콘텐츠를 생성하는 수준에 머무르는 기존의 AI 스마트폰과 달리, Nubia의 AI 에이전트는 운영체제(OS)와 깊게 통합되어 있습니다. 이 시스템은 사용자의 자연어 요청을 이해하고, 여러 앱에 걸쳐 다단계 작업을 독립적으로 수행할 수 있는 능력을 갖추고 있습니다.</p>
+          
+          <p>예를 들어, 사용자가 "베이징행 가장 저렴한 항공권을 예약해줘"라고 요청하면, AI 에이전트가 필요한 앱들을 실행하고 요금을 비교하며, 예약 정보를 입력하고 결제 과정까지 진행하는 일련의 과정을 수동 조작 없이 완료합니다.</p>
+          
+          <h3>핵심 기술 및 아키텍처</h3>
+          
+          <p>이러한 기능은 단순히 앱 API에만 의존하는 방식이 아니라, 스마트폰 인터페이스를 시각적으로 이해하고 조작할 수 있는 GUI 에이전트 아키텍처와 온디바이스(on-device) 대규모 언어 모델(LLM)을 통해 구현됩니다. 또한, ZTE의 자체 기술인 CoClaw 지능형 스케줄링 기술이 적용되어 다양한 앱과 생태계 간의 원활한 협업 및 고도화된 자동화를 지원합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Nubia는 단순한 기능 추가를 넘어 OS 레벨에서 작동하는 AI 에이전트를 탑재하여 사용자 경험을 혁신하고자 합니다. 시각적 이해 기반의 GUI 에이전트와 온디바이스 LLM, CoClaw 기술의 결합을 통해 복잡한 멀티태스킹을 자동화하는 것이 이번 신제품의 핵심입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Nubia to Launch Next-Generation AI Agent Smartphone</h3>
+          
+          <p>Nubia has officially announced that it will unveil a new type of AI smartphone at the end of this month. Moving beyond simply adding AI features to existing functions, the flagship model is designed with a system-level AI agent capable of performing complex tasks on behalf of the user.</p>
+          
+          <h3>Debut at WAIC 2026</h3>
+          
+          <p>Ni Fei, Vice President and Head of Mobile Devices at ZTE, announced that Nubia's next flagship will be the world's first "AI Agent Smartphone." The device is scheduled to make its debut at the World Artificial Intelligence Conference (WAIC) held in Shanghai from July 17 to 20.</p>
+          
+          <p>Industry insiders suggest that this device will be the commercial version of Nubia's second-generation Doubao smartphone, developed in collaboration with ByteDance. The previous model, the Nubia M153, was introduced as a technical preview and reportedly sold out its entire initial stock of 30,000 units on its first day of release. Furthermore, local sources in Shanghai have confirmed that this new product will be one of the primary highlights of this year's event.</p>
+          
+          <h3>System-Integrated Agent Beyond Simple AI</h3>
+          
+          <p>Unlike conventional AI smartphones that are limited to answering questions or generating content, Nubia's AI agent is deeply integrated with the operating system (OS). This system is capable of understanding natural language requests and independently executing multi-step tasks across various applications.</p>
+          
+          <p>For example, if a user requests "book the cheapest flight to Beijing," the AI agent will automatically launch the necessary apps, compare prices, input booking information, and proceed through the payment process without any manual operation from the user.</p>
+          
+          <h3>Core Technology and Architecture</h3>
+          
+          <p>These capabilities are achieved not by relying solely on app APIs, but through a GUI agent architecture that can visually understand and interact with the smartphone interface, combined with an on-device Large Language Model (LLM). Additionally, ZTE's proprietary CoClaw intelligent scheduling technology is integrated to support seamless collaboration across different apps and ecosystems while providing advanced automation.</p>
+          
+          <h3>Summary</h3>
+<p>Nubia aims to revolutionize user experience by moving from simple AI features to a system-level AI agent that can automate complex multitasking. By combining vision-based GUI agents, on-device LLMs, and CoClaw technology, the new flagship will be capable of executing multi-step tasks across various apps independently.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>Nubiaの次世代AIエージェント搭載スマートフォン発表</h3>
+          
+          <p>Nubiaは今月後半、新たな形態のAIスマートフォンを発表すると公式に発表しました。単に既存の機能にAIを追加するレベルを超え、ユーザーに代わって複雑なタスクを実行できるシステムレベルの「AIエージェント」を搭載したフラッグシップモデルをリリースする計画です。</p>
+          
+          <h3>WAIC 2026で公開されるNubiaのAIエージェントスマートフォン</h3>
+          
+          <p>ZTEの副社長兼モバイル機器事業部門責任者のNi Fei氏は、Nubiaの次世代フラッグシップモデルが世界初の「AIエージェントスマートフォン」になると発表しました。このデバイスは、7月17日から20日まで上海で開催される2026 World Artificial Intelligence Conference（WAIC）で初公開される予定です。</p>
+          
+          <p>業界では、このデバイスはByteDanceと協力して開発されたNubiaの第2世代Doubaoスマートフォンの商用版であると推測されています。前モデルのNubia M153は技術プレビューとして紹介され、発売初日に用意された30,000台がすべて完売したと報じられています。また、上海の関係者の発表によると、今回の新製品は本年度のイベントにおける主要製品の一つとして位置付けられています。</p>
+          
+          <h3>単なるAIを超えたシステム統合型エージェント</h3>
+          
+          <p>質問に回答したりコンテンツを生成したりするだけの従来のAIスマートフォンとは異なり、NubiaのAIエージェントはオペレーティングシステム（OS）と深く統合されています。このシステムはユーザーの自然言語による要求を理解し、複数のアプリにわたる多段階のタスクを独立して実行する能力を備えています。</p>
+          
+          <p>例えば、ユーザーが「北京へ行く最も安い航空券を予約して」とリクエストした場合、AIエージェントが必要なアプリを起動し、料金を比較し、予約情報を入力し、決済プロセスまで進む一連の工程を手動操作なしで完了します。</p>
+          
+          <h3>核心技術とアーキテクチャ</h3>
+          
+          <p>これらの機能は単にアプリのAPIに依存するのではなく、スマートフォンのインターフェースを視覚的に理解して操作できるGUIエージェントアーキテクチャと、オンデバイス（on-device）の大規模言語モデル（LLM）を通じて実現されます。さらに、ZTE独自の技術であるCoClawインテリジェンススケジューリング技術が採用され、多様なアプリやエコシステム間のスムーズな連携と高度な自動化をサポートします。</p>
+          
+          <h3>まとめ</h3>
+<p>NubiaはOSレベルで動作する「AIエージェント」を搭載した次世代フラッグシップモデルをWAIC 2026で発表予定です。このデバイスは、GUIエージェントやオンデバイスLLM、CoClaw技術を組み合わせることで、ユーザーの自然言語による指示から複雑なマルチタスクを自動で実行する高度な体験を提供します。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Nubia to Launch Next-Generation AI Agent Smartphone</h3>
+          
+          <p>Nubia has officially announced that it will unveil a new type of AI smartphone at the end of this month. Moving beyond simply adding AI features to existing functions, the flagship model will feature a system-level "AI agent" capable of performing complex tasks on behalf of the user.</p>
+          
+          <h3>Debut at WAIC 2026</h3>
+          
+          <p>Ni Fei, Vice President of ZTE and President of the Mobile Device Business Unit, announced that Nubia's next-generation flagship will be the world's first "AI agent smartphone." The device is scheduled to make its debut at the World Artificial Intelligence Conference (WAIC) in Shanghai from July 17 to 20.</p>
+          
+          <p>Industry insiders suggest that the device may be the commercial version of Nubia's second-generation Doubao smartphone, developed in collaboration with ByteDance. The previous model, the Nubia M153, was introduced as a technical preview and reportedly sold out its initial stock of 30,000 units on its first day. Furthermore, officials in Shanghai have confirmed that this new product will be one of the primary highlights of this year's event.</p>
+          
+          <h3>System-Integrated Agents Beyond Simple AI</h3>
+          
+          <p>Unlike conventional AI smartphones limited to answering questions or generating content, Nubia's AI agent is deeply integrated into the operating system (OS). This system is capable of understanding natural language requests and independently performing multi-step tasks across various applications.</p>
+          
+          <p>For example, if a user requests, "Book the cheapest flight to Beijing," the AI agent will execute the necessary apps, compare prices, input booking information, and proceed through the payment process without requiring manual operation from the user.</p>
+          
+          <h3>Core Technology and Architecture</h3>
+          
+          <p>These capabilities are achieved not by relying solely on app APIs, but through a GUI agent architecture that can visually understand and interact with the smartphone interface, combined with an on-device Large Language Model (LLM). Additionally, ZTE's proprietary CoClaw intelligent scheduling technology is applied to support seamless collaboration and advanced automation across different apps and ecosystems.</p>
+          
+          <h3>Summary</h3>
+<p>Nubia plans to launch a flagship "AI agent" smartphone at WAIC 2026 featuring deep OS integration rather than just surface-level AI features. By combining on-device LLMs, GUI agent architecture, and CoClaw technology, the device aims to automate complex multi-step tasks across various applications. This move represents a significant step toward an autonomous user experience through system-level intelligence.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/07/08/nubia-world-first-ai-agent-smartphone-waic-2026/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

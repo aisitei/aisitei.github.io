@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Honor, 안드로이드 스마트폰용 자체 개발 입력기 구축 및 &#39;개발 전문가&#39; 모집 중</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Honor">
+  <meta name="article-brand-color" content="#0E62FF">
+  <meta name="title-ko" content="Honor, 안드로이드 스마트폰용 자체 개발 입력기 구축 및 &#39;개발 전문가&#39; 모집 중">
+  <meta name="title-zh" content="荣耀布局自研 Android 手机输入法，目前正招募“开发专家”">
+  <meta name="title-ja" content="Honor、独自開発のAndroid スマートフォン用入力メソッドの開発に着手。現在「開発エキスパート」を募集中">
+  <meta name="title-en" content="Honor is developing its own Android smartphone input method and is currently recruiting &#34;development experts.&#34;">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Honor, 안드로이드 스마트폰용 자체 개발 입력기 구축 및 &#39;개발 전문가&#39; 모집 중" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #0E62FF;">
+            Honor
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Honor, 안드로이드 스마트폰용 자체 개발 입력기 구축 및 &#39;개발 전문가&#39; 모집 중"
+            data-zh="荣耀布局自研 Android 手机输入法，目前正招募“开发专家”"
+            data-ja="Honor、独自開発のAndroid スマートフォン用入力メソッドの開発に着手。現在「開発エキスパート」を募集中"
+            data-en="Honor is developing its own Android smartphone input method and is currently recruiting &#34;development experts.&#34;">Honor, 안드로이드 스마트폰용 자체 개발 입력기 구축 및 &#39;개발 전문가&#39; 모집 중</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-10
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>채용 소식</h3>
+          
+          <p>IT홈의 7월 7일 보도에 따르면, Honor 공식 홈페이지에 업데이트된 채용 정보에 따르면 Honor 단말기 관련 부문에서 '입력 방식 Android 개발 전문가'를 모집하고 있습니다.</p>
+          
+          <p>해당 직무의 설명에 따르면, Honor는 기초부터 구축하는 완전히 자체 개발한 입력 방식 시스템을 계획하고 있으며, 여기에는 단말기 측 UX 상호작용 프레임워크, 입력 엔진(음성, 키보드, 필기 포함), 개인화된 단어 사전의 온디바이스 및 클라우드 동기화, 지연 시간 및 전력 소모 최적화 등 여러 핵심 모듈이 포함됩니다.</p>
+          
+          <p>자격 요건 측면에서 Honor는 지원자가 0에서 1로 복잡한 클라이언트 UI/UX 상호작용 프레임워크를 구축해 본 숙련된 경험을 갖추고 있어야 하며, Android 입력 방식 프레임워크에 대한 깊은 이해와 입력 엔진, 단어 사전 관리 등 관련 모듈의 전체 개발 경험이 있는 사람을 요구합니다.</p>
+          
+          <p>또한, 해당 직무는 다음과 같은 기술 및 경험을 요구합니다:</p>
+          
+          <ul>
+<li>Systrace, PerfDog 등의 도구를 활용한 전 경로 성능 최적화 능력</li>
+<li>Cursor, Claude Code 등 AI 프로그래밍 도구를 활용한 연구 개발 효율화 실무 경험</li>
+<li>Sogou, Baidu, iFlytek, Huawei, Xiaomi 등 주요 입력 방식 제품 개발 경험</li>
+</ul>
+          
+          <h3>배경 및 동기</h3>
+          
+          <p>현재 Honor 스마트폰 시스템에는 Baidu 입력 방식 Honor 버전이 사전 설치되어 있습니다. 그러나 Honor 공식 커뮤니티에서는 자사 개발 입력 방식에 대한 사용자의 요구가 오랫동안 지속되어 왔습니다. 일부 사용자는 서드파티 입력 방식을 사용할 경우 '데이터 루프 단절'이 발생한다고 판단합니다. 즉, 사용자의 입력 데이터와 개인화된 단어 사전 등 핵심 자산이 서드퍼티 플랫폼에 쌓여 Honor가 자체 개발한 YOYO 스마트 엔진과 엔드 투 엔드 서비스 루프를 형성하기 어렵다는 것입니다. 또한 제품 혁신의 속도가 타인에게 제약받아 '소프트웨어 및 하드웨어 코어'의 통합적인 빠른 업데이트를 구현할 수 없다는 의견입니다.</p>
+          
+          <h3>업계 동향 및 특허</h3>
+          
+          <p>산업 트렌드로 볼 때, 주요 스마트폰 제조사들의 입력 방식 자체 개발은 일반적인 현상이 되었습니다. Apple은 2007년부터 iOS 네이티브 입력 방식을 탑재해 왔으며, vivo는 2016년에 Jovi 입력 방식을 출시했고, Huawei는 2021년에 Xiaoyi(小艺) 입력 방식을 발표했습니다. 올해 3월, Xiaomi도 Xiaomi HyperOS(Xiaomi 澎湃 OS) 3 베타 버전에서 자체 개발한 입력 방식을 선보이며 시스템 하단에 직접 통합하고 대규모 언어 모델 AI 기능을 결합했습니다.</p>
+          
+          <p>또한 국가지식재산권국 정보에 따르면, Honor는 2024년 7월 '입력 방식 전환 방법 및 관련 장치'라는 명칭의 특허(공개 번호: CN121387112A)를 신청했습니다. 해당 특허는 후보 단어 정확도와 개인정보 보호 사이의 균형을 맞추기 위해 사용자 공간에 따라 입력 방식 모드를 자동으로 전환하는 기술 솔루션을 포함합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Honor는 데이터 루프 형성 및 소프트웨어와 하드웨어 코어의 통합적 업데이트를 위해 자사 개발 입력 시스템 구축을 목표로 전문 인력을 채용하고 있습니다. 이는 Apple, vivo, Huawei, Xiaomi 등 주요 제조사들이 이미 추진해 온 기술 트렌드와 궤를 같이하며, 관련 특허 출정을 통해 기술적 기반을 강화하고 있는 것으로 보입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>招聘信息披露</h3>
+<p>Honor 官网更新显示，公司正在招募“输入法Android开发专家”。该岗位的核心目标是构建一套从底层开始的完全自研输入法系统。</p>
+<ul>
+<li>涵盖模块：端侧 UX 交互框架、包含语音、键盘、手写的输入引擎。</li>
+<li>核心功能：个人化词库的端云同步、时延与功耗优化等。</li>
+</ul>
+          
+          <h3>任职要求与技术栈</h3>
+<p>Honor 要求候选人具备从 0 到 1 搭建复杂客户端 UI/UX 交互框架的经验，并深入理解 Android 输入法框架及相关模块开发。</p>
+<ul>
+<li>性能工具：Systrace、PerfDog。</li>
+<li>AI 工具：Cursor、Claude Code。</li>
+<li>优先背景：具有搜狗、百度、讯飞、Huawei、Xiaomi 等主流产品开发经验者优先。</li>
+</ul>
+          
+          <h3>战略动机与行业趋势</h3>
+<p>目前 Honor 手机预装的是百度输入法，但用户呼声要求自研。自研旨在解决“数据闭环断裂”问题，让用户词库等核心资产能与 YOYO 智慧引擎形成端到端的服务闭环。</p>
+<p>行业内 Apple、vivo、Huawei 以及近期在 HyperOS 中推出自研输入法的 Xiaomi 等厂商均已采取类似策略，旨在实现“软硬芯”一体化迭代。</p>
+          
+          <h3>专利布局</h3>
+<p>Honor 已于 2024 年 7 月申请相关专利（公开号：CN121387112A），涉及根据用户空间自动切换输入法模式的技术方案，旨在平衡候选词准确率与隐私安全。</p>
+          
+          <h3>总结</h3>
+<p>Honor 正通过招聘专业人才构建全自研的输入法系统，以解决目前依赖第三方平台导致的“数据闭环断裂”问题。此举旨在提升用户体验并实现与 YOYO 智慧引擎的深度融合，符合当前主流手机厂商强化底层技术自主权的趋势。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>採用情報</h3>
+<p>ITホームの7月7日の報道によると、Honorの公式サイトに更新された採用情報において、Honor端末関連部門で「入力方式Android開発エキスパート」を募集していることが明らかになりました。</p>
+<p>職務内容によると、Honorは基礎から構築する完全な自社開発の入力システムを計画しており、これにはデバイス側のUXインタラクションフレームワーク、入力エンジン（音声、キーボード、手書きを含む）、パーソナライズされた単語辞書のオンデバイスおよびクラウド同期、遅延および消費電力の最適化など、複数の主要モジュールが含まれます。</p>
+<p>応募要件として、Honorは候補者が0から1へ複雑なクライアントUI/UXインタラクションフレームワークを構築した熟練した経験を持ち、Android入力方式フレームワークに対する深い理解と、単語辞書管理などの関連モジュールの全開発経験を有することを求めています。</p>
+<p>また、この職務では以下の技術および経験が求められます：</p>
+<ul>
+<li>Systrace、PerfDogなどのツールを活用した全経路のパフォーマンス最適化能力</li>
+<li>Cursor、Claude CodeなどAIプログラミングツールを活用した研究開発効率化の実務経験</li>
+<li>Sogou、Baidu、iFlytek、Huawei、Xiaomiなど主要な入力方式製品の開発経験</li>
+</ul>
+          
+          <h3>背景と動機</h3>
+<p>現在、HonorのスマートフォンシステムにはBaiduの入力方式（Honor版）がプリインストールされています。しかし、Honor公式コミュニティでは、自社開発の入力方式に対するユーザーの要望が長らく続いています。一部のユーザーは、サードパーティの入力方式を使用する場合、「データのループ断絶」が発生すると判断しています。つまり、ユーザーの入力データやパーソナライズされた単語辞書などの重要な資産がサードパーティのプラットフォームに蓄積され、Honorが独自開発したYOYOスマートエンジンやエンド・トゥ・エンドのサービスループを構築することが困難になるという懸念です。また、製品革新のスピードが他社に制限され、「ソフトウェアとハードウェアのコア」の統合的な迅速なアップデートを実現できないという意見もあります。</p>
+          
+          <h3>業界動向と特許</h3>
+<p>産業トレンドとして、主要なスマートフォンメーカーによる入力方式の自社開発は一般的な現象となっています。Appleは2007年からiOSネイティブの入力方式を搭載しており、vivoは2016年にJovi入力方式をリリースし、Huaweiは2021年にXiaoyi（小意）入力方式を発表しました。今年3月、XiaomiもXiaomi HyperOS 3のベータ版で自社開発の入力方式を披露し、システム下層に直接統合し、大規模言語モデルAI機能を統合しました。</p>
+<p>また、国家知識財産権局の情報によると、Honorは2024年7月「入力方法の切り替え方法および関連装置」という名称の特許（公開番号：CN121387112A）を申請しました。この特許は、候補単語の正確性とプライバシー保護のバランスをとるため、ユーザー空間に応じて入力モードを自動的に切り替える技術ソリューションを含んでいます。</p>
+          
+          <h3>まとめ</h3>
+<p>Honorは、データループの構築とハードウェア・ソフトウェアの統合的なアップデートを実現するため、自社開発の入力システム構築に向けた専門人材を採用しています。これはAppleやHuawei、Xiaomiといった主要メーカーが取り進めてきた技術トレンドに合致しており、特許取得を通じて技術基盤を強化する動きを見せています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Recruitment News</h3>
+          
+          <p>According to a report by IT Home on July 7, Honor's official website has updated its recruitment information, seeking an "Android Input Method Development Specialist" for its device-related division.</p>
+          
+          <p>The job description states that Honor plans to build a completely self-developed input system from the ground up. This includes several core modules: a device-side UX interaction framework, an input engine (covering voice, keyboard, and handwriting), on-device and cloud-synchronized personalized dictionaries, and optimization for latency and power consumption.</p>
+          
+          <p>Regarding qualifications, Honor requires candidates with extensive experience in building complex client UI/UX interaction frameworks from the ground up. Candidates must possess a deep understanding of the Android input method framework and have comprehensive development experience in related modules such as input engines and dictionary management.</p>
+          
+          <p>Additionally, the role requires the following skills and experience:</p>
+          
+          <ul>
+<li>Ability to perform full-path performance optimization using tools like Systrace and PerfDog.</li>
+<li>Practical experience in improving R&amp;D efficiency using AI programming tools such as Cursor and Claude Code.</li>
+<li>Experience in developing input method products for major providers including Sogou, Baidu, iFlytek, Huawei, and Xiaomi.</li>
+</ul>
+          
+          <h3>Context and Motivation</h3>
+          
+          <p>Currently, Honor smartphones come pre-installed with the Baidu version of the input method. However, there has been a long-standing demand from the Honor official community for an in-house developed input method. Some users argue that using third-party input methods results in a "data loop disconnection." Specifically, they point out that because core assets—such as user input data and personalized dictionaries—are stored on third-party platforms, it is difficult for Honor to establish its own YOYO smart engine and an end-to-end service loop. Furthermore, some argue that relying on others limits the pace of innovation, making it impossible to achieve rapid, integrated updates for "software and hardware cores."</p>
+          
+          <h3>Industry Trends and Patents</h3>
+          
+          <p>From an industry trend perspective, the independent development of input methods by major smartphone manufacturers has become common. Apple has featured a native iOS input method since 2007, vivo launched the Jovi input method in 2016, and Huawei introduced the Xiaoyi (小艺) input method in 2021. In March of this year, Xiaomi also showcased its self-developed input method in the beta version of Xiaomi HyperOS, integrating it directly into the system layer while combining it with Large Language Model (LLM) AI features.</p>
+          
+          <p>Furthermore, according to information from the National Intellectual Property Administration, Honor applied for a patent titled "Method for Switching Input Methods and Related Device" (Publication Number: CN121387112A) in July 2024. This patent includes a technical solution that automatically switches input method modes based on the user's space to balance candidate word accuracy with privacy protection.</p>
+          
+          <h3>Overall Review</h3>
+          
+          <p>Honor is actively recruiting specialists to build an in-house input system to establish data loops and achieve integrated updates between software and hardware cores. This move aligns with the technical trends pursued by major manufacturers such as Apple, vivo, Huawei, and Xiaomi, and appears to be bolstered by their recent patent filings to strengthen their technical foundation.</p>
+          
+          <h3>Summary</h3>
+<p>Honor is hiring experts to develop a proprietary Android input method system to replace current third-party solutions and improve the integration of its hardware and software ecosystem. This move follows industry trends set by competitors like Apple, Huawei, and Xiaomi, who have all moved toward in-house input systems. The initiative is supported by recent patent filings aimed at balancing user privacy with high-accuracy input features.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">입력기 Android 개발 전문가</div>
+                <div class="caption-lang" data-lang="en">Android IME Development Expert</div>
+                <div class="caption-lang" data-lang="ja">Android入力法開発エキスパート</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">연구개발 분야</div>
+                <div class="caption-lang" data-lang="en">R&amp;D Category</div>
+                <div class="caption-lang" data-lang="ja">研究開発系</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">즉시 제출</div>
+                
+                <div class="caption-lang" data-lang="ja">審査に提出</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">난징시 2026-07-06 업데이트</div>
+                <div class="caption-lang" data-lang="en">Nanjing Updated 2026-07-06</div>
+                <div class="caption-lang" data-lang="ja">南京市 2026-07-06更新</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">담당 업무</div>
+                <div class="caption-lang" data-lang="en">Job Responsibilities</div>
+                <div class="caption-lang" data-lang="ja">職務内容</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">1. 입력법의 Tencent 측 UX 인터랙션 프레임워크 개발을 담당하며, 바 타입 및 폴더블 등 다양한 기종에 대응 가능합니다.</div>
+                <div class="caption-lang" data-lang="en">Developed the UX interaction framework for Tencent&#39;s input method, supporting various device types including standard and foldable phones.</div>
+                <div class="caption-lang" data-lang="ja">入力法におけるTencent側のUXインタラクションフレームワークの開発を担当し、標準機や折りたたみ式など多様な機種に対応。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">2. 음성 입력 엔진, 키보드 입력 엔진, 필기 인식 엔진을 포함한 입력 방식의 Tencent 엔진 개발 담당.</div>
+                <div class="caption-lang" data-lang="en">Responsible for developing Tencent&#39;s input method engines (voice, keyboard, and handwriting).</div>
+                <div class="caption-lang" data-lang="ja">2. 入力法（音声・キーボード・手書き）のTencentエンジン開発を担当。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">3. 개인화 데이터 개발(개인화 단어장 저장 및 텐센트 클라우드 동기화 포함)</div>
+                <div class="caption-lang" data-lang="en">Responsible for personalized data development, including personal word library storage and Tencent Cloud synchronization.</div>
+                <div class="caption-lang" data-lang="ja">3. 個人化データの開発（個人用語彙の保存、Tencent Cloud同期を含む）</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">4. Tencent 측 입력 끊김 및 전력 소모 최적화와 성능 최적화를 담당하며 제품의 장기적인 고안정성 운영을 보장합니다.</div>
+                <div class="caption-lang" data-lang="en">Responsible for Tencent-side input, power, and performance optimizations to ensure long-term product stability.</div>
+                <div class="caption-lang" data-lang="ja">4. テンセント版における入力遅延・消費電力および性能の最適化を行い、製品の長期的な高安定稼働を保証。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">자격 요건</div>
+                <div class="caption-lang" data-lang="en">Job Requirements</div>
+                <div class="caption-lang" data-lang="ja">応募要件</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">1. Android Framework, NDK/JNI 개발 원리 이해, 복잡한 클라이언트 제품의 UX 및 인터랙션 프레임워크를 0에서 1까지 구축한 숙련된 경험 보유.</div>
+                <div class="caption-lang" data-lang="en">Proficient in Android Framework and NDK/JNI; experienced in building complex client-side UX and interaction frameworks from scratch.</div>
+                <div class="caption-lang" data-lang="ja">Android FrameworkおよびNDK/JNIの原理を理解し、複雑なクライアント製品のUX・インタラクション基盤をゼロから構築する豊富な経験を持つ。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">2. Android 입력 방식 프레임워크에 대한 이해 및 입력 엔진, 단어 사전 관리, 스마트 입력 관련 모듈 개발 경험 보유.</div>
+                <div class="caption-lang" data-lang="en">Familiar with Android IME frameworks; experience in engine development, dictionary management, and smart input modules.</div>
+                <div class="caption-lang" data-lang="ja">2. Android入力法フレームワーク、エンジン、辞書管理、スマート入力関連モジュールの開発経験。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">3. Android 전체 경로 성능 최적화 숙달, Systrace, PerfDog, Android Studio Profiler 등 튜닝 도구 활용 능숙, 대규모 애플리케이션의 끊김, 전력 소모, 메모리 최적화 등에 대한 풍부한 경험 보유.</div>
+                <div class="caption-lang" data-lang="en">Proficient in end-to-end Android performance optimization using Systrace, PerfDog, and Android Studio Profiler; experienced in optimizing jank, power consumption, and memory for large-scale applications.</div>
+                <div class="caption-lang" data-lang="ja">Androidの全工程における性能最適化を習得。SystraceやPerfDog等に精通し、大規模アプリのカクつき、消費電力、メモリ最適化の豊富な経験を持つ。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">4. Cursor, Claude Code 등 오픈소스 AI 프로그래밍 도구에 숙달되어 있으며, 범용 AI 모델 추론 드라이버 개발 및 제품의 신속한 이터레이션(iteration)을 통한 실무 적용 경험 보유.</div>
+                <div class="caption-lang" data-lang="en">Proficient in AI coding tools (Cursor, Claude Code) with experience in LLM-driven development and rapid product iteration.</div>
+                <div class="caption-lang" data-lang="ja">CursorやClaude CodeなどのAIコーディングツールに精通し、汎用AIモデルを活用した開発や製品の迅速なイテレーションの実績がある。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">5. WeChat, Baidu, Tencent, Huawei, Xiaomi 등 주요 입력기 제품 개발 경험자 우대.</div>
+                <div class="caption-lang" data-lang="en">Experience with mainstream input method products (e.g., WeChat, Baidu, Tencent, Huawei, Xiaomi) is preferred.</div>
+                <div class="caption-lang" data-lang="ja">5. WeChat、Baidu、Tencent、Huawei、Xiaomi等の主要な入力メソッドの開発経験者優遇。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/973/394.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

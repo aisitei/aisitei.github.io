@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - NVIDIA, 멀티모달 확장 시 텍스트 능력 저하를 방지하는 30B 파라미터 규모의 Audex 통합 모델 발표</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="NVIDIA, 멀티모달 확장 시 텍스트 능력 저하를 방지하는 30B 파라미터 규모의 Audex 통합 모델 발표">
+  <meta name="title-zh" content="英伟达发布 Audex 统一模型：30B 总参数，避免多模态扩展后文本能力下滑问题">
+  <meta name="title-ja" content="NVIDIAがAudex統一モデルを発表：30Bの総パラメータにより、マルチモーダル拡張後のテキスト能力の低下を防ぐ">
+  <meta name="title-en" content="NVIDIA releases Audex unified model: 30B total parameters, avoiding text capability degradation after multimodal expansion">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="NVIDIA, 멀티모달 확장 시 텍스트 능력 저하를 방지하는 30B 파라미터 규모의 Audex 통합 모델 발표" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="NVIDIA, 멀티모달 확장 시 텍스트 능력 저하를 방지하는 30B 파라미터 규모의 Audex 통합 모델 발표"
+            data-zh="英伟达发布 Audex 统一模型：30B 总参数，避免多模态扩展后文本能力下滑问题"
+            data-ja="NVIDIAがAudex統一モデルを発表：30Bの総パラメータにより、マルチモーダル拡張後のテキスト能力の低下を防ぐ"
+            data-en="NVIDIA releases Audex unified model: 30B total parameters, avoiding text capability degradation after multimodal expansion">NVIDIA, 멀티모달 확장 시 텍스트 능력 저하를 방지하는 30B 파라미터 규모의 Audex 통합 모델 발표</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-10
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>모델 개요</h3>
+          
+          <p>NVIDIA는 올해 6월 논문을 발표하며 Audex(Nemotron-Labs-Audex-30B-A3B)를 공개했습니다. 이 모델은 총 파라미터 수 30B, 활성 파라미터 3B 규모의 통합 오디오-텍스트 대규모 언어 모델로, 핵심적인 텍스트 지능을 유지하면서도 오디오(audio)와 음성(speech)을 이해하고 생성할 수 있습니다.</p>
+          
+          <h3>모델 구조 및 설계</h3>
+          
+          <p>이 모델의 백본은 Nemotron-Cascade-2-30B-A3B라는 텍스트 모델로, 다음과 같은 구조를 가집니다.</p>
+          
+          <ul>
+<li>52개 층의 하이브리드 Mamba-Transformer 구조</li>
+<li>128개의 라우터블 전문가(routable experts) 포함</li>
+<li>매회 6개의 전문가 활성화</li>
+</ul>
+          
+          <p>Audex의 설계 목표는 멀티모디컬 확장 시 발생할 수 있는 텍스트 능력 저하 문제를 방지하는 것입니다. 논문에 따르면 Audex는 오디오 입력을 인코딩하여 텍스트 임베딩 공간으로 매핑하며, 양자화된 오디오 출력 토큰과 텍스트 토큰을 통합적으로 처리합니다.</p>
+          
+          <h3>오디오 및 음성 기술</h3>
+          
+          <p>Audex는 오디오 구성 요소와 음성 출력을 위해 다음과 같은 기술을 적용했습니다.</p>
+          
+          <ul>
+<li>오디오 인코더: AF-Whisper를 사용하여 16kHz 입력을 처리하며, 두 개의 MLP 어댑터를 통해 특징을 매핑합니다.</li>
+<li>단어집 확장: 출력 단어집이 기존 131,072개에서 205,312개의 토큰으로 확장되었습니다.</li>
+<li>음성 출력: X-Codec2(음성 코덱)를 사용하여 초당 50개 토큰을 처리하며, 단일 레이어의 finite scalar quantization을 적용하고 코드북 크기는 65,536입니다.</li>
+<li>비음성 오디오: X-Codec(오디오 코덱)을 사용하며 초당 200개 토큰을 처리하고, 4개 레이어의 flattened residual vector quantization을 활용합니다.</li>
+</ul>
+          
+          <h3>텍스트 성능 평가</h3>
+          
+          <p>텍스트 평가 결과, Audex는 MMLU-Redux에서 86.4를 기록하여 백본 모델(86.3)보다 높은 성적을 거두었으며, IMO AnswerBench에서는 81.1을 기록해 백본의 79.3을 상회했습니다. 다만 MMLU-Pro와 GPQA-Diamond에서는 소폭 하락하는 수치를 보였습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>NVIDIA가 공개한 Audex는 멀티모디컬 확장 시에도 텍스트 지능의 저하를 방지하도록 설계된 통합 오디오-텍스트 대규모 언어 모델입니다. Mamba-Transformer 기반의 구조와 고도화된 코덱 기술을 결합하여 오디오 및 음성 처리 능력을 확보했으며, 주요 텍스트 평가에서 우수한 성능을 입증했습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>模型概述</h3>
+<p>NVIDIA 推出了 Audex（Nemotron-Labs-Audex-30B-A3B）统一音频-文本大语言模型。该模型旨在在保留核心文本智能的同时，具备理解和生成音频（audio）以及语音（speech）的能力。</p>
+          
+          <h3>技术架构与参数</h3>
+<p>Audex 基于 Nemotron-Cascade-2-30B-A3B 骨干模型构建，采用混合 Mamba-Transformer 结构。其设计核心是防止多模态扩展后导致的文本能力下滑。</p>
+<ul>
+<li>总参数量：30B</li>
+<li>激活参数：3B</li>
+<li>架构细节：52 层混合 Mamba-Transformer 结构，包含 128 个可路由专家，每次激活 6 个。</li>
+</ul>
+          
+          <h3>音频与语音处理组件</h3>
+<p>Audex 通过将音频输入编码并映射到文本嵌入空间，实现对量化后的音频输出标记和文本标记的统一处理。</p>
+<ul>
+<li>音频编码：使用 AF-Whisper 处理 16kHz 输入，配合两层 MLP 适配器。</li>
+<li>词表扩展：从原始的 131,072 个 Token 扩展至 205,312 个 Tokens。</li>
+<li>语音输出（X-Codec2）：速率为每秒 50 个标记，码本大小为 65,536。</li>
+<li>非语音音频（X-Codec）：速率为每秒 200 个标记。</li>
+</ul>
+          
+          <h3>性能评测</h3>
+<p>在相关基准测试中，Audex 在保持文本能力的同时展现了优异的跨模态表现：</p>
+<ul>
+<li>MMLU-Redux：得分 86.4（高于骨干模型的 86.3）。</li>
+<li>IMO AnswerBench：得分 81.1（高于骨干模型的 79.3）。</li>
+<li>在 MLLU-Pro 与 GPQA-Diamond 上出现小幅下降。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>NVIDIA 推出的 Audex 是一个集成了音频与文本处理能力的统一大模型，采用混合 Mamba-Transformer 架构并支持大规模词表扩展。该模型成功实现了在增强多模态能力的同时，保持甚至提升核心文本推理性能。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>モデル概要</h3>
+          
+          <p>NVIDIAは今年6月に論文を発表し、Audex（Nemotron-Labs-Audex-30B-A3B）を公開しました。このモデルは総パラメータ数30B、アクティブパラメータ3Bの統合オーディオ・テキスト大規模言語モデル（LLM）であり、核となるテキスト知能を維持しながら、オーディオおよび音声の理解と生成を行うことができます。</p>
+          
+          <h3>モデル構造と設計</h3>
+          
+          <p>このモデルのバックボーンはNemotron-Cascade-2-30B-A3Bというテキストモデルで、以下の構造を備えています。</p>
+          
+          <ul>
+<li>52層のハイブリッドMamba-Transformer構造</li>
+<li>128個のルータブルエキスパート（routable experts）を含む</li>
+<li>毎回の推論で6つのエキスパートをアクティブ化</li>
+</ul>
+          
+          <p>Audexの設計目標は、マルチモーダル拡張時に発生しうるテキスト能力の低下を防ぐことです。論文によると、Audexはオーディオ入力をエンコードしてテキスト埋め込み空間にマッピングし、量子化されたオーディオ出力トークンとテキストトークンを統合的に処理します。</p>
+          
+          <h3>オーディオおよび音声技術</h3>
+          
+          <p>Audexはオーディオコンポーネントと音声出力を実現するために、以下の技術を採用しています。</p>
+          
+          <ul>
+<li>オーディオエンコーダー：AF-Whisperを使用して16kHzの入力を処理し、2つのMLPアダプターを通じて特徴をマッピングします。</li>
+<li>語彙（Vocabulary）の拡張：出力トークン数が従来の131,072から205,312へと拡大されました。</li>
+<li>音声出力：X-Codec2（音声コーデック）を使用し、毎秒50トークンを処理します。単一レイヤーの有限スカラー量子化（finite scalar quantization）を適用し、コードブックサイズは65,536です。</li>
+<li>非音声オーディオ：X-Codec（オーディオコーデック）を使用し、毎秒200トークンを処理します。4層のフラットな残差ベクトル量子化（flattened residual vector quantization）を活用しています。</li>
+</ul>
+          
+          <h3>テキスト性能評価</h3>
+          
+          <p>テキスト評価の結果、AudexはMMLU-Reduxで86.4を記録し、バックボーンモデル（86.3）を上回る成績を収めました。また、IMO AnswerBenchでは81.1を記録し、バックボーンの79.3を上回りました。一方で、MMLU-ProとGPQA-Diamondではわずかに低下する数値が見られました。</p>
+          
+          <h3>総評</h3>
+          
+          <p>NVIDIAが公開したAudexは、マルチモーダルの拡張時にもテキスト知能の低下を防ぐよう設計された統合オーディオ・テキスト大規模言語モデルです。Mamba-Transformerベースの構造と高度なコーデック技術を組み合わせることで、優れたオーディオおよび音声処理能力を獲得し、主要なテキスト評価においても高い性能を実証しました。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>NVIDIAが発表したAudexは、Mamba-Transformer構造と高度なコーデック技術を融合させた統合オーディオ・テキストLLMです。マルチモーダル化によるテキスト能力の低下を防ぐ設計により、高品質な音声処理と優れたテキスト性能の両立を実現しています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Model Overview</h3>
+<p>NVIDIA released Audex (Nemotron-Labs-Audex-30B-A3B) in June of this year. This integrated audio-text Large Language Model features a total of 30B parameters with 3B active parameters, enabling it to understand and generate audio and speech while maintaining core text intelligence.</p>
+          
+          <h3>Model Structure and Design</h3>
+<p>The backbone of this model is the Nemotron-Cascade-2-30B-A3B text model, which incorporates the following architecture:</p>
+<ul>
+<li>52-layer hybrid Mamba-Transformer structure</li>
+<li>128 routable experts</li>
+<li>6 active experts per inference</li>
+</ul>
+<p>The design goal of Audex is to prevent the degradation of text capabilities that can occur during multimodal expansion. According to the research paper, Audex maps audio inputs into a text embedding space and processes quantized audio output tokens and text tokens together.</p>
+          
+          <h3>Audio and Speech Technology</h3>
+<p>Audex implements the following technologies for its audio components and speech output:</p>
+<ul>
+<li>Audio Encoder: Uses AF-Whisper to process 16kHz input, mapping features through two MLP adapters.</li>
+<li>Vocabulary Expansion: The output vocabulary was expanded from 131,072 to 205,312 tokens.</li>
+<li>Speech Output: Utilizes X-Codec2 (speech codec) to process 50 tokens per second, applying finite scalar quantization on a single layer with a codebook size of 65,536.</li>
+<li>Non-speech Audio: Uses X-Codec (audio codec) to process 200 tokens per second, utilizing flattened residual vector quantization across four layers.</li>
+</ul>
+          
+          <h3>Text Performance Evaluation</h3>
+<p>In text evaluation tests, Audex scored 86.4 on MMLU-Redux, outperforming its backbone model's score of 86.3. It also achieved 81.1 on IMO AnswerBench, surpassing the backbone's 79.3. However, it showed slight decreases in scores for MLLU-Pro and GPQA-Diamond.</p>
+          
+          <h3>Overall Review</h3>
+<p>NVIDIA's Audex is an integrated audio-text LLM designed to prevent the loss of text intelligence during multimodal expansion. By combining a Mamba-Transformer based architecture with advanced codec technologies, it achieves robust audio and speech processing capabilities while demonstrating superior performance in key text evaluations.</p>
+          
+          <h3>Summary</h3>
+<p>NVIDIA's Audex is an integrated audio-text LLM that maintains high-level text intelligence while providing advanced audio and speech generation capabilities. By utilizing a hybrid Mamba-Transformer architecture and specialized codecs, it successfully balances multimodal expansion with core linguistic performance.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">튜링</div>
+                <div class="caption-lang" data-lang="en">Turing</div>
+                <div class="caption-lang" data-lang="ja">チューリング</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/973/992.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
