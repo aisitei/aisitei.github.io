@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Meta, 연속 녹음 및 수초 간격 자동 촬영 가능한 &#39;슈퍼 센싱&#39; 스마트 글래스 개발 중</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="Meta, 연속 녹음 및 수초 간격 자동 촬영 가능한 &#39;슈퍼 센싱&#39; 스마트 글래스 개발 중">
+  <meta name="title-zh" content="Meta 正研发“超级感知”智能眼镜，可连续录音并每隔几秒自动拍照">
+  <meta name="title-ja" content="Meta、連続録音と数秒おきに自動で写真を撮影する「スーパーセンシング」スマートグラスを開発中">
+  <meta name="title-en" content="Meta is developing &#34;Super Sensing&#34; smart glasses that can record audio continuously and automatically take photos every few seconds.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="Meta, 연속 녹음 및 수초 간격 자동 촬영 가능한 &#39;슈퍼 센싱&#39; 스마트 글래스 개발 중" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Meta, 연속 녹음 및 수초 간격 자동 촬영 가능한 &#39;슈퍼 센싱&#39; 스마트 글래스 개발 중"
+            data-zh="Meta 正研发“超级感知”智能眼镜，可连续录音并每隔几秒自动拍照"
+            data-ja="Meta、連続録音と数秒おきに自動で写真を撮影する「スーパーセンシング」スマートグラスを開発中"
+            data-en="Meta is developing &#34;Super Sensing&#34; smart glasses that can record audio continuously and automatically take photos every few seconds.">Meta, 연속 녹음 및 수초 간격 자동 촬영 가능한 &#39;슈퍼 센싱&#39; 스마트 글래스 개발 중</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-11
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>신기술 개발</h3>
+          
+          <p>IT홈의 7월 9일 보도에 따르면, 영국 파이낸셜 타임스(Financial Times)는 Meta가 내부적으로 '슈퍼 센스(Super Sense)'라고 불리는 AI 스마트 글래스 프로토타입을 개발 중이라고 밝혔습니다. 이 기기는 오디오 녹음을 항상 활성화하고 몇 초마다 자동으로 사진을 촬영하여, 사용자가 관련 오디오 및 이미지 내용에 대해 AI에게 질문할 수 있도록 돕는 기능을 갖추고 있습니다.</p>
+          
+          <p>여러 관계자에 따르면 Meta 경영진은 '슈퍼 센스' 기능을 활성화할 때 안경 프레임의 LED 녹화 표시등을 켜지 않게 할 계획입니다. 이는 주변 사람들이 자신이 기기로부터 정보를 수집당하고 있다는 사실을 알아차리기 어렵게 만듭니다.</p>
+          
+          <p>이러한 '슈퍼 센스' 기능은 향후 OTA 소프트웨어 업데이트를 통해 이미 출시된 Meta 스마트 글래스에도 적용될 가능성이 있습니다. Meta 내부에서 논의 중인 방안 중 하나는 원본 영상과 오디오를 Meta가 저장하거나 사용자에게 제공하지 않고, 음성 및 영상에서 메타데이터만 추출하여 서버로 업로드해 Meta AI가 조회하게 하는 것입니다. 지지자들은 이 방식이 개인정보 보호 위험을 줄일 수 있다고 주장합니다. 동시에 회사 내부에서는 안경이 수집한 데이터를 자사 AI 모델 학습에 활용할지 여부도 논의 중입니다.</p>
+          
+          <h3>개인정보 보호 및 논란</h3>
+          
+          <p>LED 표시등의 유지 여부에 대해 Meta는 공개적인 설명을 내놓았습니다. 회사는 2025년 정책 문서에서 LED가 장시간 깜빡일 경우 사람들이 이에 익숙해져 주변에서 사진이나 영상을 촬영 중이라는 경각심이 낮아질 수 있다고 밝혔습니다. 따라서 사용자가 직접 사진이나 영상을 저장하는 '능동적 촬영' 상황에서는 LED를 유지하고, 'AI 기능'을 사용하는 동안에는 꺼진 상태로 유지한다는 방침입니다.</p>
+          
+          <p>또한 IT홈은 앞서 Meta가 이번 주 화요일 업데이트를 발표했다고 보도했습니다. 이 업데이트는 스마트 글래스가 LED 표시등이 훼손된 것을 감지할 경우 카메라를 자동으로 비활성화하는 기능을 포함합니다.</p>
+          
+          <p>기존 Ray-Ban Meta 안경은 여러 차례 개인정보 보호 논란에 휘말렸습니다. 올해 2월, 케냐의 외수 검토 요원은 매체에 "사용자가 성관계를 하거나 화장실을 이용하는 장면 등 안경이 촬영한 노골적인 콘텐츠를 확인해야 했다"고 밝혔습니다. 또한 지난달 Wired 매거진은 Meta 스마트 글래스 플랫폼 내에 아직 출시되지 않은 안면 인식 시스템 코드가 포함된 것을 발견했으며, 회사는 이후 이를 제거했습니다. 이 외에도 제3자가 안경의 LED 표시등을 물리적으로 제거해 주는 유료 개조 서비스를 제공하고 있는 것으로 알려졌습니다.</p>
+          
+          <h3>공식 입장 및 비전</h3>
+          
+          <p>Meta 대변인 데이브 아노드(Dave Arnold)는 The Verge에 보낸 성명에서 "내부 프로토타임에 대해서는 언급할 수 없으나, 착용자와 주변 사람 모두에게 사랑받는 제품을 만들기 위해 최선을 다하고 있다"고 밝혔습니다. 그는 또한 처음부터 개인정보 보호를 내장하고 전일(all-day) 사람들을 도울 수 있는 신기술을 개발하는 데 집중하고 있다고 덧붙였습니다.</p>
+          
+          <p>마크 저커버그 CEO는 2026년 1분기 실적 발표 컨퍼런스 콜에서 "질문에 답변하는 수준을 넘어, 하루 종일 동행하며 일정을 기억하고 목표 달성을 돕는 개인 에이전트로 진화하는 안경을 보게 되어 매우 기쁘다"고 언급한 바 있습니다. 또한 올해 3월 블로그 게시물을 통해 Ray-Ban Meta 안경의 Meta AI가 매번 질문이 필요할 때만 작동하는 도구에서 더 연속적이고 즉각적인 전천후 비서로 변화할 것이라고 밝힌 바 있습니다.</p>
+          
+          <h3>추가 관련 소식</h3>
+          
+          <p>최근 보도된 추가 정보는 다음과 같습니다.</p>
+          
+          <ul>
+<li>Meta 스마트 글래스에서 LED 표시등이 훼손될 경우 카메라 자동 차단 기능 도입</li>
+<li>Meta AI 안경의 '대화 강화' 기능은 월 3시간 무료 제공되며, 추가 사용 시 19.99달러의 구독료 발생</li>
+<li>약 5,000만 대 이상의 기기에 영향을 미치는 안면 인식 관련 코드 포함 이슈</li>
+</ul>
+          
+          <h3>총평</h3>
+          
+          <p>Meta는 실시간 오디오 및 이미지 데이터를 활용하는 '슈퍼 센스' 기능을 탑재한 AI 스마트 글래스를 개발하며 기술적 편의성과 개인정보 보호 사이의 균형을 모색하고 있습니다. 기존 제품에서 발생한 안면 인식 코드 포함 등 여러 논란을 해결하며, 최종적으로는 사용자의 일상을 돕는 전천후 개인 에이전트로 진화하는 것을 목표로 하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Meta 开发“超级感知”AI 智能眼镜原型</h3>
+<p>Meta 正在研发内部称为“超级感知”（Super Perception）的 AI 智能眼镜原型。该功能旨在提供更深度的交互体验，并计划通过 OTA 软件更新推送到已发售的智能眼镜上。</p>
+<ul>
+<li>支持始终开启的音频录制。</li>
+<li>每隔几秒自动拍照，便于用户向 AI 查询相关的音频与图像内容。</li>
+<li>考虑仅提取元数据上传至服务器以降低隐私风险。</li>
+</ul>
+          
+          <h3>隐私策略与 LED 指示灯争议</h3>
+<p>Meta 内部正就“超级感知”功能中的录制指示灯（LED）问题进行权衡。公司认为，若 LED 长时间闪烁，旁观者可能会产生习惯性忽略，从而降低对被拍摄的警惕感。</p>
+<p>为了应对相关风险，Meta 已采取以下措施：</p>
+<ul>
+<li>在“AI 功能”使用期间保持 LED 指示灯关闭。</li>
+<li>推出更新：若检测到 LED 指示灯遭到物理破坏，摄像头将自动被禁用。</li>
+</ul>
+          
+          <h3>产品愿景与历史争议</h3>
+<p>Mark Zuckerberg 表示希望智能眼镜能进化为全天候的个人代理。然而，Ray-Ban Meta 曾多次陷入隐私争议，包括：</p>
+<ul>
+<li>在系统中发现并随后移除了未发布的面部识别系统代码。</li>
+<li>存在第三方提供付费服务专门移除硬件上的 LED 指示灯。</li>
+</ul>
+          
+          <h3>功能订阅与费用</h3>
+<p>针对“对话增强”等特定功能，Meta 采取了分级收费模式：</p>
+<ul>
+<li>每月提供 3 小时的免费额度。</li>
+<li>超出部分需支付 19.99 美元的月度订阅费用。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Meta 正通过“超级感知”功能推动智能眼镜向全天候 AI 助理进化，但此举引发了关于录制指示灯和数据隐私的广泛争议。公司在追求技术创新的同时，正试图通过元数据处理、硬件保护机制及订阅模式来平衡用户体验与隐私安全。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>新技術の開発</h3>
+          
+          <p>ITホームの7月9日の報道によると、英フィナンシャル・タイムス（Financial Times）は、Metaが「Super Sense」と呼ばれるAIスマートグラスのプロトタイプを開発中であると報じました。このデバイスはオーディオ録音を常時オンにし、数秒ごとに自動で写真を撮影することで、ユーザーが周囲の音声や画像の内容についてAIに質問できるようにする機能を備えています。</p>
+          
+          <p>複数の関係者によると、Metaの経営陣は「Super Sense」機能を有効にする際、フレームのLED録画インジケーターを点灯させない計画であるとされています。これは、周囲の人がデバイスから情報を収集されていることに気づきにくくするための措置です。</p>
+          
+          <p>この「Super Sense」機能は、将来的なOTAソフトウェアアップデートを通じて、すでに発売されているMetaスマートグラスにも適用される可能性があります。Meta内部で検討されている案の一つは、元の映像や音声をMetaが保存またはユーザーに提供するのではなく、音声および映像からメタデータのみを抽出してサーバーにアップロードし、Meta AIが照会できるようにすることです。支持派はこの手法がプライバシーのリスクを低減できると主張しています。同時に、社内では収集されたデータを自社のAIモデルの学習に活用するかどうかも議論されています。</p>
+          
+          <h3>プライバシーと論争</h3>
+          
+          <p>LEDインジケーターの維持に関するMetaの公式な説明があります。同社は2025年のポリシー文書において、LEDが長時間点滅し続けると人々が慣れてしまい、周囲で撮影が行われていることへの警戒心が薄れる可能性があると述べています。そのため、ユーザーが直接写真や動画を保存する「能動的な撮影」の際にはLEDを維持し、「AI機能」を使用する間はオフにする方針です。</p>
+          
+          <p>また、ITホームはMetaが今週火曜日にアップデートを発表したと報じました。このアップデートには、スマートグラスのLEDインジケーターが損傷していることを検知した場合にカメラを自動的に無効化する機能が含まれています。</p>
+          
+          <p>従来のRay-Ban Metaは、これまで何度もプライバシーに関する論争に巻き込まれてきました。今年2月、ケニアの税関職員がメディアに対し、「ユーザーが性行為やトイレを利用している場面など、デバイスが撮影した露骨なコンテンツを確認しなければならなかった」と明らかにしました。また、先月Wired誌はMetaスマートグラスプラットフォーム内に、まだリリースされていない顔認識システムコードが含まれているのを発見し、同社はその後にこれを除去しました。さらに、第三者がLEDインジケーターを物理的に取り除く有料カスタムサービスを提供していることも報じられています。</p>
+          
+          <h3>公式な立場とビジョン</h3>
+          
+          <p>Metaの広報担当者デーブ・アーノルド（Dave Arnold）はThe Vergeへの声明で、「内部プロトタイプについては言及できないが、着用者と周囲の人の両方から愛される製品を作るために最善を尽くしている」と述べました。彼はさらに、最初からプライバシーを内蔵し、一日中（all-day）人々をサポートする新技術の開発に注力していると付け加えました。</p>
+          
+          <p>マーク・ザッカーバーグCEOは2026年第1四半期の決算発表コールで、「質問に答えるレベルを超え、一日中同行してスケジュールを記憶し、目標達成をサポートするパーソナルエージェントへと進化する眼鏡を見るのが非常に嬉しい」と述べています。また、今年3月のブログ投稿を通じて、Ray-Ban MetaのMeta AIが単に質問が必要な時だけ動作するツールから、より継続的で即座なオールウェザー・アシスタントへと変化していくことを明らかにしています。</p>
+          
+          <h3>追加関連情報</h3>
+          
+          <p>最近報じられた追加情報は以下の通りです。</p>
+          
+          <ul>
+<li>LEDインジケーターが損傷した場合のカメラ自動遮断機能の導入</li>
+<li>Meta AI眼鏡の「会話強化」機能は月3時間まで無料で提供され、それ以上の使用には19.99ドルのサブスクリプション料金が発生</li>
+<li>約5,000万台以上のデバイスに影響を与える顔認識関連コードの混入問題</li>
+</ul>
+          
+          <h3>まとめ</h3>
+          
+          <p>Metaは、リアルタイムのオーディオおよび画像データを利用する「Super Sense」機能を搭載したAIスマートグラスを開発しており、利便性とプライバシーのバランスを模索しています。過去の顔認識コードの混入などの問題を解決しながら、最終的にはユーザーの日常をサポートするオールウェザーなパーソナルエージェントへの進化を目指しています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>New Technology Development</h3>
+          
+          <p>According to a report by IT Home on July 9, the Financial Times revealed that Meta is internally developing an AI smart glasses prototype dubbed "Super Sense." This device features always-on audio recording and automatically captures photos every few seconds, allowing users to ask the AI questions regarding the captured audio and visual content.</p>
+          
+          <p>According to several sources, Meta executives plan to keep the LED recording indicator on the frames turned off when the "Super Sense" feature is active. This is intended to make it harder for people nearby to realize that information is being collected by the device.</p>
+          
+          <p>There is a possibility that these "Super Sense" features could be deployed to already released Meta smart glasses via future OTA software updates. One of the methods being discussed internally involves extracting only metadata from audio and video files—rather than storing or providing raw media to the user—and uploading it to the server for Meta AI to process. Proponents argue that this method can reduce privacy risks. Simultaneously, the company is debating whether data collected by the glasses should be used to train its own AI models.</p>
+          
+          <h3>Privacy and Controversy</h3>
+          
+          <p>Meta has issued a public explanation regarding the status of the LED indicator. In a 2025 policy document, the company stated that if an LED flashes for long periods, people may become accustomed to it, leading to a decreased sense of caution regarding whether photos or videos are being recorded. Consequently, the company plans to keep the LED on during "active filming" (where users manually save photos/videos) but keep it off while using "AI features."</p>
+          
+          <p>Additionally, IT Home reported that Meta announced an update this past Tuesday. This update includes a feature that automatically disables the camera if the device detects that the LED indicator has been tampered with or damaged.</p>
+          
+          <p>The existing Ray-Ban Meta glasses have faced several privacy controversies. In February of this year, a customs officer in Kenya told media outlets that they had to review explicit content captured by the glasses, including scenes of people using restrooms or engaging in sexual acts. Furthermore, Wired magazine discovered code for an as-yet-unreleased facial recognition system within the Meta smart glasses platform last month, which the company subsequently removed. It has also been reported that third-party services are offering paid modifications to physically remove the LED indicator from the glasses.</p>
+          
+          <h3>Official Stance and Vision</h3>
+          
+          <p>Meta spokesperson Dave Arnold stated in a statement to The Verge, "While we cannot comment on internal prototypes, we are committed to creating products that are loved by both the wearer and those around them." He added that the company is focused on developing new technologies that are privacy-centric from the start and can assist people throughout the day.</p>
+          
+          <p>In a Q1 2026 earnings call, CEO Mark Zuckerberg expressed excitement about glasses evolving beyond just answering questions into "personal agents" that accompany users all day to remember schedules and help achieve goals. Furthermore, in a blog post in March, he stated that Meta AI on Ray-Ban Meta glasses would transition from a tool that only operates when prompted to a more continuous and immediate "all-around assistant."</p>
+          
+          <h3>Additional Related News</h3>
+          
+          <p>The following additional information was recently reported:</p>
+          
+          <ul>
+<li>Introduction of an automatic camera shutdown feature if the LED indicator is damaged on Meta smart glasses.</li>
+<li>The 'Conversation Enhancement' feature for Meta AI glasses is provided free for 3 hours per month, with a subscription fee of $19.99 for additional use.</li>
+<li>An issue involving the inclusion of facial recognition-related code affecting over 50 million devices.</li>
+</ul>
+          
+          <h3>Summary</h3>
+          
+          <p>Meta is developing "Super Sense" to integrate real-time audio and image data into its smart glasses, aiming to balance technological convenience with privacy concerns. The company aims to evolve these devices from simple interactive tools into proactive personal assistants that support users throughout their daily lives while addressing ongoing issues like facial recognition code and LED indicator visibility.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">쉬운 IT</div>
+                <div class="caption-lang" data-lang="en">IT Made Easy</div>
+                <div class="caption-lang" data-lang="ja">ITは簡単</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Meta는 매 순간의 장면을 기록할 수 있는 &#39;슈퍼 센싱&#39; 인공지능 안경을 테스트하고 있습니다.</div>
+                <div class="caption-lang" data-lang="en">Meta is testing &#34;super-sensing&#34; AI glasses that can record every moment.</div>
+                <div class="caption-lang" data-lang="ja">Metaは、あらゆる瞬間を記録できる「スーパーセンシング」AIメガネをテスト中。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">ft.com 출처</div>
+                <div class="caption-lang" data-lang="en">From ft.com</div>
+                <div class="caption-lang" data-lang="ja">ft.comより</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오후 12:10 · 2026년 7월 8일 · 721 조회</div>
+                <div class="caption-lang" data-lang="en">12:10 PM · July 8, 2026 · 721 Views</div>
+                <div class="caption-lang" data-lang="ja">午後12:10 · 2026年7月8日 · 721 閲覧</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/974/288.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
