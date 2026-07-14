@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 상탕(SenseTime), 이해 및 생성 통합 비전 거대 모델 SenseNova-Vision 공개... Vision Banana 능가</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="상탕(SenseTime), 이해 및 생성 통합 비전 거대 모델 SenseNova-Vision 공개... Vision Banana 능가">
+  <meta name="title-zh" content="商汤发布并开源 SenseNova-Vision 理解生成统一视觉大模型，能力超越 Vision Banana">
+  <meta name="title-ja" content="商湯が、理解と生成を統合した視覚系大規模モデル「SenseNova-Vision」を発表・オープンソース化。その能力はVision Bananaを上回る。">
+  <meta name="title-en" content="SenseTime releases and open-sources SenseNova-Vision, a unified vision large model for understanding and generation that outperforms Vision Banana.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="상탕(SenseTime), 이해 및 생성 통합 비전 거대 모델 SenseNova-Vision 공개... Vision Banana 능가" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="상탕(SenseTime), 이해 및 생성 통합 비전 거대 모델 SenseNova-Vision 공개... Vision Banana 능가"
+            data-zh="商汤发布并开源 SenseNova-Vision 理解生成统一视觉大模型，能力超越 Vision Banana"
+            data-ja="商湯が、理解と生成を統合した視覚系大規模モデル「SenseNova-Vision」を発表・オープンソース化。その能力はVision Bananaを上回る。"
+            data-en="SenseTime releases and open-sources SenseNova-Vision, a unified vision large model for understanding and generation that outperforms Vision Banana.">상탕(SenseTime), 이해 및 생성 통합 비전 거대 모델 SenseNova-Vision 공개... Vision Banana 능가</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-14
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>모델 개요</h3>
+          
+          <p>SenseTime은 오늘 이해 및 생성 기능이 통합된 Vision 대형 모델인 SenseNova-Vision을 발표하고 전체 소스 코드를 공개했습니다. 이는 SenseNova 대형 모델 생태계에서 시각 능력을 한 단계 업그레이드하는 중요한 변화입니다.</p>
+          
+          <p>SenseTime에 따르면, 기존의 "통합 시각"은 주로 탐지, 분할, 깊이 예측 등 여러 전문 모델을 결합한 형태였으며 본질적으로 파편화되어 있었습니다. SenseNova-Vision의 핵심 혁신은 시각 기능을 범용 기초 모델의 고유 능력으로 만들어 대형 모델 체계에 완전히 통합한 것입니다. 이를 통해 객체 탐지, 이미지 분할, 깊이 예측, 3D 재구성 등 모든 클래식 시각 작업이 원천적으로 통합되었습니다.</p>
+          
+          <h3>주요 성능 평가</h3>
+          
+          <p>여러 평가에서 SenseNova-Vision은 단일 모델로서 네 가지 핵심 시각 분야에서 우수한 성적을 거두었으며, 각 분야의 전용 "전문 모델"과 대등하거나 이를 능가하는 성능을 보여주었습니다.</p>
+          
+          <ul>
+<li>구조화된 시각 이해: 객체 탐지, 지칭 탐지(Referring), OCR, 핵심 포인트 위치 파악 등에서 유사한 유형의 범용 모델을 압도하며, 특히 밀집된 작은 목표 탐지 및 롱테일 카테고리 인식과 같은 복잡한 시나리오에서 뛰어난 성능을 보였습니다.</li>
+<li>밀집 기하 예측: 깊이 추정 및 표면 법선(Surface Normal) 추정 정확도가 기하 전용 모델 수준에 도달했으며, 실내외 다양한 환경에서 높은 안정성을 유지했습니다.</li>
+<li>분할 능력: 일반 분할, 추론 분할, 상호작용 분할 등을 포함하며, 강력한 멀티모달 이해력을 바탕으로 추론 분할(Reasoning Segmentation) 및 대화형 분할(GCG Segmentation)에서 뛰어난 성능을 입증했습니다.</li>
+<li>다각도 3D 기하: 단일 모델만으로 고품질의 다각도 포인트 클라우드 재구성 및 카메라 포즈 추정을 수행하며, 범용 시각 경로 중 선도적인 위치를 차지했습니다.</li>
+</ul>
+          
+          <h3>비교 분석</h3>
+          
+          <p>다른 모델과의 비교 결과는 다음과 같습니다.</p>
+          
+          <p>의미 중심 모델(Youtu-VL 등)과 비교했을 때, SenseNova-Vision은 탐지, 분할, 깊이 등 세부 사항 요구치가 높은 시각 작업에서 압도적인 우위를 점했습니다.</p>
+          
+          <p>생성 중심 모델(Vision Banana 등)과 비교했을 때, 다음과 같은 세대적 우위를 보여주었습니다.</p>
+          
+          <ul>
+<li>핵심 지표 초과: 권위 있는 평가의 핵심 대결에서 SenseNova-Vision은 대부분의 지표에서 Vision Banana를 능가했습니다.</li>
+<li>작업 능력 증대 및 전체 오픈 소스: Vision Banana가 4가지 핵심 분야 중 2개 유형만 처리할 수 있는 반면, SenseNova-Vision은 구조적 이해, 밀집 기하, 파노라마 분할, 다각도 3D 등 모든 작업을 동시에 수행하며 더 강력한 멀티태스크 일반화 능력을 보여주었습니다. 또한 모델과 데이터 모두를 공개했습니다.</li>
+</ul>
+          
+          <h3>데이터 및 향후 계획</h3>
+          
+          <p>SenseTime은 5,000만 개의 샘플을 포함하는 시각 명령어 데이터셋인 SenseNova-Vision Corpus-50M을 함께 공개했습니다.</p>
+          
+          <p>향후 SenseTime은 SenseNova-Vision의 핵심 기술을 SenseNova U 시리즈 대형 모델에 전면 통합할 계획입니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>SenseNova-Vision은 시각 기능을 범용 기초 모델의 고유 능력으로 통합하여 객체 탐지, 분할, 3D 재구성 등 다양한 시각 작업을 단일 모델로 수행할 수 있게 합니다. 기존 전문 모델이나 다른 생성/의미 중심 모델들과 비교해 우수한 성능과 확장성을 입증했으며, 관련 데이터셋을 포함한 모델과 데이터를 모두 공개했습니다.</p
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>模型发布与核心理念</h3>
+<p>商汤科技正式开源SenseNova-Vision，这是其日日新大模型体系的重要视觉能力升级。不同于以往将多个专家模型打包封装的“统一视觉”，SenseNova-Vision 的核心变革在于让视觉成为通用基础模型的原生能力，实现了目标检测、图像分割、深度预测及3D重建等任务的原生统一。</p>
+          
+          <h3>核心功能与技术优势</h3>
+<p>SenseNova-Vision 以“单模型”在四个核心领域展现出领先于专用“专家模型”的性能：</p>
+<ul>
+<li><strong>结构化视觉理解：</strong> 在目标检测、指代检测（Referring）、OCR、关键点定位等任务上全面领先，尤其在稠密小目标检测和长尾类别识别场景表现突出。</li>
+<li><strong>稠密几何预测：</strong> 深度估计与表面法向（Surface Normal）估计精度达到专业模型水准，具备极高的稳定性。</li>
+<li><strong>分割能力：</strong> 支持通用分割、推理分割及交互式分割，在推理分割（Reasoning Segmentation）与对话式分割（GCG Segmentation）中表现优异。</li>
+<li><strong>多视角 3D 几何：</strong> 单模型即可完成高质量的多视角点云重建与相机位姿估计。</li>
+</ul>
+          
+          <h3>竞品对比与开源资源</h3>
+<p>在横向对比中，SenseNova-Vision 在要求极高的细节任务上领先于语义导向模型（如 Youtu-VL），并展现出比生成导向模型（如 Vision Banana）更强的多任务泛化实力。此外，商汤同步开源了包含5000万条样本的视觉指令语料库SenseNova-Vision Corpus-50M，并将相关技术融入到日日新 U 系列大模型中。</p>
+          
+          <h3>总结</h3>
+<p>商汤科技发布的SenseNova-Vision是一个将多种复杂视觉任务整合为原生能力的统一视觉大模型。该模型在结构化理解、几何预测、分割及3D重建等多个维度均表现出色，并配套开源了包含5000万条样本的语料库。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>モデル概要</h3>
+          
+          <p>SenseTimeは本日、理解と生成機能を統合したVision大規模モデル「SenseNova-Vision」を発表し、全ソースコードを公開しました。これはSenseNovaモデルエコシステムにおいて、視覚能力を次なる段階へと引き上げる重要な進化となります。</p>
+          
+          <p>SenseTimeによると、従来の「統合された視覚」は主に検出、セグメンテーション、深度予測など複数の専門モデルを組み合わせたものであり、本質的に断片化されていました。SenseNova-Visionの核心的な革新は、視覚機能を汎用基礎モデル固有の能力として構築し、大規模モデル体系に完全に統合したことにあります。これにより、物体検出、画像セグメンテーション、深度予測、3D再構成など、あらゆる古典的な視覚タスクが根本的に統合されました。</p>
+          
+          <h3>主要な性能評価</h3>
+          
+          <p>複数の評価において、SenseNova-Visionは単一モデルとして4つの主要な視覚分野で優れた成績を収め、各分野の専用「専門モデル」と同等、あるいはそれを上回る性能を示しました。</p>
+          
+          <ul>
+<li>構造化された視覚理解：物体検出、リファレンス（Referring）、OCR、キーポイント位置特定などにおいて、同種の汎用モデルを圧倒し、特に密集した小さなターゲットの検出やロングテールカテゴリの認識といった複雑なシナリオで優れた性能を発揮しました。</li>
+<li>密度の高い幾何予測：深度推定およびサーフェスノーマル（Surface Normal）推測の精度が幾何専用モデルのレベルに達し、屋内・屋外の多様な環境で高い安定性を維持しました。</li>
+<li>セグメンテーション能力：一般的なセグメンテーションに加え、強力なマルチモーダル理解に基づいた推論セグメンテーション（Reasoning Segmentation）や対話型セグメンテーション（GCG Segmentation）において優れた性能を実証しました。</li>
+<li>多角的な3D幾何学：単一モデルのみで高品質な多角ポイントクラウド再構成およびカメラポーズ推定を実行し、汎用視覚経路の中で先導的な位置を占めています。</li>
+</ul>
+          
+          <h3>比較分析</h3>
+          
+          <p>他モデルとの比較結果は以下の通りです。</p>
+          
+          <p>意味中心のモデル（Youtu-VLなど）と比較した際、SenseNova-Visionは検出、セグメンテーション、深度など、詳細な要求レベルの高い視覚タスクにおいて圧倒的な優位性を確立しました。</p>
+          
+          <p>生成中心のモデル（Vision Bananaなど）と比較した際、以下のような次世代の優位性を示しました。</p>
+          
+          <ul>
+<li>主要指標の超過：権威ある評価における主要な対決において、SenseNova-Visionはほとんどの指標でVision Bananaを上回りました。</li>
+<li>タスク能力の拡大と完全オープンソース：Vision Bananaが4つの主要分野のうち2つのタイプしか処理できないのに対し、SenseNova-Visionは構造的理解、密度の高い幾何学、パノラマセグメンテーション、多角的な3Dなど、すべてのタスクを同時に実行でき、より強力なマルチタスク汎用能力を示しました。さらに、モデルとデータの両方を公開しています。</li>
+</ul>
+          
+          <h3>データおよび今後の計画</h3>
+          
+          <p>SenseTimeは、5,000万のサンプルを含む視覚命令データセット「SenseNova-Vision Corpus-50M」を同時に公開しました。</p>
+          
+          <p>今後、SenseTimeはSenseNova-Visionの核心技術をSenseNova Uシリーズの大規模モデルに全面的に統合する計画です。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>SenseNova-Visionは、視覚機能を汎用基礎モデルの固有能力として統合することで、物体検出や3D再構成など多岐にわたる視覚タスクを単一のモデルで実行可能にします。既存の専門モデルや他社の生成・意味中心モデルと比較しても優れた性能と拡張性を証明しており、関連するデータセットを含む全ソースコードも公開されました。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Model Overview</h3>
+<p>SenseTime has announced SenseNova-Vision, a vision large model that integrates both understanding and generation capabilities, and has released its full source code. This marks a significant advancement in the visual capabilities of the SenseNova large model ecosystem.</p>
+<p>According to SenseTime, previous "integrated vision" approaches were essentially fragmented, relying on the combination of multiple specialized models for tasks such as detection, segmentation, and depth prediction. The core innovation of SenseNova-Vision is the integration of these visual functions as inherent capabilities of a general foundation model. This allows it to natively perform all classic vision tasks, including object detection, image segmentation, depth prediction, and 3D reconstruction.</p>
+          
+          <h3>Key Performance Evaluation</h3>
+<p>In various evaluations, SenseNova-Vision performed exceptionally well across four core vision fields as a single model, matching or even surpassing the performance of "specialized models" in each respective area.</p>
+<ul>
+<li><strong>Structured Vision Understanding:</strong> It outperformed similar general models in object detection, referring, OCR, and keypoint localization, demonstrating superior performance in complex scenarios such as dense small target detection and long-tail category recognition.</li>
+<li><strong>Dense Geometry Prediction:</strong> Its accuracy in depth estimation and surface normal prediction reached the level of geometry-specific models, maintaining high stability across various indoor and outdoor environments.</li>
+<li><strong>Segmentation Capabilities:</strong> Based on powerful multimodal understanding, it demonstrated outstanding performance in general segmentation, reasoning segmentation, and interactive segmentation (GCG Segmentation).</li>
+<li><strong>Multi-angle 3D Geometry:</strong> As a single model, it performed high-quality multi-view point cloud reconstruction and camera pose estimation, taking a leading position among general vision paths.</li>
+</ul>
+          
+          <h3>Comparative Analysis</h3>
+<p>The results of comparisons with other models are as follows:</p>
+<p>Compared to meaning-centric models (such as Youtu-VL), SenseNova-Vision holds a significant advantage in vision tasks requiring high levels of detail, such as detection, segmentation, and depth.</p>
+<p>Compared to generation-centric models (such as Vision Banana), it demonstrates several generational advantages:</p>
+<ul>
+<li><strong>Exceeding Key Metrics:</strong> In authoritative evaluations, SenseNova-Vision outperformed Vision Banana across the majority of key metrics.</li>
+<li><strong>Expanded Capabilities and Full Open Source:</strong> While Vision Banana can only handle two out of the four core areas, SenseNova-Vision performs all tasks simultaneously—including structural understanding, dense geometry, panoramic segmentation, and multi-angle 3D—while providing both model weights and data as open source.</li>
+</ul>
+          
+          <h3>Data and Future Plans</h3>
+<p>SenseTime also released the "SenseNova-Vision Corpus-50M," a vision instruction dataset containing 50 million samples.</p>
+<p>Moving forward, SenseTime plans to fully integrate the core technologies of SenseNova-Vision into the SenseNova U series large models.</p>
+          
+          <h3>Summary</h3>
+<p>SenseNova-Vision is a unified vision large model that integrates detection, segmentation, and 3D reconstruction as inherent capabilities rather than using fragmented specialized modules. It outperforms both meaning-centric and generation-centric models in high-detail tasks while offering full open-source access to its weights and a massive 50-million sample dataset.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.png" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.png" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/975/952.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

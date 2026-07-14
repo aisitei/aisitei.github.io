@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 중국 AI 기업, 세계 최초의 에이전틱 스마트폰 출시</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="중국 AI 기업, 세계 최초의 에이전틱 스마트폰 출시">
+  <meta name="title-zh" content="중국 AI 기업, 세계 최초의 에이전틱 스마트폰 출시">
+  <meta name="title-ja" content="중국 AI 기업, 세계 최초의 에이전틱 스마트폰 출시">
+  <meta name="title-en" content="Chinese AI company launches world’s first agentic smartphone">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="중국 AI 기업, 세계 최초의 에이전틱 스마트폰 출시" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="중국 AI 기업, 세계 최초의 에이전틱 스마트폰 출시"
+            data-zh="중국 AI 기업, 세계 최초의 에이전틱 스마트폰 출시"
+            data-ja="중국 AI 기업, 세계 최초의 에이전틱 스마트폰 출시"
+            data-en="Chinese AI company launches world’s first agentic smartphone">중국 AI 기업, 세계 최초의 에이전틱 스마트폰 출시</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-14
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>현재 스마트폰 AI의 한계와 StepX Neo의 등장</h3>
+          
+          <p>오늘날 우리가 스마트폰에서 사용하는 대부분의 AI 기능은 사용자가 직접 요청할 때만 작동하는 수준에 머물러 있습니다. 메뉴 깊숙이 숨겨진 번역 도구, 특정 앱을 먼저 실행해야만 작동하는 사진 편집기, 혹은 질문에 답은 하지만 실제 행동으로 이어지지 않는 챗봇이 그 예입니다. 즉, 한 번에 하나의 작은 작업만을 수행하기 위해 사용자가 일일이 요청해야 하는 방식입니다.</p>
+          
+          <p>2023년 전직 Microsoft 직원들이 설립한 중국의 AI 기업 StepFun은 이러한 접근 방식이 스마트폰을 구축하는 올바른 방향이 아니라고 판단했습니다. 그들의 해답은 StepX Neo입니다. 이는 내장된 AI 에이전트가 스스로 멀티스텝(multi-step) 및 엔드투엔드(end-to-end) 작업을 처리하는 세계 최초의 대중용 에이전트 스마트폰입니다. 사용자는 반복적인 프롬프트를 입력하거나 별도의 앱을 열 필요가 없습니다.</p>
+          
+          <h3>StepX Neo를 차별화하는 핵심 요소</h3>
+          
+          <p>StepX Neo의 핵심은 전용 에이전트인 Step Amoo이며, 이는 기기의 커스텀 에이전트 운영체제인 Step AOS에 직접 내장되어 있습니다. Step Amoo는 일반적인 챗봇처럼 대화할 수 있는 봇으로, 모든 주요 작업에서 네트워크 연결 없이 오프라인 상태로 작동합니다.</p>
+          
+          <p>이 OS의 에이전트 기반 특성은 사용자의 단일 자연어 요청을 받아 앱, 웹 도구, 기기 내장 도구들을 결합하여 완성된 결과를 만들어내는 것을 의미합니다. 또한 시간이 지남에 따라 사용자의 선호도를 학습하므로, 과거 예약 기록을 바탕으로 반려동물 동반 항공편을 우선적으로 선택하거나 자주 가는 식당을 자동으로 예약하는 등의 기능을 수행합니다.</p>
+          
+          <p>해외 여행 시 StepX Neo는 32개 언어(지역 방언 포함)에 대해 실시간 대화, 문자 메시지, 전화 통화는 물론 거리의 표지판이나 식당 메뉴판, 박물관 포스터의 텍스트까지 번역할 수 있습니다.</p>
+          
+          <p>또한 셀룰러 신호가 없는 오지에서도 지역 교통편 일정 확인, 주변 이벤트 검색, 저장된 여행 일정 확인이 가능합니다. 빈번하게 여행하는 사용자를 위해 에이전트가 세관 양식을 자동으로 작성하고, 목적지의 비자 요구 사항을 알리며, 항공 상세 정보를 바탕으로 체크인 시간을 안내하는 기능도 제공합니다.</p>
+          
+          <h3>Step AOS와 에이전트 네이티브 경로</h3>
+          
+          <p>Step AOS는 StepFun이 '원자적 능력 엔진(atomic capability engine)'을 활용해 구축한 자체 에이전트 운영체제입니다. 이 엔진은 기기의 기능을 통신, 앱, 파일, 시스템 도구의 네 가지 그룹으로 분리하고 MCP 표준을 사용하여 에이전트가 작업을 완수하기 위해 이들을 자유롭게 조합할 수 있게 합니다. StepFun에 따르면 이 계층은 Android 위에 앱을 얹은 형태가 아니라 Android, Linux, RTOS의 요소들을 결합하여 새롭게 구축되었습니다.</p>
+          
+          <p>또한 Step AOS는 NUI라고 불리는 음성 및 시각 입력 레이어를 갖추고 있으며, 이는 사용자가 기기를 조작하는 방식에서 "원하는 것을 말하는" 방식으로의 전환을 목표로 합니다.</p>
+          
+          <p>에이전트의 신뢰성을 높이기 위해 세 가지 지원 시스템이 구축되었습니다.</p>
+          
+          <ul>
+<li>Memory: 사용자 데이터와 에이전트 데이터를 분리하는 두 영역 메모리 설정으로, 캡처-이해-보관 파이프라인을 거칩니다.</li>
+<li>Decision-making: 요청의 난이도에 따라 가벼운 요청은 빠르고 작은 모델로, 어려운 요청은 더 강력한 모델로 배분하는 계층적 의사결정 레이어입니다.</li>
+<li>Security: 신뢰 실행(trusted execution) 기반의 보안 프레임워크로, 전체 감사 추적과 필요한 시점에만 부여되고 즉시 회수되는 권한 관리, 실수에 대한 원터치 실행 취소 기능을 포함합니다.</li>
+</ul>
+          
+          <p>이 모든 기능은 모바일 기기의 연산 한계 내에서 구동되도록 설계된 파운데이션 모델인 Step Edge를 통해 작동합니다. Step Edge는 29개의 벤치마크에서 유사한 에지(edge) 모델들과 대등한 성능을 보여준다고 합니다.</p>
+          
+          <p>StepEdge는 StepFun이 2023년 4월부터 개발해 온 "1+N" 모델 라인업의 일부이며, StepX Neo는 이러한 모델 연구와 에지 AI, 그리고 하드웨어가 하나로 통합된 결과물입니다.</p>
+          
+          <p>실질적인 활용을 위해 StepFun은 Ctrip, Alipay, Didi, Meituan, WPS, CapCut과 파트너십을 맺고 여행, 결제, 차량 호출, 로컬 서비스, 사무 업무 및 콘텐츠 제작 분야의 통합을 완료했습니다. 이는 "에이전트 네이티브" 스마트폰이 단순히 약속만 하는 것이 아니라 실제로 차량 예약이나 비디오 편집을 끝까지 수행할 수 있는지 검증하는 시험대가 될 것입니다.</p>
+          
+          <p>현재 StepX의 출시 시기나 가격에 대한 구체적인 정보는 아직 공개되지 않았습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>StepX Neo는 단순한 기능 추가를 넘어, 스스로 판단하고 실행하는 '에이전트' 중심의 운영체제(Step AOS)를 탑재한 혁신적인 스마트폰입니다. 특히 오프라인 환경에서의 작동과 멀티스텝 작업 수행 능력을 통해 사용자 경험을 한 단계 끌어올리는 것을 목표로 합니다. 다양한 플랫폼과의 통합을 통해 실제 실생활에서 강력한 자동화 성능을 입증할 수 있을지 귀추가 주목됩니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Current Limitations of Smartphone AI and the Emergence of StepX Neo</h3>
+          
+          <p>Most AI features currently available on smartphones are limited to reactive functions that only activate when a user explicitly requests them. Examples include translation tools hidden deep within menus, photo editors that require specific apps to be opened first, or chatbots that provide answers but do not translate those responses into actual actions. In short, these systems require users to manually prompt the device for every small, individual task.</p>
+          
+          <p>StepFun, a Chinese AI company founded in 2023 by former Microsoft employees, determined that this approach is not the correct direction for smartphone development. Their solution is StepX Neo. It is touted as the world's first mass-market agent smartphone featuring an embedded AI agent capable of handling multi-step and end-to-end tasks independently. Users no longer need to input repetitive prompts or open separate applications to complete complex workflows.</p>
+          
+          <h3>Key Differentiators of StepX Neo</h3>
+          
+          <p>The core of StepX Neo is its dedicated agent, Step Amoo, which is integrated directly into the device's custom operating system, Step AOS. Unlike standard chatbots, Step Amoo functions as an interactive bot that operates offline for all primary tasks.</p>
+          
+          <p>The agent-based nature of this OS means it can take a single natural language request and combine apps, web tools, and built-in device tools to produce a finished result. Furthermore, the system learns user preferences over time; for example, it can prioritize pet-friendly flights based on past booking history or automatically book a reservation at a frequently visited restaurant.</p>
+          
+          <p>When traveling abroad, StepX Neo supports real-time translation for conversations, text messages, and phone calls across 32 languages (including regional dialects). It can also translate text found on street signs, restaurant menus, and museum posters.</p>
+          
+          <p>Even in remote areas without cellular signals, the device can check local transportation schedules, search for nearby events, and display saved travel itineraries. For frequent travelers, the agent provides features such as automatically filling out customs forms, notifying users of visa requirements at their destinations, and providing check-in times based on flight details.</p>
+          
+          <h3>Step AOS and Agent Native Path</h3>
+          
+          <p>Step AOS is a proprietary agent operating system built by StepFun using an "atomic capability engine." This engine categorizes device functions into four groups—communication, apps, files, and system tools—and utilizes the MCP standard to allow the agent to freely combine these elements to complete tasks. According to StepFun, this layer is not simply an app layer on top of Android but is reconstructed by combining elements from Android, Linux, and RTOS.</p>
+          
+          <p>Additionally, Step AOS features a Natural User Interface (NUI) consisting of voice and visual input layers, aiming to shift the user experience from "operating the device" to "stating what you want."</p>
+          
+          <p>To enhance agent reliability, three support systems have been established:</p>
+          
+          <ul>
+<li>Memory: A dual-zone memory configuration that separates user data from agent data through a capture-understand-store pipeline.</li>
+<li>Decision-making: A hierarchical decision-making layer that routes simple requests to fast, small models and complex tasks to more powerful models.</li>
+<li>Security: A trusted execution-based security framework including full audit trails, just-in-time permission management (granted only when needed and revoked immediately after), and a one-touch undo feature for errors.</li>
+</ul>
+          
+          <p>All these features operate through Step Edge, a foundation model specifically designed to run within the computational limits of mobile devices. Step Edge reportedly performs on par with similar edge models across 29 benchmarks.</p>
+          
+          <p>StepEdge is part of the "1+N" model lineup that StepFun has been developing since April 2023. StepX Neo represents the integration of this model research, edge AI, and hardware into a single product.</p>
+          
+          <p>To ensure practical utility, StepFun has established partnerships with Ctrip, Alipay, Didi, Meituan, WPS, and CapCut to complete integrations for travel, payments, ride-hailing, local services, office work, and content creation. This "agent-native" smartphone serves as a testing ground to prove that the device can actually complete tasks like booking a vehicle or editing a video from start to finish.</p>
+          
+          <p>Specific details regarding the release date and pricing of StepX have not yet been disclosed.</p>
+          
+          <h3>Summary</h3>
+<p>StepX Neo moves beyond simple feature additions by introducing Step AOS, an agent-centric operating system designed for multi-step, end-to-end task execution. By utilizing the Step Amoo agent and the Step Edge foundation model, the device aims to provide a seamless experience where complex tasks—including offline navigation and automated travel logistics—can be completed through single natural language commands.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>現在のスマートフォンAIの限界とStepX Neoの登場</h3>
+          
+          <p>現在、スマートフォンで利用可能なほとんどのAI機能は、ユーザーが直接リクエストした際にのみ動作するレベルに留まっています。メニューの奥深くに隠された翻訳ツールや、特定のアプリを起動しなければ機能しない写真編集機、あるいは質問には答えるものの実際の行動にはつながらないチャットボットなどがその例です。つまり、一度に一つの小さなタスクを実行するために、ユーザーが一つひとつ手動で操作を求める仕組みとなっています。</p>
+          
+          <p>2023年に元Microsoftの従業員らによって設立された中国のAI企業StepFunは、このようなアプローチはスマートフォンの構築における正しい方向ではないと判断しました。彼らが提示する解決策がStepX Neoです。これは、内蔵されたAIエージェントが自らマルチステップ（multi-step）およびエンドツーエンド（end-to-end）のタスクを処理する、世界初の普及型エージェントスマートフォンです。ユーザーは繰り返しのプロンプトを入力したり、別のアプリを開く必要がありません。</p>
+          
+          <h3>StepX Neoを差別化する核心要素</h3>
+          
+          <p>StepX Neoの核となるのは専用エージェントのStep Amooであり、これはデバイスのカスタムエージェントOSであるStep AOSに直接組み込まれています。Step Amooは一般的なチャットボットのように対話ができるボットであり、すべての主要なタスクにおいてネットワーク接続のないオフライン状態で動作します。</p>
+          
+          <p>このOSのエージェントベースの特性は、ユーザーの単一の自然言語によるリクエストを受け取り、アプリ、ウェブツール、デバイス内蔵ツールを組み合わせることで完成された結果を作り出すことを意味します。また、時間の経過とともにユーザーの好みを学習するため、過去の予約記録に基づいてペット同伴の航空便を優先的に選択したり、頻繁に行くレストランを自動的に予約したりするなどの機能を実行します。</p>
+          
+          <p>海外旅行時、StepX Neoは32の言語（地域方言を含む）に対して、リアルタイムの会話、テキストメッセージ、電話通話はもちろん、街の標識やレストランのメニュー、美術館のポスターのテキストまで翻訳することが可能です。</p>
+          
+          <p>さらに、セルラー信号のない人里離れた場所でも、現地の交通機関のスケジュール確認、周辺イベントの検索、保存された旅行日程の確認などが可能です。頻繁に旅行するユーザーのために、エージェントが税関申告書を自動的に作成し、目的地のビザ要件を通知し、航空便の詳細情報に基づいてチェックイン時間を案内する機能も提供します。</p>
+          
+          <h3>Step AOSとエージェント・ネイティブな経路</h3>
+          
+          <p>Step AOSは、StepFunが「原子能力エンジン（atomic capability engine）」を活用して構築した独自のエージェントOSです。このエンジンはデバイスの機能を通信、アプリ、ファイル、システムツールの4つのグループに分離し、MCP標準を使用してエージェントがタスクを完了するためにこれらを自由に組み合わせられるようにします。StepFunによると、このレイヤーはAndroidの上にアプリを載せた形ではなく、Android、Linux、RTOSの要素を組み合わせて新たに構築されたものです。</p>
+          
+          <p>また、Step AOSはNUIと呼ばれる音声および視覚入力レイヤーを備えており、これはユーザーがデバイスを操作する手法から「欲しいことを話す」方法への転換を目指しています。</p>
+          
+          <p>エージェントの信頼性を高めるため、3つのサポートシステムが構築されています。</p>
+          
+          <ul>
+<li>Memory：ユーザーデータとエージェントデータを分離する2つの領域メモリ設定により、キャプチャ・理解・保存のパイプラインを経由します。</li>
+<li>Decision-making：リクエストの難易度に応じて、軽いリクエストは高速で小型のモデルへ、難しいリクエストはより強力なモデルへと振り分ける階層的な意思決定レイヤーです。</li>
+<li>Security：信頼実行（trusted execution）に基づくセキュリティフレームワークで、完全な監査追跡、必要な時のみ付与され即座に回収される権限管理、ミスに対するワンタッチ実行取消機能が含まれます。</li>
+</ul>
+          
+          <p>これらのすべての機能は、モバイルデバイスの演算制限内で動作するように設計された基盤モデルであるStep Edgeを通じて動作します。Step Edgeは29のベンチマークにおいて、他のエッジ（edge）モデルと同等の性能を示しているとのことです。</p>
+          
+          <p>StepEdgeはStepFunが2023年4月から開発してきた「1+N」モデルラインナップの一部であり、StepX Neoはこれらのモデル研究とエッジAI、そしてハードウェアが一つに統合された成果物です。</p>
+          
+          <p>実用的な活用のため、StepFunはCtrip、Alipay、Didi、Meituan、WPS、CapCutとパートナーシップを締結し、旅行、決済、配車、ローカルサービス、事務作業、コンテンツ制作の分野における統合を完了しました。これは「エージェント・ネイティブ」スマートフォンが単に約束するだけでなく、実際に車両予約や動画編集を最後まで遂行できるかを検証する試験の場となるでしょう。</p>
+          
+          <p>現在、StepXの発売時期や価格に関する具体的な情報はまだ公開されていません。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>StepX Neoは、単なる機能追加を超え、自ら判断し実行する「エージェント」中心のOS（Step AOS）を搭載した革新的なスマートフォンです。オフライン環境での動作やマルチステップなタスク処理能力により、ユーザー体験を劇的に向上させることを目指しています。多様なプラットフォームとの連携を通じて、実生活における高度な自動化性能を証明できるか注目されます。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Current Limitations of Mobile AI and the Emergence of StepX Neo</h3>
+          
+          <p>Most AI features currently available on smartphones only function when a user explicitly requests them. Examples include translation tools buried deep in menus, photo editors that require specific apps to be opened first, or chatbots that provide answers but do not lead to actual actions. In other words, the current approach requires users to manually request every single small task.</p>
+          
+          <p>StepFun, a Chinese AI company founded in 2023 by former Microsoft employees, determined that this approach is not the correct direction for smartphone development. Their solution is StepX Neo. It is touted as the world's first consumer agent smartphone featuring an embedded AI agent capable of handling multi-step and end-to-end tasks autonomously. Users do not need to input repetitive prompts or open separate apps.</p>
+          
+          <h3>Key Differentiators of StepX Neo</h3>
+          
+          <p>The core of StepX Neo is its dedicated agent, Step Amoo, which is integrated directly into the device's custom agent operating system, Step AOS. Step Amoo functions as a conversational bot that operates offline for all major tasks without requiring a network connection.</p>
+          
+          <p>The agent-based nature of this OS means it can take a single natural language request from a user and produce a completed result by combining apps, web tools, and built-in system tools. Furthermore, it learns user preferences over time; for example, it can prioritize pet-friendly flights based on past booking history or automatically reserve tables at frequently visited restaurants.</p>
+          
+          <p>When traveling abroad, StepX Neo can provide real-time translation for conversations, text messages, and phone calls across 32 languages (including regional dialects). It can also translate text on street signs, restaurant menus, and museum posters.</p>
+          
+          <p>Even in remote areas without cellular signals, the device can check local transportation schedules, search for nearby events, and view saved itineraries. For frequent travelers, the agent can automatically fill out customs forms, notify users of visa requirements at their destinations, and provide check-in times based on flight details.</p>
+          
+          <h3>Step AOS and the Agent Native Path</h3>
+          
+          <p>Step AOS is a proprietary agent operating system built by StepFun using an "atomic capability engine." This engine categorizes device functions into four groups—communication, apps, files, and system tools—and utilizes the MCP standard to allow agents to freely combine these elements to complete tasks. According to StepFun, this layer was constructed by combining elements of Android, Linux, and RTOS rather than simply layering apps on top of Android.</p>
+          
+          <p>Additionally, Step AOS features a voice and visual input layer called NUI, which aims to shift the user interaction model from "operating the device" to "saying what you want."</p>
+          
+          <p>Three support systems were established to enhance the reliability of the agent:</p>
+          
+          <ul>
+<li>Memory: A two-zone memory configuration that separates user data from agent data, utilizing a capture-understand-store pipeline.</li>
+<li>Decision-making: A hierarchical decision-making layer that allocates lighter tasks to faster, smaller models and complex tasks to more powerful models.</li>
+<li>Security: A security framework based on trusted execution, featuring full audit trails, just-in-time permission management (granted only when needed and revoked immediately), and a one-touch undo function for mistakes.</li>
+</ul>
+          
+          <p>All these features operate through Step Edge, a foundation model designed to run within the computational limits of mobile devices. It is reported that Step Edge performs on par with similar edge models across 29 benchmarks.</p>
+          
+          <p>StepEdge is part of the "1+N" model lineup that StepFun has been developing since April 2023, and StepX Neo is the result of integrating this research, edge AI, and hardware into a single product.</p>
+          
+          <p>For practical application, StepFun has established partnerships with Ctrip, Alipay, Didi, Meituan, WPS, and CapCut to complete integrations for travel, payments, ride-hailing, local services, office work, and content creation. This will serve as a proving ground to see if an "agent native" smartphone can actually complete tasks like booking a vehicle or editing a video from start to finish.</p>
+          
+          <p>Specific information regarding the release date and pricing of StepX has not yet been disclosed.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>StepX Neo is an innovative smartphone featuring Step AOS, an agent-centric operating system that moves beyond simple feature additions to provide autonomous multi-step task execution. By utilizing the Step Amoo agent and the Step Edge foundation model, it aims to significantly enhance user experience through offline capabilities and deep integration with third-party services. The device serves as a practical testbed for "agent native" technology in real-world scenarios like travel and content creation.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/07/13/chinese-ai-company-launches-worlds-first-agentic-smartphone/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
