@@ -23,7 +23,7 @@ _llm_client = None
 # ── 단어장 로딩 ──────────────────────────────────────────────────────────────
 
 def _load_glossary() -> dict[str, str]:
-    """glossary.json에서 모든 카테고리의 단어를 하나의 dict로 합칩니다."""
+    """glossary.json에서 모든 카테고리(ko_only 제외)의 단어를 하나의 dict로 합칩니다."""
     glossary_path = Path(__file__).parent / "glossary.json"
     if not glossary_path.exists():
         return {}
@@ -31,7 +31,7 @@ def _load_glossary() -> dict[str, str]:
         data = json.loads(glossary_path.read_text(encoding="utf-8"))
         merged = {}
         for key, section in data.items():
-            if key.startswith("_"):
+            if key.startswith("_") or key == "ko_only":
                 continue
             if isinstance(section, dict):
                 merged.update(section)
@@ -41,11 +41,39 @@ def _load_glossary() -> dict[str, str]:
         return {}
 
 
+def _load_glossary_ko_only() -> dict[str, str]:
+    """glossary.json의 ko_only 섹션만 로딩합니다.
+
+    한국어 출력에서만 적용되는 예외 표기(예: 宏碁/Acer → 에이서).
+    다른 언어(en/ja/zh)는 브랜드 원문 표기를 유지해야 하므로 이 표는
+    한국어 출력 경로에만 별도로 적용한다.
+    """
+    glossary_path = Path(__file__).parent / "glossary.json"
+    if not glossary_path.exists():
+        return {}
+    try:
+        data = json.loads(glossary_path.read_text(encoding="utf-8"))
+        section = data.get("ko_only", {})
+        return section if isinstance(section, dict) else {}
+    except Exception as e:
+        logger.warning(f"glossary.json(ko_only) 로딩 실패: {e}")
+        return {}
+
+
 _GLOSSARY: dict[str, str] = _load_glossary()
+_GLOSSARY_KO_ONLY: dict[str, str] = _load_glossary_ko_only()
 
 
-def apply_glossary(text: str) -> str:
-    """소스 텍스트에서 단어장의 중국어 용어를 대상 표현으로 치환합니다."""
+def apply_glossary(text: str, ko: bool = False) -> str:
+    """소스 텍스트에서 단어장의 중국어 용어를 대상 표현으로 치환합니다.
+
+    ko=True면 한국어 출력 전용 예외 표기(ko_only)를 universal 단어장보다
+    먼저 적용해서, 예를 들어 宏碁가 universal 표기(Acer)로 먼저 바뀌기 전에
+    한국어 전용 표기(에이서)로 치환되도록 한다.
+    """
+    if ko and _GLOSSARY_KO_ONLY:
+        for src, dst in sorted(_GLOSSARY_KO_ONLY.items(), key=lambda x: -len(x[0])):
+            text = text.replace(src, dst)
     if not _GLOSSARY:
         return text
     # 긴 단어부터 먼저 치환 (부분 매칭 방지)
@@ -54,11 +82,17 @@ def apply_glossary(text: str) -> str:
     return text
 
 
-def _build_glossary_prompt() -> str:
-    """단어장을 시스템 프롬프트에 추가할 텍스트로 변환합니다."""
-    if not _GLOSSARY:
+def _build_glossary_prompt(ko: bool = False) -> str:
+    """단어장을 시스템 프롬프트에 추가할 텍스트로 변환합니다.
+
+    ko=True면 한국어 전용 예외 표기를 같은 소스 용어 기준으로 덮어써서 보여준다.
+    """
+    merged = dict(_GLOSSARY)
+    if ko:
+        merged.update(_GLOSSARY_KO_ONLY)
+    if not merged:
         return ""
-    lines = [f"- {src} → {dst}" for src, dst in sorted(_GLOSSARY.items())]
+    lines = [f"- {src} → {dst}" for src, dst in sorted(merged.items())]
     return "\n\n**고유명사 단어장 (반드시 준수)**:\n" + "\n".join(lines)
 
 
@@ -156,8 +190,8 @@ _TRANSLATE_SYSTEM_EN_PROMPT = (
 def translate_text(chinese_text: str, category: str = "") -> Optional[str]:
     if not chinese_text.strip():
         return ""
-    text = apply_glossary(chinese_text)
-    system = config.TRANSLATE_SYSTEM_PROMPT + _build_glossary_prompt()
+    text = apply_glossary(chinese_text, ko=True)
+    system = config.TRANSLATE_SYSTEM_PROMPT + _build_glossary_prompt(ko=True)
     if category == "phone_camera":
         system += config.DEEP_CAMERA_PROMPT_SUFFIX
     return _chat(
@@ -203,14 +237,14 @@ def translate_caption(chinese_text: str) -> Optional[str]:
     text = chinese_text.strip()
     if not text:
         return None
-    text = apply_glossary(text)
+    text = apply_glossary(text, ko=True)
 
     is_long = len(text) >= 60
     if is_long:
-        system = CAPTION_LONG_TRANSLATE_PROMPT + _build_glossary_prompt()
+        system = CAPTION_LONG_TRANSLATE_PROMPT + _build_glossary_prompt(ko=True)
         max_tokens = 16384  # thinking 모델 대응
     else:
-        system = CAPTION_TRANSLATE_PROMPT + _build_glossary_prompt()
+        system = CAPTION_TRANSLATE_PROMPT + _build_glossary_prompt(ko=True)
         max_tokens = 16384  # thinking 모델 대응
 
     out = _chat(system=system, user=text, temperature=0.1, max_tokens=max_tokens)
@@ -302,10 +336,10 @@ def _looks_untranslated(text: str) -> bool:
 def translate_title(title: str, category: str = "", source_lang: str = "zh") -> Optional[str]:
     if source_lang == "en":
         system = _TITLE_TRANSLATE_EN_PROMPT
-        user_text = title
+        user_text = apply_glossary(title, ko=True)
     else:
-        user_text = apply_glossary(title)
-        system = config.TITLE_TRANSLATE_PROMPT + _build_glossary_prompt()
+        user_text = apply_glossary(title, ko=True)
+        system = config.TITLE_TRANSLATE_PROMPT + _build_glossary_prompt(ko=True)
 
     result = _chat(
         system=system,
@@ -349,13 +383,13 @@ def translate_article(paragraphs: list[str], category: str = "", source_lang: st
         return []
 
     if source_lang == "en":
-        full_text = "\n\n".join(paragraphs)
+        full_text = apply_glossary("\n\n".join(paragraphs), ko=True)
         system = _TRANSLATE_SYSTEM_EN_PROMPT
         if category == "phone_camera":
             system += config.DEEP_CAMERA_PROMPT_SUFFIX
     else:
-        full_text = apply_glossary("\n\n".join(paragraphs))
-        system = config.TRANSLATE_SYSTEM_PROMPT + _build_glossary_prompt()
+        full_text = apply_glossary("\n\n".join(paragraphs), ko=True)
+        system = config.TRANSLATE_SYSTEM_PROMPT + _build_glossary_prompt(ko=True)
         if category == "phone_camera":
             system += config.DEEP_CAMERA_PROMPT_SUFFIX
 

@@ -85,11 +85,11 @@ def extract_ko_title(html: str) -> str:
     m = re.search(r'<h1[^>]*class="article-title"[^>]*>([\s\S]*?)</h1>', html)
     if m:
         title = re.sub(r'<[^>]+>', '', m.group(1)).strip()
-        return apply_glossary(title)
+        return apply_glossary(title, ko=True)
     # <title>AI시테이 - ... 형식
     m = re.search(r'<title>AI시테이\s*-\s*(.+?)</title>', html)
     if m:
-        return apply_glossary(m.group(1).strip())
+        return apply_glossary(m.group(1).strip(), ko=True)
     return ""
 
 
