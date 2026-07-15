@@ -80,14 +80,16 @@ def extract_source_url(html: str) -> Optional[str]:
 
 
 def extract_ko_title(html: str) -> str:
-    """기존 <h1 class="article-title"> 텍스트 추출."""
+    """기존 <h1 class="article-title"> 텍스트 추출. glossary 적용."""
+    from translator import apply_glossary
     m = re.search(r'<h1[^>]*class="article-title"[^>]*>([\s\S]*?)</h1>', html)
     if m:
-        return re.sub(r'<[^>]+>', '', m.group(1)).strip()
+        title = re.sub(r'<[^>]+>', '', m.group(1)).strip()
+        return apply_glossary(title)
     # <title>AI시테이 - ... 형식
     m = re.search(r'<title>AI시테이\s*-\s*(.+?)</title>', html)
     if m:
-        return m.group(1).strip()
+        return apply_glossary(m.group(1).strip())
     return ""
 
 
@@ -202,12 +204,21 @@ def patch_html(html: str, titles: dict, bodies: dict) -> str:
     )
 
     # 기존 article-body 블록 교체
-    # 패턴: <div class="article-body"> ... </div> (<!-- All images 또는 <!-- Source footer 전까지)
-    html = re.sub(
-        r'<div class="article-body">[\s\S]*?</div>(\s*\n\s*<!-- (?:All images|Source footer))',
-        new_body_block + r'\1',
-        html, count=1,
-    )
+    if 'class="lang-body"' in html:
+        # 이미 lang-body가 있는 경우: 각 언어 div 내용을 직접 교체
+        for lang, body_html in [("ko", ko_body), ("zh", zh_body), ("ja", ja_body), ("en", en_body)]:
+            html = re.sub(
+                r'(<div class="lang-body" data-lang="' + lang + r'">)[\s\S]*?(</div>)',
+                r'\g<1>\n' + body_html.strip() + r'\n        \2',
+                html, count=1,
+            )
+    else:
+        # 처음 처리: article-body 전체를 lang-body 4개로 교체
+        html = re.sub(
+            r'<div class="article-body">[\s\S]*?</div>(\s*\n\s*<!-- (?:All images|Source footer))',
+            new_body_block + r'\1',
+            html, count=1,
+        )
 
     # 4) visitor counter JS 제거 + 언어 선택기 JS 추가 (없으면)
     if 'visitCount_today' in html and 'aisitei_lang' not in html:
@@ -358,7 +369,7 @@ def process_article(html_path: Path) -> bool:
 
     ko_body_text = "\n\n".join(ko_paragraphs)
     # 로컬 LLM 컨텍스트 초과 방지: 입력이 너무 길면 앞부분만 사용
-    MAX_BODY_CHARS = 2000
+    MAX_BODY_CHARS = 6000
     if len(ko_body_text) > MAX_BODY_CHARS:
         logger.warning(f"본문 길이 초과 ({len(ko_body_text)}자) → {MAX_BODY_CHARS}자로 자름")
         ko_body_text = ko_body_text[:MAX_BODY_CHARS]

@@ -21,8 +21,8 @@ from scraper import collect_articles, get_processed_article_ids
 from scraper_gizmochina import scrape_feed as collect_gizmochina
 from translator import (
     translate_title, translate_article, generate_slug,
-    translate_body_en, translate_body_ja, translate_body_zh_summary,
-    translate_title_en, translate_title_ja,
+    translate_body_en, translate_body_ja, translate_body_zh, translate_body_zh_summary,
+    translate_title_en, translate_title_ja, translate_title_zh,
 )
 from ocr import process_image_translations
 from html_generator import TranslatedArticle, save_article
@@ -290,12 +290,18 @@ def run_pipeline(limit: int = 0):
         ja_paragraphs = [p.strip() for p in (ja_body_text or "").split("\n\n") if p.strip()] or korean_paragraphs
 
         logger.info("  [다국어] ZH 요약 중...")
-        zh_summary_text = translate_body_zh_summary(zh_orig_text) if source_lang == "zh" else translate_body_en(ko_body_text, category=category)
+        zh_summary_text = translate_body_zh_summary(zh_orig_text) if source_lang == "zh" else translate_body_zh(ko_body_text)
         zh_paragraphs = [p.strip() for p in (zh_summary_text or "").split("\n\n") if p.strip()] or korean_paragraphs
 
         # 다국어 제목
-        en_title = translate_title_en(article.title) if source_lang == "zh" else article.title
-        ja_title = translate_title_ja(article.title) if source_lang == "zh" else korean_title
+        if source_lang == "zh":
+            zh_title = article.title
+            en_title = translate_title_en(article.title)
+            ja_title = translate_title_ja(article.title)
+        else:
+            zh_title = translate_title_zh(korean_title)
+            en_title = article.title
+            ja_title = translate_title_ja(zh_title or korean_title)
 
         slug = generate_slug(korean_title)
         translated = TranslatedArticle(
@@ -303,7 +309,7 @@ def run_pipeline(limit: int = 0):
             slug=slug,
             titles={
                 "ko": korean_title,
-                "zh": article.title if source_lang == "zh" else korean_title,
+                "zh": zh_title or korean_title,
                 "ja": ja_title or korean_title,
                 "en": en_title or korean_title,
             },

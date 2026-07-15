@@ -6,9 +6,9 @@ retranslate_broken.py — zh 번역 오류 기사 재처리 스크립트.
   python3 retranslate_broken.py [--no-push]
 
 처리 흐름:
-  1. crawler/logs/retranslate_queue.txt 에서 대상 기사 목록 로드
+  1. crawler/logs/retranslate_queue2.txt 에서 대상 기사 목록 로드
   2. already_multilang 체크 우회하여 강제 재처리
-  3. 완료된 항목은 retranslate_done.log에 기록
+  3. 완료된 항목은 retranslate_done2.log에 기록
   4. 20건마다 git commit
 """
 import sys
@@ -27,8 +27,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-QUEUE_FILE = SCRIPT_DIR / "logs" / "retranslate_queue.txt"
-DONE_LOG = SCRIPT_DIR / "logs" / "retranslate_done.log"
+QUEUE_FILE = SCRIPT_DIR / "logs" / "retranslate_queue2.txt"
+DONE_LOG = SCRIPT_DIR / "logs" / "retranslate_done2.log"
 BATCH_COMMIT_SIZE = 20
 
 
