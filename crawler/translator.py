@@ -76,7 +76,7 @@ def _get_client():
 
 
 def _chat(system: str, user: str, temperature: float = 0.3,
-          max_tokens: int = 4096, retries: int = 3,
+          max_tokens: int = 16384, retries: int = 3,
           model: Optional[str] = None) -> Optional[str]:
     client = _get_client()
     use_model = model or config.LLM_MODEL
@@ -164,7 +164,7 @@ def translate_text(chinese_text: str, category: str = "") -> Optional[str]:
         system=system,
         user=f"다음 기사 텍스트를 한국어로 번역해주세요:\n\n{text}",
         temperature=0.3,
-        max_tokens=4096,
+        max_tokens=16384,
     )
 
 
@@ -208,10 +208,10 @@ def translate_caption(chinese_text: str) -> Optional[str]:
     is_long = len(text) >= 60
     if is_long:
         system = CAPTION_LONG_TRANSLATE_PROMPT + _build_glossary_prompt()
-        max_tokens = 4096  # thinking 모델 대응
+        max_tokens = 16384  # thinking 모델 대응
     else:
         system = CAPTION_TRANSLATE_PROMPT + _build_glossary_prompt()
-        max_tokens = 2048  # thinking 모델 대응
+        max_tokens = 16384  # thinking 모델 대응
 
     out = _chat(system=system, user=text, temperature=0.1, max_tokens=max_tokens)
     if not out:
@@ -238,7 +238,7 @@ def translate_caption_en(chinese_text: str) -> Optional[str]:
         "Translate the following Chinese image caption text into concise English. "
         "Output only the translated text, one line, no quotes, no explanation."
     )
-    out = _chat(system=system, user=text, temperature=0.1, max_tokens=1024)
+    out = _chat(system=system, user=text, temperature=0.1, max_tokens=16384)
     if not out:
         return None
     out = out.split("\n", 1)[0].strip().strip('"').strip("'").strip()
@@ -261,7 +261,7 @@ def translate_caption_ja(chinese_text: str) -> Optional[str]:
         "次の中国語の画像キャプションを簡潔な日本語に翻訳してください。"
         "翻訳文のみ1行で出力し、引用符や説明は不要です。"
     )
-    out = _chat(system=system, user=text, temperature=0.1, max_tokens=1024)
+    out = _chat(system=system, user=text, temperature=0.1, max_tokens=16384)
     if not out:
         return None
     out = out.split("\n", 1)[0].strip().strip('"').strip("'").strip()
@@ -311,7 +311,7 @@ def translate_title(title: str, category: str = "", source_lang: str = "zh") -> 
         system=system,
         user=f"다음 기사 제목을 한국어로 번역하세요:\n\n{user_text}",
         temperature=0.1,
-        max_tokens=8192,  # thinking 모델은 <think> 블록이 수천 토큰을 소비하므로 넉넉히 확보
+        max_tokens=16384,  # thinking 모델은 <think> 블록이 수천 토큰을 소비하므로 넉넉히 확보
     )
     # 번역 결과에 한자가 3자 이상 연속 포함되면 번역 실패로 간주 → 폴백
     if result and _looks_untranslated(result):
@@ -333,7 +333,7 @@ def translate_title(title: str, category: str = "", source_lang: str = "zh") -> 
         ),
         user=f"{lang_hint} 제목을 한국어로 번역:\n{user_text}",
         temperature=0.1,
-        max_tokens=2048,  # thinking 모델 폴백도 충분한 토큰 확보
+        max_tokens=16384,  # thinking 모델 폴백도 충분한 토큰 확보
         retries=3,
         model=fallback_model,
     )
@@ -359,7 +359,7 @@ def translate_article(paragraphs: list[str], category: str = "", source_lang: st
         if category == "phone_camera":
             system += config.DEEP_CAMERA_PROMPT_SUFFIX
 
-    max_tokens = 16384 if category == "phone_camera" else 8192
+    max_tokens = 16384
     result = _chat(
         system=system,
         user=(
@@ -466,7 +466,7 @@ def translate_body_en(source_text: str, category: str = "") -> Optional[str]:
         system=system,
         user=f"Please translate the following article to English:\n\n{source_text}",
         temperature=0.3,
-        max_tokens=8192,
+        max_tokens=16384,
     )
 
 
@@ -481,7 +481,7 @@ def translate_body_ja(source_text: str, category: str = "") -> Optional[str]:
         system=system,
         user=f"以下の記事を日本語に翻訳してください：\n\n{source_text}",
         temperature=0.3,
-        max_tokens=8192,
+        max_tokens=16384,
     )
 
 
@@ -509,7 +509,7 @@ def translate_body_zh(source_text: str) -> Optional[str]:
         system=_TRANSLATE_SYSTEM_ZH_FULL_PROMPT,
         user=f"请将以下韩语文章翻译成中文：\n\n{source_text}",
         temperature=0.3,
-        max_tokens=8192,
+        max_tokens=16384,
     )
 
 
@@ -522,7 +522,7 @@ def translate_body_zh_summary(zh_text: str) -> Optional[str]:
         system=_TRANSLATE_SYSTEM_ZH_SUMMARY_PROMPT,
         user=f"请对以下文章进行精炼摘要：\n\n{text}",
         temperature=0.3,
-        max_tokens=8192,
+        max_tokens=16384,
     )
 
 
@@ -535,7 +535,7 @@ def translate_title_zh(ko_title: str) -> Optional[str]:
         system=_TITLE_TRANSLATE_ZH_FROM_KO_PROMPT,
         user=f"请将以下韩语新闻标题翻译成中文：\n\n{text}",
         temperature=0.1,
-        max_tokens=1024,
+        max_tokens=16384,
     )
     if result:
         return result.split("\n", 1)[0].strip()
@@ -551,7 +551,7 @@ def translate_title_en(zh_title: str) -> Optional[str]:
         system=_TITLE_TRANSLATE_EN_FROM_ZH_PROMPT,
         user=f"Translate this article title to English:\n\n{text}",
         temperature=0.1,
-        max_tokens=2048,
+        max_tokens=16384,
     )
     if result:
         return result.split("\n", 1)[0].strip()
@@ -567,7 +567,7 @@ def translate_title_ja(zh_title: str) -> Optional[str]:
         system=_TITLE_TRANSLATE_JA_FROM_ZH_PROMPT,
         user=f"以下のタイトルを日本語に翻訳してください：\n\n{text}",
         temperature=0.1,
-        max_tokens=2048,
+        max_tokens=16384,
     )
     if result:
         return result.split("\n", 1)[0].strip()
@@ -583,7 +583,7 @@ def generate_slug(korean_title: str) -> str:
             f"제목: {korean_title}"
         ),
         temperature=0.1,
-        max_tokens=1024,  # thinking 모델 대응
+        max_tokens=16384,  # thinking 모델 대응
     )
     if not result:
         return "article"

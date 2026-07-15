@@ -94,7 +94,29 @@ def extract_ko_title(html: str) -> str:
 
 
 def extract_ko_body_paragraphs(html: str) -> list:
-    """기존 <div class="article-body"> 내부의 단락 HTML 리스트 추출."""
+    """기존 본문에서 한국어 단락 HTML 리스트만 추출.
+
+    이미 4개 언어 lang-body가 있는 기사는 data-lang="ko" 구간만,
+    다음 언어(zh) div가 시작되는 지점을 경계로 잘라낸다.
+    article-body 전체를 </div> 기준 논-그리디로 잡으면 ko/zh/ja/en이
+    전부 한 덩어리로 캡처되는 버그가 있었음 (기존 lang-body를 뭉텅이로 삼킴).
+    """
+    if 'class="lang-body"' in html:
+        m = re.search(
+            r'<div class="lang-body" data-lang="ko">([\s\S]*?)'
+            r'<div class="lang-body" data-lang="zh">',
+            html,
+        )
+        if not m:
+            return []
+        body_html = m.group(1)
+        # 이전 재처리에서 남은 중첩 래핑(주석/내부 div 오픈·클로즈) 제거
+        body_html = re.sub(r'<!--\s*lang-body:\s*ko\s*-->', '', body_html)
+        body_html = re.sub(r'<div class="lang-body" data-lang="ko">', '', body_html)
+        body_html = re.sub(r'</div>\s*$', '', body_html.strip())
+        parts = re.findall(r'<(?:p|h3|ul)[\s\S]*?</(?:p|h3|ul)>', body_html)
+        return parts if parts else ([body_html.strip()] if body_html.strip() else [])
+
     m = re.search(r'<div class="article-body">([\s\S]*?)</div>\s*\n\s*<!-- All images', html)
     if not m:
         m = re.search(r'<div class="article-body">([\s\S]*?)</div>\s*\n\s*(?:<!--|\{% if images)', html)
@@ -143,6 +165,16 @@ _LANG_BODY_TMPL = """\
 def build_lang_body(lang: str, paragraphs: list) -> str:
     content = "\n".join(f"        {p}" for p in paragraphs)
     return _LANG_BODY_TMPL.format(lang=lang, content=content)
+
+
+def _lang_body_inner(paragraphs: list) -> str:
+    """div 래핑 없이 내부 콘텐츠만 반환.
+
+    이미 존재하는 lang-body div 안에 삽입할 때 build_lang_body()의 전체
+    래핑(주석+div)을 그대로 넣으면 기존 오픈태그 안에 또 중첩되어 div가
+    이중으로 감싸지는 버그가 있었음.
+    """
+    return "\n".join(f"        {p}" for p in paragraphs)
 
 
 def patch_html(html: str, titles: dict, bodies: dict) -> str:
@@ -205,11 +237,19 @@ def patch_html(html: str, titles: dict, bodies: dict) -> str:
 
     # 기존 article-body 블록 교체
     if 'class="lang-body"' in html:
-        # 이미 lang-body가 있는 경우: 각 언어 div 내용을 직접 교체
-        for lang, body_html in [("ko", ko_body), ("zh", zh_body), ("ja", ja_body), ("en", en_body)]:
+        # 이미 lang-body가 있는 경우: 각 언어 div의 내부 콘텐츠만 교체
+        # (기존 오픈태그를 그대로 유지하고 내부만 갈아끼워야 함. build_lang_body()의
+        # 전체 래핑을 다시 넣으면 이중 래핑되므로 내부 콘텐츠만 삽입한다.)
+        inner_bodies = {
+            "ko": _lang_body_inner(bodies.get("ko", [])),
+            "zh": _lang_body_inner(bodies.get("zh", bodies.get("ko", []))),
+            "ja": _lang_body_inner(bodies.get("ja", bodies.get("ko", []))),
+            "en": _lang_body_inner(bodies.get("en", bodies.get("ko", []))),
+        }
+        for lang, inner in inner_bodies.items():
             html = re.sub(
                 r'(<div class="lang-body" data-lang="' + lang + r'">)[\s\S]*?(</div>)',
-                r'\g<1>\n' + body_html.strip() + r'\n        \2',
+                lambda m, inner=inner: m.group(1) + '\n' + inner + '\n        ' + m.group(2),
                 html, count=1,
             )
     else:
