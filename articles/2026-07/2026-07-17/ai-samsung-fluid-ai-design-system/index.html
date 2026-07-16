@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Samsung, AI 기반의 생성형 디자인 철학인 Fluid AI Design System 공개</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Samsung">
+  <meta name="article-brand-color" content="#1428A0">
+  <meta name="title-ko" content="Samsung, AI 기반의 생성형 디자인 철학인 Fluid AI Design System 공개">
+  <meta name="title-zh" content="Samsung 公开基于 AI 的生成式设计理念 Fluid AI Design System">
+  <meta name="title-ja" content="Samsung、AIベースのジェネレーティブデザインコンセプト「Fluid AI Design System」を発表">
+  <meta name="title-en" content="Samsung unveils Fluid AI Design System, a generative design philosophy built around AI">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Samsung, AI 기반의 생성형 디자인 철학인 Fluid AI Design System 공개" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #1428A0;">
+            Samsung
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Samsung, AI 기반의 생성형 디자인 철학인 Fluid AI Design System 공개"
+            data-zh="Samsung 公开基于 AI 的生成式设计理念 Fluid AI Design System"
+            data-ja="Samsung、AIベースのジェネレーティブデザインコンセプト「Fluid AI Design System」を発表"
+            data-en="Samsung unveils Fluid AI Design System, a generative design philosophy built around AI">Samsung, AI 기반의 생성형 디자인 철학인 Fluid AI Design System 공개</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-17
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>Samsung의 새로운 디자인 비전, Fluid AI Design System</h3>
+          
+          <p>Samsung은 최근 'Fluid AI Design System'이라는 개념을 통해 소프트웨어의 미래를 제시했습니다. 이 컨셉은 Red Dot Design Award 2026에서 수상했으며, 향후 One UI에 도입될 흥미로운 변화를 예고하는 중요한 지표가 될 것으로 보입니다.</p>
+          
+          <p>현재 이 시스템은 즉시 다운로드 가능한 업데이트가 아니라 미래 지향적인 디자인 비전으로 제시되었습니다. 하지만 이는 Samsung이 추구하는 인터페이스의 방향성을 가장 명확하게 보여주는 사례 중 하나입니다. 핵심 아이디어는 현재의 경직된 앱 중심 구조에서 벗어나, AI를 기반으로 한 훨씬 더 역동적이고 지능적인 경험을 구축하는 것입니다.</p>
+          
+          <h3>상황에 반응하는 유연한 인터페이스</h3>
+          
+          <p>고정된 화면과 전통적인 앱 방식 대신, Fluid AI 시스템은 사용자의 행동에 따라 실시간으로 변화하는 적응형 플로팅 요소를 활용합니다. 정보는 상황에 따라 확장, 축소, 재배치 또는 변형될 수 있는 유연한 '카드' 형태로 표시됩니다.</p>
+          
+          <p>이 시스템의 주요 특징은 다음과 같습니다.</p>
+<ul>
+<li>사용자의 행동을 실시간으로 파악하여 변화하는 적응형 요소 활용</li>
+<li>상황에 따라 형태가 변하는 유동적인 카드 기반 정보 표시</li>
+<li>단순한 앱 전환 대신 통합된 뷰를 통한 정보 제공</li>
+</ul>
+          
+          <h3>지능형 비서로서의 기능 확장</h3>
+          
+          <p>예를 들어, 회의 알림이 발생하면 시스템이 자동으로 캘린더 정보를 불러오고, 목적지까지의 최적 경로를 제안하며, 관련 연락처를 한데 모아 통합된 화면으로 보여줍니다. 또한 단순한 날짜 선택기(date picker)는 필요에 따라 전체 일정 관리 비서로 확장될 수 있습니다.</p>
+          
+          <p>이러한 변화의 목표는 사용자가 여러 앱을 번갈아 가며 이동하는 불편함을 겪지 않도록, 기기가 필요한 것을 미리 예측하여 더욱 똑똑하고 유용한 경험을 제공하는 데 있습니다.</p>
+          
+          <h3>Galaxy AI와의 시너지 및 향후 과제</h3>
+          
+          <p>이 컨셉은 최근 Samsung이 추진 중인 Galaxy AI와 완벽하게 맞닿아 있습니다. Samsung은 이미 개인화된 경험을 위해 온디바이스 및 클라우드 지능을 강화해 왔으며, Fluid AI는 인터페이스 전체를 단순한 앱의 집합체가 아닌 지능적인 시스템으로 변모시키는 다음 단계가 될 것입니다.</p>
+          
+          <p>물론 이 시스템이 정확히 어떤 시점에 적용될지는 확언할 수 없습니다(One UI 10 또는 그 이후 버전). 이러한 디자인 컨셉은 실제 기기에 탑재되기 전까지 많은 수정 과정을 거치며, 서드파티 앱 지원, 다양한 기기에서의 성능 최적화, 그리고 일관성 유지와 같은 실질적인 기술적 과제들을 해결해야 합니다.</p>
+          
+          <p>Fluid AI Design System은 Red Dot Awards에서 큰 주목을 받았으며, Samsung은 개인화에 중점을 둔 AI 관련 아이디어로 여러 상을 거머쥐며 기술력을 인정받았습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Samsung의 Fluid AI Design System은 단순한 UI 개선을 넘어, 사용자의 맥락을 이해하고 반응하는 지능형 인터페이스로의 진화를 목표로 합니다. 이는 Galaxy AI와 결합하여 One UI를 더욱 직관적이고 유기적인 경험으로 변화시킬 핵심 동력이 될 것입니다. 비록 실제 구현까지는 기술적 최적화 과정이 필요하지만, Samsung이 추구하는 미래 소프트웨어의 방향성을 명확히 보여주는 혁신적인 시도입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Samsung的新设计愿景，Fluid AI Design System</h3>
+          
+          <p>Samsung近期通过“Fluid AI Design System”这一概念展示了软件的未来。该理念获得了Red Dot Design Award 2026奖项，被视为One UI未来可能引入的重要变革指标。</p>
+          
+          <p>目前，该系统并非立即可用的更新版本，而是作为一种面向未来的设计愿景。然而，它清晰地展示了Samsung追求的界面方向：即从当前僵化的、以应用为中心（App-centric）的结构，转向基于AI的、更具动态性和智能的体验。</p>
+          
+          <h3>响应情境的灵活界面</h3>
+          
+          <p>Fluid AI系统摒弃了固定的屏幕和传统的应用模式，转而采用根据用户行为实时变化的自适应浮动元素。信息将以灵活的“卡片”形式呈现，这些卡片可以根据情况进行扩展、缩小、重新排列或变形。</p>
+          
+          <p>该系统的主要特点包括：</p>
+<ul>
+<li>利用能够实时感知用户行为并随之变化的自适应元素</li>
+<li>采用形态多变的流动卡片来展示信息</li>
+<li>通过整合视图提供信息，而非简单的应用切换</li>
+</ul>
+          
+          <h3>作为智能助手的职能扩展</h3>
+          
+          <p>例如，当会议提醒触发时，系统会自动调取日历信息，建议前往目的地的最佳路线，并将相关联系人汇总到统一的界面中。此外，简单的日期选择器（date picker）也可以根据需要扩展为完整的日程管理助手。</p>
+          
+          <p>这些变革的目标是让设备能够预判用户需求，提供更智能、实用的体验，从而避免用户在多个应用之间频繁切换的不便。</p>
+          
+          <h3>与Galaxy AI的协同效应及未来挑战</h3>
+          
+          <p>这一概念与Samsung近期推动的Galaxy AI高度契合。Samsung一直在强化用于个性化体验的端侧（On-device）和云端智能，而Fluid AI将成为将整个界面从单纯的应用集合转变为智能化系统的关键步骤。</p>
+          
+          <p>当然，目前尚无法确定该系统具体将在何时应用（可能是One UI 10或更晚的版本）。在这些设计概念真正搭载到设备之前，仍需经过大量的修改过程，以解决第三方应用支持、多设备性能优化以及保持一致性等实际的技术挑战。Fluid AI Design System在Red Dot Awards中备受瞩目，Samsung凭借专注于个性化的AI相关创意赢得了多项奖项，获得了技术的认可。</p>
+          
+          <h3>总结</h3>
+          
+          <p>Samsung的Fluid AI Design System旨在超越简单的UI改进，构建一个能够理解并响应用户情境的智能界面。该系统将与Galaxy AI结合，推动One UI向更直观、更具有机感的体验演变。尽管在实际落地前仍面临技术优化挑战，但这充分展示了Samsung在未来软件方向上的创新尝试。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>Samsungの新しいデザインビジョン、Fluid AI Design System</h3>
+          
+          <p>Samsungは最近、「Fluid AI Design System」というコンセプトを通じてソフトウェアの未来を提示しました。このコンセプトはRed Dot Design Award 2026を受賞しており、今後のOne UIに導入されるであろう興味深い変化を予感させる重要な指標となる見込みです。</p>
+          
+          <p>現在、このシステムはすぐにダウンロード可能なアップデートとしてではなく、未来志向のデザインビジョンとして提示されています。しかし、これはSamsungが追求するインターフェースの方向性を最も明確に示す事例の一つです。核心となるアイデアは、現在の硬直したアプリ中心の構造から脱却し、AIに基づいたよりダイナミックで知的な体験を構築することにあります。</p>
+          
+          <h3>状況に反応する柔軟なインターフェース</h3>
+          
+          <p>固定された画面や伝統的なアプリの手法に代わり、Fluid AIシステムはユーザーの行動に応じてリアルタイムに変化する「適応型フローティング要素」を活用します。情報は、状況に応じて拡張、縮小、再配置、または変形することができる柔軟な「カード」の形で表示されます。</p>
+          
+          <p>このシステムの主な特徴は以下の通りです。</p>
+<ul>
+<li>ユーザーの行動をリアルタイムに把握し変化する適応型要素の活用</li>
+<li>状況に応じて形状が変化する流動的なカードベースの情報表示</li>
+<li>単純なアプリの切り替えの代わりに、統合されたビューを通じた情報提供</li>
+</ul>
+          
+          <h3>インテリジェントなアシスタントとしての機能拡張</h3>
+          
+          <p>例えば、会議の通知が発生した際に、システムが自動的にカレンダー情報を読み込み、目的地までの最適なルートを提案し、関連する連絡先を一つにまとめて統合された画面で表示します。また、単純な日付選択（date picker）は、必要に応じて全スケジュール管理アシスタントへと拡張される可能性があります。</p>
+          
+          <p>これらの変化の目的は、ユーザーが複数のアプリを行き来する不便さを解消し、デバイスが必要なことをあらかじめ予測することで、よりスマートで便利な体験を提供することにあります。</p>
+          
+          <h3>Galaxy AIとのシナジーと今後の課題</h3>
+          
+          <p>このコンセプトは、Samsungが現在推進しているGalaxy AIと完璧に合致しています。Samsungはすでにパーソナライズされた体験のためにオンデバイスおよびクラウドの知能を強化しており、Fluid AIはインターフェース全体を単なるアプリの集合体ではなく、知的なシステムへと変貌させる次のステップとなるでしょう。</p>
+          
+          <p>もちろん、このシステムが正確にどの時点で適用されるかは断言できません（One UI 10またはそれ以降のバージョン）。このようなデザインコンセプトは、実際のデバイスに搭載される前に多くの修正プロセスを経て、サードパーティ製アプリのサポート、多様なデバイスでのパフォーマンス最適化、そして一貫性の維持といった実質的な技術的課題を解決する必要があります。</p>
+          
+          <p>Fluid AI Design SystemはRed Dot Awardsで大きな注目を集め、Samsungはパーソナライズに焦点を当てたAI関連のアイデアで複数の賞を獲得し、その技術力を認められました。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>SamsungのFluid AI Design Systemは、単なるUIの改善を超え、ユーザーの文脈を理解して反応するインテリジェントなインターフェースへの進化を目指しています。これはGalaxy AIと融合することで、One UIをより直感的で有機的な体験へと変貌させる核心的な原動力となるでしょう。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Samsung's New Design Vision: Fluid AI Design System</h3>
+          
+          <p>Samsung recently introduced the concept of the "Fluid AI Design System" to showcase the future of software. This concept won the Red Dot Design Award 2026 and is expected to serve as a significant indicator of upcoming changes to One UI.</p>
+          
+          <p>While this system is not an immediately available update, it serves as one of the clearest indicators of the direction Samsung intends for its interface. The core idea is to move away from current rigid, app-centric structures toward a much more dynamic and intelligent experience powered by AI.</p>
+          
+          <h3>Context-Aware Flexible Interface</h3>
+          
+          <p>Instead of fixed screens and traditional app methods, the Fluid AI system utilizes adaptive floating elements that change in real-time based on user behavior. Information is displayed in flexible "cards" that can expand, shrink, reposition, or transform depending on the situation.</p>
+          
+          <p>Key features of this system include:</p>
+<ul>
+<li>Utilizing adaptive elements that react to user actions in real-time.</li>
+<li>Displaying information through fluid card-based formats that change shape based on context.</li>
+<li>Providing integrated views rather than simple transitions between apps.</li>
+</ul>
+          
+          <h3>Expansion into an Intelligent Assistant</h3>
+          
+          <p>For example, when a meeting notification occurs, the system automatically retrieves calendar information, suggests the optimal route to the destination, and gathers relevant contacts into a single unified screen. Furthermore, a simple date picker can expand into a full schedule management assistant as needed.</p>
+          
+          <p>The goal of these changes is to provide a smarter and more convenient experience by having the device predict what the user needs, thereby eliminating the inconvenience of switching between multiple apps.</p>
+          
+          <h3>Synergy with Galaxy AI and Future Challenges</h3>
+          
+          <p>This concept aligns perfectly with Samsung's ongoing push for Galaxy AI. While Samsung has already enhanced on-device and cloud intelligence to provide personalized experiences, Fluid AI represents the next step in transforming the entire interface from a mere collection of apps into an intelligent system.</p>
+          
+          <p>It is currently uncertain exactly when this system will be implemented (potentially One UI 10 or later). Before these design concepts are deployed on actual devices, they must undergo extensive refinement to address practical technical challenges such as third-party app support, performance optimization across various devices, and maintaining consistency.</p>
+          
+          <p>The Fluid AI Design System received significant attention at the Red Dot Awards, where Samsung won several awards for its AI-related ideas focused on personalization, earning recognition for its technological prowess.</p>
+          
+          <h3>Summary</h3>
+<p>Samsung's Fluid AI Design System aims to evolve One UI into an intelligent, context-aware interface by replacing rigid app structures with dynamic, card-based elements. By integrating with Galaxy AI, the system seeks to create a seamless experience where the device anticipates user needs rather than requiring manual navigation between apps. While technical hurdles like third-party integration remain, it represents a major leap in Samsung's vision for intuitive and organic software.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.webp" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/07/15/samsung-unveils-fluid-ai-design-system-a-generative-design-philosophy-built-around-ai/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

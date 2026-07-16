@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Galaxy S27 Ultra, 결국 가로형 카메라 배치가 탑재되지 않을 수도 있습니다.</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="Samsung">
+  <meta name="article-brand-color" content="#1428A0">
+  <meta name="title-ko" content="Galaxy S27 Ultra, 결국 가로형 카메라 배치가 탑재되지 않을 수도 있습니다.">
+  <meta name="title-zh" content="Galaxy S27 Ultra 最终可能不会采用横向摄像头布局。">
+  <meta name="title-ja" content="Galaxy S27 Ultraは、最終的に横方向のカメラレイアウトを採用しない可能性がある。">
+  <meta name="title-en" content="Galaxy S27 Ultra may not feature the horizontal camera layout after all">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.webp" alt="Galaxy S27 Ultra, 결국 가로형 카메라 배치가 탑재되지 않을 수도 있습니다." loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #1428A0;">
+            Samsung
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Galaxy S27 Ultra, 결국 가로형 카메라 배치가 탑재되지 않을 수도 있습니다."
+            data-zh="Galaxy S27 Ultra 最终可能不会采用横向摄像头布局。"
+            data-ja="Galaxy S27 Ultraは、最終的に横方向のカメラレイアウトを採用しない可能性がある。"
+            data-en="Galaxy S27 Ultra may not feature the horizontal camera layout after all">Galaxy S27 Ultra, 결국 가로형 카메라 배치가 탑재되지 않을 수도 있습니다.</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-17
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>삼성 Galaxy S27 Ultra 디자인 루머</h3>
+          
+          <p>Samsung의 차기 플래그십 모델인 Galaxy S27 Ultra가 많은 이들이 기대했던 대대적인 디자인 변화를 거치지 않을 가능성이 제기되었습니다. 최근 유출된 정보에 따르면, 일부에서 확산되던 완전히 새로운 가로형 후면 카메라 레이아웃 루머는 사실이 아닐 수 있으며, Samsung은 급격한 변화보다는 소폭의 조정을 고려하고 있는 것으로 보입니다.</p>
+          
+          <h3>가로형 카메라 디자인 논란</h3>
+          
+          <p>지난 몇 달 동안 삼성은 기존의 시그니처인 플로팅 카메라 링을 버리고 Pixel 스타일의 가로형 카메라 바를 채택할 것이라는 루머가 무성했습니다. 특히 유명 유출가 Ice Universe가 재설개된 후면 카메라 모듈을 언급하면서 이러한 추측이 힘을 얻었으나, 최신 보고에 따르면 널리 공유된 가로형 카메라 렌더링은 "정확하지 않은" 것으로 확인되었습니다.</p>
+          
+          <h3>제조 효율성과 디자인의 균형</h3>
+          
+          <p>Samsung은 내부적으로 여러 디자인 컨셉을 테스트하고 있지만, 현재까지 공개된 것 중 깔끔하고 미니멀한 가로형 레이아웃을 채택한 것은 없습니다. Samsung은 단순히 외관뿐만 아니라 생산 공정의 단순화와 비용 절감에도 큰 비중을 두고 있습니다. S27 Ultra가 후면 카메라 개수가 하나 줄어듦에 따라 하우징을 완전히 뜯어고치기보다는, 프리미엄 이미지와 제조상의 실용성 사이에서 적절한 균형을 찾는 데 집중하고 있습니다.</p>
+          
+          <h3>일관된 브랜드 정체성 유지</h3>
+          
+          <p>이러한 접근 방식은 지금까지 Samsung이 Ultra 시리즈를 다뤄온 방식과 일치합니다. 지난 5년 동안 삼성은 급격한 변화보다는 점진적이고 세밀한 디자인 수정을 택해 왔으며, 이는 Galaxy S Ultra 제품군이 강력하고 인식 가능한 정체성을 유지하는 데 기여했습니다.</p>
+          
+          <h3>향후 전망 및 결론</h3>
+          
+          <p>만약 Samsung이 보수적인 경로를 선택한다면, S27 Ultra는 센서 수 감소에 따른 카메라 영역의 미세한 조정만 거친 채 S26 Ultra와 매우 유사한 모습으로 출시될 수 있습니다. 다만 아직은 정보가 초기 단계이며, Galaxy S27 Ultra는 2027년 초에나 출시될 예정이므로 Samsung은 디자인을 다듬거나 완전히 변경할 충분한 시간이 있습니다. 현재의 유출 정보가 최종 제품과 일치하지 않을 수 있음을 염두에 두어야 합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Galaxy S27 Ultra는 예상과 달리 파격적인 가로형 카메라 레이아웃 대신 기존 정체성을 유지하는 보수적인 설계를 채택할 가능성이 높습니다. 이는 제조 비용 절감과 생산 효율성이라는 실질적인 목표를 달성하기 위한 전략적 선택으로 분석됩니다. 아직 출시까지 시간이 충분히 남아 있으므로, 현재의 유출 정보보다는 향후 발표될 공식 디자인에 주목할 필요가 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Samsung Galaxy S27 Ultra 设计传闻</h3>
+<p>关于 Samsung 的下一款旗舰机型 Galaxy S27 Ultra，有消息称其可能不会经历此前许多人期待的大规模设计变革。根据近期流出的信息，一些在流传的全新横向后置摄像头布局并非事实，Samsung 似乎正考虑进行小幅调整而非剧烈变动。</p>
+          
+          <h3>横向摄像头设计的争议</h3>
+<p>在过去的几个月里，关于 Samsung 将放弃其标志性的悬浮式相机环并采用类似 Pixel 风格的横向摄像头条的传闻不断。尽管知名爆料者 Ice Universe 曾提及重新设计的后置摄像头模块，但最新报告确认广泛流传的横向摄像头渲染图是“不准确的”。</p>
+          
+          <h3>制造效率与设计的平衡</h3>
+<p>Samsung 内部正在测试多种设计概念，但目前为止并未采用简洁且极简的横向布局。Samsung 不仅关注外观，还非常重视生产流程简化和成本降低。随着 S27 Ultra 后置摄像头数量减少一个，其重点在于在高端形象与制造实用性之间寻找平衡，而不是彻底重构外壳。</p>
+          
+          <h3>保持一致的品牌身份</h3>
+<p>这种做法与 Samsung 一贯处理 Ultra 系列的方式一致。在过去的 5 年里，Samsung 选择渐进式且细致的设计修改而非剧烈变动，这有助于 Galaxy S Ultra 产品系列保持强大且易于识别的品牌身份。</p>
+          
+          <h3>未来展望与结论</h3>
+<p>如果 Samsung 选择保守路径，S27 Ultra 可能仅在因传感器数量减少而对摄像头区域进行微调的情况下，以与 S26 Ultra 非常相似的外观发布。然而，目前信息仍处于早期阶段，且 Galaxy S27 Ultra 预计要到 2027 年初才会上市，Samsung 有充足的时间来完善或完全修改设计。需要注意的是，当前的流出信息可能与最终产品不符。</p>
+          
+          <h3>总评</h3>
+<p>Galaxy S27 Ultra 可能不会采用大胆的横向摄像头布局，而是为了平衡生产成本和制造效率而选择保留原有身份的保守设计。由于距离发布仍有充足时间，目前的流出信息可能并不准确，建议关注未来的官方公告。</p>
+          
+          <h3>总结</h3>
+<p>Galaxy S27 Ultra 预计将采取稳健的设计路线，而非采用极具争议的横向摄像头布局。这种策略旨在平衡品牌一致性与生产成本优化。由于产品发布时间较远，目前的流出信息仅供参考，最终设计仍有变动空间。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>Samsung Galaxy S27 Ultra デザインに関する噂</h3>
+          
+          <p>Samsungの次期フラッグシップモデルであるGalaxy S27 Ultraにおいて、期待されていた大幅なデザイン変更が行われない可能性が浮上しています。最近のリーク情報によると、一部で拡散していた「横型（水平）の背面カメラレイアウト」への刷新は事実ではない可能性があり、Samsungは急進的な変化よりも微調整を検討している模様です。</p>
+          
+          <h3>横型カメラデザインを巡る議論</h3>
+          
+          <p>ここ数ヶ月、Samsungが従来のシグネチャーであるフローティングカメラリングを廃止し、Pixelスタイルの横長カメラバーを採用するという噂が絶えませんでした。特に著名なリーカーのIce Universeが再設計された背面カメラモジュールに言及したことでこれらの推測は強まりましたが、最新の報告では広く共有されていた横型カメラのレンダリングは「正確ではない」と確認されています。</p>
+          
+          <h3>製造効率とデザインのバランス</h3>
+          
+          <p>Samsungは内部で複数のデザインコンセプトをテストしていますが、現時点で公開されたもののうち、クリーンでミニマルな横型レイアウトを採用したものはありません。Samsungは外観だけでなく、製造工程の簡略化とコスト削減にも大きな比重を置いています。S27 Ultraにおいて背面カメラの数が1つ減少することに伴い、ハウジングを全面的に刷新するのではなく、プレミアムなイメージと製造上の実用性の間で適切なバランスを見出すことに注力しています。</p>
+          
+          <h3>一貫したブランドアイデンティティの維持</h3>
+          
+          <p>このアプローチは、SamsungがこれまでUltraシリーズに対して取ってきた手法と一致しています。過去5年間、Samsungは急激な変化よりも漸進的で細かなデザイン修正を選択しており、これがGalaxy S Ultra製品群の強力で認識可能なアイデンティティを維持することに寄与してきました。</p>
+          
+          <h3>今後の展望と結論</h3>
+          
+          <p>もしSamsungが保守的なルートを選択する場合、S27 Ultraはセンサー数の減少に伴うカメラエリアの微調整のみが行われ、S26 Ultraと非常に似た外観で発売される可能性があります。ただし、情報はまだ初期段階であり、Galaxy S27 Ultraは2027年初頭に発売予定であるため、Samsungにはデザインを磨き上げたり変更したりするための十分な時間があります。現在のリーク情報が最終製品と一致しない可能性があることに注意が必要です。</p>
+          
+          <h3>まとめ</h3>
+<p>Galaxy S27 Ultraは、予想されていた大胆な横型カメラレイアウトの採用を見送り、既存のブランドアイデンティティを維持する保守的な設計を採用する可能性が高いです。これは製造コストの削減と生産効率の向上という実用的な目標を達成するための戦略的な選択と考えられます。発売までまだ時間があるため、現時点のリーク情報よりも今後発表される公式デザインに注目すべきでしょう。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Samsung Galaxy S27 Ultra Design Rumors</h3>
+          
+          <p>Reports have emerged suggesting that Samsung's next flagship model, the Galaxy S27 Ultra, may not undergo the major design overhaul many were anticipating. According to recently leaked information, rumors regarding a completely new horizontal rear camera layout may be inaccurate, with Samsung appearing to favor minor adjustments over drastic changes.</p>
+          
+          <h3>Horizontal Camera Design Controversy</h3>
+          
+          <p>For several months, there has been significant speculation that Samsung would abandon its signature floating camera ring in favor of a Pixel-style horizontal camera bar. These rumors gained momentum after well-known leaker Ice Universe mentioned a redesigned rear camera module; however, recent reports have confirmed that the widely shared horizontal camera renderings are "inaccurate."</p>
+          
+          <h3>Balancing Manufacturing Efficiency and Design</h3>
+          
+          <p>While Samsung is internally testing various design concepts, none of the designs disclosed to date feature a clean and minimalist horizontal layout. Samsung places high importance on simplifying production processes and reducing costs in addition to aesthetics. As the S27 Ultra is expected to have one fewer rear camera sensor, the company is focusing on finding a balance between a premium image and manufacturing practicality rather than completely redesigning the housing.</p>
+          
+          <h3>Maintaining Consistent Brand Identity</h3>
+          
+          <p>This approach aligns with how Samsung has managed the Ultra series in the past. Over the last five years, Samsung has opted for gradual and subtle design refinements rather than radical changes, which has helped the Galaxy S Ultra lineup maintain a strong and recognizable identity.</p>
+          
+          <h3>Future Outlook and Conclusion</h3>
+          
+          <p>If Samsung chooses a conservative path, the S27 Ultra may look very similar to the S26 Ultra, with only minor adjustments to the camera area following the reduction in sensor count. However, as the Galaxy S27 Ultra is not scheduled for release until early 2027, Samsung has sufficient time to refine or completely overhaul the design. It should be noted that current leaks may not align with the final product.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>The Galaxy S27 Ultra is likely to adopt a conservative design that maintains its established identity rather than switching to a radical horizontal camera layout. This strategy is intended to balance premium aesthetics with manufacturing efficiency and cost reduction. Given the long production timeline until 2027, official designs may still evolve before the final product is released.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.webp" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/07/14/galaxy-s27-ultra-leak-says-horizontal-camera-layout-may-not-happen-after-all/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

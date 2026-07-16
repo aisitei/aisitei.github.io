@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Honor 로봇 스마트폰, 3C 인증 통과 및 자체 공장 생산</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Honor">
+  <meta name="article-brand-color" content="#0E62FF">
+  <meta name="title-ko" content="Honor 로봇 스마트폰, 3C 인증 통과 및 자체 공장 생산">
+  <meta name="title-zh" content="荣耀 Robot Phone 通过 3C 认证，由自有工厂生产">
+  <meta name="title-ja" content="Honor Robot Phoneが3C認証を取得、自社工場で生産">
+  <meta name="title-en" content="Honor Robot Smartphone passes 3C certification, manufactured in its own factory">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Honor 로봇 스마트폰, 3C 인증 통과 및 자체 공장 생산" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #0E62FF;">
+            Honor
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Honor 로봇 스마트폰, 3C 인증 통과 및 자체 공장 생산"
+            data-zh="荣耀 Robot Phone 通过 3C 认证，由自有工厂生产"
+            data-ja="Honor Robot Phoneが3C認証を取得、自社工場で生産"
+            data-en="Honor Robot Smartphone passes 3C certification, manufactured in its own factory">Honor 로봇 스마트폰, 3C 인증 통과 및 자체 공장 생산</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-17
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>인증 정보</h3>
+          
+          <p>IT홈의 7월 15일 보도에 따르면, 모델명 "APH-AN00"의 Honor 5G 스마트폰이 3C 인증을 통과했습니다. 해당 기기는 "HN-200600C02" 모델의 전원 어댑터를 탑재하여 최대 120W 고속충전을 지원합니다.</p>
+          
+          <h3>제조 및 제품 정보</h3>
+          
+          <p>블로거 @旺仔百事通은 해당 기기가 Honor Robot Phone이며, Honor 자체 공장에서 생산된다고 밝혔습니다. 3C 인증 페이지에 표시된 제조사는 Shenzhen Honor Intelligent Machinery Co., Ltd.입니다.</p>
+          
+          <h3>예상 사양 및 특징</h3>
+          
+          <p>IT홈의 전일 보도에 따르면, 정보에 의하면 Honor의 중량급 신제품인 Robot Phone이 8월에 출시될 예정입니다. 이 스마트폰은 약 6.3-6.4인치 크기의 1.5K 바 타입 디스플레이를 탑재하고, Snapdragon 8 Elite Gen5 칩셋을 장착한 것으로 보입니다.</p>
+          
+          <p>카메라 구성 및 주요 특징은 다음과 같습니다:</p>
+          
+          <ul>
+<li>2억 화소 F1.6 23mm 4D 짐벌 메인 카메라</li>
+<li>5,000만 화소 초광각 카메라</li>
+<li>2억 화소 페리스코프 망원 카메라</li>
+<li>ARRI 영상 기술 적용</li>
+</ul>
+          
+          <p>이 제품은 Magic9 시리즈의 선행 모델로 볼 수 있으며, 가격은 "저렴하지 않을 것"으로 예상됩니다.</p>
+          
+          <h3>Robot Phone 상세 기능</h3>
+          
+          <p>Honor Robot Phone은 올해 3월 처음 공개되었으며, "세계 최초의 로봇 스마트폰"이라고 홍보되었습니다. 기기 상단에 위치한 3축 짐벌 카메라에는 2억 화소 센서가 탑재되어 있으며, 전방 및 후방으로 회전이 가능하여 사용자가 자신이나 사물을 촬영하기 편리합니다.</p>
+          
+          <p>또한 다음과 같은 기능을 지원합니다:</p>
+          
+          <ul>
+<li>AI 객체 추적</li>
+<li>AI 비디오 편집 및 스마트 촬영</li>
+<li>실시간 감지 및 보정 기능으로 안정적인 영상 화면 확보</li>
+</ul>
+          
+          <h3>총평</h3>
+          
+          <p>Honor Robot Phone은 120W 고속충전과 Snapdragon 8 Elite Gen5 칩셋, ARRI 기술이 적용된 강력한 카메라 시스템을 갖춘 플래그십 모델로 예상됩니다. 특히 상단에 위치한 3축 짐벌 및 AI 기반의 촬영 보조 기능이 핵심적인 특징입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>认证信息与生产细节</h3>
+<p>型号为“APH-AN00”的Honor 5G移动电话已通过3C认证。该设备配备型号为“HN-200600C02”的电源适配器，支持最高120W快速充电。</p>
+<p>相关爆料指出，该机型为Honor Robot Phone，由深圳Honor智能机器有限公司生产。</p>
+          
+          <h3>核心硬件规格</h3>
+<p>据预测，该款重量级新品将于8月正式亮相。其初步披露的硬件参数包括：</p>
+<ul>
+<li>屏幕：6.3-6.4 英寸 1.5K 四等边屏</li>
+<li>芯片：骁龙 8 Elite Gen5</li>
+<li>影像技术：支持阿莱（ARRI）影像</li>
+<li>镜头组合：2 亿像素 F1.6 23mm 4D 云台主摄、5000 万像素超广角、2 亿像素潜望长焦</li>
+</ul>
+          
+          <h3>产品特色与功能</h3>
+<p>Honor Robot Phone 被称为“全球首款机器人手机”，其核心卖点在于顶部配备的三轴云台相机系统：</p>
+<ul>
+<li>硬件设计：搭载2 亿像素传感器，支持镜头向前/向后翻转。</li>
+<li>智能交互：支持AI物体追踪、AI视频剪辑与智能拍摄功能。</li>
+<li>稳定性保障：具备实时感知与补偿技术，确保视频录制过程中的画面稳定。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Honor Robot Phone 已通过3C认证并确认相关核心硬件参数，预计将于8月上市。该机型主打“机器人手机”概念，融合了三轴云台相机、高像素影像系统及120W快充技术。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>認証情報</h3>
+          
+          <p>ITホームの7月15日の報道によると、モデル名「APH-AN00」のHonor 5Gスマートフォンが3C認証を通過しました。このデバイスは、最大120Wの急速充電に対応する電源アダプター（モデル番号：HN-200600C02）を搭載しています。</p>
+          
+          <h3>製造および製品情報</h3>
+          
+          <p>ブロガーの@旺仔百事通氏によると、このデバイスは「Honor Robot Phone」であり、Honor自社の工場で生産されるとのことです。3C認証ページに記載されている製造元は、Shenzhen Honor Intelligent Machinery Co., Ltd.となっています。</p>
+          
+          <h3>想定スペックと特徴</h3>
+          
+          <p>ITホームの報道によると、Honorの中位モデルである「Robot Phone」が8月に発売される予定です。このスマートフォンは、約6.3〜6.4インチの1.5K曲面（バータイプ）ディスプレイを搭載し、Snapdragon 8 Elite Gen5チップセットを搭載していると見られています。</p>
+          
+          <p>カメラ構成および主な特徴は以下の通りです：</p>
+          
+          <ul>
+<li>2億画素 F1.6 23mm 4D ジンバルメインカメラ</li>
+<li>5,000万画素 超広角カメラ</li>
+<li>2億画素 ペリスコープ望遠カメラ</li>
+<li>ARRI映像技術の採用</li>
+</ul>
+          
+          <p>この製品はMagic9シリーズの前モデルと見られ、価格は「安くはない」と予想されています。</p>
+          
+          <h3>Robot Phoneの詳細機能</h3>
+          
+          <p>Honor Robot Phoneは今年3月に初めて公開され、「世界初のロボットスマートフォン」として宣伝されました。デバイス上部に配置された3軸ジンバルカメラには2億画素のセンサーが搭載されており、前方向および後方へ回転可能なため、ユーザーが自分自身や対象物を撮影する際に非常に便利です。</p>
+          
+          <p>また、以下の機能をサポートしています：</p>
+          
+          <ul>
+<li>AIオブジェクトトラッキング</li>
+<li>AIビデオ編集およびスマート撮影</li>
+<li>リアルタイム検知および補正機能による安定した映像の確保</li>
+</ul>
+          
+          <h3>総評</h3>
+          
+          <p>Honor Robot Phoneは、120Wの急速充電、Snapdragon 8 Elite Gen5チップセット、そしてARRI技術を統合した強力なカメラシステムを備えたフラッグシップモデルになると予想されます。特に上部に配置された3軸ジンバルとAIベースの撮影支援機能が主要な特徴です。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>Honorは、独自の3軸ジンバルと2億画素センサー、ARRI技術を搭載した「Robot Phone」を8月に発表する見込みです。Snapdragon 8 Elite Gen5チップセットや高度なAI追跡機能を備え、高性能なカメラシステムを追求したフラッグシップモデルとして期待されています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Certification Information</h3>
+<p>According to a report by ITHome on July 15, an Honor 5G smartphone with the model name "APH-AN00" has passed 3C certification. The device is equipped with a power adapter (model "HN-200600C02") that supports up to 120W fast charging.</p>
+          
+          <h3>Manufacturing and Product Information</h3>
+<p>Blogger @旺仔百事通 identified the device as the Honor Robot Phone, noting that it is produced in Honor's own factory. The manufacturer listed on the 3C certification page is Shenzhen Honor Intelligent Machinery Co., Ltd.</p>
+          
+          <h3>Expected Specifications and Features</h3>
+<p>According to reports from ITHome, this new product—the Robot Phone—is expected to be released in August. The smartphone is reported to feature a 6.3-6.4 inch 1.5K bar display and is likely powered by the Snapdragon 8 Elite Gen5 chipset.</p>
+          
+          <p>The camera configuration and key features include:</p>
+<ul>
+<li>200MP F1.6 23mm 4D Gimbal main camera</li>
+<li>50MP ultra-wide camera</li>
+<li>200MP periscope telephoto camera</li>
+<li>ARRI video technology integration</li>
+</ul>
+          
+          <p>This product is viewed as a precursor to the Magic9 series, and its price is expected to be "not cheap."</p>
+          
+          <h3>Robot Phone Detailed Features</h3>
+<p>The Honor Robot Phone was first unveiled in March and was marketed as the "world's first robot smartphone." It features a 3-axis gimbal camera mounted at the top of the device with a 200MP sensor. The camera can rotate forward and backward, making it convenient for users to film themselves or surrounding objects.</p>
+          
+          <p>Additionally, the device supports the following features:</p>
+<ul>
+<li>AI object tracking</li>
+<li>AI video editing and smart shooting</li>
+<li>Real-time detection and correction for stable footage</li>
+</ul>
+          
+          <h3>Overall Review</h3>
+<p>The Honor Robot Phone is expected to be a flagship model equipped with 120W fast charging, the Snapdragon 8 Elite Gen5 chipset, and a powerful camera system featuring ARRI technology. Its standout features are particularly the top-mounted 3-axis gimbal and AI-based filming assistance tools.</p>
+          
+          <h3>Summary</h3>
+<p>The Honor Robot Phone is an upcoming flagship device expected to launch in August, featuring high-end specifications such as the Snapdragon 8 Elite Gen5 chipset and a 120W fast charging system. Its defining characteristics include a top-mounted 3-axis gimbal camera with ARRI technology support and various AI-driven filming features.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">주의: 어떠한 경우에도 이 기기를 사용하지 마십시오.</div>
+                <div class="caption-lang" data-lang="en">Notice: Do not use this device under any circumstances.</div>
+                <div class="caption-lang" data-lang="ja">注意：いかなる場合もこの機器を使用しないでください。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">어떠한 경우에도 이 기기를 사용하지 마십시오.</div>
+                <div class="caption-lang" data-lang="en">Do not use this device under any circumstances.</div>
+                <div class="caption-lang" data-lang="ja">いかなる場合もこの機器を使用しないでください。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">어떠한 상황에서도 이 기기를 사용하지 마십시오.</div>
+                <div class="caption-lang" data-lang="en">Do not use this device under any circumstances.</div>
+                <div class="caption-lang" data-lang="ja">いかなる場合もこの機器を使用しないでください。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/977/092.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
