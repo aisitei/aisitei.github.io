@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 코드 100% AI 작성: 9년 차 iOS 개발자, 15일 만에 배달 게임 제작해 2만 5천 달러 상금 획득</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="코드 100% AI 작성: 9년 차 iOS 개발자, 15일 만에 배달 게임 제작해 2만 5천 달러 상금 획득">
+  <meta name="title-zh" content="代码 100% 由 AI 编写：9 年 iOS 开发者 15 天打造外卖游戏，斩获 2.5 万美元奖金">
+  <meta name="title-ja" content="コードの100%をAIで執筆：経験9年のiOS開発者が15日間でデリバリーゲームを制作し、2.5万ドルの賞金を獲得">
+  <meta name="title-en" content="Code 100% Written by AI: A 9-Year iOS Developer Created a Food Delivery Game in 15 Days and Won $25,000">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="코드 100% AI 작성: 9년 차 iOS 개발자, 15일 만에 배달 게임 제작해 2만 5천 달러 상금 획득" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="코드 100% AI 작성: 9년 차 iOS 개발자, 15일 만에 배달 게임 제작해 2만 5천 달러 상금 획득"
+            data-zh="代码 100% 由 AI 编写：9 年 iOS 开发者 15 天打造外卖游戏，斩获 2.5 万美元奖金"
+            data-ja="コードの100%をAIで執筆：経験9年のiOS開発者が15日間でデリバリーゲームを制作し、2.5万ドルの賞金を獲得"
+            data-en="Code 100% Written by AI: A 9-Year iOS Developer Created a Food Delivery Game in 15 Days and Won $25,000">코드 100% AI 작성: 9년 차 iOS 개발자, 15일 만에 배달 게임 제작해 2만 5천 달러 상금 획득</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-17
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>개요</h3>
+          
+          <p>IT_Home의 보도에 따르면, 기술 매체 Wccftech는 7월 13일 게시물을 통해 9년 경력의 iOS 개발자가 2주 동안 100% AI가 작성한 코드로 제작한 'Capybara 배달' 게임을 공개했다고 밝혔습니다. 해당 개발자는 Cursor Vibe Jam 2026 이벤트에서 25,000달러(현재 환율로 약 17만 위안)의 상금을 획득했습니다.</p>
+          
+          <h3>개발 과정</h3>
+          
+          <p>사용자 u/Ieocoout은 7월 10일 Reddit 커뮤니티에 게시물을 올려, 단 한 줄의 코드도 직접 작성하지 않고 100% AI에게 맡긴 상태에서 15일 만에 'Capybara 배달' 게임을 성공적으로 제작했으며, 이를 통해 25,000달러의 상금을 받았다고 밝혔습니다.</p>
+          
+          <h3>대회 정보</h3>
+          
+          <p>Vibe Jam 2026은 독립 개발자 Pieter Levels가 주최하는 연례 'Vibe Coding(분위기 프로그래밍 / 의도 기반 프로그래밍)' 게임 개발 대회입니다. 이 대회는 Claude Code 등 AI 도구를 활용하여 전체 코드를 생성하는 프로젝트를 전 세계 개발자들이 겨루는 장으로, 많은 참여를 이끌어냈습니다.</p>
+          
+          <h3>비용 및 도구</h3>
+          
+          <p>개발자는 약 27,000줄의 코드를 작성하기 위해 100달러를 결제하여 Claude Code 5x 플랜을 Max 20x 플랜으로 업그레이드했습니다. 또한 게임의 텍스처와 삽화를 처리하기 위해 무료 체험판인 GPT images 2 모델과 Grok 모델을 활용했습니다.</p>
+          
+          <h3>AI 상호작용 및 에셋</h3>
+          
+          <p>개발자는 전체 과정에서 직접 코드를 작성하지 않았으며, 총 188회의 커밋을 통해 Claude를 호출하여 약 27,000줄의 코드를 생성했습니다. 또한 게임의 로고, 삽화, 텍스처 및 3D 모델 모두 AI로 제작되었습니다. 개발자 본인은 프롬프트 작성, 기획, 테스트 및 AI가 처리하지 못한 부분의 보완을 담당했습니다.</p>
+          
+          <h3>기술적 과제 및 멀티플레이어</h3>
+          
+          <p>개발자는 AI를 통한 3D 지도 생성이 어렵다는 점을 언급했습니다. 이에 따라 프로젝트는 에디터를 사용하여 유럽 스타일의 도시를 수동으로 구축했으며, 몇 시간에 걸쳐 플레이 가능한 도시 환경을 조성했습니다. 멀티플레이어 모드는 단일 글로벌 도시와 로비를 채택했으며, Cloudflare의 실시간 WebSocket을 통해 플레이어 위치와 아이템 정보 등을 전달합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>한 iOS 개발자가 Claude Code 등 AI 도구를 활용해 100% AI 코드로 구성된 게임을 단 2주 만에 제작하고 상금을 획득했습니다. 이 과정에서 코드 생성뿐만 아니라 그래픽, 모델링 등 다양한 요소에 AI를 도입했으며, 기술적 한계는 수동 작업과 외부 서비스를 결합하여 해결했습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>项目概况</h3>
+<p>一名拥有 9 年经验的 iOS 开发者在 Vibe Jam 2026 大赛中，凭借一款由 AI 全程编写代码制作的 Capybara 外卖游戏赢得了 2.5 万美元（约合 17 万元人民币）的奖金。该赛事由 Pieter Levels 举办，旨在展示“Vibe Coding”（氛围编程/意图编程）模式下利用 Claude Code 等工具进行全代码生成的竞技。</p>
+          
+          <h3>技术工具与成本</h3>
+<p>开发者在项目开发过程中采用了多种 AI 工具，并记录了相关的技术参数：</p>
+<ul>
+<li>核心代码生成：使用 Claude Code（将 5x 套餐升级至 Max 20x 套餐）。</li>
+<li>美术资源处理：利用 GPT images 2 和 Grok 模型制作游戏纹理、插画和 3D 模型。</li>
+<li>投入成本：开发者仅花费 100 美元用于订阅升级。</li>
+<li>代码规模：AI 生成了约 2.7 万行代码，共计完成 188 次提交。</li>
+</ul>
+          
+          <h3>开发过程与技术细节</h3>
+<p>在实际操作中，该开发者全程未手写任何一行代码，其核心工作包括提示词编写、项目规划、功能测试以及修补 AI 处理不到位的缺口。针对 AI 生成 3D 地图困难的挑战，开发者选择使用编辑器手动搭建欧洲风格城市环境。此外，多人模式通过 Cloudflare 上的实时 WebSocket 技术来传递玩家位置与物品堆信息。</p>
+          
+          <h3>总结</h3>
+<p>一名 iOS 开发者利用 Claude Code 等 AI 工具在 15 天内完成了一款 Capybara 外卖游戏并斩获 2.5 万美元奖金。该案例展示了“Vibe Coding”模式下，人类通过高效的提示词规划与 AI 模型协作，能够快速实现从代码到美术资源的全自动化生产。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>概要</h3>
+          
+          <p>IT_Homeの報道によると、技術メディアWccftechは7月13日の投稿にて、9年のキャリアを持つiOS開発者が、わずか2週間で100% AIが生成したコードのみを用いて制作したゲーム「Capybara Delivery」を公開したことを報じました。この開発者はCursor Vibe Jam 2026イベントにおいて、25,000ドル（現在の為替レートで約17万元）の賞金を獲得しました。</p>
+          
+          <h3>開発プロセス</h3>
+          
+          <p>ユーザーu/Ieocooutは7月10日にRedditコミュニティへ投稿を行い、自ら一行もコードを書くことなく、すべてをAIに委ねることでわずか15日間で「Capybara Delivery」の制作に成功し、25,000ドルの賞金を獲得したことを明らかにしました。</p>
+          
+          <h3>大会情報</h3>
+          
+          <p>Vibe Jam 2026は、独立開発者のPieter Levelsが主催する年次「Vibe Coding（雰囲気プログラミング／意図ベースのプログラミング）」ゲーム開発コンテストです。この大会はClaude CodeなどのAIツールを活用して全コードを生成するプロジェクトを世界中の開発者が競う場となっており、多くの参加者を集めました。</p>
+          
+          <h3>コストおよびツール</h3>
+          
+          <p>開発者は約27,000行のコードを生成するために、以下の内容でリソースを投入しました。</p>
+<ul>
+<li>Claude Code 5xプランからMax 20xプランへアップグレード（費用：100ドル）</li>
+<li>テクスチャおよびイラスト処理：GPT images 2モデル、Grokモデル（無料トライアル版を使用）</li>
+</ul>
+          
+          <h3>AIとの相互作用およびアセット</h3>
+          
+          <p>開発者は全工程において自らコードを記述することはなく、以下のプロセスで進めました。</p>
+<ul>
+<li>Claudeへの呼び出しによるコミット数：188回</li>
+<li>生成された総コード量：約27,000行</li>
+<li>AIで制作した要素：ロゴ、イラスト、テクスチャ、3Dモデルのすべて</li>
+</ul>
+<p>開発者自身はプロンプトの作成、企画、テスト、およびAIが処理できなかった部分の補完を担当しました。</p>
+          
+          <h3>技術的な課題とマルチプレイヤー</h3>
+          
+          <p>開発者は、AIによる3Dマップ生成の難しさを指摘しています。これに対し、以下の手法で解決を図りました。</p>
+<ul>
+<li>都市構築：エディタを使用し、ヨーロッパスタイルの都市を手動で数時間かけて構築</li>
+<li>マルチプレイヤーモード：単一のグローバル都市とロビーを採用</li>
+<li>通信技術：CloudflareのリアルタイムWebSocketを通じて、プレイヤーの位置やアイテム情報を転送</li>
+</ul>
+          
+          <h3>まとめ</h3>
+          
+          <p>あるiOS開発者がClaude CodeなどのAIツールを活用し、100% AI生成コードによるゲームをわずか2週間で制作して賞金を獲得しました。この過程ではコードだけでなくグラフィックや3Dモデルなど多岐にわたる要素にAIを導入しており、技術的な限界については手動作業と外部サービスの組み合わせによって解決しています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Overview</h3>
+<p>According to reports from IT_Home and Wccftech, an iOS developer with nine years of experience recently unveiled "Capybara Delivery," a game developed in just two weeks using 100% AI-generated code. The developer won a $25,000 prize (approximately 170,000 RMB) at the Cursor Vibe Jam 2026 event.</p>
+          
+          <h3>Development Process</h3>
+<p>On July 10, user u/Ieocoout shared a post on Reddit stating that they successfully produced "Capybara Delivery" in 15 days without writing a single line of code manually. By delegating the entire coding process to AI, the developer was able to secure the $25,000 prize.</p>
+          
+          <h3>Competition Details</h3>
+<p>Vibe Jam 2026 is an annual game development competition hosted by independent developer Pieter Levels, focusing on "Vibe Coding" (intent-based programming). The event serves as a global platform where developers compete to create projects using AI tools like Claude Code to generate the entire codebase.</p>
+          
+          <h3>Costs and Tools</h3>
+<p>To produce approximately 27,000 lines of code, the developer invested in specific AI tiers and models:</p>
+<ul>
+<li>Spent $100 to upgrade a Claude Code plan from 5x to Max 20x.</li>
+<li>Utilized GPT images 2 (free trial) for textures and illustrations.</li>
+<li>Used Grok models for additional asset processing.</li>
+</ul>
+          
+          <h3>AI Interaction and Assets</h3>
+<p>The developer did not write any manual code, instead making 188 calls to Claude to generate the bulk of the project's script. The scope of AI integration included:</p>
+<ul>
+<li>Generation of approximately 27,000 lines of code.</li>
+<li>AI-generated logos, illustrations, textures, and 3D models.</li>
+<li>Human oversight for prompt engineering, planning, testing, and refining elements that the AI could not handle automatically.</li>
+</ul>
+          
+          <h3>Technical Challenges and Multiplayer</h3>
+<p>The developer noted that generating a 3D map through AI proved difficult. To overcome this, they manually constructed a European-style city using an editor over several hours to create a playable environment. The multiplayer mode features a single global city and lobby, utilizing Cloudflare's real-time WebSocket to transmit player positions and item information.</p>
+          
+          <h3>Summary</h3>
+<p>An experienced iOS developer successfully created the game "Capybara Delivery" in just two weeks using 100% AI-generated code and assets, winning a $25,000 prize. The project demonstrated how "Vibe Coding" and tools like Claude Code can streamline development while still requiring human intervention for complex tasks like manual environment building.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/976/444.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

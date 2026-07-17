@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 메모리 점유량 54GB → 3.9GB! Apple이 PrismML 양자화 AI 기술을 평가하며 iPhone 15 및 후속 모델에서 27B 모델 구동 지원</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="메모리 점유량 54GB → 3.9GB! Apple이 PrismML 양자화 AI 기술을 평가하며 iPhone 15 및 후속 모델에서 27B 모델 구동 지원">
+  <meta name="title-zh" content="内存占用 54 GB → 3.9GB！苹果正评估 PrismML 量化 AI 技术，让 iPhone 15 及后续机型运行 27B 模型">
+  <meta name="title-ja" content="メモリ使用量が54GBから3.9GBに！AppleはPrismML量子化AI技術を評価しており、iPhone 15以降のモデルで27Bモデルを実行可能にする。">
+  <meta name="title-en" content="Memory Usage 54 GB → 3.9GB! Apple Evaluating PrismML Quantization AI Technology to Run 27B Models on iPhone 15 and Subsequent Models">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="메모리 점유량 54GB → 3.9GB! Apple이 PrismML 양자화 AI 기술을 평가하며 iPhone 15 및 후속 모델에서 27B 모델 구동 지원" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="메모리 점유량 54GB → 3.9GB! Apple이 PrismML 양자화 AI 기술을 평가하며 iPhone 15 및 후속 모델에서 27B 모델 구동 지원"
+            data-zh="内存占用 54 GB → 3.9GB！苹果正评估 PrismML 量化 AI 技术，让 iPhone 15 及后续机型运行 27B 模型"
+            data-ja="メモリ使用量が54GBから3.9GBに！AppleはPrismML量子化AI技術を評価しており、iPhone 15以降のモデルで27Bモデルを実行可能にする。"
+            data-en="Memory Usage 54 GB → 3.9GB! Apple Evaluating PrismML Quantization AI Technology to Run 27B Models on iPhone 15 and Subsequent Models">메모리 점유량 54GB → 3.9GB! Apple이 PrismML 양자화 AI 기술을 평가하며 iPhone 15 및 후속 모델에서 27B 모델 구동 지원</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-17
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>Apple과의 협력</h3>
+          
+          <p>IT홈은 PrismML의 CEO 바박 하시비(Babak Hassibi)가 어제(7월 14일) CNBC와의 인터뷰에서 자사가 Apple과 접촉 중이며, Apple이 관련 AI 양자화 기술을 평가하고 있다고 밝혔다고 보도했습니다.</p>
+          
+          <p>하시비는 "그들(Apple)은 현재 우리의 기술을 진지하게 평가하고 있다"고 언급했으나 구체적인 협상 내용은 밝히지 않았으며, 협상이 초기 단계이지만 "순조롭게 진행되고 있다"고 덧붙였습니다. 해당 매체는 협상 범위에 PrismML 기술의 단순 라이선스 허용뿐만 아니라, Apple이 PrismML을 직접 인수할 가능성도 포함되어 있다고 분석했습니다.</p>
+          
+          <h3>기술적 특징</h3>
+          
+          <p>PrismML은 칼텍(Caltech)에서 파생된 AI 스타트업으로, 핵심 기술인 네이티브 1-bit 모델 압축 기술을 통해 다음과 같은 성능을 제공합니다.</p>
+          
+          <ul>
+<li>모델 크기를 전체 정밀도 버전의 약 1/14로 축소</li>
+<li>메모리 점유율을 90% 이상 절감</li>
+<li>추론 속도를 최대 8배 향상</li>
+<li>에너지 소비를 75%-80% 절감</li>
+</ul>
+          
+          <p>네이티브 1-bit 모델 압축 기술은 가중치를 {-1, +1}로만 표현하며 그룹 스케일링 인자와 결합되는 비전통적 양자화 방식입니다. 이 기술은 "고정밀도 탈출 경로"가 없는 것으로 알려져 있으며, FP16 모델에 근접한 정밀도를 유지하면서 성능을 최적화합니다.</p>
+          
+          <h3>모델 출시 및 성능</h3>
+          
+          <p>PrismML은 Qwen 3.6 27B 모델을 미세 조정하여 만든 Bonsai 27B 모델을 발표했습니다. 이 모델은 지능 수준의 90%를 유지하면서 12GB 메모리를 탑재한 iPhone에서 네이티브로 구동 가능합니다.</p>
+          
+          <p>회사는 모델 크기를 약 54GB에서 4GB 미만으로 축소하여, iPhone 15 및 이후 기종에서 270억 개의 파라미터를 가진 전체 모델을 실행할 수 있게 했다고 밝혔습니다. 하시비는 이러한 양자화 기술이 성능의 일부를 희생하며, 벤치마크 점수에서 3-bit는 95%, 1-bit는 90%를 유지하지만 사실 추론, 수학 및 프로그래밍 분야에서는 성능이 눈에 띄게 낮아진다고 설명했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>PrismML은 혁신적인 네이티브 1-bit 모델 압축 기술을 통해 대규모 언어 모델의 크기를 획기적으로 줄이고 에너지 효율성을 높였습니다. 이 기술은 현재 Apple로부터 큰 관심을 받고 있으며, 특히 모바일 기기에서 고성능 AI 모델을 구동하는 데 핵심적인 역할을 할 것으로 기대됩니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Apple 与 PrismML 的合作动态</h3>
+<p>PrismML 首席执行官 Babak Hassibi 在接受 CNBC 采访时确认，Apple 正在评估其公司的 AI 量化技术。目前双方处于早期洽谈阶段，讨论内容可能包括授权使用 PrismML 技术或 Apple 直接收购该公司。</p>
+          
+          <h3>核心量化技术突破</h3>
+<p>PrismML 是源自加州理工学院的初创公司，其核心技术为原生 1-bit 模型压缩。该技术并非传统量化，而是通过权重仅用 {-1, +1} 表示并配合分组缩放因子，在保持接近 FP16 精度的同时大幅优化性能。</p>
+<ul>
+<li>模型体积可压缩至全精度版本的约 1/14；</li>
+<li>内存占用降低超过 90%；</li>
+<li>推理速度最高提升 8 倍；</li>
+<li>能耗降低 75%-80%。</li>
+</ul>
+          
+          <h3>新产品 Bonsai 27B 发布</h3>
+<p>PrismML 近期推出了基于 Qwen 3.6 27B 模型微调的 Bonsai 27B 模型。该模型旨在让大参数量的模型能够在移动设备上原生运行。</p>
+<ul>
+<li>模型体积从约 54 GB 缩减至不足 4 GB；</li>
+<li>可在拥有 12GB 内存的 iPhone（如 iPhone 15 及后续机型）上运行；</li>
+<li>在保留 90% 智能水平的同时，在处理事实推理、数学和编程方面的表现较完整版本略有下降。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>PrismML 的原生 1-bit 量化技术因能显著降低模型体积并大幅提升移动端运行效率而受到 Apple 的高度关注。其推出的 Bonsai 27B 模型成功将大参数量模型适配至 iPhone 设备，展示了该技术的巨大应用潜力。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>Appleとの提携</h3>
+          
+          <p>ITホームの報道によると、PrismMLのCEOであるBabak Hassibi氏が7月14日のCNBCとのインタビューにおいて、自社がAppleと接触しており、Appleが同社のAI量子化技術を評価していることを明らかにしました。</p>
+          
+          <p>Hassibi氏は「彼ら（Apple）は現在、我々の技術を真剣に評価している」と述べましたが、具体的な交渉内容は明かしていません。交渉は初期段階ではあるものの、「順調に進んでいる」と付け加えました。同メディアの分析によれば、交渉の範囲にはPrismML技術の単なるライセンス供与だけでなく、AppleによるPrismMLの直接買収の可能性も含まれているとされています。</p>
+          
+          <h3>技術的特徴</h3>
+          
+          <p>PrismMLはCaltechから派生したAIスタートアップであり、核となる「ネイティブ1-bitモデル圧縮技術」を通じて以下の性能を実現します。</p>
+          
+          <ul>
+<li>モデルサイズをフル精度バージョンの約1/14に縮小</li>
+<li>メモリ占有率を90%以上削減</li>
+<li>推論速度を最大8倍向上</li>
+<li>消費電力を75%〜80%削減</li>
+</ul>
+          
+          <p>ネイティブ1-bitモデル圧縮技術は、重みを{-1, +1}のみで表現し、グループスケーリング因子と組み合わせる非伝統的な量子化手法です。この技術は「高精度な脱出経路」を持たないことで知られていますが、FP16モデルに近い精度を維持しながら性能を最適化します。</p>
+          
+          <h3>モデルのリリースと性能</h3>
+          
+          <p>PrismMLは、Qwen 3.6 27Bモデルを微調整して構築した「Bonsai 27B」を発表しました。このモデルは知能レベルの90%を維持しながら、12GBのメモリを搭載したiPhoneでネイティブに動作可能です。</p>
+          
+          <p>同社は、モデルサイズを約54GBから4GB未満に縮小することで、iPhone 15以降の機種において270億のパラメータを持つフルモデルを実行可能にしたと述べています。Hassibi氏は、この量子化技術によって性能の一部が犠牲になることを説明しており、ベンチマークスコアでは3-bitは95%、1-bitは90%を維持するものの、事実確認（Fact Check）、数学、プログラミングの分野では性能が顕著に低下すると指摘しています。</p>
+          
+          <h3>総評</h3>
+          
+          <p>PrismMLは革新的なネイティブ1-bitモデル圧縮技術を通じて、大規模言語モデル（LLM）のサイズを劇的に縮小し、エネルギー効率を向上させました。この技術は現在Appleから大きな関心を集めており、特にモバイルデバイスで高性能なAIモデルを動作させる上で極めて重要な役割を果たすことが期待されています。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>PrismMLの革新的な1-bit量子化技術により、LLMのサイズと消費電力を大幅に削減しつつ、iPhoneなどのモバイル端末での高度なAI処理を実現します。この技術はAppleから高い関心を集めており、今後のモバイルデバイスにおけるAI実装の鍵となる可能性があります。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Collaboration with Apple</h3>
+          
+          <p>IT Home reported that PrismML CEO Babak Hassibi disclosed in an interview with CNBC on July 14 that the company is in contact with Apple, which is currently evaluating its AI quantization technology.</p>
+          
+          <p>Hassibi noted, "They (Apple) are currently seriously evaluating our technology." While he did not disclose specific details of the negotiations, he added that although they are in the early stages, the process is "moving smoothly." The report suggests that the scope of negotiations includes not only a simple licensing agreement for PrismML's technology but also the possibility of Apple acquiring PrismML directly.</p>
+          
+          <h3>Technical Features</h3>
+          
+          <p>PrismML is an AI startup spun off from Caltech. Its core technology, native 1-bit model compression, provides the following performance improvements:</p>
+          
+          <ul>
+<li>Reduces model size to approximately 1/14 of the full precision version</li>
+<li>Reduces memory occupancy by more than 90%</li>
+<li>Increases inference speed by up to 8 times</li>
+<li>Reduces energy consumption by 75%-80%</li>
+</ul>
+          
+          <p>The native 1-bit model compression technology represents weights only as {-1, +1} and is a non-traditional quantization method combined with group scaling factors. This technique is known for having no "high-precision escape path" while optimizing performance to remain close to FP16 models.</p>
+          
+          <h3>Model Release and Performance</h3>
+          
+          <p>PrismML announced the Bonsai 27B model, created by fine-tuning the Qwen 3.6 27B model. This model can run natively on iPhones equipped with 12GB of memory while maintaining 90% of its intelligence level.</p>
+          
+          <p>The company stated that it reduced the model size from approximately 54GB to less than 4GB, enabling the execution of a full 27-billion-parameter model on iPhone 15 and subsequent models. Hassibi explained that while this quantization technology sacrifices some performance—maintaining 95% for 3-bit and 90% for 1-bit in benchmark scores—performance in areas such as reasoning, mathematics, and programming is noticeably lower compared to higher precision versions.</p>
+          
+          <h3>Overall Review</h3>
+          
+          <p>Through its innovative native 1-bit model compression technology, PrismML has significantly reduced the size of large language models and improved energy efficiency. This technology is currently garnering significant interest from Apple and is expected to play a crucial role in running high-performance AI models on mobile devices.</p>
+          
+          <h3>Summary</h3>
+<p>PrismML's innovative 1-bit compression technology allows for massive reductions in model size and power consumption while maintaining high performance levels. This technology has caught the attention of Apple as a potential solution for deploying large-scale AI models on mobile hardware. The Bonsai 27B model demonstrates this capability by enabling full-parameter models to run on modern iPhones with minimal memory overhead.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오늘 PrismML은 iPhone에서 로컬로 구동 가능한 최상의 지능을 제공합니다.</div>
+                <div class="caption-lang" data-lang="en">Today, PrismML brings maximum local intelligence to iPhone.</div>
+                <div class="caption-lang" data-lang="ja">PrismMLは本日、iPhoneでローカル動作する最高レベルの知能を実現しました。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">OpenAI 기반 3.2B를 바탕으로 한 당사의 1-bit Bonsai 27B는 메모리 사용량을 54GB에서 3.9GB로 줄였으며, 지식, 추론, 수학, 코딩, 지시 이행, 에이전트 능력 및 비전 분야의 벤치마크 점수에서 90%를 유지했습니다.</div>
+                <div class="caption-lang" data-lang="en">Based on OpenAI&#39;s 3.2B, our 1-bit Bonsai 27B reduces memory usage from 54GB to 3.9GB while retaining 90% of benchmark scores in knowledge, reasoning, math, coding, instruction following, agency, and vision.</div>
+                <div class="caption-lang" data-lang="ja">OpenAIの3.2Bベースの1-bit Bonsai 27Bは、メモリ使用量を54GBから3.9GBに削減しつつ、知識・推論・数学・コーディング・指示追従・エージェント能力・視覚などのベンチマークスコアを90%維持しています。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">조금 더 큰 Ternary Bonsai 27B는 5.9GB를 차지하면서도 벤치마크 점수의 95%를 유지합니다.</div>
+                <div class="caption-lang" data-lang="en">The slightly larger Ternary Bonsai 27B uses 5.9GB while retaining 95% of its benchmark scores.</div>
+                <div class="caption-lang" data-lang="ja">少し大きいTernary Bonsai 27Bは、5.9GBでベンチマークスコアの95%を維持。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이는 스마트 기술을 엣지로 확장하는 중요한 이정표입니다.</div>
+                <div class="caption-lang" data-lang="en">A major milestone in pushing intelligence to the edge.</div>
+                <div class="caption-lang" data-lang="ja">これは知能の境界を押し広げる重要なマイルストーンです。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/976/826.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

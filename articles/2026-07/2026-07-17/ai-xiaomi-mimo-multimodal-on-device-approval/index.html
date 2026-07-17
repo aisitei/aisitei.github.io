@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Xiaomi MiMo, 대형 언어·멀티모달·음성 등 전 시리즈 모델 매트릭스 구축 완료 및 온디바이스 모델 국가 대형 모델 등록 승인</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Xiaomi">
+  <meta name="article-brand-color" content="#FF6900">
+  <meta name="title-ko" content="Xiaomi MiMo, 대형 언어·멀티모달·음성 등 전 시리즈 모델 매트릭스 구축 완료 및 온디바이스 모델 국가 대형 모델 등록 승인">
+  <meta name="title-zh" content="小米 MiMo 完成大语言、多模态、语音等全系列模型矩阵闭环，端侧模型通过国家大模型备案">
+  <meta name="title-ja" content="Xiaomi MiMo、大規模言語モデル、マルチモーダル、音声を含む全シリーズのモデルマトリックスを完結させ、オンデバイスモデルの国家大規模モデル登録を取得。">
+  <meta name="title-en" content="Xiaomi MiMo completes its full model matrix of LLM, multimodal, and voice; on-device models pass national filing.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="Xiaomi MiMo, 대형 언어·멀티모달·음성 등 전 시리즈 모델 매트릭스 구축 완료 및 온디바이스 모델 국가 대형 모델 등록 승인" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #FF6900;">
+            Xiaomi
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Xiaomi MiMo, 대형 언어·멀티모달·음성 등 전 시리즈 모델 매트릭스 구축 완료 및 온디바이스 모델 국가 대형 모델 등록 승인"
+            data-zh="小米 MiMo 完成大语言、多模态、语音等全系列模型矩阵闭环，端侧模型通过国家大模型备案"
+            data-ja="Xiaomi MiMo、大規模言語モデル、マルチモーダル、音声を含む全シリーズのモデルマトリックスを完結させ、オンデバイスモデルの国家大規模モデル登録を取得。"
+            data-en="Xiaomi MiMo completes its full model matrix of LLM, multimodal, and voice; on-device models pass national filing.">Xiaomi MiMo, 대형 언어·멀티모달·음성 등 전 시리즈 모델 매트릭스 구축 완료 및 온디바이스 모델 국가 대형 모델 등록 승인</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-17
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>정부 서비스 등록</h3>
+          
+          <p>IT홈의 7월 15일 소식에 따르면, 생성형 인공지능(AI) 서비스의 혁신적인 발전과 규제된 활용을 촉진하기 위해 사이버 공간 관리 부문이 관련 부서와 협력하여 '생성형 인공지능 서비스 관리 임시 방년' 요건에 따라 질서 있게 서비스를 등록하고 있습니다. 현재 휴대폰 단말기 측에서 생성형 AI 서비스를 제공하는 7종의 모델로 'Apple 인텔리전스' 등이 포함된 정보가 공표되었습니다.</p>
+          
+          <h3>Xiaomi MiMo 모델</h3>
+          
+          <p>Xiaomi는 공식 채널을 통해 이번에 승인된 Xiaomi MiMo 모델을 소개했습니다.</p>
+          
+          <p>Xiaomi MiMo는 Xiaomi가 자체 개발한 대규모 언어 모델로, 대형 언어(LLM), 멀티모달, 음성 등 전 시리즈 모델 매트릭스 루프를 완료했습니다. Xiaomi MiMo는 단-클라우드 협력을 통해 사람, 차량, 가정의 모든 생태계에 강력한 기능을 제공하며 AI가 물리적 세계로 확장되는 것을 지속적으로 추진합니다.</p>
+          
+          <h3>투자 계획</h3>
+          
+          <p>IT홈은 Xiaomi 공식 발표를 통해 AI, 칩셋, OS가 Xiaomi가 장기간 투자해 온 세 가지 핵심 기술 분야임을 확인했습니다. Xiaomi는 2026년까지 AI 분야에 160억 위안을 투입할 예정이며, 향후 3년간 AI 분야에 최소 600억 위안 이상을 투입할 계획입니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>중국 당국이 'Apple 인텔리전스'를 포함한 7종의 온디바이스 생성형 AI 서비스를 공식 등록했습니다. Xiaomi는 자체 개발한 MiMo 모델을 통해 생태계 확장을 도모하고 있으며, 향후 3년간 AI 분야에 대규모 투자를 단행할 계획입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>网信部门发布生成式人工智能备案信息</h3>
+<p>网信部门会同相关部门，按照《生成式人工智能服务管理暂行办法》要求，公布了包括“Apple 智能”在内的 7 款提供手机端侧生成式人工智能服务的备案信息。</p>
+          
+          <h3>Xiaomi MiMo 模型核心能力</h3>
+<p>Xiaomi 官方宣布其自研大模型 Xiaomi MiMo 已完成全系列模型矩阵闭环。该模型通过端云协同，旨在赋能人车家全生态，推动 AI 应用进入物理世界。</p>
+<ul>
+<li>支持领域：大语言、多模态、语音等全系列模型</li>
+<li>核心技术路径：端云协同</li>
+</ul>
+          
+          <h3>Xiaomi 战略投资计划</h3>
+<p>Xiaomi 将 AI、芯片、OS 作为长期投入的三大核心技术赛道，并公布了明确的资金投入计划：</p>
+<ul>
+<li>2026 年 AI 领域投资额：160 亿元人民币</li>
+<li>未来三年 AI 领域总投资：不低于 600 亿元人民币</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>网信部门正式公布了包含 Apple 智能在内的 7 款移动端生成式人工智能服务备案信息。其中，Xiaomi 的 MiMo 模型凭借全系列模型矩阵获得备案，并获得巨额投资支持，计划在未来三年投入不低于 600 亿元人民币用于 AI 领域发展。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>政府によるサービス登録</h3>
+          
+          <p>ITホームの7月15日の報道によると、サイバー空間管理部門は関連部署と協力し、「生成AIサービス管理暫定措置」の要件に基づき、サービスの秩序ある登録を進めています。現在、スマートフォン端末側で提供される生成AIサービスとして、「Apple Intelligence」を含む計7種類のモデルが公表されました。</p>
+          
+          <h3>Xiaomi MiMoモデル</h3>
+          
+          <p>Xiaomiは公式チャネルを通じて、今回承認された「MiMo」モデルを発表しました。</p>
+          
+          <p>Xiaomi MiMoはXiaomiが独自に開発した大規模言語モデル（LLM）であり、LLM、マルチモーダル、音声などを含む全シリーズのモデルマトリックスを構築しています。Xiaomi MiMoはクラウドとエッジの連携を通じて、人、車、家庭のあらゆるエコシステムに強力な機能を提供し、AIの物理世界への拡張を継続的に推進します。</p>
+          
+          <h3>投資計画</h3>
+          
+          <p>ITホームの発表によると、AI、チップセット、OSはXiaomiが長期間投資してきた3つの核心技術分野であることが確認されました。Xiaomiは今後、以下の通りAI分野へ大規模な投資を行う計画です。</p>
+          
+          <ul>
+<li>2026年までにAI分野に160億元を投入</li>
+<li>今後3年間でAI分野に少なくとも600億元以上を投資</li>
+</ul>
+          
+          <h3>まとめ</h3>
+          
+          <p>中国当局により、「Apple Intelligence」を含む7種類のオンデバイス生成AIサービスが公式に登録されました。Xiaomiは独自開発のMiMoモデルを通じてエコシステムの拡大を図り、今後数年間にわたりAI分野へ巨額の投資を行う計画です。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Government Service Registration</h3>
+          
+          <p>According to reports from IT Home on July 15, the Cyberspace Administration is collaborating with relevant departments to systematically register services in accordance with the "Interim Measures for the Management of Generative Artificial Intelligence Services." This initiative aims to foster innovative development and regulated usage of generative AI. Currently, information has been released regarding seven models providing on-device generative AI services, including Apple Intelligence.</p>
+          
+          <h3>Xiaomi MiMo Model</h3>
+          
+          <p>Xiaomi introduced its newly approved MiMo model through official channels.</p>
+          
+          <p>Xiaomi MiMo is a large language model (LLM) independently developed by Xiaomi. It features a comprehensive matrix of models covering LLM, multimodal capabilities, and voice functions. Through single-cloud collaboration, Xiaomi MiMo provides powerful functionality across human, vehicle, and home ecosystems, continuously pushing the expansion of AI into the physical world.</p>
+          
+          <h3>Investment Plans</h3>
+          
+          <p>IT Home confirmed through an official announcement from Xiaomi that AI, chipsets, and OS are three core technology areas where the company has invested extensively over a long period. Xiaomi plans to invest 16 billion RMB in the AI field by 2026, with a total investment of at least 60 billion RMB planned for the AI sector over the next three years.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>Chinese authorities have officially registered seven on-device generative AI services, including Apple Intelligence. Xiaomi is expanding its ecosystem through its self-developed MiMo model and has committed to significant investments in the AI sector totaling at least 60 billion RMB over the next three years.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xiaomi 기술</div>
+                <div class="caption-lang" data-lang="en">Xiaomi Technology</div>
+                <div class="caption-lang" data-lang="ja">シャオミの技術</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">26-7-15 16:19 게시됨, Xiaomi HyperOS 미변 웨이보 간편 웹 버전</div>
+                <div class="caption-lang" data-lang="en">Published on 2026-7-15 at 16:19 via The Paper (Weibo Lite Web Version)</div>
+                <div class="caption-lang" data-lang="ja">2026年7月15日 16:19 澎湃（The Paper）米辺 微博簡易版</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오늘, XiaomiMiMo 온디바이스 모델이 국가 대형 모델 등록을 통과했습니다.</div>
+                <div class="caption-lang" data-lang="en">Today, the XiaomiMiMo on-device model passed national large model registration.</div>
+                <div class="caption-lang" data-lang="ja">今日、Xiaomi MiMoのオンデバイスモデルが国家の大規模モデル登録をパスしました。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">XiaomiMiMo는 Xiaomi가 자체 개발한 AI 모델로, 대규모 언어, 멀티모달, 음성 등 전 시리즈 모델 능력의 루프를 완성했습니다. XiaomiMiMo는 엔드 투 엔드 협업을 통해 범용 능력을 모든 시나리오에 제공하며, AI가 물리적 세계로 나아가는 것을 지속적으로 추진합니다.</div>
+                <div class="caption-lang" data-lang="en">XiaomiMiMo is Xiaomi&#39;s self-developed AI model with integrated LLM, multimodal, and voice capabilities, empowering all scenarios through end-to-end synergy to advance AI into the physical world.</div>
+                <div class="caption-lang" data-lang="ja">XiaomiMiMoは、LLMやマルチモーダルなど全方位の機能を備えたXiaomi独自のAIモデルであり、エンドツーエンドの連携によりあらゆるシーンでの活用と実世界への展開を推進します。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">AI, 칩, OS는 Xiaomi가 투자하는 세 가지 핵심 기술 분야이며, Xiaomi는 2026년 AI 분야에 160억 위안을 투입할 예정입니다. 향후 3년간 AI 분야 투자는 최소 600억 위안이 될 것입니다.</div>
+                <div class="caption-lang" data-lang="en">AI, chips, and OS are Xiaomi&#39;s three core technology tracks; it will invest 16 billion RMB in AI by 2026, totaling no less than 60 billion RMB over the next three years.</div>
+                <div class="caption-lang" data-lang="ja">XiaomiはAI、チップ、OSの3つの核心技術に注力しており、AI分野へ2026年までに160億元、今後3年間で計600億元以上を投資する。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">즐겨찾기 회전 크게 보기</div>
+                <div class="caption-lang" data-lang="en">Favorite Rotate View Large</div>
+                <div class="caption-lang" data-lang="ja">お気に入り 回転 大きく見る</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xiaomi MiMO 온디바이스 모델</div>
+                <div class="caption-lang" data-lang="en">Xiaomi MiMO On-device Model</div>
+                <div class="caption-lang" data-lang="ja">Xiaomi MiMO 端側モデル</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">국가 대형 모델 등록 통과</div>
+                <div class="caption-lang" data-lang="en">Passed national large model filing</div>
+                <div class="caption-lang" data-lang="ja">国家の大規模モデル登録済</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">등록 번호: Beijing-XiaoMiPengPai-202509080119</div>
+                <div class="caption-lang" data-lang="en">Filing Number: Beijing-XiaoMiPengPai-202509080119</div>
+                <div class="caption-lang" data-lang="ja">登録番号：Beijing-XiaoMiPengPai-202509080119</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">@Xiaomi 기술</div>
+                <div class="caption-lang" data-lang="en">@Xiaomi Tech</div>
+                <div class="caption-lang" data-lang="ja">@Xiaomiテクノロジー</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/977/116.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
