@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 차이나 유니콤과 Huawei, 세계 최대 규모 5G-A 100Mbps 대용량 업링크 네트워크 출시로 AI 안경 밀리초급 전송 구현</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Huawei">
+  <meta name="article-brand-color" content="#CF0A2C">
+  <meta name="title-ko" content="차이나 유니콤과 Huawei, 세계 최대 규모 5G-A 100Mbps 대용량 업링크 네트워크 출시로 AI 안경 밀리초급 전송 구현">
+  <meta name="title-zh" content="中国联通与华为发布全球最大规模 5G-A 百兆大上行网络，AI 眼镜毫秒级回传">
+  <meta name="title-ja" content="中国聯通とHuaweiが世界最大規模の5G-A 100Mbps大容量アップリンクネットワークを発表、AIグラスのミリ秒レベルのバックホールを実現">
+  <meta name="title-en" content="China Unicom and Huawei launch the world&#39;s largest scale 5G-A 100Mbps high uplink network, enabling millisecond-level transmission for AI glasses.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="차이나 유니콤과 Huawei, 세계 최대 규모 5G-A 100Mbps 대용량 업링크 네트워크 출시로 AI 안경 밀리초급 전송 구현" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #CF0A2C;">
+            Huawei
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="차이나 유니콤과 Huawei, 세계 최대 규모 5G-A 100Mbps 대용량 업링크 네트워크 출시로 AI 안경 밀리초급 전송 구현"
+            data-zh="中国联通与华为发布全球最大规模 5G-A 百兆大上行网络，AI 眼镜毫秒级回传"
+            data-ja="中国聯通とHuaweiが世界最大規模の5G-A 100Mbps大容量アップリンクネットワークを発表、AIグラスのミリ秒レベルのバックホールを実現"
+            data-en="China Unicom and Huawei launch the world&#39;s largest scale 5G-A 100Mbps high uplink network, enabling millisecond-level transmission for AI glasses.">차이나 유니콤과 Huawei, 세계 최대 규모 5G-A 100Mbps 대용량 업링크 네트워크 출시로 AI 안경 밀리초급 전송 구현</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-18
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>네트워크 구축</h3>
+          
+          <p>IT홈(IT之家)의 7월 16일 보도에 따르면, 'Huawei 무선 네트워크' 공식 계정은 최근 China Unum 베이징 지사가 Huawei와 협력하여 세계 최대 규모의 5G-A 대용량 상향(Uplink) 상용 네트워크를 구축했다고 발표했습니다.</p>
+          
+          <p>해당 혁신 네트워크는 베이징 전역의 주요 지역에서 100MHz급 대용량 상향 네트워크 연속 커버리지를 실현했으며, 기지국 수는 10,000개를 초과합니다. 현장 테스트 결과, 초청된 7개의 제3자 매체는 해당 네트워크가 '우수한 커버리지와 안정적인 서비스 경험'을 제공함을 확인했습니다.</p>
+          
+          <p>상세 성능 지표는 다음과 같습니다.</p>
+          
+          <ul>
+<li>상향 100MHz 활성화 비율: 83%</li>
+<li>상향 에지 저속(20Mbps 미만) 비중: 0.1%</li>
+</ul>
+          
+          <h3>기술 및 서비스 활용</h3>
+          
+          <p>China Unicom 베이징 지사는 3.5G+2.1G 협동망을 통해 대용량 상향 네트워크 성능 평가와 AI 단말기 서비스 경험을 지원했습니다. 34km에 달하는 테스트 경로에서 다음과 같은 성과를 거두었습니다.</p>
+          
+          <ul>
+<li>상향 100MHz 활성화 비율: 83%</li>
+<li>상향 피크 속도: 1Gbps</li>
+<li>상향 평균 속도: 397Mbps</li>
+<li>상향 극한 경험(300Mbps 초과) 비중: 72%</li>
+<li>상향 에지 저속(20Mbps 미만) 비중: 0.1%</li>
+</ul>
+          
+          <p>이러한 우수한 상향 네트워크 성능은 차량 이동 환경에서 AI 안경의 밀리초 단위 백홀 전송 및 끊김 없는 상호작용, AI 스마트폰과 Agent 간의 원활한 소통, AI 스마트 카메라의 실시간 클라우드 전송을 통한 AI 분석 및 콘텐츠 생성, 촬영 즉시 업로드 등의 애플리케이션 환경에서 매끄러운 경험을 제공합니다.</p>
+          
+          <h3>관계자 코멘트</h3>
+          
+          <p>China Unicom 부총지배인 Miao Shouye는 인공지능이 생산과 생활에 빠르게 통합됨에 따라 AI 스마트폰, AI 안경, 지능형 로봇, 저고도 응용 등 새로운 비즈니스가 지속적으로 등장하고 있으며, 네트워크 연결 대상과 서비스 모델 또한 깊은 변화를 겪고 있다고 언급했습니다. 과거 이동통신이 '다운로드 속도'와 정보 습득 효율에 집중했다면, Mobile AI 시대에는 현장에서 생성되는 데이터가 실시간으로 클라우드에 전송되어 분석 및 처리될 필요성이 커졌습니다. 따라서 네트워크는 단순히 '빠른 다운로드'뿐만 아니라 '안정적이고 정확한 업로드(상향)' 능력이 필수적이며, 대용량 상향 능력은 AI 시대의 실시간 상호작용을 지원하는 중요한 기반이 됩니다.</p>
+          
+          <p>Huawei 무선 TDD 제품군 총괄 Li Jie는 5G-A 글로벌 규모 시범 운영부터 도시 전체를 밝히는 상용화, 그리고 오늘 발표된 세계 최대 규모의 5G-A 대용량 상향 상용 네트워크에 이르기까지의 성과를 언급하며, Huawei의 3.5GHz+2.1GHz SUL 혁신 솔루션을 통해 China Unicom 네트워크가 선두를 유지할 수 있도록 지원하게 되어 영광이라고 밝혔습니다. 또한 Huawei는 다중 주파수 풀링, 상향 강화, 입체 협동 등 기술 방향에서 지속적으로 혁신하여 사용자 경험 중심의 고품질 5G-A 네트워크 구축을 지원하고 Mobile AI 시대의 기회와 도전에 대응할 것이라고 덧붙였습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>China Unicom 베이징 지사와 Huawei는 협력을 통해 세계 최대 규모의 5G-A 대용량 상향 네트워크를 성공적으로 구축했습니다. 이 네트워크는 우수한 업로드 성능을 바탕으로 AI 안경, AI 스마트폰 등 Mobile AI 시대에 필수적인 실시간 데이터 전송과 안정적인 연결 환경을 제공합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>全球最大规模5G-A大上行商用网络发布</h3>
+<p>中国联通北京市分公司携Huawei在北京市全域重点区域推出全球最大规模的5G-A大上行商用网络。该网络涵盖基站数量超过10,000座，旨在提供高容量、稳定的上行连接。</p>
+          
+          <h3>核心技术与性能指标</h3>
+<p>通过3.5G+2.1G协同组网方案，该网络在长达34公里的测试路线中表现出优异的各项指标：</p>
+<ul>
+<li>上行100MHz生效比：83%</li>
+<li>上行峰值速率：1Gbps</li>
+<li>上行平均速率：397Mbps</li>
+<li>上行极致体验（>300Mbps）占比：72%</li>
+<li>上行边缘弱点（<20Mbps）占比：仅为0.1%</li>
+</ul>
+          
+          <h3>赋能Mobile AI时代应用</h3>
+<p>该网络的大上行能力是支撑移动端AI应用的关键基础，能够满足多种高带宽、低延迟的实时回传需求：</p>
+<ul>
+<li>支持AI眼镜毫秒级回传与无感交互；</li>
+<li>保障AI手机与Agent流畅交互；</li>
+<li>支持智能相机将画面实时回传至云端进行分析与内容生成；</li>
+<li>支撑工业视觉、低空应用等新业务场景。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>中国联通北京市分公司与Huawei合作推出的全球最大规模5G-A大上行商用网络，通过3.5G+2.1G协同组网技术实现了极高的上行速率和稳定性。该网络旨在解决Mobile AI时代对实时回传数据的需求，为AI眼镜、智能相机及低空应用等新场景提供核心连接保障。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>ネットワーク構築</h3>
+          
+          <p>ITホーム（IT之家）の7月16日の報道によると、「Huawei 無線ネットワーク」公式アカウントは、China Unicom北京支社と協力し、世界最大規模の5G-A大容量アップリンク商用ネットワークを構築したと発表しました。</p>
+          
+          <p>この革新的なネットワークは、北京全域の主要エリアにおいて100MHz級の大容量アップリンク連続カバレッジを実現しており、基地局数は10,000を超えています。現場テストの結果、招待された7つの第三者メディアは、当該ネットワークが「優れたカバレッジと安定したサービス体験」を提供していることを確認しました。</p>
+          
+          <p>詳細な性能指標は以下の通りです。</p>
+          
+          <ul>
+<li>アップリンク100MHz有効率：83%</li>
+<li>アップリンクのエッジ低速（20Mbps未満）の割合：0.1%</li>
+</ul>
+          
+          <h3>技術およびサービスの活用</h3>
+          
+          <p>China Unicom北京支社は、3.5G+2.1G協調網を通じて大容量アップリンクネットワークの性能評価とAIデバイスのサービス体験をサポートしました。34kmに及ぶテストルートにおいて、以下の成果を達成しました。</p>
+          
+          <ul>
+<li>アップリンク100MHz有効率：83%</li>
+<li>アップリンクピーク速度：1Gbps</li>
+<li>アップリンク平均速度：397Mbps</li>
+<li>アップリンク高速体験（300Mbps超）の割合：72%</li>
+<li>アップリンクのエッジ低速（20Mbps未満）の割合：0.1%</li>
+</ul>
+          
+          <p>これらの優れたアップリンク性能は、車両移動環境におけるAIグラスのミリ秒単位のバックホール転送やシームレスな相互作用、AIスマートフォンとAgent間の円滑な通信、AIスマートカメラによるリアルタイムなクラウド転送を通じたAI分析およびコンテンツ生成、撮影直後のアップロードなど、多様なアプリケーションにおいてスムーズな体験を提供します。</p>
+          
+          <h3>関係者のコメント</h3>
+          
+          <p>China Unicomの副総支配人であるMiao Shouye氏は、人工知能が生産や生活に急速に統合されるにつれ、AIスマートフォン、AIグラス、インテリジェントロボット、低高度アプリケーションなど、新たなビジネスが次々と登場しており、ネットワーク接続の対象とサービスモデルも大きな変化を遂げていると述べました。かつてのモバイル通信が「ダウンロード速度」と情報の取得効率に焦点を当てていたのに対し、Mobile AI時代では現場で生成されるデータがリアルタイムでクラウドに転送され、分析・処理される必要性が高まっています。そのため、ネットワークは単に「高速なダウンロード」だけでなく、「安定した正確なアップロード（上り）」能力が不可弱であり、大容量アップリンク能力はAI時代のリアルタイムな相互作用を支える重要な基盤となります。</p>
+          
+          <p>Huaweiの無線TDD製品群総括であるLi Jie氏は、5G-Aのグローバル規模での試行運用から都市全体をカバーする商用化、そして本日発表された世界最大規模の5G-A大容量アップリンク商用ネットワークに至るまでの成果に触れ、Huaweiの3.5GHz+2.1GHz SUL革新ソリューションを通じてChina Unicomが先頭を走り続けられるよう支援できたことを光栄に思うと述べました。また、Huaweiは多周波数ポーリング、アップリンク強化、立体協同などの技術方向で継続的に革新を行い、ユーザー体験中心の高品質な5G-Aネットワーク構築をサポートし、Mobile AI時代の機会と挑戦に対応していくと付け加えました。</p>
+          
+          <h3>総評</h3>
+          
+          <p>China Unicom北京支社とHuaweiは協力により、世界最大規模の5G-A大容量アップリンクネットワークの構築に成功しました。このネットワークは優れたアップロード性能を基盤として、AIグラスやAIスマートフォンなど、Mobile AI時代に不可欠なリアルタイムデータ転送と安定した接続環境を提供します。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>China Unicom北京支社とHuaweiは協力し、世界最大規模の5G-A大容量アップリンク商用ネットワークを構築しました。このインフラは高いアップロード性能を備えており、AIグラスやスマートフォンといったMobile AIデバイスにおいて不可欠な、リアルタイムで安定したデータ転送を実現します。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Network Construction</h3>
+          
+          <p>According to a report by IT Home on July 16, the official "Huawei Wireless Network" account announced that it has collaborated with China Unicom Beijing Branch to establish the world's largest 5G-A high-capacity uplink commercial network. This innovative network provides continuous coverage of 100MHz-level large capacity uplink across major areas in Beijing, featuring more than 10,000 base stations. During field tests, seven invited third-party media outlets confirmed that the network provides "excellent coverage and a stable service experience."</p>
+          
+          <p>The specific performance metrics are as follows:</p>
+          
+          <ul>
+<li>100MHz Uplink Activation Rate: 83%</li>
+<li>Uplink Edge Low Speed (under 20Mbps) Ratio: 0.1%</li>
+</ul>
+          
+          <h3>Technology and Service Utilization</h3>
+          
+          <p>China Unicom Beijing utilized a 3.5G+2.1G collaborative network to evaluate high-capacity uplink performance and support the service experience of AI devices. Over a 34km test route, the following results were achieved:</p>
+          
+          <ul>
+<li>100MHz Uplink Activation Rate: 83%</li>
+<li>Uplink Peak Speed: 1Gbps</li>
+<li>Uplink Average Speed: 397Mbps</li>
+<li>Uplink Extreme Experience (over 300Mbps) Ratio: 72%</li>
+<li>Uplink Edge Low Speed (under 20Mbps) Ratio: 0.1%</li>
+</ul>
+          
+          <p>These superior uplink capabilities provide a seamless experience for various applications, including millisecond-level backhaul transmission and seamless interaction for AI glasses in moving vehicle environments, smooth communication between AI smartphones and Agents, real-time cloud transmission for analysis and content generation by AI smart cameras, and immediate uploads upon filming.</p>
+          
+          <h3>Official Comments</h3>
+          
+          <p>Miao Shouye, Vice President of China Unicom, noted that as AI integrates rapidly into production and daily life, new business models such as AI smartphones, AI glasses, intelligent robots, and low-altitude applications are emerging, leading to significant changes in network targets and service models. While past mobile communications focused on "download speeds" and information acquisition efficiency, the Mobile AI era requires data generated on-site to be transmitted to the cloud in real-time for analysis and processing. Therefore, a stable and accurate uplink capability is essential, making high-capacity uplink a critical foundation for real-time interaction in the AI era.</p>
+          
+          <p>Li Jie, Head of Huawei Wireless TDD Products, highlighted the progression from 5G-A global pilot operations to city-wide commercialization, culminating in today's announcement of the world's largest 5G-A high-capacity uplink network. He expressed pride in supporting China Unicom’s leadership through Huawei's 3.5GHz+2.1GHz SUL innovation solutions. Additionally, he stated that Huawei will continue to innovate in areas such as multi-frequency pooling, uplink enhancement, and spatial cooperation to support the construction of high-quality 5G-A networks focused on user experience while addressing the opportunities and challenges of the Mobile AI era.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>China Unicom Beijing and Huawei have successfully collaborated to build the world's largest 5G-A high-capacity uplink network in Beijing. This infrastructure provides the stable, high-speed upload capabilities necessary for real-time data transmission in the Mobile AI era, supporting advanced devices like AI glasses and smart cameras.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/977/791.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

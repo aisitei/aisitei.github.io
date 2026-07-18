@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 칩 자체 제조 난도 높아... 타타 일렉트로닉스, 90nm 공정 활용해 인도 첫 로컬 웨이퍼 생산</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="image_sensor">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="칩 자체 제조 난도 높아... 타타 일렉트로닉스, 90nm 공정 활용해 인도 첫 로컬 웨이퍼 생산">
+  <meta name="title-zh" content="从零造芯难度太大，塔塔电子只能用 90nm 制程生产印度首批本土晶圆">
+  <meta name="title-ja" content="ゼロからチップを製造するのは難易度が高すぎるため、塔塔電子は90nmプロセスを用いてインド初の国産ウェハーを生産するしかない。">
+  <meta name="title-en" content="Developing chips from scratch is too difficult; Tata Electronics can only use the 90nm process to produce India&#39;s first batch of local wafers.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap hero-image-fallback">
+        <img src="../../../../assets/images/apple-touch-icon.png" alt="칩 자체 제조 난도 높아... 타타 일렉트로닉스, 90nm 공정 활용해 인도 첫 로컬 웨이퍼 생산" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="칩 자체 제조 난도 높아... 타타 일렉트로닉스, 90nm 공정 활용해 인도 첫 로컬 웨이퍼 생산"
+            data-zh="从零造芯难度太大，塔塔电子只能用 90nm 制程生产印度首批本土晶圆"
+            data-ja="ゼロからチップを製造するのは難易度が高すぎるため、塔塔電子は90nmプロセスを用いてインド初の国産ウェハーを生産するしかない。"
+            data-en="Developing chips from scratch is too difficult; Tata Electronics can only use the 90nm process to produce India&#39;s first batch of local wafers.">칩 자체 제조 난도 높아... 타타 일렉트로닉스, 90nm 공정 활용해 인도 첫 로컬 웨이퍼 생산</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-18
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>생산 공정 및 기술 수준</h3>
+          
+          <p>블룸버그 통신에 따르면 Tata Electronics와 TSMC가 협력하여 인도 최초의 대규모 웨이퍼 팔을 건설 중입니다. 그러나 Tata는 당초 발표했던 28nm 공정이 아닌, 상대적으로 오래된 90nm 공정을 사용하여 첫 인도산 웨이퍼를 생산할 계획입니다.</p>
+          
+          <p>이러한 움직임은 인도가 무에서부터 반도체 산업을 구축하는 데 직면한 어려움을 반영합니다. 관계자에 따르면 구자라트주 서부 돌레라(Dholera)에 위치한 웨이퍼 팔은 초기 단계에서 주로 90nm 공정을 채택할 예정입니다.</p>
+          
+          <p>90nm 공정은 이미 고도로 성숙한 단계에 진입했으며, 주로 저사양 산업 장비 및 자동차 분야에 사용되며 향후 몇 년 내에 점진적으로 도태될 가능성이 높습니다. 반면 Tata 그룹의 지주사인 'Tata Sons'는 2025년 3월 회계연도 연례 보고서에서 28nm 공정을 반도체 제조 진출의 시작점으로 명시한 바 있습니다. 만약 실제로 90nm로 시작할 경우, 초기 기술 수준은 당초 목표보다 훨씬 낮아지게 됩니다.</p>
+          
+          <p>관계자들은 Tata 그룹이 공개적으로 발표한 계획이 단기간 내에 달성 가능한 진척도를 과대평가했을 가능성이 있다고 분석합니다.</p>
+          
+          <h3>기업 측 입장</h3>
+          
+          <p>Tata Electronics 대변인은 돌레라 공장이 28nm에서 110nm 사이의 공정을 다룰 것이라고 밝혔습니다. "계획은 항상 55nm와 90nm 공정을 먼저 도입한 후, 그 다음 28nm 칩을 생산하는 것이었습니다. 28nm 공정은 제품 포트폴리오에서 중요한 부분을 차지할 것입니다."</p>
+          
+          <p>TSMC의 대변인 탄중민(Tan Jung-min)은 이메일 답변을 통해 협력 범위가 여러 공정 노드를 포함하며, 그중 가장 진보된 것이 28nm라고 밝혔습니다. "기술 플랫폼은 보통 단계적으로 도입되며, 더 성숙한 공정부터 시작하게 됩니다."</p>
+          
+          <h3>정부 지원 및 운영 일정</h3>
+          
+          <p>현지 시간 수요일, 인도 정부는 반도체 설계, 제조 장비 및 공급망 구축을 지원하기 위해 1.28조 루피(현재 환율로 약 900.22억 위안)의 추가 재정 보조금을 승인했습니다. 이 보조금은 향후 추가되는 투자에 대해서만 적용되며, 이미 확정된 프로젝트 비용을 충당하는 데는 사용되지 않습니다.</p>
+          
+          <p>Tata는 원래 2026년 말까지 가동을 시작하기를 희망했으나, 인도의 전자정보기술부 장관 아슈위니 바이슈나우(Ashwini Vaishnaw)는 기자들에게 돌레라 공장이 2028년 중반이 되어야 정식 상업 운영에 들어갈 것으로 예상된다고 밝혔습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Tata Electronics와 TSMC의 협력으로 건설되는 인도 첫 웨이퍼 팔은 초기 생산을 위해 기존 90nm 공정을 먼저 도입하기로 결정했습니다. 이는 인도의 반도체 산업 구축 과정에서의 현실적인 어려움을 반영하며, 실제 상업 운영 시점 또한 당초 계획보다 늦춰진 2028년으로 전망됩니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>生产制程的实际挑战</h3>
+<p>Tata Electronics 与 PSMC 合作在印度建设首座大型晶圆厂。然而，有消息指出该工厂初期将采用较为成熟且老旧的 90 纳米（nm）制程来生产第一批本土晶圆，而非此前公开宣称的 28 纳米（nm）作为起步目标。这一变动反映了印度在从零构建芯片产业过程中面临的技术难度。</p>
+          
+          <h3>官方回应与技术路线</h3>
+<p>针对关于起始制程的争议，相关公司给出了以下说明：</p>
+<ul>
+<li>Tata Electronics 发言人表示，多莱拉工厂将覆盖 28 纳米至 110 纳米制程。</li>
+<li>生产计划采取分阶段导入策略：先投入 55 纳米和 90 纳米制程，随后再增加 28 纳米芯片的生产。</li>
+<li>PSMC 发言人表示合作涵盖多个节点，其中最先进的是 28 纳米，但技术平台通常会从较成熟的制程开始逐步过渡。</li>
+</ul>
+          
+          <h3>政府补贴与运营时间表</h3>
+<p>印度政府已提供相关政策支持，但项目进度面临调整：</p>
+<ul>
+<li>财政补贴：印度政府批准了 1.28 万亿卢比（约合 900.22 亿元人民币）的补贴，用于芯片设计、制造设备和供应链建设。</li>
+<li>投产时间：尽管 Tata 原计划于 2026 年底投产，但印度电子和信息技术部长表示，多莱拉工厂预计到 2028 年年中才能正式投入商业运营。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Tata Electronics 与 PSMC 在印度的晶圆厂项目因技术落地难度，将初期生产重心从 28 纳米调整至更成熟的 90 纳米制程。尽管获得政府巨额财政补贴支持，但受限于基础设施建设周期，工厂的正式投产时间已推迟至 2028 年年中。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>生産工程および技術水準</h3>
+          
+          <p>Bloombergの報道によると、Tata ElectronicsとTSMCは協力してインド初の大型ウェハーファブを建設中です。しかし、Tata側は当初発表していた28nmプロセスではなく、より古い90nmプロセスを採用し、最初のインド製ウェハーを生産する計画です。</p>
+          
+          <p>この動きは、インドがゼロから半導体産業を構築する際に直面している困難を反映しています。関係者によると、グジャラート州西部のドレラ（Dholera）に位置するウェハーファブは、初期段階で主に90nmプロセスを採用する予定です。</p>
+          
+          <p>90nmプロセスはすでに高度に成熟した段階にあり、主に低スペックの産業機器や自動車分野で使用され、今後数年以内に段階的に淘汰される可能性が高いものです。一方で、Tataグループの持株会社である「Tata Sons」は、2025年3月期年次報告書において、半導体製造への参入の出発点として28nmプロセスを明記していました。実際に90nmから開始する場合、初期の技術水準は当初の目標よりも大幅に低くなることになります。</p>
+          
+          <p>関係者らは、Tataグループが公表した計画が短期間で達成可能な進捗を過大評価していた可能性があると分析しています。</p>
+          
+          <h3>企業側の見解</h3>
+          
+          <p>Tata Electronicsの広報担当者は、ドレラ工場が以下の範囲のプロセスを扱う予定であると明らかにしました。
+<ul>
+<li>28nmから110nmの間のプロセス</li>
+</ul>
+「計画は常に55nmおよび90nmプロセスを先に導入し、その後に28nmチップを生産することでした。28nmプロセスは製品ポートフォリオにおいて重要な部分を占めることになります。」</p>
+          
+          <p>TSMCの広報担当者タン・ジュンミン（Tan Jung-min）はメールでの回答を通じて、協力範囲には複数のプロセスノードが含まれており、その中で最も進んだものが28nmであると述べています。「技術プラットフォームは通常段階的に導入され、より成熟したプロセスから開始されるのです。」</p>
+          
+          <h3>政府支援および運用スケジュール</h3>
+          
+          <p>現地時間水曜日、インド政府は半導体設計、製造装置、およびサプライチェーン構築を支援するため、以下の財政支援を承認しました。
+<ul>
+<li>1.28兆ルピー（現在の為替レートで約900.22億元）の追加財政補助金</li>
+</ul>
+この補助金は今後追加される投資に対してのみ適用され、すでに確定したプロジェクト費用に充てられるものではありません。</p>
+          
+          <p>Tataは当初、2026年末までの稼働開始を希望していましたが、インドの電子情報技術大臣アシュウィニ・バイシュナウ（Ashwini Vaishnaw）は記者団に対し、ドレラ工場が以下の時期に商用運営に入る見通しであると明らかにしました。
+<ul>
+<li>2028年半ば</li>
+</ul></p>
+          
+          <h3>総評</h3>
+          
+          <p>Tata ElectronicsとTSMCの協力により建設されるインド初のウェハーファブは、初期生産のために既存の90nmプロセスを優先的に導入することが決定しました。これはインドの半導体産業構築における現実的な課題を反映しており、実際の商用稼働時期も当初計画より遅れた2028年になる見通しです。</p>
+          
+          <h3>まとめ</h3>
+<p>Tata ElectronicsとTSMCの提携によるインド初のウェハーファブは、技術的な難易度を考慮し、初期段階では90nmプロセスから生産を開始する方針に転換しました。これに伴い、商用稼働の目標時期も当初の2026年末から2028年半ばへと延期される見通しとなっています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Production Process and Technology Levels</h3>
+          
+          <p>According to Bloomberg, Tata Electronics and TSMC are collaborating to construct India's first large-scale wafer fab. However, rather than the 28nm process initially announced, Tata plans to produce its first Indian-made wafers using the older 90nm process.</p>
+          
+          <p>This move reflects the challenges India faces in building a semiconductor industry from the ground up. Sources indicate that the wafer fab located in Dholera, western Gujarat, will primarily adopt the 90nm process during its initial stages.</p>
+          
+          <p>The 90nm process is already considered highly mature and is primarily used for low-specification industrial equipment and the automotive sector; it is likely to be phased out gradually over the next few years. In contrast, Tata Sons, the holding company of the Tata Group, had specified the 28nm process as the starting point for its entry into semiconductor manufacturing in its annual report for the fiscal year ending March 2025. If they begin with 90nm, the initial technical level will be significantly lower than originally targeted.</p>
+          
+          <p>Insiders analyze that the plans publicly announced by the Tata Group may have overestimated the progress achievable within a short timeframe.</p>
+          
+          <h3>Corporate Stance</h3>
+          
+          <p>A spokesperson for Tata Electronics stated that the Dholera plant will handle processes ranging from 28nm to 110nm. "The plan was always to introduce 55nm and 90nm processes first, followed by the production of 28nm chips. The 28nm process will constitute a significant portion of the product portfolio."</p>
+          
+          <p>TSMC spokesperson Tan Jung-min confirmed in an email response that the scope of cooperation includes several process nodes, with 28nm being the most advanced among them. "Technology platforms are typically introduced in stages, starting from more mature processes."</p>
+          
+          <h3>Government Support and Operational Timeline</h3>
+          
+          <p>On Wednesday local time, the Indian government approved an additional financial subsidy of 1.28 trillion rupees (approximately 90.22 billion yuan at current exchange rates) to support semiconductor design, manufacturing equipment, and supply chain construction. This subsidy applies only to future investments and will not be used to cover costs for projects already finalized.</p>
+          
+          <p>While Tata originally hoped to begin operations by the end of 2026, India's Minister of Electronics and Information Technology, Ashwini Vaishnaw, told reporters that the Dholera plant is expected to enter full commercial operation by mid-2028.</p>
+          
+          <h3>Summary</h3>
+<p>The collaboration between Tata Electronics and TSMC will begin with 90nm technology rather than the initially planned 28nm to address the practical difficulties of establishing India's semiconductor infrastructure. Due to these technical adjustments and logistical complexities, the timeline for full commercial operation has been pushed back to mid-2028.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/978/003.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
