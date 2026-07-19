@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 미국 샌프란시스코 검찰, Apple App Store 및 Google Play 스토어 내 &#39;AI 탈의&#39; 앱 13종 삭제 요청</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="미국 샌프란시스코 검찰, Apple App Store 및 Google Play 스토어 내 &#39;AI 탈의&#39; 앱 13종 삭제 요청">
+  <meta name="title-zh" content="美国旧金山检方要求苹果 App Store、谷歌 Play 商店下架 13 款“AI 脱衣”App">
+  <meta name="title-ja" content="米国サンフランシスコ検察、Apple App StoreとGoogle Play ストアから13の「AI脱衣」アプリの削除を要求">
+  <meta name="title-en" content="San Francisco prosecutors demand Apple App Store and Google Play Store remove 13 &#34;AI undressing&#34; apps">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="미국 샌프란시스코 검찰, Apple App Store 및 Google Play 스토어 내 &#39;AI 탈의&#39; 앱 13종 삭제 요청" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="미국 샌프란시스코 검찰, Apple App Store 및 Google Play 스토어 내 &#39;AI 탈의&#39; 앱 13종 삭제 요청"
+            data-zh="美国旧金山检方要求苹果 App Store、谷歌 Play 商店下架 13 款“AI 脱衣”App"
+            data-ja="米国サンフランシスコ検察、Apple App StoreとGoogle Play ストアから13の「AI脱衣」アプリの削除を要求"
+            data-en="San Francisco prosecutors demand Apple App Store and Google Play Store remove 13 &#34;AI undressing&#34; apps">미국 샌프란시스코 검찰, Apple App Store 및 Google Play 스토어 내 &#39;AI 탈의&#39; 앱 13종 삭제 요청</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-19
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>사건 개요</h3>
+          
+          <p>IT홈의 7월 18일 보도에 따르면, 기술 매체 9To5Mac은 Apple과 Google이 App Store 및 Google Play에서 발견된 소위 'AI 탈의' 앱으로 인해 다시 한번 비판을 받았다고 전했습니다.</p>
+          
+          <h3>조사 결과</h3>
+          
+          <p>IT홈이 원문 기사에서 파악한 내용에 따르면, 미국 샌프란시스코 검찰청은 최근 두 앱 스토어에 대한 조사를 실시했으며 그 결과 App Store에서 8개, Google Play에서 5개의 위반 앱을 발견했습니다. 이 앱들은 대부분 단순한 '얼음 교체' 도구라고 주장했으나, 사용자가 다운로드하여 실행하면 딥페이크 음란물 기능을 활성화할 수 있는 구조였습니다.</p>
+          
+          <h3>문제의 앱 상세 내용</h3>
+          
+          <p>그중 하나는 다운로드 수가 100만 건을 넘었으며 공식 홈페이지에서 10여 종의 AI 스타일 이미지를 보여주었고, 다른 한 앱은 '무료이며 검열 없는' 영상을 생성할 수 있다고 주장했습니다.</p>
+          
+          <h3>법적 조치</h3>
+          
+          <p>샌프란시스코 검찰청의 David Chiu는 Apple과 Google에 중단 명령서를 발송하며, 두 회사가 자사 앱 스토어에서 해당 13개 앱을 즉각적으로 삭제할 것을 요구했습니다.</p>
+          
+          <h3>수익 관련 지적</h3>
+          
+          <p>Chiu는 서한을 통해 Apple과 Google이 이러한 유해 기술로부터 이득을 취해왔으며, 두 회사가 해당 'AI 탈의' 앱으로부터 수백만 달러의 수수료를 챙겼을 가능성이 높다고 지적했습니다.</p>
+          
+          <h3>기업 측 대응</h3>
+          
+          <p>Google 대변인은 정책을 위반하는 앱에 대해 삭제 등의 조치를 취할 것이라고 밝혔습니다. Apple은 이후 공식 성명을 발표했습니다.</p>
+          
+          <p>App Store는 설계 단계부터 사용자에게 안전하고 신뢰할 수 있는 플랫폼을 제공하기 위해 만들어졌으며, 음란 콘텐츠를 생성, 유포 또는 시청하는 앱은 항상 엄격히 금지됩니다.</p>
+          
+          <p>'탈의' 관련 앱은 App Store 심사 가이드라인을 위반하며, 당사는 그동안 유사한 앱들의 등록을 적극적으로 거부해 왔습니다. 현재 문제가 된 앱 중 3개를 제거했으며 해당 개발자 계정도 정지 절차를 진행 중입니다. 또한 나머지 4개 앱의 개발자에게 연락하여 즉각적인 시정을 요구했으며, 시정되지 않을 경우 삭제될 예정입니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Apple과 Google은 App Store 및 Google Play에서 발견된 'AI 탈의' 관련 앱으로 인해 비판을 받았으며 샌프란시스코 검찰청으로부터 해당 앱들의 즉각적인 삭제를 요구받았습니다. 양사는 정책 위반 앱에 대한 조치를 취하고 있으며, 특히 Apple은 관련 앱 제거와 개발자 계정 정지 등 강력한 대응 방침을 발표했습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>调查发现与违规情况</h3>
+<p>美国旧金山市检察官办公室近期对 App Store 和 Google Play 进行了调查，发现多款打着“换脸”工具旗号、实则提供深度伪造色情功能的“AI 脱衣”应用。</p>
+<ul>
+    <li>App Store：共发现 8 款违规应用。</li>
+    <li>Google Play：共发现 5 款违规应用。</li>
+    <li>总计涉及数量：13 款相关应用。</li>
+</ul>
+          
+          <h3>受影响应用的具体特征</h3>
+<p>这些违规应用通过虚假宣传吸引用户，其中包含以下显著特征：</p>
+<ul>
+    <li>一款下载量超过 100 万的应用程序在官网展示了十多种 AI 风格图片。</li>
+    <li>另一款应用宣称能够生成“免费且无审查”的视频内容。</li>
+</ul>
+          
+          <h3>法律行动与厂商回应</h3>
+<p>旧金山市检察官 David Chiu 已向 Apple 和 Google 发出停止侵权函，要求立即下架相关应用，并指出两家公司可能因这些应用产生的分成获利数百万美元。</p>
+<p>针对此事件，Google 表示将对违反政策的应用采取下架等处理措施。Apple 则发布声明称其一直严禁此类内容，目前已移除 3 款涉事应用并正在终止相关开发者账号，同时正联系其余 4 款应用的开发者要求整改。</p>
+          
+          <h3>总结</h3>
+<p>由于 App Store 和 Google Play 上存在大量违规的“AI 脱衣”类应用，旧金山市检察官办公室已介入调查并发出警告。Apple 和 Google 目前正采取相应的技术和政策手段，旨在清理这些涉及深度伪造色情内容的有害软件。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>事件の概要</h3>
+<p>ITホームの7月18日の報道によると、テックメディアの9To5Macは、AppleとGoogleがApp StoreおよびGoogle Playで発見されたいわゆる「AI脱衣」アプリによって批判を浴びたことを報じました。</p>
+          
+          <h3>調査結果</h3>
+<p>ITホームが元の記事から把握した内容によると、米国サンフランシスコ検察庁が最近両方のアプリストアに対して調査を実施したところ、App Storeで8件、Google Playで5件の違反アプリが発見されました。これらのアプリの多くは単純な「アイス交換（氷の置き換え）」ツールであると主張していましたが、ユーザーがダウンロードして実行するとディープフェイクによるポルノコンテンツ機能を有効にできる構造になっていました。</p>
+          
+          <h3>問題のアプリの詳細</h3>
+<p>特定されたアプリのうち、1つはダウンロード数が100万件を超え、公式ホームページで10種類以上のAIスタイル画像を表示しており、別のアプリは「無料で検閲のない」動画を作成できると主張していました。</p>
+          
+          <h3>法的措置</h3>
+<p>サンフランシスコ検察庁のDavid Chiu氏は、AppleとGoogleに対して停止命令書を送付し、両社に対し自社のアプリストアから該当する13のアプリを直ちに削除するよう要求しました。</p>
+          
+          <h3>収益に関する指摘</h3>
+<p>Chiu氏は通知書を通じて、AppleとGoogleがこれらの有害な技術から利益を得ており、両社がこれらの「AI脱衣」アプリから数百万ドルの手数料を受け取っていた可能性が高いと指摘しました。</p>
+          
+          <h3>企業側の対応</h3>
+<p>Googleの広報担当者は、ポリシーに違反するアプリに対して削除などの措置を講じると明らかにしました。Appleもその後、公式声明を発表しました。</p>
+<p>App Storeは設計段階からユーザーに安全で信頼できるプラットフォームを提供するために構築されており、わいせつなコンテンツを生成、配布、または視聴するアプリは常に厳格に禁止されています。</p>
+<p>「脱衣」関連のアプリはApp Storeの審査ガイドラインに違反しており、同社はこれまで同様のアプリの登録を積極的に拒否してきました。現在、問題となったアプリのうち3つを除去し、該当する開発者アカウントの停止手続きを進めています。また、残りの4つのアプリについても開発者に連絡して即時是正を求め、是正されない場合は削除される予定です。</p>
+          
+          <h3>まとめ</h3>
+<p>AppleとGoogleは、App StoreおよびGoogle Playで発見された「AI脱衣」関連アプリにより批判され、サンフランシード検察庁からこれらのアプリの即時削除を要求されました。両社はポリシー違反に対する対応を進めており、特にAppleは該当アプリの除去や開発者アカウントの停止など、強力な対応方針を発表しています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Case Overview</h3>
+<p>According to a report by IT Home on July 18, citing the tech outlet 9To5Mac, Apple and Google have faced criticism once again due to "AI undressing" apps discovered on the App Store and Google Play.</p>
+          
+          <h3>Investigation Findings</h3>
+<p>Based on the original report, the San Francisco District Attorney's Office recently conducted an investigation into both app stores. The results identified several violating applications:</p>
+<ul>
+    <li>8 violations found on the App Store</li>
+    <li>5 violations found on Google Play</li>
+</ul>
+<p>While these apps claimed to be simple "ice-breaking" tools, they were structured to activate deepfake pornography features once downloaded and executed by users.</p>
+          
+          <h3>Details of the Problematic Apps</h3>
+<p>The investigation highlighted specific issues with several of the identified applications:</p>
+<ul>
+    <li>One app had over 1 million downloads and showcased more than 10 types of AI-styled images on its official website.</li>
+    <li>Another app claimed it could generate "free and uncensored" videos.</li>
+</ul>
+          
+          <h3>Legal Actions</h3>
+<p>David Chiu of the San Francisco District Attorney's Office issued a cease and desist order to Apple and Google, demanding that both companies immediately remove the 13 identified apps from their respective stores.</p>
+          
+          <h3>Concerns Regarding Revenue</h3>
+<p>In his letter, Chiu pointed out that Apple and Google have been profiting from these harmful technologies. He noted that it is highly likely that both companies collected millions of dollars in fees from these "AI undressing" apps.</p>
+          
+          <h3>Company Responses</h3>
+<p>A spokesperson for Google stated that they would take measures, such as removal, for any applications that violate their policies. Apple subsequently released an official statement:</p>
+<p>The App Store was designed from its inception to provide a safe and reliable platform; therefore, apps that generate, distribute, or allow the viewing of pornographic content are strictly prohibited.</p>
+<p>Apps related to "undressing" violate App Store review guidelines, and the company has been actively blocking the registration of similar applications. Apple's current actions include:</p>
+<ul>
+    <li>Removal of 3 problematic apps.</li>
+    <li>Initiating suspension procedures for the corresponding developer accounts.</li>
+    <li>Demanding immediate corrections from the developers of the remaining 4 apps, which will be removed if they fail to comply.</li>
+</ul>
+          
+          <h3>Summary</h3>
+<p>Apple and Google have faced criticism and legal pressure from the San Francisco District Attorney's Office regarding "AI undressing" apps on their platforms. Both companies are taking action against these policy-violating applications, with Apple specifically moving to remove the content and suspend the offending developer accounts.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/978/337.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

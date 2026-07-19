@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Honor의 리젠, WAIC에서 Robot 스마트폰 사전 예약 시작 발표</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Honor">
+  <meta name="article-brand-color" content="#0E62FF">
+  <meta name="title-ko" content="Honor의 리젠, WAIC에서 Robot 스마트폰 사전 예약 시작 발표">
+  <meta name="title-zh" content="荣耀李健 WAIC 宣布 Robot Phone 开启预约">
+  <meta name="title-ja" content="Honorの李健氏、WAICにてRobot Phoneの予約受付開始を発表">
+  <meta name="title-en" content="Honor&#39;s Li Jian announces pre-orders for Robot Phone at WAIC">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Honor의 리젠, WAIC에서 Robot 스마트폰 사전 예약 시작 발표" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #0E62FF;">
+            Honor
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Honor의 리젠, WAIC에서 Robot 스마트폰 사전 예약 시작 발표"
+            data-zh="荣耀李健 WAIC 宣布 Robot Phone 开启预约"
+            data-ja="Honorの李健氏、WAICにてRobot Phoneの予約受付開始を発表"
+            data-en="Honor&#39;s Li Jian announces pre-orders for Robot Phone at WAIC">Honor의 리젠, WAIC에서 Robot 스마트폰 사전 예약 시작 발표</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-19
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>제품 발표 및 개요</h3>
+          
+          <p>7월 18일, Honor는 '2026 세계 인공지능 대회(WAIC 2026)' 기간 중 "디지털 스크린에서 구체화된 지능으로 - 물리적 세계의 새로운 패러다임"이라는 주제의 분과 세미나를 개최했습니다. 이 자리에서 Honor 단말기 사업부 CEO 리젠은 전 세계 최초의 로봇 폰인 Robot Phone을 모든 채널에서 예약 판매한다고 공식 발표했습니다.</p>
+          
+          <h3>하드웨어 및 디자인</h3>
+          
+          <p>구체화된 지능 시대의 '신종'으로 불리는 Honor Robot Phone은 Snapdragon 8 Elite 칩을 탑재했으며, 전면에는 1.5K 해상도의 바 타입 디스플레이를 갖추고 최대 120W 유선 고속충전을 지원합니다.</p>
+          
+          <p>기기 상단에는 업계 최소 규모의 4자유도(4DoF) 티타늄 합금 기계식 짐벌이 통합되어 있으며, 이는 기존 솔루션 대비 크기를 70% 줄인 것이 특징입니다. 이를 통해 360도 물체 추적 및 스마트 촬영 기능을 지원합니다.</p>
+          
+          <h3>카메라 시스템</h3>
+          
+          <p>해당 기기는 후면에 다음과 같은 플래그십 트리플 카메라 시스템을 탑재했습니다.</p>
+          
+          <ul>
+<li>2억 화소 4D 짐벌 메인/망원 카메라</li>
+<li>5,000만 화소 초광각 카메라</li>
+</ul>
+          
+          <p>또한 영화 산업의 거물인 ARRI와 협력하여 전문적인 Log-C 코딩 및 LUT 컬러 그레이딩을 도입했으며, 이를 통해 높은 자율성을 갖춘 영화 수준의 촬영이 가능합니다.</p>
+          
+          <h3>소프트웨어 및 생태계</h3>
+          
+          <p>시스템 측면에서 Honor는 MagicOS를 업계 최초의 파트너형 멀티모드 에이전트 운영체제인 Agentic OS로 격상했습니다. 생태계 구축을 위해 Alibaba Cloud와 협력하여 단말과 클라우드의 가치를 결합한 차세대 Magic 에이전트 대규모 모델 매트릭스를 공동 개발하고 정의했습니다.</p>
+          
+          <p>Agentic OS는 단순히 명령을 수동적으로 수행하는 기존 운영체제와 달리, 사용자의 의도를 파악하고 복잡한 과업을 협력하여 처리하는 데 중점을 둡니다. Robot Phone은 2026년 3분기에 출시될 예정입니다.</p>
+          
+          <h3>에이전트 아키텍처</h3>
+          
+          <p>Honor는 이번 행사에서 '하나의 메인, 다수의 전문 분야', '세 개의 두뇌(단말) 협력'이라는 새로운 에이전트 아키텍처를 제시했습니다. 이 구조 아래 개인화된 메인 에이전트는 사용자를 가장 잘 이해하는 파트너로서 수많은 스마트 단말기, 생태계의 다양한 전문 영역, 그리고 클라우드의 슈퍼 브레인을 동적으로 연결하며 기존의 기기, 서비스, 데이터의 고립을 해소하고 유기적인 에이전트 매트릭스로 전환하고자 합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Honor는 WAIC 2026에서 Snapdragon 8 Elite와 티타늄 짐벌, ARRI와의 협력을 통한 고성능 카메라 시스템을 갖춘 Robot Phone을 공개했습니다. 특히 Agentic OS를 통해 사용자의 의도를 파악하고 복잡한 과업을 처리하는 지능형 생태계 구축에 집중하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>产品发布</h3>
+<p>Honor 在 WAIC 2026 期间正式官宣全球首台机器人手机 Robot Phone，并面向全渠道开启预约。该产品被定位为具身智能时代的“新物种”。</p>
+          
+          <h3>核心硬件与影像规格</h3>
+<p>Robot Phone 集成了高性能硬件组件与创新的机械结构：</p>
+<ul>
+<li>芯片：第五代骁龙 8 至尊版</li>
+<li>屏幕：1.5K 分辨率四等边显示屏</li>
+<li>充电：支持最高 120W 有线快速充电</li>
+<li>云台：顶部集成行业最小的 4DoF 钛合金机械云台（体积较主流方案缩小 70%），支持 360° 物体追踪与智能运镜。</li>
+<li>影像系统：后置由 2 亿像素主摄/长焦及 5000 万像素超广角组成的旗舰三摄系统。</li>
+<li>专业合作：与 ARRI 深度合作，引入专业级 Log-C 编码与 LUT 调色，支持电影级运镜拍摄。</li>
+</ul>
+          
+          <h3>操作系统与生态布局</h3>
+<p>Honor 将 MagicOS 升级为行业首个伙伴型多模态智能体操作系统 Agentic OS。相比传统系统，Agentic OS 更侧重于对用户意图的理解以及复杂任务的协同处理。</p>
+<p>在生态构建上，Honor 与阿里合作研发并定义了下一代 Magic 智能体大模型矩阵。Robot Phone 计划于 2026 年第三季度上市。</p>
+          
+          <h3>全新架构设计</h3>
+<p>Honor 提出了“一主多专、三脑（端）协同”的全新智能体架构。该架构通过一个随身的主智能体，动态协同海量智能终端、垂域生态及云端资源，旨在打破设备、服务和数据孤岛，构建有机的智能体矩阵。</p>
+          
+          <h3>总结</h3>
+<p>Honor 在 WAIC 2026 上发布了搭载 4DoF 钛合金机械云台的 Robot Phone，并同步推出基于多模态智能体的 Agentic OS。该产品融合了高性能硬件、ARRI 专业影像技术以及与阿里合作的大模型生态，计划于 2026 年第三季度上市。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>製品発表および概要</h3>
+          
+          <p>7月18日、Honorは「2026年世界人工知能大会（WAIC 2026）」の期間中に、「デジタルスクリーンで具現化された知能 — 物理世界の新しいパラダイム」というテーマの分科会を開催しました。この場において、Honor端末事業部CEOのリ・ジェン（Li Zhen）は、世界初のロボットフォンである「Robot Phone」を全チャネルで予約販売することを公式に発表しました。</p>
+          
+          <h3>ハードウェアとデザイン</h3>
+          
+          <p>「具現化された知能」時代の新種と称されるHonor Robot Phoneは、Snapdragon 8 Eliteチップを搭載し、前面には1.5K解像度のバータイプディスプレイを備え、最大120Wの有線高速充電をサポートします。</p>
+          
+          <p>デバイス上部には、業界最小規模の4自由度（4DoF）チタン合金製メカニカルジンバルが統合されており、従来のソリューションと比較してサイズを70%削減したのが特徴です。これにより、360度の物体追跡およびスマート撮影機能をサポートします。</p>
+          
+          <h3>カメラシステム</h3>
+          
+          <p>本デバイスは、背面に以下のフラッグシップ級トリプルカメラシステムを搭載しています。</p>
+          
+          <ul>
+<li>2億画素 4Dジンバル メイン/望遠カメラ</li>
+<li>5,000万画素 超広角カメラ</li>
+</ul>
+          
+          <p>また、映画業界の巨人であるARRIと提携し、プロフェッショナルなLog-CコーディングおよびLUTカラーグレーディングを導入。これにより、高い自律性を備えた映画レベルの撮影が可能になります。</p>
+          
+          <h3>ソフトウェアとエコシステム</h3>
+          
+          <p>システム面において、HonorはMagicOSを業界初のパートナー型マルチモードエージェント運用システムである「Agentic OS」へと格上げしました。エコシステムの構築に向け、Alibaba Cloudと協力し、端末とクラウドの価値を融合させた次世代Magicエージェント大規模モデルマトリックスを共同開発・定義しています。</p>
+          
+          <p>Agentic OSは、単に命令を受動的に実行する従来のOSとは異なり、ユーザーの意図を把握し、複雑なタスクを協調して処理することに重点を置いています。Robot Phoneは2026年第3四半期に発売される予定です。</p>
+          
+          <h3>エージェント・アーキテクチャ</h3>
+          
+          <p>Honorは今回のイベントで、「一つのメイン、複数の専門分野」、「三つの脳（端末）の協力」という新しいエージェントアーキテクチャを提示しました。この構造の下、パーソナライズされたメインエージェントはユーザーを最も理解するパートナーとして、数多くのスマート端末、エコシステムの多様な専門領域、そしてクラウドのスーパーブレインを動的に接続します。これにより、従来のデバイス、サービス、データの孤立を解消し、有機的なエージェントマトリックスへの移行を目指しています。</p>
+          
+          <h3>総評</h3>
+          
+          <p>HonorはWAIC 2026において、Snapdragon 8 Eliteとチタンジンバル、ARRIとの提携による高性能カメラシステムを備えたRobot Phoneを発表しました。特にAgentic OSを通じて、ユーザーの意図を把握し複雑なタスクを処理するインテリジェントなエコシステムの構築に注力しています。</p>
+          
+          <h3>まとめ</h3>
+<p>HonorはWAIC 2026にて、Snapdragon 8 Eliteやチタン製ジンバルを搭載した「Robot Phone」を発表しました。独自のAgentic OSによりユーザーの意図を汲み取る高度な知能を備え、ARRIとの提携によるプロ仕様の撮影体験も提供します。このデバイスは、ハードウェアとAIエージェントの融合による新しいモバイル体験を目指しています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Product Launch and Overview</h3>
+<p>On July 18, during the "World AI Conference 2026 (WAIC 2026)," Honor hosted a sub-seminar titled "Intelligence Embodied in Digital Screens - A New Paradigm for the Physical World." At the event, Li Zhen, CEO of Honor's Terminal Business Department, officially announced that the world's first Robot Phone would be available for pre-order across all channels.</p>
+          
+          <h3>Hardware and Design</h3>
+<p>Described as a "new species" in the era of embodied intelligence, the Honor Robot Phone is equipped with the Snapdragon 8 Elite chip. The front features a 1.5K resolution bar-type display, and the device supports up to 120W wired fast charging.</p>
+<p>The top of the device integrates an industry-leading compact 4DoF (four degrees of freedom) titanium alloy mechanical gimbal, which is 70% smaller than existing solutions. This integration enables 360-degree object tracking and smart shooting functions.</p>
+          
+          <h3>Camera System</h3>
+<p>The device features a flagship triple camera system on the rear:</p>
+<ul>
+<li>200MP 4D Gimbal Main/Telephoto camera</li>
+<li>50MP Ultra-wide camera</li>
+</ul>
+<p>Furthermore, in collaboration with industry giant ARRI, the device incorporates professional Log-C coding and LUT color grading, enabling high-autonomy, cinematic-quality filming.</p>
+          
+          <h3>Software and Ecosystem</h3>
+<p>On the software front, Honor has elevated MagicOS to Agentic OS, the industry's first partner-based multi-mode agent operating system. To build this ecosystem, they collaborated with Alibaba Cloud to jointly develop and define a next-generation Magic Agent large model matrix that combines device and cloud values.</p>
+<p>Unlike traditional operating systems that passively execute commands, Agentic OS focuses on understanding user intent and collaboratively processing complex tasks. The Robot Phone is scheduled for release in the third quarter of 2026.</p>
+          
+          <h3>Agent Architecture</h3>
+<p>Honor introduced a new agent architecture featuring "One main, multiple specialties" and "Collaboration of three brains (device)." Under this structure, a personalized main agent acts as a partner that understands the user best, dynamically connecting numerous smart devices, various specialized areas within the ecosystem, and cloud super-brains. This approach aims to break down silos between existing devices, services, and data, transitioning into an organic agent matrix.</p>
+          
+          <h3>Summary</h3>
+<p>Honor unveiled the Robot Phone at WAIC 2026, featuring high-end hardware like the Snapdragon 8 Elite, a titanium gimbal, and professional camera capabilities in partnership with ARRI. The device is centered around Agentic OS, an intelligent ecosystem designed to interpret user intent and handle complex tasks through a multi-layered agent architecture.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Honor</div>
+                <div class="caption-lang" data-lang="en">Honor</div>
+                <div class="caption-lang" data-lang="ja">名誉</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">7월 18일 전 채널 예약 시작</div>
+                <div class="caption-lang" data-lang="en">Pre-orders open across all channels on July 18.</div>
+                <div class="caption-lang" data-lang="ja">7月18日 全チャネルで予約受付開始</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">스타 다이아몬드 실버</div>
+                <div class="caption-lang" data-lang="en">Star Diamond Silver</div>
+                <div class="caption-lang" data-lang="ja">スターダイヤモンドシルバー</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/978/462.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

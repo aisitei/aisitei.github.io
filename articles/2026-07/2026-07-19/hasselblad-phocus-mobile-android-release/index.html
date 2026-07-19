@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 하셀블라드, Phocus Mobile 안드로이드 버전 정식 출시</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="하셀블라드, Phocus Mobile 안드로이드 버전 정식 출시">
+  <meta name="title-zh" content="哈苏正式推出 Phocus Mobile Android 版">
+  <meta name="title-ja" content="HasselbladがPhocus MobileのAndroid版を正式にリリース">
+  <meta name="title-en" content="Hasselblad officially launches the Phocus Mobile Android version">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="하셀블라드, Phocus Mobile 안드로이드 버전 정식 출시" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="하셀블라드, Phocus Mobile 안드로이드 버전 정식 출시"
+            data-zh="哈苏正式推出 Phocus Mobile Android 版"
+            data-ja="HasselbladがPhocus MobileのAndroid版を正式にリリース"
+            data-en="Hasselblad officially launches the Phocus Mobile Android version">하셀블라드, Phocus Mobile 안드로이드 버전 정식 출시</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-19
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          하셀블라드가 Phocus Mobile Android 버전 V1.0.0을 공식 출시했습니다. 이번 버전은 하셀블라드 사용자 커뮤니티의 오랜 요청에 부응한 결과입니다. 이를 통해 하셀블라드 X2D II 100C, X2D 100C, CFV 100C의 모바일 이미지 워크플로우가 Android 생태계로 확장되었으며, 더 넓은 범위의 크리에이터들이 하셀블라드 모바일 기기에서의 사진 편집 및 관리의 편리함을 경험할 수 있게 되었습니다. 하셀블라드 사용자의 핵심 제작 도구로서 Phocus Mobile Android 버전은 하셀블라드 내추럴 컬러 솔루션(HNCS)의 잠재력을 발휘할 뿐만 아니라, RAW 고효율 노이즈 제거, 포괄적인 편집 툴킷 및 편리한 사진 관리 기능을 통합하여 크리에이터들에게 엄격하고 전문적인 모바일 이미지 워크플로우를 제공합니다. 이제 Android 사용자는 어디서나 모바일 기기에서 전문가 수준의 미리보기, 편집 및 관리를 직접 수행할 수 있으며 영감이 데스크톱에 국한되지 않도록 돕습니다.
+          
+          <h3>HNCS 엔드 투 엔드 경험</h3>
+          
+          <p>Phocus Mobile Android 버전은 모바일 환경에서 HNCS의 장점을 최대한 재현하여, 부드럽고 섬세하며 순수하고 본연의 하셀블라드 색상을 구현하는 데 집중합니다.</p>
+          
+          <p>하셀블라드 고다이내믹 내추럴 컬러 솔루션(HNCS HDR)을 위해 앱은 그에 맞는 워크플로우를 제공합니다. X2D II 100C로 촬영한 HDR 이미지와 X2D 100C, CFV 100C로 촬영한 RAW 형식의 이미지를 모두 앱 내에서 직접 확인하고 편집할 수 있으며, Ultra HDR JPG 또는 HDR TIFF 형식으로 내보낼 수 있습니다. 이 워크플로우는 풍부한 하이라이트 디테일을 유지하여 고다이내믹 범위 이미지 제작에 있어 정교한 후반 지원을 제공합니다.</p>
+          
+          <h3>하셀블라드 내추럴 노이즈 리덕션, 디테일과 깨끗함의 조화</h3>
+          
+          <p>야경 등 저조도 촬영 환경을 위해 Phocus Mobile Android 버전에는 하셀블라드 내추럴 노이즈 리덕션(HNNR) 기능이 내장되어 있습니다. 1억 화소 RAW 이미지의 경우, HNNR은 15~20초 내에 효율적인 노이즈 제거 처리를 완료합니다. 이는 본체 손떨림 보정 기능이 없는 CFV 100C와 같은 카메라가 저조도 환경에서 핸드헬드로 촬영할 수 있는 가능성을 크게 확장해 줍니다.</p>
+          
+          <p>이 기능은 두 가지 처리 모드를 제공합니다:</p>
+          
+          <ul>
+<li>순수 우선 모드: 화면 노이즈를 최대한 줄여 깨끗한 화질을 확보</li>
+<li>디테일 우선 모드: 미세한 질감과 장면의 디테일을 유지하기 위해 적절하게 밝기 노이즈를 보존</li>
+</ul>
+          
+          <h3>사진 편집 및 신속한 관리</h3>
+          
+          <p>Phocus Mobile Android 버전은 다음과 같은 포괄적인 글로벌 편집 도구를 통합했습니다:</p>
+          
+          <ul>
+<li>노출 조정, 커브, 화이트 밸런스, 모노크롬 교정, 렌즈 교정, 노이즈 제거, 선명도 강화, 회전/자르기 및 키스톤 교정</li>
+</ul>
+          
+          <p>편집 파라미터는 복사 및 일괄 적용을 지원하여 다량의 이미지 처리 효율을 크게 높여줍니다. 사용자는 Wi-Fi 또는 유선 연결을 통해 카메라 사진을 앱으로 신속하게 가져올 수 있습니다. 사진 선택 시 별점 평가와 즐겨찾기 표시를 지원합니다.</p>
+          
+          <p>편집 완료 후 이미지는 다음과 같은 다양한 유형과 크기로 내보낼 수 있어 다양한 출력 요구를 충족합니다:</p>
+          
+          <ul>
+<li>전체/중간/작은 크기의 JPG</li>
+<li>16비트 및 8비트의 전체 크기 TIFF</li>
+<li>HEIF 또는 3FR RAW</li>
+</ul>
+          
+          <h3>하셀블라드 브랜드 소개</h3>
+          
+          <p>하셀블라드는 스웨덴에서 시작되어 세계적으로 인정받고 있습니다. 1941년부터 하셀블라드는 시대 최고의 중형 카메라를 제작하는 데 전념해 왔으며, 수많은 사진가가 시대를 초월한 걸작을 창조하도록 영감을 주었습니다. 또한 인류 최초의 달 착륙과 같은 역사적인 순간들을 기록하는 데도 사용되었습니다. 극강의 이미지 품질, 정교한 북유럽 디자인, 독창적인 제조 공법을 바탕으로 하셀블라드는 끊임없이 영상 스토리텔링의 경계를 확장하며 크리에이터들에게 탁월한 결과물을 만들 수 있는 능력과 영감을 제공하고 있습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>하셀블라드는 안드로이드 환경에서도 전문적인 사진 워크플로우를 경험할 수 있도록 Phocus Mobile Android 버전을 출시했습니다. 이 앱은 HNCS 기반의 색상 구현, 강력한 HNNR 노이즈 제거 기능, 그리고 다양한 편집 도구와 파일 포맷 지원을 통해 모바일 기기에서의 창의적 활동을 지원합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Phocus Mobile Android 版正式发布</h3>
+<p>Hasselblad 正式发布 Phocus Mobile Android 版 V1.0.0。此版本旨在扩展 Hasselbrad X2D II 100C、X2D 100C 以及 CFV 100C 的移动端影像工作流，让更多创作者能够在 Android 设备上体验专业级的照片编辑与管理功能。</p>
+          
+          <h3>核心色彩与 HDR 支持</h3>
+<p>Phocus Mobile Android 版致力于在移动端还原 Hasselbrad 自然色彩解决方案（HNCS）的优势。针对高动态范围影像，该应用提供以下支持：</p>
+<ul>
+<li>支持 X2D II 100C 的 HDR 图像。</li>
+<li>支持 X2D 100C 和 CFV 100C 的 RAW 格式图像。</li>
+<li>支持将处理后的图像导出为 Ultra HDR JPG 或 HDR TIFF 格式，以保留丰富的高光细节。</li>
+</ul>
+          
+          <h3>HNNR 自然降噪技术</h3>
+<p>针对弱光拍摄场景，该应用内置了 Hasselbrad 自然降噪（HNNR）功能，特别针对高像素影像进行了优化：</p>
+<ul>
+<li>处理速度：可在 15 至 20 秒内完成一亿像素 RAW 图像的降噪。</li>
+<li>“纯净优先模式”：最大限度减少画面噪点，追求极致纯净画质。</li>
+<li>“细节优先模式”：在保留微观纹理与画面细节的同时平衡噪声。</li>
+</ul>
+          
+          <h3>编辑工具与管理功能</h3>
+<p>应用集成了全面的全局编辑工具包，并支持高效的批量处理与多格式导出：</p>
+<ul>
+<li>核心工具：包括曝光、曲线、白平衡、单色矫正、镜头校正、去噪、锐化、旋转裁切及梯形校正。</li>
+<li>管理功能：支持通过 Wi-Fi 或有线连接导入照片，并提供星级评级与收藏标记。</li>
+<li>导出选项：支持全尺寸/中尺寸/小尺寸的 JPG、16 位及 8 位的全尺寸 TIFF，以及 HEIF 或 3FR RAW 格式。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Hasselblad 发布 Phocus Mobile Android 版 V1.0.0，为 X2D 系列和 CFV 100C 用户提供强大的移动端工作流支持。该应用整合了 HNCS 色彩方案、高效的 HNNR 降噪技术以及全面的编辑工具，显著提升了在移动设备上处理高品质影像的效率与便捷性。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>Hasselblad、Phocus Mobile Android版を公式リリース</h3>
+<p>Hasselbladは、Android向け「Phocus Mobile」バージョン1.0.0を正式にリリースしました。今回のアップデートは、ユーザーコミュニティからの長年の要望に応える形で実現したものです。これにより、Hasselblad X2D II 100C、X2D 100C、CFV 100Cのモバイル画像ワークフローがAndroidエコシステムへと拡張され、より幅広いクリエイターがモバイルデバイスでの写真編集や管理の利便性を体験できるようになります。</p>
+<p>Hasselbladユーザーにとっての核となる制作ツールとして、Phocus Mobile Android版はHasselblad Natural Color Solution（HNCS）のポテンシャルを引き出すだけでなく、高度なRAWノイズ除去、包括的な編集ツールキット、そして便利な写真管理機能を統合し、クリエイターに厳格でプロフェッショナルなモバイル画像ワークフローを提供します。これにより、Androidユーザーは場所を問わず、モバイルデバイス上でプロレベルのプレビュー、編集、管理を直接行えるようになり、インスピレーションがデスクトップに限定されることを防ぎます。</p>
+          
+          <h3>HNCS エンド・トゥ・エンド体験</h3>
+<p>Phocus Mobile Android版は、モバイル環境においてHNCSの利点を最大限に再現し、滑らかで繊細、かつ純粋で本来のHasselbladカラーを表現することに注力しています。</p>
+<p>Hasselbradの高ダイナミックレンジ対応「HNCS HDR」のために、アプリは最適なワークフローを提供します。X2D II 100Cで撮影されたHDR画像、およびX2D 100CやCFV 100Cで撮影されたRAW形式の画像をアプリ内で直接確認・編集でき、Ultra HDR JPGまたはHDR TIFF形式で書き出すことが可能です。このワークフローは豊かなハイライトディテールを維持し、高ダイナミックレンジな画像制作において精緻な後処理をサポートします。</p>
+          
+          <h3>Hasselbrad Natural Noise Reduction：ディテールとクリアさの両立</h3>
+<p>夜景などの低照度撮影環境に対応するため、Phocus Mobile Android版には「Hasselbrad Natural Noise Reduction（HNNR）」機能が搭載されています。1億画素のRAW画像の場合、HNNRはわずか15〜20秒で効率的なノイズ除去処理を完了します。これにより、ボディ内手ブレ補正機能を持たないCFV 100Cのようなカメラでも、低照度環境での手持ち撮影の可能性が大きく広がります。</p>
+<p>この機能には、以下の2つの処理モードが用意されています：</p>
+<ul>
+<li>純粋優先（Purity First）モード：画面上のノイズを最大限に抑え、クリアな画質を確保</li>
+<li>ディテール優先（Detail First）モード：微細な質感やシーンのディテールを維持するため、適切な輝度ノイズを保持</li>
+</ul>
+          
+          <h3>写真編集と迅速な管理</h3>
+<p>Phocus Mobile Android版には、以下のような包括的なグローバル編集ツールが統合されています：</p>
+<ul>
+<li>露出調整、カーブ、ホワイトバランス、モノクロ補正、レンズ補正、ノイズ除去、シャープネス強化、回転/切り抜き、およびキーストーン補正</li>
+</ul>
+<p>編集パラメータのコピーおよび一括適用をサポートしており、大量の画像を処理する際の効率が大幅に向上します。また、Wi-Fiまたは有線接続を通じてカメラの写真をアプリへ迅速に取り込むことが可能です。写真選択時には、星評価や「お気に入り」の表示もサポートしています。</p>
+<p>編集完了後、画像は以下の多様なタイプとサイズで書き出すことができ、様々な出力要件を満たします：</p>
+<ul>
+<li>全サイズ/中サイズ/小サイズのJPG</li>
+<li>16ビットおよび8ビットのフルサイズTIFF</li>
+<li>HEIFまたは3FR RAW</li>
+</ul>
+          
+          <h3>Hasselbrad ブランド紹介</h3>
+<p>Hasselbradはスウェーデンで始まり、世界的に高い評価を得ています。1941年以来、Hasselbradは最高峰の中判カメラの製造に専念し、数多くの写真家が時代を超えた傑作を生み出すためのインスピレーションを与えてきました。また、人類初の月面着陸といった歴史的な瞬間を記録するのにも使用されてきました。極上の画質、洗練された北欧デザイン、独創的な製造技術を基盤に、Hasselbradは常に映像ストーリーテリングの境界を広げ、クリエイターが卓越した成果を生み出すための能力とインスピレーションを提供し続けています。</p>
+          
+          <h3>まとめ</h3>
+<p>HasselbradはAndroid環境でもプロフェッショナルな写真ワークフローを実現するため、Phocus Mobile Android版をリリースしました。このアプリはHNCSベースの色彩表現、強力なHNNRノイズ除去機能、そして多様な編集ツールとファイルフォーマットへの対応により、モバイルデバイス上でのクリエイティブな活動を強力にサポートします。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Hasselblad Launches Phocus Mobile for Android</h3>
+<p>Hasselblad has officially released Phocus Mobile Android version V1.0.0. This release comes in response to long-standing requests from the Hasselblad user community, expanding the mobile image workflow for the X2D II 100C, X2D 100C, and CFV 100C into the Android ecosystem. It allows a broader range of creators to experience convenient photo editing and management on mobile devices.</p>
+<p>As a core production tool for Hasselblad users, Phocus Mobile Android not only unlocks the potential of the Hasselblad Natural Color Solution (HNCS) but also integrates high-efficiency RAW noise reduction, a comprehensive editing toolkit, and convenient photo management features to provide a rigorous and professional mobile workflow. Android users can now perform professional-grade previewing, editing, and management directly on their mobile devices, ensuring that inspiration is no longer confined to a desktop.</p>
+          
+          <h3>End-to-End HNCS Experience</h3>
+<p>Phocus Mobile Android focuses on maximizing the benefits of HNCS in a mobile environment, aiming to deliver smooth, delicate, and authentic Hasselblad colors.</p>
+<p>The app provides a dedicated workflow for Hasselblad Gorgeous Dynamic Natural Color Solution (HNCS HDR). Users can view and edit both HDR images captured with the X2D II 100C and RAW images from the X2D 100C and CFV 100C directly within the app. These can be exported as Ultra HDR JPG or HDR TIFF formats. This workflow provides sophisticated post-processing support for high-dynamic-range image creation while preserving rich highlight details.</p>
+          
+          <h3>Hasselblad Natural Noise Reduction: A Balance of Detail and Clarity</h3>
+<p>To accommodate low-light environments such as night photography, Phocus Mobile Android includes the built-in Hasselblad Natural Noise Reduction (HNNR) feature. For 100-megapixel RAW images, HNNR completes efficient noise reduction processing within 15 to 20 seconds. This significantly expands the possibilities for handheld shooting in low-light environments for cameras without in-body image stabilization, such as the CFV 100C.</p>
+<p>This feature offers two processing modes:</p>
+<ul>
+<li>Purity First Mode: Minimizes screen noise to ensure clean image quality.</li>
+<li>Detail First Mode: Retains appropriate luminance noise to preserve fine textures and scene details.</li>
+</ul>
+          
+          <h3>Photo Editing and Rapid Management</h3>
+<p>Phocus Mobile Android integrates a comprehensive suite of global editing tools:</p>
+<ul>
+<li>Exposure adjustment, curves, white balance, monochrome correction, lens correction, noise reduction, sharpening enhancement, rotate/crop, and keystone correction.</li>
+</ul>
+<p>Editing parameters support copy and batch application, significantly increasing the efficiency of processing large volumes of images. Users can quickly import photos from their cameras to the app via Wi-Fi or wired connections. The app also supports star ratings and "favorite" marking when selecting photos.</p>
+<p>After editing, images can be exported in various types and sizes to meet diverse output requirements:</p>
+<ul>
+<li>JPG (Full/Medium/Small)</li>
+<li>16-bit and 8-bit Full size TIFF</li>
+<li>HEIF or 3FR RAW</li>
+</ul>
+          
+          <h3>About Hasselblad</h3>
+<p>Hasselblad originated in Sweden and is globally recognized. Since 1941, Hasselblad has been dedicated to manufacturing the world's finest medium format cameras, inspiring countless photographers to create timeless masterpieces. Their cameras have also been used to document historic moments, such as the first human moon landing. Based on extreme image quality, sophisticated Nordic design, and innovative manufacturing processes, Hasselblad continues to push the boundaries of visual storytelling, providing creators with the ability and inspiration to produce exceptional results.</p>
+          
+          <h3>Summary</h3>
+<p>Hasselblad has launched Phocus Mobile for Android, bringing a professional photography workflow to the Android ecosystem. The app features HNCS-based color rendering, powerful HNNR noise reduction for high-resolution files, and a comprehensive suite of editing tools and export formats. It is designed to empower creators to manage and edit high-quality images seamlessly on mobile devices.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">내 것</div>
+                <div class="caption-lang" data-lang="en">Mine</div>
+                <div class="caption-lang" data-lang="ja">私の</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">HDR 상세 정보</div>
+                <div class="caption-lang" data-lang="en">HDR Details</div>
+                <div class="caption-lang" data-lang="ja">HDR詳細</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">HDR을 사용하여 촬영하세요. HDR 옵션은 더 많은 디테일을 제공합니다.</div>
+                <div class="caption-lang" data-lang="en">Shoot in HDR for more detail.</div>
+                <div class="caption-lang" data-lang="ja">HDRで撮影。HDRを使用することで、より多くのディテールを捉えられます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">재생</div>
+                <div class="caption-lang" data-lang="en">Play</div>
+                <div class="caption-lang" data-lang="ja">再生</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">노출</div>
+                <div class="caption-lang" data-lang="en">Exposure</div>
+                <div class="caption-lang" data-lang="ja">露出</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">밝기</div>
+                <div class="caption-lang" data-lang="en">Brightness</div>
+                <div class="caption-lang" data-lang="ja">明るさ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">셔터</div>
+                <div class="caption-lang" data-lang="en">Shutter</div>
+                <div class="caption-lang" data-lang="ja">シャッター</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">스펙터클 촬영 강화 (HDR 강화)</div>
+                <div class="caption-lang" data-lang="en">Spectacle Photography (HDR Enhancement)</div>
+                <div class="caption-lang" data-lang="ja">風景強調（HDR強化）</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">강화</div>
+                <div class="caption-lang" data-lang="en">Enhance</div>
+                <div class="caption-lang" data-lang="ja">強化</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">강화되지 않음</div>
+                <div class="caption-lang" data-lang="en">Unenhanced</div>
+                <div class="caption-lang" data-lang="ja">未加工</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">HDR 강화 꺼짐</div>
+                <div class="caption-lang" data-lang="en">HDR Enhancement Off</div>
+                <div class="caption-lang" data-lang="ja">HDR強化オフ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">미리보기</div>
+                <div class="caption-lang" data-lang="en">Early preview</div>
+                <div class="caption-lang" data-lang="ja">先行プレビュー</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">강화 활성화</div>
+                <div class="caption-lang" data-lang="en">Enable Enhancement</div>
+                <div class="caption-lang" data-lang="ja">強化をオン</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">더 알아보기</div>
+                <div class="caption-lang" data-lang="en">Learn more</div>
+                <div class="caption-lang" data-lang="ja">詳しく見る</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/977/858.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
