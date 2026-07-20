@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - OPPO와 AI 버전 알리페이, 에이전트 크로스 디바이스 연결 구현... 한 마디로 &#39;아바오&#39;를 호출해 스마트하게 업무 처리 가능</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="OPPO">
+  <meta name="article-brand-color" content="#1D6FA4">
+  <meta name="title-ko" content="OPPO와 AI 버전 알리페이, 에이전트 크로스 디바이스 연결 구현... 한 마디로 &#39;아바오&#39;를 호출해 스마트하게 업무 처리 가능">
+  <meta name="title-zh" content="OPPO 与 AI 版支付宝实现智能体跨端互联，一句话调用“阿宝”实现“智能办事”">
+  <meta name="title-ja" content="OPPOとAI版支付宝がエージェントのクロスデバイス連携を実現、一言で「阿宝」を呼び出しスマートな事務処理を実行">
+  <meta name="title-en" content="OPPO and AI-powered Alipay achieve cross-device agent interconnectivity, enabling &#34;smart tasks&#34; via a single sentence to &#34;A Bao&#34;">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="OPPO와 AI 버전 알리페이, 에이전트 크로스 디바이스 연결 구현... 한 마디로 &#39;아바오&#39;를 호출해 스마트하게 업무 처리 가능" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #1D6FA4;">
+            OPPO
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="OPPO와 AI 버전 알리페이, 에이전트 크로스 디바이스 연결 구현... 한 마디로 &#39;아바오&#39;를 호출해 스마트하게 업무 처리 가능"
+            data-zh="OPPO 与 AI 版支付宝实现智能体跨端互联，一句话调用“阿宝”实现“智能办事”"
+            data-ja="OPPOとAI版支付宝がエージェントのクロスデバイス連携を実現、一言で「阿宝」を呼び出しスマートな事務処理を実行"
+            data-en="OPPO and AI-powered Alipay achieve cross-device agent interconnectivity, enabling &#34;smart tasks&#34; via a single sentence to &#34;A Bao&#34;">OPPO와 AI 버전 알리페이, 에이전트 크로스 디바이스 연결 구현... 한 마디로 &#39;아바오&#39;를 호출해 스마트하게 업무 처리 가능</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-20
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>협력 개요</h3>
+          
+          <p>IT뉴스에 따르면, Alipay가 AI 버전의 '아보(阿宝)'와 OPPO 시스템 에이전트인 '샤오부' 간의 공식적인 '크로스 디바이스' 연결을 발표했습니다. 샤오부는 아보의 약 200개 민생 및 생활 서비스를 통합하여 사용자가 한마디의 명령으로 해당 서비스를 호출할 수 있게 됩니다.</p>
+          
+          <h3>주요 기능 및 서비스</h3>
+          
+          <p>이번 협력은 모바일 AI 시나리오를 대상으로 하며, '서비스 직행', '복잡한 업무 대행', '안전한 이음'이라는 세 가지 표준화된 기능을 한 번에 도입했습니다. 여기에는 이동, 관람, 외식, 민생 요금 납부, 행정 조회, 로컬 라이프 등 약 200개의 서비스가 포함됩니다.</p>
+          
+          <p>사용자는 전원 버튼, 음성 호출, 내비게이션 길게 누르기 등을 통해 샤오부를 실행하고 요구 사항을 말하면, 샤오부가 아보를 호출하여 서비스 직행 또는 대행 프로세스를 진행하며 스마트한 업무 처리를 완료합니다.</p>
+          
+          <h3>사용자 경험</h3>
+          
+          <p>공적금 조회, 육아 보조금 신청, 임시 신분증 발급, 퇴직금 계산 등 민생 및 행정 관련 사항의 경우, 샤오부가 아보를 호출하면 서비스에 직접 연결됩니다. 사용자는 앱을 전환하거나 입력을 찾기 위해 반복적으로 시도할 필요가 없어 여러 단계의 절차를 단축할 수 있습니다.</p>
+          
+          <p>티켓 구매, 택배 발송, 요금 납부, 대여, 주문 등 개인화 수준이 높고 절차가 복잡한 18개 카테고리의 생활 서비스의 경우, 사용자가 샤오부를 통해 요구 사항을 아보에게 전달하면 아보가 후속 처리를 진행합니다. 필터링, 양식 작성, 예약 등의 프로세스를 자동으로 수행하며, 중요한 권한 승인 및 결제 단계는 사용자가 직접 확인하게 되어 '한마디로 해결하는 서비스'를 구현합니다.</p>
+          
+          <p>예를 들어, 사용자가 숏폼 영상을 시청하던 중 특정 영화 관련 콘텐츠를 발견하고 "샤오부, XXX 영화 티켓 한 장 예매해줘"라고 말하면, 아보는 지침에 따라 영상, 상영음, 회차 등의 조작 단계를 수행하여 예약을 완료합니다. 이 과정에서 사용자는 숏폼 앱을 종료할 필요가 없으며, 작업은 백그라운드에서 계속 실행될 수 있습니다.</p>
+          
+          <h3>기술적 기반 및 구조</h3>
+          
+          <p>Alipay는 이번 협력의 기반이 플랫폼과 OPPO가 최초로 구현한 '크로스 제조사, 크로스 앱 멀티 에이전트 협업 모델'이라고 밝혔습니다. 여기서 샤오부는 모바일 시스템 측 에이전트로서 시스템 진입점, 시나리오 인식, 컨텍스트 수용 및 기기 협업을 담당하며, 아보는 서비스 생태계, 계정 결제 및 보안 체계를 기반으로 하는 업무 처리 에이전트로서 서비스 이해, 작업 조직, 프로세스 실행 및 신뢰할 수 있는 이행을 담당합니다.</p>
+          
+          <p>작업이 아보로 전달되면, 아보는 자체 개발한 생활 서비스 대규모 언어 모델(LLM)을 통해 요구 사항을 이해하고 적절한 처리 방식을 매칭합니다. 간단한 사항은 '서비스 직행'으로 완료되며, 사용자의 추가 정보 입력이나 옵션 선택 또는 내용 확인이 필요한 경우 Skill 또는 A2UI(지능형 상호작용 인터페이스)를 통해 사용자를 안내하며, 검색, 작성, 주문 등 여러 단계의 프로세스가 포함된 경우에는 XUI(자동화 실행 엔진)가 이를 추진합니다.</p>
+          
+          <h3>플랫폼 확장성</h3>
+          
+          <p>Alipay는 OPPO 샤오부와의 협력이 아보의 크로스 디바이스 연결을 추진하는 중요한 단계라고 밝혔습니다. 앞서 플랫폼은 에이전트 비즈니스 생태계를 중심으로 AI 기반 인프라와 개방 채널을 지속적으로 강화해 왔습니다. 5월에는 에이전트용 AI 결음 풀스택 시스템을 출시했고, 6월에는 AI 버전의 Alipay를 정식 출시하며 전 영역의 AI 전환을 완료했으며, 7월 초에는 모든 산업 분야에 표준화된 접속 채널을 제공하는 Alipay AI 개방 플랫폼을 발표했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Alipay와 OPPO는 협력을 통해 '샤오부'와 '아보'를 연결함으로써 복잡한 생활 서비스를 한마디의 명령으로 처리할 수 있는 크로스 디바이스 환경을 구축했습니다. 이 시스템은 양사의 기술적 강점을 결합하여 사용자 편의성을 극대화하고, 다양한 산업 분야로 확장 가능한 AI 기반 인프라를 강화하는 데 중점을 두고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>支付宝与 OPPO 跨端互联合作</h3>
+<p>支付宝宣布其 AI 版“阿宝”与 OPPO 系统智能体“小布助手”正式实现“跨端”互联。通过此次合作，用户可以通过“小布”一键调用“阿宝”提供的近 200 项民生及生活服务，实现“一句话办成一件事”。</p>
+          
+          <h3>核心能力与覆盖领域</h3>
+<p>本次合作针对手机 AI 场景，提供以下三项标准化能力：</p>
+<ul>
+<li>服务直达：涵盖公积金查询、育儿补贴申领、政务查询等民生事项。</li>
+<li>复杂任务代办：针对购票、寄件、缴费、点餐等 18 类流程复杂的个性化生活服务，由“阿宝”自动完成筛选、填单、预约等步骤。</li>
+<li>安全履约：确保关键授权和支付环节由用户确认。</li>
+</ul>
+<p>涉及的具体领域包括出行、观影、餐饮、民生缴费、政务查询及本地生活等。</p>
+          
+          <h3>技术架构与协同模式</h3>
+<p>此次合作采用了跨厂商、跨应用的多智能体协同模式：</p>
+<ul>
+<li>小布助手（系统侧智能体）：负责系统入口、场景感知、上下文承接和设备协同。</li>
+<li>阿宝（办事智能体）：依托支付宝服务生态、账户支付和安全体系，负责服务理解、任务组织、流程执行和可信履约。</li>
+</ul>
+<p>在技术实现上，阿宝利用自研生活服务大模型处理需求：简单事项通过“服务直达”完成；需要用户交互的环节通过 Skill 或 A2UI（智能交互界面）引导；涉及多步骤操作的流程则由 XUI（自动操作引擎）驱动。</p>
+          
+          <h3>发展背景</h3>
+<p>此次合作是阿宝推进跨端互联的重要里程碑。此前，支付宝已在 AI 基础设施方面持续布局：5 月推出 AI 支付全栈体系，6 月上线 AI 版支付宝，并于 7 月初发布了面向全行业的支付宝 AI 开放平台。</p>
+          
+          <h3>总结</h3>
+<p>支付宝与 OPPO 的合作实现了“阿宝”与“小布助手”的跨端互联，让用户能通过简单的语音或按键指令，在不切换 App 的情况下完成涵盖民生、政务及复杂生活服务的任务。这一举措展示了基于大模型和多智能体协同模式在提升移动端服务效率方面的显著潜力。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>提携の概要</h3>
+          
+          <p>ITニュースによると、AlipayはAIバージョンの「アボ（阿宝）」とOPPOのシステムエージェントである「シャオブ」との公式な「クロスデバイス」連携を発表しました。シャオブは、アボが提供する約200の公共・生活サービスを統合し、ユーザーが一言のコマンドでこれらのサービスを呼び出せるようにします。</p>
+          
+          <h3>主な機能とサービス</h3>
+          
+          <p>今回の提携はモバイルAIシナリオを対象としており、「サービス直行」「複雑な業務代行」「安全な接続」という3つの標準化された機能を同時に導入しました。これには、移動、観覧、外食、公共料金の支払い、行政照会、ローカルライフなど約200のサービスが含まれます。</p>
+          
+          <p>ユーザーは電源ボタン、音声呼び出し、ナビゲーションの長押しなどを通じてシャオブを起動し、要求を伝えることで、シャオブがアボを呼び出してサービスへの直接接続や代行プロセスを実行し、スマートな業務処理を完了させます。</p>
+          
+          <h3>ユーザー体験</h3>
+          
+          <p>公的資金の照会、育児手当の申請、臨時身分証の発行、退約金の計算など、公共・行政関連の事項については、シャオブがアボを呼び出すことでサービスに直接接続されます。ユーザーはアプリを切り替えたり入力を探したりする手間がなくなり、多段階の手順を短縮できます。</p>
+          
+          <p>チケット購入、宅配、料金支払い、レンタル、注文など、パーソナライズの度合いが高く手順が複雑な18のカテゴリーの生活サービスについては、ユーザーがシャオブを通じてアボに要求を伝えると、アボが後続の処理を行います。フィルタリング、フォーム入力、予約などのプロセスを自動的に実行し、重要な権限承認や決済ステップはユーザーが直接確認する仕組みにより、「一言で解決するサービス」を実現します。</p>
+          
+          <p>例えば、ユーザーがショート動画を視聴中に特定の映画関連コンテンツを見つけ、「シャオブ、XXXの映画チケットを1枚予約して」と話しかければ、アボは指示に従って映像、上映時間、回数などの操作ステップを実行し、予約を完了します。この過程で、ユーザーはショート動画アプリを終了する必要がなく、作業はバックグラウンドで継続されます。</p>
+          
+          <h3>技術的基盤と構造</h3>
+          
+          <p>Alipayは、今回の提携の基盤がプラットフォームとOPPOが初めて実現した「クロスメーカー、クロスアプリ・マルチエージェント協力モデル」であると述べています。ここでシャオブはモバイルシステム側のエージェントとして、システムの入り口、シナリオ認識、コンテキストの受容、およびデバイス間の連携を担当します。一方、アボはサービスエコシステム、アカウント決済、セキュリティ体制に基づく業務処理エージェントとして、サービスの理解、タスクの組織化、プロセスの実行、および信頼性の高い遂行を担当します。</p>
+          
+          <p>タスクがあぼに渡されると、アボは独自開発した生活サービス用大規模言語モデル（LLM）を通じて要求を理解し、適切な処理方法をマッチングします。簡単な事項は「サービス直行」で完了し、ユーザーの追加情報入力やオプション選択、内容確認が必要な場合はSkillまたはA2UI（インテリジェント相互作用インターフェース）を通じてユーザーを案内し、検索、作成、注文など複数のプロセスが含まれる場合はXUI（自動実行エンジン）がそれを推進します。</p>
+          
+          <h3>プラットフォームの拡張性</h3>
+          
+          <p>Alipayは、OPPOのシャオブとの提携がアボのクロスデバイス接続を推進する重要なステップであると述べています。これまでプラットフォームは、エージェントビジネスエコシステムを中心にAIベースのインフラとオープンチャネルを継続的に強化してきました。5月にはエージェント用AIコールフルスタックシステムをリリースし、6月にはAIバージョンのAlipayを正式にリリースして全領域のAI転換を完了させ、7月初旬には全産業分野に標準化された接続チャネルを提供するAlipay AIオープンプラットフォームを発表しました。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>AlipayとOPPOは「シャオブ」と「アボ」を連携させることで、複雑な生活サービスを一言の命令で処理できるクロスデバイス環境を構築しました。このシステムは両社の技術的強みを融合させ、ユーザーの利便性を最大化するとともに、多様な産業分野へ拡張可能なAI基盤の強化を目指しています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Partnership Overview</h3>
+<p>According to IT News, Alipay has announced an official "cross-device" connection between its AI version of 'Abo' and OPPO’s system agent, 'Xiaobu.' Xiaobu will integrate approximately 200 public and daily life services from Abo, enabling users to invoke these services with a single voice command.</p>
+          
+          <h3>Key Features and Services</h3>
+<p>This collaboration targets mobile AI scenarios by introducing three standardized features: "Service Direct," "Complex Task Delegation," and "Secure Connection." These cover approximately 200 services, including transportation, dining, public utility payments, administrative inquiries, and local life activities.</p>
+          
+          <p>Users can activate Xiaobu via the power button, voice commands, or by long-pressing the navigation bar. When a request is made, Xiaobu calls Abo to initiate either the "Service Direct" or delegation process, completing smart task processing for the user.</p>
+          
+          <h3>User Experience</h3>
+<p>For matters regarding public funds, childcare subsidies, temporary ID issuance, and retirement payment calculations, Xiaobu connects the user directly to the service via Abo. This eliminates the need for users to switch apps or repeatedly search for input fields, streamlining multi-step procedures.</p>
+          
+          <p>For high-personalization services with complex procedures—such as ticket purchases, shipping, bill payments, rentals, and orders—Xiaobu passes the user's request to Abo. Abo then handles automated processes such as filtering, form filling, and booking. Critical steps like payment and permission approvals are still confirmed by the user, fulfilling a "one-sentence" service solution.</p>
+          
+          <p>For example, if a user watching short videos finds movie content and says, "Xiaobu, book one ticket for movie XXX," Abo will perform the necessary operations—such as selecting showtimes and screening details—based on specific instructions. The user does not need to exit the short-form video app, as the task continues in the background.</p>
+          
+          <h3>Technical Foundation and Architecture</h3>
+<p>Alipay stated that this collaboration is based on a "cross-manufacturer, cross-app multi-agent collaboration model" first implemented by both platforms. In this structure, Xiaobu acts as the mobile system-side agent, responsible for entry points, scenario recognition, context acceptance, and device cooperation. Abo serves as the task processing agent, focusing on the service ecosystem, account payments, security systems, task organization, and reliable execution.</p>
+          
+          <p>Once a task is handed over to Abo, it utilizes its proprietary Large Language Model (LLM) for life services to understand requirements and match appropriate processing methods. Simple matters are completed via "Service Direct." If additional information or confirmation is required, the system guides the user through Skill or A2UI (Intelligent Interaction Interface). For multi-step processes involving searching, writing, or ordering, XUI (Automated Execution Engine) drives the execution.</p>
+          
+          <h3>Platform Scalability</h3>
+<p>Alipay noted that the collaboration with OPPO's Xiaobu is a significant step in promoting Abo’s cross-device connectivity. The platform has been strengthening its AI infrastructure and open channels centered on an agent business ecosystem. This includes the release of an AI full-stack system for agents in May, the official launch of the AI version of Alipay in June to complete the transition across all areas, and the announcement of the Alipay AI Open Platform in early July to provide standardized connection channels for all industries.</p>
+          
+          <h3>Summary</h3>
+<p>Alipay and OPPO have established a cross-device environment by connecting 'Xiaobu' and 'Abo,' allowing complex daily services to be handled with a single command. The system leverages the technical strengths of both companies to maximize user convenience while building an AI-based infrastructure capable of expanding into various industries.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/978/772.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
