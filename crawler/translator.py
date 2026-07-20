@@ -114,6 +114,7 @@ def _chat(system: str, user: str, temperature: float = 0.3,
           model: Optional[str] = None) -> Optional[str]:
     client = _get_client()
     use_model = model or config.LLM_MODEL
+    cur_max_tokens = max_tokens
     for attempt in range(1, retries + 1):
         try:
             response = client.chat.completions.create(
@@ -123,7 +124,7 @@ def _chat(system: str, user: str, temperature: float = 0.3,
                     {"role": "user", "content": user},
                 ],
                 temperature=temperature,
-                max_tokens=max_tokens,
+                max_tokens=cur_max_tokens,
             )
             finish_reason = response.choices[0].finish_reason
             if finish_reason == "length":
@@ -149,7 +150,13 @@ def _chat(system: str, user: str, temperature: float = 0.3,
                 continue
             return text
         except Exception as e:
+            err_text = str(e)
             logger.warning(f"LLM API 호출 실패 (시도 {attempt}/{retries}) [{use_model}]: {e}")
+            if "context" in err_text.lower() and "exceed" in err_text.lower():
+                # 컨텍스트 초과 오류: 다음 시도에서 max_tokens를 줄여 재시도
+                # (입력이 길거나 서버가 동시 요청으로 혼잡할 때 발생할 수 있음)
+                cur_max_tokens = max(2048, cur_max_tokens // 2)
+                logger.warning(f"컨텍스트 초과 감지 → max_tokens {cur_max_tokens}로 축소 후 재시도")
             if attempt < retries:
                 time.sleep(2 ** attempt)
     logger.error(f"LLM API 호출 {retries}회 모두 실패 ({config.LLM_BASE_URL}, {use_model})")
