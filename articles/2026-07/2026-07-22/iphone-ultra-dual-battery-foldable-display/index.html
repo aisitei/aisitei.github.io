@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - iPhone Ultra 대비: Apple iOS 27 코드에서 처음으로 확인된 듀얼 배터리 셀 설계 및 폴더블 디스플레이 탑재 신규 스마트폰 증거 추가</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="iPhone Ultra 대비: Apple iOS 27 코드에서 처음으로 확인된 듀얼 배터리 셀 설계 및 폴더블 디스플레이 탑재 신규 스마트폰 증거 추가">
+  <meta name="title-zh" content="为 iPhone Ultra 准备好：苹果 iOS 27 代码首现双电芯设计，折叠屏新机再添实证">
+  <meta name="title-ja" content="iPhone Ultraへの備え：Apple iOS 27のコードに初めてデュアルセル設計が登場、折りたたみディスプレイ搭載の新デバイスに関する証拠も追加。">
+  <meta name="title-en" content="Get Ready for iPhone Ultra: Apple iOS 27 Code Reveals Dual-Cell Battery Design, More Evidence Found for New Foldable Display Smartphone">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg@s_2,w_820,h_461" alt="iPhone Ultra 대비: Apple iOS 27 코드에서 처음으로 확인된 듀얼 배터리 셀 설계 및 폴더블 디스플레이 탑재 신규 스마트폰 증거 추가" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="iPhone Ultra 대비: Apple iOS 27 코드에서 처음으로 확인된 듀얼 배터리 셀 설계 및 폴더블 디스플레이 탑재 신규 스마트폰 증거 추가"
+            data-zh="为 iPhone Ultra 准备好：苹果 iOS 27 代码首现双电芯设计，折叠屏新机再添实证"
+            data-ja="iPhone Ultraへの備え：Apple iOS 27のコードに初めてデュアルセル設計が登場、折りたたみディスプレイ搭載の新デバイスに関する証拠も追加。"
+            data-en="Get Ready for iPhone Ultra: Apple iOS 27 Code Reveals Dual-Cell Battery Design, More Evidence Found for New Foldable Display Smartphone">iPhone Ultra 대비: Apple iOS 27 코드에서 처음으로 확인된 듀얼 배터리 셀 설계 및 폴더블 디스플레이 탑재 신규 스마트폰 증거 추가</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-22
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>iOS 27 베타 및 다중 배터리 코드 발견</h3>
+          
+          <p>Apple은 오늘 개발자용 iOS 27의 네 번째 테스트 버전(iOS 27 Beta 4)을 배포했습니다.</p>
+          
+          <p>Macworld가 해당 버전의 시스템 코드를 심층 분석한 결과, 이전에 나타난 적 없는 "다중 배터리/셀 설계"를 명확히 언급하는 텍스트 문자열을 발견했습니다. 이 코드들은 시스템의 '배터리 건강' 기능 모듈에 포함되어 있습니다.</p>
+          
+          <p>현재 판매 중인 모든 iPhone 모델이 단수 형태인 "battery"를 사용하는 것과 달리, 새 코드에서는 복수형 표현이 반복적으로 등장합니다. 예를 들어, 한 문자열은 "The batteries in this iPhone are performing as expected"(이 iPhone의 배터리 성능이 예상대로 작동함)라고 표시되며, 다른 하나는 "The health of the batteries in this iPhone has significantly degraded"(이 iPhone의 배터리 건강 상태가 상당히 저하됨)라는 경고를 포함하고 있습니다. 또한 코드에는 "one of the batteries"(배터리 중 하나)가 Apple 정품 부품이 아닐 수도 있다는 내용까지 언급되었습니다.</p>
+          
+          <h3>폴더블 디스플레이 iPhone의 가능성</h3>
+          
+          <p>이러한 발견이 주목받는 이유는 현재 시중에 판매되는 모든 iPhone 모델이 단일 셀 설계를 채택하고 있기 때문입니다. 시스템 코드에서 갑자기 "다중 배터리" iPhone에 대한 명확한 지원이 나타난 것은 기존 제품으로 설명하기 어렵습니다.</p>
+          
+          <p>이는 이전에 제기된 Apple의 폴더블 디스플레이 iPhone Ultra(또는 Fold) 출시 관련 루머와 결합될 때 의미가 커집니다. 해당 코드는 Apple이 전통적인 바 타입 스마트폰과 다른 내부 구조를 가진 새로운 기기를 개발 중임을 다시 한번 확인시켜 줍니다.</p>
+          
+          <p>하드웨어 설계 관점에서 볼 때, 현재 시중의 거의 모든 폴더블 디스플레이 스마트폰은 여러 개의 독립된 배터리 셀을 사용하여 힌지 좌우에 배치합니다. 이러한 구조는 폴더블 형태에서 제한적이고 분산된 내부 공간을 최대한 활용하기 위한 것입니다.</p>
+          
+          <h3>배터리 사양 및 공급망 정보</h3>
+          
+          <p>공급망 소식에 따르면, Apple의 배터리 공급업체는 최근 두 종류의 새 배터리를 등록했으며, 각각 1921mAh와 2962mAh의 정격 용량을 가졌으며 조합 시 총 4883mAh가 됩니다.</p>
+          
+          <p>공급망은 이 모델의 배터리 총 용량이 4800mAh에서 5000mAh 사이가 될 것으로 예측하고 있습니다. 이러한 듀얼 셀 조합 방식은 현재 주요 폴더블 디스플레이 스마트폰의 설계 논리와 일치합니다. 참고로, Google Pixel 10 Pro Fold의 배터리 총 용량은 5015mAh이며, Samsung Galaxy Z Fold 7은 4400mAh입니다.</p>
+          
+          <h3>출시 일정 및 생산 현황</h3>
+          
+          <p>신제품 출시 시기에 대해 여러 소식통이 2026년 가을을 가리키고 있습니다. 중국증권보(China Securities News)는 관련 업계 관계자를 통해 첫 번째 폴더블 디스플레이 iPhone이 2026년 가을에 출시될 것으로 예상된다고 보도했습니다.</p>
+          
+          <p>궈밍지(Ming-Chi Kuo)는 이 기기가 9월 가을 발표회에서 iPhone 18 Pro 시리즈와 함께 공개될 것으로 예상하지만, 공식 예약 판매는 2017년 iPhone X의 출시 일정과 유사하게 2026년 4분기로 연기될 수 있다고 분석했습니다. 또한 공급망 소식에 따르면 해당 기기는 이미 대량 생산 단계에 진입했으며, Fujifilm이 제조를 담당하고 있으며 9월 발표 계획은 힌지 관련 문제 루머의 영향을 받지 않았다고 합니다.</p>
+          
+          <h3>소프트웨어 코드 내 추가 증거</h3>
+          
+          <p>iOS 27에서 폴더블 디스플레이 기기와 관련된 코드가 처음 발견된 것은 아닙니다. 2026년 6월 WWDC 이후 배포된 첫 번째 iOS 27 개발자 테스트 버전에서도 "foldState"(폴딩 상태), "angleDegrees"(각도 수치), "mechanicalAngleDegrees"(기계적 각도) 등의 필드가 발견되었습니다.</p>
+          
+          <p>이러한 파라미터는 시스템이 기기가 접힌 상태인지, 펼쳐진 상태인지, 또는 반쯤 접힌 상태인지를 실시간으로 판단하고 힌지의 개봉 각도를 감지하는 데 사용됩니다. 이러한 기능은 현재의 iPhone 제품군에는 무의미하지만, 폴더블 디스플레이 기기에는 필수적인 기본 요소입니다. 동시에 Apple은 iOS 27을 통해 개발자들이 다양한 화면 크기의 앱 레이아웃을 미리 최적화하도록 독려하고 있습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>시스템 코드 내의 "다중 배터리" 표현과 폴더블 상태 감지 기능, 그리고 공급망에서 확인된 듀얼 셀 배터리 사양은 Apple이 첫 번째 폴더블 디스플레이 iPhone을 출시하려는 방향성을 명확히 보여줍니다. 소프트웨어와 하드웨어 양측의 정보가 일치함에 따라, 해당 기기의 개발과 생산이 활발히 진행되고 있음을 알 수 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>iOS 27 系统代码中的新发现</h3>
+<p>在 iOS 27 Beta 4 的系统代码中，开发者在“电池健康”功能模块中发现了涉及“多电池/电芯设计”的文本字符串。与目前所有 iPhone 仅使用单数“battery”不同，新代码中出现了复数形式的表述（如“The batteries in this iPhone...”），甚至包含对其中某一块电池是否为原装部件的检测逻辑。</p>
+<p>由于当前在售的所有 iPhone 型号均采用单电芯设计，这种针对多电芯的支持被认为是 Apple 正在开发折叠屏设备的重要信号。此类设计通常用于折叠手机，以便在铰链两侧平衡空间分布。</p>
+          
+          <h3>供应链与硬件规格预测</h3>
+<p>相关供应链信息显示，Apple 的电池供应商已入网备案了两款新电池，其具体参数如下：</p>
+<ul>
+<li>单块电芯容量：1921mAh 和 2962mAh</li>
+<li>组合总容量：4883mAh</li>
+<li>预测总容量范围：4800mAh 至 5000mAh</li>
+</ul>
+<p>作为对比，目前市面上相关竞品包括 Google Pixel 10 Pro Fold（5015mAh）和 Samsung Galaxy Z Fold 7（4400mAh）。</p>
+          
+          <h3>折叠屏 iPhone 的研发进展</h3>
+<p>iOS 27 系统底层已包含多个与折叠设备相关的字段，包括“foldState”（折叠状态）、“angleDegrees”（角度数值）以及“mechanicalAngleDegrees”（机械角度），用于判断设备的折叠、展开或半折叠状态。此外，Apple 也在通过系统更新推动开发者适配多种屏幕尺寸。</p>
+<p>关于产品上市时间，目前存在两种主要预测：一种是 2026 年秋季发布；另一种是与 iPhone 18 Pro 系列在 2025 年 9 月同步亮相。此外，有消息称该设备已进入由 Fujifilm 代工的大规模量产阶段。</p>
+          
+          <h3>总结</h3>
+<p>iOS 27 Beta 4 中出现的“多电池”代码及配套的折叠状态检测功能，与供应链中披露的双电芯方案高度吻合。这些证据共同指向 Apple 正在研发一款具备折叠功能的 iPhone 设备。目前该产品的硬件设计、系统适配及量产准备工作均在同步推进。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>iOS 27ベータ版で「マルチバッテリー」コードを発見</h3>
+          
+          <p>Appleは本日、開発者向けのiOS 27の第4のテストバージョン（iOS 27 Beta 4）を公開しました。</p>
+          
+          <p>Macworldがこのバージョンのシステムコードを詳細に分析した結果、これまで確認されたことのない「マルチバッテリー/セル設計（multi-battery/cell design）」を明確に示すテキスト文字列が発見されました。これらのコードは、システムの「バッテリーの健康状態」機能モジュールに含まれています。</p>
+          
+          <p>現在販売されているすべてのiPhoneモデルが単数形の「battery」を使用しているのに対し、新しいコードでは複数形の表現が繰り返し登場します。例えば、ある文字列には「このiPhoneのバッテリー性能は期待通りです（The batteries in this iPhone are performing as expected）」と表示され、別のものには「このiPhoneのバッテリーの健康状態が大幅に低下しました（The health of the batteries in this iPhone has significantly degraded）」という警告が含まれています。さらに、コード内には「バッテリーのいずれか（one of the batteries）」がApple純正部品ではない可能性がある旨の記述も含まれていました。</p>
+          
+          <h3>折りたたみ式ディスプレイ搭載iPhoneの可能性</h3>
+          
+          <p>これらの発見が注目されているのは、現在市販されているすべてのiPhoneモデルが単一セルの設計を採用しているためです。システムコードに突如として「マルチバッテリー」のiPhoneに対する明確なサポートが現れたことは、既存の製品で説明することが困難です。</p>
+          
+          <p>これは、以前から噂されているAppleの折りたたみ式ディスプレイ搭載iPhone Ultra（またはFold）の発売に関する噂と結びつくと、非常に大きな意味を持ちます。これらのコードは、Appleが従来のバー型スマートフォンとは異なる内部構造を持つ新しいデバイスを開発中であることを改めて裏付けています。</p>
+          
+          <p>ハードウェア設計の観点から見ると、現在市場に出回っているほとんどの折りたたみ式ディスプレイスマートフォンは、複数の独立したバッテリーセルを使用してヒンジの両側に配置しています。この構造は、折りたたみ式の形状において限られた分散された内部スペースを最大限に活用するためのものです。</p>
+          
+          <h3>バッテリー仕様およびサプライチェーン情報</h3>
+          
+          <p>サプライチェーンの情報によると、Appleのバッテリーサプライヤーは最近、2種類の新しいバッテリーを登録しました。それぞれの定格容量は1921mAhと2962mAhで、組み合わせた場合の総容量は4883mAhとなります。</p>
+          
+          <p>サプライチェーンは、このモデルのバッテリー総容量が以下の範囲になると予測しています。</p>
+<ul>
+<li>4800mAhから5000mAhの間</li>
+</ul>
+<p>このようなデュアルセル構成は、現在の主要な折りたたみ式スマートフォンにおける設計論理と一致しています。参考までに、Google Pixel 10 Pro Foldのバッテリー総容量は5015mAh、Samsung Galaxy Z Fold 7は4400mAhです。</p>
+          
+          <h3>リリーススケジュールと生産状況</h3>
+          
+          <p>新製品の発売時期について、複数の情報筋が2026年秋を指しています。China Securities Newsは関連業界の関係者を通じて、最初の折りたたみ式ディスプレイiPhoneが2026年秋に発売される見込みであると報じました。</p>
+          
+          <p>郭明錤（Ming-Chi Kuo）は、このデバイスが9月の発表会でiPhone 18 Proシリーズとともに公開されると予想していますが、公式の予約販売はiPhone Xの発売スケジュールと同様に、2026年第4四半期に延期される可能性があると分析しています。また、サプライチェーンの情報によれば、当該デバイスはすでに量産段階に入っており、Fujifilmが製造を担当しているほか、9月の発表計画はヒンジに関する問題の噂の影響を受けていないとのことです。</p>
+          
+          <h3>ソフトウェアコード内のさらなる証拠</h3>
+          
+          <p>iOS 27で折りたたみ式デバイスに関連するコードが見つかったのは初めてではありません。2026年6月のWWDC後に配布された最初のiOS 27開発者テスト版でも、以下のフィールドが発見されています。</p>
+<ul>
+<li>foldState（折りたたみ状態）</li>
+<li>angleDegrees（角度の数値）</li>
+<li>mechanicalAngleDegrees（機械的角度）</li>
+</ul>
+          
+          <p>これらのパラメータは、システムがデバイスが折りたたまれた状態か、展開された状態か、あるいは半分折られた状態であるかをリアルタイムで判断し、ヒンジの開閉角度を検知するために使用されます。これらの機能は現在のiPhone製品群には不要ですが、折りたたみ式ディスプレイデバイスにとっては不可欠な基本要素です。同時にAppleは、iOS 27を通じて開発者がさまざまな画面サイズのアプリレイアウトを事前に最適化するよう促しています。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>システムコード内の「マルチバッテリー」の表現、折りたたみ状態の検知機能、そしてサプライチェーンで確認されたデュアルセル仕様のすべてが、Appleが初の折りたたみ式iPhoneの投入に向けた準備を進めていることを示唆しています。ソフトウェアとハードウェアの両面から得られる情報が一致しており、当該デバイスの開発と生産が活発に進んでいることが明らかになっています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>iOS 27 Beta and Multi-Battery Code Discovered</h3>
+<p>Apple has released the fourth developer beta of iOS 27 (iOS 27 Beta 4). A deep dive into the system code by Macworld revealed text strings explicitly mentioning a "multi-battery/cell design" within the "battery health" feature module.</p>
+<p>Unlike all currently available iPhone models, which use the singular term "battery," the new code repeatedly uses plural expressions. For example, one string reads, "The batteries in this iPhone are performing as expected," while another includes a warning: "The health of the batteries in this iPhone has significantly degraded." Additionally, the code mentions that "one of the batteries" might not be an original Apple part.</p>
+          
+          <h3>Possibility of a Foldable Display iPhone</h3>
+<p>These findings are significant because every iPhone currently on the market utilizes a single-cell design. The sudden appearance of clear support for "multi-battery" iPhones in system code is difficult to explain using existing product specifications.</p>
+<p>This evidence gains more weight when combined with previous rumors regarding the launch of an Apple foldable display iPhone (referred to as "iPhone Ultra" or "Fold"). These codes confirm that Apple is developing a new device with an internal structure fundamentally different from traditional bar-style smartphones.</p>
+<p>From a hardware design perspective, almost all foldables currently on the market use multiple independent battery cells placed on both sides of the hinge. This configuration is designed to maximize the limited and distributed internal space inherent in foldable form factors.</p>
+          
+          <h3>Battery Specifications and Supply Chain Information</h3>
+<p>According to supply chain reports, Apple's battery suppliers have recently registered two types of new batteries with rated capacities of 1921mAh and 2962mAh, totaling 4883mAh when combined.</p>
+<p>The supply chain predicts the total battery capacity for this model will fall between 4800mAh and 5000mAh. This dual-cell configuration aligns with the design logic of current leading foldable smartphones. For comparison, the Google Pixel 10 Pro Fold features a 5015mAh battery, while the Samsung Galaxy Z Fold 7 has 4400mAh.</p>
+          
+          <h3>Release Schedule and Production Status</h3>
+<p>Various sources point toward a Fall 2026 release date. China Securities News reported through industry contacts that the first foldable display iPhone is expected to launch in the fall of 2026.</p>
+<p>Analyst Ming-Chi Kuo expects the device to be unveiled during the September event alongside the iPhone 18 Pro series; however, he notes that official pre-orders could be delayed until Q4 2026, following a timeline similar to the original iPhone X. Furthermore, supply chain reports indicate the device has already entered mass production, with Fujifilm handling manufacturing, and the September announcement plans remain unaffected by rumors regarding hinge issues.</p>
+          
+          <h3>Additional Evidence in Software Code</h3>
+<p>The inclusion of code related to foldable devices in iOS 27 is not a new occurrence. Even in the first developer test of iOS 27 released after WWDC in June 2026, fields such as "foldState," "angleDegrees," and "mechanicalAngleDegrees" were identified.</p>
+<p>These parameters are used by the system to determine in real-time whether a device is folded, unfolded, or partially folded, while also detecting the opening angle of the hinge. While these features are irrelevant for current iPhone models, they are essential components for foldable devices. Simultaneously, Apple is encouraging developers via iOS 27 to pre-optimize app layouts for various screen sizes.</p>
+          
+          <h3>Summary</h3>
+<p>The discovery of "multi-battery" terminology in iOS 27, combined with fold-state detection code and dual-cell hardware specifications from the supply chain, strongly indicates that Apple is preparing for its first foldable iPhone. The alignment between software indicators and manufacturing reports suggests that development and production are actively progressing toward a late 2026 launch.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg@s_2,w_820,h_461" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/979/271.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

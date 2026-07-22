@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Sony 뮤직, Udio 재소송: 허가 없이 3만 건 이상의 녹음물을 복제하여 AI 학습에 활용한 혐의</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="Sony">
+  <meta name="article-brand-color" content="#003087">
+  <meta name="title-ko" content="Sony 뮤직, Udio 재소송: 허가 없이 3만 건 이상의 녹음물을 복제하여 AI 학습에 활용한 혐의">
+  <meta name="title-zh" content="索尼音乐再次起诉 Udio：指控后者未经许可复制超 3 万段录音以训练 AI">
+  <meta name="title-ja" content="Sony MusicがUdioを再び提訴：AIの学習のために3万件以上の録音を無断で複製したと主張。">
+  <meta name="title-en" content="Sony Music Sues Udio Again: Accused of Copying Over 30,000 Recordings Without Permission to Train AI">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Sony 뮤직, Udio 재소송: 허가 없이 3만 건 이상의 녹음물을 복제하여 AI 학습에 활용한 혐의" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #003087;">
+            Sony
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Sony 뮤직, Udio 재소송: 허가 없이 3만 건 이상의 녹음물을 복제하여 AI 학습에 활용한 혐의"
+            data-zh="索尼音乐再次起诉 Udio：指控后者未经许可复制超 3 万段录音以训练 AI"
+            data-ja="Sony MusicがUdioを再び提訴：AIの学習のために3万件以上の録音を無断で複製したと主張。"
+            data-en="Sony Music Sues Udio Again: Accused of Copying Over 30,000 Recordings Without Permission to Train AI">Sony 뮤직, Udio 재소송: 허가 없이 3만 건 이상의 녹음물을 복제하여 AI 학습에 활용한 혐의</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-22
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>소송 배경</h3>
+          
+          <p>Sony Music은 현지 시간 이번 주 월요일, 미국 뉴욕 남부 연방 지방 법원에 음악 생성형 AI 기업인 Udio가 모델 학습을 위해 3만 건 이상의 녹음물을 무단으로 복제했다고 제소했습니다.</p>
+          
+          <h3>기존 분쟁 및 경과</h3>
+          
+          <p>Udio는 앞서 주요 음악 저작권사들과 법적 분쟁에 휘말렸으나, Universal Music 및 Warner Music와는 합의를 마쳤습니다. Sony Music은 2024년 6월 Udio를 처음 소송할 당시 단 333건의 녹음물에 대해서만 제기했으나, 법원이 해당 범위 확대를 거부함에 따라 이번 새로운 소송을 진행하게 되었습니다. Sony Music 측은 이번에 포함된 3만 건의 녹음물 역시 식별된 수십만 건의 녹음물 중 일부라고 밝혔습니다.</p>
+          
+          <h3>법적 쟁점 및 주장</h3>
+          
+          <p>Udio는 이전 사건에서 저작권 보호를 받는 음악 사용이 "공정 이용"에 해당한다고 주장했습니다. 이에 대해 Sony Music은 새로운 소장에서 "시장 저해" 요인을 언급하며, "기업이 관련 투입물에 대한 라이선스를 유료로 획득할 수 있는 경우, 해당 투입물이 시장이 없거나 또는 그러한 시장이 너무 투기적이어서 인식할 수 없다고 주장하는 것은 설득력이 없다"고 반박했습니다.</p>
+          
+          <p>또한 Sony Music은 Udio의 "뒤늦은 라이선스 허용"이 무단 복제의 불법성을 부각한다고 판단했습니다. Sony Music은 Ud이 행한 것을 "인공지능 음악 생성 서비스 주도권을 차지하기 위한 광적인 경쟁"으로 묘사하며, Udio가 설립 시점부터 "음악 산업 저작권자의 권리를 침해해 왔다"고 주장했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Sony Music은 Udio가 AI 모델 학습을 위해 수만 건의 녹음물을 무단 복제한 것에 대해 소송을 제기하며 강력히 대응하고 있습니다. 이번 소송은 Udio의 '공정 이용' 주장에 반박하며, 저작권자의 권리를 침해하는 행위를 중단할 것을 요구하는 내용을 담고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Sony音乐起诉Udio</h3>
+<p>Sony音乐在纽约南区联邦地区法院提起诉讼，指控生成式人工智能公司Udion在未经许可的情况下，使用超过3万段录音来训练其AI模型。</p>
+          
+          <h3>诉讼背景与规模</h3>
+<p>此次诉讼是针对Udio此前涉及的版权纠纷的进一步行动。尽管Udio已与Universal Music和Warner Music达成和解，但Sony音乐在2024年6月首次起诉时仅涉及333份录音。</p>
+<ul>
+<li><strong>当前指控规模：</strong> 超过30,000段录音（此数量仅为识别出的数十万条录音中的一小部分）。</li>
+<li><strong>此前进展：</strong> Udio已与Universal Music和Warner Music达成和解。</li>
+</ul>
+          
+          <h3>核心法律争议</h3>
+<p>Udio辩称其对受版权保护音乐的使用属于“合理使用”，但Sony音乐反驳称，由于相关录音可以通过付费获得授权，因此不符合“合理使用”的判定标准。Sony音乐强调，Udio的行为是为争夺人工智能音乐生成市场主导地位而进行的“疯狂竞逐”，并指责其自成立以来一直侵犯版权所有者的权利。</p>
+          
+          <h3>总结</h3>
+<p>Sony音乐因Udio未经授权使用超过3万段录音训练AI模型而提起新一轮诉讼。此举旨在打击生成式AI公司在缺乏授权的情况下大规模抓取版权内容的行为，核心争议点在于此类行为是否构成“合理使用”。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>訴訟の背景</h3>
+          
+          <p>Sony Musicは現地時間で今週月曜日、音楽生成AI企業であるUdioがモデル学習のために3万件以上の録音物を無断で複製したとして、ニューヨーク南区連邦地方裁判所に提訴しました。</p>
+          
+          <h3>過去の紛争と経緯</h3>
+          
+          <p>Udioは以前、主要な音楽著作権者と法的紛争に巻き込まれましたが、Universal MusicおよびWarner Musicとは和解に至っています。Sony Musicは2024年6月にUdioを初めて提訴した際、わずか333件の録音物のみを対象としていましたが、裁判所が範囲拡大を拒否したため、今回の新たな訴訟へと発展しました。Sony Music側は、今回含まれる3万件の録音物も、特定された数十万件の録音物の一部であると述べています。</p>
+          
+          <h3>法的争点および主張</h3>
+          
+          <p>Udioは過去の事案において、著作権保護された音楽の使用が「フェアユース（公正な利用）」に該当すると主張しました。これに対しSony Musicは、新たな訴状で「市場への妨害」要因を挙げ、「企業が関連するコンテンツに対して有料でライセンスを取得できる場合、そのコンテンツの市場が存在しない、あるいは市場があまりにも投機的すぎて認識できないと主張することは説得力がない」と反論しました。</p>
+          
+          <p>また、Sony MusicはUdioによる「後手でのライセンス許容」が、無断複製の違法性を際立たせていると判断しています。Sony MusicはUdioの行為を「AI音楽生成サービスの主導権を奪取するための狂的な競争」と描写し、Udioが設立当初から「音楽産業の著作権者の権利を侵害してきた」と主張しています。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>Sony Musicは、UdioがAIモデル学習のために数万件の録音物を無断で複製したことに対し、強力な姿勢で訴訟を起こしています。今回の訴訟は、Udio側の「フェアユース」主張を否定し、著作権者の権利を侵害する行為の中止を求める内容となっています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Lawsuit Background</h3>
+<p>On Monday, local time, Sony Music filed a lawsuit against Udio, a generative music AI company, in the U.S. District Court for the Southern District of New York. The lawsuit alleges that Udio unauthorizedly reproduced more than 30,000 recordings to train its AI models.</p>
+          
+          <h3>Previous Disputes and Progress</h3>
+<p>Udio was previously involved in legal disputes with major music copyright holders but reached settlements with Universal Music and Warner Music. Sony Music's initial lawsuit against Udio in June 2024 only covered 333 recordings because the court refused to expand the scope at that time; consequently, Sony has filed this new lawsuit.</p>
+<ul>
+<li>The current lawsuit includes 30,000 recordings.</li>
+<li>These are part of hundreds of thousands of recordings identified by Sony Music.</li>
+</ul>
+          
+          <h3>Legal Issues and Claims</h3>
+<p>Udio previously argued that the use of copyrighted music for AI training falls under "fair use." In response, Sony Music highlighted "market harm" factors in its new filing, arguing that "if a company can obtain licenses for the relevant input, it is not persuasive to claim that such inputs are from markets that do not exist or are too speculative to be recognized."</p>
+<p>Additionally, Sony Music determined that Udio's "belated acceptance of licensing" highlights the illegality of its unauthorized reproductions. Sony described Udio's actions as a "frenzied competition to seize dominance in AI music generation services," claiming that Udio has been infringing on the rights of music industry copyright holders since its inception.</p>
+          
+          <h3>Summary</h3>
+<p>Sony Music is taking a firm legal stance against Udio for the unauthorized use of tens of thousands of recordings to train its generative AI models. The lawsuit specifically targets Udio's "fair use" defense by highlighting market harm and the company's history of infringing on copyright holders' rights since its founding.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/979/429.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

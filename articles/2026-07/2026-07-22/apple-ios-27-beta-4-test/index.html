@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Apple iOS 27 Beta 4 테스트! 최고가 iPhone Ultra 실체 확인 및 매력적인 10가지 업데이트</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple iOS 27 Beta 4 테스트! 최고가 iPhone Ultra 실체 확인 및 매력적인 10가지 업데이트">
+  <meta name="title-zh" content="实测苹果 iOS 27 Beta 4！最贵 iPhone Ultra 实锤，十大更新馋人">
+  <meta name="title-ja" content="Apple iOS 27 Beta 4を実測！最高級iPhone Ultraで判明した、魅力的な10のアップデート">
+  <meta name="title-en" content="Hands-on Apple iOS 27 Beta 4! The most expensive iPhone Ultra confirmed, 10 tempting updates">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Apple iOS 27 Beta 4 테스트! 최고가 iPhone Ultra 실체 확인 및 매력적인 10가지 업데이트" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Apple iOS 27 Beta 4 테스트! 최고가 iPhone Ultra 실체 확인 및 매력적인 10가지 업데이트"
+            data-zh="实测苹果 iOS 27 Beta 4！最贵 iPhone Ultra 实锤，十大更新馋人"
+            data-ja="Apple iOS 27 Beta 4を実測！最高級iPhone Ultraで判明した、魅力的な10のアップデート"
+            data-en="Hands-on Apple iOS 27 Beta 4! The most expensive iPhone Ultra confirmed, 10 tempting updates">Apple iOS 27 Beta 4 테스트! 최고가 iPhone Ultra 실체 확인 및 매력적인 10가지 업데이트</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-22
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>iOS 27 Beta 4 업데이트 및 iPhone Ultra 루머</h3>
+          
+          <p>약 2주간의 기간이 지나 Apple이 약속대로 결과물을 공개했습니다. 오늘(7월 21일), iOS 27 Beta 4가 정식 배포되어 많은 iPhone 사용자들이 새로운 기능을 미리 체험할 수 있게 되었습니다.</p>
+          
+          <p>한 주 전 첫 번째 공개 버전이 출시되었지만, 새로운 기능과 세부 사항을 파헤치는 데는 개발자 프리뷰 버전이 가장 유용합니다. 이번 Beta 4에서는 루머로만 돌던 '가장 비싼 iPhone'에 대한 실질적인 증거와 함께, 최근 발표된 내용들과 맞물려 매력적인 신기능들이 포함되었습니다.</p>
+          
+          <p>올해 가을, Apple은 자사 최초의 폴더블 디스플레이 스마트폰인 'iPhone Ultra'를 출시할 예정으로 알려져 있습니다. 가격은 최소 2,000달러에서 높게는 2,399달러에 달할 것으로 예상되며, 사실로 밝혀질 경우 역대 가장 비싼 iPhone이 될 전망입니다.</p>
+          
+          <p>폴더블 디스플레이로의 전환에 따라 시스템은 화면 비율 변화에 따른 최적화가 필요합니다. iOS 27 Beta 1부터 코드에서 'foldState'와 'angleDegrees'라는 필드가 발견되었으며, 이는 각각 개봉 상태와 접힘 각도를 나타냅니다. 또한 Apple Music, 팟캐스트 등 다양한 앱이 가로 모드를 지원하기 시작한 것도 iPhone Ultra를 위한 준비 과정으로 해석됩니다.</p>
+          
+          <p>이번 Beta 4에서는 이전에 등장한 적 없는 텍스트 문자열을 통해 iPhone Ultra의 존재가 더욱 확실해졌습니다. 특히 '배터리 건강' 기능 모듈 코드에서 '다중 배터리/멀티 셀 설계'를 사용하는 iPhone 모델이 명시되었습니다. 현재 판매 중인 모든 iPhone은 단일 배터리 설계를 사용하고 있으므로, 이는 폴더블 디스플레이의 힌지 양쪽에 배치될 독립적인 배터리 시스템을 위한 준비로 보입니다.</p>
+          
+          <p>모든 징후는 Apple의 첫 번째 폴더블 디스플레이 iPhone이 출시를 앞두고 있음을 나타내며, 올해 9월 가을 특별 이벤트에서 그 실체가 공개될 것으로 기대됩니다.</p>
+          
+          <h3>중국 내 Apple AI 도입 및 파트너십</h3>
+          
+          <p>많은 사용자가 기다려온 중국용 'Apple 브랜드 AI'에 대한 희망적인 소식이 전해졌습니다. 7월 15일, 관련 기관을 통해 7종의 모바일 측 생성형 인공지능 서비스가 발표되었습니다.</p>
+          
+          <p>그 중 Apple 기술 개발(상하이) 유한회사의 'Apple Intelligence' 대규모 모델이 2026년 7월 8일에 등록을 완료했으며, 이는 중국 내 iPhone 사용자들을 위한 AI 기능의 가속화된 출시를 의미합니다. 이를 위해 Alibaba와 Baidu가 파트너로 참여합니다.</p>
+          
+          <p>Alibaba는 'Alibaba Qianwen'을 iOS, iPadOS, macOS 및 visionOS를 사용하는 중국 사용자들에게 제공할 예정이며, 사용자는 앱 전환 없이 텍스트 및 이미지 이해, 콘텐츠 생성 등의 기능을 경험할 수 있습니다. Baidu는 AI 기반 검색 기능과 Siri 음성 비서 업그레이드를 위해 협력할 예정입니다.</p>
+          
+          <h3>Siri 인터랙션 개선</h3>
+          
+          <p>이번 iOS 27 Beta 4에서 Siri는 상호작용 측면에서 여러 업데이트를 포함했습니다.</p>
+          
+          <p>이제 Dynamic Island를 통해 Siri를 호출하거나 홈 화면을 아래로 쓸어내려 실행할 때 새로운 시작 화면이 표시됩니다. 음성 기능의 경우, 두 가지 강화된 음서는 속도와 표정 조절을 지원하며, 다섯 가지 기존 버전 음서의 관련 옵션은 '출시 예정'으로 표시됩니다.</p>
+          
+          <p>Siri 음성 선택 인터페이스도 조정되었습니다. 커스텀 음성을 지원하지 않는 기기에서는 억양과 목소리 선택 화면이 나타나며, 지원하는 기기에서는 더 많은 음성 옵션이 제공됩니다. 또한 '설정-Siri' 메뉴에 Siri 앱 내 미리보기 길이를 최대 5줄 또는 표시 안 함으로 설정하는 옵션과, Siri의 답변을 항상 텍스트로 화면에 표시하는 기능이 추가되었습니다.</p>
+          
+          <h3>기타 주요 업데이트</h3>
+          
+          <p>iPhone Ultra 관련 코드와 Siri AI 강화 외에도 iOS 27 Beta 4에는 다음과 같은 8가지 주요 업데이트가 포함되었습니다.</p>
+          
+          <ul>
+<li>AirPods 적응형 노이즈 제어 조정: 제어 센터에서 노이즈 캔슬링과 주변 소리 허용 사이를 자유롭게 조절할 수 있으며, 버튼 디자인이 알약 형태로 변경되었습니다.</li>
+<li>잠금 화면 커스텀 버튼 콜백: Beta 3에서 추가된 다크/라이트 모드 대응이 제거되고 현재 흰색으로만 표시됩니다.</li>
+<li>리퀴드 글래스 효과 최적화: 볼륨 바의 투명도가 개선되어 배경의 아이콘과 텍스트가 더 잘 보이도록 조정되었습니다.</li>
+<li>알림 센터 배경화면 깊이 효과 제거: 알림 센터 진입 시 배경화면 요소가 부각되는 시각 효과가 삭제되었습니다.</li>
+<li>Apple TV 새 스위치: '계속 보기' 중인 프로그램의 다음 에피소드를 자동으로 다운로드하고 시청 후 자동 삭제하는 기능이 추가되었습니다.</li>
+<li>사진 확대 및 채우기 옵션: 화면 비율에 가까운 사진을 약간 확대하여 꽉 채워주는 기능이 '설정-사진' 페이지에 추가되었으며 기본적으로 활성화됩니다.</li>
+<li>Wi-Fi 지원 조정: 각 Wi-Fi 네트워크에서 '연결 지원' 기능을 개별적으로 켜고 끌 수 있습니다.</li>
+<li>ProRes Log 포맷: '설정-카메라'에서 Apple ProRes 활성 시, ProRes 로그 비디오 인코딩을 선택하여 Log 또는 Log 2를 선택할 수 있습니다.</li>
+</ul>
+          
+          <h3>총평</h3>
+          
+          <p>이번 iOS 27 Beta 4는 iPhone Ultra에 대한 실질적인 단서와 Siri AI의 지속적인 진화에 초점을 맞추고 있습니다. 비록 시스템이 아직 완벽하지 않고 일부 번역 누락이나 끊김 현상이 존재하지만, 정식 출시를 앞둔 중요한 기능적 변화들이 포함되었습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>iPhone Ultra 折叠屏传闻</h3>
+<p>iOS 27 Beta 4 中出现了多项关键证据，指向 Apple 可能在今年秋季推出首款折叠屏手机“iPhone Ultra”。</p>
+<ul>
+<li>预计售价：据爆料称起售价可能不低于 2000 美元，甚至有消息指出为 2399 美元。</li>
+<li>代码线索：系统包含“foldState”和“angleDegrees”等针对折叠状态与角度的参数。</li>
+<li>硬件设计：电池健康模块中出现了“多电池/多电芯设计”的描述，符合折叠屏手机在铰链两侧分布电芯的结构需求。</li>
+</ul>
+          
+          <h3>Apple Intelligence 与 Siri 强化</h3>
+<p>随着相关备案完成，国行版 iPhone 的 AI 功能有望加速落地。本次 Beta 4 对 Siri 进行了大量交互层面的优化：</p>
+<ul>
+<li>Siri 启动画面：从灵动岛或主屏幕呼出时将显示新设计的主题界面。</li>
+<li>语音定制：部分增强语音支持语速和表情调节，并根据设备能力提供不同的选择界面。</li>
+<li>视觉反馈：新增“始终显示 Siri 的回答”选项，可让回复以文字形式在屏幕上呈现。</li>
+</ul>
+          
+          <h3>系统功能优化与细节调整</h3>
+<p>本次更新还包含了一系列针对硬件联动及用户体验的细微改进：</p>
+<ul>
+<li>AirPods 适配：自适应降噪调节功能已进入控制中心，并采用药丸形状按钮。</li>
+<li>视觉效果：优化了音量条的“液态玻璃”效果；取消了通知中心在特定壁纸下的景深效果。</li>
+<li>Apple TV：新增“自动下载”开关，可自动下载后续剧集并在观看后删除。</li>
+<li>照片功能：增加“放大照片以填充”选项，用于适配不同比例的屏幕。</li>
+<li>网络连接：支持用户针对每个 Wi-Fi 网络独立开启或关闭“连接辅助”。</li>
+<li>相机专业功能：在启用 Apple ProRes 时，可选择 Log 或 Log 2 视频编码。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>iOS 27 Beta 4 的核心看点在于通过代码实锤了 iPhone Ultra 折叠屏手机的潜在存在，并显著强化了 Siri 的交互体验。同时，系统在 AirPods、Apple TV 及相机等多个维度进行了细节优化，为最终正式版的发布做准备。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>iOS 27 Beta 4 アップデートと iPhone Ultra の噂</h3>
+          
+          <p>約2週間の期間を経て、Appleが約束通り成果を公開しました。本日（7月21日）、iOS 27 Beta 4が正式に配布され、多くのiPhoneユーザーが新機能を事前に体験できるようになりました。</p>
+          
+          <p>1週間前に公開された最初のバージョンよりも、新機能や詳細な仕様を掘り下げるには開発者向けプレビュー版が非常に有用です。今回のBeta 4では、噂されていた「最も高価なiPhone」に関する実質的な証拠とともに、最近発表された内容と連動する魅力的な新機能が含まれています。</p>
+          
+          <p>今年秋、Appleは自社初の折りたたみ式ディスプレイ搭載スマートフォン「iPhone Ultra」を発売する予定であると報じられています。価格は最低2,000ドルから最大2,399ドルに達すると予想されており、事実であれば歴代最高額のiPhoneとなる見込みです。</p>
+          
+          <p>折りたたみ式ディスプレイへの移行に伴い、システムは画面比率の変化に応じた最適化が必要となります。iOS 27 Beta 1のコード内では、すでに「foldState」と「angleDegrees」というフィールドが発見されており、これらはそれぞれ展開状態と折り曲げ角度を示しています。また、Apple MusicやPodcastなど、さまざまなアプリが横向きモードをサポートし始めたことも、iPhone Ultraに向けた準備過程であると解釈されています。</p>
+          
+          <p>今回のBeta 4では、以前には登場しなかったテキスト文字列を通じて、iPhone Ultraの存在がより確実なものとなりました。特に「バッテリーの健康」機能モジュールのコードにおいて、「マルチバッテリー/マルチセル設計」を採用するiPhoneモデルが明記されました。現在販売されているすべてのiPhoneはシングルバッテリー設計を採用しているため、これは折りたたみ式ディスプレイのヒンジの両側に配置される独立したバッテリーシステムに向けた準備と考えられます。</p>
+          
+          <p>あらゆる兆候は、Appleの初の折りたたみ式ディスプレイ搭載iPhoneの発売が間近に迫っていることを示唆しており、今年の9月の秋の特別イベントでその実態が公開されることが期待されています。</p>
+          
+          <h3>中国における Apple AI の導入とパートナーシップ</h3>
+          
+          <p>多くのユーザーが待ち望んでいた中国向け「AppleブランドAI」に関する前向きなニュースが届きました。7月15日、関連機関を通じて7種類のモバイル向け生成AIサービスが発表されました。</p>
+          
+          <p>その中で、Apple技術開発（上海）有限会社の「Apple Intelligence」大規模モデルが2026年7月8日に登録を完了しており、これは中国国内のiPhoneユーザーに向けたAI機能の加速的なリリースを意味します。このため、AlibabaとBaiduがパートナーとして参画します。</p>
+          
+          <p>Alibabaは「Alibaba Qianwen」をiOS、iPadOS、macOS、およびvisionOSを使用する中国のユーザーに提供する予定であり、ユーザーはアプリを切り替えることなくテキストや画像の理解、コンテンツ生成などの機能を体験できます。BaiduはAIベースの検索機能とSiri音声アシスタントのアップグレードのために協力する予定です。</p>
+          
+          <h3>Siri インタラクションの改善</h3>
+          
+          <p>今回のiOS 27 Beta 4において、Siriはインタラクションの側面でいくつかのアップデートを含んでいます。</p>
+          
+          <p>今後、Dynamic Islandを通じてSiriを呼び出したり、ホーム画面を下にスワイプして実行したりする際に、新しい開始画面が表示されます。音声機能については、速度と表情の調整をサポートする2つの強化された音声が用意され、既存の5種類のバージョンに関するオプションは「リリース予定」と表示されています。</p>
+          
+          <p>Siriの音声選択インターフェースも調整されました。カスタム音声をサポートしないデバイスではアクセントと音声の選択画面が表示され、サポートするデバイスではより多くの音声オプションが提供されます。また、「設定 - Siri」メニューに、Siriアプリ内のプレビュー長さを最大5行または非表示に設定するオプションと、Siriの回答を常にテキストで画面に表示する機能が追加されました。</p>
+          
+          <h3>その他の主なアップデート</h3>
+          
+          <p>iPhone Ultra関連のコードやSiri AIの強化に加え、iOS 27 Beta 4には以下の8つの主要なアップデートが含まれています。</p>
+          
+          <ul>
+<li>AirPods 適応型ノイズ制御の調整：コントロールセンターでノイズキャンセリングと周囲の音の許可の間を自由に調整できるようになり、ボタンのデザインがカプセル型に変更されました。</li>
+<li>ロック画面カスタムボタンのコールバック：Beta 3で追加されたダーク/ライトモード対応が削除され、現在は白のみで表示されます。</li>
+<li>リキッドグラス効果の最適化：ボリュームバーの透明度が改善され、背景のアイコンやテキストがより見やすくなるよう調整されました。</li>
+<li>通知センターの壁紙奥行き効果の削除：通知センターに入る際に壁紙の要素が強調される視覚効果が削除されました。</li>
+<li>Apple TV 新機能：「続視聴中」のプログラムの次エピソードを自動的にダウンロードし、視聴後に自動で削除する機能が追加されました。</li>
+<li>写真の拡大および充填オプション：画面比率に近い写真をわずかに拡大して隙間なく埋める機能が「設定 - 写真」ページに追加され、デフォルトで有効になります。</li>
+<li>Wi-Fiサポートの調整：各Wi-Fiネットワークにおいて「接続を自動的に許可」機能を個別にオン/オフできるようになりました。</li>
+<li>ProRes Logフォーマット：「設定 - カメラ」でApple ProResを有効にした際、ProResログビデオエンコーディングを選択し、LogまたはLog 2を選択できるようになりました。</li>
+</ul>
+          
+          <h3>まとめ</h3>
+          
+          <p>今回のiOS 27 Beta 4は、iPhone Ultraに向けた具体的な手がかりと、Siri AIの継続的な進化に焦点を当てています。システムにはまだ完全ではない部分もありますが、正式リリースを前に重要な機能的変化が数多く盛り込まれました。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>iOS 27 Beta 4 Update and iPhone Ultra Rumors</h3>
+          
+          <p>Following a two-week period, Apple has released its latest update as promised. Today (July 21), iOS 27 Beta 4 was officially released, allowing many iPhone users to experience new features ahead of the official launch.</p>
+          
+          <p>While the first public version was released last week, developer preview versions are more useful for uncovering new features and specific details. This Beta 4 includes compelling new features aligned with recent announcements, along with substantial evidence regarding the rumored "most expensive iPhone."</p>
+          
+          <p>It is reported that Apple plans to release its first foldable display smartphone, the "iPhone Ultra," this fall. The price is expected to range from at least $2,000 to as high as $2,399; if confirmed, it will become the most expensive iPhone ever produced.</p>
+          
+          <p>With the transition to a foldable display, the system requires optimization for changes in screen aspect ratios. Since iOS 27 Beta 1, fields such as "foldState" and "angleDegrees" have been discovered in the code, representing the open state and folding angle, respectively. Additionally, various apps like Apple Music and Podcasts have begun supporting landscape mode, which is interpreted as part of the preparation for the iPhone Ultra.</p>
+          
+          <p>In Beta 4, the existence of the iPhone Ultra became even more certain through previously unseen text strings. Specifically, within the "battery health" feature module code, models using a "multi-battery/multi-cell design" were specified. Since all currently available iPhones use a single battery design, this suggests preparation for an independent battery system split across both sides of a foldable display hinge.</p>
+          
+          <p>All signs point to Apple's first foldable display iPhone being close to launch, with its true form expected to be revealed during the special autumn event in September.</p>
+          
+          <h3>Apple AI Implementation and Partnerships in China</h3>
+          
+          <p>Promising news has arrived regarding "Apple Brand AI" for the Chinese market, which many users have been anticipating. On July 15, seven mobile-side generative AI services were announced through relevant authorities.</p>
+          
+          <p>Among these, the "Apple Intelligence" large model from Apple Technology Development (Shanghai) Co., Ltd. completed its registration on July 8, 2026, signaling an accelerated rollout of AI features for iPhone users in China. Alibaba and Baidu will participate as partners for this initiative.</p>
+          
+          <p>Alibaba plans to provide "Alibaba Qianwen" to Chinese users on iOS, iPadOS, macOS, and visionOS, allowing them to experience text and image understanding and content generation without switching apps. Baidu will collaborate to provide AI-based search functions and upgrades to the Siri voice assistant.</p>
+          
+          <h3>Siri Interaction Improvements</h3>
+          
+          <p>In this iOS 27 Beta 4, Siri includes several updates regarding interaction.</p>
+          
+          <p>A new start screen is now displayed when calling Siri through Dynamic Island or swiping down from the home screen. Regarding voice features, two enhanced voices support speed and expression adjustments, while options for five existing versions are marked as "coming soon."</p>
+          
+          <p>The Siri voice selection interface has also been adjusted. On devices that do not support custom voices, a screen for selecting accent and voice will appear, while supported devices will be provided with more voice options. Additionally, the "Settings-Siri" menu now includes an option to set the preview length of Siri within the app to a maximum of 5 lines or "none," as well as a feature to always display Siri's responses as text on the screen.</p>
+          
+          <h3>Other Key Updates</h3>
+          
+          <p>In addition to the iPhone Ultra-related code and Siri AI enhancements, iOS 27 Beta 4 includes the following eight major updates:</p>
+          
+          <ul>
+<li>AirPods Adaptive Noise Control adjustment: Users can freely adjust between Noise Cancellation and Transparency in the Control Center; the button design has been changed to a pill shape.</li>
+<li>Lock Screen custom button callback: The dark/light mode response added in Beta 3 was removed, and it is currently displayed in white only.</li>
+<li>Liquid Glass effect optimization: The transparency of volume bars has been improved so that icons and text in the background are more visible.</li>
+<li>Notification Center wallpaper depth effect removal: Visual effects that highlight background elements when entering the Notification Center have been removed.</li>
+<li>Apple TV new switch: A feature has been added to automatically download the next episode of a program currently being "watched" and automatically delete it after viewing.</li>
+<li>Photo zoom and fill options: A feature in "Settings-Photos" allows photos with aspect ratios close to the screen to be slightly zoomed and filled; this is enabled by default.</li>
+<li>Wi-Fi support adjustment: The "Connect Automatically" feature can now be toggled individually for each Wi-Fi network.</li>
+<li>ProRes Log format: When Apple ProRes is enabled in "Settings-Camera," users can select the ProRes Log video encoding to choose between Log or Log 2.</li>
+</ul>
+          
+          <h3>Summary</h3>
+<p>iOS 27 Beta 4 provides significant evidence for the upcoming iPhone Ultra, specifically through multi-battery design code and fold-state parameters intended for a foldable display. The update also marks major advancements in Siri's AI capabilities and establishes key partnerships with Alibaba and Baidu to bring Apple Intelligence to the Chinese market.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.png" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.png" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.jpg" alt="이미지 6" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img07.jpg" alt="이미지 7" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img08.jpg" alt="이미지 8" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">응답</div>
+                <div class="caption-lang" data-lang="en">Response</div>
+                <div class="caption-lang" data-lang="ja">回答</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">음성 응답</div>
+                <div class="caption-lang" data-lang="en">Voice response</div>
+                <div class="caption-lang" data-lang="ja">音声応答</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">무음 응답 우선</div>
+                <div class="caption-lang" data-lang="en">Preferred silent response</div>
+                <div class="caption-lang" data-lang="ja">サイレント返信を優先</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">자동</div>
+                <div class="caption-lang" data-lang="en">Automatic</div>
+                <div class="caption-lang" data-lang="ja">自動</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">음성 응답 우선</div>
+                <div class="caption-lang" data-lang="en">Preferred voice response</div>
+                <div class="caption-lang" data-lang="ja">音声応答を優先</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">음성 입력 시, Siri가 음성으로 응답합니다.</div>
+                <div class="caption-lang" data-lang="en">Siri will respond with voice during voice input.</div>
+                <div class="caption-lang" data-lang="ja">音声入力時、Siriは音声で応答します。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Siri의 응답 항상 표시</div>
+                <div class="caption-lang" data-lang="en">Always show Siri&#39;s response</div>
+                <div class="caption-lang" data-lang="ja">Siriの回答を常に表示</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Siri의 답변이 화면에 텍스트로 동시에 표시됩니다.</div>
+                <div class="caption-lang" data-lang="en">Siri&#39;s responses will appear as text on the screen.</div>
+                <div class="caption-lang" data-lang="ja">Siriの回答はテキストでも画面に表示されます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">항상 요청 표시</div>
+                <div class="caption-lang" data-lang="en">Always show requests</div>
+                <div class="caption-lang" data-lang="ja">リクエストを常に表示</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">당신의 음성이 받아쓰기 텍스트 형태로 화면에 동시에 표시됩니다.</div>
+                <div class="caption-lang" data-lang="en">Your speech will be displayed as transcribed text on the screen.</div>
+                <div class="caption-lang" data-lang="ja">あなたの音声は、文字起こしとして同時に画面に表示されます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">메시지 전송</div>
+                <div class="caption-lang" data-lang="en">Send message</div>
+                <div class="caption-lang" data-lang="ja">メッセージを送信</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">메시지 자동 전송</div>
+                <div class="caption-lang" data-lang="en">Auto-send message</div>
+                <div class="caption-lang" data-lang="ja">メッセージの自動送信</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">메시지를 빠르게 보내려면 Siri의 확인 없이 &#39;자동으로 메시지 전송&#39;을 켜주세요.</div>
+                <div class="caption-lang" data-lang="en">To send messages quickly without Siri&#39;s confirmation, turn on &#34;Auto-Send.</div>
+                <div class="caption-lang" data-lang="ja">素早くメッセージを送るために、Siriの確認なしで送る「自動送信」をオンにしてください。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">정보 읽어주기</div>
+                <div class="caption-lang" data-lang="en">Read message</div>
+                <div class="caption-lang" data-lang="ja">情報の読み上げ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">언어 추가...</div>
+                <div class="caption-lang" data-lang="en">Add language...</div>
+                <div class="caption-lang" data-lang="ja">言語を追加...</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Siri도 이 목록의 내용을 음성으로 읽어줄 수 있으며, 이는 Siri가 인식하고 응답하는 기본 언어를 변경하지 않습니다.</div>
+                <div class="caption-lang" data-lang="en">Siri can also use these voices to read information. This doesn&#39;t change Siri&#39;s preferred listening and response language.</div>
+                <div class="caption-lang" data-lang="ja">Siriはこのリストの音声を使用することもできます。これによって、Siriが聞き取り、応答する際の優先言語は変更されません。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img09.jpg" alt="이미지 9" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">배터리 상태</div>
+                <div class="caption-lang" data-lang="en">Battery status</div>
+                <div class="caption-lang" data-lang="ja">バッテリーの状態</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">연결 상태</div>
+                <div class="caption-lang" data-lang="en">Connection Status</div>
+                <div class="caption-lang" data-lang="ja">接続状態</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">남은 시간</div>
+                <div class="caption-lang" data-lang="en">Time remaining</div>
+                <div class="caption-lang" data-lang="ja">残り時間</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img10.jpg" alt="이미지 10" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img11.png" alt="이미지 11" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img12.png" alt="이미지 12" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img13.jpg" alt="이미지 13" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img14.jpg" alt="이미지 14" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img15.jpg" alt="이미지 15" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img16.jpg" alt="이미지 16" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/979/763.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
