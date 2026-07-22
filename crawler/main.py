@@ -86,6 +86,7 @@ def _append_failed_article(today: str, article_info: dict, error: str):
         "title": article_info.get("title", ""),
         "url": article_info.get("url", ""),
         "category": article_info.get("category", ""),
+        "source": article_info.get("source", "ithome"),
         "error": error,
         "timestamp": datetime.now().isoformat(),
     })
@@ -108,6 +109,7 @@ def _write_resume_script(today: str):
             "title": e["title"],
             "url": e["url"],
             "category": e["category"],
+            "source": e.get("source", "ithome"),
         }
         for e in entries
     ]
@@ -123,7 +125,11 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import config
 from scraper import scrape_article_content, scrape_article_images, detect_brand, Article
-from translator import translate_title, translate_article, generate_slug
+from translator import (
+    translate_title, translate_article, generate_slug,
+    translate_body_en, translate_body_ja, translate_body_zh, translate_body_zh_summary,
+    translate_title_en, translate_title_ja, translate_title_zh,
+)
 from html_generator import TranslatedArticle, save_article
 from deployer import ensure_repo, commit_and_push
 
@@ -144,6 +150,11 @@ def main():
 
     for item in FAILED_ARTICLES:
         logger.info(f"재처리: {{item[\'title\'][:50]}}...")
+        if item.get("source") == "gizmochina":
+            # Gizmochina는 RSS 피드(24h 윈도우)에서만 본문을 얻을 수 있어 URL 단위
+            # 재스크레이핑이 불가능함. 다음 정기 수집에 맡기고 건너뜀.
+            logger.warning(f"Gizmochina 기사는 resume 미지원, 건너뜀: {{item[\'title\']}}")
+            continue
         try:
             paragraphs, author = scrape_article_content(item["url"])
             images = scrape_article_images(item["article_id"])
@@ -160,24 +171,52 @@ def main():
                 author=author,
                 brand=brand,
                 brand_color=brand_color,
+                source="ithome",
             )
 
             category = article.category
-            korean_title = translate_title(article.title, category=category)
+            source_lang = "zh"
+            korean_title = translate_title(article.title, category=category, source_lang=source_lang)
             if not korean_title:
                 logger.warning(f"제목 번역 실패: {{article.title}}")
                 continue
-            korean_paragraphs = translate_article(article.content_paragraphs, category=category)
+            korean_paragraphs = translate_article(article.content_paragraphs, category=category, source_lang=source_lang)
             if not korean_paragraphs:
                 logger.warning(f"본문 번역 실패: {{article.title}}")
                 continue
 
+            ko_body_text = "\\n\\n".join(korean_paragraphs)
+            zh_orig_text = "\\n\\n".join(article.content_paragraphs)
+
+            en_body_text = translate_body_en(ko_body_text, category=category)
+            en_paragraphs = [p.strip() for p in (en_body_text or "").split("\\n\\n") if p.strip()] or korean_paragraphs
+
+            ja_body_text = translate_body_ja(ko_body_text, category=category)
+            ja_paragraphs = [p.strip() for p in (ja_body_text or "").split("\\n\\n") if p.strip()] or korean_paragraphs
+
+            zh_summary_text = translate_body_zh_summary(zh_orig_text)
+            zh_paragraphs = [p.strip() for p in (zh_summary_text or "").split("\\n\\n") if p.strip()] or korean_paragraphs
+
+            zh_title = article.title
+            en_title = translate_title_en(article.title)
+            ja_title = translate_title_ja(article.title)
+
             slug = generate_slug(korean_title)
             translated = TranslatedArticle(
                 original=article,
-                korean_title=korean_title,
-                korean_paragraphs=korean_paragraphs,
                 slug=slug,
+                titles={{
+                    "ko": korean_title,
+                    "zh": zh_title or korean_title,
+                    "ja": ja_title or korean_title,
+                    "en": en_title or korean_title,
+                }},
+                bodies={{
+                    "ko": korean_paragraphs,
+                    "zh": zh_paragraphs,
+                    "ja": ja_paragraphs,
+                    "en": en_paragraphs,
+                }},
             )
 
             result = save_article(translated, articles_root)
@@ -256,6 +295,7 @@ def run_pipeline(limit: int = 0):
             "title": article.title,
             "url": article.url,
             "category": article.category,
+            "source": article.source,
         }
         category = article.category
         source_lang = "en" if article.source == "gizmochina" else "zh"
@@ -359,6 +399,7 @@ def run_pipeline(limit: int = 0):
             "title": ta.original.title,
             "url": ta.original.url,
             "category": ta.original.category,
+            "source": ta.original.source,
         }
         try:
             result = save_article(ta, articles_root)
