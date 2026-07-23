@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 메이투안(Meituan) 드론 저고도 물류 배송 서비스, 누적 주문 100만 건 돌파</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="메이투안(Meituan) 드론 저고도 물류 배송 서비스, 누적 주문 100만 건 돌파">
+  <meta name="title-zh" content="美团无人机低空物流配送服务累计完成订单超 100 万单">
+  <meta name="title-ja" content="美団のドローン低空物流配送サービス、累計注文数が100万件を突破">
+  <meta name="title-en" content="Meituan&#39;s low-altitude drone delivery service has surpassed 1 million orders.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="메이투안(Meituan) 드론 저고도 물류 배송 서비스, 누적 주문 100만 건 돌파" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="메이투안(Meituan) 드론 저고도 물류 배송 서비스, 누적 주문 100만 건 돌파"
+            data-zh="美团无人机低空物流配送服务累计完成订单超 100 万单"
+            data-ja="美団のドローン低空物流配送サービス、累計注文数が100万件を突破"
+            data-en="Meituan&#39;s low-altitude drone delivery service has surpassed 1 million orders.">메이투안(Meituan) 드론 저고도 물류 배송 서비스, 누적 주문 100만 건 돌파</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-23
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>박람회 개막</h3>
+          
+          <p>7월 22일 IT홈 소식에 따르면, 2026 상하이 국제 저고도 경제 박람회가 오늘 개최되었습니다.</p>
+          
+          <h3>서비스 운영 현황</h3>
+          
+          <p>Meituan 드론은 2026년 6월 말까지 선전, 베이징, 상하이, 광저우, 홍콩, 두바이 등 여러 도시에서 저고도 물류 배송 서비스를 시작했으며, 누적 주문 건수가 100만 건을 돌파했습니다.</p>
+          
+          <p>공식 발표에 따르면 수직 산업 분야에서 Meitun 드론의 저고도 물류 솔루션은 이미 상시 운영 단계에 진입했습니다. 의료 시나리오를 예로 들면 혈액, 검사 샘플, 응급 구조 물자, 특수 의약품 등을 대상으로 엔드 투 엔드(end-to-end) 긴급 배송 네트워크를 구축했으며, 누적 81만 건 이상의 검체와 약품을 배송했습니다. 또한 관광지, 커뮤니티, 상업 부동산 등 다양한 즉각 배송 시나리오에서 고빈도, 고밀도, 다양한 시간대 및 날씨 조건에서도 운영이 가능해졌습니다.</p>
+          
+          <h3>물류 솔루션</h3>
+          
+          <p>Meitun 드론은 다음과 같은 세 가지 저고도 물류 솔루션을 제공합니다.</p>
+          
+          <ul>
+<li>평강(坪降) 솔루션: 간이 착륙장에 착륙하며, 기체와 화물함이 일체형으로 설계되어 고정된 지점 간의 상호 배송에 적합합니다. (예: 여러 의료 구역 간의 의료 물자 운송, 여러 공장 구역 간의 산업 샘플 운송)</li>
+<li>소강(索降) 솔루션: 착륙장이 필요 없으며 기체가 착륙하지 않고도 복잡한 환경에서 화물을 안정적이고 안전하게 전달합니다. (예: 도시 골목, 빌라 마당, 험준한 산악 지역 등)</li>
+<li>방강(柜降) 솔루션: 스마트 허브 공항과 드론의 협업을 통해 화물의 발송, 수신, 저장 및 배달을 완료하며 즉각적인 소매 시나리오에 적합합니다. (예: 시립 공원 배달, 관광지 배달 등)</li>
+</ul>
+          
+          <h3>신제품 및 전망</h3>
+          
+          <p>공중 체공이 가능하고 지면 착륙 공간이 필요 없는 Meitun의 4세대 드론 장거리 소강 버전인 M-Drone 4L Winch가 출시되었습니다.</p>
+          
+          <p>Meitun 부사장은 드론 사업이 향후 2~3년 내에 전방 규모화 수익을 달성할 것으로 전망했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Meitun 드론은 다양한 도시에서 저고도 물류 배송 서비스를 성공적으로 운영하며 누적 주문 100만 건을 돌파하는 성과를 거두었습니다. 특히 의료 및 상업 분야에 최적화된 세 가지 핵심 솔루션을 통해 안정적인 운송 네트워크를 구축했으며, 기술 혁신을 바탕으로 향후 수년 내 수익성 확보도 기대하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>运营规模与市场覆盖</h3>
+<p>美团无人机已在多个城市建立低空物流服务。截至2026年6月底，其在深圳、北京、上海、广州、香港、迪拜等城市的累计订单量已超过100万单。</p>
+          
+          <h3>垂直行业应用与场景</h3>
+<p>美团无人机在医疗及多元化即时配送领域实现常态化运营：</p>
+<ul>
+<li>医疗场景：构建了涵盖血液、检验样本、院前急救物资、特殊药品的端到端急送网络，累计配送检验样本和药品超81万份。</li>
+<li>多样化配送：在景区、社区、商业地产等领域实现高频次、高密度、多天时、多天候的即时配送。</li>
+</ul>
+          
+          <h3>核心技术解决方案</h3>
+<p>美团无人机提供三种针对不同环境的低空物流解决方案：</p>
+<ul>
+<li>坪降解决方案：采用机身与货箱一体化设计，适用于固定点位间（如医疗、工业）的物资运输。</li>
+<li>索降解决方案：无需着陆即可在复杂环境（如街巷、别墅、山区）完成平稳交付。相关产品包括第四代无人机长程索降版 M-Drone 4L Winch。</li>
+<li>柜降解决方案：通过智能接驳机场与无人机协同，适用于市政公园、景区等即时零售场景。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>美团无人机已在多个城市实现大规模运营，累计订单突破100万单。通过坪降、索降、柜降三种技术方案，美团成功构建了涵盖医疗和即时配送的低空物流网络，并预计在未来两至三年内实现前端规模化盈利。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>博覧会の開幕</h3>
+<p>7月22日、ITホームの報道によると、2026年上海国際低空経済博覧会が本日開催されました。</p>
+          
+          <h3>サービス運営状況</h3>
+<p>Meituanドローンは、2026年6月末までに深圳、北京、上海、広州、香港、ドバイなど複数の都市で低空物流配送サービスを開始し、累計注文件数が100万件を突破しました。</p>
+<p>公式発表によると、垂直産業分野においてMeitunドローンの低空物流ソリューションはすでに常時運用段階に入っています。医療シナリオを例にとると、血液、検査サンプル、救急資材、特殊医薬品などを対象としたエンドツーエンド（end-to-end）の緊急配送ネットワークを構築しており、累計81万件以上の検体と薬剤を配送しました。また、観光地、コミュニティ、商業不動産など、多様な即時配送シナリオにおいて、高頻度・高密度かつ様々な時間帯や気象条件でも運用が可能になっています。</p>
+          
+          <h3>物流ソリューション</h3>
+<p>Meitunドローンは、以下の3つの低空物流ソリューションを提供しています。</p>
+<ul>
+<li>坪降（Pingjiang）ソリューション：簡易着陸場に着陸するタイプ。機体と貨物容器が一体型で設計されており、固定された地点間の相互配送に適しています。（例：複数の医療エリア間での医療資材輸送、複数の工場エリア間での産業サンプル輸送）</li>
+<li>索降（Suojiang）ソリューション：着陸場を必要とせず、機体が着陸することなく複雑な環境下で貨物を安定かつ安全に届けることができます。（例：都市の路地、ヴィラの庭、険しい山岳地帯など）</li>
+<li>方降（Fangjiang）ソリューション：スマートハブ空港とドローンの連携により、貨物の発送、受信、保管、配送を完結させ、即時小売シナリオに適しています。（例：市立公園や観光地での配送など）</li>
+</ul>
+          
+          <h3>新製品および展望</h3>
+<p>空中滞空が可能で地上着陸スペースを必要としない、Meitunの第4世代ドローン長距離索降バージョン「M-Drone 4L Winch」がリリースされました。</p>
+<p>Meitunの副社長は、ドローン事業が今後2〜3年以内に規模拡大による収益（スケールメリット）を達成すると予測しています。</p>
+          
+          <h3>まとめ</h3>
+<p>Meitunドローンは、複数の都市で低空物流配送サービスを展開し、累計注文100万件を突破する成果を上げました。医療や商業分野に最適化された3つの主要ソリューションを通じて安定した輸送ネットワークを構築しており、技術革新に基づき数年以内の収益確保を見込んでいます。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Exhibition Opening</h3>
+<p>According to reports from IT Home on July 22, the 2026 Shanghai International Low-Altitude Economy Expo officially opened today.</p>
+          
+          <h3>Current Service Status</h3>
+<p>Meituan drones launched low-altitude logistics delivery services in several cities, including Shenzhen, Beijing, Shanghai, Guangzhou, Hong Kong, and Dubai, by the end of June 2026. The service has already surpassed a cumulative total of 1 million orders.</p>
+          
+          <p>According to official announcements, Meituan's low-altitude logistics solutions have entered the routine operation phase across various industries. In medical scenarios, an end-to-end emergency delivery network has been established for items such as blood, test samples, emergency supplies, and specialized medicines, with over 810,000 units delivered to date. Furthermore, the system is capable of high-frequency, high-density operations across various timeframes and weather conditions in diverse settings, including tourist destinations, communities, and commercial real estate.</p>
+          
+          <h3>Logistics Solutions</h3>
+<p>Meituan provides three types of low-altitude logistics solutions:</p>
+<ul>
+<li>Pingjiang (Landing) Solution: Features an integrated design where the aircraft and cargo container are unified for landing on simple pads. This is suitable for point-to-point transport between fixed locations, such as moving medical supplies between different zones or industrial samples between factory areas.</li>
+<li>Suojiang (Winch) Solution: Does not require a landing pad; it delivers cargo stably and safely in complex environments without the aircraft needing to land. This is ideal for locations like city alleys, villa courtyards, and rugged mountainous regions.</li>
+<li>Fangjiang (Cabinet) Solution: Utilizes collaboration between smart hub airports and drones to complete the dispatching, receiving, storage, and delivery of goods. This is designed for immediate retail scenarios, such as deliveries in municipal parks or tourist destinations.</li>
+</ul>
+          
+          <h3>New Products and Outlook</h3>
+<p>Meituan has released the M-Drone 4L Winch, a fourth-generation long-range winch version that can remain airborne and does not require ground landing space.</p>
+          
+          <p>A Meituan Vice President projected that the drone business is expected to achieve large-scale profitability within the next two to three years.</p>
+          
+          <h3>Summary</h3>
+<p>Meituan's low-altitude logistics service has surpassed 1 million orders across multiple cities and entered a routine operational phase. By offering three specialized delivery solutions—Pingjiang, Suojiang, and Fangjiang—the company provides versatile transportation for medical and commercial sectors. With the launch of the M-Drone 4L Winch, Meituan anticipates achieving significant profitability within the next few years.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/980/150.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

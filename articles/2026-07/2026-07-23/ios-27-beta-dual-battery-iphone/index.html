@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - iOS 27 베타, 듀얼 배터리 탑재 iPhone 암시</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="iOS 27 베타, 듀얼 배터리 탑재 iPhone 암시">
+  <meta name="title-zh" content="iOS 27 测试版暗示搭载双电池的 iPhone">
+  <meta name="title-ja" content="iOS 27ベータ版がデュアルバッテリー搭載のiPhoneを示唆">
+  <meta name="title-en" content="iOS 27 beta hints at iPhone with dual batteries">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="iOS 27 베타, 듀얼 배터리 탑재 iPhone 암시" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="iOS 27 베타, 듀얼 배터리 탑재 iPhone 암시"
+            data-zh="iOS 27 测试版暗示搭载双电池的 iPhone"
+            data-ja="iOS 27ベータ版がデュアルバッテリー搭載のiPhoneを示唆"
+            data-en="iOS 27 beta hints at iPhone with dual batteries">iOS 27 베타, 듀얼 배터리 탑재 iPhone 암시</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-23
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>iPhone Ultra와 폴더블 기기의 등장</h3>
+          
+          <p>Apple은 최근 몇 년간 가장 흥미로운 모델인 새로운 iPhone 출시를 준비하고 있습니다. 최신 iOS 27 개발자 베타에서 발견된 코드는 오랫동안 루머로만 돌던 폴더블 기기에 대한 관심을 불러일으키고 있으며, 이 기기는 오는 9월 'iPhone Ultra'라는 이름으로 출시될 것으로 예상됩니다.</p>
+          
+          <h3>배터리 시스템의 변화와 복수형 표현</h3>
+          
+          <p>가장 결정적인 단서는 설정 내 배터리 성능 섹션에서 발견되었습니다. Apple은 기존 iPhone에서 사용하던 단수 형태의 "battery" 대신 복수형인 "batteries"를 사용하는 문구를 새롭게 추가했습니다. 이제 사용자들은 다음과 같은 문구들을 보게 될 것입니다.</p>
+          
+          <ul>
+<li>"The batteries in this iPhone are performing as expected" (이 iPhone의 배터리들이 예상대로 작동하고 있습니다)</li>
+<li>"The health of the batteries in this iPhone has significantly degraded" (이 iPhone에 탑재된 배터리의 상태가 상당히 저하되었습니다)</li>
+<li>"one of the batteries" (배터리 중 하나)가 정품 Apple 부품이 아니라는 경고 문구</li>
+</ul>
+          
+          <p>이러한 복수형 표현은 Apple이 두 개의 독립된 배터리 셀을 탑재한 기기를 위한 소프트웨어 지원을 준비하고 있음을 강력하게 시사합니다. 이는 폴더블 기기에서 힌지 구조를 고려하고 무게 균형을 맞추기 위해 흔히 채택되는 방식입니다.</p>
+          
+          <h3>예상 사양 및 기술적 특징</h3>
+          
+          <p>Digital Chat Station의 공급망 정보에 따르면, iPhone Ultra는 두 개의 셀을 탑재하여 다음과 같은 배터리 용량을 제공할 것으로 보입니다.</p>
+          
+          <ul>
+<li>첫 번째 셀: 1,921 mAh</li>
+<li>두 번째 셀: 2,962 mAh</li>
+<li>총합 용량: 4,883 mAh</li>
+</ul>
+          
+          <p>이 수치는 이전에 제기되었던 5,400~5,800mAh라는 대용량 루머보다는 낮지만, 4,800mAh 배터리를 탑재한 Samsung의 최신 Galaxy Z Fold 8 (Wide) 모델을 능가하는 수준입니다.</p>
+          
+          <p>디스플레이와 카메라 사양은 다음과 같이 예상됩니다.</p>
+          
+          <ul>
+<li>내부 화면: 7.76인치</li>
+<li>커버 디스플레이: 5.49인치</li>
+<li>메인 센서: 48 MP</li>
+<li>초광각 렌즈: 48 MP</li>
+</ul>
+          
+          <p>공간 제약으로 인해 망원 렌즈는 포함되지 않을 가능성이 높습니다.</p>
+          
+          <h3>개발 현황 및 시장 전망</h3>
+          
+          <p>이러한 배터리 관련 발견은 폴더블 상태, 다중 디스플레이, 그리고 더 큰 폴더블 화면을 위한 멀티태스킹 기능 등 iOS 27 코드에서 언급된 다른 요소들과 일치합니다. Apple은 힌지 문제를 해결한 후 대량 생산 단계로 진입하고 있는 것으로 알려졌습니다.</p>
+          
+          <p>모든 요소가 계획대로 진행된다면, iPhone Ultra는 Apple 사용자들에게 혁신적인 변화를 가져올 것입니다. 비록 $2,000에서 $2,500 사이의 높은 프리미엄 가격이 책정될 것으로 예상되지만, Apple 특유의 긴밀한 하드웨어와 소프트웨어 통합을 통해 지금까지 가장 뛰어난 폴더블 경험을 제공할 수 있을 것입니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Apple은 iOS 27 베타 코드를 통해 배터리 셀 분할과 대형 디스플레이를 특징으로 하는 폴더블 형태의 'iPhone Ultra' 출시를 준비 중인 것으로 보입니다. 비록 고가의 프리미엄 제품이 되겠으나, Apple만의 강력한 소프트웨어 최적화가 결합된 차세대 폴더블 경험을 제공할 것으로 기대됩니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>iPhone Ultra 与折叠设备的出现</h3>
+          
+          <p>Apple 近年来一直在准备一款备受瞩目的新模型。在最新的 iOS 27 开发者测试版中发现的代码引发了关于折叠设备的关注，该设备预计将于 9 月以 "iPhone Ultra" 之名发布。</p>
+          
+          <h3>电池系统的变化与复数表达</h3>
+          
+          <p>最关键的线索出现在设置中的电池性能部分。Apple 将原本在 iPhone 中使用的单数 "battery" 改为复数 "batteries"。用户未来可能会看到以下提示：</p>
+          
+          <ul>
+<li>"The batteries in this iPhone are performing as expected"（此 iPhone 的电池运行正常）</li>
+<li>"The health of the batteries in this iPhone has significantly degraded"（此 iPhone 中电池的健康状况显著下降）</li>
+<li>关于 "one of the batteries"（其中一个电池）并非原装 Apple 部件的警告提示</li>
+</ul>
+          
+          <p>这种复数表达强烈暗示 Apple 正在为配备两个独立电池单元的设备准备软件支持。这是折叠设备为了兼顾铰链结构和平衡重量而常采用的方案。</p>
+          
+          <h3>预计规格与技术特性</h3>
+          
+          <p>根据 Digital Chat Station 的供应链信息，iPhone Ultra 预计将搭载两个电池单元，提供以下容量：</p>
+          
+          <ul>
+<li>第一个单元：1,921 mAh</li>
+<li>第二个单元：2,962 mAh</li>
+<li>总容量：4,883 mAh</li>
+</ul>
+          
+          <p>虽然这一数值低于此前传闻的 5,400-5,800mAh，但仍高于配备 4,800mAh 电池的 Samsung Galaxy Z Fold 8 (Wide) 模型。</p>
+          
+          <p>显示屏和相机规格预计如下：</p>
+          
+          <ul>
+<li>内屏：7.76 英寸</li>
+<li>外屏：5.49 英寸</li>
+<li>主传感器：48 MP</li>
+<li>超广角镜头：48 MP</li>
+</ul>
+          
+          <p>由于空间限制，该设备可能不会包含长焦镜头。</p>
+          
+          <h3>开发现状与市场前景</h3>
+          
+          <p>这些关于电池的发现与其他在 iOS 27 代码中提到的元素相吻合，包括折叠状态、多显示屏以及针对大尺寸折叠屏幕的多任务功能。据称 Apple 在解决铰链问题后已进入量产阶段。</p>
+          
+          <p>如果所有环节按计划推进，iPhone Ultra 将为用户带来革命性的变化。尽管预计售价将在 $2,000 到 $2,500 之间，但通过 Apple 特有的软硬件深度整合，有望提供迄今为止最出色的折叠式体验。</p>
+          
+          <h3>总结</h3>
+          
+          <p>Apple 通过 iOS 27 测试代码暗示将推出采用双电池单元和大型显示屏的 "iPhone Ultra" 折叠设备。尽管定位为高端溢价产品，但预计将凭借强大的软件优化提供卓越的折叠式交互体验。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>iPhone Ultraと折りたたみデバイスの登場</h3>
+          
+          <p>Appleはここ数年、最も注目されるモデルとして新型iPhoneの準備を進めています。最新のiOS 27開発者ベータで発見されたコードは、長らく噂されていた折りたたみ式デバイスへの関心を高めており、このデバイスは来る9月に「iPhone Ultra」という名称で発売されると予想されています。</p>
+          
+          <h3>バッテリーシステムの変更と複数形の表現</h3>
+          
+          <p>最も決定的な手がかりは、設定内のバッテリー性能セクションで発見されました。Appleは従来のiPhoneで使用していた単数形の「battery」の代わりに、複数形の「batteries」を使用する文言を新しく追加しました。今後、ユーザーには以下のようなメッセージが表示される見込みです。</p>
+          
+          <ul>
+<li>「The batteries in this iPhone are performing as expected」（このiPhoneのバッテリーは期待通りに動作しています）</li>
+<li>「The health of the batteries in this iPhone has significantly degraded」（このiPhoneに搭載されているバッテリーの健康状態が著しく低下しました）</li>
+<li>「one of the batteries」（バッテリーの1つ）が純正Appleパーツではないという警告文</li>
+</ul>
+          
+          <p>これらの複数形の表現は、Appleが2つの独立したバッテリーセルを搭載するデバイス向けのソフトウェア対応を準備していることを強く示唆しています。これは、折りたたみ式デバイスにおいてヒンジ構造を考慮し、重量バランスを整えるために一般的に採用される手法です。</p>
+          
+          <h3>予想スペックと技術的特徴</h3>
+          
+          <p>Digital Chat Stationのサプライチェーン情報によると、iPhone Ultraは2つのセルを搭載し、以下のバッテリー容量を提供すると見られています。</p>
+          
+          <ul>
+<li>第1セル：1,921 mAh</li>
+<li>第2セル：2,962 mAh</li>
+<li>合計容量：4,883 mAh</li>
+</ul>
+          
+          <p>この数値は、以前に噂されていた5,400〜5,800mAhという大容量よりもは低いものの、4,800mAhのバッテリーを搭載するSamsungの最新Galaxy Z Fold 8 (Wide)モデルを上回る水準です。</p>
+          
+          <p>ディスプレイとカメラの仕様は以下のように予想されています。</p>
+          
+          <ul>
+<li>内側画面：7.76インチ</li>
+<li>カバーディスプレイ：5.49インチ</li>
+<li>メインセンサー：48 MP</li>
+<li>超広角レンズ：48 MP</li>
+</ul>
+          
+          <p>スペースの制約により、望遠レンズは搭載されない可能性が高いです。</p>
+          
+          <h3>開発状況と市場予測</h3>
+          
+          <p>これらのバッテリー関連の発見は、折りたたみ状態、マルチディスプレイ、そしてより大きな折りたたみ画面のためのマルチタスク機能など、iOS 27のコード内で言及されている他の要素と一致しています。Appleはヒンジの問題を解決した後、量産段階に入っていると報じられています。</p>
+          
+          <p>すべての要素が計画通りに進めば、iPhone UltraはAppleユーザーに革新的な変化をもたらすでしょう。2,000ドルから2,500ドルの高額なプレミアム価格が設定される見込みですが、Apple特有の緊密なハードウェアとソフトウェアの統合により、これまでで最も優れた折りたたみ体験を提供できる可能性があります。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>AppleはiOS 27ベータコードを通じて、バッテリーセルの分割と大型ディスプレイを特徴とする折りたたみ型の「iPhone Ultra」の発売準備を進めている模様です。高価なプレミアム製品となる見込みですが、Apple独自の強力なソフトウェア最適化が融合した次世代の折りたたみ体験が期待されています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>iPhone Ultra and Foldable Devices</h3>
+          
+          <p>Apple is preparing to launch its most intriguing model in recent years. Code discovered in the latest iOS 27 developer beta has sparked significant interest in a foldable device, which is expected to be released this September under the name "iPhone Ultra."</p>
+          
+          <h3>Changes in Battery System and Plural Expressions</h3>
+          
+          <p>The most decisive clue was found in the battery performance section of the settings. Apple has introduced new phrasing that uses the plural "batteries" instead of the singular "battery" used in previous iPhone models. Users are expected to see the following messages:</p>
+          
+          <ul>
+<li>"The batteries in this iPhone are performing as expected"</li>
+<li>"The health of the batteries in this iPhone has significantly degraded"</li>
+<li>A warning message stating that "one of the batteries" is not a genuine Apple part.</li>
+</ul>
+          
+          <p>These plural expressions strongly suggest that Apple is preparing software support for a device equipped with two independent battery cells. This configuration is commonly adopted in foldable devices to accommodate hinge structures and maintain weight balance.</p>
+          
+          <h3>Expected Specifications and Technical Features</h3>
+          
+          <p>According to supply chain information from Digital Chat Station, the iPhone Ultra is expected to feature two cells providing the following battery capacities:</p>
+          
+          <ul>
+<li>First cell: 1,921 mAh</li>
+<li>Second cell: 2,962 mAh</li>
+<li>Total capacity: 4,883 mAh</li>
+</ul>
+          
+          <p>While these figures are lower than some previous rumors of 5,400–5,800mAh, they exceed the 4,800mAh capacity found in Samsung's latest Galaxy Z Fold 8 (Wide) model.</p>
+          
+          <p>The display and camera specifications are expected as follows:</p>
+          
+          <ul>
+<li>Internal screen: 7.76 inches</li>
+<li>Cover display: 5.49 inches</li>
+<li>Main sensor: 48 MP</li>
+<li>Ultra-wide lens: 48 MP</li>
+</ul>
+          
+          <p>Due to space constraints, it is highly likely that a telephoto lens will not be included.</p>
+          
+          <h3>Development Status and Market Outlook</h3>
+          
+          <p>These battery-related findings align with other elements mentioned in the iOS 27 code, such as foldable states, multi-display support, and multitasking features for larger foldable screens. Apple is reportedly entering the mass production phase after resolving issues related to the hinge.</p>
+          
+          <p>If everything proceeds as planned, the iPhone Ultra will bring a revolutionary change for Apple users. Although it is expected to carry a high premium price between $2,000 and $2,500, it could provide the most superior foldable experience to date through Apple's signature tight integration of hardware and software.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>Apple appears to be preparing for the launch of a foldable "iPhone Ultra" featuring dual battery cells and large displays as indicated by iOS 27 beta code. While it will be positioned as a high-end premium product, it aims to deliver a top-tier foldable experience through optimized software integration.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/07/22/ios-27-beta-hints-at-iphone-with-dual-batteries/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
