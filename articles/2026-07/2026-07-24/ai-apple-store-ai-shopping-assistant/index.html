@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Apple Store 앱 내 &#39;AI 쇼핑 도우미&#39; 탑재 전망... 사용자 상품 선택 지원</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple Store 앱 내 &#39;AI 쇼핑 도우미&#39; 탑재 전망... 사용자 상품 선택 지원">
+  <meta name="title-zh" content="苹果 Apple Store 应用有望上线“AI 购物助手”，辅助用户挑选商品">
+  <meta name="title-ja" content="AppleのApple Storeアプリに「AIショッピングアシスタント」が搭載される見込みで、ユーザーの商品選びをサポート。">
+  <meta name="title-en" content="Apple Store app expected to launch &#34;AI Shopping Assistant&#34; to help users choose products">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Apple Store 앱 내 &#39;AI 쇼핑 도우미&#39; 탑재 전망... 사용자 상품 선택 지원" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Apple Store 앱 내 &#39;AI 쇼핑 도우미&#39; 탑재 전망... 사용자 상품 선택 지원"
+            data-zh="苹果 Apple Store 应用有望上线“AI 购物助手”，辅助用户挑选商品"
+            data-ja="AppleのApple Storeアプリに「AIショッピングアシスタント」が搭載される見込みで、ユーザーの商品選びをサポート。"
+            data-en="Apple Store app expected to launch &#34;AI Shopping Assistant&#34; to help users choose products">Apple Store 앱 내 &#39;AI 쇼핑 도우미&#39; 탑재 전망... 사용자 상품 선택 지원</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-24
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>신규 소식</h3>
+          
+          <p>IT홈의 7월 23일 보도에 따르면, 기술 매체 AppleInsider가 7월 22일 게시물을 통해 App Store 내 새로운 개인정보 보호 정책을 기반으로 Apple이 조만간 '가상 쇼핑 도우미'라는 AI 쇼핑 가이드 어시스턴트를 출시할 가능성이 있다고 전했습니다.</p>
+          
+          <h3>데이터 수집 및 처리</h3>
+          
+          <p>새로운 개인정보 보호 정책 내용에서 Apple은 '가상 쇼핑 도우미'의 데이터 처리 규칙를 상세히 설명했습니다. Apple은 사용자의 계정 정보, 기기 식별자, 통신사 정보, 채팅 정보 등을 수집 및 저장하며, 사용자가 활성화할 경우 위치 데이터도 수집합니다.</p>
+          
+          <p>Apple은 개인정보 보호 범위와 관련하여 이번에 수집되는 정보가 개인화된 채팅 경험과 관련 답변 제공을 위해만 사용되며, 사용자의 선택에 따라 해당 어시스턴트 개선을 위해 활용된다고 강조했습니다.</p>
+          
+          <h3>데이터 공유 및 사용자 제어</h3>
+          
+          <p>데이터 공유와 관련하여 Apple은 일부 채팅 내용을 파트너사와 공유할 예정이나, 공유 전 개인 식별 정보를 제거할 것임을 명시했습니다. 또한 Apple은 파트너사가 해당 정보를 오직 대화형 답변을 제공하는 용도로만 사용하도록 엄격하게 제한합니다.</p>
+          
+          <p>Apple은 사용자의 복기, 비즈니스 분석 및 (사용자 동의 시) 어시스턴트 경험 개선을 위해 채팅 기록 사본을 저장합니다. 사용자는 앱 내 '계정 > 설정' 경로에서 '채팅 개선' 스위치를 통해 자신의 채팅 데이터가 모델 개선에 활용될지 여부를 제어할 수 있습니다.</p>
+          
+          <h3>기능 및 전망</h3>
+          
+          <p>정책 내 언급된 '파트너'의 정체는 아직 불분명하며, 이들이 제3자 AI 도구인지 여부도 지켜봐야 합니다. 앞서 Apple은 이미 Apple Support 앱에 유사한 AI 어시스턴트를 도입하여 사용자가 공식 문서를 바탕으로 질문할 수 있도록 한 바 있습니다.</p>
+          
+          <p>정책 내용에는 '가상 쇼핑 도우미'의 구체적인 기능 설명이 포함되지 않았으나, 매체는 수집되는 기기 목록 등의 데이터를 기반으로 추측할 때, 이 서비스가 사용자의 호환 가능한 액세서리 검색이나 대화형 방식을 통한 기기 및 구성 선택을 돕는 역할을 할 것으로 보고 있습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Apple은 새로운 개인정보 보호 정책를 통해 '가상 쇼핑 도우미'라는 AI 기반 쇼핑 가이드 기능을 도입할 예정입니다. 이 서비스는 수집된 데이터를 바탕으로 맞춤형 답변과 제품 선택을 지원하며, 사용자는 설정에서 데이터 활용 동의 여부를 직접 제어할 수 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>新功能预警：Apple 或推出“虚拟购物助手”</h3>
+<p>根据 AppleInsider 的报道，基于 App Store 中新版隐私政策的披露，Apple 有望近期推出名为“虚拟购物助手”的 AI 导购工具。该工具旨在通过对话式交互提供个性化的选购建议。</p>
+          
+          <h3>数据收集与处理规则</h3>
+<p>在最新的隐私政策中，Apple 对“虚拟购物助手”的数据处理进行了详细说明：</p>
+<ul>
+<li><strong>收集信息：</strong> 包括用户账户信息、设备标识符、运营商信息、聊天内容。</li>
+<li><strong>可选信息：</strong> 在用户启用时收集的地理位置数据。</li>
+<li><strong>使用目的：</strong> 用于提供个性化聊天体验、生成相关回复，并在用户选择加入后用于改进模型。</li>
+</ul>
+<p>在数据共享方面，Apple 明确表示会将去标识化的聊天内容分享给合作伙伴，并严格限制合作伙伴仅能将这些信息用于辅助提供对话式回复。此外，系统会保留聊天记录副本用于商业分析及用户回看。</p>
+          
+          <h3>用户控制与功能预测</h3>
+<p>用户可以在 App 内的“账户 > 设置”路径下，通过“聊天改进”开关来控制个人数据是否被用于模型优化。虽然政策未详细披露具体功能，但基于收集的数据类型推测，该助手可能具备以下功能：</p>
+<ul>
+<li>帮助用户查找兼容配件。</li>
+<li>通过对话机制辅助用户选择设备及相关配置。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Apple 计划推出“虚拟购物助手”AI 工具以提供导购服务，并已在隐私政策中明确了相关的个人数据收集与处理规则。该工具将提供个性化的对话体验，同时允许用户自主选择是否参与模型改进。初步推测其核心功能涵盖配件匹配及设备配置建议。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>最新ニュース</h3>
+          
+          <p>ITホームの7月23日の報道によると、技術メディアのAppleInsiderが7月22日に公開した投稿において、App Store内の新しいプライバシーポリシーに基づき、Appleが「仮想ショッピングアシスタント」というAIショッピングガイドを近々リリースする可能性があると報じました。</p>
+          
+          <h3>データの収集と処理</h3>
+          
+          <p>新たなプライバシーポリシーの内容において、Appleは「仮想ショッピングアシスタント」のデータ処理ルールを詳細に説明しています。Appleは以下の情報を収集および保存します。</p>
+<ul>
+<li>ユーザーのアカウント情報</li>
+<li>デバイス識別子</li>
+<li>通信事業者情報</li>
+<li>チャット情報</li>
+<li>位置データ（ユーザーが有効にした場合）</li>
+</ul>
+          
+          <p>Appleはプライバシー保護の範囲に関して、これらの情報はパーソナライズされたチャット体験および関連する回答を提供するためのみに使用され、ユーザーの選択に応じてアシスタントの改善のために活用されることを強調しています。</p>
+          
+          <h3>データの共有とユーザーによる制御</h3>
+          
+          <p>データの共有に関しては、Appleは一部のチャット内容をパートナー企業と共有する予定ですが、共有前に個人識別情報を削除することを明記しています。また、Appleはパートナーがこれらの情報を対話型回答を提供するための目的のみに使用するように厳格に制限します。</p>
+          
+          <p>Appleは、ユーザーによるレビュー、ビジネス分析、および（ユーザーの同意がある場合）アシスタント体験の改善のためにチャット記録のコピーを保存します。ユーザーはアプリ内の「アカウント > 設定」から「チャットの改善」スイッチを通じて、自身のチャットデータがモデルの改善に活用されるか否かを制御できます。</p>
+          
+          <h3>機能と展望</h3>
+          
+          <p>ポリシー内で言及されている「パートナー」の正体はまだ不明であり、これらがサードパーティのAIツールであるかどうかも注視する必要があります。以前、AppleはすでにApple Supportアプリに同様のAIアシスタントを導入し、ユーザーが公式ドキュメントに基づいて質問できるようにしたことがあります。</p>
+          
+          <p>ポリシーの内容には「仮想ショッピングアシスタント」の具体的な機能説明は含まれていませんが、収集されるデバイスリストなどのデータに基づいた推測では、このサービスはユーザーの互換性のあるアクセサリー検索や、対話形式を通じたデバイスおよび構成の選択を支援する役割を果たすと見られています。</p>
+          
+          <h3>総評</h3>
+          
+          <p>Appleは新しいプライバシーポリシーを通じて、AIベースのショッピングガイド機能である「仮想ショッピングアシスタント」を導入する予定です。このサービスは収集されたデータに基づきパーソナライズされた回答や製品選択をサポートし、ユーザーは設定からデータの活用に関する同意を直接制御することができます。</p>
+          
+          <h3>まとめ</h3>
+<p>Appleは新プライバシーポリシーに基づき、AIを活用した「仮想ショッピングアシスタント」の導入を計画しています。この機能はパーソナライズされた回答や製品選択の支援を提供し、ユーザーは設定から自身のデータの利用範囲を直接管理できます。具体的なパートナーの正体や詳細な仕様は未確定ですが、アクセサリーの検索など、より高度な買い物体験をサポートする役割が期待されています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>New Developments</h3>
+<p>According to a report by IT Home on July 23, the tech media outlet AppleInsider published a post on July 22 stating that Apple may soon launch an AI-powered shopping guide assistant called "Virtual Shopping Assistant" based on new App Store privacy policies.</p>
+          
+          <h3>Data Collection and Processing</h3>
+<p>In the newly updated privacy policy, Apple detailed the data processing rules for the "Virtual Shopping Assistant." The company will collect and store various types of information, including:</p>
+<ul>
+<li>User account information</li>
+<li>Device identifiers</li>
+<li>Carrier information</li>
+<li>Chat information</li>
+<li>Location data (only if enabled by the user)</li>
+</ul>
+<p>Apple emphasized that the collected information is intended solely for providing a personalized chat experience and relevant responses. Furthermore, it may be used to improve the assistant's performance based on the user's preferences.</p>
+          
+          <h3>Data Sharing and User Control</h3>
+<p>Regarding data sharing, Apple stated that while some chat content will be shared with partners, all personally identifiable information will be removed before transmission. Additionally, Apple strictly limits these partners to using the information exclusively for providing conversational responses.</p>
+<p>Apple stores copies of chat logs for review purposes, business analysis, and—upon user consent—to improve the assistant's experience. Users can control whether their chat data is utilized for model improvement via a "Improve Chat" toggle found in the app's "Account > Settings" menu.</p>
+          
+          <h3>Features and Outlook</h3>
+<p>The identity of the "partners" mentioned in the policy remains unclear, and it is yet to be determined if these are third-party AI tools. Previously, Apple introduced a similar AI assistant in the Apple Support app to allow users to ask questions based on official documentation.</p>
+<p>While the policy does not provide specific details regarding the "Virtual Shopping Assistant's" features, media outlets speculate that—based on the list of collected device data—the service will likely assist users in finding compatible accessories or selecting devices and configurations through an interactive chat interface.</p>
+          
+          <h3>Summary</h3>
+<p>Apple plans to introduce a "Virtual Shopping Assistant," an AI-driven guide designed to provide personalized product recommendations and selection support. The service will utilize specific user data for tailored interactions while providing clear controls for users to opt-in or out of data usage for model improvement.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/980/351.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

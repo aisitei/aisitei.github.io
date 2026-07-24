@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Huawei 연산 모듈, WAIC 2026 세계 인공지능 컨퍼런스에서 첫 공개</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Huawei">
+  <meta name="article-brand-color" content="#CF0A2C">
+  <meta name="title-ko" content="Huawei 연산 모듈, WAIC 2026 세계 인공지능 컨퍼런스에서 첫 공개">
+  <meta name="title-zh" content="华为计算模组首次亮相 WAIC 2026 世界人工智能大会">
+  <meta name="title-ja" content="Huaweiの計算モジュール、WAIC 2026（世界人工知能会議）にて初公開">
+  <meta name="title-en" content="Huawei computing module debuts at WAIC 2026 World Artificial Intelligence Conference">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg@s_2,w_820,h_934" alt="Huawei 연산 모듈, WAIC 2026 세계 인공지능 컨퍼런스에서 첫 공개" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #CF0A2C;">
+            Huawei
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Huawei 연산 모듈, WAIC 2026 세계 인공지능 컨퍼런스에서 첫 공개"
+            data-zh="华为计算模组首次亮相 WAIC 2026 世界人工智能大会"
+            data-ja="Huaweiの計算モジュール、WAIC 2026（世界人工知能会議）にて初公開"
+            data-en="Huawei computing module debuts at WAIC 2026 World Artificial Intelligence Conference">Huawei 연산 모듈, WAIC 2026 세계 인공지능 컨퍼런스에서 첫 공개</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-24
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>제품 공개</h3>
+          
+          <p>IT홈(IT之家)의 7월 23일 보도에 따르면, Huawei는 WAIC 2026 세계 인공지능 대회에서 네트워크 카드, SSD, DPU, RAID 카드를 포함한 전 시리즈 계산 모듈 제품을 처음으로 완전히 공개했습니다.</p>
+          
+          <h3>네트워크 솔루션</h3>
+          
+          <p>국내 최초로 선보인 800GE AI 네트워크 카드는 10만 규모의 노드 대규모 네트워킹을 지원하며, 호스트 측에서 Lingqu 및 PCIe 듀얼 버스를 지원합니다. SP560 시리즈는 네트워크 대역폭, 호스트 대역폭 및 패킷 처리 능력 면에서 크게 향상되었습니다.</p>
+          
+          <p>또한 제어와 데이터 평면 분리 환경에서 데이터 평면이 GPU/NPU 메모리에 직접 연결되어 통신 지연을 줄이고, GPU 직구동(Direct Drive)과 집합 통신 작업의 통합 하향 전송을 통해 메시지 처리 시간을 단축합니다. 프로토콜은 프로그래밍이 가능하여 RDMA 네트워크 활용도를 높이고 네트워크 잠재력을 충분히 발휘할 수 있도록 합니다.</p>
+          
+          <h3>데이터 센터 SSD</h3>
+          
+          <p>AI 기반 데이터 센터용 SSD는 대역폭과 고성능을 지향하며, '저장으로 연산 대체' 모드를 통해 연산 비용을 최적화합니다. 저지연, 고대역폭, 대용량 SSD를 활용해 KV Cache 캐시를 처리하고 핫 데이터를 메모리에서 하향 배치하는 것이 산업 트렌드가 되고 있습니다.</p>
+          
+          <p>Huawei는 Lingqu 프로토콜 기반의 높은 대역폭과 자체 CPU 연산 자원을 갖춘 KVU를 처음으로 선보여 고성능 읽기/쓰기 능력을 제공합니다. KVU 성능은 순차 읽기 40GB/s로 업계 최고 수준이며, 랜덤 읽기는 500만 IOPS, 쓰기 지연 시간은 10μs에 달합니다. KV Cache 계층형 캐시 시나리오에서 KVU 솔루션을 사용하면 NPU 활용도를 높이고 첫 토큰(first token) 지연을 줄여 AI 학습 및 추론 시나리오의 읽기/쓰기 효율을 가속화합니다.</p>
+          
+          <h3>제품 라인업</h3>
+          
+          <p>Huawei 계산 모듈은 '범용 연산 및 인공지능(AI) 연산' 듀얼 엔진을 핵심으로 하여 네트워크와 저장 모듈 제품군을 구축했습니다.</p>
+          
+          <ul>
+<li>표준 네트워크 카드: SP230 시리즈 (25GE~200GE 포트 속도, 높은 패킷 처리율, 보안성, 에너지 효율, 낮은 지연 시간 등 모든 사양에서 우위 확보)</li>
+<li>AI 네트워크 카드: 800G SP560 시리즈 AI 네트워크 카드 (유연한 프로그래밍 가능, 초대규모 만 카드 상호 연결을 통한 10만 규모 노드 간 통신 지원, GPU Direct RDMA 통신을 통한 지연 감소 등)</li>
+<li>SSD: SATA / SAS / NVMe SSD 전 시리즈 및 모든 사양 포함, 안정적인 성능으로 다양한 산업 분야에 적용</li>
+<li>DPU: 연산 오프로딩, 데이터 가속, 보안 격리 등의 핵심 기능 제공 (주요 인터넷 기업, 통신사, 금융 고객 등에서 규모 있게 활용)</li>
+<li>RAID: 은행, 전력 등 산업 분야의 데이터베이스, 분산 저장, 빅데이터 등 주요 시나리오에 광범위하게 적용</li>
+</ul>
+          
+          <h3>수상 내역 및 기타</h3>
+          
+          <p>앞서 보도된 바와 같이, Huawei Ascend 950 초노드(超节点)는 WAIC 2026에서 최고 영예인 SAIL 상을 수상했습니다. SAIL은 '탁월한 인공지능 리더상'의 약칭으로, 세계 인공지능 대회(WAIC)의 최고 영예이자 인공지능 분야에서 권위와 영향력이 높은 대표적인 상 중 하나입니다.</p>
+          
+          <p>또한 Ascend 384 초노드는 이미 750대 이상이 상용화되어 현장에 적용된 상태입니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Huawei는 WAIC 2026에서 네트워크와 저장 분야를 아우르는 고성능 계산 모듈 제품군을 공개하며 AI 인프라 경쟁력을 강화했습니다. 특히 800GE 기반의 AI 네트워크 카드와 KVU 솔루션을 통해 데이터 센터의 통신 지연을 줄이고 연산 효율을 극대화하는 데 집중하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>全系列计算模组首度亮相</h3>
+<p>Huawei 在 WAIC 2026 上首次完整展示涵盖网卡、SSD、DPU 及 RAID 卡的四类核心计算模组产品。其中，国内首发的 800GE AI 网卡支持 10 万级节点超大规模组网，并采用灵衢 + PCIe 双总线架构。SP560 系列在网络带宽、主机带宽和报文处理能力方面显著提升，通过数控分离技术实现数据面直通 GPU/NPU 内存，降低通信时延，并支持协议可编程以提高 RDMA 网络利用率。</p>
+          
+          <h3>高性能存储与 KVU 技术</h3>
+<p>针对 AI 驱动的数据中心需求，Huawei 的 SSD 产品向大带宽、高性能演进。通过“以存代算”模式优化成本，利用高容量 SSD 承载 KV Cache。其中，基于灵衢协议的 KVU 具备以下核心性能指标：</p>
+<ul>
+<li>顺序读：达 40GB/s</li>
+<li>随机读：达 500 万 IOPS</li>
+<li>写时延：10μs</li>
+</ul>
+          
+          <h3>“通算+智算”双引擎产品矩阵</h3>
+<p>Huawei 构建了覆盖网络与存储模组的全面产品线，旨在满足多样化的基础设施需求：</p>
+<ul>
+<li>标准网卡（SP230 系列）：支持 25GE 至 200GE 端口速率，具备高包率、高安全、高能效、低时延特性。</li>
+<li>AI 网卡（SP560 系列）：提供 800G 带宽，支持超大规模万卡互联及 GPU Direct RDMA 通信。</li>
+<li>SSD：涵盖 SATA、SAS 及 NVMe 全系列规格。</li>
+<li>DPU：提供算力卸载、数据加速和安全隔离能力。</li>
+<li>RAID 卡：广泛应用于银行、电力等领域的数据库与分布式存储场景。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Huawei 在 WAIC 2026 上展示了涵盖网卡、SSD、DPU 和 RAID 的全系列计算模组，重点推出了支持超大规模组网的 800GE AI 网卡及高性能 KVU 存储方案。这些产品通过“通算+智算”双引擎架构，旨在显著提升 AI 训练与推理场景的效率并降低成本。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>製品公開</h3>
+          
+          <p>ITホーム（IT之家）の7月23日の報道によると、HuaweiはWAIC 2026世界人工知能大会において、ネットワークカード、SSD、DPU、RAIDカードを含む全シリーズの計算モジュール製品を初めて完全に公開しました。</p>
+          
+          <h3>ネットワークソリューション</h3>
+          
+          <p>国内初となる800GE AIネットワークカードは、10万規模のノードにおける大規模ネットワーキングをサポートし、ホスト側でLingquおよびPCIeデュアルバスをサポートします。SP560シリーズは、ネットワーク帯域幅、ホスト帯域幅、およびパケット処理能力において大幅な向上を実現しています。</p>
+          
+          <p>また、制御とデータプレーンを分離した環境において、データプレーンがGPU/NPUメモリに直接接続されることで通信遅延を低減し、GPU直送（Direct Drive）と集合通信作業の統合下り伝送を通じてメッセージ処理時間を短縮します。プロトコルはプログラミング可能であり、RDMAネットワークの活用度を高め、ネットワークの潜在能力を十分に引き出すことができます。</p>
+          
+          <h3>データセンターSSD</h3>
+          
+          <p>AIベースのデータセンター用SSDは、帯域幅と高性能を追求しており、「ストレージによる演算代替」モードを通じて計算コストを最適化します。低遅延、高帯域幅、大容量のSSDを活用してKV Cache処理を行い、ホットデータをメモリから下位に配置することが現在の業界トレンドとなっています。</p>
+          
+          <p>Huaweiは、Lingquプロトコルに基づいた高帯域幅と独自のCPU演算リソースを備えたKVUを初めて発表し、高性能な読み取り/書き込み能力を提供します。KVUの性能はシーケンシャルリードで40GB/sに達し、業界最高水準であり、ランダムリードは500万IOPS、書き込み遅延は10μsを実現しています。KV Cache階層型キャッシュシナリオにおいてKVUソリューションを使用することで、NPUの活用度を高め、最初のトークン（first token）の遅延を削減し、AI学習および推論シナリオにおける読み取り/書き込み効率を加速させます。</p>
+          
+          <h3>製品ラインナップ</h3>
+          
+          <p>Huaweiの計算モジュールは、「汎用演算および人工知能（AI）演算」のデュアルエンジンを核として、ネットワークとストレージのモジュール製品群を構築しています。</p>
+          
+          <ul>
+<li>標準ネットワークカード：SP230シリーズ（25GE〜200GEのポート速度、高いパケット処理率、セキュリティ、エネルギー効率、低遅延など、あらゆる仕様において優位性を確保）</li>
+<li>AIネットワークカード：800G SP560シリーズ AIネットワークカード（柔軟なプログラミングが可能、超大規模万カード相互接続による10万規模のノード間通信サポート、GPU Direct RDMA通信による遅延低減など）</li>
+<li>SSD：SATA / SAS / NVMe SSDの全シリーズおよび全仕様を含み、安定した性能で多様な産業分野に適用可能</li>
+<li>DPU：演算オフロード、データ加速、セキュリティ隔離などの主要機能を提供（主要インターネット企業、通信事業者、金融顧客などにおいて大規模に活用）</li>
+<li>RAID：銀行、電力などの産業分野におけるデータベース、分散ストレージ、ビッグデータなどの主要シナリオに幅広く適用</li>
+</ul>
+          
+          <h3>受賞歴およびその他</h3>
+          
+          <p>以前の報道通り、Huawei Ascend 950超ノード（超ノード）はWAIC 2026において最高栄誉であるSAIL賞を受賞しました。SAILは「卓越した人工知能リーダー賞」の略称であり、世界人工知盟大会（WAIC）の最高栄誉であり、人工知能分野において権威と影響力の高い代表的な賞の一つです。</p>
+          
+          <p>また、Ascend 384超ノードはすでに750台以上が商用化され、現場に導入されています。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>HuaweiはWAIC 2026において、ネットワークとストレージの両面を網羅する高性能な計算モジュール製品群を発表し、AIインフラの競争力を強化しました。特に800GEベースのAIネットワークカードとKVUソリューションにより、データセンターの通信遅延の削減と演算効率の最大化に注力しています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Product Unveiling</h3>
+          
+          <p>According to a report by IT Home on July 23, Huawei unveiled its full range of computing module products—including network cards, SSDs, DPUs, and RAID cards—at the WAIC 2026 World AI Conference.</p>
+          
+          <h3>Network Solutions</h3>
+          
+          <p>The newly introduced 800GE AI network cards support large-scale networking for up to 100,000 nodes and support Lingqu and PCIe dual buses on the host side. The SP560 series features significant improvements in network bandwidth, host bandwidth, and packet processing capabilities.</p>
+          
+          <p>In environments where control and data planes are separated, the data plane is connected directly to GPU/NPU memory to reduce communication latency. By integrating GPU Direct Drive and collective communication downward transmission, message processing time is shortened. The protocols are programmable, which enhances RDMA network utilization and allows the full potential of the network to be realized.</p>
+          
+          <h3>Data Center SSDs</h3>
+          
+          <p>The AI-based data center SSDs focus on high bandwidth and performance, optimizing computational costs through a "storage replacing computation" mode. Utilizing low-latency, high-bandwidth, and large-capacity SSDs to handle KV Cache and offload hot data from memory has become an industry trend.</p>
+          
+          <p>Huawei introduced the KVU for the first time, which features high bandwidth based on the Lingqu protocol and its own CPU computing resources to provide high-performance read/write capabilities. The KVU performance reaches industry-leading levels with a sequential read of 40GB/s, random reads of 5 million IOPS, and a write latency of 10μs. By using the KVU solution in tiered cache scenarios for KV Cache, NPU utilization is increased, first token latency is reduced, and read/write efficiency is accelerated in AI training and inference scenarios.</p>
+          
+          <h3>Product Lineup</h3>
+          
+          <p>Huawei's computing modules are built around a "General-purpose Computing and Artificial Intelligence (AI) Computing" dual-engine core to establish a comprehensive suite of network and storage module products.</p>
+          
+          <ul>
+<li>Standard Network Cards: SP230 series (supporting port speeds from 25GE to 200GE, with advantages in packet processing rate, security, energy efficiency, and low latency).</li>
+<li>AI Network Cards: 800G SP560 series AI network cards (feature programmable capabilities, support communication between 100,000 nodes through large-scale card interconnection, and reduce latency via GPU Direct RDMA communication).</li>
+<li>SSD: Includes the full range of SATA, SAS, and NVMe SSDs across all specifications, providing stable performance for various industrial sectors.</li>
+<li>DPU: Provides core functions such as computation offloading, data acceleration, and security isolation (widely utilized by major internet companies, telecommunications providers, and financial clients).</li>
+<li>RAID: Widely applied in key scenarios such as databases, distributed storage, and big data across industries like banking and power.</li>
+</ul>
+          
+          <h3>Awards and Recognition</h3>
+          
+          <p>As previously reported, the Huawei Ascend 950 super-node won the prestigious SAIL award at WAIC 2026. SAIL stands for "Superior AI Leader," which is the highest honor at the World AI Conference (WAIC) and one of the most authoritative awards in the field of artificial intelligence.</p>
+          
+          <p>Additionally, more than 750 units of the Ascend 384 super-node have already been commercialized and deployed in the field.</p>
+          
+          <h3>Overall Review</h3>
+          
+          <p>At WAIC 2026, Huawei strengthened its AI infrastructure competitiveness by unveiling a high-performance computing module lineup covering both networking and storage. The company is specifically focusing on reducing communication latency and maximizing computational efficiency through 800GE-based AI network cards and KVU solutions.</p>
+          
+          <h3>Summary</h3>
+<p>Huawei showcased a comprehensive suite of networking and storage products at WAIC 2026, including the high-performance SP560 series and specialized KVU solutions for data centers. These innovations aim to reduce latency in large-scale AI networks and optimize NPU utilization through advanced hardware integration. The company's recognition with the SAIL award underscores its growing influence in the global AI infrastructure market.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg@s_2,w_820,h_934" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Huawei, 컴퓨팅 분야 첫 공개 WAIC 2026 세계 인공지능 컨퍼런스</div>
+                <div class="caption-lang" data-lang="en">Huawei debuts in the computing sector at WAIC 2026</div>
+                <div class="caption-lang" data-lang="ja">WAIC 2026にて計算分野へ初参戦のHuawei</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Huawei 연산 2026년 7월 23일 19:57 | 광둥</div>
+                <div class="caption-lang" data-lang="en">Huawei Computing July 23, 2026 19:57 | Guangdong</div>
+                <div class="caption-lang" data-lang="ja">ファーウェイ計算 2026年7月23日 19:57 | 広東</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">[상하이, 2026년 7월] WAIC 2026 세계 인공지능 컨퍼런스에서 Huawei가 처음으로</div>
+                <div class="caption-lang" data-lang="en">[Shanghai, July 2026] At WAIC 2026 World AI Conference, Huawei for the first time</div>
+                <div class="caption-lang" data-lang="ja">【上海、2026年7月】WAIC 2026世界人工知能会議にて、ファーウェイが初公開</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Huawei, 컴퓨팅 분야 최초로 WAIC 2026 세계 인공지능 컨퍼런스에 등장</div>
+                <div class="caption-lang" data-lang="en">Huawei debuts in the computing field at WAIC 2026</div>
+                <div class="caption-lang" data-lang="ja">WAIC 2026にて、Huaweiが計算分野で初披露。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Huawei 컴퓨팅 2026년 7월 23일 19:57 | 광둥</div>
+                <div class="caption-lang" data-lang="en">Huawei Computing July 23, 2026 19:57 | Guangdong</div>
+                <div class="caption-lang" data-lang="ja">Huawei計算 2026年7月23日 19:57 | 広東</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">IT에 대해 잘 압니다</div>
+                <div class="caption-lang" data-lang="en">I understand IT.</div>
+                <div class="caption-lang" data-lang="ja">ITならわかる</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">[상하이, 2026년 7월] — WAIC 2026 세계 인공지능 컨퍼런스에서 Huawei는 네트워크 카드, SSD, DPU, RAID 등 4대 시리즈를 포함한 전 제품군의 컴퓨팅 및 지능형 컴퓨팅 제품을 처음으로 완전히 공개했습니다. 고성능 네트워크와 스토리지 협력 혁신을 통한 독자적인 핵심 기술로 AI 시대에 최상의 성능 지원을 제공합니다. 800G SP50E 시리즈 AI 네트워크 카드를 탑재하여 최대 300T KV 추론 부하를 지원하며, 하드웨어 및 AI 연산 능력의 방출을 지속적으로 최적화하여 대규모 모델 학습, 추론 및 통신 등 다양한 시나리오에서 성능을 극대화합니다.</div>
+                <div class="caption-lang" data-lang="en">At WAIC 2026 in Shanghai, Huawei debuted its full suite of intelligent computing products (NICs, SSDs, DPUs, RAID), leveraging high-performance network and storage synergy for the AI era; featuring 800G SP50E series AI NICs supporting up to 300T KV inference loads, these solutions optimize hardware performance to boost large model training, inference, and communication.</div>
+                <div class="caption-lang" data-lang="ja">【上海、2026年7月】HuaweiはWAIC 2026にて網カードやSSD等を含む全系列の計算智算製品を初公開。独自のネットワーク・ストレージ連携技術により、AIモデルの学習・推論・通信性能を最大化する。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">연산 및 저장</div>
+                <div class="caption-lang" data-lang="en">Compute and Storage</div>
+                <div class="caption-lang" data-lang="ja">計算とストレージ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">지능형 컴퓨팅 네트워크</div>
+                <div class="caption-lang" data-lang="en">Intelligent Computing Network</div>
+                <div class="caption-lang" data-lang="ja">インテリジェントコンピューティングネットワーク</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">지능형 컴퓨팅 DPU</div>
+                <div class="caption-lang" data-lang="en">Intelligent Computing DPU</div>
+                <div class="caption-lang" data-lang="ja">AI計算DPU</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">고성능 연결, 스마트 가속</div>
+                <div class="caption-lang" data-lang="en">High-performance connection, smart acceleration.</div>
+                <div class="caption-lang" data-lang="ja">高性能接続、スマート加速</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.png" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">SP100 40GbE 캡처 카드</div>
+                <div class="caption-lang" data-lang="en">SP100 40GbE Capture Card</div>
+                <div class="caption-lang" data-lang="ja">SP100 40GbE キャプチャカード</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">천령 스마트 카드</div>
+                <div class="caption-lang" data-lang="en">Tianling Smart Card</div>
+                <div class="caption-lang" data-lang="ja">ティアンリン・スマートカード</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg@s_2,w_820,h_547" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.jpg@s_2,w_820,h_547" alt="이미지 6" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img07.jpg" alt="이미지 7" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img08.jpg@s_2,w_820,h_1093" alt="이미지 8" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img09.jpg" alt="이미지 9" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/980/842.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
