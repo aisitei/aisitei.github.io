@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Douyin, 연령별 맞춤형 추천 알고리즘 최적화 및 멀티모달 대규모 언어 모델 도입 발표</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="Douyin, 연령별 맞춤형 추천 알고리즘 최적화 및 멀티모달 대규모 언어 모델 도입 발표">
+  <meta name="title-zh" content="抖音宣布优化适龄推荐算法，引入多模态大语言模型">
+  <meta name="title-ja" content="Douyin、年齢に適したレコメンドアルゴリズムの最適化とマルチモーダル大規模言語モデルの導入を発表">
+  <meta name="title-en" content="Douyin Announces Optimization of Age-Appropriate Recommendation Algorithms, Introducing Multimodal Large Language Models">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap hero-image-fallback">
+        <img src="../../../../assets/images/apple-touch-icon.png" alt="Douyin, 연령별 맞춤형 추천 알고리즘 최적화 및 멀티모달 대규모 언어 모델 도입 발표" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Douyin, 연령별 맞춤형 추천 알고리즘 최적화 및 멀티모달 대규모 언어 모델 도입 발표"
+            data-zh="抖音宣布优化适龄推荐算法，引入多模态大语言模型"
+            data-ja="Douyin、年齢に適したレコメンドアルゴリズムの最適化とマルチモーダル大規模言語モデルの導入を発表"
+            data-en="Douyin Announces Optimization of Age-Appropriate Recommendation Algorithms, Introducing Multimodal Large Language Models">Douyin, 연령별 맞춤형 추천 알고리즘 최적화 및 멀티모달 대규모 언어 모델 도입 발표</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-28
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>알고리즘 업데이트</h3>
+          
+          <p>IT홈의 7월 27일 소식에 따르면, Douyin 그룹은 오늘 공지사항을 통해 학부모의 보호 불안을 완화하고 미성년자의 성장 요구에 부응하기 위해 최근 미성년자 모드의 핵심 엔진인 '연령 적합 추천 알고리즘'을 전면 업그레이드했다고 발표했습니다. 사용자가 미성년자 모드를 활성화하고 출생 연도를 설정하면, 해당 사용자에게 최적화된 전용 연령 적합 추천 알고리즘이 작동하게 됩니다.</p>
+          
+          <h3>기술 및 프로세스</h3>
+          
+          <p>이번 미성년자 모드 추천 알고리즘의 전면 업그레이드는 최첨단 멀티모드 대규모 언어 모델(MLLM) 기술을 도입하여 지능적이고 세분화된 콘텐츠 식별 및 배포 체계를 구축하는 데 중점을 두고 있습니다.</p>
+          
+          <p>멀티모드 대규모 언어 모델은 강력한 교차 모드 의미 이해 능력을 갖추고 있어 텍스트, 이미지, 오디오 등 다양한 정보를 종합적으로 처리할 수 있으며, 콘텐츠의 인지적 복잡성과 가치관 지향 등을 고려하여 각 영상에 적음된 시청 연령대를 판단합니다. 이는 향후 연령 적합 추천을 위한 기술적 기반이 됩니다.</p>
+          
+          <p>먼저 플랫폼은 미성년자용 고품질 멀티모드 대형 모델을 통해 방대한 정보를 선별하고 미성년자가 시청하기에 적합한 후보 콘텐츠를 식별합니다. 이후 전문 인력이 단계적으로 필터링하여 긍정적인 가치관을 담은 우수한 콘텐츠를 엄선해 미성년자 전용 콘텐츠 풀에 포함시킵니다. 그 다음, 연령 식별 멀티모드 대형 모델이 전문가 검수를 거친 우수 콘텐츠를 심층 이해 및 분류하고 적절한 연령대 정보를 출력합니다.</p>
+          
+          <h3>맞춤형 추천 시스템</h3>
+          
+          <p>공식 발표에 따르면 플랫폼은 현재 세분화된 연령 구분 기준을 채택하여 우수한 콘텐츠를 연령에 맞게 추천하고 있습니다. 이러한 연령 적합 추천 메커니즘은 미성년자의 다양한 성장 단계에 따른 인지적 특징과 심리적 변화에 대응하며, 콘텐츠 공급의 정밀도를 높입니다.</p>
+          
+          <p>동시에 알고리즘은 아이의 콘텐츠 선호도와 결합하여 추천을 수행합니다. "인간 필터링 + 대형 모델 분류 + 연령 적합 추천 + 콘텐츠 선호도 매칭"으로 이어지는 다중 보호 체계는 플랫폼이 수집할 수 있는 정보 범위 내에서 추천되는 내용이 아이의 인지 발달 요구에 최대한 부합하도록 돕습니다. 또한, 어린이는 길게 눌러 '관심 없음' 버튼을 클릭하여 실시간 피드백을 제공할 수도 있습니다.</p>
+          
+          <h3>콘텐츠 데이터 현황</h3>
+          
+          <p>현재 Douyin 미성년자 전용 콘텐츠 풀에는 매일 약 6,000개의 우수한 콘텐츠가 추가되며, 총량은 770만 개에 달합니다. 이 추천 메커니즘은 연령에 적합한 콘텐츠를 제공함과 동시에, 현재 연령대의 인지 범위를 벗어나거나 미성년자가 시청하기 부적절한 콘텐츠를 필터링합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Douyin은 MLLM 기술을 도입하여 미성년자 모드의 연령 적합 추천 알고리즘을 강화했습니다. 이 시스템은 인간의 검수와 대형 모델의 분류를 결합한 다중 보호 체계를 통해 미성년자의 인지 발달에 맞는 콘텐츠를 제공하며, 방대한 양의 우수한 콘텐츠 풀을 기반으로 부적절한 콘텐츠를 필터링합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>核心技术升级</h3>
+<p>Douyin 近期宣布全面升级未成年人模式的核心引擎——适龄推荐算法。此次升级的核心在于引入多模态大语言模型（MLLM）技术，旨在构建一套智能化、精细化的内容识别与分发体系。该模型能够综合处理文本、图像、音频等多种信息，从认知复杂度及价值观导向等多维度判断内容的适用年龄范围。</p>
+          
+          <h3>内容筛选机制</h3>
+<p>为了确保未成年人获取的优质内容，平台采用了“人工+机器”的双重过滤流程：</p>
+<ul>
+<li>初步筛选：利用多模态大模型对海量信息进行初步筛选，识别出适宜未成年人观看的候选内容。</li>
+<li>专家审核：由人工专家层层把关，甄选出具有正向价值观的内容进入专属池。</li>
+<li>深度分类：再通过适龄识别多模态大模型对这些优质内容进行深度理解与分类，并输出具体的年龄段信息。</li>
+</ul>
+          
+          <h3>推荐策略与数据规模</h3>
+<p>系统采用精细化的年龄划分标准，根据不同阶段未成年人的认知特点提供匹配的内容。同时，算法会结合用户偏好进行个性化推送，并支持用户通过“不感兴趣”按钮进行实时反馈。</p>
+<ul>
+<li>内容池日均新增量：约 6000 条优质内容</li>
+<li>当前总内容规模：770 万条</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Douyin 通过引入多模态大语言模型（MLLM）技术，构建了“人工筛选+大模型分类”的复合式适龄推荐机制。该系统旨在提供更精准、符合不同年龄段认知要求的优质内容，从而有效缓解家长的监护焦虑。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>アルゴリズムのアップデート</h3>
+          
+          <p>ITホームの7月27日の報道によると、Douyinグループは本日、保護者の不安を軽減し、未成年の成長ニーズに応えるため、未成年者モードの核となる「年齢適合推奨アルゴリズム」を全面的にアップグレードしたと発表しました。ユーザーが未成年者モードを有効にし、生年を設定すると、そのユーザーに最適化された専用の年齢適合推奨アルゴリズムが作動するようになります。</p>
+          
+          <h3>技術とプロセス</h3>
+          
+          <p>今回の未成年者モード用推奨アルゴリズムの全面的なアップグレードは、最先端のマルチモーダル大規模言語モデル（MLLM）技術を導入し、知的で細分化されたコンテンツの識別および配信体系を構築することに重点を置いています。</p>
+          
+          <p>マルチモーダル大規模言語モデルは強力なクロスモーダル意味理解能力を備えており、テキスト、画像、オーディオなど多様な情報を包括的に処理できます。また、コンテンツの認知的複雑性や価値観の志向などを考慮して、各動画に適した視聴年齢層を判断します。これは今後の年齢適合推奨のための技術的基盤となります。</p>
+          
+          <p>まず、プラットフォームは未成年者向けの高品質なマルチモーダル大型モデルを通じて膨大な情報を選別し、未成年の視聴に適した候補コンテンツを特定します。その後、専門スタッフが段階的にフィルタリングを行い、肯定的な価値観を含む優れたコンテンツを厳選して未成年者専用のコンテンツプールに含めます。次に、年齢識別マルチモーダル大型モデルが専門家の審査を経た優秀なコンテンツを深く理解・分類し、適切な年齢層情報を出力します。</p>
+          
+          <h3>パーソナライズされた推奨システム</h3>
+          
+          <p>公式発表によると、プラットフォームは現在、細分化された年齢区分基準を採用しており、優れたコンテンツを年齢に合わせて推奨しています。この年齢適合推奨メカニズムは、未成年の多様な成長段階における認知的特徴や心理的変化に対応し、コンテンツ供給の精度を高めます。</p>
+          
+          <p>同時に、アルゴリズムは子供のコンテンツへの嗜好と組み合わせて推薦を実行します。「人間によるフィルタリング ＋ 大規模モデルによる分類 ＋ 年齢適合推奨 ＋ コンテンツ嗜好のマッチング」へと続く多重保護体制により、プラットフォームが収集可能な情報の範囲内で、推奨される内容が子供の認知発達の要求に最大限合致するよう支援します。また、子供は長押しをして「興味なし」ボタンをクリックし、リアルタイムなフィードバックを提供することも可能です。</p>
+          
+          <h3>コンテンツデータの現状</h3>
+          
+          <p>現在、Douyinの未成年者専用コンテンツプールには毎日約6,000の優れたコンテンツが追加されており、総量は770万に達します。この推奨メカニズムは、年齢に適したコンテンツを提供すると同時に、現在の年齢層の認知範囲を超えるものや、未成年の視聴に適さないコンテンツをフィルタリングします。</p>
+          
+          <p><ul>
+<li>毎日追加される優秀なコンテンツ：約6,000件</li>
+<li>コンテンツプールの総量：770万件</li>
+</ul></p>
+          
+          <h3>まとめ</h3>
+          
+          <p>DouyinはMLLM技術を導入することで、未成年者モードの年齢適合推奨アルゴリズムを強化しました。このシステムは、人間の検閲と大規模モデルによる分類を組み合わせた多重保護体制を通じて、未成年の認知発達に適したコンテンツを提供し、不適切なコンテンツを効果的に排除します。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Algorithm Update</h3>
+          
+          <p>According to a report from IT Home on July 27, the Douyin Group announced that it has overhauled its "age-appropriate recommendation algorithm," which serves as the core engine for its minor mode. This update is designed to alleviate parental concerns and meet the developmental needs of minors. Once a user activates the minor mode and sets their birth year, a dedicated algorithm optimized for that specific age group will be activated.</p>
+          
+          <h3>Technology and Process</h3>
+          
+          <p>The comprehensive upgrade of the recommendation algorithm focuses on incorporating advanced Multimodal Large Language Model (MLLM) technology to establish an intelligent and granular system for identifying and distributing content.</p>
+          
+          <p>MLLMs possess strong cross-modal semantic understanding, allowing them to process diverse information such as text, images, and audio simultaneously. These models evaluate the cognitive complexity and value orientation of each video to determine appropriate viewing ages, forming the technical foundation for age-appropriate recommendations.</p>
+          
+          <p>First, the platform uses high-quality MLLMs to sift through vast amounts of data and identify candidate content suitable for minors. Subsequently, professional staff perform a multi-stage filtering process to select top-tier content containing positive values for inclusion in the minor-specific pool. Finally, an age-identification MLLM analyzes these expert-vetted contents to provide specific age-appropriate labels.</p>
+          
+          <h3>Customized Recommendation System</h3>
+          
+          <p>According to the official announcement, the platform currently employs segmented age criteria to recommend high-quality content tailored to the user's age. This mechanism responds to the cognitive characteristics and psychological changes of minors at various stages of growth, increasing the precision of content delivery.</p>
+          
+          <p>Simultaneously, the algorithm incorporates the child's personal preferences into its recommendations. The "Human Filtering + Large Model Classification + Age-Appropriate Recommendation + Content Preference Matching" multi-layered protection system ensures that recommended content aligns with the child's cognitive development within the scope of available data. Additionally, children can provide real-time feedback by long-pressing and selecting the "Not Interested" button.</p>
+          
+          <h3>Content Data Status</h3>
+          
+          <p>The current content pool specifically for minors on Douyin is being continuously updated with high-quality material.</p>
+<ul>
+  <li>Approximately 6,000 pieces of high-quality content are added daily.</li>
+  <li>The total volume of the curated pool currently reaches 7.7 million items.</li>
+</ul>
+<p>This recommendation mechanism ensures that age-appropriate content is provided while filtering out material that exceeds a child's cognitive range or is otherwise unsuitable for minors.</p>
+          
+          <h3>Overall Assessment</h3>
+          
+          <p>Douyin has strengthened its minor mode by integrating MLLM technology into the age-appropriate recommendation algorithm. By combining human oversight with large model classification, the system provides content tailored to the cognitive development of children and filters out inappropriate material from an extensive pool of high-quality content.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>Douyin has overhauled its minor mode by implementing Multimodal Large Language Model (MLLM) technology to create a more precise age-appropriate recommendation algorithm. The system utilizes a multi-layered protection approach—combining human filtering with AI classification—to ensure that the 7.7 million pieces of content in their pool align with the cognitive development and preferences of children.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/982/119.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
