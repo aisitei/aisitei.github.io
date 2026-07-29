@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Huawei HiCar 7.0 정식 버전 업데이트, 스마트폰에서 직접 주행 모드 실행 가능</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Huawei">
+  <meta name="article-brand-color" content="#CF0A2C">
+  <meta name="title-ko" content="Huawei HiCar 7.0 정식 버전 업데이트, 스마트폰에서 직접 주행 모드 실행 가능">
+  <meta name="title-zh" content="华为 HiCar 迎 7.0 正式版更新，手机端可直接启动驾驶模式">
+  <meta name="title-ja" content="Huawei HiCar 7.0正式版がリリース、スマートフォンから直接運転モードを起動可能に">
+  <meta name="title-en" content="Huawei HiCar gets 7.0 official update, allowing users to launch driving mode directly from the smartphone.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Huawei HiCar 7.0 정식 버전 업데이트, 스마트폰에서 직접 주행 모드 실행 가능" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #CF0A2C;">
+            Huawei
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Huawei HiCar 7.0 정식 버전 업데이트, 스마트폰에서 직접 주행 모드 실행 가능"
+            data-zh="华为 HiCar 迎 7.0 正式版更新，手机端可直接启动驾驶模式"
+            data-ja="Huawei HiCar 7.0正式版がリリース、スマートフォンから直接運転モードを起動可能に"
+            data-en="Huawei HiCar gets 7.0 official update, allowing users to launch driving mode directly from the smartphone.">Huawei HiCar 7.0 정식 버전 업데이트, 스마트폰에서 직접 주행 모드 실행 가능</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-29
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>업데이트 소식</h3>
+          
+          <p>IT홈에 따르면, Huawei HiCar가 어제 Huawei 앱 갤러리(App Gallery)를 통해 7.0.0.300 (70000300) 정식 버전 업데이트를 출시했습니다. 해당 애플리케이션을 사용하려면 휴대폰 시스템이 HarmonyOS 6.0 이상 버전이어야 하며, HUAWEI HiCar를 지원하는 차량에서 사용해야 합니다.</p>
+          
+          <h3>주요 업데이트 내용</h3>
+          
+          <ul>
+<li>휴대폰 내 드라이빙 모드 지원 (설정 - 멀티 디바이스 협업 - HUAWEI HiCar - 드라이빙 모드 경로로 활성화 가능)</li>
+<li>스마트 데스크탑에 새로운 데스크톱 레이아웃 추가 (일부 차량 인포테인먼트 시스템만 지원)</li>
+<li>더 많은 앱에서 '흔들기' 기능을 통한 내비게이션 전환 지원</li>
+<li>일부 시나리오에서의 연결 안정성 최적화</li>
+</ul>
+          
+          <h3>드라이빙 모드 개선</h3>
+          
+          <p>IT홈의 테스트 결과, 최신 버전의 HiCar로 업데이트한 후 사용자는 휴대폰에서 직접 드라이빙 모드를 실행할 수 있습니다. 이 모드는 'HiCar 모바일 버전'으로 이해할 수 있으며, 레이아웃 또한 차량용 HiCar와 유사합니다. 해당 모드는 이전 HarmonyOS 4.X 버전 시스템에서도 출시된 적이 있으나, 당시에는 세로 화면만 지원했습니다. 최신 버전의 드라이빙 모드는 가로 화면을 지원하게 되어 더욱 편리한 사용자 경험을 제공합니다.</p>
+          
+          <h3>서비스 개요</h3>
+          
+          <p>HiCar는 Huawei가 출시한 휴대폰과 자동차 연결 제품으로, 간단한 연결을 통해 운전 중 차량 시스템에서 휴대폰의 내비게이션, 음악, 전화, 음성 상호작용 등의 기능을 사용할 수 있습니다. 올해 5월, Huawei HiCar는 공식적으로 70개 이상의 자동차 브랜드와 협력 관계를 구축했으며, 누적 탑재량은 4,000만 대 이상, 협력 모델은 600종이 넘는 것으로 발표되었습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Huawei HiCar가 업데이트를 통해 드라이빙 모드에서 가로 화면을 지원하고 연결 안정성을 최적화했습니다. 또한 스마트 데스크탑 레이아웃과 내비게이션 전환 기능을 강화했으며, 현재 70개 이상의 자동차 브랜드와 협력하며 광범위한 차량 환경을 지원하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>版本更新信息</h3>
+<p>Huawei HiCar 已在 App Gallery 推出了 7.0.0.300 (70000300) 正式版本。该版本要求手机系统为 HarmonyOS 6.0 及以上版本，并需在支持 HUAWEI HiCar 的汽车上使用。</p>
+          
+          <h3>主要功能更新</h3>
+<ul>
+<li>新增驾驶模式：用户可通过“设置 - 多设备协同 - HUAWEI HiCar - 驾驶模式”进行开启。</li>
+<li>智慧桌面优化：新增桌面布局（仅部分车机支持）。</li>
+<li>导航流转增强：更多应用支持“摇一摇导航流转”。</li>
+<li>稳定性提升：优化了部分场景下的连接稳定性。</li>
+</ul>
+          
+          <h3>实测体验与市场规模</h3>
+<p>在最新版本中，手机端的驾驶模式已正式支持横屏使用，相比此前仅支持竖屏的模式，提供了更友好的交互体验。该模式的布局设计与车机端高度相似。</p>
+<p>作为 Huawei 推出的手机与汽车互联产品，Huawei HiCar 已与 70 多个汽车品牌建立合作关系，累计装车量超过 4000 万，涵盖车型超过 600 款。该产品支持用户在驾驶时通过车机操作导航、音乐、电话及语音交互等功能。</p>
+          
+          <h3>总结</h3>
+<p>Huawei HiCar 发布 7.0.0.300 版本，核心更新包括新增支持横屏的驾驶模式、优化连接稳定性以及增强导航流转。目前该产品已广泛应用于超过 600 款车型中，旨在提供更便捷的手机与车机互联体验。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>アップデート情報</h3>
+          
+          <p>ITホームの報道によると、Huawei HiCarが昨日、Huawei App Galleryを通じて正式バージョン7.0.0.300（70000300）をリリースしました。このアプリケーションを使用するには、スマートフォンのシステムがHarmonyOS 6.0以上である必要があり、かつHUAWEI HiCarをサポートする車両で利用する必要があります。</p>
+          
+          <h3>主なアップデート内容</h3>
+          
+          <ul>
+<li>スマートフォン内でのドライビングモード対応（設定 - マルチデバイス連携 - HUAWEI HiCar - ドライビングモードのパスから有効化可能）</li>
+<li>スマートデスクトップに新しいデスクトップレイアウトを追加（一部の車両インフォテインメントシステムのみ対応）</li>
+<li>より多くのアプリにおいて、「振る」動作によるナビゲーションへの切り替えをサポート</li>
+<li>特定のシナリオにおける接続安定性の最適化</li>
+</ul>
+          
+          <h3>ドライビングモードの改善</h3>
+          
+          <p>ITホームのテスト結果によると、最新バージョンのHiCarにアップデートすることで、ユーザーはスマートフォンから直接ドライビングモードを実行できるようになりました。このモードは「HiCarモバイル版」と捉えることができ、レイアウトも車両用HiCarと類似しています。以前のHarmonyOS 4.X系システムでもリリースされたことはありますが、当時は縦画面のみの対応でした。最新バージョンのドライビングモードでは横画面（ランドスケープ）をサポートするようになり、より快適なユーザー体験を提供します。</p>
+          
+          <h3>サービスの概要</h3>
+          
+          <p>HiCarはHuaweiが提供するスマートフォンと車両の接続製品であり、簡単な接続を通じて運転中に車両システムからスマートフォンのナビゲーション、音楽、通話、音声対話などの機能を利用できます。今年5月、Huawei HiCarは公式に70以上の自動車ブランドと提携関係を構築しており、累計搭載台数は4,000万台以上、協力モデルは600種を超えることが発表されています。</p>
+          
+          <h3>総評</h3>
+          
+          <p>Huawei HiCarは今回のアップデートにより、ドライビングモードでの横画面対応や接続安定性の最適化を実現しました。また、スマートデスクトップのレイアウトとナビゲーション切り替え機能を強化しており、現在70以上の自動車ブランドと提携することで、幅広い車両環境をサポートしています。</p>
+          
+          <h3>まとめ</h3>
+<p>Huawei HiCarがバージョン7.0.0.300にアップデートされ、スマートフォンでの横画面対応や接続安定性の向上が行われました。この更新により、よりスムーズなナビゲーション切り替えやスマートデスクトップのレイアウト強化が実現します。現在、多くの自動車ブランドと提携しており、幅広い車両環境で高度な連携体験を提供しています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Update News</h3>
+<p>According to IT Home, Huawei HiCar has released version 7.0.0.300 (70000300) through the Huawei App Gallery. To use this application, the mobile device must run HarmonyOS 6.0 or higher and be used in a vehicle that supports HUAWEI HiCar.</p>
+          
+          <h3>Key Update Highlights</h3>
+<ul>
+<li>Support for driving mode on the phone (can be activated via Settings - Multi-device Collaboration - HUAWEI HiCar - Driving Mode).</li>
+<li>Added new desktop layouts to the smart desktop (supported only on specific vehicle infotainment systems).</li>
+<li>Support for switching to navigation using a "shake" gesture in more applications.</li>
+<li>Optimized connection stability across various scenarios.</li>
+</ul>
+          
+          <h3>Driving Mode Enhancements</h3>
+<p>Based on tests by IT Home, users can now launch driving mode directly from their phones after updating to the latest version of HiCar. This mode functions as a "HiCar mobile version" and features a layout similar to the in-vehicle HiCar system. While this mode was previously available on HarmonyOS 4.X systems, it only supported portrait orientation at that time. The latest version now supports landscape orientation, providing a more convenient user experience.</p>
+          
+          <h3>Service Overview</h3>
+<p>HiCar is a Huawei solution for connecting mobile phones to vehicles, allowing users to access navigation, music, calls, and voice interactions via the vehicle's system through a simple connection. As of May this year, Huawei HiCar has officially established partnerships with over 70 automotive brands, with cumulative installations exceeding 40 million units across more than 600 models.</p>
+          
+          <h3>Summary</h3>
+<p>The latest update for Huawei HiCar introduces landscape orientation support for its driving mode and optimizes connection stability. It also enhances the user experience through new smart desktop layouts and gesture-based navigation switching while maintaining a broad reach across over 70 automotive brands.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">사람-차-집 전 시나리오 스마트 연결 솔루션</div>
+                <div class="caption-lang" data-lang="en">All-scenario smart interconnection solutions for people, vehicles, and homes.</div>
+                <div class="caption-lang" data-lang="ja">人・車・家をつなぐオールシーンのスマート連携ソリューション</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">iTongcheng</div>
+                <div class="caption-lang" data-lang="en">iTongcheng</div>
+                <div class="caption-lang" data-lang="ja">いっしょに旅へ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">2674개의 평가</div>
+                <div class="caption-lang" data-lang="en">2,674 ratings</div>
+                <div class="caption-lang" data-lang="ja">2674件の評価</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">설치</div>
+                <div class="caption-lang" data-lang="en">Install</div>
+                <div class="caption-lang" data-lang="ja">インストール</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">5,973만</div>
+                <div class="caption-lang" data-lang="en">59.73 million</div>
+                <div class="caption-lang" data-lang="ja">5,973万</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">나이</div>
+                <div class="caption-lang" data-lang="en">Age</div>
+                <div class="caption-lang" data-lang="ja">年齢</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">분류</div>
+                <div class="caption-lang" data-lang="en">Category</div>
+                <div class="caption-lang" data-lang="ja">分類</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">여행 내비게이션</div>
+                <div class="caption-lang" data-lang="en">Travel Navigation</div>
+                <div class="caption-lang" data-lang="ja">ルート案内</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">새로운 기능</div>
+                <div class="caption-lang" data-lang="en">New Feature</div>
+                <div class="caption-lang" data-lang="ja">新機能</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">버전 7.0.0.300 (70000300)</div>
+                <div class="caption-lang" data-lang="en">Version 7.0.0.300 (70000300)</div>
+                <div class="caption-lang" data-lang="ja">バージョン 7.0.0.300 (70000300)</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">【추가】</div>
+                <div class="caption-lang" data-lang="en">[New]</div>
+                <div class="caption-lang" data-lang="ja">【新着】</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">1. 휴대폰은 주행 모드를 지원하며, &#39;설정-멀티 디바이스 협업-HUAWEI HiCar-주행 모드&#39;를 통해 켤 수 있습니다.</div>
+                <div class="caption-lang" data-lang="en">1. The phone supports Driving Mode, which can be enabled via Settings &gt; Multi-Device Collaboration &gt; HUAWEI HiCar &gt; Driving Mode.</div>
+                <div class="caption-lang" data-lang="ja">1、運転モードに対応。設定の「マルチデバイス連携＞HUAWEI HiCar＞運転モード」からオンにできます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">2. 스마트 데스크톱에 데스크톱 레이아웃 추가(일부 차량용 시스템 지원)</div>
+                <div class="caption-lang" data-lang="en">2. New layout added to Smart Desktop (Supported on select vehicles)</div>
+                <div class="caption-lang" data-lang="ja">2、スマートデスクトップの新レイアウト追加（一部の車載機のみ対応）</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">3. 더 많은 앱에서 원클릭 내비게이션 전환 지원</div>
+                <div class="caption-lang" data-lang="en">3. More apps support one-click navigation.</div>
+                <div class="caption-lang" data-lang="ja">3、より多くのアプリでワンクリック遷移に対応</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">최적화</div>
+                <div class="caption-lang" data-lang="en">Optimization</div>
+                <div class="caption-lang" data-lang="ja">最適化</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">1. 일부 상황에서의 연결 안정성 최적화</div>
+                <div class="caption-lang" data-lang="en">1. Optimize connection stability in certain scenarios.</div>
+                <div class="caption-lang" data-lang="ja">1、一部の状況下における接続安定性の向上</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이번 업데이트를 통해 더욱 많은 즐거움과 편리함을 경험하시길 바랍니다. 사용 중 문의 사항이나 제안이 있으시면 언제든지 [설정 - 멀티 디바이스 협업 - HUAWEI HiCar-주행 모드]를 통해 피드백을 보내주시기 바랍니다.</div>
+                
+                <div class="caption-lang" data-lang="ja">これらの更新で、より快適な体験をお届けします。ご意見やご質問は【設定 - マルチデバイス連携 - HUAWEI HiCar-運転モード】からお寄せください。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">열기</div>
+                <div class="caption-lang" data-lang="en">Open</div>
+                <div class="caption-lang" data-lang="ja">開く</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">달력</div>
+                <div class="caption-lang" data-lang="en">Calendar</div>
+                <div class="caption-lang" data-lang="ja">カレンダー</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">음악</div>
+                <div class="caption-lang" data-lang="en">Music</div>
+                <div class="caption-lang" data-lang="ja">音楽</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이제 당신은 더 이상 나를 필요로 하지 않는 것 같네요.</div>
+                <div class="caption-lang" data-lang="en">You no longer seem to need me.</div>
+                <div class="caption-lang" data-lang="ja">今のあなたはもう私を必要としていない。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">청도 루안 네트워크 테크놀로지 주식회사</div>
+                <div class="caption-lang" data-lang="en">Qingdao Ruannmou Network Technology Co., Ltd.</div>
+                <div class="caption-lang" data-lang="ja">青島ルアンモウネットワーク技術有限会社</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">칭다오 루안머우 네트워크 기술</div>
+                <div class="caption-lang" data-lang="en">Qingdao Ruannmour Network Department</div>
+                <div class="caption-lang" data-lang="ja">青島ルアンモウネットワーク部門</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">테크놀로지 주식회사</div>
+                <div class="caption-lang" data-lang="en">Technology Co., Ltd.</div>
+                <div class="caption-lang" data-lang="ja">技術有限会社</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">5.0점</div>
+                <div class="caption-lang" data-lang="en">5.0 points</div>
+                <div class="caption-lang" data-lang="ja">5.0分</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">11개</div>
+                <div class="caption-lang" data-lang="en">11 items</div>
+                <div class="caption-lang" data-lang="ja">11項目</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">산둥성 칭저우시 스난구 잉촨로 67호 국제 애니메이션 게임 산업단지 6동 217호</div>
+                <div class="caption-lang" data-lang="en">Room 217, Building 6, International Animation and Game Industry Park, No. 67 Yinchuan Road, Shinan District, Qingzhou City, Shandong Province</div>
+                <div class="caption-lang" data-lang="ja">山東省青州市市南区銀川路67号国際アニメ・ゲーム産業園6棟217室</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">전화</div>
+                <div class="caption-lang" data-lang="en">Phone</div>
+                <div class="caption-lang" data-lang="ja">電話</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">액세서리</div>
+                <div class="caption-lang" data-lang="en">Merchandise</div>
+                <div class="caption-lang" data-lang="ja">グッズ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">택시 호출</div>
+                <div class="caption-lang" data-lang="en">Take a taxi</div>
+                <div class="caption-lang" data-lang="ja">タクシーに乗る</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">내비게이션</div>
+                <div class="caption-lang" data-lang="en">Navigation</div>
+                <div class="caption-lang" data-lang="ja">ナビゲーション</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">여기로 이동</div>
+                <div class="caption-lang" data-lang="en">Go here.</div>
+                <div class="caption-lang" data-lang="ja">ここへ行く</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/982/776.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

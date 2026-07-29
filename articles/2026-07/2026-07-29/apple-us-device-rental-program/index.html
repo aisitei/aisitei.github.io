@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Apple, 미국 내 기기 렌탈 프로그램 출시... iPhone 월 렌탈료 17.99 달러부터</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple, 미국 내 기기 렌탈 프로그램 출시... iPhone 월 렌탈료 17.99 달러부터">
+  <meta name="title-zh" content="苹果在美国推出设备租赁计划，iPhone 每月租金 17.99 美元起">
+  <meta name="title-ja" content="Apple、米国でデバイスレンタルプログラムを開始。iPhoneの月額料金は17.99ドルから。">
+  <meta name="title-en" content="Apple launches device rental program in the US, with iPhone monthly rent starting at $17.99">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Apple, 미국 내 기기 렌탈 프로그램 출시... iPhone 월 렌탈료 17.99 달러부터" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Apple, 미국 내 기기 렌탈 프로그램 출시... iPhone 월 렌탈료 17.99 달러부터"
+            data-zh="苹果在美国推出设备租赁计划，iPhone 每月租金 17.99 美元起"
+            data-ja="Apple、米国でデバイスレンタルプログラムを開始。iPhoneの月額料金は17.99ドルから。"
+            data-en="Apple launches device rental program in the US, with iPhone monthly rent starting at $17.99">Apple, 미국 내 기기 렌탈 프로그램 출시... iPhone 월 렌탈료 17.99 달러부터</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-29
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>서비스 개요</h3>
+          
+          <p>Apple은 오늘 미국 시장에서 'Apple Upgrade'라는 새로운 제품 렌탈 프로그램을 발표했습니다.</p>
+          
+          <p>Klarna의 지원을 받는 이 프로그램은 미국 지역의 iPhone, Apple Watch, Mac 및 iPad 사용자들을 대상으로 하며, 사용자는 Apple 온라인 스토어, Apple Store 앱 및 오프라인 Apple Store 매장에서 참여할 수 있습니다. Apple은 Apple Upgrade를 통해 소비자들이 자신이 좋아하는 제품을 더욱 유연한 방식으로 소유할 수 있게 된다고 밝혔습니다.</p>
+          
+          <h3>렌탈 옵션 및 가격</h3>
+          
+          <p>Apple Upgrade는 iPhone과 Apple Watch에 대해 12개월 및 24개월 렌탈 옵션을 제공하며, Mac과 iPad에는 24개월 및 36개월 렌트 옵션을 제공합니다.</p>
+          
+          <p>각 기기별 최소 월 렌탈료는 다음과 같습니다.</p>
+          
+          <ul>
+<li>iPhone: 최소 월 17.99달러 (현재 환율 약 121.9 위안)</li>
+<li>Apple Watch: 최소 월 11.99달러 (현재 환율 약 81.2 위안)</li>
+<li>Mac: 최소 월 24.99달러 (현재 환율 약 169.3 위안)</li>
+<li>iPad: 최소 월 11.99달러 (현재 환율 약 81.2 위안)</li>
+</ul>
+          
+          <p>사용자가 처음 Apple Upgrade에 가입할 때 Apple Trade In을 통해 기존 기기를 반납하고 새 기기로 교환하면 월 렌탈료를 추가로 낮출 수 있습니다. 또한, Apple Card로 렌탈 비용을 결제하는 사용자는 3%의 Daily Cash 캐시백을 받을 수 있습니다.</p>
+          
+          <h3>구매 및 신청 프로세스</h3>
+          
+          <p>Apple은 Apple Upgrade를 통해 소비자가 온/오프라인 어디에서든 일관되고 개인화된 쇼핑 경험을 누릴 수 있다고 설명했습니다. Apple과 Klarna는 공동으로 간편한 신청 절차를 구축했으며, 사용자는 프로그램 가입 전 다양한 렌탈 옵션을 상세히 확인할 수 있습니다.</p>
+          
+          <p>적절한 렌탈 옵션을 선택한 후 사용자는 온/오프라인에서 몇 분 내로 신청을 제출할 수 있으며, Klarna의 신속한 승인을 받을 수 있습니다. 모든 신청자들은 신용 점수에 영향을 주지 않는 소프트 신용 조회(Soft Credit Check)를 한 번 거치게 됩니다. 승인 후 사용자는 정상적인 구매 절차를 완료할 수 있으며, 오프라인 구매자는 즉시 기기를 수령하고 온라인 구매자는 배송 또는 매장 픽업을 선택할 수 있습니다.</p>
+          
+          <h3>추가 서비스 및 사후 관리</h3>
+          
+          <p>구매 방식과 관계없이 모든 사용자는 새로운 기기 설정 및 관련 문의 해결을 돕는 Apple의 Personal Setup 서비스를 이용할 수 있습니다. 또한, 무료로 제공되는 'Today at Apple' 세션에 참여하여 기기 사용법을 익히거나 기능을 심층적으로 탐색할 수 있습니다.</p>
+          
+          <p>렌탈 기간이 종료되면 사용자는 최신 세대 기기로 업그레이드하거나, 현재 기기를 일시불로 구매하거나, 또는 기기를 반납하고 프로그램을 종료할 수 있습니다. 사용자는 Klarna 앱을 통해 청구 일정과 남은 결제 금액을 포함한 모든 렌탈 정보를 확인할 수 있으며, AppleCare 서비스를 추가하여 기기를 보호하고 교체 과정을 더욱 간편하게 진행할 수 있습니다.</p>
+          
+          <h3>상세 조건 및 제한 사항</h3>
+          
+          <p>Apple Upgrade 출시와 함께 Apple은 미국에서 기존의 iPhone Upgrade Program 및 iPhone Payments 계획을 중단합니다. 요건을 충족하는 기존 iPhone Upgrade Program 사용자는 향후 Apple Upgrade 렌탈, Apple Card 할부 결제, 직접 구매 또는 통신사 금융 옵션 중 하나를 선택할 수 있습니다.</p>
+          
+          <p>참고로 Apple Upgrade는 소비자의 렌탈 프로그램이며 구매나 대출이 아닙니다. Klarna Inc.가 제공하는 이 프로그램은 기기에 따라 12개월, 24개월, 36개월의 렌탈 기간을 지원하며, 승인 여부는 사용자의 자격 및 신용 상황에 따라 결정됩니다. 월 결제 금액은 제품 모델과 렌트 기간에 따라 달라집니다.</p>
+          
+          <p>예를 들어, 1,099달러 상당의 iPhone 17 Pro 256GB 모델의 경우 세금이나 Trade-in 할인을 제외할 때 24개월 렌탈 시 월 약 31.99달러(현재 환율 약 216.7 위안), 12개월 렌탈 시 월 약 45.99달러(현재 환율 약 311.6 위안)입니다. Apple Watch Series 11(GPS 버전) 42mm 모델(399달러)은 24개월 렌트 시 월 약 11.99달러(현재 환율 약 81.2 위안), 12개월 렌트 시 약 21.99달러(현재 환율 약 149 위안)입니다.</p>
+          
+          <p>렌탈 기간 동안 보증금은 필요하지 않습니다. Trade-in을 통해 월 결제액을 낮출 수 있으나, 업그레이드가 자동 보장되는 것은 아니며 재심사 및 승인 조건을 충족해야 합니다.</p>
+          
+          <p>현재 Apple Upgrade는 미국 거주자에게만 제공되며, 렌탈 기기는 미국 주소로 배송되거나 미국 내 Apple Store에서 수령할 수 있습니다. 신청자는 만 18세 이상이어야 하며, 유효한 사회보장번호(SSN) 또는 개인 납세자 식별 번호(ITIN)를 보유하고 Apple 및 Klarna 계정, 신용 결제 조건을 충족해야 합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Apple은 미국 시장에서 Klarna와 협력하여 iPhone, Apple Watch, Mac 및 iPad를 위한 'Apple Upgrade' 렌탈 프로그램을 출시합니다. 이 프로그램은 다양한 기간의 렌트 옵션과 간편한 신청 절차를 제공하며, 기존의 관련 업그레이드 계획을 대체하게 됩니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Apple Upgrade 租赁计划推出</h3>
+<p>Apple 在美国市场宣布与 Klarna 合作推出全新的 "Apple Upgrade" 产品租赁计划。该计划涵盖 iPhone、Apple Watch、Mac 和 iPad，用户可以通过 Apple 在线商店、App 以及线下实体店参与，旨在提供更灵活的获取设备方式。</p>
+          
+          <h3>产品方案与起步价格</h3>
+<ul>
+<li>iPhone 与 Apple Watch：提供 12 个月及 24 个月租赁方案。</li>
+<li>Mac 与 iPad：提供 24 个月及 36 个月租赁方案。</li>
+<li>iPhone 起步价：每月 17.99 美元。</li>
+<li>Apple Watch 起步价：每月 11.99 美元。</li>
+<li>Mac 起步价：每月 24.99 美元。</li>
+<li>iPad 起步价：每月 11.99 美元。</li>
+</ul>
+          
+          <h3>用户权益与申请流程</h3>
+<p>用户可利用 Apple Trade In 服务通过旧机折抵来降低月租金，且使用 Apple Card 支付时可获得 3% 的 Daily Cash 返现。在申请过程中，用户将接受一次不影响信用评分的软性信用查询。租赁期结束后，用户可以选择升级至新一代设备、全额支付并保留当前设备，或退回设备并退出计划。</p>
+          
+          <h3>服务范围与参与限制</h3>
+<p>随着 "Apple Upgrade" 的上线，Apple 将在美停止提供原有的 iPhone Upgrade Program 和 iPhone Payments 计划。该租赁计划目前仅限美国居民参加，申请者需年满 18 岁且具备有效的社会安全号码（SSN）或个人纳税识别号（ITIN）。</p>
+          
+          <h3>总结</h3>
+<p>Apple 与 Klarna 在美国联合推出 "Apple Upgrade" 租赁计划，涵盖 iPhone、Watch、Mac 及 iPad 等核心产品。该计划提供灵活的租期选择和多种售后选项，旨在通过与 Klarna 的合作简化消费者的获取流程并提供多样化的支付激励。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>サービス概要</h3>
+          
+          <p>Appleは本日、米国市場において「Apple Upgrade」という新しい製品レンタルプログラムを発表しました。</p>
+          
+          <p>Klarnaの支援を受けるこのプログラムは、米国地域のiPhone、Apple Watch、Mac、およびiPadユーザーを対象としており、ユーザーはAppleオンラインストア、Apple Storeアプリ、および実店舗のApple Storeで参加することが可能です。Appleは、Apple Upgradeを通じて消費者が好みの製品をより柔軟な方法で所有できるようにすることを目指すと述べています。</p>
+          
+          <h3>レンタルオプションと価格</h3>
+          
+          <p>Apple Upgradeでは、iPhoneとApple Watchに対して12ヶ月および24ヶ月のレンタルオプションを提供し、MacとiPadには24ヶ月および36ヶ月のレンタルオプションを提供します。</p>
+          
+          <p>各デバイスの最低月額レンタル料は以下の通りです。</p>
+          
+          <ul>
+<li>iPhone: 最低月額 17.99ドル</li>
+<li>Apple Watch: 最低月額 11.99ドル</li>
+<li>Mac: 最低月額 24.99ドル</li>
+<li>iPad: 最低月額 11.99ドル</li>
+</ul>
+          
+          <p>ユーザーが最初にApple Upgradeに加入する際、Apple Trade Inを通じて既存のデバイスを返却して新しいデバイスに交換することで、月々のレンタル料をさらに抑えることができます。また、Apple Cardでレンタル費用を支払うユーザーは、3%のDaily Cashキャッシュバックを受けることができます。</p>
+          
+          <h3>購入および申請プロセス</h3>
+          
+          <p>Appleは、Apple Upgradeを通じて消費者がオン・オフラインのいずれでも一貫したパーソナライズされたショッピング体験を楽しめるようになると説明しています。AppleとKlarnaは共同で簡便な申請手続きを構築しており、ユーザーはプログラムへの加入前にさまざまなレンタルオプションの詳細を確認できます。</p>
+          
+          <p>適切なレンタルオプションを選択した後、ユーザーはオン・オフラインのいずれでも数分以内に申請を提出でき、Klarnaによる迅速な承認を受けることができます。すべての申請者は、信用スコアに影響を与えないソフト信用調査（Soft Credit Check）を一度受けることになります。承認後、ユーザーは通常の購入手続きを完了でき、オフラインでの購入者はすぐにデバイスを受け取り、オンラインでの購入者は配送または店舗での受け取りを選択できます。</p>
+          
+          <h3>追加サービスおよびアフターケア</h3>
+          
+          <p>購入方法にかかわらず、すべてのユーザーは新しいデバイスの設定や関連する問い合わせの解決をサポートするAppleのPersonal Setupサービスを利用できます。また、無料で提供される「Today at Apple」セッションに参加して、デバイスの使用方法を学んだり機能を深く探索したりすることも可能です。</p>
+          
+          <p>レンタル期間が終了すると、ユーザーは最新世代のデバイスにアップグレードするか、現在のデバイスを一括で購入するか、またはデバイスを返却してプログラムを終了することができます。ユーザーはKlarnaアプリを通じて、請求スケジュールや残りの支払い金額を含むすべてのレンタル情報を確認でき、AppleCareを追加してデバイスを保護し、交換プロセスをよりスムーズに進めることも可能です。</p>
+          
+          <h3>詳細な条件と制限事項</h3>
+          
+          <p>Apple Upgradeの提供に伴い、Appleは米国において従来のiPhone Upgrade ProgramおよびiPhone Payments計画を停止します。要件を満たす既存のiPhone Upgrade Programユーザーは、今後、Apple Upgradeレンタル、Apple Cardによる分割払い、直接購入、または通信会社のファイナンスオプションのいずれかを選択できます。</p>
+          
+          <p>なお、Apple Upgradeは消費者のためのレンタルプログラムであり、購入や融資ではありません。Klarna Inc.が提供するこのプログラムは、デバイスに応じて12ヶ月、24ヶ月、36ヶ月のレンタル期間をサポートしており、承認の可否はユーザーの資格および信用状況によって決定されます。月々の支払額は製品モデルとレンタル期間によって異なります。</p>
+          
+          <p>例えば、1,099ドル相当のiPhone 17 Pro 256GBモデルの場合、税金やTrade-in割引を除いた場合、24ヶ月のレンタルで月額約31.99ドル、12ヶ月のレンタルで月額約45.99dollarとなります。Apple Watch Series 11（GPSモデル）42mmモデル（399ドル）の場合、24ヶ月のレンタルで月額約11.99ドル、12ヶ月のレンタルで約21.99ドルとなります。</p>
+          
+          <p>レンタル期間中の保証金は必要ありません。Trade-inを通じて月々の支払額を抑えることは可能ですが、アップグレードが自動的に保証されるわけではなく、再審査および承認条件を満たす必要があります。</p>
+          
+          <p>現在、Apple Upgradeは米国居住者のみに提供され、レンタルされたデバイスは米国の住所に配送されるか、米国内のApple Storeで受け取ることができます。申請者は18歳以上である必要があり、有効な社会保障番号（SSN）または個人納税者識別番号（ITIN）を保有し、AppleおよびKlarnaの要件を満たす必要があります。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>Appleは米国市場において、Klarnaと提携しiPhoneやMacなどを含む「Apple Upgrade」という新レンタルプログラムを開始します。このプログラムは多様な期間の選択肢と簡便な申請プロセスを提供し、従来のアップグレード計画に代わる新たな提供形態となります。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Service Overview</h3>
+          
+          <p>Apple today announced a new product rental program called 'Apple Upgrade' for the U.S. market.</p>
+          
+          <p>Supported by Klarna, this program targets users of iPhone, Apple Watch, Mac, and iPad in the United States. Users can participate through the Apple Online Store, the Apple Store app, and at physical Apple Store locations. Apple stated that 'Apple Upgrade' allows consumers to own their favorite products in a more flexible way.</p>
+          
+          <h3>Rental Options and Pricing</h3>
+          
+          <p>Apple Upgrade offers 12-month and 24-month rental options for iPhone and Apple Watch, while Mac and iPad offer 24-month and 36-month rental options.</p>
+          
+          <p>The minimum monthly rental fees for each device are as follows:</p>
+          
+          <ul>
+<li>iPhone: Minimum $17.99 per month (approximately 121.9 yuan)</li>
+<li>Apple Watch: Minimum $11.99 per month (approximately 81.2 yuan)</li>
+<li>Mac: Minimum $24.99 per month (approximately 169.3 yuan)</li>
+<li>iPad: Minimum $11.99 per month (approximately 81.2 yuan)</li>
+</ul>
+          
+          <p>Users can further reduce their monthly rental fees by trading in their existing devices through Apple Trade In when first signing up for Apple Upgrade. Additionally, users who pay their rental costs with an Apple Card are eligible to receive 3% Daily Cash cashback.</p>
+          
+          <h3>Purchase and Application Process</h3>
+          
+          <p>Apple explained that 'Apple Upgrade' provides a consistent and personalized shopping experience both online and offline. Apple and Klarna have jointly established a streamlined application process, allowing users to review various rental options in detail before signing up.</p>
+          
+          <p>After selecting an appropriate rental option, users can submit their applications within minutes at either an online or physical location and receive rapid approval from Klarna. All applicants will undergo a single soft credit check that does not affect their credit score. Once approved, users can complete the standard purchase process; offline buyers can receive their devices immediately, while online buyers can choose between shipping or in-store pickup.</p>
+          
+          <h3>Additional Services and Aftercare</h3>
+          
+          <p>Regardless of the purchase method, all users are eligible for Apple's Personal Setup service to assist with initial device setup and troubleshooting. Furthermore, users can participate in free 'Today at Apple' sessions to learn how to use their devices or explore features in depth.</p>
+          
+          <p>Upon completion of the rental period, users have the option to upgrade to a newer generation, purchase the current device outright, or return the device and end the program. Users can check all rental information, including billing schedules and remaining balances, via the Klarna app. AppleCare can also be added to protect the device and simplify the replacement process.</p>
+          
+          <h3>Detailed Terms and Limitations</h3>
+          
+          <p>With the launch of Apple Upgrade, Apple is discontinuing its existing iPhone Upgrade Program and iPhone Payments plans in the U.S. Eligible users of the current programs may choose from one of several options: an Apple Upgrade rental, installment payments via Apple Card, a direct purchase, or a carrier financing option.</p>
+          
+          <p>Note that Apple Upgrade is a consumer rental program, not a purchase or loan. Provided by Klarna Inc., this program supports 12, 24, and 36-month rental periods depending on the device; approval is determined based on the user's eligibility and credit status. Monthly payment amounts vary depending on the product model and the chosen rental period.</p>
+          
+          <p>For example, for an iPhone 17 Pro 256GB model valued at $1,099 (excluding taxes or Trade-in discounts), the monthly cost is approximately $31.99 for a 24-month rental and $45.99 for a 12-month rental. An Apple Watch Series 11 (GPS version) 42mm model ($399) costs approximately $11.99 per month for a 24-month rental and $21.99 for a 12-month rental.</p>
+          
+          <p>No deposit is required during the rental period. While Trade-in can lower monthly payments, it does not guarantee an automatic upgrade; users must meet re-evaluation and approval criteria. Currently, Apple Upgrade is only available to U.S. residents, with devices shipped to U.S. addresses or picked up at U.S. Apple Stores. Applicants must be at least 18 years old, possess a valid Social Security Number (SSN) or Individual Taxpayer Identification Number (ITIN), and meet the account and credit requirements for both Apple and Klarna.</p>
+          
+          <h3>Summary</h3>
+<p>Apple has launched the 'Apple Upgrade' program in the U.S. in partnership with Klarna, offering flexible 12, 24, and 36-month rental options for iPhone, Apple Watch, Mac, and iPad. This program replaces previous upgrade plans and provides a streamlined application process featuring soft credit checks and various end-of-term options such as upgrading or purchasing the device outright.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/982/748.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

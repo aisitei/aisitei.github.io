@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Apple 스마트 홈 허브, 새로운 Siri AI 탑재 및 올해 가을부터 내년 초 사이 출시 예정</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple 스마트 홈 허브, 새로운 Siri AI 탑재 및 올해 가을부터 내년 초 사이 출시 예정">
+  <meta name="title-zh" content="消息称苹果智能家居中枢将搭载全新 Siri AI，将于今秋至明年初发布">
+  <meta name="title-ja" content="Appleのスマートホームハブに最新のSiri AIが搭載され、今秋から来年初めにかけて発売される見通し。">
+  <meta name="title-en" content="Reports say Apple smart home hub will feature all-new Siri AI, launching from this fall to early next year.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg@s_2,w_820,h_547" alt="Apple 스마트 홈 허브, 새로운 Siri AI 탑재 및 올해 가을부터 내년 초 사이 출시 예정" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Apple 스마트 홈 허브, 새로운 Siri AI 탑재 및 올해 가을부터 내년 초 사이 출시 예정"
+            data-zh="消息称苹果智能家居中枢将搭载全新 Siri AI，将于今秋至明年初发布"
+            data-ja="Appleのスマートホームハブに最新のSiri AIが搭載され、今秋から来年初めにかけて発売される見通し。"
+            data-en="Reports say Apple smart home hub will feature all-new Siri AI, launching from this fall to early next year.">Apple 스마트 홈 허브, 새로운 Siri AI 탑재 및 올해 가을부터 내년 초 사이 출시 예정</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-29
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>신제품 계획</h3>
+          
+          <p>IT홈의 보도에 따르면, 블룸버그의 마크 거먼이 인용한 소식통에 의하면 Apple은 새로운 Siri AI 비서를 핵심으로 하는 스마트 홈 허브 기기를 곧 출시할 계획입니다.</p>
+          
+          <h3>Apple TV 및 HomePod mini</h3>
+          
+          <p>Apple은 동시에 새로운 Apple TV와 업그레이드된 HomePod mini를 출시할 준비를 하고 있습니다. 이 두 제품은 외관상 "기존 버전과 거의 동일"하지만, Siri AI 기능을 지원하기 위해 내부적으로 성능이 강화된 칩을 탑재할 예정입니다.</p>
+          
+          <h3>스마트 홈 허브 사양</h3>
+          
+          <p>현재 개발 중인 스마트 홈 허브는 두 가지 버전으로 알려졌습니다.</p>
+          
+          <ul>
+<li>반구형 베이스 디자인에 상단에 화면이 장착된 모델</li>
+<li>새로운 마그네틱 시스템을 통해 벽면에 고정하는 모델</li>
+</ul>
+          
+          <p>이 기기는 7인치 정사각형 디스플레이를 탑재하며 Siri AI를 중심으로 설계됩니다. tvOS를 기반으로 새롭게 개발된 운영체제를 실행하며, 인터페이스는 tvOS와 watchOS의 디자인 스타일을 결합하고 앱, 아이콘 및 위젯을 지원합니다.</p>
+          
+          <h3>주요 기능</h3>
+          
+          <p>이 기기는 다음과 같은 기능을 지원할 예정입니다.</p>
+          
+          <ul>
+<li>FaceTime 화상 통화</li>
+<li>가정용 보안 모니터링</li>
+<li>HomeKit 스마트 홈 생태계</li>
+<li>Apple Watch와 유사한 맞춤형 워치 페이스 기능</li>
+</ul>
+          
+          <h3>얼굴 인식 및 개인화</h3>
+          
+          <p>가장 주목할 만한 신기능은 얼굴 인식입니다. 이 기기는 화면을 보고 있는 사용자의 신원을 식별하고, 사용자와 화면 사이의 거리를 판단하여 인터페이스 표시 내용을 실시간으로 조정합니다. 시스템은 시청자에 따라 정보의 크기와 표시 방식을 자동으로 조정하여 최적의 브라우징 경험을 제공하며, 현재 사용자에게 개인 일정, 메모 등 맞춤형 콘텐츠를 표시합니다.</p>
+          
+          <h3>추가 제품 및 출시 일정</h3>
+          
+          <p>Apple은 더 늦게 출시될 두 가지 스마트 홈 제품도 개발 중입니다. 여기에는 9인치 디스플레이를 탑재한 고사양 로봇 버전의 홈 허브와 기능이 더욱 향상된 가정용 보안 카메라가 포함됩니다.</p>
+          
+          <p>Apple은 올해 가을에 새로운 Apple TV와 HomePod mini를 출시할 계획이며, 스마트 홈 허브는 10월에서 내년 초 사이에 출시될 예정입니다.</p>
+          
+          <h3>시장 경쟁</h3>
+          
+          <p>이러한 움직임으로 인해 Apple은 AI 기술이 발전하는 시장에서 Amazon 및 Google과 더욱 직접적으로 경쟁하게 될 전망입니다. Apple의 신형 스마트 기기는 Amazon의 EchoShow 및 Google의 NestHub와 경쟁하게 됩니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Apple은 Siri AI를 기반으로 한 새로운 스마트 홈 허브와 업그레이드된 Apple TV, HomePod mini를 출시할 계획입니다. 특히 스마트 홈 허브는 고도화된 얼굴 인식과 개인화 기능을 통해 Amazon 및 Google의 관련 제품들과 경쟁하게 될 것으로 보입니다.</p
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>新一代智能家居硬件</h3>
+<p>Apple 计划推出以全新 Siri AI 助手为核心的智能家居中枢设备，并同步更新相关产品线：</p>
+<ul>
+<li>新款 Apple TV</li>
+<li>升级版 HomePod mini（外观基本保持一致，但将搭载更强性能的芯片以支持 Siri AI 功能）</li>
+</ul>
+          
+          <h3>新一代智能家居中枢规格</h3>
+<p>该核心设备目前有两个版本在研：一种采用半球形底座设计，另一种为磁吸墙挂式。其主要技术参数如下：</p>
+<ul>
+<li>显示屏：7 英寸方形显示屏</li>
+<li>操作系统：基于 tvOS 开发的新系统（融合 tvOS 和 watchOS 的设计风格）</li>
+<li>功能支持：支持应用程序、图标、小组件，并集成 FaceTime 视频通话、家庭安防监控及 HomeKit 生态。</li>
+<li>交互特性：提供类似 Apple Watch 的可自定义界面功能。</li>
+</ul>
+          
+          <h3>核心 AI 功能与技术</h3>
+<p>该设备将深度整合 Siri AI，并引入以下关键创新点：</p>
+<ul>
+<li>面部识别：能够识别用户身份及与屏幕的距离。</li>
+<li>动态内容调整：系统会根据当前辨认出的用户自动调整信息大小和展示方式，提供个性化的日历、备忘录等内容。</li>
+</ul>
+          
+          <h3>产品路线图与市场竞争</h3>
+<p>Apple 还计划推出更多高端设备以增强竞争力：</p>
+<ul>
+<li>后续产品：配备 9 英寸显示屏的高端机器人版家庭中枢，以及更先进的家用安防摄像头。</li>
+<li>发布时间：Apple TV 和 HomePod mini 预计于今年秋季推出；智能家居中枢计划在 10 月至明年年初期间发布。</li>
+<li>竞争目标：旨在与亚马逊的 EchoShow 以及谷歌的 NestHub 在 AI 驱动的智能家居市场展开直接竞争。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Apple 计划通过推出搭载 Siri AI 的新一代智能家居中枢、升级版 HomePod mini 及新款 Apple TV 来强化其硬件生态。该系列产品将引入先进的面部识别和动态界面技术，旨在与亚马逊及谷歌在人工智能驱动的智能家居市场展开直接竞争。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>新製品の計画</h3>
+          
+          <p>ITホームの報道によると、Bloombergのマーク・ガーマン氏が引用した情報筋に基づき、Appleは新しいSiri AIアシスタントを核としたスマートホームハブデバイスを近日中に発売する計画です。</p>
+          
+          <h3>Apple TVおよびHomePod mini</h3>
+          
+          <p>Appleは同時に、新型のApple TVとアップグレードされたHomePod miniのリリースも準備しています。これら2つの製品は外観上「従来モデルとほぼ同様」ですが、Siri AI機能をサポートするために内部に性能強化されたチップを搭載する予定です。</p>
+          
+          <h3>スマートホームハブの仕様</h3>
+          
+          <p>現在開発中のスマートホームハブには、以下の2種類のバリエーションがあることが報じられています。</p>
+          
+          <ul>
+<li>半球形のベースデザインに上部へディスプレイを搭載したモデル</li>
+<li>新しいマグネットシステムを通じて壁面に固定するモデル</li>
+</ul>
+          
+          <p>このデバイスは7インチの正方形ディスプレイを搭載し、Siri AIを中心に設計されています。tvOSをベースとした新しく開発されたオペレーティングシステムを実行し、インターフェースはtvOSとwatchOSのデザインスタイルを融合させ、アプリ、アイコン、ウィジェットをサポートします。</p>
+          
+          <h3>主な機能</h3>
+          
+          <p>このデバイスは以下の機能をサポートする予定です。</p>
+          
+          <ul>
+<li>FaceTimeビデオ通話</li>
+<li>家庭用セキュリティモニタリング</li>
+<li>HomeKitスマートホームエコシステム</li>
+<li>Apple Watchに似たカスタマイズ可能なウォッチフェイス機能</li>
+</ul>
+          
+          <h3>顔認識とパーソナライズ</h3>
+          
+          <p>最も注目すべき新機能は顔認識です。このデバイスは画面を見ているユーザーの身元を特定し、ユーザーと画面の間の距離を判断してインターフェースの表示内容をリアルタイムで調整します。システムは視聴者に応じて情報のサイズや表示方法を自動的に最適化し、パーソナライズされたスケジュールやメモなどのコンテンツを表示します。</p>
+          
+          <h3>追加製品および発売スケジュール</h3>
+          
+          <p>Appleはさらに後日リリースされる2つのスマートホーム製品も開発中です。これには、9インチディスプレイを搭載した高性能なロボット版のホームハブと、機能が強化された家庭用セキュリティカメラが含まれます。</p>
+          
+          <p>Appleは今年秋に新しいApple TVとHomePod miniを発売する計画であり、スマートホームハブは10月から来年初頭の間に発売される見込みです。</p>
+          
+          <h3>市場競争</h3>
+          
+          <p>これらの動きにより、AppleはAI技術が進展する市場においてAmazonやGoogleとより直接的に競合することになります。Appleの新型スマートデバイスは、AmazonのEchoShowやGoogleのNestHubと競合する見通しです。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>AppleはSiri AIを基盤とした新スマートホームハブに加え、アップグレード版のApple TVおよびHomePod miniの投入を計画しています。特にスマートホームハブは高度な顔認識とパーソナライズ機能を備えており、AmazonやGoogleの競合製品に対抗する戦略的な位置づけとなります。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>New Product Plans</h3>
+<p>According to a report by IT Home, citing sources from Bloomberg’s Mark Gurman, Apple plans to launch a new smart home hub centered around its Siri AI assistant.</p>
+          
+          <h3>Apple TV and HomePod mini</h3>
+<p>Simultaneously, Apple is preparing to release a new Apple TV and an upgraded HomePod mini. While these two products are expected to look "nearly identical" to their previous versions, they will feature internally upgraded chips to support enhanced Siri AI capabilities.</p>
+          
+          <h3>Smart Home Hub Specifications</h3>
+<p>The smart home hub currently under development is reported to be available in two different versions:</p>
+<ul>
+<li>A model featuring a hemispherical base with a screen mounted on top.</li>
+<li>A model that attaches to a wall via a new magnetic system.</li>
+</ul>
+<p>The device will feature a 7-inch square display designed around Siri AI. It will run a newly developed operating system based on tvOS, featuring an interface that combines design elements from both tvOS and watchOS while supporting apps, icons, and widgets.</p>
+          
+          <h3>Key Features</h3>
+<p>The device is expected to support the following features:</p>
+<ul>
+<li>FaceTime video calls</li>
+<li>Home security monitoring</li>
+<li>HomeKit smart home ecosystem</li>
+<li>Customizable "watch face" functionality similar to Apple Watch</li>
+</ul>
+          
+          <h3>Face Recognition and Personalization</h3>
+<p>One of the most notable new features is face recognition. The device will identify the user looking at the screen and determine the distance between the user and the display to adjust the interface in real-time. The system will automatically adjust the size and layout of information based on the viewer to provide an optimized browsing experience, while displaying personalized content such as personal schedules and notes for the current user.</p>
+          
+          <h3>Additional Products and Release Schedule</h3>
+<p>Apple is also developing two additional smart home products to be released later: a high-end "robot" version of the home hub featuring a 9-inch display, and an enhanced home security camera.</p>
+<p>Apple plans to launch the new Apple TV and HomePod mini this fall, while the smart home hub is expected to debut between October and early next year.</p>
+          
+          <h3>Market Competition</h3>
+<p>These moves are expected to position Apple as a more direct competitor to Amazon and Google in the rapidly evolving AI market. Apple's new smart devices will compete directly with Amazon's EchoShow and Google's NestHub.</p>
+          
+          <h3>Summary</h3>
+<p>Apple is preparing to launch a new Siri AI-centered smart home hub alongside updated versions of the Apple TV and HomePod mini. The new hub will feature advanced face recognition and personalized interfaces, positioning Apple as a direct competitor to Amazon and Google in the smart home market.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg@s_2,w_820,h_547" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/982/764.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
