@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 에뮬레이터 없이, 개발자가 AI 도구를 활용하여 &#39;젤다의 전설: 시간의 오카리나&#39;를 iOS 플랫폼으로 이식</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="에뮬레이터 없이, 개발자가 AI 도구를 활용하여 &#39;젤다의 전설: 시간의 오카리나&#39;를 iOS 플랫폼으로 이식">
+  <meta name="title-zh" content="无需模拟器，开发者利用 AI 工具将《塞尔达传说：时之笛》带到 iOS 平台">
+  <meta name="title-ja" content="エミュレータ不要、開発者がAIツールを活用し『ゼルダの伝説 時のオカリナ』をiOSへ移植">
+  <meta name="title-en" content="No emulator needed: Developers use AI tools to bring The Legend of Zelda: Ocarina of Time to the iOS platform.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="에뮬레이터 없이, 개발자가 AI 도구를 활용하여 &#39;젤다의 전설: 시간의 오카리나&#39;를 iOS 플랫폼으로 이식" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="에뮬레이터 없이, 개발자가 AI 도구를 활용하여 &#39;젤다의 전설: 시간의 오카리나&#39;를 iOS 플랫폼으로 이식"
+            data-zh="无需模拟器，开发者利用 AI 工具将《塞尔达传说：时之笛》带到 iOS 平台"
+            data-ja="エミュレータ不要、開発者がAIツールを活用し『ゼルダの伝説 時のオカリナ』をiOSへ移植"
+            data-en="No emulator needed: Developers use AI tools to bring The Legend of Zelda: Ocarina of Time to the iOS platform.">에뮬레이터 없이, 개발자가 AI 도구를 활용하여 &#39;젤다의 전설: 시간의 오카리나&#39;를 iOS 플랫폼으로 이식</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-07-30
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>프로젝트 개요</h3>
+          
+          <p>IT홈의 7월 29일 소식에 따르면, 게이머들이 Nintendo Switch 2에서 출시될 《젤다의 전설: 시간의 오카리나》 리메이크 버전을 기다리는 동안 개발자 Chris "Kahris" Sotraidis가 기다림에 지친 팬들을 위한 대안을 제시했습니다. HarkinianPad는 Nintendo 64의 고전 게임을 iOS 및 iPadOS 플랫폼으로 포팅하여 Apple 기기에서 네이티브로 실행할 수 있게 하는 프로젝트입니다.</p>
+          
+          <h3>기술적 특징</h3>
+          
+          <p>Kahris는 OpenAI의 Codex와 GPT-5.6 Sol를 활용하여 기존 에뮬레이터의 한계와 Nintendo 64 하드웨어 자체의 제약을 극복했으며, 이 고전 게임에 와이드스크린 표시, 전체 화면 지원, 그리고 부드러운 60 FPS 구동과 같은 현대적인 기능을 추가했습니다. 다만, 사용자는 여전히 게임 ROM을 직접 준비해야 합니다.</p>
+          
+          <h3>게임 배경</h3>
+          
+          <p>IT홈에 따르면, 《젤다의 전설: 시간의 오카리나》는 1998년 Nintendo 64로 출시되었으며 비디오 게임 역사상 가장 위대한 작품 중 하나로 널리 평가받고 있습니다. 이후 Nintendo는 2011년 Nintendo 3DS용 리메이크 버전을 출시했습니다. Nintendo 64나 Nintendo 3DS가 없는 플레이어들을 위해, 이 고전 명작은 최종적으로 Nintendo Switch Online + 확장 팩 서비스를 통해 Nintendo Switch 및 Nintendo Switch 2에 탑재되었습니다.</p>
+          
+          <p>그러나 Nintendo 콘솔이 없어 게임을 경험하고 싶어 하는 사용자들에게 이러한 플랫폼 제한은 큰 장벽이 되어 왔습니다.</p>
+          
+          <h3>개발 과정</h3>
+          
+          <p>다행히도 Zelda Research Team(ZELDARET)이라는 개발 팀이 2021년에 《젤다의 전설: 시간의 오카리나》 코드를 C 언어로 역컴파일했으며, 이를 통해 개발자 Harbour Masters가 비공식 네이티브 포트 버전인 Ship of Harkinian를 제작할 수 있었습니다. 이 프로젝트는 Microsoft Windows, Linux, macOS, Android, Nintendo Switch 및 Nintendo Wii U 플랫폼을 지원합니다.</p>
+          
+          <p>HarkinianPad라는 이름에서 알 수 있듯이, 이 프로젝트는 Ship of Harkinian의 게임 엔진을 기반으로 개발되었습니다. Kahris는 Codex 5.6 Sol를 사용하여 이미 역컴파일된 C 코드를 iOS 플랫폼에 맞게 조정했으며, 이를 네이티브 Arm64 애플리케이션으로 재구축하고 Apple Metal API를 통해 그래픽 렌더링을 처리하도록 했습니다. 이는 성능 향상뿐만 아니라 더 높은 네이티브 해상도와 원본 게임에는 없던 새로운 기능을 위한 기반을 마련했습니다.</p>
+          
+          <h3>성능 및 조작</h3>
+          
+          <p>HarkinianPad는 전체 해상도 실행과 와이드스크린 표시를 지원할 뿐만 아니라, 게임을 60 FPS로 부드럽게 구동할 수 있게 합니다. 이는 하드웨어 제약으로 인해 240p 해상도와 20 FPS로만 구동 가능했던 원본 Nintendo 64 버전에 비해 크게 향상된 성능입니다.</p>
+          
+          <p>또한 Kahris는 HarkinianPad에 터치 기기에 최적화된 조작 방식을 추가했습니다. 플레이어는 iPhone이나 iPad의 터치 조작을 직접 사용할 수 있으며, 블루투스 컨트롤러, 마우스 또는 키보드를 연결하여 전통적인 제어 방식을 선택할 수도 있습니다. 이러한 유연성은 신규 플레이어와 《젤다의 전설》 시리즈의 올드 팬 모두가 자신에게 가장 적합한 플레이 방식을 선택할 수 있게 해줍니다.</p>
+          
+          <h3>공개 및 접근성</h3>
+          
+          <p>HarkinianPad는 iOS와 iPadOS를 동시에 지원하여 iPhone과 iPad를 포함한 다양한 Apple 기기에서 《젤다의 전설: 시간의 오카리나》를 경험할 수 있게 합니다. 오픈 소스 프로젝트인 HarkinianPad는 관심 있는 모든 사용자에게 무료로 공개되며, 최신 버전과 소스 코드는 현재 해당 프로젝트의 GitHub 페이지에 게시되어 있습니다.</p>
+          
+          <p>하지만 Ship of Harkinian와 마찬가지로 HarkinianPad는 전통적인 의미의 에뮬레이터가 아니며, 사용자는 여전히 합법적으로 취득한 《젤다의 전설: 시간의 오카리나》 ROM 파일이 필요합니다. 이 ROM은 리소스 라이브러리로 활용되어 게임 실행 과정에서 이미지, 음악 및 효과음 등의 소재를 제공합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>HarkinianPad는 AI 프로그래밍 도구를 활용하여 커뮤니티 프로젝트를 다양한 플랫폼으로 확장한 사례입니다. 이를 통해 고전 게임이 현대적인 기술과 결합하여 새로운 생명력을 얻을 수 있음을 보여주었습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>项目概述</h3>
+<p>HarkinianPad 是由开发者 Chris "Kahris" Sotraidis 发起的一个开源项目，旨在将任天堂 64 经典游戏《塞尔达传说：时之诀》原生移植到 iOS 和 iPadOS 平台。该项目并非传统模拟器，而是基于 Ship of Harkinian 的引擎开发，旨在为没有任天堂主机的玩家提供替代方案。</p>
+          
+          <h3>技术实现与 AI 应用</h3>
+<p>开发者利用 OpenAI 的 Codex 和 GPT-5.6 Sol 工具，将已反编译的 C 代码重新构建为原生 Arm64 应用，并通过 Apple Metal API 进行图形渲染。这种基于 AI 编程工具的开发方式克服了传统模拟器的限制，显著提升了性能并支持更高分辨率。</p>
+          
+          <h3>核心功能与规格对比</h3>
+<p>HarkinianPad 为游戏带来了多项现代化特性：</p>
+<ul>
+<li><strong>画面表现：</strong> 支持全分辨率、宽屏显示以及全屏支持。</li>
+<li><strong>帧率优化：</strong> 实现流畅的 60 FPS 运行（原版任天堂 64 受限于硬件，仅能以 240p 分辨率和 20 FPS 运行）。</li>
+<li><strong>操作兼容性：</strong> 提供针对触控设备的优化方案，同时支持连接蓝牙手柄、鼠标或键盘。</li>
+</ul>
+          
+          <h3>获取与分发</h3>
+<p>HarkinianPad 是一个开源项目，其源代码和最新版本已在 GitHub 上发布。由于该项目并非模拟器，用户仍需自行提供合法获得的《塞尔达传说：时之笛》ROM 文件作为游戏运行所需的图像、音乐及音效素材。</p>
+          
+          <h3>总结</h3>
+<p>HarkinianPad 通过 AI 编程工具将经典作品《塞尔达传说：时之笛》成功移植至 iOS 和 iPadOS 平台。该项目实现了高分辨率和 60 FPS 的流畅体验，展示了 AI 技术在帮助个人开发者推动经典游戏焕发新生命方面的巨大潜力。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>プロジェクトの概要</h3>
+          
+          <p>ITホームの7月29日の報道によると、多くのゲーマーがNintendo Switch 2での『ゼルだの伝説 タイムスピン』リメイク版を待ち望む中、開発者のChris "Kahris" Sotraidisが待機に飽いたファンに向けた代替案を提示しました。それは「HarkinianPad」というプロジェクトです。これはNintendo 64のクラシックなゲームをiOSおよびiPadOSプラットフォームへ移植し、Appleデバイス上でネイティブに動作させることを目的としています。</p>
+          
+          <h3>技術的特徴</h3>
+          
+          <p>KahrisはOpenAIのCodexとGPT-5.6 Solを活用することで、既存のエミュレータの限界やNintendo 64ハードウェア自体の制約を克服しました。これにより、ワイドスクリーン表示、フルスクリーン対応、そして滑らかな60 FPS動作といった現代的な機能をこのクラシックゲームに追加しています。ただし、ユーザーは依然としてゲームROMを自ら用意する必要があります。</p>
+          
+          <h3>ゲームの背景</h3>
+          
+          <p>『ゼルダの伝説 タイムスピン』は1998年にNintendo 64で発売され、ビデオゲーム史上最も偉大な作品の一つとして広く評価されています。その後、2011年にはNintendo 3DS向けのリメイク版がリリースされました。Nintendo 64やNintendo 3DSを持っていないプレイヤーのために、この名作は最終的に「Nintendo Switch Online + 拡張パック」を通じてNintendo SwitchおよびNintendo Switch 2でもプレイ可能となっています。</p>
+          
+          <p>しかし、Nintendoのコンソールを持っていないユーザーにとって、これらのプラットフォーム制限は大きな壁となっていました。</p>
+          
+          <h3>開発プロセス</h3>
+          
+          <p>幸いなことに、Zelda Research Team（ZELDARET）という開発チームが2021年に『ゼルダの伝説 タイムスピン』のコードをC言語に逆コンパイルし、それを通じて開発者のHarbour Mastersが非公式のネイティブ移植版「Ship of Harkinian」を制作することができました。このプロジェクトはMicrosoft Windows、Linux、macOS、Android、Nintendo Switch、およびNintendo Wii Uをサポートしています。</p>
+          
+          <p>「HarkinianPad」という名称からもわかるように、このプロジェクトはShip of Harkinianのゲームエンジンをベースに開発されました。KahrisはCodex 5.6 Solを使用して、すでに逆コンパイルされたCコードをiOSプラットフォーム向けに調整し、ネイティブなArm64アプリケーションとして再構築した上で、Apple Metal APIを通じてグラフィックレンダリングを処理するようにしました。これはパフォーマンスの向上だけでなく、より高いネイティブ解像度や、オリジナルゲームには存在しなかった新機能のための基盤を整えることにつながりました。</p>
+          
+          <h3>パフォーマンスと操作</h3>
+          
+          <p>HarkinianPadはフル解像度での実行とワイドスクリーン表示をサポートするだけでなく、ゲームを60 FPSでスムーズに動作させます。これはハードウェアの制約により240p解像度かつ20 FPSでしか動作しなかったオリジナルのNintendo 64版と比較して、大幅に向上したパフォーマンスです。</p>
+          
+          <p>また、KahrisはHarkinianPadにタッチデバイスに最適化された操作方法を追加しました。プレイヤーはiPhoneやiPadのタッチ操作を直接使用できるほか、Bluetoothコントローラー、マウス、またはキーボードを接続して伝統的な操作方法を選択することも可能です。この柔軟性により、新規プレイヤーも『ゼルダの伝説』シリーズの古参ファンも、自分に最適なプレイ方法を選択できるようになります。</p>
+          
+          <h3>公開とアクセシビリティ</h3>
+          
+          <p>HarkinianPadはiOSとiPadOSの両方をサポートしており、iPhoneやiPadを含む様々なAppleデバイスで『ゼルダの伝説 タイムスピン』を体験できます。オープンソースプロジェクトであるHarkinianPadは、関心のあるすべてのユーザーに無料で公開されており、最新バージョンとソースコードは現在GitHubページに掲載されています。</p>
+          
+          <p>ただし、Ship of Harkinianと同様に、HarkinianPadは伝統的な意味でのエミュレータではなく、ユーザーは依然として合法的に取得した『ゼルダの伝説 タイムスピン』のROMファイルが必要です。このROMはリソースライブラリとして機能し、ゲーム実行過程で画像、音楽、効果音などの素材を提供します。</p>
+          
+          <h3>総評</h3>
+          
+          <p>HarkinianPadはAIプログラミングツールを活用してコミュニティプロジェクトを多様なプラットフォームへ拡張した事例です。これにより、クラシックなゲームが現代の技術と融合することで新たな命を得られることを証明しました。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>HarkinianPadは、AIツールの活用により『ゼルダの伝説 タイムスピン』をiOS/iPadOS向けにネイティブ移植するプロジェクトです。Ship of HarkinianのエンジンをベースにArm64への最適化やMetal APIの採用を行い、高解像度・60 FPSでの動作を実現しました。オープンソースとして公開されており、タッチ操作や外部コントローラーにも対応しています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Project Overview</h3>
+<p>According to a report by IT Home on July 29, developer Chris "Kahris" Sotraidis has provided an alternative for fans eagerly awaiting the release of a <i>The Legend of Zelda: Ocarina of Time</i> remake on the Nintendo Switch 2. HarkinianPad is a project that ports the classic Nintendo 64 title to iOS and iPadOS platforms, allowing it to run natively on Apple devices.</p>
+          
+          <h3>Technical Features</h3>
+<p>Kahris utilized OpenAI's Codex and GPT-5.6 Sol to overcome the limitations of existing emulators and the inherent constraints of the original Nintendo 64 hardware. The project introduces modern features such as widescreen display, full-screen support, and smooth 60 FPS performance. However, users are still required to provide their own game ROM files.</p>
+          
+          <h3>Game Background</h3>
+<p>According to IT Home, <i>The Legend of Zelda: Ocarina of Time</i> was released on the Nintendo 64 in 1998 and is widely regarded as one of the greatest works in video game history. Nintendo later released a remake for the Nintendo 3DS in 2011. For players who do not own a Nintendo 64 or Nintendo 3DS, this classic masterpiece was eventually made available through the Nintendo Switch Online + Expansion Pack service on both Nintendo Switch and Nintendo Switch 2.</p>
+<p>However, for users who do not own a Nintendo console but still wish to experience the game, these platform limitations have served as a significant barrier.</p>
+          
+          <h3>Development Process</h3>
+<p>Fortunately, in 2021, the Zelda Research Team (ZELDARET) decompiled the code of <i>The Legend of Zelda: Ocarina of Time</i> into C, which enabled developer Harbour Masters to create an unofficial native port called Ship of Harkinian. This project supports Microsoft Windows, Linux, macOS, Android, Nintendo Switch, and Nintendo Wii U platforms.</p>
+<p>As the name suggests, HarkinianPad was developed based on the Ship of Harkinian game engine. Kahris used Codex 5.6 Sol to adapt the already decompiled C code for the iOS platform, rebuilding it as a native Arm64 application and utilizing the Apple Metal API for graphics rendering. This not only improved performance but also provided a foundation for higher native resolutions and new features that were absent in the original game.</p>
+          
+          <h3>Performance and Controls</h3>
+<p>HarkinianPad supports full resolution, widescreen display, and smooth 60 FPS gameplay. This is a significant improvement over the original Nintendo 64 version, which was limited to 240p resolution and 20 FPS due to hardware constraints.</p>
+<p>Additionally, Kahris added controls optimized for touch devices. Players can use direct touch inputs on an iPhone or iPad, or choose traditional control methods by connecting a Bluetooth controller, mouse, or keyboard. This flexibility allows both new players and long-time fans of the <i>The Legend of Zelda</i> series to select the playstyle that suits them best.</p>
+          
+          <h3>Release and Accessibility</h3>
+<p>HarkinianPad supports both iOS and iPadOS, allowing users to experience <i>The Legend of Zelda: Ocarina of Time</i> on various Apple devices including iPhone and iPad. As an open-source project, HarkinianPad is available for free to all interested users, with the latest version and source code currently hosted on the project's GitHub page.</p>
+<p>Similar to Ship of Harkinian, HarkinianPad is not a traditional emulator; users must still provide legally obtained <i>The Legend of Zelda: Ocarina of Time</i> ROM files. These ROMs serve as resource libraries providing images, music, and sound effects during the game's execution.</p>
+          
+          <h3>Conclusion</h3>
+<p>HarkinianPad serves as a notable example of how AI programming tools can be used to expand community projects across various platforms. It demonstrates how classic games can gain new life when integrated with modern technology.</p>
+          
+          <h3>Summary</h3>
+<p>HarkinianPad is an open-source native port of <i>The Legend of Zelda: Ocarina of Time</i> for iOS and iPadOS, utilizing the Ship of Harkinian engine and AI tools like OpenAI's Codex to overcome original hardware limitations. It offers significant upgrades including 60 FPS performance and widescreen support while supporting both touch controls and traditional peripherals. While it requires a legal ROM as a resource library, it provides a high-quality way for Apple users to experience the classic title.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/983/229.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-07"
+               class="archive-btn active">
+              2026-07
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
