@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Universal, Sony, Warner 등 여러 음반사, 저품질 AI 음악 차트 제외 제안</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="Sony">
+  <meta name="article-brand-color" content="#003087">
+  <meta name="title-ko" content="Universal, Sony, Warner 등 여러 음반사, 저품질 AI 음악 차트 제외 제안">
+  <meta name="title-zh" content="环球、索尼、华纳等多家唱片公司提议将低质 AI 音乐从排行榜中剔除">
+  <meta name="title-ja" content="Universal、Sony、Warnerなど複数のレコード会社が、質の低いAI音楽をチャートから除外することを提案。">
+  <meta name="title-en" content="Universal, Sony, Warner and other record companies propose removing low-quality AI music from the charts.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap hero-image-fallback">
+        <img src="../../../../assets/images/apple-touch-icon.png" alt="Universal, Sony, Warner 등 여러 음반사, 저품질 AI 음악 차트 제외 제안" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #003087;">
+            Sony
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Universal, Sony, Warner 등 여러 음반사, 저품질 AI 음악 차트 제외 제안"
+            data-zh="环球、索尼、华纳等多家唱片公司提议将低质 AI 音乐从排行榜中剔除"
+            data-ja="Universal、Sony、Warnerなど複数のレコード会社が、質の低いAI音楽をチャートから除外することを提案。"
+            data-en="Universal, Sony, Warner and other record companies propose removing low-quality AI music from the charts.">Universal, Sony, Warner 등 여러 음반사, 저품질 AI 음악 차트 제외 제안</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-02
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>제안 배경</h3>
+          
+          <p>The Verge의 보도에 따르면 유니버설 뮤직 그룹(Universal Music Group), Sony Music, 워너 뮤직 그룹(Warner Music Group) 등 여러 음반사들이 저품질 AI 음악을 차트에서 제외할 것을 제안했습니다.</p>
+          
+          <p>음반사 대표들은 공동 성명을 통해 스트리밍 플랫폼에 넘쳐나는 AI 생성 음악이 아티스트의 허가 없이 그들의 작품을 기반으로 학습된 도구를 사용하여 제작되었으며, 이는 아티스트의 창작물이 아니라고 지적했습니다.</p>
+          
+          <h3>차트 진입 조건</h3>
+          
+          <p>이번 제안은 미국 음반 협회(RIAA)와 국제 음반 산업 연맹(IFPI) 등 관련 기관이 이전에 제시했던 표기 시스템보다 훨씬 엄격한 수준입니다.</p>
+          
+          <p>음반사들의 신규 제안에 따르면, 곡이 '실질적으로 인간에 의해 창작된' 등의 특정 기준을 충족하지 않을 경우 국제 차트 진입이 금지됩니다. 다만 AI가 보조적인 역할만 수행한 경우에는 다음 요건을 모두 충족할 시 차트 진입 자격이 주어집니다.</p>
+          
+          <ul>
+<li>사용된 모든 AI 서비스의 이용 약관 준수</li>
+<li>AI 모델이 학습 데이터에 대한 합법적 사용권을 보유함</li>
+<li>곡 자체가 차트 조작이나 순위 조작에 대한 우려를 불러일으키지 않음</li>
+</ul>
+          
+          <p>다만 어떤 상황이 '우려'로 간주되는지, 그리고 '실질적으로 인간에 의해 창작된' 것이 어떻게 정의되는지에 대한 공식적인 표현은 아직 명확하지 않습니다.</p>
+          
+          <h3>현재 상황</h3>
+          
+          <p>국제 음반 산업 연맹(IFPI)는 음반사들의 이번 제안을 강력히 지지한다고 밝혔습니다. 다만 현재 차트 관련 기관 중 이 규칙을 즉시 채택하겠다고 밝힌 곳은 없습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>유니버설 뮤직 그룹, Sony Music, 워너 뮤직 그룹 등 주요 음반사들은 아티스트의 권리를 침해하며 생성된 저품질 AI 음악이 차트를 점령하는 것을 막기 위해 엄격한 진입 기준을 제안했습니다. IFPI는 이 제안을 지지하고 있으나, 실제 차트 운영 기관들의 채택 여부는 아직 결정되지 않았습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>唱片公司提议剔除低质量 AI 音乐</h3>
+<p>Universal Music Group、Sony Music 及 Warner Music Group 等多家主要唱片公司联合提议，将大量充斥在流媒体平台上的低质量 AI 生成音乐从官方排行榜中移除。这些内容被认为并非出自艺人之手，而是利用未经授权且基于艺人作品训练的工具制作而成。</p>
+          
+          <h3>更严厉的准入标准</h3>
+<p>与此前仅要求对 AI 内容进行“标识”的提议相比，此次由唱片公司提出的新提案更为严格。除非歌曲满足特定标准，否则将禁止进入国际排行榜。若 AI 仅作为辅助工具，仍有资格参与，但必须符合以下具体条件：</p>
+<ul>
+<li>必须满足“实质上由人类创作”的判定标准。</li>
+<li>必须符合所使用的任何 AI 服务提供的服务条款。</li>
+<li>用于生成的 AI 模型必须拥有其训练数据的合法使用权。</li>
+<li>歌曲本身不得引发关于刷榜或操纵排行榜的担忧。</li>
+</ul>
+          
+          <h3>行业支持与当前进展</h3>
+<p>目前，国际唱片业协会（IFPI）已明确表示大力支持这一提议。然而，截至目前仍没有相关的排行榜机构宣布将立即采纳这些新规则。</p>
+          
+          <h3>总结</h3>
+<p>主要唱片公司联合提议建立更严苛的准入标准，旨在剔除未经授权且低质量的 AI 生成音乐，以保护艺人权益并防止榜单操纵。该提议已获得 IFPI 支持，但目前尚未被相关排行榜机构正式采纳。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>提案の背景</h3>
+          
+          <p>The Vergeの報道によると、Universal Music Group、Sony Music、Warner Music Groupなどの主要レコード会社が、低品質なAI生成音楽をチャートから除外することを提案しました。</p>
+          
+          <p>レコード会社の代表者は共同声明を通じて、ストリーミングプラットフォームに溢れているAI生成音楽の多くが、アーティストの許可なくその作品を学習させたツールを用いて制作されており、これらはアーティストによる創作物ではないと指摘しています。</p>
+          
+          <h3>チャート参入条件</h3>
+          
+          <p>今回の提案は、アメリカレコード協会（RIAA）や国際レコード産業連盟（IFPI）などの関連機関が以前提示していた表示システムよりも格段に厳しい基準となっています。</p>
+          
+          <p>レコード会社の新たな提案によれば、楽曲が「実質的に人間によって創作された」などの特定の基準を満たさない場合、国際的なチャートへのランクインが禁止されます。ただし、AIが補助的な役割のみを担っている場合は、以下の要件をすべて満たすことでチャート参入の資格が得られます。</p>
+          
+          <ul>
+<li>使用されたすべてのAIサービスの利用規約を遵守していること</li>
+<li>AIモデルが学習データに対して法的な使用権を保有していること</li>
+<li>楽曲自体がチャート操作や順位操作に関する懸念を引き起こさないこと</li>
+</ul>
+          
+          <p>ただし、どのような状況が「懸念」とみなされるのか、また「実質的に人間によって創作された」ものがどのように定義されるかについての公式な表現は、現時点ではまだ明確ではありません。</p>
+          
+          <h3>現在の状況</h3>
+          
+          <p>国際レコード産業連盟（IFPI）は、レコード会社による今回の提案を強く支持すると表明しました。しかし、現在このルールを即座に採用すると発表したチャート関連機関はまだありません。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>主要なレコード会社は、アーティストの権利を侵害する低品質なAI生成音楽がチャートを占拠することを防ぐため、厳格な参入基準を提案しました。IFPIはこの動きを支持していますが、実際のチャート運営機関によるルールの採用については現時点で未定です。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Background of the Proposal</h3>
+          
+          <p>According to a report by The Verge, several major record labels, including Universal Music Group, Sony Music, and Warner Music Group, have proposed excluding low-quality AI music from official charts.</p>
+          
+          <p>In a joint statement, representatives from these labels pointed out that the influx of AI-generated music on streaming platforms is often produced using tools trained on artists' works without their permission. They emphasized that such content does not constitute original creations by human artists.</p>
+          
+          <h3>Chart Entry Requirements</h3>
+          
+          <p>This proposal establishes significantly stricter standards than the labeling systems previously suggested by relevant organizations, such as the RIAA and IFPI.</p>
+          
+          <p>Under the new proposal from the record labels, tracks will be prohibited from entering international charts if they fail to meet specific criteria, such as being "substantially created by humans." However, in cases where AI is used only in a supportive role, eligibility for chart entry can be granted if all of the following conditions are met:</p>
+          
+          <ul>
+<li>Compliance with the terms of service of all AI services utilized.</li>
+<li>The AI model must hold legal rights to its training data.</li>
+<li>The track itself must not raise concerns regarding chart or ranking manipulation.</li>
+</ul>
+          
+          <p>However, official definitions for what constitutes "concerns" and how "substantially created by humans" is defined have not yet been clearly established.</p>
+          
+          <h3>Current Status</h3>
+          
+          <p>The International Federation of the Phonographic Industry (IFPI) has expressed strong support for this proposal from the record labels. However, none of the current chart-related organizations have announced that they will adopt these rules immediately.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>Major record labels are pushing for stricter entry requirements to prevent low-quality AI music—often created without artist consent—from dominating music charts. While the IFPI supports this initiative, official adoption by international charting bodies is still pending.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/984/621.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

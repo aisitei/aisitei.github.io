@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Obsbot, 독특한 폴더블 디자인과 Sony 1/2인치 센서 및 AI 기반 회의 도구를 탑재한 Meet Flip 출시</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="Sony">
+  <meta name="article-brand-color" content="#003087">
+  <meta name="title-ko" content="Obsbot, 독특한 폴더블 디자인과 Sony 1/2인치 센서 및 AI 기반 회의 도구를 탑재한 Meet Flip 출시">
+  <meta name="title-zh" content="Obsbot 发布搭载独特折叠设计、Sony 1/2英寸传感器及 AI 会议工具的 Meet Flip">
+  <meta name="title-ja" content="Obsbot、独自の折りたたみ設計とSony製1/2インチセンサー、AI会議機能を搭載したMeet Flipを発表">
+  <meta name="title-en" content="Obsbot launches Meet Flip with a clever foldable design, Sony 1/2-inch sensor &amp; AI-powered meeting tools">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.webp" alt="Obsbot, 독특한 폴더블 디자인과 Sony 1/2인치 센서 및 AI 기반 회의 도구를 탑재한 Meet Flip 출시" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #003087;">
+            Sony
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Obsbot, 독특한 폴더블 디자인과 Sony 1/2인치 센서 및 AI 기반 회의 도구를 탑재한 Meet Flip 출시"
+            data-zh="Obsbot 发布搭载独特折叠设计、Sony 1/2英寸传感器及 AI 会议工具的 Meet Flip"
+            data-ja="Obsbot、独自の折りたたみ設計とSony製1/2インチセンサー、AI会議機能を搭載したMeet Flipを発表"
+            data-en="Obsbot launches Meet Flip with a clever foldable design, Sony 1/2-inch sensor &amp; AI-powered meeting tools">Obsbot, 독특한 폴더블 디자인과 Sony 1/2인치 센서 및 AI 기반 회의 도구를 탑재한 Meet Flip 출시</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-02
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>제품 소개</h3>
+          
+          <p>Obsbot이 프라이버시 보호를 위해 일반적인 플라스틱 셔터 대신 폴딩 메커니즘을 채택한 119달러 상당의 컴팩트 4K 웹캠, Meet Flip을 출시했습니다. 지난달 중국에서 처음 공개된 이 카메라는 현재 Obsot 공식 홈페이지, Amazon 및 주요 소매점을 통해 전 세계적으로 판매되고 있습니다.</p>
+          
+          <h3>디자인 및 물리적 특징</h3>
+          
+          <p>Meet Flip은 독특한 폴딩 메커니즘을 탑재했습니다. 소프트웨어 기반의 음소거 버튼이나 슬라이딩 방식의 플라스틱 셔터 대신, 카메라 렌즈를 하단부로 접어 내리는 방식을 채택했습니다. 이 물리적 동작을 통해 렌즈를 가림과 동시에 기기를 자동으로 절전 모드로 전환합니다.</p>
+          
+          <p>기기를 펼치면 즉시 활성화되며, 무게는 37.7g으로 매우 가볍습니다. 본체에는 노트북 화면이나 외부 모니터에 고정할 수 있는 일체형 클립이 포함되어 있으며, 하단에는 삼각대 장착을 위한 표준 1/4인치 나사산이 마련되어 있습니다.</p>
+          
+          <h3>카메라 사양 및 성능</h3>
+          
+          <p>Meet Flip은 고성능 이미지 센서와 정교한 광학 설정을 바탕으로 뛰어난 화질을 제공합니다.</p>
+          
+          <ul>
+<li>센서: 1/2인치 CMOS 센서</li>
+<li>조리개: f/1.8</li>
+<li>해상도 및 프레임: 4K @ 30fps 또는 1080p @ 60fps 지원</li>
+</ul>
+          
+          <p>이 제품은 위상차 자동 초점(PDAF) 기능을 탑재하여 일반적인 웹캠에서 흔히 발생하는 초점 탐색 현상 없이 피사체를 빠르게 포착합니다. 또한, 밝은 창문 앞과 같은 까다로운 조명 환경에서도 균호한 노출을 제공하는 HDR 기술이 적용되었습니다.</p>
+          
+          <h3>오디오 및 소프트웨어 기능</h3>
+          
+          <p>오디오 측면에서는 지향성 마이크와 무지향성 마이크가 결합된 듀얼 마이크 시스템을 갖추고 있습니다. 사용 환경에 따라 네 가지 오디오 모드를 선택할 수 있습니다.</p>
+          
+          <ul>
+<li>지향성(Directional): 목소리 분리 강조</li>
+<li>이중 지향성(Dual-directional): 두 명의 대화 상황에 최적화</li>
+<li>무지향성(Omnidirectional): 그룹 회의 환경용</li>
+<li>Raw 스테레오: 후반 작업 편집용</li>
+</ul>
+          
+          <p>또한 Obsot Center 앱을 통해 다양한 소프트웨어 기능을 제공합니다. 사용자를 화면 중앙에 유지하는 자동 프레이밍 기능과 줌 또는 트래킹을 위한 제스처 컨트롤이 포함됩니다. 특히 Zoom, Teams, Google Meet 등에서 회의 내용 요약 및 전사를 지원하는 AI Magic Notes 기능을 제공하며, 이 서비스는 초기 120분 무료 제공 후 구독형으로 운영됩니다.</p>
+          
+          <h3>연결성 및 호환성</h3>
+          
+          <p>Meet Flip은 USB-C를 통해 연결되며 Elgato Stream Deck과 통합이 가능하며, OSC 및 API 프로토콜을 지원합니다. 또한 Obsot은 이 제품이 Nintendo Switch 2와 플러그 앤 플레이 방식으로 호환되어 게임 플레이 녹화 및 스트리밍에 활용될 수 있다고 밝혔습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Meet Flip은 물리적인 폴딩 구조를 통해 프라이버시 보호와 편의성을 동시에 확보한 실용적인 4K 웹캠입니다. 고성능 PDAF와 HDR 지원으로 안정적인 영상 품질을 제공하며, 다양한 오디오 모드 및 AI 기반 소프트웨어 기능을 결합하여 전문적인 스트리밍과 비즈니스 화상 회의 환경 모두에 적합한 성능을 보여줍니다.</p
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>产品介绍</h3>
+          
+          <p>Obsot 推出了售价为 119 美元的紧凑型 4K 网络摄像头 Meet Flip。为了保护隐私，该产品采用了折叠机构而非普通的塑料遮盖片。这款摄像头上月首次在中国亮相，目前已通过 Obsot 官方网站、Amazon 及主要零售商在全球范围内销售。</p>
+          
+          <h3>设计与物理特性</h3>
+          
+          <p>Meet Flip 配备了独特的折叠机制。它摒弃了基于软件的静音按钮或滑动式塑料遮盖，而是采用将镜头向下折叠至底部的设计。这种物理动作在遮挡镜头的同时，会自动将设备切换到待机模式。</p>
+          
+          <p>当设备展开时会立即激活，其重量仅为 37.7g，非常轻便。机身包含一个可固定在笔记本电脑屏幕或外接显示器上的一体式夹具，底部还设有用于安装三脚架的标准 1/4 英寸螺纹。</p>
+          
+          <h3>摄像头规格与性能</h3>
+          
+          <p>Meet Flip 基于高性能图像传感器和精细的光学设置，提供卓越的画质。</p>
+          
+          <ul>
+<li>传感器：1/2 英寸 CMOS 传感器</li>
+<li>光圈：f/1.8</li>
+<li>分辨率及帧率：支持 4K @ 30fps 或 1080p @ 60fps</li>
+</ul>
+          
+          <p>该产品搭载了相位对焦（PDAF）功能，能够快速捕捉目标，避免了普通网络摄像头中常见的对焦搜索现象。此外，还采用了 HDR 技术，确保在明亮窗户等复杂光照环境下提供均衡的曝光。</p>
+          
+          <h3>音频与软件功能</h3>
+          
+          <p>在音频方面，该设备配备了结合定向麦克风和全向麦克风的双麦克风系统。用户可根据使用环境从四种音频模式中进行选择：</p>
+          
+          <ul>
+<li>定向（Directional）：强调声音分离</li>
+<li>双向（Dual-directional）：优化两人对话场景</li>
+<li>全向（Omnidirectionl）：适用于小组会议环境</li>
+<li>原始立体声（Raw Stereo）：用于后期制作编辑</li>
+</ul>
+          
+          <p>此外，通过 Obsot Center 应用可提供多种软件功能。其中包括让用户始终保持在画面中心的自动构图功能，以及用于缩放或追踪的手势控制。特别是针对 Zoom、Teams 和 Google Meet 等平台，它还提供支持会议内容摘要和转录的 AI Magic Notes 功能（该服务在最初 120 分钟免费后按订阅模式运行）。</p>
+          
+          <h3>连接性与兼容性</h3>
+          
+          <p>Meet Flip 通过 USB-C 连接，可与 Elgato Stream Deck 集成，并支持 OSC 和 API 协议。此外，Obsot 表示该产品支持 Plug & Play（即插即用）方式兼容 Nintendo Switch 2，可用于游戏录制和直播。</p>
+          
+          <h3>综合评价</h3>
+          
+          <p>Meet Flip 是一款通过物理折叠结构兼顾隐私保护与便利性的实用型 4K 网络摄像头。凭借高性能的 PDAF 和 HDR 支持提供稳定的视频质量，并结合多样化的音频模式及基于 AI 的软件功能，使其非常适合专业直播和商务视频会议环境。</p>
+          
+          <h3>总结</h3>
+          
+          <p>Meet Flip 是一款具备物理折叠结构的 4K 网络摄像头，旨在通过硬件设计提供更强的隐私保护。它集成了高性能传感器、双麦克风系统以及 AI 驱动的软件功能，能够同时满足专业内容创作者和商务用户的需求。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>製品紹介</h3>
+<p>Obsotは、プライバシー保護のために一般的なプラスチック製シャッターの代わりに折りたたみ機構を採用した、約119ドルのコンパクトな4Kウェブカメラ「Meet Flip」を発表しました。先月中国で初公開されたこのカメラは、現在Obsot公式サイト、Amazon、および主要な小売店を通じて世界中で販売されています。</p>
+          
+          <h3>デザインと物理的特徴</h3>
+<p>Meet Flipは独自の折りたたみ機構を搭載しています。ソフトウェアによるミュートボタンやスライド式のプラスチックシャッターの代わりに、カメラレンズを下部へ折りたたむ方式を採用しました。この物理的な動作により、レンズを覆うと同時にデバイスを自動的にスリープモードに切り替えます。</p>
+<p>デバイスを開くと即座に起動し、重量は37.7gと非常に軽量です。本体にはノートPCの画面や外部モニターに固定できる一体型クリップが含まれており、下部には三脚取り付け用の標準的な1/4インチネジが備わっています。</p>
+          
+          <h3>カメラ仕様と性能</h3>
+<p>Meet Flipは高性能なイメージセンサーと精密な光学設定に基づき、優れた画質を提供します。</p>
+<ul>
+<li>センサー：1/2インチ CMOSセンサー</li>
+<li>絞り値：f/1.8</li>
+<li>解像度およびフレームレート：4K @ 30fps または 1080p @ 60fps をサポート</li>
+</ul>
+<p>この製品は位相差オートフォーカス（PDAF）機能を搭載しており、一般的なウェブカメラで頻繁に見られるフォーカスハンティング現象なしに被写体を素早く捉えます。また、明るい窓の近くなど、難しい照明環境でも均一な露出を提供するHDR技術も採用されています。</p>
+          
+          <h3>オーディオとソフトウェア機能</h3>
+<p>オーディオ面では、指向性マイクと無指向性マイクを組み合わせたデュアルマイクシステムを備えています。使用環境に応じて4つのオーディオモードを選択可能です。</p>
+<ul>
+<li>指向性（Directional）：声を分離して強調</li>
+<li>二重指向性（Dual-directional）：2人の会話シーンに最適化</li>
+<li>無指向性（Omnidirectional）：グループ会議環境用</li>
+<li>Rawステレオ：後処理編集用</li>
+</ul>
+<p>また、Obsot Centerアプリを通じて様々なソフトウェア機能を提供します。ユーザーを画面中央に保つオートフレーミング機能や、ズームやトラッキングのためのジェスチャーコントロールが含まれます。特にZoom、Teams、Google Meetなどで会議内容の要約や文字起こしをサポートするAI Magic Notes機能を搭載しており、このサービスは初期120分間無料提供ののちサブスクリプション形式で提供されます。</p>
+          
+          <h3>接続性と互換性</h3>
+<p>Meet FlipはUSB-Cを介して接続され、Elgato Stream Deckとの統合が可能で、OSCおよびAPIプロトコルをサポートしています。また、Obsotは本製品がNintendo Switch 2とプラグアンドプレイで互換性があり、ゲームプレイの録画やストリーミングに活用できることを明らかにしました。</p>
+          
+          <h3>総評</h3>
+<p>Meet Flipは物理的な折りたたみ構造を通じてプライバシー保護と利便性を両立させた実用的な4Kウェブカメラです。高性能なPDAFとHDRサポートにより安定した映像品質を提供し、多彩なオーディオモードやAIベースのソフトウェア機能を組み合わせることで、プロフェッショナルなストリーミングからビジネス会議まで幅広い環境に適応する性能を備えています。</p>
+          
+          <h3>まとめ</h3>
+<p>Meet Flipは物理的な折りたたみ機構でプライバシー保護と利便性を両立した4Kウェブカメラです。高性能なPDAFやHDR、多彩なオーディオモードに加え、AIによる要約機能などを備えており、ストリーミングからビジネス用途まで幅広く対応します。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Product Introduction</h3>
+<p>Obsot has launched the Meet Flip, a $119 compact 4K webcam that replaces traditional plastic shutters with a unique folding mechanism for enhanced privacy. First unveiled in China last month, the camera is now available globally through the official Obsot website, Amazon, and major retailers.</p>
+          
+          <h3>Design and Physical Features</h3>
+<p>The Meet Flip features a distinctive folding mechanism. Rather than relying on software-based mute buttons or sliding plastic shutters, users can physically fold the lens downward. This action hides the lens while simultaneously putting the device into sleep mode. When unfolded, the camera activates immediately.</p>
+<p>The device is exceptionally lightweight at 37.7g and includes an integrated clip for mounting onto laptop screens or external monitors. Additionally, it features a standard 1/4-inch thread on the bottom for tripod mounting.</p>
+          
+          <h3>Camera Specifications and Performance</h3>
+<p>The Meet Flip delivers high-quality imagery based on a high-performance image sensor and sophisticated optical settings.</p>
+<ul>
+<li>Sensor: 1/2-inch CMOS sensor</li>
+<li>Aperture: f/1.8</li>
+<li>Resolution and Frame Rate: Supports 4K @ 30fps or 1080p @ 60fps</li>
+</ul>
+<p>The device is equipped with Phase Detection Auto Focus (PDAF), allowing it to capture subjects quickly without the "focus hunting" issues common in standard webcams. It also incorporates HDR technology to provide consistent exposure even in challenging lighting environments, such as when positioned in front of bright windows.</p>
+          
+          <h3>Audio and Software Features</h3>
+<p>On the audio front, the device features a dual-microphone system combining directional and omnidirectional microphones. Users can choose from four distinct audio modes depending on their environment:</p>
+<ul>
+<li>Directional: Emphasizes voice isolation</li>
+<li>Dual-directional: Optimized for situations where two people are speaking</li>
+<li>Omnidirectional: Designed for group meeting environments</li>
+<li>Raw Stereo: For post-production editing</li>
+</ul>
+<p>The Obsot Center app provides various software features, including auto-framing to keep the user centered in the frame and gesture controls for zooming or tracking. Notably, it includes an "AI Magic Notes" feature that supports summary and transcription for meetings on Zoom, Teams, and Google Meet; this service offers 120 minutes of free use before moving to a subscription model.</p>
+          
+          <h3>Connectivity and Compatibility</h3>
+<p>The Meet Flip connects via USB-C and can be integrated with Elgato Stream Deck. It also supports OSC and API protocols. Furthermore, Obsot stated that the device is "plug and play" compatible with the Nintendo Switch 2, making it suitable for game recording and streaming.</p>
+          
+          <h3>Overall Review</h3>
+<p>The Meet Flip is a practical 4K webcam that successfully combines privacy protection with convenience through its physical folding structure. By combining high-performance PDAF and HDR support with diverse audio modes and AI-driven software features, it delivers professional performance suitable for both content streaming and business video conferencing.</p
+          
+          <h3>Summary</h3>
+<p>The Meet Flip is a compact 4K webcam featuring a unique physical folding mechanism that provides privacy while automatically managing power states. It offers high-end specifications including a 1/2-inch sensor, PDAF, and HDR, alongside advanced audio modes and AI-powered software tools. Its broad compatibility makes it a versatile choice for both professional business meetings and content creation.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.webp" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.webp" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.webp" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.webp" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/08/01/obsbot-meet-flip-foldable-4k-webcam-launched-globally-specs-price/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
