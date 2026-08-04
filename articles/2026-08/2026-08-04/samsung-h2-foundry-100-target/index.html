@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Samsung, 하반기 파운드리 사업 가동률 100% 달성 목표</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="image_sensor">
+  <meta name="article-brand" content="Samsung">
+  <meta name="article-brand-color" content="#1428A0">
+  <meta name="title-ko" content="Samsung, 하반기 파운드리 사업 가동률 100% 달성 목표">
+  <meta name="title-zh" content="消息称三星晶圆代工业务下半年产能利用率目标达 100%">
+  <meta name="title-ja" content="報道によると、Samsungのウェハー受託製造事業は下半期の稼働率目標を100%に設定する見通し。">
+  <meta name="title-en" content="Reports say Samsung&#39;s foundry business aims for 100% capacity utilization in the second half of the year.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap hero-image-fallback">
+        <img src="../../../../assets/images/apple-touch-icon.png" alt="Samsung, 하반기 파운드리 사업 가동률 100% 달성 목표" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #1428A0;">
+            Samsung
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Samsung, 하반기 파운드리 사업 가동률 100% 달성 목표"
+            data-zh="消息称三星晶圆代工业务下半年产能利用率目标达 100%"
+            data-ja="報道によると、Samsungのウェハー受託製造事業は下半期の稼働率目標を100%に設定する見通し。"
+            data-en="Reports say Samsung&#39;s foundry business aims for 100% capacity utilization in the second half of the year.">Samsung, 하반기 파운드리 사업 가동률 100% 달성 목표</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-04
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>가동률 목표 및 현황</h3>
+          
+          <p>IT홈에 따르면, 한국 매체 ChosunBiz의 보도에 의하면 Samsung전자 파운드리 사업부가 올해 하반기 내 100% 가동률 달성을 목표로 설정했습니다. 현재 해당 부문의 가동률은 약 70%에서 80% 사이로 추정됩니다.</p>
+          
+          <p>Samsung 내부와 외부에서는 현재의 수주 잔량과 계약 진행 상황을 고려할 때, 이 목표 달성이 거의 확실시된다고 보고 있습니다. 2024년 이후 파운드리 생산 라인의 가동률이 장기간 50% 미만에 머물며 침체기를 겪었으나, 현재는 풀가동 단계에 근접했으며 이는 해당 사업부의 장기적인 적자 상황을 반전시키는 전환점이 될 것으로 기대됩니다.</p>
+          
+          <h3>성장 동력</h3>
+          
+          <p>업계에 따르면 가동률 상승의 주요 원인은 HBM 베이스 다이(base die) 수요 증가와 미국 대형 기술 기업들의 첨단 제품 수요 확대에 따른 것입니다. 특히 HBM4가 4nm 공정을 채택함에 따라, 메모리 시장의 호황이 파운드리 가동률 상승으로 직접 이어지고 있습니다.</p>
+          
+          <p>또한 핵심 클라우드 서비스 제공업체 및 인공지능(AI)과 고성능 컴퓨팅 분야의 고객을 중심으로 2nm 공정 주문이 증가하고 있으며, Samsung은 Broadcom 등 주요 고객사와 관련 프로젝트에 대한 협상을 지속하고 있습니다.</p>
+          
+          <h3>파운드리 사업의 특성</h3>
+          
+          <p>파운드리 사업의 가동률은 공장의 실제 운영 부하를 나타내는 핵심 지표입니다. 반도체 파운드리는 고정 비용이 매우 높은 장치 산업으로, 생산 라인이 유휴 상태일 경우 손실이 누적될 수 있습니다.</p>
+          
+          <p>업계 관계자들은 Samsung전자 파운드리 사업부가 지난해 장기간 적자를 기록한 이유가 4nm 및 5nm 등 성숙 공정 생산 라인의 가동률이 50%에 미치지 못해 높은 고정 비용을 충당하지 못했기 때문이라고 설명합니다. 반대로 가동률이 정상 수준으로 회복되면 추가 수익은 곧바로 순이익으로 전환됩니다.</p>
+          
+          <h3>고객사 다변화 및 수율 과제</h3>
+          
+          <p>IT홈은 과거 Samsung 파운드리 사업이 특정 고객사에 과도하게 의존한다는 지적을 받아왔으나, 최근 Qualcomm, AMD 및 Google 등 기술 거물들이 협상을 시작하면서 중장기 주문 확보가 강화되고 있다고 전했습니다.</p>
+          
+          <p>다만 업계에서는 이러한 의향을 실제 대규모 양산 계약으로 전환하기 위해 2nm 공정 수율이 약 70% 수준에서 안정되어야 하며, 현재 해당 공정의 수율은 약 60% 내외로 추정된다는 견해가 지배적입니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Samsung 파운드리 사업부는 HBM 수요 증가와 주요 고객사들의 첨단 제품 요구에 힘입어 올해 하반기 가동률 100% 달성을 목표로 하고 있습니다. 특히 2nm 공정 수율이 안정화되고 다양한 글로벌 기업들과의 협상이 성공적으로 마무리될 경우, 장기간 지속된 적자 구조를 탈피하고 수익성을 개선할 것으로 기대됩니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>产能利用率目标</h3>
+<p>Samsung电子晶圆代工事业部已将今年下半年实现100%产能利用率设定为核心目标。目前，该部门的产能利用率估计在70%至80%之间，显著高于2024年以来长期低于50%的低迷水平。这一转变被视为扭转代工业务长期亏损局面的关键转折点。</p>
+          
+          <h3>主要增长驱动力</h3>
+<p>产能利用率的提升主要得益于以下因素：</p>
+<ul>
+<li>HBM内存基础裸片需求的持续增长。</li>
+<li>美国大型科技企业对尖端产品的需求扩大。</li>
+<li>HBM4采用4纳米工艺带来的存储市场繁荣直接带动了晶圆代工产能利用率的提升。</li>
+</ul>
+          
+          <h3>先进工艺与客户拓展</h3>
+<p>在人工智能和高性能计算领域，2纳米工艺的订单量正在不断增加。Samsung目前正与Broadcom等大客户洽谈相关项目。此外，随着Qualcomm、AMD以及Google等科技巨头的加入，Samsung的客户结构正在多元化，减少了对单一客户的依赖。</p>
+          
+          <h3>技术挑战与良率要求</h3>
+<p>尽管订单充足，但将意向转化为大规模量产合同仍面临技术门槛：</p>
+<ul>
+<li>2纳米工艺目前的良率估计在60%左右。</li>
+<li>为了实现大规模量产，该工艺的良率必须稳定在70%左右。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Samsung晶圆代工事业部正通过HBM需求和先进工艺订单推动产能利用率向100%目标迈进，旨在扭转长期亏损局面。尽管2纳米工艺仍需提升良率以支持大规模量产，但多元化的客户布局和强劲的市场需求为该业务提供了积极的增长前景。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>稼働率の目標と現状</h3>
+<p>ITホームの報道（ChosunBiz）によると、Samsung電子のファウンドリ事業部は今年下半期内に稼働率100%の達成を目標に掲げています。現在、同部門の稼働率は約70%から80%の間と推定されています。</p>
+<p>Samsung内部および外部の分析では、現在の受注残量と契約の進捗状況を考慮すると、この目標達成はほぼ確実視されています。2024年以降、ファウンドリ生産ラインの稼働率が長期間50%未満に留まり停滞期を経験してきましたが、現在はフル稼働に近い段階に達しており、事業部の長期的な赤字状況を反転させる転換点になると期待されています。</p>
+          
+          <h3>成長の原動力</h3>
+<p>業界の動向によると、稼働率上昇の主な要因はHBMベースダイ（base die）の需要増加と、米国の大手テック企業による先端製品の需要拡大にあります。特にHBM4が4nmプロセスを採用したことにより、メモリ市場の好況がファウンドリの稼働率向上に直接つながっています。</p>
+<p>また、主要なクラウドサービスプロバイダーや、人工知能（AI）およびハイパフォーマンスコンピューティング（HPC）分野の顧客を中心に2nmプロセスの注文が増加しており、SamsungはBroadcomなどの主要顧客と関連プロジェクトに関する交渉を継続しています。</p>
+          
+          <h3>ファウンドリ事業の特性</h3>
+<p>ファウンドリ事業における稼働率は、工場の実際の運用負荷を示す重要な指標です。半導体ファウンドリは固定費が非常に高い装置産業であるため、生産ラインが遊休状態になると損失が蓄積する構造になっています。</p>
+<p>業界関係者は、Samsung電子のファウンドリ事業部が昨年長期間にわたり赤字を記録した理由として、4nmおよび5nmなどの成熟工程の生産ラインにおいて稼働率が50%に達せず、高い固定費を賄えなかったことを挙げています。逆に、稼働率が正常な水準まで回復すれば、追加の収益は即座に純利益へと転換されます。</p>
+          
+          <h3>顧客の多様化と歩留まりの課題</h3>
+<p>ITホームによると、過去にSamsungのファウンドリ事業は特定の顧客への過度な依存を指摘されてきましたが、最近ではQualcomm、AMD、Googleなどの技術巨頭との交渉が始まり、中長期的な受注確保が強化されています。</p>
+<p>しかし業界内では、これらの意向を実際の大量生産契約へと移行させるためには、2nmプロセスの歩留まり（Yield）を約70%のレベルで安定させることが必要であり、現在の同工程の歩留まりは約60%前後と推定されているという見解が支配的です。</p>
+          
+          <h3>総評</h3>
+<p>Samsungのファウンドリ事業部は、HBM需要の増加と主要顧客による先端製品への要求を受け、今年下半期の稼働率100%達成を目指しています。特に2nmプロセスの歩留まり安定化とグローバル企業との交渉成功により、長らく続いた赤字構造を脱却し、収益性を大幅に改善することが期待されています。</p
+          
+          <h3>まとめ</h3>
+<p>Samsungのファウンドリ事業部は、HBM需要の拡大と先端プロセスへの需要を受け、今年下半期に稼働率100%の達成を目指しています。2nmプロセスの歩留まり安定化と主要なグローバル企業との提携強化により、長年の赤字構造を脱却し収益性を改善する重要な転換点となる見込みです。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Utilization Targets and Current Status</h3>
+<p>According to reports from ChosunBiz via IT Home, Samsung Electronics' foundry division has set a goal to reach 100% utilization by the second half of this year. The current status of the division is as follows:</p>
+<ul>
+<li>Current estimated utilization: Between 70% and 80%</li>
+<li>Target utilization for H2: 100%</li>
+</ul>
+<p>Both internal and external sources indicate that reaching this target is highly likely given the current order backlog and contract progress. After a period of stagnation where production lines operated at less than 50% capacity since early 2024, moving toward full operation is expected to be a turning point in reversing the division's long-term deficit.</p>
+          
+          <h3>Growth Drivers</h3>
+<p>Industry sources attribute the rise in utilization primarily to increased demand for HBM base dies and growing demand for advanced products from major U.S. tech companies. In particular, as HBM4 adopts the 4nm process, the boom in the memory market is directly translating into higher foundry utilization.</p>
+<p>Furthermore, orders for the 2nm process are increasing among key cloud service providers and customers in the AI and high-performance computing (HPC) sectors. Samsung continues to negotiate projects with major clients, including Broadcom.</p>
+          
+          <h3>Characteristics of the Foundry Business</h3>
+<p>Utilization is a critical metric representing the actual operating load of a factory. As a capital-intensive industry with very high fixed costs, semiconductor foundries can accumulate significant losses if production lines remain idle.</p>
+<p>Industry insiders explain that the reason for the foundry division's prolonged losses last year was due to low utilization on mature process lines:</p>
+<ul>
+<li>Targeted mature processes: 4nm and 5nm</li>
+<li>Previous utilization rate: Below 50%</li>
+</ul>
+<p>When utilization returns to normal levels, any additional revenue is converted directly into net profit.</p>
+          
+          <h3>Customer Diversification and Yield Challenges</h3>
+<p>While Samsung's foundry business was previously criticized for over-reliance on specific customers, the company is strengthening its mid-to-long-term order base as tech giants such as Qualcomm, AMD, and Google begin negotiations. However, to convert these interests into large-scale mass production contracts, the 2nm process yield must stabilize:</p>
+<ul>
+<li>Current estimated yield: Approximately 60%</li>
+<li>Target yield for stable production: Approximately 70%</li>
+</ul>
+          
+          <h3>Summary</h3>
+<p>Samsung's foundry division aims to reach 100% utilization in the second half of the year, driven by surging HBM demand and requirements from major global tech firms. Achieving this goal, along with stabilizing 2nm process yields, is viewed as a critical step toward reversing long-term losses and improving profitability.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/985/084.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

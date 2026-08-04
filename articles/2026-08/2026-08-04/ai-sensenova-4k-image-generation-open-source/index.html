@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 4K 이미지 생성 네이티브 지원, SenseTime 멀티모달 모델 SenseNova U1.5-Lite-Preview 프리뷰 버전 오픈 소스 공개</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="4K 이미지 생성 네이티브 지원, SenseTime 멀티모달 모델 SenseNova U1.5-Lite-Preview 프리뷰 버전 오픈 소스 공개">
+  <meta name="title-zh" content="原生支持 4K 图像生成，商汤科技开源多模态模型 SenseNova U1.5-Lite-Preview 预览版本">
+  <meta name="title-ja" content="4K画像生成をネイティブサポート、商湯科技がマルチモーダルモデル SenseNova U1.5-Lite-Preview プレビュー版をオープンソース化">
+  <meta name="title-en" content="SenseTime open-sources its SenseNova U1.5-Lite-Preview multimodal model with native support for 4K image generation.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="4K 이미지 생성 네이티브 지원, SenseTime 멀티모달 모델 SenseNova U1.5-Lite-Preview 프리뷰 버전 오픈 소스 공개" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="4K 이미지 생성 네이티브 지원, SenseTime 멀티모달 모델 SenseNova U1.5-Lite-Preview 프리뷰 버전 오픈 소스 공개"
+            data-zh="原生支持 4K 图像生成，商汤科技开源多模态模型 SenseNova U1.5-Lite-Preview 预览版本"
+            data-ja="4K画像生成をネイティブサポート、商湯科技がマルチモーダルモデル SenseNova U1.5-Lite-Preview プレビュー版をオープンソース化"
+            data-en="SenseTime open-sources its SenseNova U1.5-Lite-Preview multimodal model with native support for 4K image generation.">4K 이미지 생성 네이티브 지원, SenseTime 멀티모달 모델 SenseNova U1.5-Lite-Preview 프리뷰 버전 오픈 소스 공개</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-04
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>신제품 발표</h3>
+          
+          <p>IT홈은 8월 3일, SenseNova가 커뮤니티를 위해 경량화된 통합 멀티모달 모델의 프리뷰 버전인 SenseNova U1.5-Lite-Preview를 오픈소스로 공개했다고 발표했습니다.</p>
+          
+          <h3>성능 및 특징</h3>
+          
+          <p>소개에 따르면, 여러 기능 강화에 힘입어 U1.5-Lite-Preview는 다양한 주요 생성 및 편집 품질 평가 벤치마크에서 U1을 크게 능가하며, 단 8B-MoT의 경량화된 규모로 상용 폐쇄형 모델과 견줄 수 있는 이미지 생성 능력과 편집 효과를 구현했습니다.</p>
+          
+          <p>공식 발표에 따르면, U1.5-Lite-Preview는 U1과 비교하여 다음과 같은 부분에서 괄목할 만한 향상을 이루었습니다:</p>
+          
+          <ul>
+<li>네이티브 4K 이미지 생성 지원</li>
+<li>더욱 정교한 로컬 텍스처, 디테일 및 실제 세계의 질감 표현</li>
+<li>더 정확한 중문 및 영문 텍스트 생성과 복잡한 레이아웃 구성</li>
+<li>더 안정적인 이미지 편집 및 시각적 명령 준수</li>
+</ul>
+          
+          <h3>오픈소스 링크</h3>
+          
+          <p>GitHub: https://github.com/OpenSenseNova/SenseNova-U1/blob/main/docs/u1.5_preview.md</p>
+          
+          <p>Hugging Face: https://huggingface.co/sensenova/SenseNova-U1.5-8B-MoT-Preview</p>
+          
+          <p>ModelScope: https://modelscope.cn/models/SenseNova/SenseNova-U1.5-8B-MoT-Preview</p>
+          
+          <h3>총평</h3>
+          
+          <p>SenseNova는 경량화된 멀티모달 모델인 SenseNova U1.5-Lite-Preview를 공개했습니다. 이 모델은 8B-MoT의 규모로 상용 폐쇄형 모델에 필적하는 성능을 보여주며, 특히 4K 이미지 생성과 정교한 질감 표현 및 정확한 텍스트 생성 등에서 이전 버전보다 크게 개선되었습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>模型发布</h3>
+<p>商汤科技宣布开源轻量级统一多模态模型的预览版本 SenseNova U1.5-Lite-Preview。该模型在仅 8B-MoT 的轻量级规模下，在多项主流生成与编辑质量评测基准上显著超越 U1，并实现了可比肩商用闭源模型的图像生成能力与编辑效果。</p>
+          
+          <h3>核心功能提升</h3>
+<p>相比于前代版本 U1，SenseNova U1.5-Lite-Preview 在以下关键领域有显著优化：</p>
+<ul>
+<li>原生支持 4K 图像生成；</li>
+<li>提供更精细的局部纹理、细节与真实世界质感；</li>
+<li>实现更准确的中英文文字生成与复杂版式组织；</li>
+<li>具备更稳定的图像编辑和视觉指令遵循能力。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>商汤科技发布的 SenseNova U1.5-Lite-Preview 是一个高性能的轻量级多模态模型。它在保持 8B-MoT 小规模的同时，显著提升了 4K 生成、细节纹理及文字处理能力，旨在提供媲美闭源模型的开源替代方案。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>新製品の発表</h3>
+<p>ITホームは8月3日、SenseNovaがコミュニティ向けに軽量化された統合マルチモーダルモデルのプレビュー版である「SenseNova U1.5-Lite-Preview」をオープンソースとして公開したと報じました。</p>
+          
+          <h3>性能および特徴</h3>
+<p>紹介によると、複数の機能強化により、U1.5-Lite-Previewは様々な主要な生成および編集品質の評価ベンチマークにおいてU1を大きく上回っています。わずか8B-MoTという軽量な規模でありながら、商用のクローズドモデルに匹敵する画像生成能力と編集効果を実現しています。</p>
+          
+          <p>公式発表によると、U1.5-Lite-PreviewはU1と比較して以下の項目において顕著な向上を遂げています：</p>
+<ul>
+<li>ネイティブ4K画像の生成サポート</li>
+<li>より精巧なローカルテクスチャ、ディテール、および現実世界の質感の表現</li>
+<li>より正確な中国語および英語のテキスト生成と複雑なレイアウト構成</li>
+<li>より安定した画像編集および視覚的な命令への準拠</li>
+</ul>
+          
+          <h3>オープンソースリンク</h3>
+<p>GitHub: https://github.com/OpenSenseNova/SenseNova-U1/blob/main/docs/u1.5_preview.md</p>
+<p>Hugging Face: https://huggingface.co/sensenova/SenseNova-U1.5-8B-MoT-Preview</p>
+<p>ModelScope: https://modelscope.cn/models/SenseNova/SenseNova-U1.5-8B-MoT-Preview</p>
+          
+          <h3>まとめ</h3>
+<p>SenseNovaは、軽量なマルチモーダルモデル「SenseNova U1.5-Lite-Preview」を公開しました。このモデルは8B-MoTの規模ながら商用のクローズドモデルに匹敵する性能を持ち、特に4K画像生成や質感表現、正確なテキスト生成において前バージョンから大幅な進化を遂げています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>New Product Release</h3>
+          
+          <p>On August 3, it was announced that SenseNova released an open-source preview of its lightweight integrated multimodal model, SenseNova U1.5-Lite-Preview, for the community.</p>
+          
+          <h3>Performance and Features</h3>
+          
+          <p>According to the announcement, thanks to various functional enhancements, SenseNova U1.5-Lite-Preview significantly outperforms U1 across several key generation and editing quality evaluation benchmarks. Despite its lightweight scale of 8B-MoT, it achieves image generation capabilities and editing effects comparable to commercial closed models.</p>
+          
+          <p>The official announcement highlights that SenseNova U1.5-Lite-Preview achieved significant improvements over U1 in the following areas:</p>
+          
+          <ul>
+<li>Support for native 4K image generation</li>
+<li>More sophisticated local textures, details, and real-world texture representation</li>
+<li>More accurate Chinese and English text generation with complex layout configurations</li>
+<li>More stable image editing and visual instruction compliance</li>
+</ul>
+          
+          <h3>Open Source Links</h3>
+          
+          <p>GitHub: https://github.com/OpenSenseNova/SenseNova-U1/blob/main/docs/u1.5_preview.md</p>
+          
+          <p>Hugging Face: https://huggingface.co/sensenova/SenseNova-U1.5-8B-MoT-Preview</p>
+          
+          <p>ModelScope: https://modelscope.cn/models/SenseNova/SenseNova-U1.5-8B-MoT-Preview</p>
+          
+          <h3>Summary</h3>
+          
+          <p>SenseNova has released SenseNova U1.5-Lite-Preview, a lightweight multimodal model that rivals commercial closed models despite its 8B-MoT scale. The new version offers significant improvements over the previous iteration, particularly in 4K image generation, detailed texture rendering, and accurate text production.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">편집 명령</div>
+                <div class="caption-lang" data-lang="en">Edit instructions</div>
+                <div class="caption-lang" data-lang="ja">編集指示</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">하늘의 구름</div>
+                <div class="caption-lang" data-lang="en">Clouds in the sky</div>
+                <div class="caption-lang" data-lang="ja">空の雲</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">더욱 화려하게, 강화된</div>
+                <div class="caption-lang" data-lang="en">Make it more stunning.</div>
+                <div class="caption-lang" data-lang="ja">より華やかに、追加</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">호수 표면의 반영 유지</div>
+                <div class="caption-lang" data-lang="en">Keep the lake reflection.</div>
+                <div class="caption-lang" data-lang="ja">湖の倒影を保つ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">전반적인 자연스러운 빛과 그림자</div>
+                <div class="caption-lang" data-lang="en">Overall natural lighting.</div>
+                <div class="caption-lang" data-lang="ja">全体的に自然な光と影。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">앱 편집</div>
+                <div class="caption-lang" data-lang="en">Edit App</div>
+                <div class="caption-lang" data-lang="ja">アプリ編集</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">네이티브 지원</div>
+                <div class="caption-lang" data-lang="en">Native support</div>
+                <div class="caption-lang" data-lang="ja">ネイティブ対応</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">4K 이미지 생성</div>
+                <div class="caption-lang" data-lang="en">4K Image Generation</div>
+                <div class="caption-lang" data-lang="ja">4K画像生成</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">더욱 세밀한 부분 질감-</div>
+                <div class="caption-lang" data-lang="en">Finer local textures</div>
+                <div class="caption-lang" data-lang="ja">より精細な部分のテクスチャ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">디테일과 실제 세계 비교</div>
+                <div class="caption-lang" data-lang="en">Detail and real-world reference</div>
+                <div class="caption-lang" data-lang="ja">詳細と実世界の参照</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">더욱 안정적인 이미지 편집과</div>
+                <div class="caption-lang" data-lang="en">More stable image editing and</div>
+                <div class="caption-lang" data-lang="ja">より安定した画像編集と</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">시각적 명령 강화</div>
+                <div class="caption-lang" data-lang="en">Visual Instruction Enhancement</div>
+                <div class="caption-lang" data-lang="ja">視覚指令の強化</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">더욱 풍부한 질감 디테일</div>
+                <div class="caption-lang" data-lang="en">Richer texture details</div>
+                <div class="caption-lang" data-lang="ja">より豊かなテクスチャのディテール</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">더욱 사실적인 질감과 빛의 표현</div>
+                <div class="caption-lang" data-lang="en">More realistic textures and lighting</div>
+                <div class="caption-lang" data-lang="ja">よりリアルな質感と光影</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.png" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.png" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.png" alt="이미지 5" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">클레이 포트 요리</div>
+                <div class="caption-lang" data-lang="en">Claypot Stir-fry</div>
+                <div class="caption-lang" data-lang="ja">鉄鍋での煮込み</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">얼음물</div>
+                <div class="caption-lang" data-lang="en">With ice</div>
+                <div class="caption-lang" data-lang="ja">氷水</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">정말 산뜻함</div>
+                <div class="caption-lang" data-lang="en">So refreshing</div>
+                <div class="caption-lang" data-lang="ja">とても爽やか</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오늘의 탄산음료</div>
+                <div class="caption-lang" data-lang="en">Today&#39;s soda</div>
+                <div class="caption-lang" data-lang="ja">今日の炭酸飲料</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">행복감 100%♡</div>
+                <div class="caption-lang" data-lang="en">100% happiness ♡</div>
+                <div class="caption-lang" data-lang="ja">幸せ度100%♡</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">겉은 바삭하고 속은 촉촉한</div>
+                <div class="caption-lang" data-lang="en">Crispy outside, tender inside.</div>
+                <div class="caption-lang" data-lang="ja">外はカリッと、中は柔らかい。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">가슴 깊이 와닿는 감동!</div>
+                <div class="caption-lang" data-lang="en">Hits the heart!</div>
+                <div class="caption-lang" data-lang="ja">一口で、心に届く。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오늘 제작한 것 중 가장 예쁜 것</div>
+                <div class="caption-lang" data-lang="en">The best looking one today.</div>
+                <div class="caption-lang" data-lang="ja">今日一番の仕上がり</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">맛있게 잘 먹었어~</div>
+                <div class="caption-lang" data-lang="en">Enjoyed the meal!</div>
+                <div class="caption-lang" data-lang="ja">美味しく食べて幸せ。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">따끈따끈한</div>
+                <div class="caption-lang" data-lang="en">Piping hot</div>
+                <div class="caption-lang" data-lang="ja">温かいもの</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">진한 국물</div>
+                <div class="caption-lang" data-lang="en">Rich broth</div>
+                <div class="caption-lang" data-lang="ja">コクのあるスープ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">정말 만족스럽다.</div>
+                <div class="caption-lang" data-lang="en">So satisfied.</div>
+                <div class="caption-lang" data-lang="ja">とても満足。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오늘의 위,</div>
+                <div class="caption-lang" data-lang="en">Today&#39;s stomach,</div>
+                <div class="caption-lang" data-lang="ja">今日の食事</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">정말 만족스러워♡</div>
+                <div class="caption-lang" data-lang="en">So satisfied♡</div>
+                <div class="caption-lang" data-lang="ja">幸せ♡</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">배불러요</div>
+                <div class="caption-lang" data-lang="en">I&#39;m full.</div>
+                <div class="caption-lang" data-lang="ja">お腹いっぱい。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이미지 입력</div>
+                <div class="caption-lang" data-lang="en">Input image</div>
+                <div class="caption-lang" data-lang="ja">画像を挿入</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이미지 출력</div>
+                <div class="caption-lang" data-lang="en">Generate image</div>
+                <div class="caption-lang" data-lang="ja">画像を出力</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">손그림 주석 추가</div>
+                <div class="caption-lang" data-lang="en">Case: Add hand-drawn annotations</div>
+                <div class="caption-lang" data-lang="ja">例：手書き注釈の追加</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/985/044.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

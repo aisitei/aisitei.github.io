@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Intel, 오픈소스 멀티모달 비디오 모델 MiniMax H3에 Day 0 지원 및 멀티 GPU 기반 배포 솔루션 제공</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="Intel, 오픈소스 멀티모달 비디오 모델 MiniMax H3에 Day 0 지원 및 멀티 GPU 기반 배포 솔루션 제공">
+  <meta name="title-zh" content="英特尔：为开源多模态视频模型 MiniMax H3 提供 Day 0 支持，实现基于多卡 GPU 的部署方案">
+  <meta name="title-ja" content="Intel：オープンソースのマルチモーダル動画モデルMiniMax H3にDay 0サポートを提供し、マルチGPUベースのデプロイメントソリューションを実現">
+  <meta name="title-en" content="Intel Provides Day 0 Support for Open-Source Multimodal Video Model MiniMax H3, Enabling Multi-GPU Deployment Solutions">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap hero-image-fallback">
+        <img src="../../../../assets/images/apple-touch-icon.png" alt="Intel, 오픈소스 멀티모달 비디오 모델 MiniMax H3에 Day 0 지원 및 멀티 GPU 기반 배포 솔루션 제공" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Intel, 오픈소스 멀티모달 비디오 모델 MiniMax H3에 Day 0 지원 및 멀티 GPU 기반 배포 솔루션 제공"
+            data-zh="英特尔：为开源多模态视频模型 MiniMax H3 提供 Day 0 支持，实现基于多卡 GPU 的部署方案"
+            data-ja="Intel：オープンソースのマルチモーダル動画モデルMiniMax H3にDay 0サポートを提供し、マルチGPUベースのデプロイメントソリューションを実現"
+            data-en="Intel Provides Day 0 Support for Open-Source Multimodal Video Model MiniMax H3, Enabling Multi-GPU Deployment Solutions">Intel, 오픈소스 멀티모달 비디오 모델 MiniMax H3에 Day 0 지원 및 멀티 GPU 기반 배포 솔루션 제공</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-04
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>지원 소식</h3>
+          
+          <p>Intel은 오늘 차세대 오픈 소스 멀티모달 비디오 모델인 MiniMax H3에 대해 Day 0 출시 지원을 제공한다고 발표했습니다.</p>
+          
+          <h3>기술 아키텍처</h3>
+          
+          <p>Intel Arc Pro B70은 MiniMax H3에 대한 최적화를 가장 먼저 완료했으며, Intel 팀은 멀티 GPU 기반의 배포 솔루션을 구현했습니다.</p>
+          
+          <p>이 솔루션은 Encoder 8 카드 텐서 병렬(8TP), DiT 8 카드 USP(Ulysses Sequence Parallel, Layer-wise Offloading 결합), 그리고 B70 GPU에 배치된 VAE의 전체 아키텍처를 채택하여 비디오 생성 전 과정에서 GPU 가속을 실현했습니다.</p>
+          
+          <p>그중 Encoder는 8 카드 텐서 병렬을 사용하여 텍스트 인코딩을 수행합니다. 추론 과정에서 계산량이 가장 많은 모듈인 DiT는 8 카드 USP와 Layer-wise Offloading 기술을 결합하여 모델 파라미터를 레이어별로 GPU에 동적으로 로드하며, 이를 통해 단일 카드 메모리 제한을 극복하고 모델의 상주 메모리 요구량을 낮추는 동시에 더 큰 규모의 DiT 모델 배포를 지원합니다. VAE는 B70 GPU에 배치되어 최종 비디오 디코딩을 수행합니다. 이 솔루션은 모델 용량과 계산 효율성을 모두 고려하여 대규모 비디오 생성 모델에 더욱 확장성 있는 배포 방식을 제공합니다.</p>
+          
+          <h3>하이브리드 병렬 솔루션</h3>
+          
+          <p>이에 더해, 팀은 텐서 병렬(Tensor Parallel, TP)과 USP의 장점을 결합하여 2TP×4USP 하이브리드 병렬 솔루션을 개발했습니다. 순수 8 카드 USP와 비교할 때, 이 방식은 USP 병렬도를 8에서 4로 낮추고 2개의 텐서 병를 도입하여 계산을 협력적으로 가속합니다. 이를 통해 모델 확장성을 유지하면서도 USP로 인한 통신 오버헤드를 줄여 계산 부하와 통신 비용 사이의 최적의 균형을 맞추고 전체 추론 성능을 향상시켰습니다.</p>
+          
+          <h3>최적화 및 성능</h3>
+          
+          <p>또한, 팀은 llm-scaler-omni 프로젝트의 XPU Kernel 최적화를 결합하여 행렬 곱셈, 어텐션 등 핵심 연산자를 지속적으로 최적화했습니다. 이를 통해 GPU 계산 효율을 높이고 엔드투엔드 추론 지연 시간을 단축하며 우수한 최적화 효과를 거두었습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Intel은 MiniMax H3 모델에 대해 Arc Pro B70 기반의 멀티 GPU 배포 솔루션을 제공하며, 텐서 병렬 및 USP 기술을 결합해 효율적인 비디오 생성 환경을 구축했습니다. 특히 하이브리드 병렬 방식과 핵심 연산자 최적화를 통해 대규모 모델의 확장성과 추론 성능을 동시에 확보한 것이 특징입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Intel 提供 MiniMax H3 首发支持</h3>
+<p>Intel 宣布为新一代开源多模态视频模型 MiniMax H3 提供 Day 0 首发支持。该方案基于 Intel 锐炫 Pro B70 GPU 实现，旨在通过多卡 GPU 部署架构提供全流程的视频生成加速。</p>
+          
+          <h3>核心部署架构</h3>
+<p>针对 MiniMax H3 的不同模块，Intel 团队设计了相应的优化路径：</p>
+<ul>
+<li>Encoder：采用 8 卡张量并行（8TP）完成文本编码。</li>
+<li>DiT：作为计算量最大的模块，采用 8 卡 USP（Ulysses Sequence Parallel）并结合 Layer-wise Offloading 技术，在突破单卡显存限制的同时降低模型常驻显存需求。</li>
+<li>VAE：部署于 B70 GPU 上完成最终的视频解码。</li>
+</ul>
+          
+          <h3>混合并行与性能优化</h3>
+<p>为了进一步平衡计算负载与通信开销，团队引入了更高效的并行策略和算子优化：</p>
+<ul>
+<li>混合并行方案：开发出 2TP×4USP 的混合并行模式，将 USP 并行度由 8 降至 4，并引入 2 路张量并行协同加速。</li>
+<li>XPU Kernel 优化：结合 llm-scaler-omni 项目，对矩阵乘法、注意力等关键算子进行优化，显著降低端到端推理时延。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Intel 为开源视频模型 MiniMax H3 提供 Day 0 支持，通过在 Intel 锐炫 Pro B70 上采用多卡并行架构和 2TP×4USP 混合并行方案提升了处理效率。该方案结合 Layer-wise Offloading 与 XPU Kernel 优化，实现了高性能、高扩展性的视频生成推理。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>サポート情報</h3>
+          
+          <p>Intelは本日、次世代のオープンソース・マルチモーダル動画モデル「MiniMax H3」に対し、Day 0リリースサポートを提供することを発表しました。</p>
+          
+          <h3>技術アーキテクチャ</h3>
+          
+          <p>Intel Arc Pro B70はMiniMax H3への最適化を最優先で完了しており、IntelチームはマルチGPUベースの展開ソリューションを実装しました。</p>
+          
+          <p>このソリューションは、以下の構成を採用することで、動画生成の全工程においてGPU加速を実現しています。</p>
+<ul>
+<li>Encoder：8カード・テンサー並列（8TP）を使用してテキストエンコーディングを実行。</li>
+<li>DiT：計算量が最も多いモジュールであるDiTには、8カードUSP（Ulysses Sequence Parallel、Layer-wise Offloadingの統合）とLayer-wise Offloading技術を組み合わせることで、モデルパラメータをレイヤーごとにGPUへ動的にロードします。これにより、単一カードのメモリ制限を克服し、より大規模なDiTモデルの展開をサポートします。</li>
+<li>VAE：B70 GPUに配置され、最終的なビデオデコーディングを実行。</li>
+</ul>
+          
+          <p>このソリューションは、モデル容量と計算効率の両方を考慮しており、大規模な動画生成モデルに対してより拡張性の高い展開方法を提供します。</p>
+          
+          <h3>ハイブリッド並列ソリューション</h3>
+          
+          <p>さらに、チームはテンサー並列（Tensor Parallel, TP）とUSPの利点を組み合わせた「2TP×4USPハイブリッド並列ソリューション」を開発しました。純粋な8カードUSPと比較して、この手法はUSPの並列度を8から4に下げつつ、2つのテンサー並列を導入することで計算を協調的に加速させます。これにより、モデルの拡張性を維持しながらUSPによる通信オーバーヘッドを削減し、計算負荷と通信コストの最適なバランスを実現して、全体の推論性能を向上させています。</p>
+          
+          <h3>最適化とパフォーマンス</h3>
+          
+          <p>また、チームはllm-scaler-omniプロジェクトのXPU Kernel最適化を統合し、行列乗算やアテンションなどの主要演算子を継続的に最適化しました。これによりGPUの計算効率が向上し、エンドツーエンドの推論遅延時間が短縮されるなど、優れた最適化効果を実現しています。</p>
+          
+          <h3>総評</h3>
+          
+          <p>IntelはMiniMax H3モデルに対し、Arc Pro B70ベースのマルチGPU展開ソリューションを提供し、テンサー並列およびUSP技術を組み合わせることで効率的な動画生成環境を構築しました。特にハイブリッド並列方式と主要演算子の最適化を通じて、大規模モデルの拡張性と推論性能の両立を実現している点が特徴です。</p>
+          
+          <h3>まとめ</h3>
+<p>Intelは次世代マルチモーダル動画モデル「MiniMax H3」に対し、Arc Pro B70を活用した高度なマルチGPU展開ソリューションを提供します。テンサー並列とUSPを組み合わせたハイブリッド手法やXPU Kernelの最適化により、大規模モデルにおける拡張性と推論性能の両立を実現しました。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Support News</h3>
+<p>Intel has announced Day 0 launch support for MiniMax H3, a next-generation open-source multimodal video model.</p>
+          
+          <h3>Technical Architecture</h3>
+<p>The Intel Arc Pro B70 was the first to complete optimizations for MiniMax H3. The Intel team implemented a multi-GPU based deployment solution that utilizes several key technologies to achieve GPU acceleration throughout the entire video generation process:</p>
+<ul>
+<li><strong>Encoder:</strong> Utilizes 8 card Tensor Parallel (8TP) to perform text encoding.</li>
+<li><strong>DiT:</strong> As the most computationally intensive module, it combines 8 card USP (Ulysses Sequence Parallel) and Layer-wise Offloading. This allows model parameters to be loaded onto GPUs dynamically by layer, overcoming single-card memory limitations and reducing resident memory requirements while supporting larger DiT models.</li>
+<li><strong>VAE:</strong> Deployed on B70 GPUs to perform the final video decoding.</li>
+</ul>
+<p>This architecture provides a highly scalable deployment method for large-scale video generation models by balancing model capacity with computational efficiency.</p>
+          
+          <h3>Hybrid Parallel Solution</h3>
+<p>In addition, the team developed a 2TP × 4USP hybrid parallel solution that combines the advantages of Tensor Parallel (TP) and USP. Compared to a pure 8-card USP configuration, this method reduces the USP parallelism from 8 to 4 while introducing 2 Tensor Parallels to accelerate calculations collaboratively.</p>
+<p>This approach maintains model scalability while reducing the communication overhead caused by USP, creating an optimal balance between computational load and communication costs, thereby improving overall inference performance.</p>
+          
+          <h3>Optimization and Performance</h3>
+<p>The team also integrated XPU Kernel optimizations from the llm-scaler-omni project to continuously optimize core operators such as matrix multiplication and attention. These efforts have resulted in significant optimization effects, including increased GPU calculation efficiency and reduced end-to-end inference latency.</p>
+          
+          <h3>Summary</h3>
+<p>Intel has introduced a multi-GPU deployment solution for the MiniMax H3 model using Intel Arc Pro B70 GPUs. By combining Tensor Parallel and USP technologies with hybrid parallel methods and core operator optimizations, the solution provides high scalability and improved inference performance for large-scale video generation.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/985/033.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
