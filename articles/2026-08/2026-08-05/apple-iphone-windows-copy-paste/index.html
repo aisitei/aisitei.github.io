@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 마이크로소프트의 요청에 따라 Apple이 유럽에서 iPhone과 Windows 간 기기 간 복사 및 붙여넣기 기능을 출시할 계획입니다.</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="마이크로소프트의 요청에 따라 Apple이 유럽에서 iPhone과 Windows 간 기기 간 복사 및 붙여넣기 기능을 출시할 계획입니다.">
+  <meta name="title-zh" content="微软提出请求后，苹果计划在欧盟推出 iPhone 与 Windows 跨设备复制粘贴功能">
+  <meta name="title-ja" content="Microsoftの要請を受け、Appleは欧州でiPhoneとWindows間でのクロスデバイス対応のコピー＆ペースト機能を導入する計画。">
+  <meta name="title-en" content="Following a request from Microsoft, Apple plans to roll out cross-device copy and paste functionality between iPhone and Windows in the EU.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="마이크로소프트의 요청에 따라 Apple이 유럽에서 iPhone과 Windows 간 기기 간 복사 및 붙여넣기 기능을 출시할 계획입니다." loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="마이크로소프트의 요청에 따라 Apple이 유럽에서 iPhone과 Windows 간 기기 간 복사 및 붙여넣기 기능을 출시할 계획입니다."
+            data-zh="微软提出请求后，苹果计划在欧盟推出 iPhone 与 Windows 跨设备复制粘贴功能"
+            data-ja="Microsoftの要請を受け、Appleは欧州でiPhoneとWindows間でのクロスデバイス対応のコピー＆ペースト機能を導入する計画。"
+            data-en="Following a request from Microsoft, Apple plans to roll out cross-device copy and paste functionality between iPhone and Windows in the EU.">마이크로소프트의 요청에 따라 Apple이 유럽에서 iPhone과 Windows 간 기기 간 복사 및 붙여넣기 기능을 출시할 계획입니다.</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-05
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>기능 개요</h3>
+          
+          <p>Apple은 향후 iPhone과 Windows PC 간의 크로스 디바이스 복사 및 붙여넣기 기능을 지원하는 새로운 기능을 개발 중입니다.</p>
+          
+          <h3>도입 배경</h3>
+          
+          <p>이 기능은 Microsoft가 Apple을 통해 제출한 유럽 상호운용성 신청 메커니즘에서 비롯되었습니다. Apple은 유럽의 디지털 시장법(DMA) 요건을 준수하기 위해 해당 요청을 수용했으며, 올해 3월부터 검토를 시작해 6월 26일 프로젝트 실행 방안을 제출했습니다.</p>
+          
+          <h3>기능 상세</h3>
+          
+          <p>Microsoft에 따르면 이 기능은 사용자가 iPhone에서 복사한 텍스트나 기타 지원되는 콘텐츠를 Windows PC에 직접 붙여넣을 수 있게 하며, 반대 방향의 작업도 지원합니다. Microsoft는 특정 앱으로 전환하거나 매번 수동으로 전송을 실행할 필요 없이, 클립보드 동기화가 지속적이고 가벼운 시스템 기능으로 작동하기를 희망하고 있습니다.</p>
+          
+          <h3>구현 방식</h3>
+          
+          <p>이 요구사항에 대해 Apple이 제시한 방안은 iPhone과 페어링된 외부 기기(예: Windows PC) 간의 클립보드 내용 공유 및 가져오기를 허용하는 것입니다. 이 방식은 iOS 26.5에서 유럽 시장을 위해 도입된 서드파티 웨어러블 기기용 "액세서리 알림(Accessory Notifications)" 기능과 유사합니다. 사용자는 페어링된 각 기기에 iPhone 클립보드 접근을 허용하는 일회성 권한을 부여해야 합니다.</p>
+          
+          <p>Apple은 개발자가 AccessorySetupKit를 통합하여 사용자가 관련 권한 절차를 완료하고, 이를 통해 클립보드 내용이 페어링된 기기와 공유될 수 있도록 해야 한다고 밝혔습니다. 해당 기능을 지원하는 모든 기기에서 사용자는 일회성 권한 확인을 거쳐야 합니다.</p>
+          
+          <h3>현재 상황 및 한계</h3>
+          
+          <p>현재 서드파티 앱은 전면에 실행될 때만 iPhone 클립보드 내용에 접근할 수 있으며, 매번 복사 또는 붙여넣기 시마다 접근 권한을 부여받아야 합니다. 반면 Apple 기기 간에는 이미 "공통 클립보드(Universal Clipboard)" 기능이 지원되어 iPhone, iPad, Mac 사이에서 크로스 디바이스 복사 및 붙여넣기가 가능합니다.</p>
+          
+          <p>Microsoft는 현재의 제한적인 클립보드 접근 방식이 앱이 백그라운드에서 지속적으로 iPhone과 PC 또는 기타 연결된 기기 간의 클립보드 내용을 동기화하는 것을 방해하여 사용자 경험에 부정적인 영향을 미친다고 판단하고 있습니다.</p>
+          
+          <h3>출시 일정 및 지역</h3>
+          
+          <p>Apple은 이 기능을 구현하기 위해 상당한 엔지니어링 작업이 필요하며, 2027년 가을에 개발 완료를 예상하고 있습니다. 이후 개발자 베타 버전을 통해 검증을 거친 후 일반 대중에게 공개될 예정입니다. 개발이 원활하게 진행될 경우, 일반 사용자는 2028년 초에 이 기능을 공식적으로 사용할 수 있을 것으로 보입니다.</p>
+          
+          <p>해당 기능은 초기에는 유럽 지역의 iPhone 및 Windows 사용자에게만 제공될 예정이나, 향후 전 세계 시장으로 확장될 가능성도 있습니다.</p>
+          
+          <h3>추가 정보</h3>
+          
+          <p>최근 몇 년간 Apple은 디지털 시장법(DMA)에 따라 개발된 일부 기능을 전 세계로 확대해 왔습니다. 예를 들어 iPhone에서 Android 휴대폰으로의 eSIM 이전이나, Android와 iPhone 간의 편리한 데이터 이동 기능 등이 포함됩니다. 반면 서드파티 웨어러블 기기의 AirPods와 유사한 페어링 경험 및 알림 전달 기능 등은 현재 유럽 지역에만 제한적으로 제공되고 있습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Apple은 Microsoft의 요청과 EU 디지털 시장법(DMA) 준수를 위해 iPhone과 Windows PC 간의 크로스 디바이스 클립보드 동기화 기능을 개발 중입니다. 이 기능은 2027년 가을에 개발 완료를 목표로 하며, 초기에는 유럽 지역에서 우선 제공되나 향후 글로벌 확장 가능성이 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>跨设备剪贴板功能</h3>
+<p>Apple 正在开发一项新功能，旨在支持 iPhone 与 Windows PC 之间的内容复制与粘贴。该功能将允许用户在两个系统之间直接传输文本或其他受支持的内容，无需切换特定应用或手动发起复杂的传输操作。</p>
+          
+          <h3>合作背景与动机</h3>
+<p>此项功能的源头是 Microsoft 通过 Apple 为欧盟《数字市场法案》（DMA）建立的互操作性申请机制提出的请求。Microsoft 希望将剪贴板同步转变为一种持续运行、轻量化的系统能力，而非依赖于特定应用的手动功能。</p>
+          
+          <h3>技术实现与授权</h3>
+<p>Apple 计划通过 AccessorySetupKit 框架来实现此项功能。用户需要为每台已配对的设备授予一次性权限来访问 iPhone 的剪贴板内容，这一逻辑与 iOS 26.5 中针对欧盟市场的“配件通知”功能类似。</p>
+<ul>
+<li>技术架构：接入 AccessorySetupKit 以处理授权流程。</li>
+<li>当前限制：目前第三方应用仅在前台运行时可读取剪贴板，且每次操作需手动授权。</li>
+<li>对比优势：旨在提供类似于 Apple 自家设备“通用剪贴板”的流畅体验。</li>
+</ul>
+          
+          <h3>发布时间与范围</h3>
+<p>由于涉及大量的工程开发工作，该功能预计于 2027 年秋季完成开发并进入开发者测试阶段。如果进度顺利，普通用户最快可能在 2028 年初正式使用。</p>
+<ul>
+<li>首发区域：初期仅面向欧盟地区的 iPhone 和 Windows 用户。</li>
+<li>全球推广：Apple 未来可能会将该功能扩展至全球市场。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Apple 受 Microsoft 的推动，正开发支持 iPhone 与 Windows PC 跨设备剪贴板同步的功能。该功能预计于 2027 年完成开发并于 2028 年初在欧盟率先推出，旨在通过 AccessorySetupKit 提供更便捷的系统级交互体验。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>機能概要</h3>
+          
+          <p>Appleは、今後iPhoneとWindows PCの間でクロスデバイスなコピー＆ペースト機能をサポートする新機能を開発中です。</p>
+          
+          <h3>導入の背景</h3>
+          
+          <p>この機能は、MicrosoftがAppleを通じて提出した欧州の相互運用性申請メカニズムに端を発しています。Appleは欧州のデジタル市場法（DMA）の要件を遵守するためこの要求を受け入れ、今年3月から検討を開始し、6月26日にプロジェクトの実施計画を提出しました。</p>
+          
+          <h3>機能の詳細</h3>
+          
+          <p>Microsoftによると、この機能によりユーザーはiPhoneでコピーしたテキストやその他のサポートされるコンテンツをWindows PCに直接貼り付けることが可能になり、逆方向の操作もサポートされます。Microsoftは、特定のアプリに切り替えたり、毎回手動で転送を実行したりすることなく、クリップボード同期が継続的かつ軽量なシステム機能として動作することを求めています。</p>
+          
+          <h3>実装方法</h3>
+          
+          <p>この要求に対し、Appleが提示した案は、iPhoneとペアリングされた外部デバイス（例：Windows PC）間でクリップボードの内容を共有およびインポートすることを許可するものです。この手法は、iOS 26.5で欧州市場向けに導入されたサードパーティ製ウェアラブルデバイス向けの「アクセサリ通知（Accessory Notifications）」機能と類似しています。ユーザーはペアリングされた各デバイスに対して、iPhoneのクリップボードへのアクセスを許可する一回限りの権限を付与する必要があります。</p>
+          
+          <p>Appleは、開発者がAccessorySetupKitを統合することで、ユーザーが関連する権限プロセスを完了し、それを通じてクリップボードの内容がペアリングされたデバイスと共有されるようにする必要があることを明らかにしました。この機能をサポートするすべてのデバイスにおいて、ユーザーは一回限りの権限確認を行う必要があります。</p>
+          
+          <h3>現在の状況と制限</h3>
+          
+          <p>現在、サードパーティ製アプリは前面で実行されている場合にのみiPhoneのクリップボード内容にアクセスでき、コピーまたは貼り付けのたびにアクセス権限を付与される必要があります。一方、Appleデバイス間ではすでに「ユニバーサルクリップボード（Universal Clipboard）」機能がサポートされており、iPhone、iPad、Macの間でクロスデバイスなコピー＆ペーストが可能です。</p>
+          
+          <p>Microsoftは、現在の制限的なクリップボードアクセス方法が、アプリがバックグラウンドで継続的にiPhoneとPCまたはその他の接続されたデバイス間でクリップボード内容を同期することを妨げ、ユーザー体験に悪影響を与えていると判断しています。</p>
+          
+          <h3>リリーススケジュールと地域</h3>
+          
+          <p>Appleはこの機能を実装するために多大なエンジニアリング作業を必要としており、2027年秋に開発完了を見込んでいます。その後、開発者ベータ版を通じて検証を経てから一般公開される予定です。開発が順調に進めば、一般ユーザーは2028年初頭にこの機能を公式に使用できるようになると見込まれます。</p>
+          
+          <p>この機能は初期段階では欧州地域のiPhoneおよびWindowsユーザー向けに提供される予定ですが、将来的に世界市場へ拡大される可能性があります。</p>
+          
+          <h3>追加情報</h3>
+          
+          <p>近年、Appleはデジタル市場法（DMA）に従って開発された一部の機能を世界に展開してきました。例えば、iPhoneからAndroidスマートフォンへのeSIM移行や、AndroidとiPhone間のスムーズなデータ移行機能などが含まれます。一方で、サードパーティ製ウェアラブルデバイスのAirPodsと同様のペアリング体験や通知転送機能などは、現在欧州地域に限定して提供されています。</p>
+          
+          <h3>総評</h3>
+          
+          <p>AppleはMicrosoftの要請とEUデジタル市場法（DMA）への準拠のため、iPhoneとWindows PC間のクロスデバイスなクリップボード同期機能を開発中です。この機能は2027年秋の開発完了を目指しており、当初は欧州地域で優先提供されますが、将来的なグローバル展開の可能性も備えています。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>AppleはEUのデジタル市場法（DMA）への対応として、iPhoneとWindows PC間でのシームレスなクリップボード同期機能を開発しています。この機能は2027年秋の開発完了を目指しており、当初は欧州向けに提供されますが、将来的な世界展開も視野に入れています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Feature Overview</h3>
+<p>Apple is currently developing a new feature that will support cross-device copy and paste functionality between iPhones and Windows PCs.</p>
+          
+          <h3>Background</h3>
+<p>This initiative originated from Microsoft’s request through the European interoperability mechanism. To comply with the requirements of the European Digital Markets Act (DMA), Apple accepted the request, began reviewing it in March, and submitted a project implementation plan on June 26.</p>
+          
+          <h3>Feature Details</h3>
+<p>According to Microsoft, this feature will allow users to copy text or other supported content on an iPhone and paste it directly onto a Windows PC, with support for the reverse operation as well. Microsoft aims for clipboard synchronization to function as a continuous, lightweight system feature, eliminating the need for users to switch to specific apps or manually trigger a transfer every time.</p>
+          
+          <h3>Implementation Method</h3>
+<p>Apple’s proposed solution involves allowing the sharing and importing of clipboard content between an iPhone and paired external devices (e.g., Windows PCs). This method is similar to the "Accessory Notifications" feature introduced in iOS 26.5 for third-party wearable devices in the European market. Users will need to grant a one-time permission to allow each paired device to access the iPhone's clipboard.</p>
+<p>Apple stated that developers must integrate AccessorySetupKit so that users can complete the necessary authorization procedures, enabling clipboard content to be shared with paired devices. This one-time permission check will be required on all devices supporting the feature.</p>
+          
+          <h3>Current Status and Limitations</h3>
+<p>Currently, third-party apps can only access iPhone clipboard content when they are running in the foreground, and they must be granted permission every time a copy or paste action occurs. In contrast, Apple devices already support "Universal Clipboard," which enables seamless cross-device copy and paste between iPhones, iPads, and Macs.</p>
+<p>Microsoft has determined that the current restricted method of clipboard access hinders the ability of apps to continuously sync clipboard content between an iPhone and a PC or other connected devices in the background, which negatively impacts the user experience.</p>
+          
+          <h3>Release Schedule and Region</h3>
+<p>Apple noted that significant engineering work is required to implement this feature, with development expected to be completed in the fall of 2027. Following completion, it will undergo verification through developer beta versions before being released to the general public. If development proceeds smoothly, the feature is expected to be officially available to general users in early 2028.</p>
+<p>While the feature is initially slated for iPhone and Windows users in the European region, there is a possibility of expansion to global markets in the future.</p>
+          
+          <h3>Additional Information</h3>
+<p>In recent years, Apple has expanded several features developed under the Digital Markets Act (DMA) to the global market. These include eSIM transfers from iPhones to Android phones and convenient data migration tools between Android and iPhone. Conversely, certain features—such as pairing experiences and notification delivery for third-party wearables similar to AirPods—remain limited to the European region.</p>
+          
+          <h3>Summary</h3>
+<p>Apple is developing a cross-device clipboard synchronization feature between iPhones and Windows PCs to comply with EU Digital Markets Act (DMA) requirements. The project aims to provide seamless copy-paste functionality, with an expected public release in early 2028 starting in Europe. While the initial rollout is regional, there is potential for global expansion following successful development and testing.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/985/280.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

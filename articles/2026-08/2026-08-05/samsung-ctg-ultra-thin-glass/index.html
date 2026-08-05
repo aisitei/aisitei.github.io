@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Samsung, 폴더블 디스플레이 스마트폰 화면 평탄도 개선을 위한 CTG 초박형 유리 기술 상용화 추진</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Samsung">
+  <meta name="article-brand-color" content="#1428A0">
+  <meta name="title-ko" content="Samsung, 폴더블 디스플레이 스마트폰 화면 평탄도 개선을 위한 CTG 초박형 유리 기술 상용화 추진">
+  <meta name="title-zh" content="使折叠屏手机屏幕更平整，消息称三星正推进 CTG 中央蚀刻超薄玻璃技术商业化">
+  <meta name="title-ja" content="折りたたみディスプレイ搭載スマートフォンの画面をより平坦にするため、SamsungがCTGセンターエッチング超薄型ガラス技術の商用化を進めているとの報道。">
+  <meta name="title-en" content="To make foldable display smartphone screens flatter, reports say Samsung is pushing the commercialization of CTG center-etched ultra-thin glass technology.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="Samsung, 폴더블 디스플레이 스마트폰 화면 평탄도 개선을 위한 CTG 초박형 유리 기술 상용화 추진" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #1428A0;">
+            Samsung
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Samsung, 폴더블 디스플레이 스마트폰 화면 평탄도 개선을 위한 CTG 초박형 유리 기술 상용화 추진"
+            data-zh="使折叠屏手机屏幕更平整，消息称三星正推进 CTG 中央蚀刻超薄玻璃技术商业化"
+            data-ja="折りたたみディスプレイ搭載スマートフォンの画面をより平坦にするため、SamsungがCTGセンターエッチング超薄型ガラス技術の商用化を進めているとの報道。"
+            data-en="To make foldable display smartphone screens flatter, reports say Samsung is pushing the commercialization of CTG center-etched ultra-thin glass technology.">Samsung, 폴더블 디스플레이 스마트폰 화면 평탄도 개선을 위한 CTG 초박형 유리 기술 상용화 추진</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-05
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>기술 소개</h3>
+          
+          <p>ZDNet 보도에 따르면, Samsung 디스플레이는 초박형 유연 유리(UTG)의 중앙 영역을 박막 에칭하는 기술인 CTG를 상용화하기 위해 총력을 기울이고 있습니다. 업계에서는 Samsung이 내년 출시 예정인 폴더블 디스플레이 스마트폰 Galaxy Z9 시리즈 일부 모델에 이 CTG 기술을 탑재할 가능성이 높다고 예측하고 있습니다.</p>
+          
+          <h3>CTG의 특징</h3>
+          
+          <p>CTG는 폴더블 패널 커버 글라스인 UTG의 굴곡 부위 중앙 구조층을 선택적으로 박막 에칭하는 기술로, '하이브리드형 UTG'라고도 불립니다. 중앙 영역을 박막화하면 패널이 더 쉽게 접히고, 에칭되지 않은 비굴곡 영역은 두께를 유지하여 화면 전체의 평탄도와 내구성을 높여줍니다.</p>
+          
+          <h3>기술적 과제 및 해결 방안</h3>
+          
+          <p>IT홈(IT之家)이 입수한 보도에 따르면, CTG를 양산 수준으로 끌어올리기 위해서는 몇 가지 기술적 난관을 극복해야 합니다. 에칭된 중앙 영역과 나머지 영역 사이에 높이 차이가 발생할 경우, 사용자가 시각적으로 화면의 불균형을 느낄 수 있기 때문입니다.</p>
+          
+          <p>이를 위해 Samsung 디스플레이는 에칭으로 인해 움푹 들어간 중앙 영역에 충전재를 채워 UTG 전체의 높이를 일정하게 유지하는 기술을 개발 중입니다. 또한, 팀은 충전된 영역과 나머지 영역의 광학적 특성을 일치시키는 최적화 작업을 진행하고 있습니다.</p>
+          
+          <h3>향후 전망</h3>
+          
+          <p>디스플레이 업계 관계자는 "주요 경쟁사에 대응하기 위해 Samsung은 CTG를 포함한 차세대 폴더블 디스플레이 기술의 적용을 가속화하고 있습니다. 다만, 해당 기술의 최종 채택 여부는 올해 4분기경에 명확해질 것으로 예상됩니다."라고 밝혔습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Samsung 디스플레이는 폴더블 기기의 내구성과 유연성을 동시에 확보하기 위해 CTG 기술 상용화에 집중하고 있습니다. 현재 시각적 불균형을 해결하기 위한 충전재 및 광학 특성 최적화 연구를 진행 중이며, 관련 기술의 도입 여부는 올해 4분기경 결정될 전망입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Samsung 推送 CTG 技术</h3>
+<p>Samsung 显示正在全力推动超薄柔性玻璃（UTG）中央区域减薄蚀刻技术（CTG）的商业化。这种被称为“混合型 UTG”的技术通过对折叠面板弯折处的中心结构层进行选择性减薄，使屏幕更易于弯折；同时保留非弯折区域的厚度，以确保屏幕整体平整并具备更高的耐用性。</p>
+          
+          <h3>技术挑战与研发重点</h3>
+<p>为了将 CTG 提升至量产商用水平，Samsung 目前正致力于解决以下核心技术问题：</p>
+<ul>
+<li>消除蚀刻区域与非蚀刻区域之间的高度差，避免用户产生视觉上的不平整感。</li>
+<li>在蚀刻凹陷的中央区域填充材料，以确保 UTG 整体高度一致。</li>
+<li>优化填充区域的光学特性，使其与非填充区域保持一致。</li>
+</ul>
+          
+          <h3>产品应用与时间线</h3>
+<p>业界推测，Samsung 可能最快在明年发布的 Galaxy Z9 系列部分机型上搭载 CTG 技术。关于该技术的最终采用决策预计将在今年第四季度左右明朗化。</p>
+          
+          <h3>总结</h3>
+<p>Samsung 正在推动 CTG（混合型 UTG）技术以平衡折叠屏的弯折性能与耐用性。目前研发重点在于解决减薄区域的高度差及光学一致性问题，该技术有望在明年的 Galaxy Z9 系列中应用。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>技術の概要</h3>
+<p>ZDNetの報道によると、Samsungディスプレイは超薄型ガラス（UTG）の中央領域を薄膜エッチングする「CTG」技術の商用化に注力しています。業界では、来年発売予定の折りたたみ式スマートフォンGalaxy Z9シリーズの一部モデルに、このCTG技術が搭載される可能性が高いと予測されています。</p>
+          
+          <h3>CTGの特長</h3>
+<p>CTGは、折りたたみパネルのカバーガラスであるUTGの屈曲部分の中央構造層を選択的に薄膜エッチングする技術であり、「ハイブリッド型UTG」とも呼ばれます。中央領域を薄膜化することでパネルの折り曲げやすさを向上させ、エッチングされていない非屈曲領域は厚みを維持することで、画面全体の平坦性と耐久性を高めることができます。</p>
+          
+          <h3>技術的な課題と解決策</h3>
+<p>ITホーム（IT之家）が取得した報道によると、CTGを量産レベルに引き上げるためにはいくつかの技術的障壁を克服する必要があります。エッチングされた中央領域とそれ以外の領域との間に高さの差が生じると、ユーザーが視覚的に画面の不均衡を感じる可能性があるためです。</p>
+<p>これに対しSamsungディスプレイは、エッチングによって凹んだ中央領域に充填剤を充填し、UTG全体の高さを一定に保つ技術を開発中です。また、チームは充填された領域とそれ以外の領域の光学特性を一致させるための最適化作業も進めています。</p>
+          
+          <h3>今後の展望</h3>
+<p>ディスプレイ業界の関係者は、「主要な競合他社に対抗するため、SamsungはCTGを含む次世代の折りたたみ式ディスプレイ技術の導入を加速させています。ただし、この技術の最終的な採用可否については、今年の第4四半期頃に明確になる見込みです」と述べています。</p>
+          
+          <h3>まとめ</h3>
+<p>Samsungディスプレイは、折りたたみデバイスの耐久性と柔軟性を両立させるため、CTG技術の商用化に注力しています。現在、視覚的な不均衡を解消するための充填剤および光学特性の最適化を進めており、同技術の導入可否は年内の第4四半期に決定する見通しです。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Technology Overview</h3>
+<p>According to a report by ZDNet, Samsung Display is making significant efforts to commercialize CTG, a technology that involves thin-film etching of the central area of Ultra Thin Glass (UTG). Industry experts predict that this CTG technology will likely be integrated into some models of the Galaxy Z9 series, which is scheduled for release next year.</p>
+          
+          <h3>Features of CTG</h3>
+<p>CTG is a technique that selectively thin-etches the central structure layer of UTG at the fold point, also referred to as "Hybrid UTG."</p>
+<ul>
+    <li>Thinning the central area allows the panel to fold more easily.</li>
+    <li>Non-etched areas maintain their original thickness to enhance overall screen flatness and durability.</li>
+</ul>
+          
+          <h3>Technical Challenges and Solutions</h3>
+<p>According to a report obtained by IT Home, several technical hurdles must be overcome to bring CTG to mass production levels. If height differences occur between the etched central area and the remaining sections, users may perceive visual imbalances in the display.</p>
+<p>To address this, Samsung Display is developing technology to fill the recessed center with filler material to maintain a uniform thickness across the entire UTG. Additionally, the team is working on optimizing the optical characteristics of both the filled and non-etched areas to ensure they remain visually consistent.</p>
+          
+          <h3>Future Outlook</h3>
+<p>An industry source stated, "To counter major competitors, Samsung is accelerating the application of next-generation foldable display technologies, including CTG. However, the final decision on its adoption is expected to become clear around the fourth quarter of this year."</p>
+          
+          <h3>Summary</h3>
+<p>Samsung Display is focusing on commercializing CTG technology to simultaneously improve the durability and foldability of foldable devices. The company is currently refining filler materials and optical characteristics to eliminate visual inconsistencies caused by the etching process, with a final decision on its implementation expected in Q4 of this year.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/985/650.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

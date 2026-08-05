@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Galaxy S27 Ultra, 세 개의 후면 카메라 모두에 잉크젯 렌즈 프린팅 적용</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="Samsung">
+  <meta name="article-brand-color" content="#1428A0">
+  <meta name="title-ko" content="Galaxy S27 Ultra, 세 개의 후면 카메라 모두에 잉크젯 렌즈 프린팅 적용">
+  <meta name="title-zh" content="Galaxy S27 Ultra 三个后置摄像头均采用墨水喷墨镜头技术">
+  <meta name="title-ja" content="Galaxy S27 Ultra、3つの背面カメラすべてにインクジェットレンズ技術を採用">
+  <meta name="title-en" content="Galaxy S27 Ultra to get inkjet lens printing across all three rear cameras">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.webp" alt="Galaxy S27 Ultra, 세 개의 후면 카메라 모두에 잉크젯 렌즈 프린팅 적용" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #1428A0;">
+            Samsung
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Galaxy S27 Ultra, 세 개의 후면 카메라 모두에 잉크젯 렌즈 프린팅 적용"
+            data-zh="Galaxy S27 Ultra 三个后置摄像头均采用墨水喷墨镜头技术"
+            data-ja="Galaxy S27 Ultra、3つの背面カメラすべてにインクジェットレンズ技術を採用"
+            data-en="Galaxy S27 Ultra to get inkjet lens printing across all three rear cameras">Galaxy S27 Ultra, 세 개의 후면 카메라 모두에 잉크젯 렌즈 프린팅 적용</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-05
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>잉크젯 렌즈 프린팅 기술 도입</h3>
+          
+          <p>최근 보고에 따르면, Galaxy S27 Ultra는 기존 모델에서 처음 선보인 특수 제조 기술을 유지하고 확장할 예정입니다. 이 기술은 이미지 품질을 개선하는 동시에 카메라 모듈의 크기를 더욱 소형화하는 것을 목표로 합니다.</p>
+          
+          <p>업계 소식에 따르면 Samsung Electronics와 Samsung Electro-Mechanics는 Galaxy S27 Ultra에 잉크젯 렌즈 프린팅 공정을 더 광범위하게 적용할 계획입니다. 기존의 반사 방지 필름 대신, 잉크젯 인쇄를 통해 정밀하게 도포된 무광 잉크(matte ink)를 사용합니다.</p>
+          
+          <p>기존의 필름은 고스트 현상이나 플레어를 유발하는 산란광을 차단하는 역할을 수행해 왔으나, 이미 공간이 협용적인 렌즈 스택 내에서 추가적인 두께를 차지한다는 단점이 있었습니다. 반면, 잉크젯 인쇄로 도포되는 무광 잉크는 훨씬 적은 공간을 차지하면서도 동일하게 빛을 차단하는 기능을 수행합니다.</p>
+          
+          <h3>S27 Ultra 카메라 모듈 적용 세부 사항</h3>
+          
+          <p>Samsung은 이 방식을 Galaxy S26 Ultra에 처음 도입했으며, 이제 Galaxy S27 Ultra의 후면 카메라 모듈 3개에 이를 적용할 계획입니다. 해당 기술이 적용되는 구체적인 렌즈 레이어는 다음과 같습니다.</p>
+          
+          <ul>
+<li>L3 Tele</li>
+<li>L3 Wide</li>
+<li>L6 Wide</li>
+</ul>
+          
+          <p>이전과 마찬가지로 각 모듈 내에서 단 하나의 렌즈 레이어에만 잉크 처리가 적용되며, 나머지 레이어는 기존의 필름 방식을 유지합니다. 이러한 선택적 접근 방식은 Samsung이 더 나은 광학 성능과 제조 수율, 비용, 그리고 장기적인 신뢰성 사이에서 균형을 맞출 수 있게 해줍니다.</p>
+          
+          <h3>Galaxy S27 시리즈 카메라 사양</h3>
+          
+          <p>이러한 기술적 개선과 더불어 Galaxy S27 Ultra의 카메라 구성에도 큰 변화가 예상됩니다. 최근 보고에 따르면 Galaxy S27 Ultra는 다음과 같은 트리플 후면 카메라 구성을 채택할 예정입니다.</p>
+          
+          <ul>
+<li>메인 센서: 200MP</li>
+<li>초광각(ultrawide) 센서: 50MP</li>
+<li>5x 페리스코프 망원(periscope telephoto) 센서: 50MP</li>
+</ul>
+          
+          <p>기존의 3x 망원 카메라는 제외됩니다. Galaxy S27 Pro 모델은 동일한 메인 및 초광각 센서를 공유하지만, 대신 12메가픽셀의 3x 망원 카메라를 탑재할 것으로 예상됩니다. 또한 두 모델 모두 16메가픽셀 전면 카메라를 탑재할 예정입니다.</p>
+          
+          <h3>공간 최적화 및 설계 이점</h3>
+          
+          <p>잉크젯 공정을 통해 각 모듈 내부에서 단 몇 마이크로미터의 공간을 확보함으로써 엔지니어들은 더 여유로운 설계를 할 수 있게 됩니다. 이 추가적인 공간은 더욱 향상된 광학식 손떨림 보정(OIS) 기능을 구현하거나, 카메라 돌출부(bump)를 효과적으로 억제하는 데 활용될 수 있습니다. 이는 Galaxy S27 Ultra의 카메라 성능을 개선하기 위한 작지만 의미 있는 진전입니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Galaxy S27 Ultra는 잉크젯 렌즈 프린팅 기술을 도입하여 광학적 품질 향상과 모듈 소형화라는 두 마리 토끼를 잡으려 합니다. 특히 고해상도 센서를 기반으로 한 새로운 트리플 카메라 구성과 공간 최적화를 통한 OIS 성능 강화 등 하드웨어와 공정의 조화를 꾀하는 것이 핵심입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>采用墨水喷墨透镜印刷技术</h3>
+          
+          <p>根据最新报告，Galaxy S27 Ultra 将延续并扩展在现有型号中首次推出的特殊制造技术。该技术旨在提高图像质量的同时，进一步缩小相机模块的尺寸。</p>
+          
+          <p>据行业消息，Samsung Electronics 和 Samsung Electro-Mechanics 计划在 Galaxy S27 Ultra 上更广泛地应用墨水喷墨透镜印刷工艺。该工艺将使用通过墨水喷墨精确涂布的哑光墨水（matte ink）来替代传统的防反射膜。</p>
+          
+          <p>虽然现有的薄膜能够阻挡引起鬼影或眩光的散射光，但在空间受限的镜头堆叠中会占用额外的厚度。相比之下，通过墨水喷墨涂布的哑光墨水在占据更少空间的同时，也能提供相同的遮光功能。</p>
+          
+          <h3>S27 Ultra 相机模块应用细节</h3>
+          
+          <p>Samsung 已在 Galaxy S26 Ultra 中首次引入此方法，并计划在 Galaxy S27 Ultra 的三个后置摄像头模块中应用该技术。具体应用的透镜层如下：</p>
+          
+          <ul>
+<li>L3 Tele</li>
+<li>L3 Wide</li>
+<li>L6 Wide</li>
+</ul>
+          
+          <p>与以往做法相同，每个模块中仅有一个透镜层进行墨水处理，其余层仍保留传统的薄膜方式。这种选择性的处理方法使 Samsung 能够在更好的光学性能、制造良率、成本以及长期可靠性之间取得平衡。</p>
+          
+          <h3>Galaxy S27 系列相机规格</h3>
+          
+          <p>除了技术改进外，Galaxy S27 Ultra 的相机配置预计也将有重大变化。据最新报告，Galaxy S27 Ultra 将采用以下三摄组合：</p>
+          
+          <ul>
+<li>主传感器：200MP</li>
+<li>超广角（ultrawide）传感器：50MP</li>
+<li>5x 潜望式长焦（periscope telephoto）传感器：50MP</li>
+</ul>
+          
+          <p>原有的 3x 长焦镜头将被移除。Galaxy S27 Pro 模型将共享相同的主摄和超广角传感器，但预计将搭载 1200 万像素的 3x 长焦相机。此外，两个型号都将配备 1600 万像素的前置摄像头。</p>
+          
+          <h3>空间优化与设计优势</h3>
+          
+          <p>通过墨水喷墨工艺，每个模块内部可以节省出几微米的空间，使工程师能够进行更从容的设计。这部分额外的空间可用于实现更强大的光学防抖（OIS）功能，或有效抑制相机凸起（bump）。这是为了提升 Galaxy S27 Ultra 相机性能而取得的一项细微但具有意义的进展。</p>
+          
+          <h3>总结</h3>
+          
+          <p>Galaxy S27 Ultra 通过引入墨水喷墨透镜印刷技术，旨在实现光学质量提升与模块小型化的双重目标。该技术的应用结合高分辨率传感器配置以及通过空间优化带来的 OIS 性能增强，体现了硬件创新与制造工艺的深度融合。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>インクジェットレンズプリント技術の導入</h3>
+          
+          <p>最近の報道によると、Galaxy S27 Ultraは従来モデルで初導入された特殊な製造技術を継承しつつ拡張する予定です。この技術は、画質の向上とカメラモジュールのさらなる小型化の両立を目指しています。</p>
+          
+          <p>業界の情報によると、Samsung ElectronicsおよびSamsung Electro-Mechanicsは、Galaxy S27 Ultraにインクジェットレンズプリント工程をより広範囲に適用する計画です。従来の反射防止フィルムの代わりに、インクジェット印刷によって精密に塗布されるマットインク（matte ink）を採用します。</p>
+          
+          <p>従来のフィルムはゴーストやフレアの原因となる散乱光を遮断する役割を果たしてきましたが、限られたスペースのレンズスタック内では厚みを占めてしまうという欠点がありました。一方、インクジェット印刷によるマットインクは、より少ない空間で同様の遮光機能を果たすことができます。</p>
+          
+          <h3>S27 Ultra カメラモジュールの適用詳細</h3>
+          
+          <p>Samsungはこの手法をGalaxy S26 Ultraで初めて導入し、今度はGalaxy S27 Ultraの背面カメラモジュール3つすべてに適用する計画です。この技術が適用される具体的なレンズレイヤーは以下の通りです。</p>
+          
+          <ul>
+<li>L3 Tele</li>
+<li>L3 Wide</li>
+<li>L6 Wide</li>
+</ul>
+          
+          <p>従来と同様に、各モジュール内の単一のレンズレイヤーにのみインク処理が施され、残りのレイアは従来のフィルム方式を維持します。この選択的なアプローチにより、Samsungは光学性能、製造歩留まり、コスト、そして長期的な信頼性のバランスを取ることが可能になります。</p>
+          
+          <h3>Galaxy S27シリーズのカメラ仕様</h3>
+          
+          <p>これらの技術的改善に加え、Galaxy S27 Ultraのカメラ構成にも大きな変化が見込まれます。最新の報告によると、Galaxy S27 Ultraは以下のトリプル背面カメラ構成を採用する予定です。</p>
+          
+          <ul>
+<li>メインセンサー：200MP</li>
+<li>超広角（ultrawide）センサー：50MP</li>
+<li>5x ペリスコープ望遠（periscope telephoto）センサー：50MP</li>
+</ul>
+          
+          <p>従来の3x望遠カメラは廃止されます。Galaxy S27 Proモデルは、メインおよび超広角センサーを共通で採用しますが、代わりに12メガピクセルの3x望遠カメラを搭載する見込みです。また、両モデルともに16メガピクセルのフロントカメラを搭載する予定です。</p>
+          
+          <h3>空間の最適化と設計上の利点</h3>
+          
+          <p>インクジェット工程を通じて各モジュール内でわずか数マイクロメートルのスペースを確保することで、エンジニアはより余裕のある設計が可能になります。この追加された空間は、さらに高度な光学式手ブレ補正（OIS）機能の実現や、カメラの突起（bump）を効果的に抑制するために活用されます。これはGalaxy S27 Ultraのカメラ性能向上に向けた、小さくとも重要な進歩です。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>Galaxy S27 Ultraはインクジェットレンズプリント技術を採用することで、画質の向上とモジュールの小型化の両立を目指しています。高解像度センサーに基づく新たなトリプルカメラ構成や、空間の最適化によるOIS性能の強化など、ハードウェアと製造工程の両面で高度な調和を図るのが特徴です。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Introduction of Inkjet Lens Printing Technology</h3>
+<p>Recent reports indicate that the Galaxy S27 Ultra will continue and expand upon specialized manufacturing techniques first introduced in previous models. This technology aims to improve image quality while simultaneously shrinking the size of the camera module.</p>
+<p>According to industry sources, Samsung Electronics and Samsung Electro-Mechanics plan to apply inkjet lens printing processes more extensively to the Galaxy S27 Ultra. Instead of using traditional anti-reflection films, they will use matte ink precisely applied through an inkjet printing process.</p>
+<p>While existing films have served to block scattered light that causes ghosting or flares, they occupied significant space within the compact lens stack. In contrast, the matte ink applied via inkjet printing provides the same light-blocking functionality while occupying much less space.</p>
+          
+          <h3>S27 Ultra Camera Module Implementation Details</h3>
+<p>Samsung first introduced this method in the Galaxy S26 Ultra and plans to apply it to three rear camera modules on the Galaxy S27 Ultra. The specific lens layers where this technology will be applied are as follows:</p>
+<ul>
+<li>L3 Tele</li>
+<li>L3 Wide</li>
+<li>L6 Wide</li>
+</ul>
+<p>As with previous models, only one lens layer within each module will undergo ink treatment, while the remaining layers will continue to use the traditional film method. This selective approach allows Samsung to balance superior optical performance with manufacturing yield, cost, and long-term reliability.</p>
+          
+          <h3>Galaxy S27 Series Camera Specifications</h3>
+<p>Alongside these technical improvements, significant changes are expected in the camera configuration of the Galaxy S27 Ultra. Recent reports suggest that the Galaxy S27 Ultra will feature the following triple rear camera setup:</p>
+<ul>
+<li>Main Sensor: 200MP</li>
+<li>Ultrawide Sensor: 50MP</li>
+<li>5x Periscope Telephoto Sensor: 50MP</li>
+</ul>
+<p>The existing 3x telephoto camera will be removed. The Galaxy S27 Pro model is expected to share the same main and ultrawide sensors but will instead feature a 12-megapixel 3x telephoto camera. Additionally, both models are expected to feature a 16-megapixel front-facing camera.</p>
+          
+          <h3>Space Optimization and Design Benefits</h3>
+<p>By reclaiming just a few micrometers of space within each module through the inkjet process, engineers can achieve more spacious designs. This additional space can be utilized to implement enhanced Optical Image Stabilization (OIS) features or to effectively minimize the camera bump. These are significant advancements in improving the overall performance of the Galaxy S27 Ultra's camera system.</p>
+          
+          <h3>Summary</h3>
+<p>The Galaxy S27 Ultra incorporates inkjet lens printing technology to achieve both improved optical quality and a more compact module size. By optimizing internal space, Samsung aims to enhance OIS performance and reduce the physical camera bump while maintaining high-resolution sensor capabilities across the series.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.webp" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/08/04/galaxy-s27-ultra-to-use-inkjet-lens-printing-across-all-three-rear-cameras/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

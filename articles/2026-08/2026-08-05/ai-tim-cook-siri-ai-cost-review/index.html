@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 팀 쿡, &#34;Apple 연산 비용 검토 중... iOS 27 Siri AI 할당량 방안 미확정&#34;</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="팀 쿡, &#34;Apple 연산 비용 검토 중... iOS 27 Siri AI 할당량 방안 미확정&#34;">
+  <meta name="title-zh" content="库克称苹果正评估算力成本，iOS 27 的 Siri AI 额度方案尚未敲定">
+  <meta name="title-ja" content="クック氏、Appleが計算コストを評価中と明かす。iOS 27のSiri AI利用枠プランは未定。">
+  <meta name="title-en" content="Cook Says Apple Is Evaluating Compute Costs; Siri AI Quota Plan for iOS 27 Not Yet Finalized">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="팀 쿡, &#34;Apple 연산 비용 검토 중... iOS 27 Siri AI 할당량 방안 미확정&#34;" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="팀 쿡, &#34;Apple 연산 비용 검토 중... iOS 27 Siri AI 할당량 방안 미확정&#34;"
+            data-zh="库克称苹果正评估算力成本，iOS 27 的 Siri AI 额度方案尚未敲定"
+            data-ja="クック氏、Appleが計算コストを評価中と明かす。iOS 27のSiri AI利用枠プランは未定。"
+            data-en="Cook Says Apple Is Evaluating Compute Costs; Siri AI Quota Plan for iOS 27 Not Yet Finalized">팀 쿡, &#34;Apple 연산 비용 검토 중... iOS 27 Siri AI 할당량 방안 미확정&#34;</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-05
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>Siri AI 비용 및 과금 모델</h3>
+          
+          <p>IT홈 뉴스에 따르면, 기술 매체 9to5Mac이 어제(8월 3일) 게시한 글에서 Apple의 CEO 팀 쿡(Tim Cook)이 실적 발표 컨퍼런스 콜에서 언급한 신호를 바탕으로, Apple이 iOS 27 내 Siri AI의 연산 비용 및 과금 방식을 검토 중이라고 보도했습니다.</p>
+          
+          <h3>실행 방식 및 서버 활용</h3>
+          
+          <p>실행 방식과 관련하여, Apple이 이전에 공개한 세부 사항에 따르면 AI 작업을 분할하여 가능한 한 기기 측에서 로컬로 처리하는 방식을 취하고 있습니다. 이러한 방식은 개인정보 보호를 강화하는 동시에 서버 비용을 절용할 수 있는 효과가 있습니다.</p>
+          
+          <p>다만 일부 작업은 Apple의 Private Cloud Compute 서버를 통해 처리되어야 하며, 또 다른 일부 작업은 Google Gemini 서버를 호출해야 합니다.</p>
+          
+          <p>이전의 한 추측에 따르면, Siri AI 사용 권한이 iCloud+ 구독과 직접 연동되어 저장 용량 요금제에 따라 할당량이 구분될 가능성이 있습니다. 예를 들어 50GB, 200GB, 2TB 요금제가 각각 증가하는 Siri AI 사용 한도와 매칭되는 방식입니다. 이 모델을 따를 경우, 기존 iCloud+ 사용자는 현재 구독 내에서 더 높은 AI 사용량을 확보할 수 있을 것으로 보입니다.</p>
+          
+          <h3>팀 쿡의 답변 및 전망</h3>
+          
+          <p>실적 발표 컨퍼런스 콜에서 골드만삭스는 공개 테스트 단계의 Apple Intelligence 사용 상황을 바탕으로 Apple이 어떻게 연산 비용을 평가하는지, 그리고 iCloud+를 통해 일부 비용을 회수할 수 있는지 질문했습니다.</p>
+          
+          <p>이에 대해 팀 쿡은 다음과 같이 답변했습니다. "연산 비용과 관련하여 해당 계획은 아직 초기 단계에 있으며, Apple은 아직 완전한 방안을 수립하지 않았습니다. 우리는 많은 사용자가 이 기능을 대량으로 사용하기를 원할 것이라고 믿으며, 따라서 iCloud+에서 몇 가지 업그레이드 옵션을 제공할 예정입니다. 사용자는 iCloud+의 고급 기능을 구매할 수 있으며, 시장 반응을 지켜볼 것입니다."</p>
+          
+          <p>해당 매체는 팀 쿡의 표현이 다소 모호하다고 분석했으며, 일부 의견에 따르면 iCloud+ 구독 자체가 자동으로 더 높은 Siri AI 할당량을 포함하지 않을 수도 있으며, 사용자가 한도 확대를 위해 추가 항목을 별도로 구매해야 할 가능성도 제기되고 있습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Apple은 iOS 27 내 Siri AI 도입에 따른 연산 비용과 과금 방식을 검토 중이며, 이를 위해 로컬 처리와 Private Cloud Compute 및 Google Gemini 서버 활용을 병행하고 있습니다. 팀 쿡은 iCloud+를 통해 다양한 업그레이드 옵션을 제공할 계획임을 시사했으나 구체적인 세부 사항은 아직 초기 단계에 머물러 있습니다. 일부 분석에 따르면 사용자가 더 높은 Siri AI 한도를 확보하기 위해 추가 비용을 지불해야 할 가능성도 제기되고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Siri AI 技术架构与处理方式</h3>
+<p>Apple 正在评估 Siri AI 的算力成本与运营模式。为了在保障用户隐私的同时降低服务器开支，系统将采用分层处理逻辑：</p>
+<ul>
+<li>优先在设备端本地处理大部分任务；</li>
+<li>部分任务交由 Apple 的 Private Cloud Compute 服务器处理；</li>
+<li>特定任务则调用 Google Gemini 服务器提供支持。</li>
+</ul>
+          
+          <h3>订阅模式与成本回收</h3>
+<p>关于 Siri AI 的使用权限，目前有迹象表明其可能与 iCloud+ 订阅体系挂钩。相关细节包括：</p>
+<ul>
+<li><strong>阶梯式配额：</strong> 可能根据 50GB、200GB 及 2TB 等不同容量的 iCloud+ 套餐提供相应的 Siri AI 使用上限；</li>
+<li><strong>高级选项：</strong> Tim Cook 表示 Apple 将在 iCloud+ 上提供“升级选项”，允许重度用户购买额外功能以获取更高额度的使用权限。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Apple 目前正处于评估 Siri AI 算力成本与收费模式的早期阶段，计划通过本地处理、Private Cloud Compute 及 Google Gemini 的混合架构来优化资源分配。未来 Siri AI 的使用权可能与 iCloud+ 套餐挂钩，并为高频用户提供额外的付费升级选项。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>Siri AIのコストと課金モデル</h3>
+          
+          <p>ITホームのニュースによると、テックメディアの9to5Macが昨日（8月3日）報じた内容に基づき、AppleはiOS 27におけるSiri AIの演算コストおよび課金体系を検討しているとのことです。これは、Appleのティム・クックCEOが決算発表の電話会議で言及した内容から推測されています。</p>
+          
+          <h3>実行方法とサーバーの活用</h3>
+          
+          <p>処理方法に関しては、AppleはAIタスクを分割し、可能な限りデバイス側でローカル処理を行う方針をとっています。この手法は、プライバシー保護の強化とサーバーコストの削減の両立を図るためのものです。</p>
+          
+          <p>ただし、一部のタスクについてはAppleのPrivate Cloud Computeサーバーを経由する必要があり、また別のタスクではGoogle Geminiサーバーを呼び出す仕組みが採用されています。</p>
+          
+          <p>これまでの推測によると、Siri AIの使用権限はiCloud+のサブスクリプションと直接連動し、ストレージ容量のプランに応じて利用制限が割り当てられる可能性があります。具体的には、以下のプランごとにSiri AIの利用上限が対応する仕組みです。</p>
+          
+          <ul>
+<li>50GB</li>
+<li>200GB</li>
+<li>2TB</li>
+</ul>
+          
+          <p>このモデルを採用した場合、既存のiCloud+ユーザーは現在のサブスクリプション内で、より高いAIの使用量を確保できる見込みです。</p>
+          
+          <h3>ティム・クックの回答と展望</h3>
+          
+          <p>決算発表の電話会議において、ゴールドマン・サックスは公開テスト段階のApple Intelligenceの使用状況に基づき、Appleがどのように演算コストを評価し、iCloud+を通じて一部の費用を回収するのかを質問しました。</p>
+          
+          <p>これに対しティム・クックは次のように回答しました。「演算コストに関しては、計画はまだ初期段階にあり、Appleはまだ完全な方針を確立していません。私たちは多くのユーザーがこの機能を大量に使用することを期待しており、そのためiCloud+でいくつかのアップグレードオプションを提供する予定です。ユーザーはiCloud+の高度な機能を購入することができ、市場の反応を見守るつもりです。」</p>
+          
+          <p>当該メディアはティム・クックの表現をやや曖昧であると分析しています。一部の意見では、iCloud+のサブスクリプション自体に高いSiri AIの割り当てが自動的に含まれるのではなく、ユーザーが上限の拡大のために追加項目を個別に購入する必要がある可能性も指摘されています。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>AppleはiOS 27でのSiri AI導入に伴う演算コストと課金モデルを検討しており、ローカル処理とクラウド（Private Cloud ComputeやGoogle Gemini）の併用を進めています。ティム・クックはiCloud+を通じたアップグレードオプションの提供を示唆していますが、詳細はまだ初期段階であり、より高い利用制限を得るために追加費用が発生する可能性も浮上しています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Siri AI Costs and Billing Models</h3>
+          
+          <p>According to IT Home News, an article published by 9to5Mac on August 3rd reported that Apple is reviewing the computation costs and billing models for Siri AI within iOS 27, based on signals provided by CEO Tim Cook during an earnings conference call.</p>
+          
+          <h3>Execution Methods and Server Utilization</h3>
+          
+          <p>Regarding execution methods, previously disclosed details indicate that Apple is adopting a strategy of splitting AI tasks to process as much as possible locally on the device. This approach enhances privacy while simultaneously reducing server costs.</p>
+          
+          <p>However, some tasks must be processed through Apple's Private Cloud Compute servers, and other tasks require calls to Google Gemini servers.</p>
+          
+          <p>Previous speculation suggested that Siri AI usage rights may be directly linked to iCloud+ subscriptions, with quotas allocated based on the specific storage plan. For example:</p>
+<ul>
+<li>50GB, 200GB, and 2TB plans could each correspond to increasing tiers of Siri AI usage limits.</li>
+</ul>
+<p>If this model is followed, existing iCloud+ users would likely secure higher AI usage allowances within their current subscriptions.</p>
+          
+          <h3>Tim Cook's Response and Outlook</h3>
+          
+          <p>During the earnings conference call, Goldman Sachs asked how Apple evaluates computation costs based on the usage of Apple Intelligence in its public testing phase, and whether some of these costs could be recovered through iCloud+.</p>
+          
+          <p>In response, Tim Cook stated: "Regarding computational costs, those plans are still in the early stages, and Apple has not yet established a complete plan. We believe many users will want to use this feature extensively; therefore, we plan to offer several upgrade options within iCloud+. Users can purchase advanced features for iCloud+, and we will monitor market response."</p>
+          
+          <p>The media outlet analyzed Cook's remarks as somewhat ambiguous. Some opinions suggest that an iCloud+ subscription might not automatically include higher Siri AI limits, and there is a possibility that users may need to purchase additional items separately to expand their usage quotas.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>Apple is currently evaluating the computational costs and billing models for Siri AI in iOS 27 by utilizing a combination of local processing, Private Cloud Compute, and Google Gemini servers. While Tim Cook confirmed that various upgrade options will be offered through iCloud+, specific details remain in the early stages of development. Consequently, users may need to purchase additional add-ons to access higher Siri AI usage limits.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/985/271.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
