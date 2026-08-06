@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 가장 강력한 멀티모달 콘텐츠 검토 오픈 소스 AI 모델: Mistral, 단일 16GB GPU에서 구동 가능한 Shieldstral 출시</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="가장 강력한 멀티모달 콘텐츠 검토 오픈 소스 AI 모델: Mistral, 단일 16GB GPU에서 구동 가능한 Shieldstral 출시">
+  <meta name="title-zh" content="最强多模态内容审核开源 AI 模型：Mistral 推出 Shieldstral，单张 16GB GPU 可运行">
+  <meta name="title-ja" content="最強のマルチモーダルコンテンツ検閲用オープンソースAIモデル：MistralがShieldstralをリリース、16GBのGPU 1枚で動作可能">
+  <meta name="title-en" content="The strongest open-source multimodal content moderation AI model: Mistral releases Shieldstral, runnable on a single 16GB GPU">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="가장 강력한 멀티모달 콘텐츠 검토 오픈 소스 AI 모델: Mistral, 단일 16GB GPU에서 구동 가능한 Shieldstral 출시" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="가장 강력한 멀티모달 콘텐츠 검토 오픈 소스 AI 모델: Mistral, 단일 16GB GPU에서 구동 가능한 Shieldstral 출시"
+            data-zh="最强多模态内容审核开源 AI 模型：Mistral 推出 Shieldstral，单张 16GB GPU 可运行"
+            data-ja="最強のマルチモーダルコンテンツ検閲用オープンソースAIモデル：MistralがShieldstralをリリース、16GBのGPU 1枚で動作可能"
+            data-en="The strongest open-source multimodal content moderation AI model: Mistral releases Shieldstral, runnable on a single 16GB GPU">가장 강력한 멀티모달 콘텐츠 검토 오픈 소스 AI 모델: Mistral, 단일 16GB GPU에서 구동 가능한 Shieldstral 출시</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-06
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>모델 출시</h3>
+          
+          <p>Mistral AI는 어제(8월 4일) 콘텐츠 모더레이션용 AI 모델인 Shieldstral을 발표했습니다. 이 모델은 총 3B(30억)의 파라미터를 보유하고 있으며, Apache 2.0 라이선스에 따라 오픈 웨이트로 제공됩니다.</p>
+          
+          <h3>성능 및 사양</h3>
+          
+          <p>해당 모델은 Hugging Face 플랫폼에 공개되었으며, 12개 언어를 지원합니다. 단일 16GB GPU에서 구동이 가능합니다.</p>
+          
+          <p>Mistral은 이 모델이 콘텐츠 안전 측면에서 7배 더 큰 규모의 오픈 모델과 대등한 성능을 보여주며, 멀티모달 콘텐츠 모더레이션 분야에서 SOTA를 달성했다고 밝혔습니다.</p>
+          
+          <h3>기술적 특징</h3>
+          
+          <p>Mistral에 따르면, 대부분의 보호 모델은 모델 가중치 내에 고정된 위험 범주 체계를 포함합니다. 이 경우 개발자는 사용 시나리오가 변경될 때마다 모델을 재학습시켜야 합니다.</p>
+          
+          <p>반면 Shieldstral은 모더레이션 정책을 입력 내용에 포함하는 방식을 채택했습니다. 운영자는 '예/아니오' 질문과 함께 평가 시나리오 및 엄격도 설명을 제공할 수 있으며, 모델은 단일 출력 토큰으로부터 조정된 안전 점수를 생성합니다.</p>
+          
+          <h3>입력 구조</h3>
+          
+          <p>모델은 각 모더레이션 작업을 이진 질의응답으로 변환하며, 입력에는 세 개의 태그가 포함된 필드가 포함됩니다.</p>
+          
+          <ul>
+<li><Instruct>: 평가 시나리오 및 엄격도 설명</li>
+<li><Query>: "이 콘텐츠가 신체적 폭력을 조장합니까?"와 같은 단일 '예/아니오' 질문</li>
+<li><Document>: 검토 대상 내용 (프롬프트, 답변, 프롬프트와 답변의 조합 또는 선택적 텍스트가 포함된 이미지)</li>
+</ul>
+          
+          <h3>추론 방식</h3>
+          
+          <p>추론 시 모델은 '예'와 '아니오' 두 토큰의 논리값만 읽어 들인 후, softmax를 통해 연속적인 점수로 정규화하며 0.5를 임계값으로 하여 이진 판단을 출력합니다.</p>
+          
+          <p>이 메커니즘은 프롬프트 분류, 답변 모더레이션, 거부 응답 감지 및 독성 감지 등을 모두 지원할 수 있습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Mistral AI는 3B 파라미터 규모의 Shieldstral을 통해 효율적인 콘텐츠 모더레이션 기능을 제공하며 멀티모달 분야에서 우수한 성능을 입증했습니다. 특히 정책을 가중치에 고정하는 대신 입력 단계에서 처리함으로써 프롬프트 분류 및 독성 감지 등 다양한 모더레이션 시나리오에 유연하게 대응할 수 있는 구조를 갖추었습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>模型发布与核心规格</h3>
+<p>Mistral AI 发布了名为 Shieldstral 的内容审核 AI 模型。该模型采用开放权重，并基于 Apache 2.0 许可证发布。</p>
+<ul>
+<li>参数量：3B（30 亿）</li>
+<li>平台支持：已上线 Hugging Face</li>
+<li>语言支持：12 种语言</li>
+<li>硬件要求：可在单张 16GB GPU 上运行</li>
+</ul>
+          
+          <h3>性能表现</h3>
+<p>Shieldstral 在内容安全方面的性能媲美规模为 7 倍的开放模型，并在多模态内容审核领域达到 SOTA（最先进）水平。</p>
+          
+          <h3>技术架构与创新</h3>
+<p>不同于将审核政策固化在权重中的传统模型，Shieldstrral 将审核政策放入输入内容中。这种设计允许开发者在不重新训练模型的情况下，通过调整提示词来适应不同的使用场景。</p>
+<p>该模型将每项审核任务转化为二元问答，其输入包含三个核心字段：</p>
+<ul>
+<li>&lt;Instruct&gt;：说明评估场景和严格程度。</li>
+<li>&lt;Query&gt;：提出单一的“是或否”问题（例如：“这段内容是否宣传身体暴力？”）。</li>
+<li>&lt;Document&gt;：提供待审核的内容，包括提示词、回答或包含文本的图像。</li>
+</ul>
+<p>在推理过程中，模型通过读取逻辑值并经过 softmax 归一化处理，以 0.5 为阈值输出二元判断。该机制可支持提示词分类、回答审核、拒答检测和毒性检测等多种任务。</p>
+          
+          <h3>总结</h3>
+<p>Mistral 推出的 Shieldstral 是一个高效的 3B 参数内容审核模型，具备多语言支持且能在较低配置的硬件上运行。其核心优势在于通过动态输入而非权重硬编码来处理审核政策，显著提升了模型的灵活性和在不同场景下的适用性。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>モデルのリリース</h3>
+          
+          <p>Mistral AIは昨日（8月4日）、コンテンツモデレーション用のAIモデル「Shieldstral」を発表しました。このモデルは計3Bのパラメータを持ち、Apache 2.0ライセンスのもとでオープンウェイトとして提供されます。</p>
+          
+          <h3>パフォーマンスと仕様</h3>
+          
+          <p>本モデルはHugging Faceプラットフォームで公開されており、12の言語をサポートしています。また、単一の16GB GPUで動作可能です。</p>
+          
+          <p>Mistral社は、このモデルがコンテンツ安全性の面において7倍大きな規模のオープンモデルに匹敵する性能を示しており、マルチモーダルのコンテンツモデレーション分野においてSOTA（最先端）を達成したと述べています。</p>
+          
+          <h3>技術的特徴</h3>
+          
+          <p>Mistral社によると、従来の多くの保護モデルは、モデルの重みの中に固定されたリスクカテゴリ体系を含んでいます。この場合、開発者は使用シナリオが変わるたびにモデルを再学習させる必要があります。</p>
+          
+          <p>対照的にShieldstralは、モデレーションポリシーを入力内容に含める手法を採用しています。運用者は「はい/いいえ」の質問とともに、評価シナリオや厳格度の説明を提供することができ、モデルは単一の出力トークンから調整された安全スコアを生成します。</p>
+          
+          <h3>入力構造</h3>
+          
+          <p>モデルは各モデレーションタスクを二項の質疑応答に変換し、入力には以下の3つのタグを含むフィールドが含まれます。</p>
+          
+          <ul>
+<li><Instruct>：評価シナリオおよび厳格度の説明</li>
+<li><Query>：「このコンテンツは身体的な暴力を助長しますか？」といった単一の「はい/いいえ」の質問</li>
+<li><Document>：検証対象の内容（プロンプト、回答、またはそれらの組み合わせや、選択的なテキストを含む画像）</li>
+</ul>
+          
+          <h3>推論方法</h3>
+          
+          <p>推論時、モデルは「はい」と「いいえ」の2つのトークンの論理値を読み取った後、softmaxを通じて連続的なスコアに正規化し、0.5を閾値として二項判断を出力します。</p>
+          
+          <p>このメカニズムにより、プロンプト分類、回答モデレーション、拒否応答の検知、および毒性（Toxicity）の検知など、あらゆるモデレーションシナリオに対応することが可能です。</p>
+          
+          <h3>総評</h3>
+          
+          <p>Mistral AIは3Bパラメータ規模のShieldstralを通じて、効率的なコンテンツモデレーション機能を提供し、マルチモーダル分野で優れた性能を実証しました。特に、ポリシーを重みに固定するのではなく入力段階で処理することで、プロンプト分類や毒性検知など、多様なモデレーションシナリオに柔軟に対応できる構造を備えています。</p>
+          
+          <h3>まとめ</h3>
+<p>Mistral AIは、3Bパラメータの軽量ながら高性能なコンテンツモデレーションモデル「Shieldstral」を発表しました。入力段階でポリシーを処理する独自の仕組みにより、マルチモーダル分野でSOTAを達成し、高い柔軟性と効率性を両立しています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Model Launch</h3>
+          
+          <p>Mistral AI released Shieldstral on August 4th, an AI model specifically designed for content moderation. The model features a total of 3B parameters and is provided as open weights under the Apache 2.0 license.</p>
+          
+          <h3>Performance and Specifications</h3>
+          
+          <p>The model is available on the Hugging Face platform and supports 12 languages. It can be operated on a single GPU with 16GB of VRAM.</p>
+          
+          <p>Mistral stated that Shieldstral delivers performance comparable to open models seven times its size in terms of content safety, achieving State-of-the-Art (SOTA) results in the field of multimodal content moderation.</p>
+          
+          <h3>Technical Features</h3>
+          
+          <p>According to Mistral, most guardrail models include fixed risk category systems within their weights. In those cases, developers must retrain the model every time a usage scenario changes.</p>
+          
+          <p>In contrast, Shieldstral adopts a method of including moderation policies directly in the input content. Operators can provide evaluation scenarios and severity descriptions along with "Yes/No" questions, allowing the model to generate a calibrated safety score from a single output token.</p>
+          
+          <h3>Input Structure</h3>
+          
+          <p>The model converts each moderation task into a binary Q&A format, where the input includes fields containing three specific tags:</p>
+          
+          <ul>
+<li><Instruct>: Evaluation scenario and severity description.</li>
+<li><Query>: A single "Yes/No" question, such as "Does this content promote physical violence?"</li>
+<li><Document>: The content to be reviewed (including prompts, responses, combinations of both, or images containing selected text).</li>
+</ul>
+          
+          <h3>Inference Method</h3>
+          
+          <p>During inference, the model reads only the logic values of two tokens—"Yes" and "No"—and then normalizes them into continuous scores via softmax. It outputs a binary judgment using a threshold of 0.5.</p>
+          
+          <p>This mechanism supports various functions, including prompt classification, response moderation, refusal detection, and toxicity detection.</p>
+          
+          <h3>Overall Evaluation</h3>
+          
+          <p>With the 3B-parameter Shieldstral model, Mistral AI provides efficient content moderation capabilities and demonstrates superior performance in the multimodal field. By processing policies at the input stage rather than fixing them within the weights, the architecture allows for flexible responses to various scenarios such as prompt classification and toxicity detection.</p>
+          
+          <h3>Summary</h3>
+<p>Mistral AI has released Shieldstral, a 3B-parameter open-weight model designed for efficient multimodal content moderation. By integrating moderation policies into the input rather than hardcoding them into the weights, it provides high flexibility and SOTA performance while remaining runnable on a single 16GB GPU.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Mistral이 온디바이스 배포가 가능한 3B 오픈 웨이트 기반의 콘텐츠 안전 모델인 Shieldstral을 출시했습니다.</div>
+                <div class="caption-lang" data-lang="en">Mistral launches Shieldstral, a 3B open-weight content safety model for on-device deployment.</div>
+                <div class="caption-lang" data-lang="ja">Mistralが、デバイス展開可能な3Bオープンウェイトのコンテンツ安全モデル「Shieldstral」を発表。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오전 12:55 · 2026년 8월 5일 · 조회수 20.1만</div>
+                <div class="caption-lang" data-lang="en">12:55 AM · Aug 5, 2026 · 201K Views</div>
+                <div class="caption-lang" data-lang="ja">12:55 · 2026年8月5日 · 20.1万 閲覧</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">관련</div>
+                <div class="caption-lang" data-lang="en">Related</div>
+                <div class="caption-lang" data-lang="ja">関連</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">인용 확인</div>
+                <div class="caption-lang" data-lang="en">View Citations</div>
+                <div class="caption-lang" data-lang="ja">引用を見る</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">번역 표시</div>
+                <div class="caption-lang" data-lang="en">Show translation</div>
+                <div class="caption-lang" data-lang="ja">翻訳を表示</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Shieldstral은 최첨단 멀티모달 검수 기술을 채택하여 업계 최고 수준의 효율성을 제공하며, 단지</div>
+                <div class="caption-lang" data-lang="en">Shieldstral employs state-of-the-art multimodal moderation technology with industry-leading efficiency, requiring only</div>
+                <div class="caption-lang" data-lang="ja">Shieldstralは最先端のマルチモーダル検閲技術を採用し、業界トップの効率を実現します。わずか</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">16GB NVIDIA GPU로 구동 가능하며, 기업에 보안 콘텐츠에 대한 맞춤형 제어를 제공합니다.</div>
+                <div class="caption-lang" data-lang="en">Runs on a 16GB NVIDIA GPU with customizable safety controls for enterprises.</div>
+                <div class="caption-lang" data-lang="ja">16GBのNVIDIA GPUで動作し、企業向けにセーフティコンテンツのカスタム制御を提供します。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오전 12:55 · 2026년 8월 5일 · 1.4만 조회</div>
+                <div class="caption-lang" data-lang="en">12:55 AM · Aug 5, 2026 · 14K Views</div>
+                <div class="caption-lang" data-lang="ja">午前12:55 · 2026年8月5日 · 1.4万 閲覧</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.png" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/985/886.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
