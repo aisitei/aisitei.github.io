@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 대상 Oppo, OnePlus, Realme 스마트폰을 위한 ColorOS 17 클로즈 베타 테스트 시작</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="OPPO">
+  <meta name="article-brand-color" content="#1D6FA4">
+  <meta name="title-ko" content="대상 Oppo, OnePlus, Realme 스마트폰을 위한 ColorOS 17 클로즈 베타 테스트 시작">
+  <meta name="title-zh" content="ColorOS 17 面向 Oppo、OnePlus 及 Realme 智能手机的封闭测试开始">
+  <meta name="title-ja" content="ColorOS 17、Oppo、OnePlus、およびRealmeのスマートフォン向けクローズドベータテストを開始">
+  <meta name="title-en" content="ColorOS 17 closed beta testing begins for these eligible Oppo, OnePlus, Realme phones">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="대상 Oppo, OnePlus, Realme 스마트폰을 위한 ColorOS 17 클로즈 베타 테스트 시작" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #1D6FA4;">
+            OPPO
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="대상 Oppo, OnePlus, Realme 스마트폰을 위한 ColorOS 17 클로즈 베타 테스트 시작"
+            data-zh="ColorOS 17 面向 Oppo、OnePlus 及 Realme 智能手机的封闭测试开始"
+            data-ja="ColorOS 17、Oppo、OnePlus、およびRealmeのスマートフォン向けクローズドベータテストを開始"
+            data-en="ColorOS 17 closed beta testing begins for these eligible Oppo, OnePlus, Realme phones">대상 Oppo, OnePlus, Realme 스마트폰을 위한 ColorOS 17 클로즈 베타 테스트 시작</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-07
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>ColorOS 17 베타 프로그램 확대 및 브랜드 통합</h3>
+          
+          <p>지난달 Oppo는 Android 17부터 OnePlus와 Realme 스마트폰에 각각 OxygenOS와 Realme UI 대신 ColorOS를 도입할 예정이라고 발표했습니다. 이에 따라 현재 ColorOS 17 베타 프로그램이 더 많은 기기로 확장되었으며, 정식 출시 전 더 많은 사용자가 차세대 소프트웨어 업데이트를 미리 경험할 수 있게 되었습니다.</p>
+          
+          <p>이번 조치는 Oppo, OnePlus, Realme 세 브랜드 간의 소프트웨어 개발을 통합하려는 전략의 일환입니다. 이를 통해 향후 모든 브랜드에서 더욱 신속한 업데이트와 버그 수정, 그리고 일관된 사용자 경험을 제공할 수 있을 것으로 기대됩니다.</p>
+          
+          <h3>중국 내 지원 기기 확대</h3>
+          
+          <p>중국에서는 다음과 같은 기기를 대상으로 ColorOS 17 Beta 등록이 시작되었습니다.</p>
+          
+          <ul>
+<li>Oppo Find N6 및 Find N6 Satellite Edition</li>
+<li>Oppo Find X9 Pro 및 Find X9 Pro Satellite Edition</li>
+<li>Oppo Find X9 Ultra 및 Find X9 Ultra Satellite Edition</li>
+<li>Oppo Find X9s Pro</li>
+<li>Oppo Pad 5 Pro</li>
+</ul>
+          
+          <p>각 기기당 참여 인원은 300명으로 제한되며, 베타 빌드는 8월 11일과 8월 13일에 순차적으로 배포될 예정입니다.</p>
+          
+          <h3>OnePlus 및 Realme 기기 확대</h3>
+          
+          <p>동일한 베타 모집은 OnePlus와 Realme 스마트폰에도 확장 적용되었습니다.</p>
+          
+          <ul>
+<li>OnePlus Pad 3 Pro</li>
+<li>Realme GT 8 Pro 및 GT 8 Pro Aston Martin F1 Limited Edition</li>
+</ul>
+          
+          <h3>인도 지역 지원 기기</h3>
+          
+          <p>인도에서는 다음 기기들을 대상으로 ColorOS 17 Closed Beta가 현재 진행 중입니다.</p>
+          
+          <ul>
+<li>Oppo Find X9 Pro</li>
+<li>Oppo Reno 15 Pro</li>
+<li>Oppo Reno 15 Pro Mini</li>
+<li>Realme GT 8 Pro</li>
+</ul>
+          
+          <h3>참여 절차 및 주의사항</h3>
+          
+          <p>관심 있는 사용자는 공지된 마감일 전에 신청서를 제출하고 자격 확인 퀴즈를 완료해야 하며, 베타 펌웨어를 받기 전 비밀 유지 계약(NDA)에 동의해야 할 수도 있습니다.</p>
+          
+          <p>현재 배포되는 버전은 초기 빌드이므로 Oppo는 이를 주력 기기에 설치하지 말 것을 권고합니다. 소프트웨어에 버그나 안정성 문제가 포함될 수 있으므로, 단용 스마트폰을 사용하는 사용자는 더 안정적인 베타 빌드 또는 정식 출시를 기다리는 것이 좋습니다.</p>
+          
+          <h3>ColorOS 17의 주요 특징</h3>
+          
+          <p>Oppo는 아직 ColorOS 17의 모든 기능을 공식적으로 상세히 공개하지 않았으나, 초기 베타 정보를 통해 시각적 디자인 개선이 포함될 것임을 알 수 있습니다. 새로운 조명 애니메이션, 강조된 가장자리 효과(illuminated edge effects), 강화된 블러 요소, 재설계된 라운드 UI 구성 요소 및 더욱 부드러워진 전환 애니메이션 등이 포함됩니다.</p>
+          
+          <p>또한 이번 업데이트에서는 차세대 Xiaobu Next AI 어시스턴트가 처음으로 선보일 예정이며, Android 17의 핵심 개선 사항과 시스템 최적화도 함께 적용될 것으로 예상됩니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Oppo는 OnePlus와 Realme를 포함한 자사 브랜드의 소프트웨어 통합을 통해 일관된 사용자 경험과 신속한 업데이트를 제공하고자 합니다. ColorOS 17은 시각적 디자인 개선과 차세대 AI 어시스턴트 도입 등 대폭적인 변화를 예고하고 있으며, 현재 다양한 기기를 대상으로 베타 테스트가 활발히 진행 중입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>ColorOS 17 测试计划扩大及品牌整合</h3>
+          
+          <p>上个月，Oppo 宣布从 Android 17 开始，将在 OnePlus 和 Realme 智能手机上分别采用 ColorOS，取代原有的 OxygenOS 和 Realme UI。因此，当前的 ColorOS 17 测试计划已扩展至更多设备，旨在让更多用户在正式发布前体验到下一代软件更新。</p>
+          
+          <p>此举是 Oppo、OnePlus、Realme 三个品牌之间整合软件开发战略的一部分。通过这一举措，预计未来所有品牌都能提供更快速的更新、更及时的错误修复以及一致的用户体验。</p>
+          
+          <h3>中国内支持设备扩大</h3>
+          
+          <p>在中国，以下设备已开始 ColorOS 17 Beta 注册：</p>
+          
+          <ul>
+<li>Oppo Find N6 及 Find N6 Satellite Edition</li>
+<li>Oppo Find X9 Pro 及 Find X9 Pro Satellite Edition</li>
+<li>Oppo Find X9 Ultra 及 Find X9 Ultra Satellite Edition</li>
+<li>Oppo Find X9s Pro</li>
+<li>Oppo Pad 5 Pro</li>
+</ul>
+          
+          <p>每台设备的参与人数限制为 300 人，测试版本预计将于 8 月 11 日和 8 月 13 日陆续发布。</p>
+          
+          <h3>OnePlus 及 Realme 设备扩展</h3>
+          
+          <p>同样的测试招募也已扩展到 OnePlus 和 Realme 智能手机：</p>
+          
+          <ul>
+<li>OnePlus Pad 3 Pro</li>
+<li>Realme GT 8 Pro 及 GT 8 Pro Aston Martin F1 Limited Edition</li>
+</ul>
+          
+          <h3>印度地区支持设备</h3>
+          
+          <p>在印度，目前正针对以下设备进行 ColorOS 17 封闭测试（Closed Beta）：</p>
+          
+          <ul>
+<li>Oppo Find X9 Pro</li>
+<li>Oppo Reno 15 Pro</li>
+<li>Oppo Reno 15 Pro Mini</li>
+<li>Realme GT 8 Pro</li>
+</ul>
+          
+          <h3>参与流程及注意事项</h3>
+          
+          <p>有意参与的用户需在公告的截止日期前提交申请并完成资格确认测试，且在获取测试固件前可能需要签署保密协议（NDA）。</p>
+          
+          <p>由于目前发布的版本为早期构建版本，Oppo 建议用户不要将其安装在主力机上。由于软件可能包含 Bug 或稳定性问题，建议仅使用备用手机的用户参与，或等待更稳定的测试版本及正式发布。</p>
+          
+          <h3>ColorOS 17 的主要特性</h3>
+          
+          <p>虽然 Oppo 尚未官方详细公布 ColorOS 17 的所有功能，但从初步的测试信息可以看出，该版本包含显著的视觉设计改进。其中包括新的照明动画、强调的边缘效果（illumined edge effects）、增强的模糊元素、重新设计的圆角 UI 组件以及更加平滑的切换动画等。</p>
+          
+          <p>此外，此次更新还将首次推出下一代 Xiaobu Next AI 助手，并预计将同步应用 Android 17 的核心改进内容和系统优化。</p>
+          
+          <h3>总结</h3>
+          
+          <p>Oppo 通过整合旗下 OnePlus 和 Realme 的软件系统，旨在为所有品牌提供一致的用户体验和更快速的更新。ColorOS 17 将带来显著的视觉设计提升及全新的 Xiaobu Next AI 助手，目前已在多个地区针对多种机型展开广泛的测试。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>ColorOS 17 ベータプログラムの拡大とブランド統合</h3>
+          
+          <p>先月、OppoはAndroid 17からOnePlusおよびRealmeのスマートフォンにおいて、それぞれOxygenOSやRealme UIの代わりにColorOSを導入することを発表しました。これに伴い、現在提供されているColorOS 17のベータプログラムがより多くのデバイスへと拡大され、正式リリース前に多くのユーザーが次世代ソフトウェアを体験できるようになりました。</p>
+          
+          <p>この動きは、Oppo、OnePlus、Realmeの3ブランド間でソフトウェア開発を統合する戦略の一環です。これにより、将来的にすべてのブランドにおいて、より迅速なアップデートやバグ修正、そして一貫したユーザー体験を提供できることが期待されています。</p>
+          
+          <h3>中国内での対応デバイス拡大</h3>
+          
+          <p>中国では、以下のデバイスを対象にColorOS 17 Betaの登録が開始されました。</p>
+          
+          <ul>
+<li>Oppo Find N6 および Find N6 Satellite Edition</li>
+<li>Oppo Find X9 Pro および Find X9 Pro Satellite Edition</li>
+<li>Oppo Find X9 Ultra および Find X9 Ultra Satellite Edition</li>
+<li>Oppo Find X9s Pro</li>
+<li>Oppo Pad 5 Pro</li>
+</ul>
+          
+          <p>各デバイスの参加人数は300名に制限されており、ベータビルドは8月11日と8月13日に順次配布される予定です。</p>
+          
+          <h3>OnePlusおよびRealmeデバイスへの拡大</h3>
+          
+          <p>同様のベータ募集は、OnePlusおよびRealmeのスマートフォンにも拡大適用されました。</p>
+          
+          <ul>
+<li>OnePlus Pad 3 Pro</li>
+<li>Realme GT 8 Pro および GT 8 Pro Aston Martin F1 Limited Edition</li>
+</ul>
+          
+          <h3>インド地域での対応デバイス</h3>
+          
+          <p>インドでは、以下のデバイスを対象にColorOS 17 Closed Betaが現在進行中です。</p>
+          
+          <ul>
+<li>Oppo Find X9 Pro</li>
+<li>Oppo Reno 15 Pro</li>
+<li>Oppo Reno 15 Pro Mini</li>
+<li>Realme GT 8 Pro</li>
+</ul>
+          
+          <h3>参加手順および注意事項</h3>
+          
+          <p>関心のあるユーザーは、通知された締め切り前に申請書を提出し、資格確認クイズを完了する必要があります。また、ベータファームウェアを受け取る前に秘密保持契約（NDA）への同意を求められる場合があります。</p>
+          
+          <p>現在配布されているバージョンは初期ビルドであるため、Oppoはメイン機へのインストールを推奨していません。ソフトウェアにバグや安定性の問題が含まれる可能性があるため、予備のスマートフォンを使用しているユーザーや、より安定したベータビルドまたは正式リリースを待つことをお勧めします。</p>
+          
+          <h3>ColorOS 17の主な特徴</h3>
+          
+          <p>OppoはまだColorOS 17のすべての機能を公式に詳細公開していませんが、初期のベータ情報から視覚的なデザインの改善が含まれることが判明しています。これには、新しい照明アニメーション、強調されたエッジ効果（illuminated edge effects）、強化されたブラー要素、再設計された角丸UIコンポーネント、そしてよりスムーズな遷移アニメーションなどが含まれます。</p>
+          
+          <p>さらに、今回のアップデートでは次世代のXiaobu Next AIアシスタントが初めて導入される予定であり、Android 17の主要な改善点とシステム最適化も合わせて適用される見込みです。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>OppoはOnePlusやRealmeを含む自社ブランドのソフトウェアを統合し、ColorOSへの統一を通じて一貫したユーザー体験と迅速なアップデート提供を目指しています。ColorOS 17では視覚的なデザインの刷新や次世代AIアシスタントの導入など、大幅な進化が予定されており、現在多くのデバイスでベータテストが進められています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Expansion of ColorOS 17 Beta Program and Brand Integration</h3>
+          
+          <p>Last month, Oppo announced that OnePlus and Realme smartphones will transition to ColorOS instead of OxygenOS and Realme UI starting with Android 17. Consequently, the ColorOS 17 beta program has been expanded to a wider range of devices, allowing more users to experience the next-generation software before its official release.</p>
+          
+          <p>This move is part of a strategic initiative to unify software development across the Oppo, OnePlus, and Realme brands. This integration is expected to provide faster updates, quicker bug fixes, and a consistent user experience across all three brands in the future.</p>
+          
+          <h3>Expanded Support in China</h3>
+          
+          <p>In China, ColorOS 17 Beta registration has commenced for the following devices:</p>
+          
+          <ul>
+<li>Oppo Find N6 and Find N6 Satellite Edition</li>
+<li>Oppo Find X9 Pro and Find X9 Pro Satellite Edition</li>
+<li>Oppo Find X9 Ultra and Find X9 Ultra Satellite Edition</li>
+<li>Oppo Find X9s Pro</li>
+<li>Oppo Pad 5 Pro</li>
+</ul>
+          
+          <p>Participation is limited to 300 users per device, with beta builds scheduled for sequential distribution on August 11 and August 13.</p>
+          
+          <h3>Expansion for OnePlus and Realme Devices</h3>
+          
+          <p>The same beta recruitment has been extended to include the following OnePlus and Realme smartphones:</p>
+          
+          <ul>
+<li>OnePlus Pad 3 Pro</li>
+<li>Realme GT 8 Pro and GT 8 Pro Aston Martin F1 Limited Edition</li>
+</ul>
+          
+          <h3>Supported Devices in India</h3>
+          
+          <p>In India, the ColorOS 17 Closed Beta is currently underway for the following devices:</p>
+          
+          <ul>
+<li>Oppo Find X9 Pro</li>
+<li>Oppo Reno 15 Pro</li>
+<li>Oppo Reno 15 Pro Mini</li>
+<li>Realme GT 8 Pro</li>
+</ul>
+          
+          <h3>Participation Procedures and Precautions</h3>
+          
+          <p>Interested users must submit an application before the specified deadline and complete a qualification quiz. Additionally, users may be required to sign a Non-Disclosure Agreement (NDA) before receiving the beta firmware.</p>
+          
+          <p>As the currently distributed versions are early builds, Oppo advises against installing them on primary devices. Due to potential bugs or stability issues, users with secondary phones are encouraged to wait for more stable builds or the official release.</p>
+          
+          <h3>Key Features of ColorOS 17</h3>
+          
+          <p>While Oppo has not yet officially disclosed all features of ColorOS 17 in detail, early beta information indicates significant improvements in visual design. These include new lighting animations, highlighted edge effects, enhanced blur elements, redesigned rounded UI components, and smoother transition animations.</p>
+          
+          <p>Furthermore, this update will debut the next-generation Xiaobu Next AI assistant for the first time, while also incorporating core improvements and system optimizations from Android 17.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>Oppo is unifying its software ecosystem to provide a consistent user experience and faster updates across the OnePlus and Realme brands. ColorOS 17 introduces significant visual overhauls and a new AI assistant, with active beta testing currently underway for various devices in China and India.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/08/06/coloros-17-beta-more-oneplus-oppo-realme-devices/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
