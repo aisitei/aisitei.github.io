@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Galaxy S26 FE 유출 펌웨어에서 가로 고정 카메라 기능 확인</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="Samsung">
+  <meta name="article-brand-color" content="#1428A0">
+  <meta name="title-ko" content="Galaxy S26 FE 유출 펌웨어에서 가로 고정 카메라 기능 확인">
+  <meta name="title-zh" content="在 Galaxy S26 FE 流出的固件中确认到横向固定相机功能">
+  <meta name="title-ja" content="流出したGalaxy S26 FEのファームウェアから、横向き固定カメラ機能が確認された。">
+  <meta name="title-en" content="Galaxy S26 FE leaked firmware reveals Horizontal Lock camera feature">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.webp" alt="Galaxy S26 FE 유출 펌웨어에서 가로 고정 카메라 기능 확인" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #1428A0;">
+            Samsung
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Galaxy S26 FE 유출 펌웨어에서 가로 고정 카메라 기능 확인"
+            data-zh="在 Galaxy S26 FE 流出的固件中确认到横向固定相机功能"
+            data-ja="流出したGalaxy S26 FEのファームウェアから、横向き固定カメラ機能が確認された。"
+            data-en="Galaxy S26 FE leaked firmware reveals Horizontal Lock camera feature">Galaxy S26 FE 유출 펌웨어에서 가로 고정 카메라 기능 확인</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-08
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>Galaxy S26 FE의 새로운 카메라 기능 도입</h3>
+          
+          <p>Galaxy S26 FE는 올해 도입된 유용한 카메라 업그레이드 중 하나를 탑재할 것으로 보입니다. 특히 동영상 촬영 시 프레임 수평을 유지해 주는 실용적인 소프트웨어 기능이 해당 기기에 포함될 가능성이 높습니다.</p>
+          
+          <h3>펌웨어 분석 및 기술적 근거</h3>
+          
+          <p>SammyGuru가 공개한 Galaxy S26 FE의 유출 펌웨어에서 <code>SUPPORT_SUPER_STEADY_HORIZONTAL_LOCK</code> 항목이 true로 설정된 것이 확인되었습니다. 이는 Samsung이 해당 기기에 Horizontal Lock 기능을 활발하게 테스트 중임을 시사하는 강력한 신호입니다. 이 기능은 처음 Galaxy S26 시리즈에 도입되었으며, 이후 Galaxy Z Fold 8, Z Fold 8 Ultra, 그리고 Z Flip 8 모델에도 적용되었습니다.</p>
+          
+          <h3>동영상 촬영 기술 및 소프트웨어</h3>
+          
+          <p>Horizontal Lock는 Samsung의 기존 Super Steady 안정화 기능과 함께 작동합니다. 이 기능은 사용자가 휴대폰을 손에 들고 회전하거나 기울일 때도 자이로스코프와 가속도 센서를 활용해 실시간으로 보정함으로써 동영상 프레임을 수평으로 유지합니다.</p>
+          
+          <ul>
+<li>동작 원리: 자이로스코프 및 가속도 센서를 이용한 실시간 수평 보정</li>
+<li>활용 기능: Super Steady 안정화와 결합하여 더욱 매끄러운 결과물 제공</li>
+<li>주요 효과: 별도의 짐벌 없이도 전문적인 느낌의 영상 촬영 가능 (특히 걷는 장면, 액션 클립, 일상 브이로그에 유용)</li>
+</ul>
+          
+          <h3>소프트웨어 확장 및 향후 계획</h3>
+          
+          <p>새로운 하드웨어에 의존하는 대신 소프트웨어를 통해 흔한 불편함을 해결하는 방식이기 때문에 Samsung은 이 기능을 더 많은 라인업에 확대 적용하고 있습니다. 또한, 관련 보고에 따르면 이전 모델인 Galaxy S25 시리즈도 One UI 9 업데이트를 통해 향후 Horizontal Lock 기능을 지원받게 될 것으로 예상됩니다. 이는 해당 기능이 표준 카메라 도구로 자리 잡을 계획임을 보여줍니다.</p>
+          
+          <h3>소프트웨어 버전 및 출시 전망</h3>
+          
+          <p>동일한 펌웨어 분석을 통해 One UI 9.5를 위한 소프트웨어 업데이트 배너도 발견되었습니다. 이것이 Galaxy S26 FE가 해당 버전으로 출시된다는 것을 의미하지는 않지만, Samsung이 공식 출시 훨씬 전부터 차세대 인터페이스를 위한 자산을 구축하고 있음을 확인해 줍니다.</p>
+          
+          <p>Galaxy S26 FE는 베를린에서 열리는 IFA 2026 시기에 맞춰 오는 9월 초에 공개될 예정입니다. 만약 펌웨어 내용대로 Horizontal Lock 기능이 탑재된다면, Galaxy S26 FE는 이전 중급형 모델 대비 확실한 동영상 촬영 우위를 점하게 되며 사용자들이 가장 민감하게 반응하는 부분에서 플래그십 경험에 한 걸음 더 다가설 것으로 기대됩니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Galaxy S26 FE는 소프트웨어 기반의 'Horizontal Lock' 기능을 통해 동영상 촬영 편의성을 대폭 강화할 전망입니다. 이 기능은 짐벌 없이도 수평을 유지해 주어 중급형 모델임에도 불구하고 플래그십에 근접한 영상 제작 경험을 제공할 것입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Galaxy S26 FE 将引入全新的相机功能</h3>
+<p>Galaxy S26 FE 有望搭载今年推出的实用型相机升级功能。特别是在拍摄视频时，旨在保持帧数水平的实用软件功能极有可能包含在该设备中。</p>
+          
+          <h3>固件分析与技术依据</h3>
+<p>在 SammyGuru 公开的 Galaxy S26 FE 流出固件中，确认了 <code>SUPPORT_SUPER_STEADY_HORIZONTAL_LOCK</code> 项目被设置为 true。这表明 Samsung 正在积极测试该设备上的 Horizontal Lock 功能。该功能最初在 Galaxy S26 系列中引入，随后也应用于 Galaxy Z Fold 8、Galaxy Z Fold 8 Ultra 以及 Galaxy Z Flip 8 等型号。</p>
+          
+          <h3>视频拍摄技术与软件</h3>
+<p>Horizontal Lock 与 Samsung 现有的 Super Steady 稳定功能协同工作。该功能利用陀螺仪和加速度传感器，在用户手持手机旋转或倾斜时进行实时校正，从而保持视频帧的水平。</p>
+<ul>
+<li>运作原理：利用陀螺ย器及加速度传感器进行实时水平校正</li>
+<li>应用功能：与 Super Steady 稳定技术结合，提供更流畅的拍摄效果</li>
+<li>主要效果：无需额外配备云台即可拍摄出具有专业感的视频（特别适用于步行场景、动作片段和日常 Vlog）</li>
+</ul>
+          
+          <h3>软件扩展及未来计划</h3>
+<p>由于该功能是通过软件而非依赖新硬件来解决常见不便，Samsung 正将其推广到更多产品线中。此外，据相关报告称，之前的 Galaxy S25 系列预计也将通过 One UI 9 更新获得 Horizontal Lock 功能支持。这表明该功能正计划成为标准的相机工具。</p>
+          
+          <h3>软件版本与发布展望</h3>
+<p>通过相同的固件分析，还发现了针对 One UI 9.5 的软件更新横幅。虽然这并不意味着 Galaxy S26 FE 将搭载该版本发布，但证实了 Samsung 在正式发布前很久就在为下一代界面构建资源。</p>
+<p>Galaxy S26 FE 预计将于 9 月初与柏林举行的 IFA 2026 同步亮相。如果正如固件内容所示包含 Horizontal Lock 功能，Galaxy S26 FE 将在视频拍摄方面相较于以往的中端机型具有明显优势，并让用户在最敏感的领域获得更接近旗舰机的体验。</p>
+          
+          <h3>总结</h3>
+<p>Galaxy S26 FE 预计将通过基于软件的 "Horizontal Lock" 功能大幅提升视频拍摄的便利性。该功能无需云台即可保持画面水平，旨在为中端机型提供接近旗舰级别的视频创作体验。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>Galaxy S26 FEの新しいカメラ機能の導入</h3>
+          
+          <p>Galaxy S26 FEは、今年導入される有用なカメラアップグレードの一つとして、動画撮影時にフレームの水平を維持する実用的なソフトウェア機能を搭載する見込みです。特に、デバイスを傾けても映像が水平に保たれる機能が含まれる可能性が高いと予測されています。</p>
+          
+          <h3>ファームウェア分析および技術的根拠</h3>
+          
+          <p>SammyGuruが公開したGalaxy S26 FEのリークファームウェアにおいて、<code>SUPPORT_SUPER_STEADY_HORIZONTAL_LOCK</code>の項目がtrueに設定されていることが確認されました。これはSamsungがこのデバイス向けにHorizontal Lock機能を積極的にテストしていることを示す強力な兆候です。この機能は最初にGalaxy S26シリーズで導入され、その後Galaxy Z Fold 8、Z Fold 8 Ultra、およびZ Flip 8モデルにも採用されました。</p>
+          
+          <h3>動画撮影技術とソフトウェア</h3>
+          
+          <p>Horizontal LockはSamsungの既存のSuper Steady手ブレ補正機能と連動して動作します。この機能は、ユーザーがスマートフォンを手に持って回転させたり傾けたりしても、ジャイロスコープと加速度センサーを活用してリアルタイムで補正を行い、動画のフレームを水平に保ちます。</p>
+          
+          <ul>
+<li>動作原理：ジャイロスコープおよび加速度センサーを用いたリアルタイムの水平補正</li>
+<li>活用機能：Super Steady手ブレ補正と組み合わせることで、より滑らかな映像を提供</li>
+<li>主な効果：ジンバルなしでもプロフェッショナルな質感の動画撮影が可能（特に歩きながらの撮影、アクションクリップ、日常のVlogに有用）</li>
+</ul>
+          
+          <h3>ソフトウェアの拡張と今後の計画</h3>
+          
+          <p>新しいハードウェアに依存するのではなく、ソフトウェアを通じて一般的な不便さを解消するアプローチであるため、Samsungはこの機能をより多くのラインアップへ拡大しています。また、関連する報告によると、前モデルのGalaxy S25シリーズもOne UI 9のアップデートを通じて今後Horizontal Lock機能がサポートされる見込みです。これは、この機能が標準的なカメラツールとして定着する計画であることを示しています。</p>
+          
+          <h3>ソフトウェアバージョンおよび発売の見通し</h3>
+          
+          <p>同一のファームウェア分析から、One UI 9.5向けのソフトウェア更新バナーも発見されました。これがGalaxy S26 FEが当該バージョンでリリースされることを直接意味するわけではありませんが、Samsungが公式リリースよりかなり前から次世代インターフェースのための資産を構築していることを裏付けています。</p>
+          
+          <p>Galaxy S26 FEは、ベルリンで開催されるIFA 2026に合わせて9月初旬に公開される予定です。もしファームウェアの内容通りHorizontal Lock機能が搭載されれば、Galaxy S26 FEは従来の中位モデルと比較して動画撮影において明確な優位性を持ち、ユーザーが敏感に反応するポイントでフラッグシップに近い体験へと一歩近づくことが期待されます。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>Galaxy S26 FEは「Horizontal Lock」機能の搭載により、動画撮影時の利便性を大幅に向上させることが見込まれます。この機能はジャイロスコープと加速度センサーを活用して水平を保つため、ジンバルなしでもフラッグシップに近い高品質な映像制作体験を提供します。ソフトウェアベースのこの機能は、中位モデルユーザーにとって非常に価値のあるアップデートとなるでしょう。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>New Camera Features for Galaxy S26 FE</h3>
+          
+          <p>The Galaxy S26 FE is expected to feature a practical camera upgrade this year. Specifically, the device is likely to include a software-based "Horizontal Lock" feature that maintains level frames during video recording.</p>
+          
+          <h3>Firmware Analysis and Technical Basis</h3>
+          
+          <p>Leaked firmware for the Galaxy S26 FE shared by SammyGuru revealed that the <code>SUPPORT_SUPER_STEADY_HORIZONTAL_LOCK</code> entry is set to true. This serves as a strong signal that Samsung is actively testing the Horizontal Lock feature for this device. The feature was first introduced in the Galaxy S26 series and was subsequently added to the Galaxy Z Fold 8, Z Fold 8 Ultra, and Z Flip 8 models.</p>
+          
+          <h3>Video Recording Technology and Software</h3>
+          
+          <p>Horizontal Lock works in conjunction with Samsung's existing Super Steady stabilization. This feature utilizes gyroscope and accelerometer sensors to correct the frame in real-time even when a user tilts or rotates the phone while holding it.</p>
+          
+          <ul>
+<li>Mechanism: Real-time horizontal correction using gyroscope and accelerometer sensors</li>
+<li>Integration: Combined with Super Steady stabilization to provide smoother results</li>
+<li>Key Effect: Enables professional-looking video recording without the need for a separate gimbal (particularly useful for walking scenes, action clips, and daily vlogs)</li>
+</ul>
+          
+          <h3>Software Expansion and Future Plans</h3>
+          
+          <p>Because this feature addresses common inconveniences through software rather than relying on new hardware, Samsung is expanding it across more of its lineup. Furthermore, reports suggest that the older Galaxy S25 series may also receive Horizontal Lock support via a One UI 9 update, indicating that the feature is intended to become a standard camera tool.</p>
+          
+          <h3>Software Version and Release Outlook</h3>
+          
+          <p>The same firmware analysis revealed software update banners for One UI 9.5. While this does not mean the Galaxy S26 FE will launch with that specific version, it confirms that Samsung is building assets for next-generation interfaces well before official releases.</p>
+          
+          <p>The Galaxy S26 FE is expected to be unveiled in early September, coinciding with IFA 2026 in Berlin. If the Horizontal Lock feature is included as indicated by the firmware, the Galaxy S26 FE will gain a significant advantage in video recording over previous mid-range models, bringing the user experience closer to flagship standards in an area where users are highly sensitive.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>The Galaxy S26 FE is expected to feature "Horizontal Lock" to significantly enhance the convenience of video recording by maintaining level frames without a gimbal. This software-driven improvement aims to provide a premium, flagship-like experience for mid-range users who prioritize high-quality mobile cinematography.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.webp" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/08/07/galaxy-s26-fe-leaked-firmware-reveals-horizontal-lock-camera-feature/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

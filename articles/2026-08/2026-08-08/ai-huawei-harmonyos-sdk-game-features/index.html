@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Huawei HarmonyOS SDK 게임 신기능 공개, AI 업스케일링, 제어·디스플레이 분리, 하드웨어 레이 트레이싱 등 포함</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Huawei">
+  <meta name="article-brand-color" content="#CF0A2C">
+  <meta name="title-ko" content="Huawei HarmonyOS SDK 게임 신기능 공개, AI 업스케일링, 제어·디스플레이 분리, 하드웨어 레이 트레이싱 등 포함">
+  <meta name="title-zh" content="华为鸿蒙 HarmonyOS SDK 游戏新特性公开，含 AI 超分、控显分离、硬件光追等">
+  <meta name="title-ja" content="Huawei HarmonyOS SDKのゲーム新機能が公開。AI超解像、描画・制御分離、ハードウェアレイトレーシングなどを搭載。">
+  <meta name="title-en" content="New game features for Huawei HarmonyOS SDK revealed, including AI Super Resolution, Display Control Separation, and Hardware Ray Tracing.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Huawei HarmonyOS SDK 게임 신기능 공개, AI 업스케일링, 제어·디스플레이 분리, 하드웨어 레이 트레이싱 등 포함" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #CF0A2C;">
+            Huawei
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Huawei HarmonyOS SDK 게임 신기능 공개, AI 업스케일링, 제어·디스플레이 분리, 하드웨어 레이 트레이싱 등 포함"
+            data-zh="华为鸿蒙 HarmonyOS SDK 游戏新特性公开，含 AI 超分、控显分离、硬件光追等"
+            data-ja="Huawei HarmonyOS SDKのゲーム新機能が公開。AI超解像、描画・制御分離、ハードウェアレイトレーシングなどを搭載。"
+            data-en="New game features for Huawei HarmonyOS SDK revealed, including AI Super Resolution, Display Control Separation, and Hardware Ray Tracing.">Huawei HarmonyOS SDK 게임 신기능 공개, AI 업스케일링, 제어·디스플레이 분리, 하드웨어 레이 트레이싱 등 포함</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-08
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>HarmonyOS 게임 신기능 및 업데이트</h3>
+          
+          <p>IT소식에 따르면, ChinaJoy 2026이 성공적으로 막을 내렸으며 Huawei HarmonyOS 개발자 공식 웨이보를 통해 HarmonyOS SDK의 새로운 게임 기능인 AI 슈퍼 해상도, 제어 및 디스플레이 분리, 하드웨어 레이 트레이싱 등이 공개되었습니다.</p>
+          
+          <p>지난 6월, Huawei는 HarmonyOS SDK 26을 정식 출시하며 사용 편의성, 공간화, 지능화 측면에서 전면적인 업그레이드를 진행했으며, 여기에는 게임 즉시 실행 기능이 포함되었습니다.</p>
+          
+          <p>여러 사용자의 공유에 따르면, HarmonyOS 7 개발자 및 화분(花粉) Beta 버전 시스템을 탑재한 태블릿과 스마트폰에서 게임 즉시 실행 기능이 구현되었으며, <원신>, <로크 왕국> 등의 게임이 빠르게 시작되는 것을 지원합니다.</p>
+          
+          <h3>AI 슈퍼 해상도</h3>
+          
+          <p>AI 슈퍼 해상도 기술은 Huawei 모바일 NPU의 하드웨어와 소프트웨어 협업 능력을 기반으로 구현됩니다. HDC 2026에서 공개된 <이링(异环)> 게임은 AI 슈퍼 해상도 기술을 통해 렌더링 해상도를 1080P로 높여 화질을 1.5배 향상시켰으며, 수중 터널의 빛이나 헤엄치는 물고기 떼와 같은 세밀한 장면을 온전히 구현해냈습니다.</p>
+          
+          <h3>제어 및 디스플레이 분리</h3>
+          
+          <p>제어 및 디스플레이 분리 기능은 폴더블 디스플레이 기기를 주요 대상으로 하며, 화면을 두 개의 대칭적인 독립 영역으로 나눕니다. 상단 화면은 핵심 렌더링 화면을 담당하고 하단 화면은 인터랙션 터치에 집중하여 고전 휴대용 게임기의 조작 로직을 깊이 있게 재현합니다. 이 기능은 API 버전 26.0.0부터 추가되었으며, 현재 일부 폴더블 디스플레이 기기에서만 지원되고 Vulkan API를 기반으로 개발되어야 합니다.</p>
+          
+          <h3>하드웨어 레이 트레이싱</h3>
+          
+          <p>하드웨어 레이 트레이싱 측면에서 Huawei Mate 80 Pro Max 풍치(风驰) 에디션은 <아레나 브레이크아웃> 게임에서 3,000만 개의 광선을 동시에 렌더링하는 하드웨어 레이 트레이싱을 선제적으로 지원하며, 고화질과 높은 프레임의 균형을 맞춘 90프레임 환경을 최초로 구현했습니다.</p>
+          
+          <h3>ChinaJoy 참여 성과</h3>
+          
+          <p>이번 ChinaJoy(7월 31일~8월 3일)에서 Huawei 게임 센터는 'HarmonyOS와 함께 즐기는 게임'을 주제로 50종 이상의 인기 게임과 함께 상하이 신국제박람중심 N3 홀 01번 부스에 참여하여 1,000제곱미터 규모의 사이버 놀이공원을 조성했습니다. 현재까지 HarmonyOS 플랫폼에는 3만 개 이상의 게임이 등록되었으며, 1,000여 개의 파트너사와 협력하고 있으며 20개 이상의 주요 게임 엔진을 지원합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Huawei는 HarmonyOS SDK를 통해 AI 슈퍼 해상도, 제어 및 디스플레이 분리, 하드웨어 레이 트레이싱 등 고도화된 게임 기능을 제공하며 기술적 진보를 보여주었습니다. 특히 폴더블 디스플레이에 최적화된 인터랙션과 강력한 그래픽 성능을 결합하여 사용자 경험을 강화하고 있습니다. 현재 HarmonyOS 플랫폼은 수많은 파트너사 및 다양한 게임 엔진과의 협력을 통해 방대한 게임 생태계를 구축하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>HarmonyOS SDK 与游戏秒启功能</h3>
+<p>随着 ChinaJoy 2026 的落幕，Huawei HarmonyOS 开发者官方披露了 HarmonyOS SDK 的一系列新特性。其中包含在 HarmonyOS SDK 26 中推出的“游戏秒启秒开”功能，该功能已在搭载 HarmonyOS 7 开发/花粉 Beta 版系统的手机及平板上实装，支持《原神》、《洛克王国》等热门游戏的快速启动。</p>
+          
+          <h3>核心技术特性展示</h3>
+<p>HarmonyOS 为移动端游戏提供了多项关键的技术优化：</p>
+<ul>
+<li>AI 超分：依托 Huawei 移动端 NPU 的软硬协同能力，在《异环》游戏中将渲染分辨率提升至 1080P，画面清晰度提升 1.5 倍。</li>
+<li>控显分离：专门针对折叠屏设备设计，将屏幕划分为上部渲染、下部交互的两个独立区域，从 API 版本 26.0.0 开始支持，并基于 Vulkan API 开发。</li>
+<li>硬件光追：Huawei Mate 80 Pro Max 风驰版在《暗区突围》中支持 3000 万条光线同时渲染，并实现了 90 帧与均衡光追的同步开启。</li>
+</ul>
+          
+          <h3>生态规模与合作伙伴</h3>
+<p>HarmonyOS 平台目前已构建起庞大的游戏生态体系：</p>
+<ul>
+<li>上架游戏数量：超过 3 万款。</li>
+<li>合作厂商：达 1000 余家。</li>
+<li>引擎支持：全面支持 20 余个主流游戏引擎。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Huawei 在 HarmonyOS SDK 中引入了 AI 超分、控显分离及硬件光追等核心技术，旨在显著提升移动端游戏的画质与交互体验。目前，HarmonyOS 已建立起包含数万款游戏和上千家合作伙伴的庞大生态体系。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>HarmonyOS ゲームの新機能およびアップデート</h3>
+          
+          <p>ITニュースによると、ChinaJoy 2026が無事に閉幕し、Huawei HarmonyOSの開発者向け公式Weiboを通じて、HarmonyOS SDKの新しいゲーム機能である「AIスーパー解像度」、「操作とディスプレイの分離」、および「ハードウェアレイトレーシング」が公開されました。</p>
+          
+          <p>昨年6月、HuaweiはHarmonyOS SDK 26を正式にリリースし、利便性、空間化、知能化の面で全面的なアップグレードを実施しました。これにはゲームの即時起動機能も含まれています。</p>
+          
+          <p>複数のユーザーの報告によると、HarmonyOS 7の開発者版および「花粉」Beta版システムを搭載したタブレットやスマートフォンにおいて、ゲームの即時起動機能が実装されており、『原神』や『ロク王国』などのゲームが迅速に起動されることが確認されています。</p>
+          
+          <h3>AI スーパー解像度</h3>
+          
+          <p>AIスーパー解像度技術は、HuaweiモバイルNPUのハードウェアとソフトウェアの連携能力に基づいて実現されています。HDC 2026で公開されたゲーム『異環』では、このAIスーパー解像度技術を通じてレンダリング解像度を1080Pに引き上げ、画質を1.5倍向上させました。これにより、水中トンネルの光や泳ぐ魚の群れといった細かなシーンを忠実に再現することに成功しています。</p>
+          
+          <h3>操作とディスプレイの分離</h3>
+          
+          <p>「操作とディスプレイの分離」機能は、主に折りたたみ式ディスプレイデバイスを対象としており、画面を2つの対称的な独立領域に分割します。上部の画面が主要なレンダリングを担当し、下部の画面がインタラクティブなタッチ操作に集中することで、クラシックな携帯型ゲーム機の操作ロジックを深く再現します。この機能はAPIバージョン26.0.0から追加され、現在は一部の折りたたみ式デバイスでのみサポートされており、Vulkan APIに基づいて開発される必要があります。</p>
+          
+          <h3>ハードウェア・レイトレーシング</h3>
+          
+          <p>ハードウェアレイトレーシングの面では、Huawei Mate 80 Pro Max 風馳（Fengchi）エディションが『Arena Breakout』において3,000万本の光線を同時にレンダリングするハードウェアレイトレーシングを先行サポートし、高画質と高いフレームレートを両立させた90fpsの環境を初めて実現しました。</p>
+          
+          <h3>ChinaJoyへの参加成果</h3>
+          
+          <p>今回のChinaJoy（7月31日〜8月3日）において、Huaweiゲームセンターは「HarmonyOSと共に楽しむゲーム」をテーマに、50以上の人気ゲームとともに上海新国際博覧中心N3ホール01番ブースにて1,000平方メートルのサイバー遊園地を構築しました。現在までにHarmonyOSプラットフォームには3万以上のゲームが登録されており、1,000以上のパートナー企業と協力し、20以上の主要なゲームエンジンをサポートしています。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>HuaweiはHarmonyOS SDKを通じて、AIスーパー解像度やハードウェアレイトレーシングといった高度なゲーム機能を実装し、技術的な進歩を示しました。特に折りたたみデバイスに最適化された操作系と強力なグラフィック性能を組み合わせることで、ユーザー体験の向上を図っています。現在、HarmonyOSは広範なパートナーシップと多様なエンジンへの対応を通じて、巨大なゲームエコシステムを構築しています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>New Features and Updates for HarmonyOS Gaming</h3>
+          
+          <p>Following the conclusion of ChinaJoy 2026, Huawei's official Weibo account for HarmonyOS developers revealed several new game features within the HarmonyOS SDK: AI Super Resolution, Control and Display Separation, and Hardware Ray Tracing.</p>
+          
+          <p>In June, Huawei officially released HarmonyOS SDK 26, which introduced comprehensive upgrades in usability, spatialization, and intelligence. These updates included a "game instant launch" feature designed to improve the user experience.</p>
+          
+          <p>According to reports from various users, the game instant launch feature has been implemented on tablets and smartphones running HarmonyOS 7 developer or Flower Powder (花粉) Beta versions. This feature supports the rapid startup of popular titles such as <Genshin Impact> and <Rook Kingdom>.</p>
+          
+          <h3>AI Super Resolution</h3>
+          
+          <p>The AI Super Resolution technology is powered by the collaborative capabilities of Huawei's mobile NPU hardware and software. In the game <Yihuan>, this technology was used to increase rendering resolution to 1080P, enhancing image quality by 1.5x. This allows for the accurate depiction of intricate scenes, such as light filtering through underwater tunnels and schools of fish.</p>
+          
+          <h3>Control and Display Separation</h3>
+          
+          <p>The Control and Display Separation feature is primarily targeted at foldable devices, dividing the screen into two symmetrical independent zones. The top portion handles core rendering while the bottom portion focuses on interaction touch, effectively replicating the control logic of classic handheld game consoles. This feature was added starting from API version 26.0.0; it is currently supported on select foldable devices and must be developed using the Vulkan API.</p>
+          
+          <h3>Hardware Ray Tracing</h3>
+          
+          <p>Regarding hardware ray tracing, the Huawei Mate 80 Pro Max "Fengchi" Edition provides advanced support for the game <Arena Breakout>. It can render 30 million rays simultaneously, achieving a high-performance environment of 90 frames per second (FPS) while maintaining high visual quality.</p>
+          
+          <h3>ChinaJoy Participation Results</h3>
+          
+          <p>During ChinaJoy (July 31 – August 3), the Huawei Game Center participated under the theme "Gaming with HarmonyOS." They hosted over 50 popular games in a 1,000-square-meter cyber park at Booth 01, Hall N3 of the Shanghai New International Expo Center. To date, the HarmonyOS platform features:</p>
+          
+          <ul>
+<li>Over 30,000 registered games</li>
+<li>Partnerships with over 1,000 companies</li>
+<li>Support for more than 20 major game engines</li>
+</ul>
+          
+          <h3>Summary</h3>
+          
+          <p>Huawei has demonstrated significant technical progress by introducing advanced features like AI Super Resolution, Control and Display Separation, and Hardware Ray Tracing through the HarmonyOS SDK. These updates specifically enhance the experience for foldable devices and high-end gaming performance. Furthermore, the platform continues to build a massive ecosystem supported by thousands of games, partners, and various game engines.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">초해상도</div>
+                <div class="caption-lang" data-lang="en">Upward Super-resolution</div>
+                <div class="caption-lang" data-lang="ja">超解像</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">네이티브 해상도 돌파</div>
+                <div class="caption-lang" data-lang="en">Exceed native resolution</div>
+                <div class="caption-lang" data-lang="ja">ネイティブ解像度を超える</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">게임 슈퍼 해상도</div>
+                <div class="caption-lang" data-lang="en">Game Super Resolution</div>
+                <div class="caption-lang" data-lang="ja">ゲーム超解像</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">게임 네이티브 해상도</div>
+                <div class="caption-lang" data-lang="en">Game native resolution</div>
+                <div class="caption-lang" data-lang="ja">ゲームのネイティブ解像度</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">활성화 후</div>
+                <div class="caption-lang" data-lang="en">After turning on</div>
+                <div class="caption-lang" data-lang="ja">起動後</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">켜기 전</div>
+                <div class="caption-lang" data-lang="en">Before opening</div>
+                <div class="caption-lang" data-lang="ja">起動前</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">AI 초해상도 켬</div>
+                <div class="caption-lang" data-lang="en">AI Super-resolution On</div>
+                <div class="caption-lang" data-lang="ja">AI超解像オン</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">AI 초해상도 꺼짐</div>
+                <div class="caption-lang" data-lang="en">AI Upscaling Off</div>
+                <div class="caption-lang" data-lang="ja">AI超解像 オフ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">AI 초해상도</div>
+                <div class="caption-lang" data-lang="en">AI Super-resolution</div>
+                <div class="caption-lang" data-lang="ja">AI超解像</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">NPU+GPU 이종 협력으로 온디바이스 초해상도 지원</div>
+                <div class="caption-lang" data-lang="en">NPU+GPU Heterogeneous Synergy Empowers On-Device Super-Resolution</div>
+                <div class="caption-lang" data-lang="ja">NPUとGPUの異種協調による端末側の超解像</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">업스케일링을 지원하여 더 높은 화질과 해상도의 게임 구현</div>
+                <div class="caption-lang" data-lang="en">Supports upscaling for higher game resolution.</div>
+                <div class="caption-lang" data-lang="ja">アップスケーリングに対応し、より高精細なゲームを実現。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">더 나은 시각적 효과 제공</div>
+                <div class="caption-lang" data-lang="en">Deliver better visuals</div>
+                <div class="caption-lang" data-lang="ja">より優れた視覚効果</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이 기능은 HarmonyOS 시스템에서만 지원됩니다.</div>
+                <div class="caption-lang" data-lang="en">This feature is only supported on HarmonyOS.</div>
+                <div class="caption-lang" data-lang="ja">この機能はHarmonyOSのみ対応しています。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">HarmonyOS 버전에서는 아직 테스트되지 않았으며, HarmonyOS 환경에서 발생할 경우 실제 상황에 따릅니다.</div>
+                <div class="caption-lang" data-lang="en">Not tested on HarmonyOS; subject to actual conditions.</div>
+                <div class="caption-lang" data-lang="ja">HarmonyOSでの動作は未検証のため、実際の挙動に準じます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">HarmonyOS SDK 관련 추가 정보가 필요하시면 당사에 문의해 주세요.</div>
+                <div class="caption-lang" data-lang="en">Contact us for more information on HarmonyOS SDK integration.</div>
+                <div class="caption-lang" data-lang="ja">HarmonyOS SDKでの利用に関する詳細はお問い合わせください。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">에너지 효율 최적화</div>
+                <div class="caption-lang" data-lang="en">Energy efficiency optimization</div>
+                <div class="caption-lang" data-lang="ja">エネルギー効率の最適化</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">더욱 향상된 부드러움</div>
+                <div class="caption-lang" data-lang="en">Even smoother</div>
+                <div class="caption-lang" data-lang="ja">さらになめらかに</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">평균 프레임 속도 향상</div>
+                <div class="caption-lang" data-lang="en">Average frame rate improvement</div>
+                <div class="caption-lang" data-lang="ja">平均フレームレート向上</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">평균 소비 전력 감소</div>
+                <div class="caption-lang" data-lang="en">Reduced average power consumption</div>
+                <div class="caption-lang" data-lang="ja">平均消費電力の低減</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">초부드러움</div>
+                <div class="caption-lang" data-lang="en">Super smooth</div>
+                <div class="caption-lang" data-lang="ja">超スムーズ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">AI 초프레임</div>
+                <div class="caption-lang" data-lang="en">AI Super Frame</div>
+                <div class="caption-lang" data-lang="ja">AIフレーム補完</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">NPU 연산 자원 최대한 활용</div>
+                <div class="caption-lang" data-lang="en">Fully utilize NPU computing resources</div>
+                <div class="caption-lang" data-lang="ja">NPU計算リソースを最大限に活用</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">GPU와 NPU의 병렬 협업 처리</div>
+                <div class="caption-lang" data-lang="en">Collaborative GPU+NPU parallel processing</div>
+                <div class="caption-lang" data-lang="ja">GPUとNPUによる並行協調処理</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">움직임 지연 및 조작감 문제 개선</div>
+                <div class="caption-lang" data-lang="en">Reduce motion lag and tactile issues.</div>
+                <div class="caption-lang" data-lang="ja">動作の遅れや操作感の問題を低減</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이 기능은 HarmonyOS를 지원하는 기기에서 사용할 수 있습니다.</div>
+                <div class="caption-lang" data-lang="en">This feature requires a HarmonyOS-supported device.</div>
+                <div class="caption-lang" data-lang="ja">この機能はHarmonyOS対応のデバイスで使用可能です。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이 기술은 해당 모델에만 적용되며, 기종에 따라 효과가 다를 수 있습니다.</div>
+                <div class="caption-lang" data-lang="en">Applicable only to this model; results may vary across devices.</div>
+                <div class="caption-lang" data-lang="ja">本技術はこのモデル専用で、機種により効果が異なります。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">일부 모델은 초프레임 기능을 지원합니다.</div>
+                <div class="caption-lang" data-lang="en">Some models support Ultra Frame.</div>
+                <div class="caption-lang" data-lang="ja">一部の機種で超フレーム機能に対応。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">HarmonyOS 지원 기기에서 120Hz 디스플레이를 사용하는 경우에 한함.</div>
+                <div class="caption-lang" data-lang="en">Only on HarmonyOS-supported devices with a 120Hz display.</div>
+                <div class="caption-lang" data-lang="ja">HarmonyOS対応かつ120Hz表示に対応したデバイスのみ。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg" alt="이미지 5" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">밝기 최대 2.5배 향상</div>
+                <div class="caption-lang" data-lang="en">Up to 2.5x brighter</div>
+                <div class="caption-lang" data-lang="ja">明度を最大2.5倍に向上</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">더욱 뛰어난 화면 효과</div>
+                <div class="caption-lang" data-lang="en">Better visuals</div>
+                <div class="caption-lang" data-lang="ja">より優れた画質</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">게임 HDR 켜기</div>
+                <div class="caption-lang" data-lang="en">Enable Game HDR</div>
+                <div class="caption-lang" data-lang="ja">ゲームHDRをオン</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">게임 HDR 비활성화</div>
+                <div class="caption-lang" data-lang="en">Game HDR not enabled</div>
+                <div class="caption-lang" data-lang="ja">ゲームHDRオフ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">게임 HDR</div>
+                <div class="caption-lang" data-lang="en">Game HDR</div>
+                <div class="caption-lang" data-lang="ja">ゲームHDR</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">6억 개의 색상으로 더욱 화려하며, 선명한 픽셀 컬러 매핑과 게임 장면을 위한 넓은 색 영역의 HDR 2.0 매핑 및 HDR 대비도 렌더링으로 빛과 그림자의 디테일을 강화합니다.</div>
+                <div class="caption-lang" data-lang="en">Stunning 6-billion colors with vivid mapping, wide gaming gamut in HDR 2.0, and enhanced lighting details via HDR contrast.</div>
+                <div class="caption-lang" data-lang="ja">6億色の鮮やかな色彩とHDR2.0による広色域で、ゲームの光影ディテールを向上。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">※ HarmonyOS 2.0 이상 버전 지원</div>
+                <div class="caption-lang" data-lang="en">Compatible with HarmonyOS 2.0 and above</div>
+                <div class="caption-lang" data-lang="ja">※HarmonyOS 2.0以降に対応</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">HarmonyOS 2.0 기술을 적용하여 고다이내믹 레인지 HDR을 지원하며 더욱 풍부한 화질을 구현합니다.</div>
+                <div class="caption-lang" data-lang="en">Powered by HarmonyOS 2.0 with HDR support for richer visuals.</div>
+                <div class="caption-lang" data-lang="ja">HarmonyOS 2.0技術によりHDRに対応し、より豊かな映像を実現。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">※ 게임 모드에서만 지원</div>
+                <div class="caption-lang" data-lang="en">* Supported in game mode only</div>
+                <div class="caption-lang" data-lang="ja">※ゲームモード時のみ対応</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">※ HarmonyOS 2.0 기술을 채택하여 더욱 강력한 성능을 지원합니다.</div>
+                <div class="caption-lang" data-lang="en">Powered by HarmonyOS 2.0 for enhanced performance.</div>
+                <div class="caption-lang" data-lang="ja">※HarmonyOS 2.0技術を採用し、より強力なパフォーマンスを実現。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.jpg" alt="이미지 6" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/987/205.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

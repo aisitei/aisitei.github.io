@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - SK하이닉스, V10 NAND 플래시 375단 적층 및 웨이퍼 본딩 기술 도입 확인</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="image_sensor">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="SK하이닉스, V10 NAND 플래시 375단 적층 및 웨이퍼 본딩 기술 도입 확인">
+  <meta name="title-zh" content="SK 海力士确认 V10 NAND 闪存为 375 层堆叠，导入晶圆键合技术">
+  <meta name="title-ja" content="SK 海力士、V10 NANDフラッシュが375層積層であることを確認し、ウェハーボンディング技術を導入">
+  <meta name="title-en" content="SK Hynix Confirms 375-Layer Stacking for V10 NAND Flash, Introducing Wafer Bonding Technology">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="SK하이닉스, V10 NAND 플래시 375단 적층 및 웨이퍼 본딩 기술 도입 확인" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="SK하이닉스, V10 NAND 플래시 375단 적층 및 웨이퍼 본딩 기술 도입 확인"
+            data-zh="SK 海力士确认 V10 NAND 闪存为 375 层堆叠，导入晶圆键合技术"
+            data-ja="SK 海力士、V10 NANDフラッシュが375層積層であることを確認し、ウェハーボンディング技術を導入"
+            data-en="SK Hynix Confirms 375-Layer Stacking for V10 NAND Flash, Introducing Wafer Bonding Technology">SK하이닉스, V10 NAND 플래시 375단 적층 및 웨이퍼 본딩 기술 도입 확인</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-08
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>차세대 플래시 기술</h3>
+          
+          <p>SK하이닉스는 FMS 2026 컨퍼런스 보도자료를 통해 321단 V9 "4D NAND"에 이어 출시되는 차세대 플래시 제품인 V10이 375단 적층 설계를 채택했다고 밝혔습니다. 이는 SK하이닉스가 웨이퍼 본딩 기술을 적용한 첫 번째 NAND 제품입니다.</p>
+          
+          <p>SK하이닉스는 V10 NAND가 이전 세대 대비 와트당 성능(performance per watt)을 2.5배 향상시켰으며, 에너지 효율과 성능을 동시에 요구하는 AI 인프라 환경에 최적화되었다고 밝혔습니다. SK하이닉스는 2027년 상반기부터 V10 NAND 기반의 기업용 SSD 양산을 계획하고 있습니다.</p>
+          
+          <h3>제품 라인업 및 솔루션</h3>
+          
+          <p>SK하이닉스는 V10 1Tb TLC 웨이퍼와 함께 두 가지 완성형 칩을 공개했습니다.</p>
+          
+          <ul>
+<li>32DP 2CH 모델: 32개의 NAND Die를 적층한 첫 번째 유사 패키징(similar packaging) TLC</li>
+<li>4채널 패키지 버전: 크기가 13.5mm x 12.5mm로, 기존 14mm x 18mm보다 더 작고 콤팩트함</li>
+</ul>
+          
+          <p>또한 V9H 1Tb TLC NAND 기반의 UFS 5.0 솔루션인 UG500을 선보였습니다.</p>
+          
+          <ul>
+<li>제공 용량: 512GB 및 1TB</li>
+<li>에너지 효율: UFS 4.1 대비 19% 개선</li>
+</ul>
+          
+          <p>이와 함께 1c nm 16Gb Die 기반의 LPDDR6 칩도 공개되었습니다.</p>
+          
+          <h3>PCIe Gen5 QLC SSD</h3>
+          
+          <p>SK하이닉스는 가성비가 뛰어난 PCIe Gen5 QLC SSD인 PQF02를 전시했습니다.</p>
+          
+          <ul>
+<li>기반 기술: V9 QLC NAND</li>
+<li>제공 용량: 1TB 및 2TB 버전</li>
+<li>컨트롤러: 4채널 컨트롤러 탑재</li>
+<li>지원 규격: M.2 2230부터 2280까지 지원</li>
+</ul>
+          
+          <h3>총평</h3>
+          
+          <p>SK하이닉스는 웨이퍼 본딩 기술을 적용한 375단 적층 V10 NAND를 통해 AI 인프라에 최적화된 고성능 및 고효율 솔루션을 제시했습니다. 또한 UFS 5.0, LPDDR6, 그리고 가성비 높은 PCIe Gen5 QLC SSD 등 다양한 차세대 메모리 제품군을 선보였습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>新一代 V10 NAND 技术</h3>
+<p>SK 海力士在 FMS 2026 峰会上确认了新一代闪存产品 V10。该产品采用 375 层堆叠设计，是 SK 海力士首款采用晶圆键合技术的 NAND 产品。V10 在能效方面表现出色，其每瓦性能达到上代产品的 2.5 倍，专门针对 AI 基础设施环境优化。SK 海力士计划于 2027H1 量产基于 V10 NAND 的企业级固态硬盘。</p>
+          
+          <h3>V10 1Tb TLC 晶圆与封装</h3>
+<p>SK 海力士展示了多种基于 V10 技术的成品颗粒：</p>
+<ul>
+<li>32DP 2CH 型号：堆叠 32 个 NAND Die，是首款类似封装的 TLC。</li>
+<li>4 通道封装版本：尺寸为 13.5mm × 12.5mm，比传统的 14mm × 18mm 更为小巧。</li>
+</ul>
+          
+          <h3>UFS 5.0 与 LPDDR6 解决方案</h3>
+<p>SK 海力士展示了基于 V9H 1Tb TLC NAND 的 UFS 5.0 解决方案（型号：UG500）：</p>
+<ul>
+<li>容量提供：支持 512GB 和 1TB。</li>
+<li>能效表现：较 UFS 4.1 改进 19%。</li>
+</ul>
+<p>此外，还展示了基于 1c nm 16Gb Die 的 LPDDR6 颗粒。</p>
+          
+          <h3>PCIe Gen5 QLC 固态硬盘</h3>
+<p>SK 海力士展出了首款高性价比的 PCIe Gen5 QLC 固态硬盘 PQF02：</p>
+<ul>
+<li>核心技术：基于 V9 QLC NAND，采用 4 通道主控。</li>
+<li>容量选项：提供 1TB 和 2TB 版本。</li>
+<li>外形规格：支持从 2230 到 2280 的 M.2 尺寸。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>SK 海力士推出采用晶圆键合技术的 V10 NAND，显著提升了 AI 基础设施所需的能效表现。同时，公司还展示了性能优化的 UFS 5.0 方案、LPDDR6 颗粒以及支持多种尺寸的 PCIe Gen5 QLC 固态硬盘。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>次世代フラッシュ技術</h3>
+          
+          <p>SK hynixは、FMS 2026カンファレンスのプレスリリースを通じて、321層のV9「4D NAND」に続く次世代フラッシュ製品であるV10が、375層の積層設計を採用したことを明らかにしました。これは、SK hynixがウェハーボンディング技術を適用した初のNAND製品となります。</p>
+          
+          <p>SK hynixは、V10 NANDが前世代と比較してワットあたりの性能（performance per watt）を2.5倍向上させ、エネルギー効率と性能の両立が求められるAIインフラ環境に最適化されていると述べています。また、SK hynixは2027年上半期から、V10 NANDベースの企業向けSSDの量産を開始する計画です。</p>
+          
+          <h3>製品ラインナップおよびソリューション</h3>
+          
+          <p>SK hynixは、V10 1Tb TLCウェハーとともに、2種類の完成型チップを公開しました。</p>
+          
+          <ul>
+<li>32DP 2CHモデル：32個のNAND Dieを積層した初の「シミラーパッケージング（similar packaging）」TLC</li>
+<li>4チャネルパッケージバージョン：サイズが13.5mm x 12.5mmとなっており、従来の14mm x 18mmよりも小型でコンパクトな設計を実現</li>
+</ul>
+          
+          <p>さらに、V9H 1Tb TLC NANDベースのUFS 5.0ソリューションであるUG500を発表しました。</p>
+          
+          <ul>
+<li>提供容量：512GBおよび1TB</li>
+<li>エネルギー効率：UFS 4.1と比較して19%向上</li>
+</ul>
+          
+          <p>これと同時に、1c nm 16Gb DieベースのLPDDR6チップも公開されました。</p>
+          
+          <h3>PCIe Gen5 QLC SSD</h3>
+          
+          <p>SK hynixは、優れたコストパフォーマンスを誇るPCIe Gen5 QLC SSDであるPQF02を展示しました。</p>
+          
+          <ul>
+<li>基盤技術：V9 QLC NAND</li>
+<li>提供容量：1TBおよび2TBバージョン</li>
+<li>コントローラー：4チャネルコントローラー搭載</li>
+<li>対応規格：M.2 2230から2280まで対応</li>
+</ul>
+          
+          <h3>まとめ</h3>
+          
+          <p>SK hynixは、ウェハーボンディング技術を採用した375層積層のV10 NANDにより、AIインフラに最適化された高パフォーマンスかつ高効率なソリューションを提示しました。あわせて、UFS 5.0やLPDDR6、コストパフォーマンスに優れたPCIe Gen5 QLC SSDなど、多岐にわたる次世代メモリ製品群を公開しています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Next-Generation Flash Technology</h3>
+          
+          <p>SK Hynix announced that V10, its next-generation flash product following the 321-layer V9 "4D NAND," adopts a 375-layer stacked design. This marks SK Hynix's first NAND product to implement wafer bonding technology.</p>
+          
+          <p>SK Hynix stated that V10 NAND improves performance per watt by 2.5 times compared to the previous generation, making it optimized for AI infrastructure environments that require both high energy efficiency and high performance. The company plans to begin mass-producing enterprise SSDs based on V10 NAND starting in the first half of 2027.</p>
+          
+          <h3>Product Lineup and Solutions</h3>
+          
+          <p>SK Hynix unveiled a V10 1Tb TLC wafer along with two finished chip models:</p>
+          
+          <ul>
+<li>32DP 2CH model: The first "similar packaging" TLC featuring 32 stacked NAND dies.</li>
+<li>4-channel package version: Features a more compact size of 13.5mm x 12.5mm, compared to the previous 14mm x 18mm.</li>
+</ul>
+          
+          <p>Additionally, the company introduced the UG500, a UFS 5.0 solution based on V9H 1Tb TLC NAND.</p>
+          
+          <ul>
+<li>Available capacities: 512GB and 1TB</li>
+<li>Energy efficiency: Improved by 19% compared to UFS 4.1</li>
+</ul>
+          
+          <p>A LPDDR6 chip based on a 1c nm 16Gb Die was also unveiled.</p>
+          
+          <h3>PCIe Gen5 QLC SSD</h3>
+          
+          <p>SK Hynix showcased the PQF02, a cost-effective PCIe Gen5 QLC SSD.</p>
+          
+          <ul>
+<li>Base technology: V9 QLC NAND</li>
+<li>Available capacities: 1TB and 2TB versions</li>
+<li>Controller: Equipped with a 4-channel controller</li>
+<li>Supported standards: Supports M.2 2230 to 2280</li>
+</ul>
+          
+          <h3>Summary</h3>
+<p>SK Hynix introduced the V10 NAND, which utilizes wafer bonding technology to provide high performance and energy efficiency optimized for AI infrastructure. The company also showcased a diverse range of next-generation memory products, including UFS 5.0 solutions, LPDDR6 chips, and cost-effective PCIe Gen5 QLC SSDs.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/987/148.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
