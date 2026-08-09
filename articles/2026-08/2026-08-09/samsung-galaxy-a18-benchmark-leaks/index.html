@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Samsung Galaxy A18 스마트폰 벤치마크 점수 유출: 4GB 메모리, MediaTek Helio G99 칩셋 탑재</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Samsung">
+  <meta name="article-brand-color" content="#1428A0">
+  <meta name="title-ko" content="Samsung Galaxy A18 스마트폰 벤치마크 점수 유출: 4GB 메모리, MediaTek Helio G99 칩셋 탑재">
+  <meta name="title-zh" content="三星 Galaxy A18 手机跑分曝光：4GB 内存、联发科 Helio G99 芯片">
+  <meta name="title-ja" content="Samsung Galaxy A18のベンチマーク結果が判明：4GBメモリ、MediaTek Helio G99チップ搭載">
+  <meta name="title-en" content="Samsung Galaxy A18 smartphone benchmark leaked: 4GB memory, MediaTek Helio G99 chip">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Samsung Galaxy A18 스마트폰 벤치마크 점수 유출: 4GB 메모리, MediaTek Helio G99 칩셋 탑재" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #1428A0;">
+            Samsung
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Samsung Galaxy A18 스마트폰 벤치마크 점수 유출: 4GB 메모리, MediaTek Helio G99 칩셋 탑재"
+            data-zh="三星 Galaxy A18 手机跑分曝光：4GB 内存、联发科 Helio G99 芯片"
+            data-ja="Samsung Galaxy A18のベンチマーク結果が判明：4GBメモリ、MediaTek Helio G99チップ搭載"
+            data-en="Samsung Galaxy A18 smartphone benchmark leaked: 4GB memory, MediaTek Helio G99 chip">Samsung Galaxy A18 스마트폰 벤치마크 점수 유출: 4GB 메모리, MediaTek Helio G99 칩셋 탑재</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-09
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>개요</h3>
+          
+          <p>IT Home은 8월 8일, 기술 매체 sammyfans가 8월 7일 게시한 내용을 통해 Samsung Galaxy A18의 GeekBench 점수가 공개되었다고 보도했습니다. 해당 기기의 사양을 살펴보면 2015년 수준의 메모리 구성, 2022년 출시된 칩셋, 그리고 2026년에 해당하는 시스템이 탑재된 것으로 나타났습니다.</p>
+          
+          <h3>메모리</h3>
+          
+          <p>공개된 정보에 따르면 Galaxy A18은 4GB 메모리를 탑재할 예정입니다. 비교를 위해 언급하자면, Galaxy A17은 6GB 및 8GB 옵션을 제공하며, 전 세계 최초로 4GB 메모리를 탑재한 스마트폰은 2015년 1월에 출시된 ASUS ZenFone 2 (ZE551ML)였습니다.</p>
+          
+          <h3>성능</h3>
+          
+          <p>Samsung Galaxy A18에는 2022년에 MediaTek에서 발표한 Helio G99 칩셋이 탑재됩니다. 해당 칩셋은 다음과 같은 사양을 갖추고 있습니다.</p>
+          
+          <ul>
+<li>6nm 공정 제조</li>
+<li>Cortex-A76 코어 2개 (2.2 GHz) 및 Cortex-A55 코어 6개 (2.0 GHz)</li>
+<li>Mali-G57 MC2 GPU 탑재</li>
+</ul>
+          
+          <h3>시스템</h3>
+          
+          <p>Samsung은 해당 기기에 Android 17과 One UI 9 시스템을 탑재할 예정입니다. GeekBench 점수 결과, 싱글코어는 744점, 멀티코어는 2064점을 기록했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Samsung Galaxy A18은 2015년 수준의 메모리 구성과 2022년 출시된 Helio G99 칩셋을 탑재하면서도, 미래 시점인 Android 17 및 One UI 9 시스템이 포함되는 등 사양 구성에서 독특한 특징을 보이고 있습니다. GeekBench 테스트를 통해 해당 기기의 싱글코어와 멀티코어 성능 수치가 확인되었습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>内存配置</h3>
+<p>根据 GeekBench 跑分数据，Samsung Galaxy A18 将配备 4GB 内存。这一配置与前代产品明显不同。</p>
+<ul>
+    <li>当前型号：4GB</li>
+    <li>对比模型：Galaxy A17 提供 6GB/8GB 选项</li>
+    <li>历史参考：2015 年发布的华硕 ZenFone 2 是首款搭载 4GB 内存的手机。</li>
+</ul>
+          
+          <h3>芯片规格</h3>
+<p>Samsung Galaxy A18 将搭载 MediaTek 于 2022 年发布的 Helio G99 芯片组。</p>
+<ul>
+    <li>制造工艺：6nm</li>
+    <li>核心配置：2 个 Cortex-A76 (2.2 GHz) 和 6 个 Cortex-A55 (2.0 GHz)</li>
+    <li>GPU：Mali-G57 MC2</li>
+</ul>
+          
+          <h3>系统与跑分表现</h3>
+<p>该机型将搭载较新版本的操作系统，并在 GeekBench 测试中表现出相应的性能数据。</p>
+<ul>
+    <li>操作系统：Android 17 和 One UI 9</li>
+    <li>GeekBench 单核得分：744 分</li>
+    <li>GeekBench 多核得分：2064 分</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>Samsung Galaxy A18 的 GeekBench 跑分泄露显示，该机采用 2022 年的 MediaTek Helio G99 芯片及 2015 年级别的 4GB 内存配置。尽管搭载了 Android 17 系统，但其硬件规格在同系列产品中显得较为保守。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>概要</h3>
+          
+          <p>IT Homeは8月8日、技術メディアのsammyfansが8月7日に投稿した内容に基づき、Samsung Galaxy A18のGeekBenchスコアが公開されたことを報じました。このデバイスの仕様を確認すると、2015年レベルのメモリ構成、2022年発売のチップセット、そして2026年に相当するシステムが搭載されていることが判明しました。</p>
+          
+          <h3>メモリ</h3>
+          
+          <p>公開された情報によると、Galaxy A18は4GBのメモリを搭載する予定です。比較として、Galaxy A17は6GBおよび8GBのオプションを提供しており、世界で初めて4GBのメモリを搭載したスマートフォンは、2015年1月に発売されたASUS ZenFone 2 (ZE551ML)でした。</p>
+          
+          <h3>性能</h3>
+          
+          <p>Samsung Galaxy A18には、MediaTekが2022年に発表したHelio G99チップセットが搭載されます。このチップセットの仕様は以下の通りです。</p>
+          
+          <ul>
+<li>6nmプロセス製造</li>
+<li>Cortex-A76コア 2基 (2.2 GHz) および Cortex-A55コア 6基 (2.0 GHz)</li>
+<li>Mali-G57 MC2 GPU搭載</li>
+</ul>
+          
+          <h3>システム</h3>
+          
+          <p>Samsungは本デバイスにAndroid 17およびOne UI 9システムを搭載する予定です。GeekBenchのスコア結果では、シングルコアが744点、マルチコアが2064点を記録しました。</p>
+          
+          <h3>総評</h3>
+          
+          <p>Samsung Galaxy A18は、2015年レベルのメモリ構成と2022年発売のHelio G99チップセットを搭載しながらも、未来の時点であるAndroid 17およびOne UI 9システムを採用するなど、仕様構成において独特な特徴を見せています。GeekBenchテストを通じて、同デバイスのシングルコアおよびマルチコアの性能数値が確認されました。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>Samsung Galaxy A18は、2015年レベルのメモリと2022年のチップセットを組み合わせつつ、Android 17やOne UI 9といった将来的なシステムを採用する非常にユニークな構成となっています。GeekBenchテストにより、シングルコア744点、マルチコア2064点の性能が確認されました。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Overview</h3>
+<p>On August 8, IT Home reported that GeekBench scores for the Samsung Galaxy A18 were revealed, following a report by tech outlet sammyfans on August 7. An analysis of the device's specifications reveals an unusual configuration: memory levels comparable to 2015 standards, a chipset released in 2022, and software systems corresponding to 2026.</p>
+          
+          <h3>Memory</h3>
+<p>According to the disclosed information, the Galaxy A18 is expected to feature 4GB of RAM. For comparison, the Galaxy A17 offers options of 6GB and 8GB. The first smartphone in the world to feature 4GB of memory was the ASUS ZenFone 2 (ZE551ML), released in January 2015.</p>
+          
+          <h3>Performance</h3>
+<p>The Samsung Galaxy A18 will be equipped with the MediaTek Helio G99 chipset, which was announced in 2022. This chipset features the following specifications:</p>
+<ul>
+<li>Manufactured on a 6nm process</li>
+<li>Dual Cortex-A76 cores (2.2 GHz) and Hexa-core Cortex-A55 (2.0 GHz)</li>
+<li>Mali-G57 MC2 GPU</li>
+</ul>
+          
+          <h3>System</h3>
+<p>Samsung plans to equip the device with Android 17 and the One UI 9 system. Based on GeekBench results, the device recorded a single-core score of 744 and a multi-core score of 2064.</p>
+          
+          <h3>Conclusion</h3>
+<p>The Samsung Galaxy A18 exhibits unique characteristics in its configuration by combining memory levels from 2015 and a 2022 Helio G99 chipset with future software versions like Android 17 and One UI 9. The GeekBench tests have confirmed the device's specific single-core and multi-core performance figures.</p>
+          
+          <h3>Summary</h3>
+<p>The Samsung Galaxy A18 features an unusual mix of hardware and software, pairing a 2022 MediaTek Helio G99 chipset with future Android 17 and One UI 9 systems. While its memory capacity reflects older standards, the device has confirmed GeekBench scores of 744 for single-core and 2064 for multi-core performance.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.png" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">번역 표시</div>
+                <div class="caption-lang" data-lang="en">Show translation</div>
+                <div class="caption-lang" data-lang="ja">翻訳を表示</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Galaxy A18이 GeekBench 벤치마크 플랫폼에서 발견되었으며, Android 17 및 One UI 9 시스템을 구동하는 것으로 확인되었습니다.</div>
+                <div class="caption-lang" data-lang="en">Galaxy A18 spotted on GeekBench running Android 17 and One UI 9.</div>
+                <div class="caption-lang" data-lang="ja">GeekBenchにて、Android 17とOne UI 9を搭載したGalaxy A18が確認された。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이 기기에는 Helio G99 프로세서가 탑재됩니다.</div>
+                <div class="caption-lang" data-lang="en">The device will feature a Helio G99 processor.</div>
+                <div class="caption-lang" data-lang="ja">このデバイスはHelio G99プロセッサを搭載します。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">싱글 코어: 744</div>
+                <div class="caption-lang" data-lang="en">Single-core: 744</div>
+                <div class="caption-lang" data-lang="ja">シングルコア: 744</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">멀티코어: 2064</div>
+                <div class="caption-lang" data-lang="en">Cores: 2064</div>
+                <div class="caption-lang" data-lang="ja">マルチコア: 2064</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오후 9:21 · 2026년 5월 7일 · 821 조회</div>
+                <div class="caption-lang" data-lang="en">9:21 PM · May 7, 2026 · 821 Views</div>
+                <div class="caption-lang" data-lang="ja">午後9:21 · 2026年5月7日 · 821 閲覧</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">관련</div>
+                <div class="caption-lang" data-lang="en">Related</div>
+                <div class="caption-lang" data-lang="ja">関連</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/987/319.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
