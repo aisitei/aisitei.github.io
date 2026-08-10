@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - SpaceX 팰컨 9 로켓 달 충돌, 한국 탐사선이 충돌 구역 영상 포착</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="SpaceX 팰컨 9 로켓 달 충돌, 한국 탐사선이 충돌 구역 영상 포착">
+  <meta name="title-zh" content="SpaceX 猎鹰 9 号火箭撞击月球，韩国探测器拍到撞击区域影像">
+  <meta name="title-ja" content="SpaceXのFalcon 9ロケットが月面に衝突、韓国の探査機が衝突エリアの映像を捉える">
+  <meta name="title-en" content="SpaceX Falcon 9 rocket hits the moon; South Korean probe captures images of the impact area.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="SpaceX 팰컨 9 로켓 달 충돌, 한국 탐사선이 충돌 구역 영상 포착" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="SpaceX 팰컨 9 로켓 달 충돌, 한국 탐사선이 충돌 구역 영상 포착"
+            data-zh="SpaceX 猎鹰 9 号火箭撞击月球，韩国探测器拍到撞击区域影像"
+            data-ja="SpaceXのFalcon 9ロケットが月面に衝突、韓国の探査機が衝突エリアの映像を捉える"
+            data-en="SpaceX Falcon 9 rocket hits the moon; South Korean probe captures images of the impact area.">SpaceX 팰컨 9 로켓 달 충돌, 한국 탐사선이 충돌 구역 영상 포착</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-10
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>사건 개요</h3>
+          
+          <p>IT홈의 보도에 따르면, 2026년 8월 5일 SpaceX의 Falcon 9 로켓 상단이 달에 충돌했습니다. 많은 천문학자가 이 사건을 주시해 왔으나, 실제 충돌 과정이나 충돌 지점을 촬영한 이미지는 많지 않았습니다. 그러나 최근 한국의 달 탐사선이 관련 이미지를 공개하며 로켓 충돌 후 남겨진 흔적을 보여주었습니다.</p>
+          
+          <h3>로켓 경로 및 충돌 상황</h3>
+          
+          <p>해당 Falcon 9 로켓은 2025년 1월 15일에 발사되었으며, Firefly Aerospace의 Blue Ghost 1 달 착륙선을 달로 운송하는 임무를 수행했습니다. 하지만 태양풍과 중력 등의 영향으로 인해 로켓 상단이 달 근처 궤도를 벗어나지 못하고 계속해서 달 주위를 돌게 되었습니다. 결국 약 18미터 길이의 이 로켓 상단은 2026년 8월 5일, 시속 약 5,400마일(약 8,700km/h)의 속도로 달에 충돌했습니다.</p>
+          
+          <h3>다누리 촬영 및 분석</h3>
+          
+          <p>충돌 지점이 지구에서 직접 관측될 수 없기 때문에, 한국항공우주연구원(KARI)의 다누리(Danuri) 달 궤도선이 충돌 지점을 통과하며 여러 각도에서 촬영한 사진을 확보했습니다.</p>
+          
+          <p>해당 이미지들을 통해 로켓이 달에 충돌한 후 해당 영역이 더 어두워졌으며, 새로운 운석 구덩이가 형성된 것을 확인할 수 있습니다. 또한 충돌로 인해 대량의 달 먼지가 발생했으나, 현재 공개된 이미지에는 이 먼지들이 포함되어 있지 않습니다.</p>
+          
+          <h3>향후 계획</h3>
+          
+          <p>NASA는 앞서 달 탐사 궤도선(LRO)이 다음 주에 충돌 지점을 비행하며 이번 충돌의 영향을 추가로 조사할 것이라고 발표했습니다. 이는 천문학자들에게 새로운 정보를 제공하며, 특히 향후 달 탐사 임무 계획과 연구에 도움이 될 것으로 기대됩니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>SpaceX의 Falcon 9 로켓 상단이 2026년 8월 5일 달에 충돌하여 새로운 운석 구덩이를 형성했습니다. 한국의 다누리 탐사선이 촬영한 이미지를 통해 충돌 흔적이 확인되었으며, 향후 NASA의 LRO가 추가 조사를 진행할 예정입니다.</p
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>SpaceX Falcon 9 上层级撞击月球</h3>
+<p>2026 年 8 月 5 日，一枚 SpaceX Falcon 9 火箭的上面级撞击了月球。该火箭于 2025 年 1 月 15 日发射，原计划为 Firefly Aerospace 的 Blue Ghost 1 月球着陆器提供运输服务。由于太阳风和引力等因素影响，上层级未能脱离月球轨道，最终以高速撞击月面。</p>
+          
+          <h3>撞击相关参数</h3>
+<ul>
+<li>火箭上层级长度：约 18 米</li>
+<li>撞击速度：约 5,400 英里/小时（约 8,700 公里/小时）</li>
+</ul>
+          
+          <h3>影像观测与后续研究</h3>
+<p>由于撞击地点无法从地球直接观测，韩国航空宇宙研究院（KARI）的 Danuri 月球轨道器在飞越该区域时拍摄了多角度图像。影像显示，撞击点形成了新的陨石坑并导致局部区域变暗。此外，NASA 的月球勘测轨道飞行器（LRO）计划于下周对该地点进行进一步研究，以评估此次碰撞对未来月球探测任务的影响。</p>
+          
+          <h3>总结</h3>
+<p>SpaceX Falcon 9 上层级因轨道异常在 2026 年 8 月撞击月球。韩国 Danuri 探测器捕捉到了由此产生的陨石坑和变暗区域，而 NASA 的 LRO 将在随后进行更深入的科学研究。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>事件の概要</h3>
+          
+          <p>ITホームの報道によると、2026年8月5日、SpaceXのFalcon 9ロケットの上段部が月に衝突しました。多くの天文学者がこの事象を注視していましたが、実際の衝突過程や衝突地点を捉えた画像は多くありませんでした。しかし最近、韓国の月探査機が関連画像を公開し、ロケット衝突後に残された痕跡を明らかにしました。</p>
+          
+          <h3>ロケットの軌道および衝突状況</h3>
+          
+          <p>当該Falcon 9ロケットは2025年1月15日に打ち上げられ、Firefly AerospaceのBlue Ghost 1月着陸機を月に運ぶ任務を遂行していました。しかし、太陽風や重力などの影響により、ロケット上段部が月の近傍軌道を外れ、月周辺を回り続けることとなりました。最終的に、約18メートルもの長さを持つこのロケット上段部は、2026年8月5日に時速約5,400マイル（約8,700km/h）の速度で月に衝突しました。</p>
+          
+          <ul>
+<li>打ち上げ日：2025年1月15日</li>
+<li>ロケット上段部の長さ：約18メートル</li>
+<li>衝突時の速度：時速約5,400マイル（約8,700km/h）</li>
+</ul>
+          
+          <h3>ダヌリによる撮影および分析</h3>
+          
+          <p>衝突地点は地球から直接観測することができないため、韓国航空宇宙研究院（KARI）の月周回衛星「ダヌリ（Danuri）」が衝突地点を通過する際に複数の角度から撮影した写真を確保しました。</p>
+          
+          <p>これらの画像を通じて、ロケットが月に衝突した後、該当領域がより暗くなり、新たな隕石クレーターが形成されたことが確認できます。また、衝突により大量の月の塵が発生しましたが、現在公開されている画像にはこれらの塵は含まれていません。</p>
+          
+          <h3>今後の計画</h3>
+          
+          <p>NASAは先日、月探査軌道線（LRO）が来週この衝突地点を飛行し、今回の衝突の影響をさらに調査すると発表しました。これは天文学者により新たな情報を提供し、特に今後の月探査ミッションの計画や研究に役立つことが期待されています。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>SpaceXのFalcon 9ロケット上段部が2026年8月5日に月に衝突し、新たなクレーターを形成しました。韓国のダヌリ探査機が撮影した画像によってその痕跡が確認され、今後はNASAのLROによる詳細な追加調査が行われる予定です。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Incident Overview</h3>
+<p>According to a report by IT Home, the upper stage of a SpaceX Falcon 9 rocket collided with the Moon on August 5, 2026. While many astronomers had been monitoring this event, there were few images capturing the actual collision process or the specific impact site. However, a Korean lunar orbiter recently released images showing the traces left behind by the rocket's collision.</p>
+          
+          <h3>Rocket Path and Collision Details</h3>
+<p>The Falcon 9 rocket was launched on January 15, 2025, to transport Firefly Aerospace's Blue Ghost 1 lunar lander. Due to the influence of solar winds and gravity, the upper stage failed to exit its orbit near the Moon and continued to circle it. Ultimately, this approximately 18-meter-long rocket upper stage collided with the Moon on August 5, 2026, at a speed of about 5,400 mph (approximately 8,700 km/h).</p>
+          
+          <h3>Danuri Imaging and Analysis</h3>
+<p>Since the impact site could not be observed directly from Earth, Korea Aerospace Research Institute (KARI)'s Danuri lunar orbiter captured images from multiple angles as it passed over the collision site.</p>
+<p>The following details were confirmed through these images:</p>
+<ul>
+<li>The area became darker after the rocket's impact.</li>
+<li>A new crater was formed at the site.</li>
+<li>Large amounts of lunar dust were generated, though they are not visible in the currently released images.</li>
+</ul>
+          
+          <h3>Future Plans</h3>
+<p>NASA has announced that its Lunar Reconnaissance Orbiter (LRO) will fly over the impact site next week to further investigate the effects of the collision. This is expected to provide new information for astronomers and assist in planning future lunar exploration missions and research.</p>
+          
+          <h3>Summary</h3>
+<p>The upper stage of a SpaceX Falcon 9 rocket struck the Moon on August 5, 2026, creating a new crater at the impact site. Images captured by Korea's Danuri orbiter confirmed the collision traces, and NASA’s LRO is scheduled to conduct further investigations into the area.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/987/473.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

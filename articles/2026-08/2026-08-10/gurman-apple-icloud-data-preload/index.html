@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 구르만, Apple의 과거 구상 공개: iPhone 생산 시 iCloud 데이터 사전 탑재로 번거로운 데이터 이전 절차 제거</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="구르만, Apple의 과거 구상 공개: iPhone 생산 시 iCloud 데이터 사전 탑재로 번거로운 데이터 이전 절차 제거">
+  <meta name="title-zh" content="古尔曼曝光苹果早前设想：生产 iPhone 时就装好 iCloud 数据，让用户不再经历繁琐导数据流程">
+  <meta name="title-ja" content="グーマン氏がAppleの過去の構想を公開：iPhone製造時にあらかじめiCloudデータをセットアップし、ユーザーに煩雑なデータ移行の手間を感じさせない仕組み">
+  <meta name="title-en" content="Gurmann reveals an earlier Apple concept: Pre-installing iCloud data during iPhone production to eliminate the tedious data migration process.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="구르만, Apple의 과거 구상 공개: iPhone 생산 시 iCloud 데이터 사전 탑재로 번거로운 데이터 이전 절차 제거" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="구르만, Apple의 과거 구상 공개: iPhone 생산 시 iCloud 데이터 사전 탑재로 번거로운 데이터 이전 절차 제거"
+            data-zh="古尔曼曝光苹果早前设想：生产 iPhone 时就装好 iCloud 数据，让用户不再经历繁琐导数据流程"
+            data-ja="グーマン氏がAppleの過去の構想を公開：iPhone製造時にあらかじめiCloudデータをセットアップし、ユーザーに煩雑なデータ移行の手間を感じさせない仕組み"
+            data-en="Gurmann reveals an earlier Apple concept: Pre-installing iCloud data during iPhone production to eliminate the tedious data migration process.">구르만, Apple의 과거 구상 공개: iPhone 생산 시 iCloud 데이터 사전 탑재로 번거로운 데이터 이전 절차 제거</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-10
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>Apple Upgrade 및 데이터 사전 로드</h3>
+          
+          <p>블룸버그의 마크 거먼 기자는 Apple이 'Apple Upgrade' 기기 렌탈 프로그램을 구상하면서, 사용자가 새 휴대폰을 받았을 때 별도의 데이터 전송 과정 없이 바로 사용할 수 있게 하는 기능을 검토 중이라고 밝혔습니다.</p>
+          
+          <h3>화이트 글로브 서비스</h3>
+          
+          <p>거먼에 따르면 Apple은 수년 전부터 기기 렌탈 구상을 진행하며 '화이트 글로브(White Glove)'라고 불리는 서비스를 포함하는 방안을 고려했습니다. 당시의 아이디어는 iPhone 제조 공정에서 사용자의 iCloud 백업 데이터를 미리 설치하여, 사용자가 집에서 새 휴대폰을 받았을 때 복잡한 데이터 전송 절차를 거치지 않고 즉시 사용할 수 있게 하는 것이었습니다. 하지만 이 서비스는 최종적으로 Apple Upgrade에 포함되지 않았습니다.</p>
+          
+          <h3>기술적 제약 및 개인정보 보호</h3>
+          
+          <p>이러한 구상에는 몇 가지 명확한 문제점이 존재합니다.</p>
+          
+          <ul>
+<li>첫째로, 데이터 사전 전송은 기기 출고 시점에만 가능하므로 사용자가 배송받은 기기를 받았을 때 iCloud 백업 상태가 최신이 아닐 수 있습니다.</li>
+<li>둘째로, 가장 중요한 개인정보 보호 문제입니다. Apple은 모든 iPhone의 iCloud 데이터를 보유하고 있지만 동시에 강력한 보안 정책을 강조해 왔습니다. 일반 소비자들은 공장에서 자신의 개인 정보가 노출될 가능성이나 데이터 전송 과정에 대한 우려를 가질 수 있습니다.</li>
+</ul>
+          
+          <h3>Presto 시스템과 한계</h3>
+          
+          <p>Apple은 2년 전 Apple Store를 위해 'Presto' 시스템을 도입하여, 직원이 iPhone의 포장을 개봉하지 않은 상태에서 iOS 업데이트를 수행할 수 있게 했습니다. 이론적으로 이 시스템을 확장하면 직원이 고객 데이터에 접근하지 않고도 iCloud 백업을 이전하는 것이 가능했으나, 결국 해당 기능은 출시되지 않았습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Apple은 기기 렌탈 프로그램에서 사용자 편의를 위해 데이터를 미리 로드하는 '화이트 글로브' 서비스를 검토했으나, 데이터 최신성 확보와 개인정보 보호라는 핵심적인 문제로 인해 이를 도입하지 않았습니다. 이는 기술적 가능성과 보안 정책 사이의 균형을 고려한 결과로 보입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Apple Upgrade 服务构想</h3>
+<p>据彭博社记者 Mark Gurman 透露，Apple 在构思 Apple Upgrade 设备租赁计划时，曾考虑加入一项“白手套”服务。该功能的初衷是让用户在收到新 iPhone 时，无需经历繁琐的迁移流程，而是由工厂提前将用户的 iCloud 备份数据安装到新设备中。</p>
+          
+          <h3>面临的技术与隐私挑战</h3>
+<p>尽管该构想旨在简化用户体验，但目前存在两个主要障碍：</p>
+<ul>
+<li><strong>数据时效性问题：</strong> 由于预先传输发生在发货阶段，用户收到快递时，设备上的 iCloud 备份内容可能并非最新的状态。</li>
+<li><strong>隐私安全风险：</strong> Apple 一贯强调保护用户隐私，若在工厂环节处理个人数据，可能会引发用户对隐私泄露的担忧。</li>
+</ul>
+          
+          <h3>相关技术背景</h3>
+<p>Apple 此前曾为 Apple Store 推出的“Presto”系统，允许员工在不拆开包装的情况下完成 iOS 系统更新。虽然该系统理论上可以扩展到无需触碰客户数据的情况下迁移 iCloud 备份，但最终这项功能并未正式面世。</p>
+          
+          <h3>总结</h3>
+<p>Apple 曾考虑通过工厂预装 iCloud 数据来简化 Apple Upgrade 项目中的换机流程。然而，由于涉及数据同步的滞后性以及核心的隐私安全问题，该“白手套”服务最终并未被采纳。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>Apple Upgradeとデータの事前ロード</h3>
+          
+          <p>Bloombergのマーク・ガーマン記者は、Appleが「Apple Upgrade」というデバイスレンタルプログラムを構想する中で、ユーザーが新しいスマートフォンを受け取った際に特別なデータ転送プロセスを経ることなく、すぐに使用できるようにする機能を検討していることを明らかにしました。</p>
+          
+          <h3>ホワイトグローブサービス</h3>
+          
+          <p>ガーマン氏によると、Appleは数年前からデバイスレンタルの構想を進める中で、「ホワイトグローブ（White Glove）」と呼ばれるサービスを含める案を検討していました。このアイデアは、iPhoneの製造工程でユーザーのiCloudバックアップデータをあらかじめインストールしておくことで、ユーザーが自宅で新しいスマートフォンを受け取った際に、複雑なデータ転送の手順を踏まずに即座に使用できるようにするものでした。しかし、このサービスは最終的にApple Upgradeには含まれませんでした。</p>
+          
+          <h3>技術的な制約と個人情報の保護</h3>
+          
+          <p>この構想には、いくつかの明確な問題点が存在します。</p>
+          
+          <ul>
+<li>第一に、データの事前転送は出荷時のみ可能であるため、ユーザーが配送されたデバイスを受け取った時点でiCloudバックアップの状態が最新ではない可能性があります。</li>
+<li>第二に、最も重要なのは個人情報の保護に関する問題です。AppleはすべてのiPhoneのiCloudデータを保持していますが、同時に強力なセキュリティポリシーを強調してきました。一般の消費者は、工場で自分の個人情報が露出する可能性や、データ転送プロセスに対する懸念を抱く可能性があります。</li>
+</ul>
+          
+          <h3>Prestoシステムとその限界</h3>
+          
+          <p>Appleは2年前、Apple Store向けに「Presto」システムを導入し、スタッフがiPhoneのパッケージを開封せずにiOSアップデートを実行できるようにしました。理論上、このシステムを拡張すれば、スタッフが顧客データにアクセスすることなくiCloudバックアップを移行することが可能でしたが、結局その機能はリリースされませんでした。</p>
+          
+          <h3>総評</h3>
+          
+          <p>Appleはデバイスレンタルプログラムにおいて、ユーザーの利便性のためにデータを事前ロードする「ホワイトグローブ」サービスを検討しましたが、データの最新性の確保と個人情報の保護という核心的な問題により、導入を見送りました。これは技術的な可能性とセキュリティポリシーのバランスを考慮した結果と考えられます。</p>
+          
+          <h3>まとめ</h3>
+<p>Appleはデバイスレンタルプログラムにおいて、ユーザーが新端末を即座に使用できる「ホワイトグローブ」サービスを検討しましたが、データの鮮度やプライバシー保護の懸念から採用を見送りました。この決定は、利便性と厳格なセキュリティポリシーのバランスを優先した結果です。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Apple Upgrade and Pre-loaded Data</h3>
+<p>Bloomberg's Mark Gurman reported that while Apple is exploring an "Apple Upgrade" device rental program, the company is considering a feature that would allow users to use a new phone immediately upon receipt without undergoing a manual data transfer process.</p>
+          
+          <h3>White Glove Service</h3>
+<p>According to Gurman, Apple has been developing device rental concepts for several years and considered including a service called "White Glove." The idea was to pre-install the user's iCloud backup data during the manufacturing process so that users could use their new devices immediately upon delivery without going through complex setup procedures. However, this service was ultimately not included in the "Apple Upgrade" plan.</p>
+          
+          <h3>Technical Constraints and Privacy Concerns</h3>
+<p>There are several clear issues associated with this concept:</p>
+<ul>
+<li>First, because data pre-loading can only occur at the point of manufacture, the iCloud backup might not be up-to-date by the time the user receives the device.</li>
+<li>Second, and most importantly, is the issue of privacy. While Apple holds all iPhone iCloud data, it also emphasizes strict security policies. General consumers may have concerns regarding their personal information being exposed in a factory or during the data transfer process.</li>
+</ul>
+          
+          <h3>Presto System and Limitations</h3>
+<p>Two years ago, Apple introduced the "Presto" system for the Apple Store, which allows employees to perform iOS updates on unopened iPhones. While expanding this system could have theoretically allowed iCloud backups to be transferred without staff accessing customer data, that specific functionality was never released.</p>
+          
+          <h3>Summary</h3>
+<p>Apple considered a "White Glove" service to pre-load iCloud data for its proposed device rental program to improve user convenience. However, the company ultimately decided against it due to concerns regarding data freshness and potential privacy risks during manufacturing. This decision reflects Apple's commitment to balancing technical feasibility with strict security policies.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/987/639.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
