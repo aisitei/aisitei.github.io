@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Apple iOS 27 베타 버전에서 iCloud+ 제한 변화 포착, 팀 쿡은 앞서 고급 AI 기능 유료화 시사</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple iOS 27 베타 버전에서 iCloud+ 제한 변화 포착, 팀 쿡은 앞서 고급 AI 기능 유료화 시사">
+  <meta name="title-zh" content="苹果 iOS 27 测试版出现 iCloud+ 限制变化，库克此前曾暗示将对高级 AI 功能收费">
+  <meta name="title-ja" content="Apple iOS 27 ベータ版で iCloud+ の制限に変更が見られ、クックは以前から高度な AI 機能を有料化する可能性を示唆していた。">
+  <meta name="title-en" content="Apple iOS 27 beta shows changes to iCloud+ limits; Cook previously hinted at charging for advanced AI features.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Apple iOS 27 베타 버전에서 iCloud+ 제한 변화 포착, 팀 쿡은 앞서 고급 AI 기능 유료화 시사" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Apple iOS 27 베타 버전에서 iCloud+ 제한 변화 포착, 팀 쿡은 앞서 고급 AI 기능 유료화 시사"
+            data-zh="苹果 iOS 27 测试版出现 iCloud+ 限制变化，库克此前曾暗示将对高级 AI 功能收费"
+            data-ja="Apple iOS 27 ベータ版で iCloud+ の制限に変更が見られ、クックは以前から高度な AI 機能を有料化する可能性を示唆していた。"
+            data-en="Apple iOS 27 beta shows changes to iCloud+ limits; Cook previously hinted at charging for advanced AI features.">Apple iOS 27 베타 버전에서 iCloud+ 제한 변화 포착, 팀 쿡은 앞서 고급 AI 기능 유료화 시사</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-12
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>iOS 27 베타 버전 및 서비스 변화</h3>
+          
+          <p>IT홈즈의 8월 11일 소식에 따르면, Apple이 오늘 iOS 27 개발자 테스트 버전 5를 출시했습니다. 일부 사용자는 이 버전에서 iCloud+ 구독 서비스 및 HomeKit Secure Video와 관련된 새로운 알림을 발견했으며, 이는 Apple이 향후 일부 고급 기능에 대해 요금을 부과할 가능성을 시사하는 것으로 보입니다.</p>
+          
+          <p>Apple의 CEO 팀 쿡은 이전에 일부 Apple Intelligence 기능에 대해 향후 추가 비용이 발생할 수 있다고 언급한 바 있습니다. 다만, 현재 Apple은 구체적인 요금 체계를 발표하지 않았습니다.</p>
+          
+          <h3>HomeKit Secure Video 관련 이슈</h3>
+          
+          <p>Apple의 현재 iCloud+ 서비스 규칙에 따르면, 50GB 요금제는 1개의 HomeKit Secure Video 카메라를 지원하며, 200GB 요금제는 최대 5개의 카메라를 지원합니다. 반면 2TB에서 12TB 용량의 고사양 요금제는 제한이 없습니다.</p>
+          
+          <p>iOS 27 개발자 테스트 버전 Beta5에서 일부 사용자는 HomeKit Secure Camera 설정 페이지에 기존 규칙과 다른 안내 문구가 나타나는 것을 발견했습니다. 예를 들어, 2TB iCloud+ 요금제를 사용하는 경우 해당 페이지에서 계정이 단 5개의 카메라만 지원한다고 표시되었으나, 현재의 구독 규칙에 따르면 2TB 요금제는 무제한 수량의 카메라를 지원해야 합니다.</p>
+          
+          <p>사용자 Stephen Robles가 공유한 또 다른 스크린샷에서는 시스템이 "귀하의 iCloud+ 요금제에는 15개 카메라의 비디오 요약 기능이 포함되어 있습니다"라는 메시지를 표시했습니다. 그는 현재 가장 높은 등급인 12TB iCloud+ 요금제를 구독 중이며, 해당 요금제의 현재 가격은 월 59.99달러입니다.</p>
+          
+          <h3>분석 및 전망</h3>
+          
+          <p>이러한 변화는 iOS 27 테스트 버전의 소프트웨어 오류일 수도 있고, 혹은 Apple이 새로운 iCloud+ 서비스 정책을 테스트 중인 것일 수 있습니다. 현재로서는 Apple이 HomeKit Secure Video 혜택을 수정할 계획인지 확정된 바 없습니다.</p>
+          
+          <p>팀 쿡은 Apple이 연산 비용을 평가하고 있으며, iOS 27의 Siri AI 할당량 방안이 아직 확정되지 않았다고 밝혔습니다. 또한 팀 쿡은 AI를 빈번하게 사용하는 iOS 27 사용자들을 위해 iCloud+ 구독 등급을 추가할 가능성을 시사했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>iOS 27 개발자 테스트 버전에서 HomeKit Secure Video 관련 안내가 기존 규칙과 다르게 표시되는 현상이 발견되었습니다. 이는 단순한 소프트웨어 오류일 수도 있으나, 향후 AI 기능 및 고도화된 서비스에 대한 새로운 요금 정책을 검토하는 과정의 일부일 가능성이 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>iOS 27 Beta 5 中的异常提示</h3>
+<p>在 iOS 27 第五个开发者测试版中，用户发现 HomeKit Secure Video 相关设置页面出现了与现有规则不符的提示。这些变化可能暗示 Apple 未来可能会对部分高级功能实施收费策略。</p>
+          
+          <h3>HomeKit Secure Video 套餐变动对比</h3>
+<p>根据目前 iCloud+ 的官方服务规则，不同容量套餐支持的摄像头数量如下：</p>
+<ul>
+<li>50GB 套餐：支持 1 个 HomeKit Secure Video 摄像头</li>
+<li>200GB 套餐：支持最多 5 个摄像头</li>
+<li>2TB 至 12TB 高阶套餐：目前不设限制</li>
+</ul>
+<p>而在 iOS 27 Beta 5 测试版中，用户反馈的异常情况包括：</p>
+<ul>
+<li>使用 2TB 套餐的用户在页面上看到仅支持 5 个摄像头。</li>
+<li>订阅最高级别 12TB 套餐（月费为 59.99 美元）的用户收到“包含 15 个摄像头的视频摘要功能”提示。</li>
+</ul>
+          
+          <h3>潜在的策略调整与背景</h3>
+<p>Apple CEO Tim Cook 此前曾表示，部分 Apple Intelligence 功能未来可能会产生额外费用。目前尚无法确定 iOS 27 测试版中的这些变化是程序错误，还是 Apple 正在测试新的 iCloud+ 服务政策。</p>
+          
+          <h3>总结</h3>
+<p>iOS 27 Beta 5 中出现的 HomeKit Secure Video 限制提示引发了关于 Apple 可能对高级功能收费的猜测。目前尚不明确这些变动是系统 Bug 还是官方计划调整订阅规则，但相关动态反映了 Apple 对高阶功能成本控制的考量。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>iOS 27 ベータ版およびサービスの変化</h3>
+          
+          <p>ITホームズの8月11日の報道によると、Appleは本日、iOS 27の開発者テストバージョン5をリリースしました。一部のユーザーはこのバージョンにおいて、iCloud+サブスクリプションおよびHomeKit Secure Videoに関連する新しい通知を確認しており、これはAppleが将来的に一部の高度な機能に対して追加料金を課す可能性を示唆しているものと見られています。</p>
+          
+          <p>AppleのCEOであるティム・クック氏は、以前から一部のApple Intelligence機能において将来的に追加費用が発生する可能性があると言及していますが、現時点でAppleは具体的な料金体系を発表していません。</p>
+          
+          <h3>HomeKit Secure Videoに関する問題</h3>
+          
+          <p>現在のiCloud+サービスの規定では、プランごとに以下の通り制限が設けられています。</p>
+<ul>
+<li>50GBプラン：1台のHomeKit Secure Videoカメラをサポート</li>
+<li>200GBプラン：最大5台のカメラまでサポート</li>
+<li>2TBから12TBの高容量プラン：制限なし</li>
+</ul>
+          
+          <p>しかし、iOS 27の開発者テストバージョンBeta5において、一部のユーザーはHomeKit Secure Cameraの設定ページに現在の規則とは異なる案内文が表示されるのを発見しました。例えば、2TBのiCloud+プランを利用しているユーザーに対し、当該ページで「アカウントがわずか5台のカメラしかサポートしていない」と表示されたケースがあります。本来のサブスクリプション規則では、2TB以上のプランは無制限のカメラをサポートするはずです。</p>
+          
+          <p>また、ユーザーのStephen Robles氏が共有した別のスクリーンショットでは、システムに「お使いのiCloud+プランには15台のカメラのビデオ要約機能が含まれています」というメッセージが表示されていました。彼は現在、最高ランクの12TB iCloud+プラン（月額59.99ドル）を購読しています。</p>
+          
+          <h3>分析と展望</h3>
+          
+          <p>これらの変化は、iOS 27テスト版におけるソフトウェアのバグである可能性もあれば、Appleが新しいiCloud+のサービスポリシーをテストしている可能性もあります。現時点で、AppleがHomeKit Secure Videoの特典を変更する計画があるかについては確定していません。</p>
+          
+          <p>ティム・クック氏は、Appleが計算コストを評価中であり、iOS 27におけるSiri AIの割り当てに関する方針はまだ確定していないと述べています。また、同氏はAIを頻繁に使用するiOS 27ユーザー向けに、iCloud+のサブスクリプション階層を追加する可能性も示唆しています。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>iOS 27の開発者テスト版において、HomeKit Secure Videoに関する通知内容が従来のルールと矛盾する形で表示される現象が確認されました。これは単なるソフトウェアのバグである可能性もありますが、AppleがAI機能や高度なサービスに対する新たな料金体系を検討している過程の一部である可能性も指摘されています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>iOS 27 Beta Version and Service Changes</h3>
+          
+          <p>According to a report from IT Homes on August 11, Apple released Developer Test Version 5 of iOS 27 today. Some users discovered new notifications regarding iCloud+ subscription services and HomeKit Secure Video in this version, which may suggest that Apple plans to introduce fees for certain advanced features.</p>
+          
+          <p>Apple CEO Tim Cook has previously mentioned that additional costs might be incurred for some Apple Intelligence features. However, Apple has not yet announced a specific pricing structure.</p>
+          
+          <h3>HomeKit Secure Video Issues</h3>
+          
+          <p>Under current iCloud+ service rules, the 50GB plan supports one HomeKit Secure Video camera, while the 200GB plan supports up to five cameras. Conversely, high-capacity plans ranging from 2TB to 12TB currently offer unlimited camera support.</p>
+          
+          <p>In iOS 27 Developer Test Version Beta 5, some users noticed notification text on the HomeKit Secure Camera settings page that differs from existing rules. For example, a user on a 2TB iCloud+ plan saw a message stating their account only supports five cameras, even though current subscription rules should provide unlimited camera support for that tier.</p>
+          
+          <p>Another screenshot shared by user Stephen Robles showed the system displaying a message: "Your iCloud+ plan includes video summary features for 15 cameras." He is currently subscribed to the highest tier, the 12TB iCloud+ plan, which costs $59.99 per month.</p>
+          
+          <h3>Analysis and Outlook</h3>
+          
+          <p>These changes could be software bugs within the iOS 27 beta version or a test of new iCloud+ service policies. At this time, it has not been confirmed whether Apple intends to modify HomeKit Secure Video benefits.</p>
+          
+          <p>Tim Cook stated that Apple is evaluating computing costs and that plans for Siri AI quotas in iOS 27 have not yet been finalized. Additionally, he hinted at the possibility of introducing new iCloud+ subscription tiers specifically for users who frequently utilize AI features.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>The iOS 27 Beta 5 has revealed inconsistencies in HomeKit Secure Video information that differ from current iCloud+ subscription rules. While these discrepancies could be simple software bugs, they may also indicate Apple's preparation for new pricing models regarding advanced AI features and high-end services.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/988/525.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

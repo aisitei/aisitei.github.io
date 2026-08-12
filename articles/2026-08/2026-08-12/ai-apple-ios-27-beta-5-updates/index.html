@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Apple iOS 27 베타 5! 중국 내수용 AI 기능 윤곽 노출, 시스템 아이콘 대변화 및 20가지 업데이트 사항 전격 공개</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple iOS 27 베타 5! 중국 내수용 AI 기능 윤곽 노출, 시스템 아이콘 대변화 및 20가지 업데이트 사항 전격 공개">
+  <meta name="title-zh" content="苹果 iOS 27 Beta 5！国行 AI 露端倪，系统图标大变样，20 项升级全扒出">
+  <meta name="title-ja" content="Apple iOS 27 Beta 5！中国版でAIの兆候が見られ、システムアイコンが大幅刷新。20のアップデート内容を全公開">
+  <meta name="title-en" content="Apple iOS 27 Beta 5! Hints of Mainland China AI Revealed, System Icons Overhauled, All 20 Upgrades Uncovered">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg@s_2,w_820,h_1381" alt="Apple iOS 27 베타 5! 중국 내수용 AI 기능 윤곽 노출, 시스템 아이콘 대변화 및 20가지 업데이트 사항 전격 공개" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Apple iOS 27 베타 5! 중국 내수용 AI 기능 윤곽 노출, 시스템 아이콘 대변화 및 20가지 업데이트 사항 전격 공개"
+            data-zh="苹果 iOS 27 Beta 5！国行 AI 露端倪，系统图标大变样，20 项升级全扒出"
+            data-ja="Apple iOS 27 Beta 5！中国版でAIの兆候が見られ、システムアイコンが大幅刷新。20のアップデート内容を全公開"
+            data-en="Apple iOS 27 Beta 5! Hints of Mainland China AI Revealed, System Icons Overhauled, All 20 Upgrades Uncovered">Apple iOS 27 베타 5! 중국 내수용 AI 기능 윤곽 노출, 시스템 아이콘 대변화 및 20가지 업데이트 사항 전격 공개</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-12
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>iOS 27 Beta 5 업데이트 및 중국용 Apple 인텔리전스</h3>
+          
+          <p>Apple은 8월 11일, iPhone 사용자들을 위해 iOS 27 Beta 5를 배포했습니다. 이전 네 개의 베타 버전이 안정적인 성능과 다양한 변화로 좋은 평가를 받은 데 이어, 이번 다섯 번째 베타에서는 두 가지 핵심적인 변화가 포함되었습니다. 바로 중국 내 출시용 Apple 인텔리전스의 구체적인 흔적과 시스템 기본 앱 아이콘의 전면적인 개편입니다.</p>
+          
+          <p>특히 많은 사용자가 기대하는 중국 내 Apple 인텔리전스 도입에 대한 소식이 확인되었습니다. 관련 법규를 준수하기 위해 현지 기업이 제공하는 보안 메커니즘을 활용하며, 사용자 요청은 기기 내에서 처리되고 익명화된 정보만 수집됩니다. 이는 단순한 루머가 아니라 실제 구현을 위한 준비 단계에 들어갔음을 의미하며, 조만간 공식적인 출시 일정이 공개될 것으로 예상됩니다.</p>
+          
+          <h3>시스템 아이콘 디자인 변경</h3>
+          
+          <p>iOS 27 Beta 5에서는 여러 시스템 기본 앱의 아이콘이 새롭게 디자인되었습니다. Safari, Siri, 설정, App Store, 원격 제어(Remote), 미리보기(Preview) 등이 포함됩니다.</p>
+          
+          <p>기존 버전과 비교했을 때 변화는 다음과 같습니다.</p>
+          
+          <ul>
+<li>Safari: 더 밝은 파란색 배경을 채용하고 나침반 선의 수를 줄였으며, 화살표를 더욱 정교하게 다듬었습니다.</li>
+<li>Siri: 기존의 단순한 정적 기호 대신 활성화 시 나타나는 발광 버블에 가까운 디자인으로 변경되었습니다.</li>
+<li>설정: 투명도가 높아져 하단 레이어가 은은하게 비치며 입체감이 강화되었습니다.</li>
+<li>App Store: 투명도가 개선되었으며, 'A'를 구성하는 각 선이 더욱 명확해졌습니다.</li>
+<li>원격 제어(Remote): 세부 질감이 풍부해졌으며 배경색이 검정에서 회색으로 변경되었습니다.</li>
+<li>미리보기(Preview): 돋보기 문양이 단독으로 위치하지 않고 다채로운 그라데이션 배경 위에 배치되었습니다.</li>
+</ul>
+          
+          <p>전반적으로 Safari, 설정, App Store, 원격 제어는 세부적인 수정이 이루어진 반면, Siri와 미리보기는 완전히 새로운 디자인으로 교체된 수준의 변화를 보여줍니다.</p>
+          
+          <h3>기타 주요 업데이트</h3>
+          
+          <p>아이콘 변경 외에도 iOS 27 Beta 5에는 총 20가지의 추가 개선 사항이 포함되었습니다.</p>
+          
+          <ul>
+<li>iOS 버전 '설치 시간' 표시: 설정 메뉴에서 해당 버전의 설치 시간을 확인할 수 있습니다.</li>
+<li>리퀴드 글래스(Liquid Glass) 최적화: 슬라이더 조절 시 투명도가 더욱 향상되었습니다.</li>
+<li>시계 앱 폰트 변경: 알람과 타이머의 폰트가 굵게 변했으나 크기는 약간 줄어들었습니다.</li>
+<li>리퀴드 글래스 아이콘 오류 수정: 특정 조건에서 발생하던 아이콘 표시 문제를 해결했습니다.</li>
+<li>검색 설정 옵션 추가: 추천 앱 및 추천 앱 바로가기 설정을 지원합니다.</li>
+<li>상태바 아이콘 조정: 셀룰러 데이터 신호 세기 높이 조정, Wi-Fi 신호 크기 확대, 배터리 잔량 숫자 폰트 개선 등이 포함됩니다.</li>
+<li>배터리 설정 새 알림: 셀룰러 네트워크 수신 상태가 좋지 않을 때 추가 전력 소모에 대한 안내가 추가되었습니다.</li>
+<li>사진 앱 최적화: 페이지 상단에 그라데이션 블러 효과를 적용하여 전환이 부드러워졌습니다.</li>
+<li>그리기 도구 최적화: 편집 시 툴바를 원형 버튼으로 접어 이동할 수 있는 기능이 iPad와 동일하게 구현되었습니다.</li>
+<li>연락처 정보 표시 개선: 연락처 목록에서 회사명을 이름 아래에 바로 표시하며, 상세 정보를 확인하기 위해 카드를 클릭할 필요가 없습니다.</li>
+<li>앱 시작 화면 추가: 사진, 지갑, 음악 앱에 iOS 27의 새로운 기능을 설명하는 시작 화면이 추가되었습니다.</li>
+<li>스페인 지역 5G+ 디스플레이 관련 업데이트가 포함되었습니다.</li>
+<li>메일 앱 '개인화된 스마트 답력' 기능: 사용자의 스타일을 학습하여 맞춤형 답변을 제안합니다.</li>
+<li>App Store 프로필 아바타에 테두리 효과 추가.</li>
+<li>CarPlay 배경화면 10종 제거.</li>
+<li>Apple Reference Image 기능 개발: 촬영 사진의 센서 정보 및 메타데이터 검증 기능을 제공합니다.</li>
+<li>'Ship' 모드 도입: 배송 준비 시 충전 제한을 설정할 수 있는 기능이 추가되었습니다.</li>
+<li>Spotlight 검색창 최적화: 배경을 밝게 조정하고 리퀴드 글래스 효과를 줄여 투명도를 높였습니다.</li>
+<li>Siri AI 애니메이션 최적화: 활성화 시 색상을 부드럽게 하고 발광 효과를 완화했습니다.</li>
+<li>Siri AI 음성 커스터마이징 확장: 영국 영어의 속도 및 표현력을 조절할 수 있습니다.</li>
+</ul>
+          
+          <h3>총평</h3>
+          
+          <p>iOS 27 Beta 5는 중국용 Apple 인텔리전스 도입을 위한 구체적인 준비 과정과 시스템 아이콘의 대대적인 시각적 개선을 포함하고 있습니다. 또한 리퀴드 글래스 효과 최적화 및 Siri AI 기능 강화 등 사용자 경험을 세밀하게 다듬은 다양한 업데이트가 포함된 버전입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>国行 Apple Intelligence 进展</h3>
+<p>在 iOS 27 Beta 5 中，Apple 为中国市场提供“Apple 智能”功能的迹象显著。通过对更新代码的挖掘发现，Apple 已在为国行 AI 做准备，相关内容包括：</p>
+<ul>
+<li>强调隐私保护，符合当地法律法规，采用由本地公司提供的安全机制。</li>
+<li>用户请求将在设备上处理，不会发送给 Apple 或第三方机构。</li>
+<li>系统将以匿名化方式收集并共享汇总信息。</li>
+</ul>
+          
+          <h3>系统原生 App 图标焕新</h3>
+<p>多个核心系统的图标在本次更新中进行了显著的视觉优化或重做：</p>
+<ul>
+<li>Safari：采用更明亮的蓝色背景，简化指南针线条，增强箭头细节。</li>
+<li>Siri：图标设计向发光气泡靠拢。</li>
+<li>设置：透明度进一步提升，层次感更强。</li>
+<li>App Store：增加透明度，字母“A”的线条更加清晰。</li>
+<li>遥控器：细节纹理丰富，背景由黑色调整为灰色。</li>
+<li>预览：采用多彩渐变背景。</li>
+</ul>
+          
+          <h3>其他功能优化与更新</h3>
+<p>iOS 27 Beta 5 还包含约 20 项其他功能的改进与优化：</p>
+<ul>
+<li>系统信息：在“关于本机”中新增 iOS 版本安装时间。</li>
+<li>视觉效果：优化 Liquid Glass 透明度并修复相关图标故障；Spotlight 搜索框背景变亮且更透明。</li>
+<li>状态栏与电池：调整蜂窝数据、Wi-Fi 图标尺寸；扩大电池电量字体，并增加“蜂窝网络覆盖”耗电提示。</li>
+<li>交互体验：照片 App 加入渐进式模糊效果；绘画工具支持折叠为圆形按钮；App Store 个人头像新增轮廓线。</li>
+<li>功能扩展：邮件 App 新增“个性化智能回复”开关；Siri AI 语音定制涵盖更多语种（如英国英语）。</li>
+<li>其他更新：移除 10 张 CarPlay 壁纸；研发 Apple Reference Image 功能；引入 iPhone “Ship”模式。</li>
+</ul>
+          
+          <h3>总结</h3>
+<p>iOS 27 Beta 5 的核心亮点在于国行 Apple Intelligence 的落地迹象以及系统原生图标的全面焕新。此外，该版本还针对状态栏、电池显示及 Siri 等多个细节功能进行了深度优化。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>iOS 27 Beta 5のアップデートと中国向けApple Intelligence</h3>
+          
+          <p>Appleは8月11日、iPhoneユーザー向けにiOS 27 Beta 5をリリースしました。これまでの4つのベータ版が安定したパフォーマンスと多様な変更で高く評価される中、今回の第5弾では2つの重要な変化が含まれています。それは、中国国内向けのApple Intelligenceに関する具体的な兆候と、システム標準アプリのアイコンの全面的な刷新です。</p>
+          
+          <p>特に多くのユーザーが期待している中国でのApple Intelligence導入に関する情報が確認されました。現地の法規制を遵守するため、現地企業が提供するセキュリティメカニズムを活用し、ユーザーのリクエストはデバイス内で処理され、匿名化された情報のみが収集されます。これは単なる噂ではなく、実際の実装に向けた準備段階に入ったことを意味しており、近いうちに公式なリリーススケジュールが公開されると予想されます。</p>
+          
+          <h3>システムアイコンのデザイン変更</h3>
+          
+          <p>iOS 27 Beta 5では、いくつかのシステム標準アプリのアイコンが新しくデザインされました。これにはSafari、Siri、設定、App Store、リモート（Remote）、プレビュー（Preview）などが含まれます。</p>
+          
+          <p>以前のバージョンと比較した主な変更点は以下の通りです。</p>
+          
+          <ul>
+<li>Safari：より明るい青色の背景を採用し、コンパスの線の数を減らし、矢印をより精巧に整えました。</li>
+<li>Siri：従来のシンプルな静的なアイコンから、アクティブ時に表示される発光バブルに近いデザインに変更されました。</li>
+<li>設定：透明度が高まり、下のレイヤーがうっすらと透けることで立体感が強化されました。</li>
+<li>App Store：透明度が改善され、「A」を構成する各線がより明確になりました。</li>
+<li>リモート（Remote）：細かな質感が豊かになり、背景色が黒からグレーに変更されました。</li>
+<li>プレビュー（Preview）：虫眼鏡のマークが単独で配置されるのではなく、多彩なグラデーション背景の上に配置されるようになりました。</li>
+</ul>
+          
+          <p>全体として、Safari、設定、App Store、リモートは細かな修正が行われたのに対し、Siriとプレビューは完全に新しいデザインに置き換わったレベルの変化を見せています。</p>
+          
+          <h3>その他の主なアップデート</h3>
+          
+          <p>アイコンの変更に加え、iOS 27 Beta 5には計20項目の追加改善が含まれています。</p>
+          
+          <ul>
+<li>iOSバージョンの「インストール時間」表示：設定メニューで該当バージョンのインストール時間を確認できます。</li>
+<li>Liquid Glassの最適化：スライダー操作時の透明度がさらに向上しました。</li>
+<li>時計アプリのフォント変更：アラームとタイマーのフォントが太くなり、サイズはわずかに縮小されました。</li>
+<li>Liquid Glassアイコンのエラー修正：特定の条件下で発生していたアイコン表示の問題を解決しました。</li>
+<li>検索設定オプションの追加：推奨アプリおよび推奨アプリへのショートカット設定をサポートします。</li>
+<li>ステータスバーアイコンの調整：セルラーデータの信号強度の高さの調整、Wi-Fi信号サイズの拡大、バッテリー残量数字のフォント改善などが含まれます。</li>
+<li>バッテリー設定の新しい通知：セルラーネットワークの受信状態が良くない場合の追加電力消費に関する案内が追加されました。</li>
+<li>写真アプリの最適化：ページ上部にグラデーションブラー効果を適用し、切り替えをスムーズにしました。</li>
+<li>描画ツールの最適化：編集時にツールバーを円形ボタンに折りたたんで移動できる機能がiPadと同様に実装されました。</li>
+<li>連絡先情報の表示改善：連絡先リストで会社名を名前のすぐ下に表示し、詳細を確認するためにカードをクリックする必要がなくなりました。</li>
+<li>アプリ起動画面の追加：写真、Wallet、ミュージックアプリにiOS 27の新機能を説明する起動画面が追加されました。</li>
+<li>スペイン地域における5G+ディスプレイに関するアップデートが含まれました。</li>
+<li>メールアプリの「パーソナライズされたスマート返信」機能：ユーザーのスタイルを学習し、カスタマイズされた回答を提案します。</li>
+<li>App Storeプロフィールのアバターに縁取り効果を追加。</li>
+<li>CarPlayの背景壁紙10種を削除。</li>
+<li>Apple Reference Image機能の開発：撮影した写真のセンサー情報およびメタデータの検証機能を提供します。</li>
+<li>「Ship」モードの導入：配送準備時に充電制限を設定できる機能が追加されました。</li>
+<li>Spotlight検索窓の最適化：背景を明るく調整し、Liquid Glass効果を抑えて透明度を高めました。</li>
+<li>Siri AIアニメーションの最適化：アクティブ時の色を滑らかにし、発光効果を和らげました。</li>
+<li>Siri AI音声カスタマイズの拡張：イギリス英語の速度および表現力を調整できます。</li>
+</ul>
+          
+          <h3>まとめ</h3>
+          
+          <p>iOS 27 Beta 5は、中国向けApple Intelligence導入に向けた具体的な準備過程と、システムアイコンの大幅な視覚的改善を含んでいます。また、Liquid Glass効果の最適化やSiri AI機能の強化など、ユーザー体験を細部まで磨き上げた多様なアップデートが含まれたバージョンとなっています。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>iOS 27 Beta 5 Update and Apple Intelligence for China</h3>
+          
+          <p>On August 11, Apple released iOS 27 Beta 5 for iPhone users. Following the positive reception of the previous four beta versions for their stable performance and various changes, this fifth beta includes two major updates: specific evidence regarding the launch of Apple Intelligence in China and a comprehensive overhaul of system app icons.</p>
+          
+          <p>Specifically, news regarding the introduction of Apple Intelligence in China has been confirmed. To comply with local regulations, it utilizes security mechanisms provided by domestic companies; user requests are processed on-device, and only anonymized information is collected. This indicates that the project has moved beyond rumors into a preparation stage for an official release, which is expected to be announced soon.</p>
+          
+          <h3>System Icon Design Changes</h3>
+          
+          <p>In iOS 27 Beta 5, several system apps received new icon designs. These include Safari, Siri, Settings, App Store, Remote, and Preview.</p>
+          
+          <p>The specific changes compared to previous versions are as follows:</p>
+          
+          <ul>
+<li>Safari: Features a brighter blue background, fewer lines on the compass, and more refined arrows.</li>
+<li>Siri: Replaced the simple static icon with a design resembling a glowing bubble when activated.</li>
+<li>Settings: Increased transparency allows the underlying layer to show through subtly, enhancing the sense of depth.</li>
+<li>App Store: Improved transparency and clearer lines forming the "A" logo.</li>
+<li>Remote: Features richer textures and a background color changed from black to gray.</li>
+<li>Preview: The magnifying glass icon is no longer standalone but placed over a multi-colored gradient background.</li>
+</ul>
+          
+          <p>Overall, while Safari, Settings, App Store, and Remote underwent detailed refinements, Siri and Preview were updated with designs that appear significantly overhauled.</p>
+          
+          <h3>Other Major Updates</h3>
+          
+          <p>In addition to the icon changes, iOS 27 Beta 5 includes a total of 20 further improvements:</p>
+          
+          <ul>
+<li>iOS version "Installation Time": Users can now check when the current version was installed in the Settings menu.</li>
+<li>Liquid Glass Optimization: Transparency is improved when adjusting sliders.</li>
+<li>Clock App Font Change: Fonts for alarms and timers have become bolder, while their size has been slightly reduced.</li>
+<li>Liquid Glass Icon Bug Fix: Resolved an issue where icons would not display correctly under certain conditions.</li>
+<li>Search Settings Options: Added support for setting up recommended apps and "Add to Home Screen" shortcuts.</li>
+<li>Status Bar Icon Adjustments: Includes height adjustments for cellular data signal strength, enlarged Wi-Fi signal sizes, and improved font quality for battery percentage.</li>
+<li>New Battery Setting Notification: Added a warning regarding extra power consumption when the cellular network signal is poor.</li>
+<li>Photos App Optimization: Applied a gradient blur effect at the top of the page to ensure smoother transitions.</li>
+<li>Drawing Tool Optimization: Implemented a feature where toolbars can be folded into circular buttons during editing, matching the functionality on iPad.</li>
+<li>Contact Information Display Improvement: Company names are now displayed directly under the name in contact lists, removing the need to click the card for details.</li>
+<li>App Launch Screens: Added introductory screens for Photos, Wallet, and Music apps explaining new features in iOS 27.</li>
+<li>5G+ Display Update: Included updates related to 5G+ displays in the Spain region.</li>
+<li>Mail App "Personalized Smart Reply": Suggests tailored responses by learning the user's personal style.</li>
+<li>App Store Profile Avatar: Added a border effect to profile avatars.</li>
+<li>CarPlay Backgrounds: Removed 10 types of wallpapers.</li>
+<li>Apple Reference Image Feature: Provides functionality to verify sensor information and metadata for captured photos.</li>
+<li>"Ship" Mode: Added a feature to set charging limits when preparing for shipment.</li>
+<li>Spotlight Search Optimization: Brightened the background and reduced Liquid Glass effects to increase transparency.</li>
+<li>Siri AI Animation Optimization: Softened colors and reduced the glow effect when activated.</li>
+<li>Siri AI Voice Customization Expansion: Allows adjustment of speed and expressiveness for British English.</li>
+</ul>
+          
+          <h3>Summary</h3>
+          
+          <p>iOS 27 Beta 5 focuses on preparing for the launch of Apple Intelligence in China while introducing significant visual updates to system icons. The update also includes numerous refinements to user experience, such as Liquid Glass optimizations, Siri AI enhancements, and improved UI elements across various native apps.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg@s_2,w_820,h_1381" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">소프트웨어 업데이트</div>
+                <div class="caption-lang" data-lang="en">Software update</div>
+                <div class="caption-lang" data-lang="ja">ソフトウェア更新</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">자동 업데이트</div>
+                <div class="caption-lang" data-lang="en">Auto-update</div>
+                <div class="caption-lang" data-lang="ja">自動更新</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">열기</div>
+                <div class="caption-lang" data-lang="en">Open</div>
+                <div class="caption-lang" data-lang="ja">開く</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Beta 버전 업데이트</div>
+                <div class="caption-lang" data-lang="en">Beta Update</div>
+                <div class="caption-lang" data-lang="ja">ベータ版更新</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">iOS 27 Developer Beta 버전</div>
+                <div class="caption-lang" data-lang="en">iOS 27 Developer Beta</div>
+                <div class="caption-lang" data-lang="ja">iOS 27 開発者ベータ版</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">현재 업데이트</div>
+                <div class="caption-lang" data-lang="en">Update now</div>
+                <div class="caption-lang" data-lang="ja">現在更新</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오늘 밤 업데이트</div>
+                <div class="caption-lang" data-lang="en">Update tonight</div>
+                <div class="caption-lang" data-lang="ja">今夜更新</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">업데이트 시 iOS 약관 및 조건에 동의하게 됩니다.</div>
+                <div class="caption-lang" data-lang="en">By updating, you agree to the iOS Terms and Conditions.</div>
+                <div class="caption-lang" data-lang="ja">更新をもって、iOSの利用規約に同意したものとします。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">소프트웨어 업데이트</div>
+                <div class="caption-lang" data-lang="en">Software Update</div>
+                <div class="caption-lang" data-lang="ja">ソフトウェア更新</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">자동 업데이트 켜기</div>
+                <div class="caption-lang" data-lang="en">Turn on auto-update</div>
+                <div class="caption-lang" data-lang="ja">自動更新をオン</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Beta 버전 업데이트 iOS 27 Developer Beta 버전</div>
+                <div class="caption-lang" data-lang="en">iOS 27 Developer Beta Update</div>
+                <div class="caption-lang" data-lang="ja">iOS 27 開発者向けベータ版のアップデート</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">현재 업데이트</div>
+                <div class="caption-lang" data-lang="en">Update Now</div>
+                <div class="caption-lang" data-lang="ja">現在更新</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오늘 밤 업데이트</div>
+                <div class="caption-lang" data-lang="en">Update tonight</div>
+                <div class="caption-lang" data-lang="ja">今夜更新</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">업데이트 시 iOS 약관 및 조건에 동의하게 됩니다.</div>
+                <div class="caption-lang" data-lang="en">By updating, you agree to the iOS Terms and Conditions.</div>
+                <div class="caption-lang" data-lang="ja">更新すると、iOSの利用規約に同意したことになります。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.png" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.png" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg@s_2,w_820,h_294" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.jpg" alt="이미지 6" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">산동 린이 네티즌</div>
+                <div class="caption-lang" data-lang="en">Zhijia Linyi, Shandong Netizens</div>
+                <div class="caption-lang" data-lang="ja">山東臨沂のネットユーザー</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xinyiwei</div>
+                <div class="caption-lang" data-lang="en">Xinyiwei</div>
+                <div class="caption-lang" data-lang="ja">欣一衛</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이번에는 확실히 Apple 인텔리전스를 사용할 수 있습니다.</div>
+                <div class="caption-lang" data-lang="en">You can now experience Apple Intelligence.</div>
+                <div class="caption-lang" data-lang="ja">今度こそApple Intelligenceを使える。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img07.jpg" alt="이미지 7" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img08.png" alt="이미지 8" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img09.jpg@s_2,w_820,h_905" alt="이미지 9" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">iOS 버전</div>
+                <div class="caption-lang" data-lang="en">iOS Version</div>
+                <div class="caption-lang" data-lang="ja">iOS版</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오늘 설치됨</div>
+                <div class="caption-lang" data-lang="en">Installed today</div>
+                <div class="caption-lang" data-lang="ja">今日インストール済み</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img10.jpg" alt="이미지 10" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">iOS 버전</div>
+                <div class="caption-lang" data-lang="en">iOS version</div>
+                <div class="caption-lang" data-lang="ja">iOS版</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오늘 설치됨</div>
+                <div class="caption-lang" data-lang="en">Installed today</div>
+                <div class="caption-lang" data-lang="ja">本日インストール済み</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img11.jpg@s_2,w_820,h_1237" alt="이미지 11" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">검색</div>
+                <div class="caption-lang" data-lang="en">Search</div>
+                <div class="caption-lang" data-lang="ja">検索</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">환영합니다</div>
+                <div class="caption-lang" data-lang="en">Welcome to</div>
+                <div class="caption-lang" data-lang="ja">ようこそ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">투명도&#34;는 더 투명하게, &#34;색조&#34;는 불투명도를 높여 콘텐츠와 제어 항목의 대비를 향상시킵니다.</div>
+                
+                <div class="caption-lang" data-lang="ja">「透明度」で透過感を高め、「色調」で不透明度を上げることで、コンテンツと操作項目のコントラストを高めます。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img12.jpg" alt="이미지 12" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">검색</div>
+                <div class="caption-lang" data-lang="en">Search</div>
+                <div class="caption-lang" data-lang="ja">検索</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">환영합니다</div>
+                <div class="caption-lang" data-lang="en">Welcome to</div>
+                <div class="caption-lang" data-lang="ja">ようこそ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">투명도&#34;는 더 투명하게, &#34;색조&#34;는 불투명도를 높여 콘텐츠와 제어 항목의 대비를 향상시킵니다.</div>
+                
+                <div class="caption-lang" data-lang="ja">「透明」で透過感を高め、「色調」で不透明度を上げることで、コンテンツと操作項目のコントラストを高めます。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img13.jpg@s_2,w_820,h_1023" alt="이미지 13" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">알람</div>
+                <div class="caption-lang" data-lang="en">Alarm clock</div>
+                <div class="caption-lang" data-lang="ja">目覚まし時計</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">편집</div>
+                <div class="caption-lang" data-lang="en">Edit</div>
+                <div class="caption-lang" data-lang="ja">編集</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">수면 | 기상 알람</div>
+                <div class="caption-lang" data-lang="en">Sleep | Wake-up Alarm</div>
+                <div class="caption-lang" data-lang="ja">睡眠 | 目覚まし時計</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">알람 없음</div>
+                <div class="caption-lang" data-lang="en">No alarm</div>
+                <div class="caption-lang" data-lang="ja">アラームなし</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">설정</div>
+                <div class="caption-lang" data-lang="en">Settings</div>
+                <div class="caption-lang" data-lang="ja">設定</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">기타</div>
+                <div class="caption-lang" data-lang="en">Other</div>
+                <div class="caption-lang" data-lang="ja">その他</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img14.jpg" alt="이미지 14" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">알람</div>
+                <div class="caption-lang" data-lang="en">Alarm clock</div>
+                <div class="caption-lang" data-lang="ja">目覚まし時計</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">편집</div>
+                <div class="caption-lang" data-lang="en">Edit</div>
+                <div class="caption-lang" data-lang="ja">編集</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">수면 | 기상 알람</div>
+                <div class="caption-lang" data-lang="en">Sleep | Wake-up Alarm</div>
+                <div class="caption-lang" data-lang="ja">睡眠 | 目覚まし時計</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">알람 없음</div>
+                <div class="caption-lang" data-lang="en">No alarm</div>
+                <div class="caption-lang" data-lang="ja">アラームなし</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">설정</div>
+                <div class="caption-lang" data-lang="en">Settings</div>
+                <div class="caption-lang" data-lang="ja">設定</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">기타</div>
+                <div class="caption-lang" data-lang="en">Other</div>
+                <div class="caption-lang" data-lang="ja">その他</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img15.png" alt="이미지 15" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img16.jpg@s_2,w_820,h_1124" alt="이미지 16" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img17.jpg" alt="이미지 17" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img18.jpg@s_2,w_820,h_279" alt="이미지 18" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img19.jpg" alt="이미지 19" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img20.jpg@s_2,w_820,h_216" alt="이미지 20" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img21.jpg" alt="이미지 21" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img22.jpg@s_2,w_820,h_232" alt="이미지 22" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img23.jpg" alt="이미지 23" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img24.png" alt="이미지 24" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img25.jpg" alt="이미지 25" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img26.jpg@s_2,w_820,h_1774" alt="이미지 26" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img27.jpg" alt="이미지 27" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img28.png" alt="이미지 28" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img29.jpg@s_2,w_820,h_1390" alt="이미지 29" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img30.jpg" alt="이미지 30" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img31.png" alt="이미지 31" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img32.png" alt="이미지 32" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img33.png" alt="이미지 33" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img34.png" alt="이미지 34" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img35.png" alt="이미지 35" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img36.png" alt="이미지 36" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img37.jpg" alt="이미지 37" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/988/489.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

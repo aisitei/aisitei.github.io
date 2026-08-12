@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - iOS 27 코드에서 Apple이 iPhone 촬영 사진의 진위 여부 검증을 위한 &#39;Apple Reference Image&#39; 인증 기능을 개발 중인 것으로 나타났습니다.</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="iOS 27 코드에서 Apple이 iPhone 촬영 사진의 진위 여부 검증을 위한 &#39;Apple Reference Image&#39; 인증 기능을 개발 중인 것으로 나타났습니다.">
+  <meta name="title-zh" content="iOS 27 代码显示苹果正开发 Apple Reference Image 认证功能，用于检测 iPhone 拍摄照片真实性">
+  <meta name="title-ja" content="iOS 27のコードから、AppleがiPhoneで撮影された写真の真正性を確認するための「Apple Reference Image」認証機能を開発中であることが判明。">
+  <meta name="title-en" content="iOS 27 code shows Apple is developing an Apple Reference Image authentication feature to verify the authenticity of photos taken on iPhones.">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg@s_2,w_820,h_675" alt="iOS 27 코드에서 Apple이 iPhone 촬영 사진의 진위 여부 검증을 위한 &#39;Apple Reference Image&#39; 인증 기능을 개발 중인 것으로 나타났습니다." loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="iOS 27 코드에서 Apple이 iPhone 촬영 사진의 진위 여부 검증을 위한 &#39;Apple Reference Image&#39; 인증 기능을 개발 중인 것으로 나타났습니다."
+            data-zh="iOS 27 代码显示苹果正开发 Apple Reference Image 认证功能，用于检测 iPhone 拍摄照片真实性"
+            data-ja="iOS 27のコードから、AppleがiPhoneで撮影された写真の真正性を確認するための「Apple Reference Image」認証機能を開発中であることが判明。"
+            data-en="iOS 27 code shows Apple is developing an Apple Reference Image authentication feature to verify the authenticity of photos taken on iPhones.">iOS 27 코드에서 Apple이 iPhone 촬영 사진의 진위 여부 검증을 위한 &#39;Apple Reference Image&#39; 인증 기능을 개발 중인 것으로 나타났습니다.</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-12
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>새로운 기능 도입</h3>
+          
+          <p>IT홈의 보도에 따르면, 외신 9to5Mac이 Apple iOS 27 개발자 프리뷰 베타 5 코드에서 'Apple Reference Image'라는 새로운 기능을 발견했습니다. 이 기능은 iPhone으로 촬영한 사진의 출처가 실제인지 인증하는 데 사용됩니다.</p>
+          
+          <h3>배경 및 목적</h3>
+          
+          <p>생성형 AI 이미지 기술이 빠르게 발전함에 따라, AI로 생성되거나 깊게 수정된 이미지가 실제 사진으로 위장하기가 점점 쉬워지고 있습니다. 과거 전문가가 수 시간 동안 작업해야 했던 이미지 수정이 이제는 간단한 프롬프트 입력만으로 몇 초 만에 매우 사실적인 콘텐츠를 만들어낼 수 있게 되었습니다. 이에 따라 Apple은 사용자가 이미지가 실제로 iPhone으로 촬영된 것인지 직접 판단할 수 있도록 돕는 'Apple Reference Image' 인증 기능을 개발하게 되었습니다.</p>
+          
+          <h3>작동 원리</h3>
+          
+          <p>Apple Reference Image 기능은 Apple이 사용자의 원본 사진에 직접 접근하는 방식이 아닙니다. 시스템은 iPhone으로 촬영된 사진을 인증을 위해 클라우드 보안 환경으로 전송하며, 인증이 완료되면 해당 사진에 고유 ID를 부여합니다. 만약 특정 카메라 센서가 조작되거나 훼손된 것으로 감지될 경우, 시스템은 해당 센서와 관련된 이전 인증 기록을 취소할 수 있습니다.</p>
+          
+          <h3>개인정보 보호</h3>
+          
+          <p>이 기능에는 일련의 개인정보 보호 메커니즘이 포함되어 있습니다. 예를 들어, 인증된 사진은 다른 사용자와 공유할 수 있으며, 수신자의 Apple 기기에서 해당 사진이 여전히 인증 상태를 유지하고 있는지 로컬에서 확인할 수 있습니다. 이 과정에서 사용자가 어떤 이미지를 보고 있는지에 대한 정보는 Apple에 전달되지 않습니다.</p>
+          
+          <h3>공유 및 전송</h3>
+          
+          <p>공유 방식(AirDrop, 메시지 등)과 사진 유형(원본, 편집본 또는 인증 버전)에 따라 전송되는 데이터 내용이 달라질 수 있습니다. 사용자가 '모든 사진 데이터'를 선택하여 공유할 경우, 고유 하드웨어 식별자와 사진 관련 미편집 원본 비디오 클립이 포함될 수 있습니다.</p>
+          
+          <p>또한 Apple은 USB 전송 시 'Transfer with Provenance(출처 정보 포함 전송)' 옵션을 추가할 계획입니다. 이 기능을 활성화하면 Mac이나 PC로 USB를 통해 전송된 인증 사진에 출처 데이터가 유지되어, 사용자가 기기에서 이미지의 원본 출처를 편리하게 확인할 수 있습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Apple은 생성형 AI 기술 확산에 따른 가짜 이미지 판별을 돕기 위해 'Apple Reference Image'라는 사진 인증 기능을 개발 중입니다. 이 기능은 클라우드 기반의 고유 ID 부여와 로컬 확인 시스템을 통해 개인정보를 보호하면서도 콘텐츠의 진위 여부를 확인할 수 있게 합니다. 또한 USB 전송 시에도 출처 정보를 유지하는 옵션을 제공하여 기기 간 데이터 이동 시 신뢰성을 확보하고자 합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>新功能：Apple Reference Image</h3>
+<p>在 iOS 27 开发者预览版中，Apple 正在开发名为 Apple Reference Image 的新功能。该功能旨在验证 iPhone 拍摄照片的真实性，以应对生成式 AI 技术导致虚假或深度修改图像日益泛滥的现状。</p>
+          
+          <h3>技术原理与安全机制</h3>
+<p>系统通过云端环境对用户拍摄的照片进行认证处理，并为每张符合要求的图片分配唯一标识符。若检测到硬件层面存在异常，系统将采取相应的保护措施。</p>
+<ul>
+<li>认证流程：照片被发送至云端安全环境进行验证。</li>
+<li>身份识别：认证通过后，系统会为该照片分配一个唯一的 ID。</li>
+<li>风险管控：如果发现摄像头传感器被篡改或破坏，系统将撤销相关认证记录。</li>
+</ul>
+          
+          <h3>隐私保护与多样化分享</h3>
+<p>为了保护用户隐私，接收方可以在本地设备上检查照片的认证状态，而无需向 Apple 传输任何关于查看行为的数据。此外，根据不同的共享场景和选择，提供的内容也会有所不同。</p>
+<ul>
+<li>动态内容：根据 AirDrop、信息等分享方式的不同，传输数据内容会有所区别。</li>
+<li>类型区分：系统会根据原始照片、编辑后照片或已认证版本提供相应的处理。</li>
+<li>全量数据选项：若用户选择“所有照片数据”，则包含唯一硬件标识符及未裁剪的原始视频片段。</li>
+</ul>
+          
+          <h3>USB 传输增强</h3>
+<p>Apple 还计划为 USB 连接引入 “Transfer with Provenance（携带来源信息传输）” 选项。当该功能启用时，通过 USB 线缆传输至 Mac 或 PC 的已认证照片将保留其原始来源数据，方便用户在跨设备操作时核实图片真实性。</p>
+          
+          <h3>总结</h3>
+<p>Apple 正开发 Apple Reference Image 功能以应对 AI 生成图像带来的挑战，旨在验证 iPhone 拍摄内容的真实性。该功能结合了云端认证、唯一 ID 分配及本地隐私保护机制，并支持在 USB 传输中保留来源数据。这体现了 Apple 在内容真实性与用户隐私平衡方面的技术布局。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>新機能の導入</h3>
+          
+          <p>ITホームの報道によると、海外メディア9to5MacがApple iOS 27開発者プレビューベータ5コードにおいて「Apple Reference Image」という新機能を特定しました。この機能は、iPhoneで撮影された写真の出所が真正のものであるかを認証するために使用されます。</p>
+          
+          <h3>背景と目的</h3>
+          
+          <p>生成AI技術の急速な進歩に伴い、AIによって生成または高度に加工された画像が、実際の写真として偽装されることが容易になっています。かつては専門家が数時間かけて行っていた画像の修正が、現在では簡単なプロンプト入力だけでわずか数秒のうちに非常にリアルなコンテンツを作成できるようになりました。これを受け、Appleはユーザーが画像が実際にiPhoneで撮影されたものかどうかを判断するのを支援するため、「Apple Reference Image」認証機能を開発しました。</p>
+          
+          <h3>動作原理</h3>
+          
+          <p>Apple Reference Image機能は、Appleがユーザーの元の写真に直接アクセスする仕組みではありません。システムは、iPhoneで撮影された写真を認証のためにクラウドのセキュアな環境に転送し、認証が完了するとその写真に固有のIDを付与します。特定のカメラセンサーが改ざんまたは損傷していると検知された場合、システムはそのセンサーに関連する過去の認証記録を取り消す可能性があります。</p>
+          
+          <h3>プライバシー保護</h3>
+          
+          <p>この機能には一連のプライバシー保護メカニズムが含まれています。例えば、認証済みの写真は他のユーザーと共有でき、受信者のAppleデバイス上でその写真が依然として認証状態を維持しているかをローカルで確認できます。この過程において、ユーザーがどの画像を見ているかに関する情報はAppleに送信されません。</p>
+          
+          <h3>共有と転送</h3>
+          
+          <p>共有方法（AirDrop、メッセージなど）や写真のタイプ（オリジナル、編集済み、または認証済みバージョン）によって、転送されるデータの内容が異なる場合があります。ユーザーが「すべての写真データ」を選択して共有する場合、固有のハードウェア識別子や写真に関連する未編集のオリジナルビデオクリップが含まれる可能性があります。</p>
+          
+          <p>また、AppleはUSB転送時に「Transfer with Provenance（出所情報を含む転送）」オプションを追加する計画です。この機能を有効にすると、MacやPCにUSB経由で転送された認証済み写真に出所データが保持され、ユーザーはデバイス上で画像のオリジナルの出所を簡単に確認できるようになります。</p>
+          
+          <h3>総評</h3>
+          
+          <p>Appleは生成AI技術の普及に伴う偽画像の判別を支援するため、「Apple Reference Image」という写真認証機能を開発中です。この機能は、クラウドベースの固有ID付与とローカル確認システムを通じて、プライバシーを保護しながらコンテンツの真偽を確認できるようにします。また、USB転送時にも出所情報を維持するオプションを提供することで、デバイス間でのデータ移動における信頼性を確保することを目指しています。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>Appleは生成AIによる偽画像の拡散に対抗するため、写真の真正性を証明する「Apple Reference Image」機能を開発しています。この機能はクラウド認証と固有IDの付与により、プライバシーを保護しながらコンテンツの信頼性を担保します。さらに、USB転送時にも出所情報を維持するオプションを提供し、デバイス間でのデータ移行における透明性と信頼性を向上させる計画です。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>New Feature Introduction</h3>
+          
+          <p>According to a report by IT Home, the outlet 9to5Mac discovered a new feature called 'Apple Reference Image' in the Apple iOS 27 developer preview beta 5 code. This feature is designed to verify whether photos captured with an iPhone are authentic.</p>
+          
+          <h3>Background and Purpose</h3>
+          
+          <p>As generative AI technology advances rapidly, it is becoming increasingly easy for AI-generated or heavily modified images to masquerade as real photographs. Tasks that previously required hours of professional work can now produce highly realistic content in seconds using simple prompts. In response, Apple has developed the 'Apple Reference Image' authentication feature to help users determine whether an image was actually captured by an iPhone.</p>
+          
+          <h3>Mechanism and Operation</h3>
+          
+          <p>The Apple Reference Image feature does not involve Apple directly accessing a user's original photos. Instead, the system sends photos taken on an iPhone to a secure cloud environment for authentication; once verified, the photo is assigned a unique ID. If a specific camera sensor is detected as tampered with or damaged, the system may revoke previous authentication records associated with that specific sensor.</p>
+          
+          <h3>Privacy Protections</h3>
+          
+          <p>The feature includes several privacy mechanisms. For example, while verified photos can be shared with other users, the recipient's Apple device can verify the authentication status locally. During this process, no information regarding which specific images a user is viewing is transmitted to Apple.</p>
+          
+          <h3>Sharing and Data Transfer</h3>
+          
+          <p>The content of data sent may vary depending on the sharing method (such as AirDrop or Messages) and the type of photo (original, edited, or certified). If a user selects 'all photo data' when sharing, it may include unique hardware identifiers and unedited raw video clips related to the photo.</p>
+          
+          <p>Additionally, Apple plans to introduce a 'Transfer with Provenance' option for USB transfers. When enabled, this ensures that authentication data is maintained when photos are transferred to a Mac or PC via USB, allowing users to easily verify the original source of an image on another device.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>Apple is developing the 'Apple Reference Image' feature to help users distinguish between authentic photographs and AI-generated content. The system utilizes cloud-based unique IDs and local verification to maintain authenticity while ensuring user privacy. Furthermore, a 'Transfer with Provenance' option will be added for USB transfers to preserve source data when moving files between devices.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg@s_2,w_820,h_675" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/988/068.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
