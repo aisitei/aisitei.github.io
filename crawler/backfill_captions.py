@@ -80,18 +80,13 @@ def process_article(html_path: Path) -> bool:
         if not sentences:
             continue
 
-        translations = []
-        for sentence in sentences:
-            korean = translator.translate_caption(sentence)
-            if korean:
-                english = translator.translate_caption_en(sentence)
-                japanese = translator.translate_caption_ja(sentence)
-                translations.append(ocr.ImageTranslation(
-                    original_chinese=sentence,
-                    translated_korean=korean,
-                    translated_english=english or "",
-                    translated_japanese=japanese or "",
-                ))
+        translations = ocr._translate_sentences(
+            sentences,
+            translator.translate_caption,
+            translate_en_fn=translator.translate_caption_en,
+            translate_ja_fn=translator.translate_caption_ja,
+            translate_batch_fn=translator.translate_caption_batch,
+        )
 
         caption_html = build_caption_html(translations)
         if not caption_html:

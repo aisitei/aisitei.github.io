@@ -334,6 +334,68 @@ def translate_caption_ja(chinese_text: str) -> Optional[str]:
     return out
 
 
+def translate_caption_batch(sentences: list[str]) -> Optional[dict[str, list[str]]]:
+    """이미지 캡션 여러 문장을 한 번의 호출로 한/영/일 3개 언어 모두 번역.
+
+    문장당 3회(ko/en/ja) 호출하던 것을 이미지당 1회로 줄여 OCR 단계의
+    LLM 호출 수를 크게 절감한다 (예: 문장 10개 이미지 → 30회 대신 1회).
+
+    Returns:
+        {"ko": [...], "en": [...], "ja": [...]} — 각 리스트는 sentences와 순서/길이가 같음.
+        실패(JSON 파싱 실패, 문장 수 불일치 등) 시 None — 호출부는 문장별 개별 호출로 폴백해야 함.
+    """
+    if not sentences:
+        return None
+    glossed = [apply_glossary(s, ko=True) for s in sentences]
+    # 번호를 붙이면 모델이 그 번호를 번역문에도 그대로 섞어 출력하는 경우가 있어,
+    # 입력 순서는 JSON 배열의 위치로만 전달한다 (번호 텍스트 없음).
+    joined = "\n".join(f"---\n{s}" for s in glossed)
+
+    system = (
+        "당신은 중국어 이미지 캡션을 한국어/영어/일본어로 번역하는 번역가입니다. "
+        "입력은 '---'로 구분된 중국어 문장 목록입니다. 각 문장을 한국어, 영어, 일본어로 각각 "
+        "번역하여 아래 JSON 형식으로만 출력하세요. 다른 설명·주석·마크다운은 절대 추가하지 마세요.\n\n"
+        '{"translations": [{"ko": "...", "en": "...", "ja": "..."}, ...]}\n\n'
+        "translations 배열의 순서와 개수는 입력 문장 개수와 정확히 일치해야 합니다. "
+        "번역문에는 원문의 순서 번호나 '---' 구분자를 절대 포함하지 마세요. "
+        "고유명사·브랜드·모델명은 원문 영문 표기를 유지하세요."
+    )
+    out = _chat(system=system, user=joined, temperature=0.1, max_tokens=16384)
+    if not out:
+        return None
+
+    match = re.search(r'\{[\s\S]*\}', out)
+    if not match:
+        logger.warning(f"caption batch: JSON 형식 아님 - {out[:80]}...")
+        return None
+    try:
+        data = json.loads(match.group(0))
+        items = data.get("translations", [])
+    except Exception as e:
+        logger.warning(f"caption batch: JSON 파싱 실패 - {e}")
+        return None
+
+    if len(items) != len(sentences):
+        logger.warning(f"caption batch: 문장 수 불일치 (입력 {len(sentences)}, 출력 {len(items)})")
+        return None
+
+    def _clean(s: str) -> str:
+        s = (s or "").strip()
+        # 모델이 가끔 순서 번호("1. ", "2)")나 구분자를 번역문 앞에 남기는 경우 제거
+        s = re.sub(r'^(?:-{2,}\s*|\d+[.)]\s+)', '', s).strip()
+        return s
+
+    ko_list, en_list, ja_list = [], [], []
+    for item in items:
+        if not isinstance(item, dict):
+            return None
+        ko_list.append(_clean(item.get("ko")))
+        en_list.append(_clean(item.get("en")))
+        ja_list.append(_clean(item.get("ja")))
+
+    return {"ko": ko_list, "en": en_list, "ja": ja_list}
+
+
 def _looks_untranslated(text: str) -> bool:
     """번역 결과가 실제로 번역되지 않은 경우를 감지합니다.
 

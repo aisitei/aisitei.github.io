@@ -337,11 +337,56 @@ def _filter_caption_lines(raw: str) -> list[str]:
     return out
 
 
+def _translate_sentences(
+    sentences: list[str],
+    translate_fn,
+    translate_en_fn=None,
+    translate_ja_fn=None,
+    translate_batch_fn=None,
+) -> list["ImageTranslation"]:
+    """문장 목록을 번역하여 ImageTranslation 리스트로 변환.
+
+    translate_batch_fn이 주어지면 이미지(문장 묶음) 하나당 1회 호출로 ko/en/ja를
+    한꺼번에 번역해 호출 수를 크게 줄인다. 배치 호출이 실패하면(None 반환) 기존
+    문장별 개별 호출(translate_fn/translate_en_fn/translate_ja_fn)로 폴백한다.
+    """
+    if translate_batch_fn:
+        batch = translate_batch_fn(sentences)
+        if batch and len(batch.get("ko", [])) == len(sentences):
+            translations = []
+            for i, sentence in enumerate(sentences):
+                korean = batch["ko"][i]
+                if korean:
+                    translations.append(ImageTranslation(
+                        original_chinese=sentence,
+                        translated_korean=korean,
+                        translated_english=(batch.get("en") or [""] * len(sentences))[i],
+                        translated_japanese=(batch.get("ja") or [""] * len(sentences))[i],
+                    ))
+            return translations
+        logger.warning("caption 배치 번역 실패 → 문장별 개별 호출로 폴백")
+
+    translations = []
+    for sentence in sentences:
+        korean = translate_fn(sentence)
+        if korean:
+            english = translate_en_fn(sentence) if translate_en_fn else ""
+            japanese = translate_ja_fn(sentence) if translate_ja_fn else ""
+            translations.append(ImageTranslation(
+                original_chinese=sentence,
+                translated_korean=korean,
+                translated_english=english or "",
+                translated_japanese=japanese or "",
+            ))
+    return translations
+
+
 def process_image_translations(
     image_urls: list[str],
     translate_fn,
     translate_en_fn=None,
     translate_ja_fn=None,
+    translate_batch_fn=None,
 ) -> dict[str, list[ImageTranslation]]:
     """이미지 목록에서 중국어 텍스트를 추출하고 번역합니다.
 
@@ -355,6 +400,9 @@ def process_image_translations(
             장황한 메타 답변을 반환할 수 있으므로 주의.
         translate_en_fn: 중국어→영어 번역 함수 (선택). None이면 영어 캡션 생략.
         translate_ja_fn: 중국어→일본어 번역 함수 (선택). None이면 일본어 캡션 생략.
+        translate_batch_fn: 이미지당 문장 전체를 한 번에 ko/en/ja로 번역하는 배치
+            함수(권장: translator.translate_caption_batch). 주어지면 문장별 개별
+            호출 대신 이미지당 1회 호출로 처리해 OCR 단계 호출 수를 크게 줄인다.
 
     Returns:
         {이미지URL: [ImageTranslation, ...]} 딕셔너리
@@ -371,18 +419,9 @@ def process_image_translations(
         if not sentences:
             continue
 
-        translations = []
-        for sentence in sentences:
-            korean = translate_fn(sentence)
-            if korean:
-                english = translate_en_fn(sentence) if translate_en_fn else ""
-                japanese = translate_ja_fn(sentence) if translate_ja_fn else ""
-                translations.append(ImageTranslation(
-                    original_chinese=sentence,
-                    translated_korean=korean,
-                    translated_english=english or "",
-                    translated_japanese=japanese or "",
-                ))
+        translations = _translate_sentences(
+            sentences, translate_fn, translate_en_fn, translate_ja_fn, translate_batch_fn
+        )
 
         if translations:
             results[url] = translations
@@ -396,6 +435,7 @@ def process_local_image_translations(
     translate_fn,
     translate_en_fn=None,
     translate_ja_fn=None,
+    translate_batch_fn=None,
 ) -> dict[str, list[ImageTranslation]]:
     """로컬 저장된 이미지 파일로 OCR을 수행합니다.
 
@@ -407,6 +447,7 @@ def process_local_image_translations(
         translate_fn: 중국어→한국어 번역 함수
         translate_en_fn: 중국어→영어 번역 함수 (선택). None이면 영어 캡션 생략.
         translate_ja_fn: 중국어→일본어 번역 함수 (선택). None이면 일본어 캡션 생략.
+        translate_batch_fn: 이미지당 문장 전체를 한 번에 ko/en/ja로 번역하는 배치 함수 (선택).
     """
     results = {}
 
@@ -440,18 +481,9 @@ def process_local_image_translations(
         if not sentences:
             continue
 
-        translations = []
-        for sentence in sentences:
-            korean = translate_fn(sentence)
-            if korean:
-                english = translate_en_fn(sentence) if translate_en_fn else ""
-                japanese = translate_ja_fn(sentence) if translate_ja_fn else ""
-                translations.append(ImageTranslation(
-                    original_chinese=sentence,
-                    translated_korean=korean,
-                    translated_english=english or "",
-                    translated_japanese=japanese or "",
-                ))
+        translations = _translate_sentences(
+            sentences, translate_fn, translate_en_fn, translate_ja_fn, translate_batch_fn
+        )
 
         if translations:
             results[url] = translations
