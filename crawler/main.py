@@ -17,12 +17,13 @@ import schedule
 import time
 
 import config
-from scraper import collect_articles, get_processed_article_ids
+from scraper import collect_articles, get_processed_article_ids, dedupe_cross_source_articles
 from scraper_gizmochina import scrape_feed as collect_gizmochina
 from translator import (
     translate_title, translate_article, generate_slug,
     translate_body_en, translate_body_ja, translate_body_zh, translate_body_zh_summary,
     translate_title_en, translate_title_ja, translate_title_zh,
+    get_usage_totals,
 )
 from ocr import process_image_translations
 from html_generator import TranslatedArticle, save_article
@@ -280,6 +281,9 @@ def run_pipeline(limit: int = 0):
     if not articles:
         logger.info("관련 기사 없음. 종료.")
         return
+
+    articles = dedupe_cross_source_articles(articles)
+
     if limit > 0:
         articles = articles[:limit]
         logger.info(f"{limit}건으로 제한 (전체 {len(articles)}건 중)")
@@ -430,6 +434,7 @@ def run_pipeline(limit: int = 0):
 
     logger.info("=" * 60)
     logger.info(f"완료! {len(saved_results)}건 처리됨")
+    logger.info(f"LLM 토큰 사용량: {get_usage_totals()}")
     logger.info("=" * 60)
 
     # 자동 resume: 실패 건이 있으면 파이프라인 종료 후 1회 자동 재시도

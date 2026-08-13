@@ -91,6 +91,61 @@ def detect_brand(title: str, content: str = "") -> tuple[str, str]:
     return ("", "")
 
 
+# IT之家(zh)와 Gizmochina(en)가 같은 제품/이벤트를 각각 보도하는 경우가 있어,
+# 브랜드+모델명(영문/숫자 토큰)이 겹치면 하나만 남기기 위한 시그니처 추출.
+_MODEL_TOKEN_RE = re.compile(r'[A-Za-z]+\s?\d+[A-Za-z]*|\d+[A-Za-z]+')
+
+
+def _extract_model_tokens(title: str) -> set[str]:
+    """제목에서 모델명으로 흔히 쓰이는 영문+숫자 혼합 토큰을 추출해 정규화한다.
+    'Magic 9'와 'Magic9', 'S50t' 등이 공백 유무와 무관하게 같은 토큰으로 매칭되도록
+    공백을 제거하고 소문자화한다. 예: 'Honor Magic 9' -> {'magic9'}."""
+    tokens = _MODEL_TOKEN_RE.findall(title)
+    normalized = {re.sub(r'\s+', '', t).lower() for t in tokens}
+    # 너무 짧은 토큰("4g", "5g" 등)은 우연히 겹칠 위험이 커서 제외
+    return {t for t in normalized if len(t) >= 3}
+
+
+def dedupe_cross_source_articles(articles: list) -> list:
+    """IT之家와 Gizmochina가 같은 브랜드+모델을 각각 보도한 경우, 본문이 더 상세한
+    쪽만 남기고 나머지를 제거한다. (같은 소스 내 중복은 이미 URL 기준으로 걸러짐)"""
+    signatures = []
+    for a in articles:
+        brand, _ = detect_brand(a.title, " ".join(a.content_paragraphs[:2]))
+        signatures.append((brand, _extract_model_tokens(a.title)))
+
+    dropped: set[int] = set()
+    for i in range(len(articles)):
+        if i in dropped:
+            continue
+        for j in range(i + 1, len(articles)):
+            if j in dropped or articles[i].source == articles[j].source:
+                continue
+            brand_i, tokens_i = signatures[i]
+            brand_j, tokens_j = signatures[j]
+            if not brand_i or brand_i != brand_j:
+                continue
+            common = tokens_i & tokens_j
+            if not common:
+                continue
+
+            len_i = sum(len(p) for p in articles[i].content_paragraphs)
+            len_j = sum(len(p) for p in articles[j].content_paragraphs)
+            drop_idx, keep_idx = (j, i) if len_i >= len_j else (i, j)
+            dropped.add(drop_idx)
+            logger.info(
+                f"중복 보도 감지 (브랜드={brand_i}, 공통 토큰={common}): "
+                f"'{articles[drop_idx].title[:40]}...' 제거 → "
+                f"'{articles[keep_idx].title[:40]}...' 유지"
+            )
+            if drop_idx == i:
+                break
+
+    if dropped:
+        logger.info(f"교차 소스 중복 보도 {len(dropped)}건 제거됨")
+    return [a for idx, a in enumerate(articles) if idx not in dropped]
+
+
 def download_image(url: str, dest_path: str) -> bool:
     """이미지를 다운로드하여 로컬에 저장합니다."""
     try:
