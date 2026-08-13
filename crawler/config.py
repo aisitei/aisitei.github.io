@@ -155,6 +155,10 @@ KEYWORDS_EXCLUDE = [
     "PC移植",
     # 야생동물 / 자연재해 (IT 무관)
     "熊出没", "熊袭",
+    # MS 소프트웨어/앱 기능 뉴스 (하드웨어 무관)
+    "OneDrive",
+    # 모바일 게임 (장르/출시 표현이 기존 "游戏" 계열 키워드와 안 겹치는 경우)
+    "武侠", "立志传",
 ]
 
 # ── 복합 제외 규칙 ─────────────────────────────────────────────────────────────
@@ -257,6 +261,10 @@ KEYWORDS_EXCLUDE_EN = [
     "router", "charger", "power bank", "cable",
     # 군사 / 국방
     "military", "defense", "weapon", "missile",
+    # 앱 사용법/튜토리얼 (하드웨어 뉴스 아님 — 소셜앱 다운로드 가이드 등)
+    "how to download", "without an app", "step-by-step guide",
+    # MS 소프트웨어/앱 기능 뉴스 (하드웨어 무관)
+    "onedrive",
 ]
 
 # LLM 설정 (LM Studio, OpenAI 호환 로컬 서버 — 또는 클라우드 API로 오버라이드 가능)

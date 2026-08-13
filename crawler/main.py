@@ -60,6 +60,26 @@ def find_git_root(start_path: str):
 # Error state & resume script helpers
 # ---------------------------------------------------------------------------
 
+def _multilang_queue_path() -> str:
+    return os.path.join(config.LOG_DIR, "multilang_backfill_queue.json")
+
+
+def _append_multilang_queue(entry: dict):
+    """--ko-only 모드로 저장된 기사를 EN/JA/ZH 백필 대상 큐에 추가합니다."""
+    path = _multilang_queue_path()
+    entries = []
+    if os.path.exists(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                entries = json.load(f)
+        except Exception:
+            entries = []
+    entries.append(entry)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(entries, f, ensure_ascii=False, indent=2)
+
+
 def _failed_log_path(today: str) -> str:
     return os.path.join(config.LOG_DIR, f"failed_{today}.json")
 
@@ -130,7 +150,9 @@ from translator import (
     translate_title, translate_article, generate_slug,
     translate_body_en, translate_body_ja, translate_body_zh, translate_body_zh_summary,
     translate_title_en, translate_title_ja, translate_title_zh,
+    translate_caption, translate_caption_en, translate_caption_ja, translate_caption_batch,
 )
+from ocr import process_image_translations
 from html_generator import TranslatedArticle, save_article
 from deployer import ensure_repo, commit_and_push
 
@@ -220,6 +242,15 @@ def main():
                 }},
             )
 
+            if config.OCR_ENABLED and article.image_urls:
+                translated.image_translations = process_image_translations(
+                    article.image_urls,
+                    translate_caption,
+                    translate_en_fn=translate_caption_en,
+                    translate_ja_fn=translate_caption_ja,
+                    translate_batch_fn=translate_caption_batch,
+                )
+
             result = save_article(translated, articles_root)
             saved_results.append(result)
             article_titles.append(korean_title)
@@ -261,10 +292,18 @@ if __name__ == "__main__":
 # Pipeline
 # ---------------------------------------------------------------------------
 
-def run_pipeline(limit: int = 0):
-    """전체 파이프라인 실행. limit > 0 이면 해당 건수만 처리."""
+def run_pipeline(limit: int = 0, ko_only: bool = False):
+    """전체 파이프라인 실행. limit > 0 이면 해당 건수만 처리.
+
+    ko_only=True면 한국어만 번역해 즉시 저장/푸시하고, EN/JA/ZH는
+    logs/multilang_backfill_queue.json에 쌓아 backfill_multilang.py가
+    나중에(로컬 LM Studio로) 채우도록 한다. 클라우드 API로 한국어를
+    빠르게 발행하면서 나머지 언어 비용은 로컬 처리로 절감하는 하이브리드 모드.
+    """
     logger.info("=" * 60)
     logger.info("IT之家 + Gizmochina 뉴스 파이프라인 시작")
+    if ko_only:
+        logger.info("모드: --ko-only (한국어만 즉시 처리, EN/JA/ZH는 백필 큐로)")
     logger.info("=" * 60)
 
     today = datetime.now().strftime("%Y-%m-%d")
@@ -320,6 +359,23 @@ def run_pipeline(limit: int = 0):
             _write_resume_script(today)
             continue
 
+        slug = generate_slug(korean_title)
+
+        if ko_only:
+            # EN/JA/ZH 호출을 건너뛰고 한국어만으로 저장한다. html_generator의
+            # 기존 폴백(titles/bodies.get("zh", ...get("ko"))) 덕분에 다른 언어
+            # 탭은 백필되기 전까지 한국어로 표시된다.
+            translated = TranslatedArticle(
+                original=article,
+                slug=slug,
+                titles={"ko": korean_title},
+                bodies={"ko": korean_paragraphs},
+            )
+            translated_articles.append(translated)
+            logger.info(f"  → {korean_title} (ko-only, EN/JA/ZH는 백필 큐로)")
+            time.sleep(0.3)
+            continue
+
         # 4개 언어 번역 (EN / JA / ZH summary)
         # 소스 텍스트: 한국어 번역 결과를 기반으로 EN/JA 번역
         ko_body_text = "\n\n".join(korean_paragraphs)
@@ -347,7 +403,6 @@ def run_pipeline(limit: int = 0):
             en_title = article.title
             ja_title = translate_title_ja(zh_title or korean_title)
 
-        slug = generate_slug(korean_title)
         translated = TranslatedArticle(
             original=article,
             slug=slug,
@@ -411,6 +466,18 @@ def run_pipeline(limit: int = 0):
             saved_results.append(result)
             article_titles.append(ta.korean_title)
             logger.info(f"  저장: {result['filepath']}")
+
+            if ko_only:
+                _append_multilang_queue({
+                    "article_dir": os.path.relpath(result["article_dir"], config.PRODUCTION_REPO_DIR),
+                    "article_id": ta.original.article_id,
+                    "title": ta.original.title,
+                    "url": ta.original.url,
+                    "category": ta.original.category,
+                    "source": ta.original.source,
+                    "korean_title": ta.korean_title,
+                    "korean_paragraphs": ta.korean_paragraphs,
+                })
 
         except Exception as e:
             err = f"save_article 실패: {e}"
@@ -478,13 +545,18 @@ def main():
     parser.add_argument("--run", action="store_true", help="즉시 1회 실행")
     parser.add_argument("--test", action="store_true", help="연결 테스트")
     parser.add_argument("--limit", type=int, default=0, help="처리할 기사 수 제한 (0=제한없음)")
+    parser.add_argument(
+        "--ko-only", action="store_true",
+        help="한국어만 번역해 즉시 저장/푸시하고, EN/JA/ZH는 큐에 쌓아 나중에 "
+             "backfill_multilang.py로 채운다 (클라우드 API 비용 절감용 하이브리드 모드).",
+    )
     args = parser.parse_args()
 
     if args.test:
         run_test()
         return
     if args.run:
-        run_pipeline(limit=args.limit)
+        run_pipeline(limit=args.limit, ko_only=args.ko_only)
         return
 
     logger.info(f"스케줄 모드: 매일 {config.SCHEDULE_TIME}")
