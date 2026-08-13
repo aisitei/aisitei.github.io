@@ -306,12 +306,14 @@ DEEP_CAMERA_PROMPT_SUFFIX = """
 - 카메라 모듈 디자인·배치 설명"""
 
 # OCR 설정
-# - OCR_BACKEND: "llm" (기본) | "mcp"
+# - OCR_BACKEND: "tesseract" (기본) | "llm" | "mcp"
+#   · tesseract: 로컬 Tesseract(chi_sim+eng)로 OCR. vision-LLM 대비 100배+ 빠르고
+#     LM Studio 리소스를 안 쓰며, 텍스트 없는 이미지에 캡션을 지어내는 할루시네이션도 없음.
 #   · llm: LM Studio의 LLM_VISION_MODEL 을 사용해 OCR.
 #   · mcp: OCR_MCP_URL 의 사내 MCP OCR 서버 호출.
 # - OCR_ENABLED: 기본 true. 비활성화하려면 환경변수 OCR_ENABLED=false.
 OCR_ENABLED = os.getenv("OCR_ENABLED", "true").lower() == "true"
-OCR_BACKEND = os.getenv("OCR_BACKEND", "llm").lower()
+OCR_BACKEND = os.getenv("OCR_BACKEND", "tesseract").lower()
 OCR_MCP_URL = os.getenv("OCR_MCP_URL", "http://localhost:9000/mcp")
 # LLM 비전 모델 — 기본은 번역용 LLM_MODEL 과 동일.
 # 전용 비전 모델을 쓰려면 LLM_VISION_MODEL 환경변수로 덮어쓰세요.

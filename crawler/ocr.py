@@ -1,9 +1,12 @@
 """
 이미지 OCR 인터페이스.
 
-기본 백엔드는 LM Studio의 LLM_VISION_MODEL (OpenAI 호환 chat/completions).
+기본 백엔드는 Tesseract(로컬 OCR 엔진, chi_sim+eng) — 순수 텍스트 추출 작업에
+vision-LLM을 쓰는 것보다 100배 이상 빠르고, 텍스트가 없는 이미지에 대해
+캡션을 지어내는(할루시네이션) 문제도 없음.
 설정 예:
-    LM Studio (기본):  포트 1234, gemma4:e4b 모델 로드
+    OCR_BACKEND=tesseract (기본): 로컬 tesseract 바이너리 + pytesseract 사용.
+    OCR_BACKEND=llm: LM Studio의 LLM_VISION_MODEL (OpenAI 호환 chat/completions).
 
 MCP 백엔드 사용 시:
     OCR_BACKEND=mcp OCR_MCP_URL=http://... 로 환경변수를 지정합니다.
@@ -19,6 +22,11 @@ from dataclasses import dataclass
 
 import requests
 from PIL import Image
+
+try:
+    import pytesseract
+except ImportError:
+    pytesseract = None
 
 import config
 
@@ -109,6 +117,25 @@ def call_ocr_mcp(image_base64: str) -> Optional[str]:
 
     except Exception as e:
         logger.error(f"MCP OCR 호출 실패: {e}")
+        return None
+
+
+def call_tesseract_ocr(image_bytes: bytes) -> Optional[str]:
+    """로컬 Tesseract OCR로 이미지 속 텍스트를 추출합니다 (중국어 간체 + 영어).
+
+    vision-LLM 호출 없이 순수 이미지 처리만으로 텍스트를 뽑아내므로
+    LM Studio/LLM 리소스를 전혀 쓰지 않고 훨씬 빠릅니다.
+    """
+    if pytesseract is None:
+        logger.error("pytesseract 미설치. `pip install pytesseract` 및 `brew install tesseract tesseract-lang` 필요.")
+        return None
+    try:
+        img = Image.open(io.BytesIO(image_bytes))
+        text = pytesseract.image_to_string(img, lang="chi_sim+eng")
+        text = text.strip()
+        return text or None
+    except Exception as e:
+        logger.warning(f"Tesseract OCR 실패: {e}")
         return None
 
 
@@ -216,7 +243,7 @@ def extract_image_text(image_url: str) -> Optional[str]:
     """이미지에서 중국어 텍스트를 추출합니다.
 
     OCR이 비활성화되어 있으면 None을 반환합니다.
-    config.OCR_BACKEND('llm' 기본 | 'mcp')에 따라 백엔드를 선택합니다.
+    config.OCR_BACKEND('tesseract' 기본 | 'llm' | 'mcp')에 따라 백엔드를 선택합니다.
     """
     if not config.OCR_ENABLED:
         return None
@@ -233,14 +260,13 @@ def extract_image_text(image_url: str) -> Optional[str]:
     except Exception:
         return None
 
-    b64 = image_to_base64(image_bytes)
-    mime = _detect_mime(image_bytes)
-
-    backend = getattr(config, "OCR_BACKEND", "llm").lower()
-    if backend == "mcp":
-        text = call_ocr_mcp(b64)
+    backend = getattr(config, "OCR_BACKEND", "tesseract").lower()
+    if backend == "tesseract":
+        text = call_tesseract_ocr(image_bytes)
+    elif backend == "mcp":
+        text = call_ocr_mcp(image_to_base64(image_bytes))
     else:
-        text = call_llm_vision_ocr(b64, mime=mime)
+        text = call_llm_vision_ocr(image_to_base64(image_bytes), mime=_detect_mime(image_bytes))
 
     if not text:
         return None
@@ -274,6 +300,17 @@ def _is_all_ui_chrome(line: str) -> bool:
     return all(t in _UI_CHROME_EXACT for t in tokens)
 
 
+def _is_digit_heavy_noise(line: str) -> bool:
+    """좋아요/댓글/공유 수 같은 Weibo 카운터 UI가 아이콘과 함께 OCR되어
+    숫자 위주로 흩어진 라인을 걸러낸다. 예: '巴6   团 211   四 588'
+    (아이콘이 한자로 오인식되고 숫자만 의미 있는 케이스)."""
+    non_space = [c for c in line if not c.isspace()]
+    if not non_space:
+        return False
+    digits = sum(1 for c in non_space if c.isdigit())
+    return digits / len(non_space) >= 0.4
+
+
 def _filter_caption_lines(raw: str) -> list[str]:
     """OCR 결과를 캡션 후보 문장으로 정리.
     - CJK 한 글자 이상 포함 필수 (`@handle`/`#hashtag` 등 ASCII-only 잡음 제거)
@@ -290,6 +327,8 @@ def _filter_caption_lines(raw: str) -> list[str]:
         if _WATERMARK_RE.search(ln):
             continue
         if _is_all_ui_chrome(ln):
+            continue
+        if _is_digit_heavy_noise(ln):
             continue
         if len(ln) < 2 or ln in seen:
             continue
@@ -386,14 +425,13 @@ def process_local_image_translations(
         except Exception:
             continue
 
-        b64 = image_to_base64(img_bytes)
-        mime = _detect_mime(img_bytes)
-
-        backend = getattr(config, "OCR_BACKEND", "llm").lower()
-        if backend == "mcp":
-            chinese_text = call_ocr_mcp(b64)
+        backend = getattr(config, "OCR_BACKEND", "tesseract").lower()
+        if backend == "tesseract":
+            chinese_text = call_tesseract_ocr(img_bytes)
+        elif backend == "mcp":
+            chinese_text = call_ocr_mcp(image_to_base64(img_bytes))
         else:
-            chinese_text = call_llm_vision_ocr(b64, mime=mime)
+            chinese_text = call_llm_vision_ocr(image_to_base64(img_bytes), mime=_detect_mime(img_bytes))
 
         if not chinese_text or len(chinese_text.strip()) < 2:
             continue
