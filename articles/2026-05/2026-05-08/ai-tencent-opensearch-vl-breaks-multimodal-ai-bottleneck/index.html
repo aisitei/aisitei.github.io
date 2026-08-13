@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI시테이 - 텐센트, 오픈서치-VL 공개로 멀티모달 검색 AI 에이전트 학습 병목 현상 돌파</title>
+  <title>AI시테이 - 텐센트, 멀티모달 검색 AI 에이전트 훈련 병목 현상 해결하는 OpenSearch-VL 오픈소스 공개</title>
   <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
   <meta name="article-category" content="ai">
   <meta name="article-brand" content="">
   <meta name="article-brand-color" content="">
-  <meta name="title-ko" content="텐센트, 오픈서치-VL 공개로 멀티모달 검색 AI 에이전트 학습 병목 현상 돌파">
+  <meta name="title-ko" content="텐센트, 멀티모달 검색 AI 에이전트 훈련 병목 현상 해결하는 OpenSearch-VL 오픈소스 공개">
   <meta name="title-zh" content="텐센트, 오픈서치-VL 공개로 멀티모달 검색 AI 에이전트 학습 병목 현상 돌파">
   <meta name="title-ja" content="Tencent、OpenSearch-VLの公開によりマルチモーダル検索AIエージェントの学習におけるボトルネックを解消">
   <meta name="title-en" content="Tencent breaks training bottleneck for multimodal search AI agents with the release of OpenSearch-VL">  <style>
@@ -536,7 +536,7 @@
           
         </div>
 
-        <h1 class="article-title" data-ko="텐센트, 오픈서치-VL 공개로 멀티모달 검색 AI 에이전트 학습 병목 현상 돌파" data-zh="텐센트, 오픈서치-VL 공개로 멀티모달 검색 AI 에이전트 학습 병목 현상 돌파" data-ja="Tencent、OpenSearch-VLの公開によりマルチモーダル検索AIエージェントの学習におけるボトルネックを解消" data-en="Tencent breaks training bottleneck for multimodal search AI agents with the release of OpenSearch-VL">텐센트, 오픈서치-VL 공개로 멀티모달 검색 AI 에이전트 학습 병목 현상 돌파</h1>
+        <h1 class="article-title" data-ko="텐센트, 멀티모달 검색 AI 에이전트 훈련 병목 현상 해결하는 OpenSearch-VL 오픈소스 공개" data-zh="텐센트, 오픈서치-VL 공개로 멀티모달 검색 AI 에이전트 학습 병목 현상 돌파" data-ja="Tencent、OpenSearch-VLの公開によりマルチモーダル検索AIエージェントの学習におけるボトルネックを解消" data-en="Tencent breaks training bottleneck for multimodal search AI agents with the release of OpenSearch-VL">텐센트, 멀티모달 검색 AI 에이전트 훈련 병목 현상 해결하는 OpenSearch-VL 오픈소스 공개</h1>
 
         <div class="article-info">
           
@@ -556,198 +556,77 @@
             <!-- Body — 4개 언어 -->
       <div class="article-body">
       <!-- lang-body: ko -->
-      <div class="lang-body" data-lang="ko">
-        <h3>OpenSearch-VL 개요 및 배경</h3>
-        <p>Tencent Hunyuan은 UCLA, 홍콩중문대 등 유수 학부와 협력하여 오픈소스 멀티모달 학습 솔루션인 OpenSearch-VL을 공개했습니다. 이 솔루션은 강화 학습(RL) 기술을 활용하여 최첨단 능력을 갖춘 심층 검색 에이전트를 구축하는 것을 목표로 합니다.</p>
-        <p>멀티모달 검색 에이전트란 이미지, 텍스트 등 다양한 형태의 입력을 처리할 수 있으며, 외부 도구(검색 엔진, 이미지 처리 도구 등)를 능동적으로 호출하여 다단계 추론, 증거 검증 및 지식 검색을 수행하는 인공지능 시스템입니다. 이는 특히 지식이 집약된 복잡한 시각 질의응답 문제를 해결하기 위해 설계되었습니다.</p>
-        <p>이 연구는 고품질 데이터 파이프라인 구축을 통해 SearchVL-SFT-36k와 같은 데이터셋을 생성하여, 최첨단 멀티모달 심층 검색 에이전트 훈련에 사용됩니다. 연구진은 현재 이 분야의 발전을 가로막는 가장 큰 병목 현상은 바로 '고품질 학습 데이터'라고 지적했습니다. 기존 최고 수준의 시스템들은 상업 기업 주도로 운영되어 데이터 출처, 필터링 기준, 도구 사용 기록 등이 사유화되어 있어, 선진 능력을 재현하거나 체계적으로 연구하는 데 어려움이 있었습니다.</p>
-        <h3>핵심 기술 구성 요소</h3>
-        <p>OpenSearch-VL은 데이터부터 도구 환경, 훈련 알고리즘까지 전체 과정을 아우르는 완전한 오픈소스 솔루션을 제공합니다.</p>
-        <h3>데이터 파이프라인 구축</h3>
-        <ul>
-<li><strong>다단계 경로 샘플링:</strong> 위키피디아의 하이퍼링크 그래프를 활용하여 여러 단계를 거치는 개체 경로(multi-hop entity path)를 샘플링합니다.</li>
-<li><strong>정보 정제 및 강화:</strong> 중간 단계의 개체를 모호한 설명으로 재작성하고, 앵커 포인트를 원본 이미지에 고정시킵니다. 이를 통해 에이전트가 단일 단계 검색 경로(shortcut)만 학습하는 것을 방지하고, 다단계 검색 및 추론 능력을 습득하도록 유도합니다.</li>
-<li><strong>데이터셋 활용:</strong> 파이프라인을 통해 SearchVL-SFT-36k 데이터셋을 생성하여 지도 미세 조정(Supervised Fine-Tuning)에 사용하며, 평균적으로 각 궤적(trajectory)은 6.3회의 도구 호출을 포함합니다.</li>
-<li><strong>강화 학습:</strong> 무작위로 선택된 10%의 데이터를 모호화하거나 다운샘플링하는 등 '저하 처리'를 적용하고, 쌍으로 강화된 도구를 결합하여 에이전트가 "생각하면서 이미지를 처리"하는 능력을 갖추도록 유도합니다.</li>
-</ul>
-        <h3>통합 도구 환경</h3>
-        <ul>
-<li>OpenSearch-VL의 도구 환경은 단순 검색을 넘어선 통합 기능을 제공합니다.</li>
-<li>지원 기능에는 텍스트 검색, 이미지 검색, OCR(광학 문자 인식), 자르기(Cropping), 선명화(Sharpening), 초해상도(Super-resolution), 원근 보정(Perspective Correction) 등이 포함됩니다.</li>
-<li>이 통합 환경 덕분에 에이전트는 외부 지식을 질의하기 전에 먼저 모호하거나 저해상도, 기울어진 시각적 입력을 처리할 수 있게 되어, 능동적인 인식과 지식 획득을 결합하는 것이 가능해졌습니다.</li>
-</ul>
-        <h3>실험 결과 및 성능 향상</h3>
-        <ul>
-<li><strong>성능 개선:</strong> OpenSearch-VL-30B-A3B 모델은 기준점(baseline) 평균 점수를 47.8점에서 61.6점으로 크게 끌어올렸으며, VDR, MMSearch 등 여러 벤치마크에서 현저한 성능 향상을 입증했습니다.</li>
-<li><strong>구성 요소 기여도 검증:</strong> 제거 실험(Ablation experiment)을 통해 각 구성 요소의 중요성이 확인되었습니다. 원본 앵커 고정, 모호화 재작성, 또는 단계별 필터링 중 하나를 제거했을 때 평균 점수가 8.2점에서 11.5점까지 하락하는 것을 보여주었습니다.</li>
-</ul>
-        <h3>총평</h3>
-        <p>OpenSearch-VL은 멀티모달 검색 에이전트 개발의 핵심 난제였던 데이터와 도구 사용 과정을 오픈소스로 공개했다는 점에서 큰 의미가 있습니다. 특히 위키피디아 그래프를 활용한 다단계 경로 샘플링과 이미지 전처리 기능을 통합함으로써, 단순 지식 검색을 넘어선 복잡하고 능동적인 추론 능력을 에이전트에 부여했습니다.</p>
-        <p>이는 향후 AI 기반의 시각적 질의응답 시스템 및 플래그십 제품 개발에 있어 중요한 오픈소스 표준으로 자리매김할 것으로 기대됩니다.</p>
-        <h3>项目背景与核心技术</h3>
-        <p>腾讯混元（Tencent Hunyuan）联合加州大学洛杉矶分校（UCLA）、香港中文大学等机构，发布了 OpenSearch-VL 开源多模态训练方案。该方案利用强化学习（RL）技术构建具备前沿能力的深度搜索智能体，旨在解决知识密集型的复杂视觉问答问题。此类智能体能够处理图像、文本等多模态输入，并主动调用外部工具进行多步骤推理与证据验证。</p>
-        <h3>数据管道与训练策略</h3>
-        <p>针对当前高质量多模态训练数据稀缺的瓶颈，OpenSearch-VL 提供了一套从数据到算法的完整开源方案。通过利用维基百科超链接图谱进行多跳实体路径采样，并配合模糊实体重写技术来抑制单步检索捷径。</p>
-        <ul>
-    <li>产出 SearchVL-SFT-36k 数据集，其中平均每条轨迹包含 6.3 次工具调用。</li>
-    <li>通过对 10% 的数据进行降质处理（如模糊、下采样）并配对增强工具，诱导智能体在查询知识前先执行“边思考边处理图像”的动作。</li>
-</ul>
-        <h3>工具环境与性能表现</h3>
-        <p>OpenSearch-VL 提供了一个超越单纯检索的丰富工具环境，涵盖了从感知到处理的多种功能：</p>
-        <ul>
-    <li>支持的功能包括：文本搜索、图像搜索、OCR、裁剪、锐化、超分辨率以及透视校正。</li>
-    <li>模型表现：OpenSearch-VL-30B-A3B 模型在 VDR 和 MMSearch 等基准测试中，将基线平均得分从 47.8 显著提升至 61.6。</li>
-    <li>消融实验验证了源锚点锚定、模糊重写及分阶段过滤等关键组件对模型性能的贡献。</li>
-</ul>
-        <h3>总结</h3>
-        <p>Tencent Hunyan 等机构推出的 OpenSearch-VL 是一个旨在解决多模态搜索智能体训练数据匮乏问题的开源框架。通过创新的数据采样路径和丰富的工具链，该方案显著提升了模型在复杂视觉问答中的推理与检索能力。</p>
-        <h3>OpenSearch-VLの概要と背景</h3>
-        <p>Tencent Hunyuanは、UCLAや香港中文大学などの有力な学術機関と協力し、オープンソースのマルチモーダル学習ソリューション「OpenSearch-VL」を公開しました。このソリューションは、強化学習（RL）技術を活用して、最先端の能力を備えたディープサーチエージェントを構築することを目的としています。</p>
-        <p>マルチモーダル検索エージェントとは、画像やテキストなど多様な形態の入力を処理でき、外部ツール（検索エンジン、画像処理ツールなど）を能動的に呼び出して、多段階の推論、証拠検証、および知識検索を実行する人工知能システムです。これは特に、知識集約的な複雑な視覚的質疑応答（Visual QA）の問題を解決するために設計されています。</p>
-        <p>この研究では、高品質なデータパイプラインの構築を通じて「SearchVL-SFT-36k」などのデータセットを生成し、最先端のマルチモーダルディープサーチエージェントの訓練に使用します。研究チームは、この分野の発展を阻む最大のボトルネックは「高品質な学習データ」であると指摘しています。既存の最高レベルのシステムは商用企業主導で運営されているため、データの出所、フィルタリング基準、ツールの使用履歴などが非公開であり、高度な能力を再現したり体系的に研究したりすることが困難でした。</p>
-        <h3>核心的な技術構成要素</h3>
-        <p>OpenSearch-VLは、データからツール環境、訓練アルゴリズムに至るまで、プロセス全体を網羅する完全なオープンソースソリューションを提供します。</p>
-        <h3>データパイプラインの構築</h3>
-        <ul>
-<li><strong>多段階経路サンプリング：</strong> Wikipediaのハイパーリンクグラフを活用し、複数のステップを経るエンティティパス（multi-hop entity path）をサンプリングします。</li>
-<li><strong>情報の精製と強化：</strong> 中間段階のエンティティを曖昧な説明で書き換え、アンカーポイントを元の画像に固定します。これにより、エージェントが単一ステップの検索経路（ショートカット）のみを学習するのを防ぎ、多段階の検索および推論能力を獲得するように導きます。</li>
-<li><strong>データセットの活用：</strong> パイプラインを通じて「SearchVL-SFT-36k」データセットを生成し、教師あり微調整（Supervised Fine-Tuning）に使用します。平均して各軌跡（trajectory）には6.3回のツール呼び出しが含まれます。</li>
-<li><strong>強化学習：</strong> ランダムに選択された10%のデータを曖昧化またはダウンサンプリングする「劣化処理」を適用し、ペアで強化されたツールを組み合わせることで、エージェントが「思考しながら画像を処理する」能力を備えるよう促します。</li>
-</ul>
-        <h3>統合ツール環境</h3>
-        <ul>
-<li>OpenSearch-VLのツール環境は、単なる検索を超えた統合機能を提供します。</li>
-<li>サポート機能には、テキスト検索、画像検索、OCR（光学文字認識）、クロッピング（Cropping）、シャープネス（Sharpening）、超解像（Super-resolution）、パースペクティブ補正（Perspective Correction）などが含まれます。</li>
-<li>この統合環境により、エージェントは外部知識を照会する前に、曖昧または低解像度で傾いた視覚的入力を処理できるようになり、能動的な認識と知識獲得の融合が可能になりました。</li>
-</ul>
-        <h3>実験結果および性能向上</h3>
-        <ul>
-<li><strong>性能の改善：</strong> OpenSearch-VL-30B-A3Bモデルは、ベースラインの平均スコアを47.8点から61.6点へと大幅に引き上げ、VDR、MMSearchなど複数のベンチマークにおいて顕著な性能向上を実証しました。</li>
-<li><strong>構成要素の寄与度の検証：</strong> 除去実験（Ablation experiment）を通じて、各構成要素の重要性が確認されました。元のアンカー固定、曖昧な書き換え、または段階的なフィルタリングのいずれかを除去すると、平均スコアが8.2点から11.5点まで低下することが示されました。</li>
-</ul>
-        <h3>総評</h3>
-        <p>OpenSearch-VLは、マルチモーダル検索エージェントの開発における核心的な課題であったデータとツール使用のプロセスをオープンソースとして公開した点で大きな意義があります。特にWikipediaグラフを活用した多段階経路サンプリングと画像前処理機能を統合することで、単なる知識検索を超えた複雑で能動的な推論能力をエージェントに付与しました。</p>
-        <p>これは今後、AIベースの視覚的質疑応答システムやフラッグシップ製品の開発において、重要なオープンソース標準として位置づけられることが期待されます。</p>
-        <h3>まとめ</h3>
-        <p>OpenSearch-VLは、Tencent Hunyanが公開したマルチモーダルのディープサーチエージェントのための包括的なオープンソースソリューションです。高品質なデータパイプラインと高度な画像処理を含む統合ツール環境を組み合わせることで、複雑な視覚的質疑応答における推論能力を大幅に向上させました。このプロジェクトは、次世代のAIシステム開発において重要な標準となる可能性を秘めています。</p>
-        <h3>Overview and Background of OpenSearch-VL</h3>
-        <p>Tencent Hunyuan, in collaboration with prestigious institutions including UCLA and the Chinese University of Hong Kong, has unveiled OpenSearch-VL, an open-source multimodal learning solution. This solution aims to construct state-of-the-art deep search agents by utilizing Reinforcement Learning (RL) techniques.</p>
-        <p>A multimodal search agent is an AI system capable of processing diverse inputs such as images and text while actively invoking external tools—such as search engines and image processing tools—to perform multi-step reasoning, evidence verification, and knowledge retrieval. It is specifically designed to solve complex visual question-answering problems involving dense information.</p>
-        <p>The research highlights that the primary bottleneck currently hindering progress in this field is the lack of "high-quality training data." Because existing top-tier systems are predominantly managed by commercial entities, critical information such as data sources, filtering criteria, and tool usage logs remain proprietary, making it difficult to replicate advanced capabilities or conduct systematic research.</p>
-        <h3>Key Technical Components</h3>
-        <p>OpenSearch-VL provides a comprehensive open-source solution covering the entire process from data pipelines to tool environments and training algorithms.</p>
-        <h3>Data Pipeline Construction</h3>
-        <ul>
-<li><strong>Multi-hop Path Sampling:</strong> Utilizes Wikipedia hyperlink graphs to sample multi-hop entity paths involving multiple steps.</li>
-<li><strong>Information Refinement and Reinforcement:</strong> Rewrites ambiguous entities in intermediate steps and anchors them to the original images. This prevents the agent from learning "shortcuts" (single-step search paths) and encourages it to develop multi-step searching and reasoning capabilities.</li>
-<li><strong>Dataset Utilization:</strong> The pipeline generates the SearchVL-SFT-36k dataset for Supervised Fine-Tuning (SFT), where each trajectory includes an average of 6.3 tool calls.</li>
-<li><strong>Reinforcement Learning:</strong> Implements "degradation" by blurring or downsampling 10% of randomly selected data and combines paired tools to enable the agent to "think while processing images."</li>
-</ul>
-        <h3>Integrated Tool Environment</h3>
-        <ul>
-<li>The tool environment in OpenSearch-VL provides integrated functions that go beyond simple search.</li>
-<li>Supported features include text search, image search, OCR (Optical Character Recognition), Cropping, Sharpening, Super-resolution, and Perspective Correction.</li>
-<li>This integrated environment allows the agent to process ambiguous, low-resolution, or tilted visual inputs before querying external knowledge, enabling a combination of active perception and information acquisition.</li>
-</ul>
-        <h3>Experimental Results and Performance Improvements</h3>
-        <ul>
-<li><strong>Performance Gains:</strong> The OpenSearch-VL-30B-A3B model significantly boosted the average score from 47.8 to 61.6, demonstrating substantial performance improvements across several benchmarks, including VDR and MMSearch.</li>
-<li><strong>Component Contribution Verification:</strong> Ablation experiments confirmed the importance of each component. Removing any single feature—such as original anchor fixing, ambiguous rewriting, or step-by-step filtering—resulted in average score drops ranging from 8.2 to 11.5 points.</li>
-</ul>
-        <h3>Summary</h3>
-        <p>OpenSearch-VL addresses a critical bottleneck in multimodal search agents by providing an open-source solution for high-quality data pipelines and integrated tool environments. By combining multi-hop path sampling with advanced image preprocessing, it enables AI models to perform complex reasoning rather than simple information retrieval. The project is expected to serve as a significant open-source standard for the development of future visual question-answering systems.</p>
+              <div class="lang-body" data-lang="ko">
+          <h3>서론</h3>
+          <p>Tencent Hunyuan이 UCLA, 홍콩 중문 대학 등과 협력하여 오픈소스 멀티모달 학습 솔루션인 OpenSearch-VL을 공동 발표했습니다. 이 솔루션은 강화 학습(RL) 기술을 통해 최첨단 역량을 갖춘 딥 서치 에이전트를 구축하는 것을 목표로 합니다.</p>
+          <p>멀티모달 서치 에이전트는 이미지, 텍스트 등 다양한 모달리티 입력을 처리하고, 외부 도구(예: 검색 엔진, 이미지 처리 도구)를 능동적으로 호출하여 다단계 추론, 증거 검증 및 지식 검색을 수행하는 에이전트를 의미합니다. 이는 지식 집약적인 복잡한 시각적 질의응답을 해결하기 위해 고안되었습니다.</p>
+          <h3>OpenSearch-VL 솔루션</h3>
+          <p>이 보고서는 어제(5월 6일) arXiv 플랫폼에 발표되었으며, 최첨단 멀티모달 딥 서치 에이전트 학습을 위한 OpenSearch-VL 솔루션을 소개합니다. 연구팀은 위키백과 경로 샘플링과 모호한 엔티티 재작성을 통해 검색 지름길을 줄이고, SearchVL-SFT-36k 등의 고품질 데이터셋을 생성하는 데이터 파이프라인을 구축했습니다.</p>
+          <p>연구팀은 현재 최첨단 멀티모달 서치 에이전트의 발전을 가로막는 가장 큰 병목 현상은 고품질 학습 데이터에 있다고 지적했습니다. 기존의 최고 시스템들은 대부분 상업 회사들이 주도하고 있으며, 데이터 출처, 필터링 기준, 도구 사용 궤적 등이 비공개여서 고급 기능의 재현과 체계적인 연구를 방해하고 있습니다.</p>
+          <p>연구팀은 데이터, 도구, 학습 알고리즘에 이르는 완전한 오픈소스 솔루션을 제공하는 OpenSearch-VL을 제안합니다.</p>
+          <h3>데이터 파이프라인 구축</h3>
+          <p>데이터 파이프라인 구축과 관련하여 OpenSearch-VL은 위키백과의 하이퍼링크 그래프를 활용하여 다중 홉 엔티티 경로 샘플링을 수행합니다. 중간 엔티티는 모호한 설명으로 재작성되고, 앵커 엔티티는 원본 이미지에 고정되어 단일 단계 검색 지름길을 억제하고 에이전트가 다중 홉 검색 및 추론 행동을 학습하도록 유도합니다.</p>
+          <p>파이프라인은 감독 미세 조정을 위한 SearchVL-SFT-36k 데이터셋을 생성하며, 각 궤적은 평균 6.3회의 도구 호출을 포함합니다. 동시에, 데이터의 10%를 무작위로 선택하여 블러, 다운샘플링 등 품질 저하 처리를 적용하고, 강화된 도구를 페어링하여 "생각하면서 이미지 처리" 행동을 유도합니다.</p>
+          <h3>도구 환경</h3>
+          <p>도구 환경은 단순 검색 에이전트를 넘어 텍스트 검색, 이미지 검색, OCR, 자르기, 선명화, 초고해상도 및 원근 보정 등의 기능을 통합합니다. 이를 통해 에이전트는 외부 지식을 쿼리하기 전에 흐릿하거나 저해상도 또는 기울어진 시각적 입력을 먼저 처리하여 능동적인 인지와 지식 획득을 결합할 수 있습니다.</p>
+          <h3>실험 결과</h3>
+          <p>실험 결과, OpenSearch-VL-30B-A3B 모델은 기준선 평균 점수를 47.8에서 61.6으로 향상시켰으며, VDR, MMSearch 등의 벤치마크에서 상당한 개선을 이루었습니다. 제거 실험을 통해 각 구성 요소의 기여도를 검증했습니다. 원본 앵커 고정, 모호한 재작성 또는 단계별 필터링을 제거하면 평균 점수가 8.2에서 11.5점 감소했습니다.</p>
+          <h3>총평</h3>
+          <p>Tencent Hunyuan이 주도하는 OpenSearch-VL은 고품질 학습 데이터 부족이라는 멀티모달 서치 에이전트의 주요 병목 현상을 해결하기 위해 고안된 오픈소스 솔루션입니다. 위키백과 기반의 데이터 파이프라인과 통합된 도구 환경을 통해 에이전트가 복잡한 시각적 질의응답을 효과적으로 처리하고, 기존 시스템 대비 성능을 크게 향상시키는 것을 목표로 합니다.</p>
         </div>
-      <!-- lang-body: zh -->
-      <div class="lang-body" data-lang="zh">
-        <h3>项目背景与核心目标</h3>
-<p>Tencent Hunyuan 与加州大学洛杉矶分校（UCLA）、香港中文大学联合发布了 OpenSearch-VL 开源多模态训练方案。该方案旨在利用强化学习（RL）技术，构建能够处理图像、文本等多模态输入，并主动调用外部工具进行多步骤推理、证据验证与知识检索的深度搜索智能体，以解决复杂视觉问答中的知识密集型问题。</p>
-        <h3>数据管道与训练策略</h3>
-<p>针对目前高质量多模态训练数据稀缺且高度私有化的现状，OpenSearch-VL 提供了一套完整的开源方案。其核心技术包含：</p>
-<ul>
-<li>利用维基百科超链接图谱进行多跳实体路径采样。</li>
-<li>通过模糊实重写减少检索捷径，促使智能体学习多跳搜索与推理行为。</li>
-<li>产出 SearchVL-SFT-36k 数据集，其中平均每条轨迹包含 6.3 次工具调用。</li>
-<li>引入 10% 的降质处理数据（如模糊、下采样），配合工具增强，诱导智能体进行“边思考边处理图像”的行为。</li>
-</ul>
-        <h3>多功能工具环境</h3>
-<p>该方案提供的工具链超越了单一的检索功能，涵盖了多种视觉预处理与信息获取能力：</p>
-<ul>
-<li>文本搜索、图像搜索</li>
-<li>OCR（光学字符识别）</li>
-<li>裁剪、锐化、超分辨率、透视校正</li>
-</ul>
-        <h3>实验结果与性能表现</h3>
-<p>在相关基准测试中，OpenSearch-VL-30B-A3B 模型展现了显著的性能提升：</p>
-<ul>
-<li>将基线平均得分从 47.8 提升至 61.6。</li>
-<li>在 VDR、MMSearch 等多个基准上取得显著增益。</li>
-<li>消融实验证实，源锚点锚定、模糊重写及分阶段过滤等关键组件对最终性能有重要贡献（移除相关功能会导致得分下降 8.2 至 11.5 点）。</li>
-</ul>
-        <h3>总结</h3>
-<p>Tencent Hunyan 等机构推出的 OpenSearch-VL 提供了一套完整的开源方案，旨在解决多模态搜索智能体在数据获取和工具调用上的核心瓶颈。通过创新的数据管道和丰富的视觉处理工具链，OpenSearch-VL-30B-A3B 模型显著提升了复杂场景下的推理与检索能力。</p>
+        <div class="lang-body" data-lang="zh">
+          <h3>서론</h3>
+          <p>Tencent Hunyuan이 UCLA, 홍콩 중문 대학 등과 협력하여 오픈소스 멀티모달 학습 솔루션인 OpenSearch-VL을 공동 발표했습니다. 이 솔루션은 강화 학습(RL) 기술을 통해 최첨단 역량을 갖춘 딥 서치 에이전트를 구축하는 것을 목표로 합니다.</p>
+          <p>멀티모달 서치 에이전트는 이미지, 텍스트 등 다양한 모달리티 입력을 처리하고, 외부 도구(예: 검색 엔진, 이미지 처리 도구)를 능동적으로 호출하여 다단계 추론, 증거 검증 및 지식 검색을 수행하는 에이전트를 의미합니다. 이는 지식 집약적인 복잡한 시각적 질의응답을 해결하기 위해 고안되었습니다.</p>
+          <h3>OpenSearch-VL 솔루션</h3>
+          <p>이 보고서는 어제(5월 6일) arXiv 플랫폼에 발표되었으며, 최첨단 멀티모달 딥 서치 에이전트 학습을 위한 OpenSearch-VL 솔루션을 소개합니다. 연구팀은 위키백과 경로 샘플링과 모호한 엔티티 재작성을 통해 검색 지름길을 줄이고, SearchVL-SFT-36k 등의 고품질 데이터셋을 생성하는 데이터 파이프라인을 구축했습니다.</p>
+          <p>연구팀은 현재 최첨단 멀티모달 서치 에이전트의 발전을 가로막는 가장 큰 병목 현상은 고품질 학습 데이터에 있다고 지적했습니다. 기존의 최고 시스템들은 대부분 상업 회사들이 주도하고 있으며, 데이터 출처, 필터링 기준, 도구 사용 궤적 등이 비공개여서 고급 기능의 재현과 체계적인 연구를 방해하고 있습니다.</p>
+          <p>연구팀은 데이터, 도구, 학습 알고리즘에 이르는 완전한 오픈소스 솔루션을 제공하는 OpenSearch-VL을 제안합니다.</p>
+          <h3>데이터 파이프라인 구축</h3>
+          <p>데이터 파이프라인 구축과 관련하여 OpenSearch-VL은 위키백과의 하이퍼링크 그래프를 활용하여 다중 홉 엔티티 경로 샘플링을 수행합니다. 중간 엔티티는 모호한 설명으로 재작성되고, 앵커 엔티티는 원본 이미지에 고정되어 단일 단계 검색 지름길을 억제하고 에이전트가 다중 홉 검색 및 추론 행동을 학습하도록 유도합니다.</p>
+          <p>파이프라인은 감독 미세 조정을 위한 SearchVL-SFT-36k 데이터셋을 생성하며, 각 궤적은 평균 6.3회의 도구 호출을 포함합니다. 동시에, 데이터의 10%를 무작위로 선택하여 블러, 다운샘플링 등 품질 저하 처리를 적용하고, 강화된 도구를 페어링하여 "생각하면서 이미지 처리" 행동을 유도합니다.</p>
+          <h3>도구 환경</h3>
+          <p>도구 환경은 단순 검색 에이전트를 넘어 텍스트 검색, 이미지 검색, OCR, 자르기, 선명화, 초고해상도 및 원근 보정 등의 기능을 통합합니다. 이를 통해 에이전트는 외부 지식을 쿼리하기 전에 흐릿하거나 저해상도 또는 기울어진 시각적 입력을 먼저 처리하여 능동적인 인지와 지식 획득을 결합할 수 있습니다.</p>
+          <h3>실험 결과</h3>
+          <p>실험 결과, OpenSearch-VL-30B-A3B 모델은 기준선 평균 점수를 47.8에서 61.6으로 향상시켰으며, VDR, MMSearch 등의 벤치마크에서 상당한 개선을 이루었습니다. 제거 실험을 통해 각 구성 요소의 기여도를 검증했습니다. 원본 앵커 고정, 모호한 재작성 또는 단계별 필터링을 제거하면 평균 점수가 8.2에서 11.5점 감소했습니다.</p>
+          <h3>총평</h3>
+          <p>Tencent Hunyuan이 주도하는 OpenSearch-VL은 고품질 학습 데이터 부족이라는 멀티모달 서치 에이전트의 주요 병목 현상을 해결하기 위해 고안된 오픈소스 솔루션입니다. 위키백과 기반의 데이터 파이프라인과 통합된 도구 환경을 통해 에이전트가 복잡한 시각적 질의응답을 효과적으로 처리하고, 기존 시스템 대비 성능을 크게 향상시키는 것을 목표로 합니다.</p>
         </div>
-      <!-- lang-body: ja -->
-      <div class="lang-body" data-lang="ja">
-        <h3>OpenSearch-VLの概要と背景</h3>
-        <p>Tencent Hunyuanは、UCLAや香港中文大学（CUHK）などの有力な学術機関と協力し、オープンソースのマルチモーダル学習ソリューション「OpenSearch-VL」を公開しました。このソリューションは、強化学習（RL）技術を活用して、最先端の能力を備えたディープサーチエージェントを構築することを目的としています。</p>
-        <p>マルチモーダル検索エージェントとは、画像やテキストなど多様な形態の入力を処理でき、外部ツール（検索エンジン、画像処理ツールなど）を能動的に呼び出して、多段階の推論、証拠の検証、および知識検索を実行する人工知能システムです。これは特に、高度な知識を必要とする複雑な視覚的質疑応答（Visual QA）の問題を解決するために設計されています。</p>
-        <p>本研究では、高品質なデータパイプラインの構築を通じて「SearchVL-SFT-36k」などのデータセットを生成し、最先端のマルチモーダルディープサーチエージェントの訓練に使用します。研究チームは、この分野の発展を阻む最大のボトルネックは「高品質な学習データ」であると指摘しています。既存の最高レベルのシステムは商用企業主導で運営されているため、データの出所、フィルタリング基準、ツールの使用履歴などが非公開であり、高度な能力を再現したり体系的に研究したりすることが困難であったためです。</p>
-        <h3>核心的な技術構成要素</h3>
-        <p>OpenSearch-VLは、データからツール環境、訓練アルゴリズムに至るまで、プロセス全体を網羅する完全なオープンソースソリューションを提供します。</p>
-        <h3>データパイプラインの構築</h3>
-        <ul>
-<li><strong>多段階経路サンプリング：</strong> Wikipediaのハイパーリンクグラフを活用し、複数のステップを経るエンティティパス（multi-hop entity path）をサンプリングします。</li>
-<li><strong>情報の精製と強化：</strong> 中間段階のエンティティをあえて曖昧な説明で書き換え、アンカーポイントを元の画像に固定します。これにより、エージェントが単一ステップの検索経路（ショートカット）のみを学習するのを防ぎ、多段階の検索および推論能力を獲得するように導きます。</li>
-<li><strong>データセットの活用：</strong> パイプラインを通じて「SearchVL-SFT-36k」データセットを生成し、教師あり微調整（Supervised Fine-Tuning）に使用します。平均して各軌跡（trajectory）には6.3回のツール呼び出しが含まれます。</li>
-<li><strong>強化学習：</strong> ランダムに選択された10%のデータに対して「劣化処理」（曖昧化やダウンサンプリングなど）を適用し、ペアで強化されたツールを組み合わせることで、エージェントが「思考しながら画像を処理する」能力を備えるよう促します。</li>
-</ul>
-        <h3>統合ツール環境</h3>
-        <ul>
-<li>OpenSearch-VLのツール環境は、単なる検索を超えた統合機能を提供します。</li>
-<li>サポートされる機能には、テキスト検索、画像検索、OCR（光学文字認識）、クロッピング（Cropping）、シャープネス（Sharpening）、超解像（Super-resolution）、パースペクティブ補正（Perspective Correction）などが含まれます。</li>
-<li>この統合環境により、エージェントは外部知識を照会する前に、曖昧または低解像度で傾いた視覚的入力を自ら処理できるようになり、能動的な認識と知識獲得の融合が可能になりました。</li>
-</ul>
-        <h3>実験結果および性能向上</h3>
-        <ul>
-<li><strong>性能の改善：</strong> OpenSearch-VL-30B-A3Bモデルは、ベースラインの平均スコアを47.8点から61.6点へと大幅に引き上げ、VDRやMMSearchなど複数のベンチマークにおいて顕著な性能向上を実証しました。</li>
-<li><strong>構成要素の寄与度の検証：</strong> 除去実験（Ablation experiment）を通じて、各構成要素の重要性が確認されました。元のアンカー固定、曖昧な書き換え、または段階的なフィルタリングのいずれかを除去すると、平均スコアが8.2点から11.5点まで低下することが示されました。</li>
-</ul>
-        <h3>総評</h3>
-        <p>OpenSearch-VLは、マルチモーダル検索エージェントの開発における核心的な課題であったデータとツール使用のプロセスをオープンソースとして公開した点で大きな意義があります。特にWikipediaグラフを活用した多段階経路サンプリングと画像前処理機能を統合することで、単なる知識検索を超えた複雑で能動的な推論能力をエージェントに付与しました。</p>
-        <p>これは今後、AIベースの視覚的質疑応答システムやフラッグシップ製品の開発において、重要なオープンソース標準として位置づけられることが期待されます。</p>
-        <h3>まとめ</h3>
-        <p>OpenSearch-VLは、Tencent Hunyuanが公開したマルチモーダルのディープサーチエージェントのための包括的なオープンソースソリューションです。高品質なデータパイプラインと高度な画像処理を含む統合ツール環境を組み合わせることで、複雑な視覚的質疑応答における推論能力を大幅に向上させました。このプロジェクトは、次世代のAIシステム開発において重要な標準となる可能性を秘めています。</p>
+        <div class="lang-body" data-lang="ja">
+          <h3>서론</h3>
+          <p>Tencent Hunyuan이 UCLA, 홍콩 중문 대학 등과 협력하여 오픈소스 멀티모달 학습 솔루션인 OpenSearch-VL을 공동 발표했습니다. 이 솔루션은 강화 학습(RL) 기술을 통해 최첨단 역량을 갖춘 딥 서치 에이전트를 구축하는 것을 목표로 합니다.</p>
+          <p>멀티모달 서치 에이전트는 이미지, 텍스트 등 다양한 모달리티 입력을 처리하고, 외부 도구(예: 검색 엔진, 이미지 처리 도구)를 능동적으로 호출하여 다단계 추론, 증거 검증 및 지식 검색을 수행하는 에이전트를 의미합니다. 이는 지식 집약적인 복잡한 시각적 질의응답을 해결하기 위해 고안되었습니다.</p>
+          <h3>OpenSearch-VL 솔루션</h3>
+          <p>이 보고서는 어제(5월 6일) arXiv 플랫폼에 발표되었으며, 최첨단 멀티모달 딥 서치 에이전트 학습을 위한 OpenSearch-VL 솔루션을 소개합니다. 연구팀은 위키백과 경로 샘플링과 모호한 엔티티 재작성을 통해 검색 지름길을 줄이고, SearchVL-SFT-36k 등의 고품질 데이터셋을 생성하는 데이터 파이프라인을 구축했습니다.</p>
+          <p>연구팀은 현재 최첨단 멀티모달 서치 에이전트의 발전을 가로막는 가장 큰 병목 현상은 고품질 학습 데이터에 있다고 지적했습니다. 기존의 최고 시스템들은 대부분 상업 회사들이 주도하고 있으며, 데이터 출처, 필터링 기준, 도구 사용 궤적 등이 비공개여서 고급 기능의 재현과 체계적인 연구를 방해하고 있습니다.</p>
+          <p>연구팀은 데이터, 도구, 학습 알고리즘에 이르는 완전한 오픈소스 솔루션을 제공하는 OpenSearch-VL을 제안합니다.</p>
+          <h3>데이터 파이프라인 구축</h3>
+          <p>데이터 파이프라인 구축과 관련하여 OpenSearch-VL은 위키백과의 하이퍼링크 그래프를 활용하여 다중 홉 엔티티 경로 샘플링을 수행합니다. 중간 엔티티는 모호한 설명으로 재작성되고, 앵커 엔티티는 원본 이미지에 고정되어 단일 단계 검색 지름길을 억제하고 에이전트가 다중 홉 검색 및 추론 행동을 학습하도록 유도합니다.</p>
+          <p>파이프라인은 감독 미세 조정을 위한 SearchVL-SFT-36k 데이터셋을 생성하며, 각 궤적은 평균 6.3회의 도구 호출을 포함합니다. 동시에, 데이터의 10%를 무작위로 선택하여 블러, 다운샘플링 등 품질 저하 처리를 적용하고, 강화된 도구를 페어링하여 "생각하면서 이미지 처리" 행동을 유도합니다.</p>
+          <h3>도구 환경</h3>
+          <p>도구 환경은 단순 검색 에이전트를 넘어 텍스트 검색, 이미지 검색, OCR, 자르기, 선명화, 초고해상도 및 원근 보정 등의 기능을 통합합니다. 이를 통해 에이전트는 외부 지식을 쿼리하기 전에 흐릿하거나 저해상도 또는 기울어진 시각적 입력을 먼저 처리하여 능동적인 인지와 지식 획득을 결합할 수 있습니다.</p>
+          <h3>실험 결과</h3>
+          <p>실험 결과, OpenSearch-VL-30B-A3B 모델은 기준선 평균 점수를 47.8에서 61.6으로 향상시켰으며, VDR, MMSearch 등의 벤치마크에서 상당한 개선을 이루었습니다. 제거 실험을 통해 각 구성 요소의 기여도를 검증했습니다. 원본 앵커 고정, 모호한 재작성 또는 단계별 필터링을 제거하면 평균 점수가 8.2에서 11.5점 감소했습니다.</p>
+          <h3>총평</h3>
+          <p>Tencent Hunyuan이 주도하는 OpenSearch-VL은 고품질 학습 데이터 부족이라는 멀티모달 서치 에이전트의 주요 병목 현상을 해결하기 위해 고안된 오픈소스 솔루션입니다. 위키백과 기반의 데이터 파이프라인과 통합된 도구 환경을 통해 에이전트가 복잡한 시각적 질의응답을 효과적으로 처리하고, 기존 시스템 대비 성능을 크게 향상시키는 것을 목표로 합니다.</p>
         </div>
-      <!-- lang-body: en -->
-      <div class="lang-body" data-lang="en">
-        <h3>Overview and Background of OpenSearch-VL</h3>
-        <p>Tencent Hunyuan, in collaboration with prestigious institutions including UCLA and the Chinese University of Hong Kong, has unveiled OpenSearch-VL, an open-source multimodal learning solution. This solution aims to construct state-of-the-art deep search agents by leveraging Reinforcement Learning (RL) techniques.</p>
-        <p>A multimodal search agent is an AI system capable of processing various inputs such as images and text while actively invoking external tools—such as search engines and image processing tools—to perform multi-step reasoning, evidence verification, and knowledge retrieval. It is specifically designed to solve complex visual question-answering (VQA) problems that require high levels of information density.</p>
-        <p>The research addresses a major bottleneck in the field: the lack of "high-quality training data." Existing top-tier systems are often managed by commercial entities, meaning their data sources, filtering criteria, and tool usage logs are proprietary. This makes it difficult to replicate or systematically research advanced capabilities. OpenSearch-VL provides an open-source solution covering the entire process from data pipelines to tool environments and training algorithms.</p>
-        <h3>Data Pipeline Construction</h3>
-        <p>OpenSearch-VL provides a comprehensive pipeline to generate high-quality datasets for supervised fine-tuning (SFT).</p>
-        <ul>
-<li><strong>Multi-hop Path Sampling:</strong> Utilizes Wikipedia's hyperlink graph to sample multi-hop entity paths involving several steps.</li>
-<li><strong>Information Refinement and Enhancement:</strong> Rewrites intermediate entities with ambiguous descriptions and anchors them to original images. This prevents the agent from learning "shortcuts" (single-step search paths) and encourages it to develop multi-step reasoning capabilities.</li>
-<li><strong>Dataset Utilization:</strong> The pipeline produces the SearchVL-SFT-36k dataset, where each trajectory contains an average of 6.3 tool calls.</li>
-<li><strong>Reinforcement Learning:</strong> Applies "degradation processing" (e.g., blurring or downsampling) to 10% of randomly selected data and combines it with paired enhanced tools. This forces the agent to "process images while thinking" before querying external knowledge.</li>
-</ul>
-        <h3>Integrated Tool Environment</h3>
-        <p>The tool environment in OpenSearch-VL provides integrated capabilities that go beyond simple searching.</p>
-        <ul>
-<li>Supported features include: text search, image search, OCR (Optical Character Recognition), Cropping, Sharpening, Super-resolution, and Perspective Correction.</li>
-<li>This integrated environment allows the agent to process ambiguous, low-resolution, or tilted visual inputs before querying external knowledge, enabling a fusion of active perception and information acquisition.</li>
-</ul>
-        <h3>Experimental Results and Performance</h3>
-        <ul>
-<li><strong>Performance Improvement:</strong> The OpenSearch-VL-30B-A3B model significantly improved average scores from 47.8 to 61.6 over the baseline, demonstrating substantial gains across several benchmarks, including VDR and MMSearch.</li>
-<li><strong>Component Contribution Validation:</strong> Ablation experiments confirmed the importance of each component. Removing any single element—such as original anchor fixing, ambiguous rewriting, or staged filtering—resulted in average scores dropping by 8.2 to 11.5 points.</li>
-</ul>
-        <h3>Conclusion</h3>
-        <p>OpenSearch-VL is significant because it open-sources the data and tool usage processes that were previously core challenges in developing multimodal search agents. By integrating multi-hop path sampling via Wikipedia graphs with image preprocessing capabilities, it equips agents with complex, active reasoning abilities beyond simple knowledge retrieval.</p>
-        <p>This project is expected to serve as a critical open-source standard for the future development of AI-based visual question-answering systems and flagship products.</p>
-        <h3>Summary</h3>
-<p>OpenSearch-VL is an open-source multimodal learning solution developed by Tencent Hunyuan in collaboration with UCLA and CUHK to build advanced deep search agents. By providing a comprehensive data pipeline, including multi-hop sampling and "degradation processing," it enables models to perform complex reasoning and handle diverse image processing tasks. The framework significantly improved performance on key benchmarks like VDR and MMSearch, establishing a new standard for multimodal AI development.</p>
+        <div class="lang-body" data-lang="en">
+          <h3>서론</h3>
+          <p>Tencent Hunyuan이 UCLA, 홍콩 중문 대학 등과 협력하여 오픈소스 멀티모달 학습 솔루션인 OpenSearch-VL을 공동 발표했습니다. 이 솔루션은 강화 학습(RL) 기술을 통해 최첨단 역량을 갖춘 딥 서치 에이전트를 구축하는 것을 목표로 합니다.</p>
+          <p>멀티모달 서치 에이전트는 이미지, 텍스트 등 다양한 모달리티 입력을 처리하고, 외부 도구(예: 검색 엔진, 이미지 처리 도구)를 능동적으로 호출하여 다단계 추론, 증거 검증 및 지식 검색을 수행하는 에이전트를 의미합니다. 이는 지식 집약적인 복잡한 시각적 질의응답을 해결하기 위해 고안되었습니다.</p>
+          <h3>OpenSearch-VL 솔루션</h3>
+          <p>이 보고서는 어제(5월 6일) arXiv 플랫폼에 발표되었으며, 최첨단 멀티모달 딥 서치 에이전트 학습을 위한 OpenSearch-VL 솔루션을 소개합니다. 연구팀은 위키백과 경로 샘플링과 모호한 엔티티 재작성을 통해 검색 지름길을 줄이고, SearchVL-SFT-36k 등의 고품질 데이터셋을 생성하는 데이터 파이프라인을 구축했습니다.</p>
+          <p>연구팀은 현재 최첨단 멀티모달 서치 에이전트의 발전을 가로막는 가장 큰 병목 현상은 고품질 학습 데이터에 있다고 지적했습니다. 기존의 최고 시스템들은 대부분 상업 회사들이 주도하고 있으며, 데이터 출처, 필터링 기준, 도구 사용 궤적 등이 비공개여서 고급 기능의 재현과 체계적인 연구를 방해하고 있습니다.</p>
+          <p>연구팀은 데이터, 도구, 학습 알고리즘에 이르는 완전한 오픈소스 솔루션을 제공하는 OpenSearch-VL을 제안합니다.</p>
+          <h3>데이터 파이프라인 구축</h3>
+          <p>데이터 파이프라인 구축과 관련하여 OpenSearch-VL은 위키백과의 하이퍼링크 그래프를 활용하여 다중 홉 엔티티 경로 샘플링을 수행합니다. 중간 엔티티는 모호한 설명으로 재작성되고, 앵커 엔티티는 원본 이미지에 고정되어 단일 단계 검색 지름길을 억제하고 에이전트가 다중 홉 검색 및 추론 행동을 학습하도록 유도합니다.</p>
+          <p>파이프라인은 감독 미세 조정을 위한 SearchVL-SFT-36k 데이터셋을 생성하며, 각 궤적은 평균 6.3회의 도구 호출을 포함합니다. 동시에, 데이터의 10%를 무작위로 선택하여 블러, 다운샘플링 등 품질 저하 처리를 적용하고, 강화된 도구를 페어링하여 "생각하면서 이미지 처리" 행동을 유도합니다.</p>
+          <h3>도구 환경</h3>
+          <p>도구 환경은 단순 검색 에이전트를 넘어 텍스트 검색, 이미지 검색, OCR, 자르기, 선명화, 초고해상도 및 원근 보정 등의 기능을 통합합니다. 이를 통해 에이전트는 외부 지식을 쿼리하기 전에 흐릿하거나 저해상도 또는 기울어진 시각적 입력을 먼저 처리하여 능동적인 인지와 지식 획득을 결합할 수 있습니다.</p>
+          <h3>실험 결과</h3>
+          <p>실험 결과, OpenSearch-VL-30B-A3B 모델은 기준선 평균 점수를 47.8에서 61.6으로 향상시켰으며, VDR, MMSearch 등의 벤치마크에서 상당한 개선을 이루었습니다. 제거 실험을 통해 각 구성 요소의 기여도를 검증했습니다. 원본 앵커 고정, 모호한 재작성 또는 단계별 필터링을 제거하면 평균 점수가 8.2에서 11.5점 감소했습니다.</p>
+          <h3>총평</h3>
+          <p>Tencent Hunyuan이 주도하는 OpenSearch-VL은 고품질 학습 데이터 부족이라는 멀티모달 서치 에이전트의 주요 병목 현상을 해결하기 위해 고안된 오픈소스 솔루션입니다. 위키백과 기반의 데이터 파이프라인과 통합된 도구 환경을 통해 에이전트가 복잡한 시각적 질의응답을 효과적으로 처리하고, 기존 시스템 대비 성능을 크게 향상시키는 것을 목표로 합니다.</p>
         </div>
       </div>
 
