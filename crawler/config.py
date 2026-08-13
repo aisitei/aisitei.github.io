@@ -1,5 +1,6 @@
 """설정 파일 - 환경변수 또는 직접 수정하여 사용합니다."""
 import os
+import json
 
 # 스케줄 설정
 SCHEDULE_TIME = os.getenv("SCHEDULE_TIME", "07:00")
@@ -258,12 +259,15 @@ KEYWORDS_EXCLUDE_EN = [
     "military", "defense", "weapon", "missile",
 ]
 
-# LLM 설정 (LM Studio, OpenAI 호환 로컬 서버)
+# LLM 설정 (LM Studio, OpenAI 호환 로컬 서버 — 또는 클라우드 API로 오버라이드 가능)
 LLM_BASE_URL = os.getenv("LLM_BASE_URL", "http://localhost:1234/v1")
 LLM_MODEL = os.getenv("LLM_MODEL", "google/gemma-4-12b")
 # 주 모델이 think 블록만 반환할 때 자동 전환할 폴백 모델
 LLM_FALLBACK_MODEL = os.getenv("LLM_FALLBACK_MODEL", "google/gemma-3-4b")
 LLM_API_KEY = os.getenv("LLM_API_KEY", "lm-studio")
+# 클라우드 API(Gemini 등)의 reasoning/thinking 토큰 낭비를 막기 위한 extra_body.
+# 예: LLM_EXTRA_BODY='{"reasoning_effort": "none"}' (Gemini 2.5 thinking 비활성화)
+LLM_EXTRA_BODY = json.loads(os.getenv("LLM_EXTRA_BODY", "{}"))
 
 TITLE_TRANSLATE_PROMPT = """당신은 중국어 IT 기사 제목을 한국어로 번역하는 번역가입니다. 한국어 번역문만 출력하고 다른 텍스트는 절대 추가하지 마세요.
 

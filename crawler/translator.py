@@ -109,12 +109,30 @@ def _get_client():
     return _llm_client
 
 
+# ── 토큰 사용량 추적 (클라우드 API 비용 테스트용) ────────────────────────────
+_usage_totals = {"prompt": 0, "completion": 0, "total": 0, "calls": 0}
+
+
+def get_usage_totals() -> dict:
+    return dict(_usage_totals)
+
+
+def _record_usage(usage):
+    if usage is None:
+        return
+    _usage_totals["prompt"] += getattr(usage, "prompt_tokens", 0) or 0
+    _usage_totals["completion"] += getattr(usage, "completion_tokens", 0) or 0
+    _usage_totals["total"] += getattr(usage, "total_tokens", 0) or 0
+    _usage_totals["calls"] += 1
+
+
 def _chat(system: str, user: str, temperature: float = 0.3,
           max_tokens: int = 16384, retries: int = 3,
           model: Optional[str] = None) -> Optional[str]:
     client = _get_client()
     use_model = model or config.LLM_MODEL
     cur_max_tokens = max_tokens
+    extra_body = getattr(config, "LLM_EXTRA_BODY", None) or None
     for attempt in range(1, retries + 1):
         try:
             response = client.chat.completions.create(
@@ -125,7 +143,9 @@ def _chat(system: str, user: str, temperature: float = 0.3,
                 ],
                 temperature=temperature,
                 max_tokens=cur_max_tokens,
+                extra_body=extra_body,
             )
+            _record_usage(getattr(response, "usage", None))
             finish_reason = response.choices[0].finish_reason
             if finish_reason == "length":
                 # max_tokens 초과로 응답이 중간에 잘림 → 재시도
