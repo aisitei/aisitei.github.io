@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 구글, 제미나이 AI 및 새로운 건강 추적 기능 탑재한 픽셀 워치 5 출시</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="구글, 제미나이 AI 및 새로운 건강 추적 기능 탑재한 픽셀 워치 5 출시">
+  <meta name="title-zh" content="谷歌推出Pixel Watch 5，搭载Gemini AI和全新健康追踪功能">
+  <meta name="title-ja" content="GoogleがPixel Watch 5を発表、Gemini AIと新健康追跡機能を搭載">
+  <meta name="title-en" content="Google launches Pixel Watch 5 with Gemini AI and new health tracking features">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="구글, 제미나이 AI 및 새로운 건강 추적 기능 탑재한 픽셀 워치 5 출시" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="구글, 제미나이 AI 및 새로운 건강 추적 기능 탑재한 픽셀 워치 5 출시"
+            data-zh="谷歌推出Pixel Watch 5，搭载Gemini AI和全新健康追踪功能"
+            data-ja="GoogleがPixel Watch 5を発表、Gemini AIと新健康追跡機能を搭載"
+            data-en="Google launches Pixel Watch 5 with Gemini AI and new health tracking features">구글, 제미나이 AI 및 새로운 건강 추적 기능 탑재한 픽셀 워치 5 출시</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-14
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <html>
+  <h3>Google Pixel Watch 5 소개</h3>
+  <p>Google이 Pixel Watch 5를 공개했습니다. 올해 스마트워치는 표준 41mm와 새로운 45mm 두 가지 크기로 출시됩니다. 이 기기는 Wear OS 7을 기반으로 하며, 온디바이스 처리, 일상 작업, 건강 추적을 위해 Gemini Intelligence를 통합했습니다.</p>
+          
+          <h3>Google Pixel Watch 5 사양</h3>
+  <p>이 워치는 Qualcomm Snapdragon W5 Gen 2 Accelerated 프로세서와 Cortex-M55 코프로세서를 사용합니다. Google은 RAM을 50% 늘렸으며, 이는 이전 세대보다 20% 향상된 성능을 제공한다고 밝혔습니다. 디스플레이는 1-60Hz 적응형 주사율을 지원하는 AMOLED LTPO 패널입니다.</p>
+  <p>야외 시인성을 위해 최대 3,000니트의 밝기를 제공하며, 상시표시형 디스플레이(always-on display)를 위해 최소 1니트의 밝기를 지원합니다. 케이스는 재활용 알루미늄으로 제작되었고, 화면은 맞춤형 3D Corning Gorilla Glass 5를 사용합니다. 기본 저장 공간은 64GB이며, Gen 3 Premium 햅틱, NFC, 내장 마이크 및 스피커를 포함합니다.</p>
+          
+          <h3>Gemini 통합</h3>
+  <p>Gemini는 Wear OS 7에 직접 통합되어 있습니다. Raise to Talk 기능을 사용하여 손목을 들어 올리면 어시스턴트를 활성화할 수 있습니다. 타이머 설정, 이메일 확인, 운동 시작과 같은 기본적인 명령은 워치에서 처리됩니다. 이를 통해 인터넷 연결 없이도 작업할 수 있으며 응답 시간을 단축합니다. 또한 워치는 Gemini를 사용하여 항공권 탑승권이나 예정된 캘린더 이벤트와 같은 상황별 정보를 워치 화면에 직접 표시합니다.</p>
+          
+          <h3>건강 및 피트니스 추적</h3>
+  <p>건강 및 피트니스 추적 기능에는 몇 가지 업데이트가 포함되어 있습니다. AFib 감지를 위한 ECG 앱, SpO2 모니터링, 심박 변이도와 같은 표준 기능 외에도, Google은 스트레스의 신체적 징후를 식별하는 데 도움이 되는 신체 반응 기능을 추가했습니다.</p>
+  <p>위치 추적을 위해 Pixel Watch 5는 듀얼 주파수 GPS를 포함합니다. 3D 건물 모델과 지역 날씨 데이터를 사용하여 도시와 숲이 우거진 지역에서 신호를 유지합니다. Google은 2026년 9월에 워치 센서를 사용하여 혈압 추세를 추적하고 인슐린 저항성 징후를 모니터링하는 소프트웨어 업데이트를 출시할 계획입니다.</p>
+  <p>또한, 유럽에서 먼저 출시될 새로운 Breathing Emergency Detection 도구는 혈중 산소 농도의 심각한 감소를 모니터링하고, 착용자가 반응하지 않을 경우 자동으로 응급 서비스에 연락합니다.</p>
+          
+          <h3>배터리 수명</h3>
+  <ul>
+    <li>41mm 모델: 332mAh 배터리, 상시표시형 디스플레이 켜짐 시 최대 30시간 지속 예상</li>
+    <li>45mm 모델: 465mAh 배터리, 최대 40시간 지속 예상</li>
+    <li>두 버전 모두 포함된 도크를 사용하여 약 15분 만에 50%까지 충전 가능</li>
+  </ul>
+          
+          <h3>가격 및 출시</h3>
+  <p>Pixel Watch 5는 오늘부터 사전 주문이 가능하며, 8월 20일에 매장에 출시됩니다. 미국에서는 41mm 모델의 Wi-Fi 버전이 $399부터, LTE 버전이 $499부터 시작하며, 45mm 모델은 Wi-Fi 버전이 $429, LTE 버전이 $529입니다. 인도에서는 41mm 모델이 Rs. 42,990, 45mm 모델이 Rs. 45,990입니다.</p>
+  <p>이 행사에서 Google은 Pixel 11, Pixel 11 Pro, Pixel 11 Pro XL, 그리고 Pixel 11 Pro Fold도 함께 출시했습니다.</p>
+          
+          <h3>총평</h3>
+  <p>Google Pixel Watch 5는 두 가지 크기 옵션과 Wear OS 7, Gemini Intelligence 통합으로 더욱 강력해졌습니다. 향상된 성능과 배터리 수명, 그리고 혁신적인 건강 추적 기능(특히 혈압 및 인슐린 저항성 모니터링, 호흡 응급 감지)은 스마트워치 시장에서 주목할 만한 제품으로 자리매김할 것입니다. 온디바이스 Gemini 처리는 사용자 경험을 크게 향상시킬 것으로 기대됩니다.</p>
+</html>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <html>
+  <h3>Google Pixel Watch 5 发布</h3>
+  <p>Google 发布了 Pixel Watch 5。今年的智能手表将提供两种尺寸：标准的 41mm 和全新的 45mm。该设备基于 Wear OS 7，并集成了 Gemini Intelligence，用于设备端处理、日常任务和健康追踪。</p>
+          
+          <h3>Google Pixel Watch 5 规格</h3>
+  <p>这款手表采用 Qualcomm Snapdragon W5 Gen 2 Accelerated 处理器和 Cortex-M55 协处理器。Google 表示，RAM 增加了 50%，性能比上一代提升了 20%。显示屏为 AMOLED LTPO 面板，支持 1-60Hz 自适应刷新率。</p>
+  <p>为确保户外可见性，它提供高达 3,000 尼特的亮度，并支持最低 1 尼特的亮度以实现常亮显示。表壳由回收铝制成，屏幕采用定制的 3D Corning Gorilla Glass 5。基本存储空间为 64GB，并包含 Gen 3 Premium 触觉反馈、NFC、内置麦克风和扬声器。</p>
+          
+          <h3>Gemini 集成</h3>
+  <p>Gemini 直接集成到 Wear OS 7 中。通过 Raise to Talk 功能，抬起手腕即可激活助手。设置计时器、检查电子邮件、开始锻炼等基本命令可在手表上处理。这使得设备无需互联网连接即可工作，并缩短了响应时间。此外，手表还使用 Gemini 将航班登机牌或即将到来的日历事件等情境信息直接显示在手表屏幕上。</p>
+          
+          <h3>健康与健身追踪</h3>
+  <p>健康与健身追踪功能包含多项更新。除了用于 AFib 检测的 ECG 应用、SpO2 监测、心率变异性等标准功能外，Google 还增加了身体反应功能，有助于识别压力的身体迹象。</p>
+  <p>为了进行位置追踪，Pixel Watch 5 包含双频 GPS。它使用 3D 建筑模型和当地天气数据，在城市和森林茂密地区保持信号。Google 计划于 2026 年 9 月发布软件更新，利用手表传感器追踪血压趋势并监测胰岛素抵抗迹象。</p>
+  <p>此外，一项新的呼吸紧急检测工具将首先在欧洲推出，它会监测血氧水平的严重下降，并在佩戴者无反应时自动联系紧急服务。</p>
+          
+          <h3>电池续航</h3>
+  <ul>
+    <li>41mm 型号：332mAh 电池，常亮显示开启时预计最长续航 30 小时</li>
+    <li>45mm 型号：465mAh 电池，预计最长续航 40 小时</li>
+    <li>两个版本均可通过附带的充电底座在大约 15 分钟内充电至 50%</li>
+  </ul>
+          
+          <h3>价格与上市</h3>
+  <p>Pixel Watch 5 即日起可预订，并于 8 月 20 日上市。在美国，41mm 型号的 Wi-Fi 版起价为 $399，LTE 版起价为 $499；45mm 型号的 Wi-Fi 版为 $429，LTE 版为 $529。在印度，41mm 型号为 Rs. 42,990，45mm 型号为 Rs. 45,990。</p>
+  <p>在此次活动中，Google 还发布了 Pixel 11、Pixel 11 Pro、Pixel 11 Pro XL 和 Pixel 11 Pro Fold。</p>
+          
+          <h3>总结</h3>
+  <p>Google Pixel Watch 5 提供了两种尺寸选择，并集成了 Wear OS 7 和 Gemini Intelligence，使其功能更加强大。增强的性能、电池续航以及创新的健康追踪功能，特别是血压和胰岛素抵抗监测以及呼吸紧急检测，将使其在智能手表市场中占据一席之地。设备端的 Gemini 处理预计将显著提升用户体验。</p>
+</html>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <html>
+  <h3>Google Pixel Watch 5の紹介</h3>
+  <p>GoogleがPixel Watch 5を発表しました。今年のスマートウォッチは、標準の41mmと新しい45mmの2つのサイズで提供されます。このデバイスはWear OS 7をベースにしており、オンデバイス処理、日常タスク、健康トラッキングのためにGemini Intelligenceを統合しています。</p>
+          
+          <h3>Google Pixel Watch 5の仕様</h3>
+  <p>このウォッチは、Qualcomm Snapdragon W5 Gen 2 AcceleratedプロセッサとCortex-M55コプロセッサを搭載しています。GoogleはRAMを50%増量し、これにより前世代よりも20%性能が向上したと述べています。ディスプレイは、1-60Hzの適応型リフレッシュレートをサポートするAMOLED LTPOパネルです。</p>
+  <p>屋外での視認性を高めるため最大3,000ニトの輝度を提供し、常時表示ディスプレイ（always-on display）では最低1ニトの輝度をサポートします。ケースはリサイクルアルミニウム製で、画面にはカスタムの3D Corning Gorilla Glass 5が使用されています。基本ストレージは64GBで、Gen 3 Premiumハプティクス、NFC、内蔵マイクおよびスピーカーを搭載しています。</p>
+          
+          <h3>Geminiの統合</h3>
+  <p>GeminiはWear OS 7に直接統合されています。Raise to Talk機能を使用すると、手首を上げるだけでアシスタントを起動できます。タイマーの設定、メールの確認、ワークアウトの開始といった基本的なコマンドはウォッチで処理されます。これにより、インターネット接続なしでも作業が可能になり、応答時間が短縮されます。また、ウォッチはGeminiを使用して、航空券の搭乗券や予定されているカレンダーイベントなどの状況に応じた情報をウォッチ画面に直接表示します。</p>
+          
+          <h3>健康およびフィットネス追跡</h3>
+  <p>健康およびフィットネス追跡機能にはいくつかのアップデートが含まれています。AFib検出のためのECGアプリ、SpO2モニタリング、心拍変動といった標準機能に加え、Googleはストレスの身体的兆候を特定するのに役立つ身体反応機能を追加しました。</p>
+  <p>位置追跡のために、Pixel Watch 5はデュアル周波数GPSを搭載しています。3D建物モデルと地域の天気データを使用して、都市部や森林地帯でも信号を維持します。Googleは、2026年9月にウォッチセンサーを使用して血圧の傾向を追跡し、インスリン抵抗性の兆候を監視するソフトウェアアップデートをリリースする予定です。</p>
+  <p>さらに、ヨーロッパで先行リリースされる新しいBreathing Emergency Detectionツールは、血中酸素濃度の深刻な低下を監視し、着用者が反応しない場合に自動的に緊急サービスに連絡します。</p>
+          
+          <h3>バッテリー寿命</h3>
+  <ul>
+    <li>41mmモデル：332mAhバッテリー、常時表示ディスプレイオンで最大30時間持続予定</li>
+    <li>45mmモデル：465mAhバッテリー、最大40時間持続予定</li>
+    <li>両バージョンとも付属のドックを使用し、約15分で50%まで充電可能</li>
+  </ul>
+          
+          <h3>価格と発売</h3>
+  <p>Pixel Watch 5は本日より予約注文が可能で、8月20日に店頭に並びます。米国では、41mmモデルのWi-Fiバージョンが$399から、LTEバージョンが$499から、45mmモデルはWi-Fiバージョンが$429、LTEバージョンが$529です。インドでは、41mmモデルがRs. 42,990、45mmモデルがRs. 45,990です。</p>
+  <p>このイベントでは、GoogleはPixel 11、Pixel 11 Pro、Pixel 11 Pro XL、そしてPixel 11 Pro Foldも同時に発表しました。</p>
+          
+          <h3>まとめ</h3>
+  <p>Google Pixel Watch 5は、2つのサイズオプション、Wear OS 7、そしてGemini Intelligenceの統合により、さらに強力になりました。向上した性能とバッテリー寿命、そして革新的な健康追跡機能（特に血圧およびインスリン抵抗性モニタリング、呼吸緊急検出）は、スマートウォッチ市場で注目すべき製品となるでしょう。オンデバイスでのGemini処理は、ユーザーエクスペリエンスを大幅に向上させることが期待されます。</p>
+</html>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <html>
+  <h3>Introducing the Google Pixel Watch 5</h3>
+  <p>Google has unveiled the Pixel Watch 5. This year's smartwatch will be available in two sizes: a standard 41mm and a new 45mm. The device runs on Wear OS 7 and integrates Gemini Intelligence for on-device processing, daily tasks, and health tracking.</p>
+          
+          <h3>Google Pixel Watch 5 Specifications</h3>
+  <p>The watch is powered by a Qualcomm Snapdragon W5 Gen 2 Accelerated processor and a Cortex-M55 coprocessor. Google states that RAM has been increased by 50%, offering a 20% performance improvement over the previous generation. The display is an AMOLED LTPO panel supporting an adaptive refresh rate of 1-60Hz.</p>
+  <p>It offers a peak brightness of 3,000 nits for outdoor visibility and a minimum brightness of 1 nit for the always-on display. The case is made from recycled aluminum, and the screen uses custom 3D Corning Gorilla Glass 5. It comes with 64GB of internal storage and includes Gen 3 Premium haptics, NFC, and a built-in microphone and speaker.</p>
+          
+          <h3>Gemini Integration</h3>
+  <p>Gemini is directly integrated into Wear OS 7. Users can activate the assistant by raising their wrist using the Raise to Talk feature. Basic commands like setting timers, checking emails, and starting workouts are processed on the watch itself. This allows for operation without an internet connection and reduces response times. Additionally, the watch uses Gemini to display contextual information, such as airline boarding passes or upcoming calendar events, directly on the watch face.</p>
+          
+          <h3>Health and Fitness Tracking</h3>
+  <p>Health and fitness tracking features include several updates. In addition to standard features like an ECG app for AFib detection, SpO2 monitoring, and heart rate variability, Google has added a Body Response feature to help identify physical signs of stress.</p>
+  <p>For location tracking, the Pixel Watch 5 includes dual-frequency GPS. It uses 3D building models and local weather data to maintain signal in urban and densely forested areas. Google plans to release a software update in September 2026 that will use the watch's sensors to track blood pressure trends and monitor for signs of insulin resistance.</p>
+  <p>Furthermore, a new Breathing Emergency Detection tool, launching first in Europe, monitors for severe drops in blood oxygen levels and automatically contacts emergency services if the wearer is unresponsive.</p>
+          
+          <h3>Battery Life</h3>
+  <ul>
+    <li>41mm model: 332mAh battery, expected to last up to 30 hours with always-on display enabled.</li>
+    <li>45mm model: 465mAh battery, expected to last up to 40 hours.</li>
+    <li>Both versions can charge to 50% in approximately 15 minutes using the included dock.</li>
+  </ul>
+          
+          <h3>Pricing and Availability</h3>
+  <p>The Pixel Watch 5 is available for pre-order starting today and will hit stores on August 20. In the US, the 41mm Wi-Fi version starts at $399, and the LTE version starts at $499. The 45mm Wi-Fi version is $429, and the LTE version is $529. In India, the 41mm model is priced at Rs. 42,990, and the 45mm model is Rs. 45,990.</p>
+  <p>During the event, Google also launched the Pixel 11, Pixel 11 Pro, Pixel 11 Pro XL, and Pixel 11 Pro Fold.</p>
+          
+          <h3>Summary</h3>
+  <p>The Google Pixel Watch 5 is more powerful with two size options, Wear OS 7, and integrated Gemini Intelligence. Enhanced performance, improved battery life, and innovative health tracking features—especially blood pressure and insulin resistance monitoring, and breathing emergency detection—will position it as a notable product in the smartwatch market. On-device Gemini processing is expected to significantly enhance the user experience.</p>
+</html>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.webp" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.webp" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.png" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/08/12/google-pixel-watch-5-launched-specs-price/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

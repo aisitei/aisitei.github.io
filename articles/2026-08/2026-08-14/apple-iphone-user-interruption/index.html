@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Apple 신규 특허: iPhone, 사용자 방해 시점 판단 가능</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple 신규 특허: iPhone, 사용자 방해 시점 판단 가능">
+  <meta name="title-zh" content="苹果新专利：iPhone 将能判断何时该“打扰”用户">
+  <meta name="title-ja" content="Appleの新特許：iPhoneがユーザーを「邪魔する」べき時を判断可能に">
+  <meta name="title-en" content="Apple&#39;s new patent: iPhone will be able to judge when to &#34;disturb&#34; users">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Apple 신규 특허: iPhone, 사용자 방해 시점 판단 가능" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Apple 신규 특허: iPhone, 사용자 방해 시점 판단 가능"
+            data-zh="苹果新专利：iPhone 将能判断何时该“打扰”用户"
+            data-ja="Appleの新特許：iPhoneがユーザーを「邪魔する」べき時を判断可能に"
+            data-en="Apple&#39;s new patent: iPhone will be able to judge when to &#34;disturb&#34; users">Apple 신규 특허: iPhone, 사용자 방해 시점 판단 가능</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-14
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>개요</h3>
+          
+          <p>Apple이 최근 공개한 특허 출원에는 사용자의 현재 작업을 방해할지, 아니면 사용자가 계속 집중하도록 할지 실시간으로 판단하는 시스템이 설명되어 있습니다.</p>
+          
+          <p>특허 추적 웹사이트 Patentlyze에 따르면, 이 특허 출원은 2026년 2월 5일 미국 특허청(USPTO)에 제출되었고, 2026년 8월 6일 공식적으로 공개되었습니다. 이 특허는 기기가 사용자의 현재 작업을 관찰하고, 미리 설정된 규칙에 따라 현재 행동에 개입이 필요한지 판단한 후, 사용자에게 알림을 표시할지 결정하는 메커니즘을 설명합니다.</p>
+          
+          <p>예를 들어, 사용자가 특정 앱에서 오랫동안 콘텐츠를 스크롤하거나, 특정 앱을 계속 응시하거나, 시스템 규칙에 따라 표시된 특정 작업을 반복적으로 수행하는 경우 기기가 능동적으로 개입할 수 있습니다. 사용자의 행동이 어떤 규칙도 트리거하지 않으면 시스템은 아무런 조치도 취하지 않고, 사용자가 방해받지 않고 현재 작업을 계속하도록 합니다.</p>
+          
+          <h3>추가 기능: 활동 요약</h3>
+          
+          <p>이 특허 출원에는 사용자의 최근 기기 활동을 짧은 요약으로 정리하는 또 다른 기능도 포함되어 있습니다. 이렇게 하면 시스템이 사용자가 작업을 수행하는 도중에 갑자기 방해하는 대신, 사용자가 작업을 완료한 후 놓친 내용을 확인할 수 있도록 합니다.</p>
+          
+          <h3>기존 기능과의 연관성</h3>
+          
+          <p>사실 Apple은 이미 이 특허의 두 부분과 개념적으로 유사한 기능을 출시했습니다. iOS 18.1은 AI 기반 알림 요약 기능을 도입하여 기기 내 AI를 활용해 여러 알림을 한 줄 요약으로 압축합니다. 동시에 Apple은 시스템이 중요하지 않다고 판단하는 알림을 필터링하는 "방해 줄이기" 집중 모드도 출시했습니다.</p>
+          
+          <p>만약 Apple이 이 특허에 설명된 시스템을 실제 제품에 적용한다면, 이는 기존 두 기능을 대체하기보다는 더욱 개선하는 데 사용될 가능성이 높습니다.</p>
+          
+          <h3>"방해 줄이기" 집중 모드 개선</h3>
+          
+          <p>현재 "방해 줄이기" 집중 모드는 각 알림을 개별적으로 판단하여 알림 내용과 발신자 등의 정보에 따라 중요도를 결정하고, 현재 제한을 뚫고 알림을 허용할지 여부를 판단합니다. 하지만 사용자가 당시 기기에서 무엇을 하고 있었는지는 고려하지 않습니다.</p>
+          
+          <p>이 특허가 제안하는 메커니즘은 이러한 판단 계층을 추가할 수 있습니다. 예를 들어, 시스템은 사용자의 현재 활동(사용자가 통화한 시간, 특정 앱이 다시 열린 횟수 등)을 추가로 분석한 후, 특정 알림이 "중요 알림" 기준을 충족하더라도 현재 사용자를 방해할 필요가 정말 있는지 결정할 수 있습니다.</p>
+          
+          <h3>알림 요약 기능 개선</h3>
+          
+          <p>알림 요약 기능도 이로부터 이점을 얻을 수 있습니다. 문맥을 고려하지 않고 현재 쌓인 알림을 직접 요약하는 대신, 특허의 요약 메커니즘은 사용자의 더 광범위한 활동을 기반으로 정보 요약을 생성할 수 있습니다. 이렇게 하면 시스템이 충분한 문맥을 가지고 있지 않은 경우, 충분한 행동 패턴이 수집될 때까지 일부 단편적이거나 부정확한 요약 생성을 보류할 수 있습니다.</p>
+          
+          <p>이는 Apple AI 알림 요약이 이전에 노출했던 문제 유형을 해결할 수 있습니다. 2024년 12월, Apple의 AI 알림 요약은 잘못된 뉴스 헤드라인을 생성하여 비판을 받았는데, 당시 시스템이 충분한 문맥 정보를 가지고 있지 않았던 것이 문제 중 하나였습니다.</p>
+          
+          <h3>특허의 미래</h3>
+          
+          <p>물론, Apple의 모든 특허 출원과 마찬가지로, 이 특정 시스템이 실제 제품에 반드시 나타날 것이라는 의미는 아닙니다. 현재 이 특허는 제출되었지만 아직 심사되지 않은 상태이며, 공식적으로 특허가 부여되기 전까지는 기술 솔루션이 추가로 축소되거나 심지어 거부될 수도 있습니다.</p>
+          
+          <p>그러나 이 특허는 Apple이 이미 출시한 기능과 명확한 관련이 있으므로, 다른 많은 특허 출원과 비교할 때 완전히 불분명한 시도처럼 보이지는 않습니다. Apple은 "방해 줄이기" 집중 모드와 알림 요약의 미래 발전 방향을 미리 준비하고 있을 가능성이 높습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Apple의 새로운 특허는 사용자의 현재 활동을 분석하여 알림 방해 여부를 결정하고, 개인화된 활동 요약을 제공하는 시스템을 제안합니다. 이는 기존의 "방해 줄이기" 집중 모드와 AI 알림 요약 기능을 더욱 정교하게 개선하여, 사용자 경험을 향상시키고 불필요한 방해를 줄이는 데 기여할 것으로 보입니다. 비록 특허가 실제 제품으로 이어질지는 미지수지만, Apple의 미래 사용자 인터페이스 전략을 엿볼 수 있는 중요한 단서입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <html>
+  <h3>Apple新专利：智能判断用户专注度，优化通知管理</h3>
+  <p>Apple提交了一项新专利申请，描述了一套系统，能够实时判断是否应该打断用户当前操作，或让用户保持专注。</p>
+  <ul>
+    <li>专利申请于2026年2月5日提交至美国专利商标局（USPTO），并于2026年8月6日正式公开。</li>
+    <li>该系统通过观察用户行为（如长时间滚动、持续盯着应用、反复进行特定操作），根据预设规则判断是否需要干预并显示提示。</li>
+  </ul>
+          
+          <h3>近期活动摘要功能</h3>
+  <p>该专利还涉及另一项功能，可以将用户近期的设备活动整理成简短摘要，避免在用户执行任务时打断，而是待用户完成操作后再查看错过的通知。</p>
+          
+          <h3>与现有功能的结合与改进</h3>
+  <p>Apple目前已推出与该专利理念相似的功能，包括iOS 18.1的AI驱动通知摘要和“减少打扰”专注模式。这项专利系统未来可能用于进一步完善而非取代这些功能。</p>
+  <ul>
+    <li>现有“减少打扰”专注模式仅根据通知内容和发送者判断重要性，不考虑用户当前活动。</li>
+    <li>新专利机制可增加判断层级，分析用户当前活动（如通话时长、应用重开次数），再决定是否打断，即使通知本身已符合“重要”标准。</li>
+    <li>通知摘要功能也可受益，根据用户更广泛的活动生成信息摘要，避免因上下文不足而生成零散或不准确的摘要。</li>
+    <li>这有望解决Apple AI通知摘要此前因缺乏上下文信息而生成错误新闻标题的问题。</li>
+  </ul>
+          
+          <h3>专利状态与未来展望</h3>
+  <p>该专利目前处于已提交但尚未审查状态，不保证一定会应用于实际产品。然而，鉴于其与Apple现有功能的明显关联，这可能预示着“减少打扰”专注模式和通知摘要未来的发展方向。</p>
+          
+          <h3>总结</h3>
+  <p>Apple提交了一项新专利，旨在通过实时分析用户行为，智能判断是否应该打断用户或提供近期活动摘要。这项技术有望进一步完善Apple现有的AI通知摘要和“减少打扰”专注模式，通过增加用户上下文分析，提升通知管理的智能化和准确性，从而优化用户体验。</p>
+</html>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>概要</h3>
+          
+          <p>Appleが最近公開した特許出願には、ユーザーの現在の作業を中断すべきか、それとも集中を続けさせるべきかをリアルタイムで判断するシステムが記述されています。</p>
+          
+          <p>特許追跡ウェブサイトPatentlyzeによると、この特許出願は2026年2月5日に米国特許商標庁（USPTO）に提出され、2026年8月6日に正式に公開されました。この特許は、デバイスがユーザーの現在の作業を観察し、事前に設定されたルールに基づいて現在の行動に介入が必要かどうかを判断した後、ユーザーに通知を表示するかどうかを決定するメカニズムを説明しています。</p>
+          
+          <p>例えば、ユーザーが特定のアプリで長時間コンテンツをスクロールしたり、特定のアプリを見つめ続けたり、システムルールに従って表示された特定の作業を繰り返し実行したりする場合、デバイスが能動的に介入することができます。ユーザーの行動がいずれのルールもトリガーしない場合、システムは何の措置も講じず、ユーザーが中断されることなく現在の作業を継続できるようにします。</p>
+          
+          <h3>追加機能：活動要約</h3>
+          
+          <p>この特許出願には、ユーザーの最近のデバイス活動を短い要約にまとめる別の機能も含まれています。これにより、システムはユーザーが作業を行っている途中で突然中断するのではなく、ユーザーが作業を完了した後に見逃した内容を確認できるようにします。</p>
+          
+          <h3>既存機能との関連性</h3>
+          
+          <p>実際、Appleはすでにこの特許の2つの部分と概念的に類似した機能をリリースしています。iOS 18.1では、AIベースの通知要約機能が導入され、デバイス内のAIを活用して複数の通知を一行の要約に圧縮します。同時に、Appleはシステムが重要ではないと判断する通知をフィルタリングする「邪魔を減らす」集中モードもリリースしています。</p>
+          
+          <p>もしAppleがこの特許に記述されたシステムを実際の製品に適用するならば、それは既存の2つの機能を置き換えるのではなく、さらに改善するために使用される可能性が高いです。</p>
+          
+          <h3>「邪魔を減らす」集中モードの改善</h3>
+          
+          <p>現在の「邪魔を減らす」集中モードは、各通知を個別に判断し、通知内容や送信者などの情報に基づいて重要度を決定し、現在の制限を突破して通知を許可するかどうかを判断します。しかし、ユーザーが当時デバイスで何をしていたかは考慮されません。</p>
+          
+          <p>この特許が提案するメカニズムは、このような判断レイヤーを追加することができます。例えば、システムはユーザーの現在の活動（ユーザーが通話した時間、特定のアプリが再度開かれた回数など）をさらに分析した後、特定の通知が「重要通知」の基準を満たしていても、現在ユーザーを中断する必要が本当にあるのかどうかを決定することができます。</p>
+          
+          <h3>通知要約機能の改善</h3>
+          
+          <p>通知要約機能もこれによって恩恵を受けることができます。文脈を考慮せずに現在蓄積された通知を直接要約するのではなく、特許の要約メカニズムは、ユーザーのより広範な活動に基づいて情報要約を生成することができます。これにより、システムが十分な文脈を持っていない場合、十分な行動パターンが収集されるまで、一部の断片的または不正確な要約生成を保留することができます。</p>
+          
+          <p>これは、Apple AI通知要約が以前に露呈した問題のタイプを解決できる可能性があります。2024年12月、AppleのAI通知要約は誤ったニュースヘッドラインを生成して批判を受けましたが、当時システムが十分な文脈情報を持っていなかったことが問題の一つでした。</p>
+          
+          <h3>特許の未来</h3>
+          
+          <p>もちろん、Appleのすべての特許出願と同様に、この特定のシステムが実際の製品に必ず現れるという意味ではありません。現在、この特許は提出されていますがまだ審査されておらず、公式に特許が付与されるまでには、技術ソリューションがさらに縮小されたり、あるいは拒否されたりする可能性もあります。</p>
+          
+          <p>しかし、この特許はAppleがすでにリリースした機能と明確な関連があるため、他の多くの特許出願と比較して、完全に不明瞭な試みのように見えるわけではありません。Appleは「邪魔を減らす」集中モードと通知要約の将来の発展方向を事前に準備している可能性が高いです。</p>
+          
+          <h3>まとめ</h3>
+          
+          <p>Appleの新しい特許は、ユーザーの現在の活動を分析して通知の邪魔をするかどうかを決定し、パーソナライズされた活動要約を提供するシステムを提案しています。これは、既存の「邪魔を減らす」集中モードとAI通知要約機能をさらに洗練させ、ユーザー体験を向上させ、不必要な邪魔を減らすことに貢献すると考えられます。特許が実際の製品につながるかは未知数ですが、Appleの将来のユーザーインターフェース戦略を垣間見ることができる重要な手がかりです。</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <html>
+<body>
+          
+          <h3>Overview</h3>
+          
+          <p>A recently published patent application by Apple describes a system that determines in real-time whether to interrupt a user's current task or allow them to remain focused.</p>
+          
+          <p>According to the patent tracking website Patentlyze, this patent application was filed with the United States Patent and Trademark Office (USPTO) on February 5, 2026, and officially published on August 6, 2026. The patent outlines a mechanism where a device observes a user's current activity, decides if intervention is needed based on pre-set rules, and then determines whether to display a notification to the user.</p>
+          
+          <p>For example, the device might actively intervene if a user scrolls content for an extended period in a specific app, continuously stares at a particular app, or repeatedly performs certain actions indicated by system rules. If the user's behavior doesn't trigger any rules, the system takes no action, allowing the user to continue their current task undisturbed.</p>
+          
+          <h3>Additional Feature: Activity Summary</h3>
+          
+          <p>The patent application also includes another feature that compiles a short summary of the user's recent device activity. This allows the system to let the user catch up on missed information after completing a task, rather than abruptly interrupting them mid-activity.</p>
+          
+          <h3>Connection to Existing Features</h3>
+          
+          <p>In fact, Apple has already released features conceptually similar to both parts of this patent. iOS 18.1 introduced an AI-powered notification summary feature, utilizing on-device AI to condense multiple notifications into a single-line summary. Concurrently, Apple also launched a "Reduce Interruptions" Focus mode, which filters out notifications deemed unimportant by the system.</p>
+          
+          <p>If Apple implements the system described in this patent into an actual product, it would likely serve to enhance these two existing features rather than replace them.</p>
+          
+          <h3>Improving "Reduce Interruptions" Focus Mode</h3>
+          
+          <p>Currently, the "Reduce Interruptions" Focus mode individually assesses each notification, determining its importance based on information such as content and sender, and then decides whether to allow the notification to bypass current restrictions. However, it does not consider what the user was doing on the device at that time.</p>
+          
+          <p>The mechanism proposed by this patent could add another layer to this decision-making. For instance, the system could further analyze the user's current activity (e.g., how long the user has been on a call, how many times a specific app has been reopened) before deciding if a particular notification, even if it meets "important notification" criteria, truly needs to interrupt the user at that moment.</p>
+          
+          <h3>Enhancing Notification Summary Feature</h3>
+          
+          <p>The notification summary feature could also benefit from this. Instead of directly summarizing currently accumulated notifications without context, the patent's summary mechanism could generate information summaries based on the user's broader activities. This would allow the system to withhold generating some fragmented or inaccurate summaries until sufficient behavioral patterns are collected, especially when it lacks adequate context.</p>
+          
+          <p>This could address the type of issues Apple's AI notification summary has previously encountered. In December 2024, Apple's AI notification summary was criticized for generating incorrect news headlines, with one of the problems being the system's lack of sufficient contextual information at the time.</p>
+          
+          <h3>Future of the Patent</h3>
+          
+          <p>Of course, like all of Apple's patent applications, this does not necessarily mean that this specific system will appear in an actual product. Currently, this patent has been filed but not yet examined, and the technical solution may be further narrowed down or even rejected before it is officially granted a patent.</p>
+          
+          <p>However, given its clear relevance to features Apple has already released, this patent does not seem like a completely obscure endeavor compared to many other patent applications. It is highly probable that Apple is preparing for the future development direction of its "Reduce Interruptions" Focus mode and notification summary features.</p>
+          
+          <h3>Summary</h3>
+          
+          <p>Apple's new patent proposes a system that analyzes a user's current activity to determine notification interruptions and provide personalized activity summaries. This aims to refine existing "Reduce Interruptions" Focus mode and AI notification summary features, enhancing user experience and minimizing unnecessary distractions. While it's uncertain if the patent will lead to a product, it offers a significant glimpse into Apple's future user interface strategy.</p>
+          
+          </body>
+</html>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Isabella Lamarre 님을 저녁 식사에 초대합니다.</div>
+                <div class="caption-lang" data-lang="en">Isabella Lamarre Three invites for dinner with</div>
+                <div class="caption-lang" data-lang="ja">イザベラ・ラマールと夕食に招待</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/989/005.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>

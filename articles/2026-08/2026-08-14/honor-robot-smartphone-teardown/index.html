@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Honor, 내일 로봇 스마트폰 분해 라이브 스트리밍으로 내부 구조 공개 예고</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Honor">
+  <meta name="article-brand-color" content="#0E62FF">
+  <meta name="title-ko" content="Honor, 내일 로봇 스마트폰 분해 라이브 스트리밍으로 내부 구조 공개 예고">
+  <meta name="title-zh" content="荣耀官宣明日直播拆解 Robot Phone 手机，公开内部结构">
+  <meta name="title-ja" content="Honorが明日、Robot Phoneスマートフォンの分解ライブ配信を公式発表、内部構造を公開">
+  <meta name="title-en" content="Honor Officially Announces Tomorrow&#39;s Live Teardown of Robot Phone, Revealing Internal Structure">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Honor, 내일 로봇 스마트폰 분해 라이브 스트리밍으로 내부 구조 공개 예고" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #0E62FF;">
+            Honor
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Honor, 내일 로봇 스마트폰 분해 라이브 스트리밍으로 내부 구조 공개 예고"
+            data-zh="荣耀官宣明日直播拆解 Robot Phone 手机，公开内部结构"
+            data-ja="Honorが明日、Robot Phoneスマートフォンの分解ライブ配信を公式発表、内部構造を公開"
+            data-en="Honor Officially Announces Tomorrow&#39;s Live Teardown of Robot Phone, Revealing Internal Structure">Honor, 내일 로봇 스마트폰 분해 라이브 스트리밍으로 내부 구조 공개 예고</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-14
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>소개</h3>
+<p>Honor는 오늘(8월 13일) 로봇폰 엔지니어 분해 라이브 스트리밍을 통해 내부 구조를 공개할 예정이라고 발표했습니다. 라이브 스트리밍은 내일 오후 3시에 진행됩니다.</p>
+          
+          <p>어젯밤 IT之家의 보도에 따르면, Honor 로봇폰 글로벌 신제품 발표회에서 세계 최초의 로봇폰인 Honor 로봇폰이 공식 출시되었으며, 가격은 9,999위안부터 시작합니다.</p>
+          
+          <ul>
+<li>12GB+512GB: 9,999위안</li>
+<li>16GB+1TB: 12,999위안</li>
+</ul>
+          
+          <p>이 기기는 Honor와 최고급 영화 촬영 장비 제조업체 ARRI(아라이)가 협력하여 선보인 첫 번째 제품으로, Honor의 모바일 영상 기술과 ARRI의 100년 영화 촬영 기술이 결합되었습니다.</p>
+          
+          <h3>카메라</h3>
+<p>하드웨어 측면에서 Honor 로봇폰은 후면 트리플 카메라 구성을 갖추고 있습니다.</p>
+          
+          <ul>
+<li>2억 화소 F1.6 조리개, 23mm(환산) 4D 짐벌 메인 카메라</li>
+<li>5천만 화소 초광각 렌즈</li>
+<li>2억 화소 페리스코프 망원 렌즈</li>
+</ul>
+          
+          <p>이 기기는 또한 자체 개발한 이미지 처리 칩 "Honor Yuguang H1"을 최초로 탑재했으며, 짐벌 메인 카메라의 CMOS 센서 크기는 1/1.28인치에 달합니다.</p>
+          
+          <h3>성능 및 디스플레이</h3>
+<p>사양 측면에서 Honor 로봇폰은 5세대 Snapdragon 8 Extreme Edition 칩을 탑재했으며, 6.31인치 1.5K 해상도의 쿼드 베젤 바 타입 디스플레이를 갖추고 있습니다. 이 기기에는 온디바이스 대규모 언어 모델 YOYO가 내장되어 있어 감정 인지 기능을 통해 사용자의 감정 상태, 사용 습관 및 현재 환경을 능동적으로 인식할 수 있습니다.</p>
+          
+          <h3>정부 보조금 안내</h3>
+<p>2026년 디지털 가전제품 정부 보조금이 계속 진행 중입니다. IT之家는 국고 보조금 쿠폰 수령처를 정리했으니, 디지털 가전제품 구매 전에 꼭 수령하시기 바랍니다.</p>
+          
+          <ul>
+<li>디지털 보조금: <a href="#">여기서 쿠폰 수령</a></li>
+</ul>
+          
+          <p>휴대폰/태블릿/3C 디지털 제품은 8.5% 정부 보조금을 지원하며, 6,000위안 이하 제품은 최대 500위안까지 할인됩니다.</p>
+          
+          <ul>
+<li>가전제품 보조금: <a href="#">여기서 쿠폰 수령</a></li>
+</ul>
+          
+          <p>다양한 가전제품은 8.5% 정부 보조금을 지원하며, 단일 품목당 최대 1,500위안까지 보조금을 받을 수 있습니다.</p>
+          
+          <h3>총평</h3>
+<p>Honor 로봇폰은 Honor와 ARRI의 협력으로 탄생한 세계 최초의 로봇폰입니다. 이 기기는 2억 화소 짐벌 메인 카메라를 포함한 강력한 트리플 카메라 시스템과 Honor Yuguang H1 칩을 탑재했습니다. Snapdragon 8 Extreme Edition 칩과 온디바이스 AI 모델 YOYO를 통해 사용자 감정 인지 등 혁신적인 기능을 제공합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <html>
+  <h3>产品发布与定价</h3>
+  <p>Honor正式发布全球首款机器人手机 —— Honor Robot Phone，定价9,999元起。</p>
+  <ul>
+    <li>12GB+512GB：9,999 元</li>
+    <li>16GB+1TB：12,999 元</li>
+  </ul>
+          
+          <h3>核心合作与影像技术</h3>
+  <p>该机是Honor与顶级电影摄影机厂商ARRI合作的首款产品，融合了Honor的移动影像技术和ARRI的电影摄影技术。</p>
+          
+          <h3>硬件配置</h3>
+  <p>Honor Robot Phone的硬件配置如下：</p>
+  <ul>
+    <li><b>后置三摄：</b>
+      <ul>
+        <li>2亿像素F1.6光圈、等效23毫米的4D云台主摄（CMOS尺寸达1/1.28英寸）</li>
+        <li>5000万像素超广角镜头</li>
+        <li>2亿像素潜望式长焦镜头</li>
+      </ul>
+    </li>
+    <li><b>影像芯片：</b>首发自研“Honor驭光 H1”影像芯片</li>
+    <li><b>处理器：</b>第五代骁龙8至尊版芯片</li>
+    <li><b>屏幕：</b>6.31英寸1.5K分辨率四等边直屏</li>
+    <li><b>AI功能：</b>内置端侧大模型YOYO，具备情感感知能力</li>
+  </ul>
+          
+          <h3>拆解直播预告</h3>
+  <p>Honor将于8月14日15:00直播工程师拆解Robot Phone手机，并公开其内部结构。</p>
+          
+          <h3>总结</h3>
+  <p>Honor发布了与ARRI合作的首款机器人手机Robot Phone，定价9,999元起。该机搭载第五代骁龙8至尊版芯片，配备2亿像素4D云台主摄和自研“Honor驭光 H1”影像芯片，并内置端侧大模型YOYO。Honor将于8月14日直播拆解该手机，展示其内部结构。</p>
+</html>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <html>
+  <h3>はじめに</h3>
+  <p>Honorは本日（8月13日）、ロボットフォンのエンジニアによる分解ライブストリーミングを通じて、その内部構造を公開すると発表しました。ライブストリーミングは明日午後3時に行われます。</p>
+  <p>昨夜のIT之家による報道によると、Honorロボットフォンのグローバル新製品発表会で、世界初のロボットフォンであるHonorロボットフォンが正式に発表され、価格は9,999元からとなっています。</p>
+  <ul>
+    <li>12GB+512GB: 9,999元</li>
+    <li>16GB+1TB: 12,999元</li>
+  </ul>
+  <p>このデバイスは、Honorと最高級の映画撮影機材メーカーARRI（アライ）が協力して発表した最初の製品であり、Honorのモバイル映像技術とARRIの100年の映画撮影技術が融合されています。</p>
+          
+          <h3>カメラ</h3>
+  <p>ハードウェア面では、Honorロボットフォンは背面にトリプルカメラ構成を搭載しています。</p>
+  <ul>
+    <li>2億画素 F1.6絞り、23mm（換算）4Dジンバルメインカメラ</li>
+    <li>5千万画素 超広角レンズ</li>
+    <li>2億画素 ペリスコープ望遠レンズ</li>
+  </ul>
+  <p>このデバイスはまた、自社開発の画像処理チップ「Honor Yuguang H1」を初めて搭載しており、ジンバルメインカメラのCMOSセンサーサイズは1/1.28インチに達します。</p>
+          
+          <h3>性能およびディスプレイ</h3>
+  <p>スペック面では、Honorロボットフォンは第5世代Snapdragon 8 Extreme Editionチップを搭載し、6.31インチ1.5K解像度のクアッドベゼルバータイプディスプレイを備えています。このデバイスには、オンデバイス大規模言語モデルYOYOが内蔵されており、感情認識機能を通じてユーザーの感情状態、使用習慣、および現在の環境を能動的に認識できます。</p>
+          
+          <h3>政府補助金案内</h3>
+  <p>2026年デジタル家電製品の政府補助金は引き続き実施中です。IT之家は国庫補助金クーポン受領場所をまとめましたので、デジタル家電製品購入前に必ず受領してください。</p>
+  <ul>
+    <li>デジタル補助金: <a href="#">こちらでクーポン受領</a></li>
+  </ul>
+  <p>携帯電話/タブレット/3Cデジタル製品は8.5%の政府補助金が適用され、6,000元以下の製品は最大500元まで割引されます。</p>
+  <ul>
+    <li>家電製品補助金: <a href="#">こちらでクーポン受領</a></li>
+  </ul>
+  <p>様々な家電製品は8.5%の政府補助金が適用され、単一品目あたり最大1,500元まで補助金を受け取ることができます。</p>
+          
+          <h3>まとめ</h3>
+  <p>Honorロボットフォンは、HonorとARRIの協力により誕生した世界初のロボットフォンです。このデバイスは、2億画素ジンバルメインカメラを含む強力なトリプルカメラシステムとHonor Yuguang H1チップを搭載しています。Snapdragon 8 Extreme EditionチップとオンデバイスAIモデルYOYOを介して、ユーザーの感情認識など革新的な機能を提供します。</p>
+</html>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <html>
+<body>
+<h3>Introduction</h3>
+<p>Honor announced today (August 13) that it will reveal the internal structure of its "Robot Phone" through a live teardown stream conducted by engineers. The live stream is scheduled for tomorrow at 3 PM.</p>
+<p>According to IT Home's report last night, the Honor Robot Phone, touted as the world's first robot phone, was officially launched at its global new product launch event, with prices starting from 9,999 yuan.</p>
+<ul>
+<li>12GB+512GB: 9,999 yuan</li>
+<li>16GB+1TB: 12,999 yuan</li>
+</ul>
+<p>This device marks the first collaboration between Honor and ARRI, a high-end cinematography equipment manufacturer, combining Honor's mobile imaging technology with ARRI's century-long expertise in filmmaking.</p>
+          
+          <h3>Camera</h3>
+<p>In terms of hardware, the Honor Robot Phone features a rear triple-camera setup:</p>
+<ul>
+<li>200-megapixel F1.6 aperture, 23mm (equivalent) 4D gimbal main camera</li>
+<li>50-megapixel ultra-wide-angle lens</li>
+<li>200-megapixel periscope telephoto lens</li>
+</ul>
+<p>The device also integrates Honor's self-developed "Honor Yuguang H1" image processing chip for the first time, and the CMOS sensor size of the gimbal main camera reaches 1/1.28 inches.</p>
+          
+          <h3>Performance and Display</h3>
+<p>Regarding specifications, the Honor Robot Phone is equipped with the 5th generation Snapdragon 8 Extreme Edition chip and features a 6.31-inch 1.5K resolution quad-bezel bar-type display. The device also includes an on-device large language model, YOYO, which can actively recognize user emotional states, usage habits, and current environment through emotion recognition capabilities.</p>
+          
+          <h3>Government Subsidy Information</h3>
+<p>The 2026 digital home appliance government subsidy program is ongoing. IT Home has compiled information on where to receive national subsidy coupons, so please claim them before purchasing digital home appliances.</p>
+<ul>
+<li>Digital Subsidy: <a href="#">Claim coupons here</a></li>
+</ul>
+<p>For mobile phones, tablets, and 3C digital products, an 8.5% government subsidy is available, with discounts of up to 500 yuan for products under 6,000 yuan.</p>
+<ul>
+<li>Home Appliance Subsidy: <a href="#">Claim coupons here</a></li>
+</ul>
+<p>Various home appliances are eligible for an 8.5% government subsidy, with a maximum subsidy of 1,500 yuan per single item.</p>
+          
+          <h3>Summary</h3>
+<p>Honor is set to reveal the internal design of its new "Robot Phone" via a live teardown stream. This device, a collaboration with ARRI, features a powerful triple-camera system including a 200-megapixel gimbal main camera and Honor's Yuguang H1 chip. Powered by the Snapdragon 8 Extreme Edition and an on-device AI model YOYO, it offers innovative features like emotion recognition, with prices starting from 9,999 yuan.</p>
+</body>
+</html>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Honor</div>
+                <div class="caption-lang" data-lang="en">Honor</div>
+                <div class="caption-lang" data-lang="ja">人 HONOR</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Honor Robot Phone</div>
+                <div class="caption-lang" data-lang="en">Honor Robot Phone</div>
+                <div class="caption-lang" data-lang="ja">Honorロボット電話</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">ARRI 공동 개발 4RRI</div>
+                <div class="caption-lang" data-lang="en">Arai co-developed 4RRI</div>
+                <div class="caption-lang" data-lang="ja">アライと共同開発した4RRI</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">송주 엔지니어 분해 라이브 방송</div>
+                <div class="caption-lang" data-lang="en">Engineer Song Zhu&#39;s disassembly live stream</div>
+                <div class="caption-lang" data-lang="ja">宋竹エンジニアによる分解ライブストリーム</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Honor 서비스/고객센터 검색</div>
+                <div class="caption-lang" data-lang="en">X Search [Honor Service/Customer Service,</div>
+                <div class="caption-lang" data-lang="ja">X 検索 [Honorサービス/カスタマーサービス、</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">라이브 하이라이트</div>
+                <div class="caption-lang" data-lang="en">Live Highlights</div>
+                <div class="caption-lang" data-lang="ja">ライブハイライト</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">하드코어 현장 분해: 내부 구조 전체 공개, 몰입형 분해 체험!</div>
+                <div class="caption-lang" data-lang="en">Hardcore live teardown: Internal structure fully revealed, immersive look inside!</div>
+                <div class="caption-lang" data-lang="ja">ハードコアな現場での分解：内部構造を全公開、没入型で分解を見てみよう！</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">로봇폰의 진화: 로봇폰 연구 개발의 과거와 현재를 알아보세요!</div>
+                <div class="caption-lang" data-lang="en">Machine Phone Evolution: A Look at the Past and Present of Robot Phone R&amp;D</div>
+                <div class="caption-lang" data-lang="ja">ロボット携帯電話の進化：ロボット携帯電話開発の過去と現在を理解する</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">새 기기 혜택 설명: 짐벌 파손 시 무료 교체? 라이브 방송에서 궁금증을 해결하세요!</div>
+                <div class="caption-lang" data-lang="en">New machine benefits explained: Free replacement for gimbal damage? Live online Q&amp;A!</div>
+                <div class="caption-lang" data-lang="ja">新製品の特典解説：ジンバル破損は無料交換？ライブで疑問に答えます！</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">라이브 방송에 참여하여 좋아요와 댓글을 남기면 멋진 피규어, 보조배터리, 컵 등 푸짐한 경품을 받을 기회가 있습니다!</div>
+                <div class="caption-lang" data-lang="en">Participate in live interaction, like and comment for a chance to win exquisite figures, power banks, water cups, and other great gifts!</div>
+                <div class="caption-lang" data-lang="ja">ライブ配信に参加して「いいね」やコメントをすると、精巧なフィギュア、モバイルバッテリー、水筒などの素敵な賞品が当たるチャンスがあります！</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">그리고 하나</div>
+                <div class="caption-lang" data-lang="en">Harmony and unity</div>
+                <div class="caption-lang" data-lang="ja">和一</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">매우 똑똑함</div>
+                <div class="caption-lang" data-lang="en">Super smart</div>
+                <div class="caption-lang" data-lang="ja">超賢い</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">자동 실행</div>
+                <div class="caption-lang" data-lang="en">YoYO @Auto-execute</div>
+                <div class="caption-lang" data-lang="ja">YoYO @自動実行</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">업계 최소</div>
+                <div class="caption-lang" data-lang="en">Smallest industry</div>
+                <div class="caption-lang" data-lang="ja">業界最小</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">fone 2.69 초인간형</div>
+                <div class="caption-lang" data-lang="en">fone 2.69 Hyper-personification</div>
+                <div class="caption-lang" data-lang="ja">超擬人化</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">人人29 ones YOYO @ MBA MH</div>
+                <div class="caption-lang" data-lang="en">Everyone 29 ones YOYO @ MBA MH</div>
+                <div class="caption-lang" data-lang="ja">人人29 1人 YOYO @ MBA MH</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">상상을 초월하는 EOS</div>
+                <div class="caption-lang" data-lang="en">Beyond imagination</div>
+                <div class="caption-lang" data-lang="ja">想像を絶する</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Eee PC</div>
+                <div class="caption-lang" data-lang="en">Do it</div>
+                <div class="caption-lang" data-lang="ja">はい</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/989/376.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
