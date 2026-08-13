@@ -96,7 +96,9 @@ def _extract_paragraphs(html: str) -> list[str]:
     paragraphs: list[str] = []
 
     for tag in soup.find_all(["p", "h2", "h3", "li"]):
-        text = tag.get_text(strip=True)
+        # separator=" " 없이 strip=True만 쓰면 <a> 등 인라인 태그 경계에서
+        # 공백이 사라져 "Today,Huaweiheld..."처럼 단어가 붙어버림.
+        text = tag.get_text(" ", strip=True)
         if len(text) < 15:
             continue
         if _BOILERPLATE_RE.search(text):
@@ -104,6 +106,43 @@ def _extract_paragraphs(html: str) -> list[str]:
         paragraphs.append(text)
 
     return paragraphs
+
+
+# ── 개별 기사 URL 재스크레이핑 ───────────────────────────────────────────────
+# RSS 피드는 24시간 지나면 사라지므로, 이미 저장된 기사를 재처리할 땐 이 함수로
+# 실제 기사 페이지를 직접 가져와서 본문을 복구한다 (recover_from_source.py 등에서 사용).
+
+def scrape_article_content(url: str) -> tuple[list[str], str]:
+    """Gizmochina 기사 페이지 URL을 직접 가져와 (단락 리스트, 제목) 반환.
+
+    RSS content:encoded 대신 실제 페이지의 td-post-content(Tagdiv 테마) 영역을
+    파싱한다. 실패 시 ([], "") 반환.
+    """
+    try:
+        resp = requests.get(url, headers=HEADERS, timeout=20)
+        resp.raise_for_status()
+    except Exception as e:
+        logger.warning(f"Gizmochina 페이지 요청 실패 ({url}): {e}")
+        return [], ""
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+
+    title = ""
+    h1 = soup.find("h1")
+    if h1:
+        title = h1.get_text(strip=True)
+    if not title:
+        og = soup.find("meta", attrs={"property": "og:title"})
+        if og and og.get("content"):
+            title = og["content"].split(" - Gizmochina")[0].strip()
+
+    content_div = soup.find("div", class_="td-post-content")
+    if not content_div:
+        logger.warning(f"td-post-content 영역을 못 찾음: {url}")
+        return [], title
+
+    paragraphs = _extract_paragraphs(str(content_div))
+    return paragraphs, title
 
 
 # ── 키워드 필터링 ─────────────────────────────────────────────────────────────

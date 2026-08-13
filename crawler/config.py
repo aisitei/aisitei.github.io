@@ -2,6 +2,9 @@
 import os
 import json
 
+# 발행 사이트 (다이제스트 메일의 기사 링크 생성 등에 사용)
+SITE_URL = os.getenv("SITE_URL", "https://aisitei.github.io")
+
 # 스케줄 설정
 SCHEDULE_TIME = os.getenv("SCHEDULE_TIME", "07:00")
 

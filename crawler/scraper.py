@@ -404,7 +404,9 @@ def scrape_article_content(url: str) -> tuple[list[str], str]:
 
     paragraphs = []
     for p in content_div.find_all("p"):
-        text = p.get_text(strip=True)
+        # separator=" " 없이 strip=True만 쓰면 <a> 등 인라인 태그 경계에서
+        # 공백이 사라져 단어가 붙어버림 (예: "오늘Huawei가").
+        text = p.get_text(" ", strip=True)
         if text and len(text) > 5:
             paragraphs.append(text)
 
@@ -415,6 +417,22 @@ def scrape_article_content(url: str) -> tuple[list[str], str]:
         author = author_tag.get_text(strip=True)
 
     return paragraphs, author
+
+
+def scrape_article_title(url: str) -> str:
+    """기사 페이지의 원문(중국어) 제목을 <h1>에서 추출합니다.
+
+    복구 스크립트(recover_from_source.py)에서 기존 파일에 저장된 zh_title이
+    신뢰할 수 없을 때(과거 손상 이력) 원문 페이지에서 직접 다시 가져오기 위해 사용.
+    """
+    html = fetch_page(url)
+    if not html:
+        return ""
+    soup = BeautifulSoup(html, "html.parser")
+    h1 = soup.find("h1")
+    if h1:
+        return h1.get_text(strip=True)
+    return ""
 
 
 def _normalize_img_url(url: str) -> str:

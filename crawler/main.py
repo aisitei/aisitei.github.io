@@ -15,19 +15,57 @@ from datetime import datetime
 
 import schedule
 import time
+import subprocess
+
+import env_local
+env_local.load_env_local()  # config를 import하기 전에 .env.local을 먼저 주입해야 함
 
 import config
 from scraper import collect_articles, get_processed_article_ids, dedupe_cross_source_articles
 from scraper_gizmochina import scrape_feed as collect_gizmochina
 from translator import (
     translate_title, translate_article, generate_slug,
-    translate_body_en, translate_body_ja, translate_body_zh, translate_body_zh_summary,
-    translate_title_en, translate_title_ja, translate_title_zh,
     get_usage_totals,
 )
 from ocr import process_image_translations
-from html_generator import TranslatedArticle, save_article
+from html_generator import TranslatedArticle, save_article, CATEGORY_NORMALIZE, CATEGORY_LABEL_KO
 from deployer import ensure_repo, commit_and_push
+import emailer
+
+# 로컬 LLM 기본값 (config.py 최초 import 시점 값을 phase 전환 복귀용으로 보관)
+_LOCAL_LLM_DEFAULTS = {
+    "LLM_BASE_URL": config.LLM_BASE_URL,
+    "LLM_MODEL": config.LLM_MODEL,
+    "LLM_API_KEY": config.LLM_API_KEY,
+    "LLM_EXTRA_BODY": config.LLM_EXTRA_BODY,
+}
+
+
+def _use_cloud_llm_for_ko() -> bool:
+    """ko 번역 단계(Phase A)용으로 클라우드 LLM(Gemini)을 사용하도록 전환.
+
+    config.LLM_* 는 config.py import 시 이미 평가된 값이라, os.environ을
+    바꿔봐야 반영 안 됨 — 모듈 속성을 직접 덮어써야 함. GEMINI_API_KEY가
+    없으면(.env.local 미설정) 전환하지 않고 로컬 기본값 그대로 둔다.
+    """
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        logger.info("GEMINI_API_KEY 없음 — ko 번역도 로컬 LLM으로 진행")
+        return False
+    config.LLM_API_KEY = api_key
+    config.LLM_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
+    config.LLM_MODEL = "gemini-2.5-flash"
+    config.LLM_EXTRA_BODY = {"reasoning_effort": "none"}
+    logger.info("ko 번역: 클라우드 LLM(Gemini 2.5 Flash) 사용")
+    return True
+
+
+def _use_local_llm():
+    """en/ja/zh 백필 단계(Phase B)용으로 로컬 LLM 기본값으로 복귀."""
+    config.LLM_BASE_URL = _LOCAL_LLM_DEFAULTS["LLM_BASE_URL"]
+    config.LLM_MODEL = _LOCAL_LLM_DEFAULTS["LLM_MODEL"]
+    config.LLM_API_KEY = _LOCAL_LLM_DEFAULTS["LLM_API_KEY"]
+    config.LLM_EXTRA_BODY = _LOCAL_LLM_DEFAULTS["LLM_EXTRA_BODY"]
 
 os.makedirs(config.LOG_DIR, exist_ok=True)
 
@@ -295,21 +333,23 @@ if __name__ == "__main__":
 def run_pipeline(limit: int = 0, ko_only: bool = False):
     """전체 파이프라인 실행. limit > 0 이면 해당 건수만 처리.
 
-    ko_only=True면 한국어만 번역해 즉시 저장/푸시하고, EN/JA/ZH는
-    logs/multilang_backfill_queue.json에 쌓아 backfill_multilang.py가
-    나중에(로컬 LM Studio로) 채우도록 한다. 클라우드 API로 한국어를
-    빠르게 발행하면서 나머지 언어 비용은 로컬 처리로 절감하는 하이브리드 모드.
+    2단계(하이브리드) 구조:
+      Phase A — 오늘 수집된 기사 전부 ko만 번역(가능하면 클라우드 Gemini로 빠르게)
+                → 저장(4개 언어탭 전부 ko 폴백) → git push → 다이제스트 메일 발송
+      Phase B — Phase A와 같은 배치를 이어서 en/ja/zh로 채움(로컬 LLM,
+                backfill_multilang.py 재사용). ko_only=True면 여기서 멈추고
+                Phase B는 나중에 사람이 따로 backfill_multilang.py를 돌리게 둔다.
     """
     logger.info("=" * 60)
     logger.info("IT之家 + Gizmochina 뉴스 파이프라인 시작")
     if ko_only:
-        logger.info("모드: --ko-only (한국어만 즉시 처리, EN/JA/ZH는 백필 큐로)")
+        logger.info("모드: --ko-only (Phase A만 실행, en/ja/zh는 나중에 수동으로 backfill_multilang.py)")
     logger.info("=" * 60)
 
     today = datetime.now().strftime("%Y-%m-%d")
 
     # 1. 기사 수집 (IT之家 + Gizmochina 합산)
-    logger.info("[1/5] 기사 수집 중...")
+    logger.info("[1/6] 기사 수집 중...")
     articles = collect_articles()  # IT之家 (내부에서 dedup 처리)
 
     articles_root = os.path.abspath(config.OUTPUT_DIR)
@@ -328,8 +368,9 @@ def run_pipeline(limit: int = 0, ko_only: bool = False):
         logger.info(f"{limit}건으로 제한 (전체 {len(articles)}건 중)")
     logger.info(f"총 {len(articles)}건 수집 (IT之家 + Gizmochina)")
 
-    # 2. 번역
-    logger.info("[2/5] 번역 중...")
+    # 2. [Phase A] ko 번역
+    logger.info("[2/6] ko 번역 중 (Phase A)...")
+    used_cloud = _use_cloud_llm_for_ko()
     translated_articles: list[TranslatedArticle] = []
     for article in articles:
         logger.info(f"번역: {article.title[:50]}...")
@@ -361,80 +402,27 @@ def run_pipeline(limit: int = 0, ko_only: bool = False):
 
         slug = generate_slug(korean_title)
 
-        if ko_only:
-            # EN/JA/ZH 호출을 건너뛰고 한국어만으로 저장한다. html_generator의
-            # 기존 폴백(titles/bodies.get("zh", ...get("ko"))) 덕분에 다른 언어
-            # 탭은 백필되기 전까지 한국어로 표시된다.
-            translated = TranslatedArticle(
-                original=article,
-                slug=slug,
-                titles={"ko": korean_title},
-                bodies={"ko": korean_paragraphs},
-            )
-            translated_articles.append(translated)
-            logger.info(f"  → {korean_title} (ko-only, EN/JA/ZH는 백필 큐로)")
-            time.sleep(0.3)
-            continue
-
-        # 4개 언어 번역 (EN / JA / ZH summary)
-        # 소스 텍스트: 한국어 번역 결과를 기반으로 EN/JA 번역
-        ko_body_text = "\n\n".join(korean_paragraphs)
-        zh_orig_text = "\n\n".join(article.content_paragraphs)
-
-        logger.info("  [다국어] EN 번역 중...")
-        en_body_text = translate_body_en(ko_body_text, category=category)
-        en_paragraphs = [p.strip() for p in (en_body_text or "").split("\n\n") if p.strip()] or korean_paragraphs
-
-        logger.info("  [다국어] JA 번역 중...")
-        ja_body_text = translate_body_ja(ko_body_text, category=category)
-        ja_paragraphs = [p.strip() for p in (ja_body_text or "").split("\n\n") if p.strip()] or korean_paragraphs
-
-        logger.info("  [다국어] ZH 요약 중...")
-        zh_summary_text = translate_body_zh_summary(zh_orig_text) if source_lang == "zh" else translate_body_zh(ko_body_text)
-        zh_paragraphs = [p.strip() for p in (zh_summary_text or "").split("\n\n") if p.strip()] or korean_paragraphs
-
-        # 다국어 제목
-        if source_lang == "zh":
-            zh_title = article.title
-            en_title = translate_title_en(article.title)
-            ja_title = translate_title_ja(article.title)
-        else:
-            zh_title = translate_title_zh(korean_title)
-            en_title = article.title
-            ja_title = translate_title_ja(zh_title or korean_title)
-
+        # en/ja/zh 탭은 backfill 전까지 ko 폴백으로 표시된다
+        # (html_generator의 titles/bodies.get("zh", ...get("ko")) 기본 동작).
         translated = TranslatedArticle(
             original=article,
             slug=slug,
-            titles={
-                "ko": korean_title,
-                "zh": zh_title or korean_title,
-                "ja": ja_title or korean_title,
-                "en": en_title or korean_title,
-            },
-            bodies={
-                "ko": korean_paragraphs,
-                "zh": zh_paragraphs,
-                "ja": ja_paragraphs,
-                "en": en_paragraphs,
-            },
+            titles={"ko": korean_title},
+            bodies={"ko": korean_paragraphs},
         )
         translated_articles.append(translated)
         logger.info(f"  → {korean_title}")
-        time.sleep(1)  # LLM 부하 분산: 연속 호출 간 딜레이
+        time.sleep(0.3 if used_cloud else 1)  # 로컬일 때만 LLM 부하 분산 딜레이
 
     if not translated_articles:
         logger.warning("번역된 기사 없음. 종료.")
         return
 
-    # 3. OCR (선택)
+    # 3. OCR (선택) — 캡션은 짧아서 ko/en/ja를 이 시점에 바로 번역
     if config.OCR_ENABLED:
-        logger.info("[3/5] 이미지 OCR...")
-        # 캡션 전용 짧은 텍스트 번역기 사용 (기사 본문용 프롬프트는 짧은
-        # OCR 결과에 대해 메타 응답을 길게 출력하는 문제가 있어 분리).
+        logger.info("[3/6] 이미지 OCR...")
         from translator import translate_caption, translate_caption_en, translate_caption_ja, translate_caption_batch
         for ta in translated_articles:
-            # Gizmochina 이미지는 영어 → 중국어 OCR 불필요, 건너뜀
             if ta.original.image_urls and ta.original.source != "gizmochina":
                 ta.image_translations = process_image_translations(
                     ta.original.image_urls,
@@ -444,15 +432,16 @@ def run_pipeline(limit: int = 0, ko_only: bool = False):
                     translate_batch_fn=translate_caption_batch,
                 )
     else:
-        logger.info("[3/5] OCR 비활성화 - 건너뜀")
+        logger.info("[3/6] OCR 비활성화 - 건너뜀")
 
-    # 4. HTML + 이미지 저장
-    logger.info("[4/5] HTML 생성 및 이미지 다운로드...")
+    # 4. HTML + 이미지 저장 (ko 폴백 상태로 저장, backfill 큐 등록)
+    logger.info("[4/6] HTML 생성 및 이미지 다운로드...")
     articles_root = os.path.abspath(config.OUTPUT_DIR)
     os.makedirs(articles_root, exist_ok=True)
 
     saved_results = []
     article_titles = []
+    digest_items = []
     for ta in translated_articles:
         article_info = {
             "article_id": ta.original.article_id,
@@ -467,17 +456,28 @@ def run_pipeline(limit: int = 0, ko_only: bool = False):
             article_titles.append(ta.korean_title)
             logger.info(f"  저장: {result['filepath']}")
 
-            if ko_only:
-                _append_multilang_queue({
-                    "article_dir": os.path.relpath(result["article_dir"], config.PRODUCTION_REPO_DIR),
-                    "article_id": ta.original.article_id,
-                    "title": ta.original.title,
-                    "url": ta.original.url,
-                    "category": ta.original.category,
-                    "source": ta.original.source,
-                    "korean_title": ta.korean_title,
-                    "korean_paragraphs": ta.korean_paragraphs,
-                })
+            _append_multilang_queue({
+                "article_dir": os.path.relpath(result["article_dir"], config.PRODUCTION_REPO_DIR),
+                "article_id": ta.original.article_id,
+                "title": ta.original.title,
+                "url": ta.original.url,
+                "category": ta.original.category,
+                "source": ta.original.source,
+                "korean_title": ta.korean_title,
+                "korean_paragraphs": ta.korean_paragraphs,
+            })
+
+            normalized_cat = CATEGORY_NORMALIZE.get(ta.original.category, ta.original.category)
+            image_abs_path = None
+            if result.get("local_images"):
+                image_abs_path = os.path.join(result["article_dir"], result["local_images"][0])
+            digest_items.append({
+                "title": ta.korean_title,
+                "url": f"{config.SITE_URL.rstrip('/')}/{os.path.relpath(result['article_dir'], config.PRODUCTION_REPO_DIR)}/index.html",
+                "category_label": CATEGORY_LABEL_KO.get(normalized_cat, normalized_cat),
+                "category_key": normalized_cat,
+                "image_abs_path": image_abs_path,
+            })
 
         except Exception as e:
             err = f"save_article 실패: {e}"
@@ -485,8 +485,8 @@ def run_pipeline(limit: int = 0, ko_only: bool = False):
             _append_failed_article(today, article_info, err)
             _write_resume_script(today)
 
-    # 5. GitHub push
-    logger.info("[5/5] GitHub push...")
+    # 5. GitHub push (Phase A 결과)
+    logger.info("[5/6] GitHub push (Phase A)...")
     repo_dir = config.PRODUCTION_REPO_DIR
     if not os.path.isdir(os.path.join(repo_dir, ".git")):
         logger.warning(f"git 저장소 없음: {repo_dir}. push 건너뜀.")
@@ -500,12 +500,17 @@ def run_pipeline(limit: int = 0, ko_only: bool = False):
         except Exception as e:
             logger.error(f"배포 오류: {e}")
 
-    logger.info("=" * 60)
-    logger.info(f"완료! {len(saved_results)}건 처리됨")
-    logger.info(f"LLM 토큰 사용량: {get_usage_totals()}")
-    logger.info("=" * 60)
+    # 다이제스트 메일 발송 — en/ja/zh 백필(Phase B) 시작 전에 보낸다.
+    # 메일 발송 실패는 파이프라인 실패로 취급하지 않는다.
+    try:
+        emailer.send_digest_email(digest_items, today)
+    except Exception as e:
+        logger.error(f"다이제스트 메일 발송 중 예외: {e}")
 
-    # 자동 resume: 실패 건이 있으면 파이프라인 종료 후 1회 자동 재시도
+    logger.info(f"Phase A 완료! {len(saved_results)}건 처리됨")
+    logger.info(f"LLM 토큰 사용량: {get_usage_totals()}")
+
+    # 자동 resume: Phase A 실패 건이 있으면 1회 자동 재시도
     failed_log = _failed_log_path(today)
     resume_script = _resume_script_path(today)
     if os.path.exists(failed_log) and os.path.exists(resume_script):
@@ -513,15 +518,35 @@ def run_pipeline(limit: int = 0, ko_only: bool = False):
         if failed:
             logger.info(f"[자동 resume] 실패 {len(failed)}건 재처리 시도...")
             time.sleep(5)  # LLM 안정화 대기
-            import subprocess
-            result = subprocess.run(
-                [sys.executable, resume_script],
-                capture_output=False,
-            )
+            result = subprocess.run([sys.executable, resume_script], capture_output=False)
             if result.returncode == 0:
                 logger.info("[자동 resume] 완료")
             else:
                 logger.warning("[자동 resume] 일부 실패 — 수동 확인 필요")
+
+    # 6. [Phase B] en/ja/zh 백필 — backfill_multilang.py 재사용 (항상 로컬 LLM)
+    if ko_only:
+        logger.info("[6/6] --ko-only 모드 — Phase B(en/ja/zh 백필)는 건너뜀. "
+                     "나중에 python3 backfill_multilang.py 로 처리하세요.")
+        return
+
+    _use_local_llm()
+    logger.info("[6/6] en/ja/zh 백필 중 (Phase B, 로컬 LLM)...")
+    try:
+        result = subprocess.run(
+            [sys.executable, os.path.join(os.path.dirname(__file__), "backfill_multilang.py")],
+            capture_output=False,
+        )
+        if result.returncode == 0:
+            logger.info("Phase B 완료!")
+        else:
+            logger.warning("Phase B 일부 실패 — 수동 확인 필요 (multilang_backfill_queue.json 확인)")
+    except Exception as e:
+        logger.error(f"Phase B 실행 오류: {e}")
+
+    logger.info("=" * 60)
+    logger.info("파이프라인 전체 완료")
+    logger.info("=" * 60)
 
 
 def run_test():
