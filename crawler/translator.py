@@ -126,6 +126,25 @@ def _record_usage(usage):
     _usage_totals["calls"] += 1
 
 
+def _strip_html_wrapper(text: str) -> str:
+    """모델이 HTML 조각 대신 전체 문서로 감싸서 응답하는 경우를 정리합니다.
+
+    본문 번역 프롬프트는 <h3>/<p>/<ul><li> 같은 조각만 요청하지만, 모델이
+    가끔 마크다운 코드펜스(```html ... ```)나 <html><body>...</body></html>
+    전체 문서 래퍼를 붙여서 응답하는 경우가 있다. 그대로 저장하면 페이지
+    본문에 <html>/<body> 태그가 그대로 노출되므로 저장 전에 벗겨낸다.
+    """
+    t = text.strip()
+    fence = re.match(r'^```(?:html)?\s*\n(.*)\n```\s*$', t, re.DOTALL)
+    if fence:
+        t = fence.group(1).strip()
+    t = re.sub(r'(?is)^\s*<!DOCTYPE[^>]*>\s*', '', t)
+    t = re.sub(r'(?is)<head[^>]*>.*?</head>', '', t)
+    t = re.sub(r'(?is)</?html[^>]*>', '', t)
+    t = re.sub(r'(?is)</?body[^>]*>', '', t)
+    return t.strip()
+
+
 def _chat(system: str, user: str, temperature: float = 0.3,
           max_tokens: int = 16384, retries: int = 3,
           model: Optional[str] = None) -> Optional[str]:
@@ -162,6 +181,9 @@ def _chat(system: str, user: str, temperature: float = 0.3,
             text = content.strip()
             # <think>...</think> 블록 제거 (reasoning 모델 대응)
             text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL).strip()
+            # 모델이 가끔 HTML 조각 대신 전체 문서(<html><body>...)나 마크다운
+            # 코드펜스로 응답을 감싸는 경우가 있다 → 저장 전에 래퍼만 벗겨낸다.
+            text = _strip_html_wrapper(text)
             if not text:
                 # think 블록만 있고 실제 응답이 없는 경우 → 재시도
                 logger.warning(f"LLM 빈 응답 (시도 {attempt}/{retries}) - think 블록만 반환됨")
@@ -422,6 +444,17 @@ def _looks_untranslated(text: str) -> bool:
     return False
 
 
+def _contains_hangul(text: str) -> bool:
+    """텍스트에 한글 음절이 남아있는지 확인합니다.
+
+    한국어 제목을 en/ja/zh로 번역할 때, "오스모"(Osmo)처럼 브랜드명이
+    한글로 음역된 경우 모델이 이를 "원문 그대로 유지해야 할 브랜드 표기"로
+    착각해 번역하지 않고 그대로 베끼는 경우가 있다 (DJI 오스모 → 中文 결과에
+    "오스모"가 그대로 남는 식). 결과에 한글이 남아있으면 번역 실패로 간주한다.
+    """
+    return bool(re.search('[가-힣]', text))
+
+
 def translate_title(title: str, category: str = "", source_lang: str = "zh") -> Optional[str]:
     if source_lang == "en":
         system = _TITLE_TRANSLATE_EN_PROMPT
@@ -509,11 +542,18 @@ _TRANSLATE_SYSTEM_ZH_SUMMARY_PROMPT = (
     "3. 品牌名称保持原文表记（Xiaomi、Huawei、Samsung等）。\n"
     "4. 不要添加原文没有的规格或事实。\n\n"
     "输出格式（HTML）：\n"
-    "- 将内容分成若干主题段落，每段前加<h3>标题</h3>。\n"
+    "- 将内容归纳成 5~8 个大的主题分类，每个分类前加<h3>标题</h3>，"
+    "分类内的多条相关新闻放在同一个<h3>下面用<ul><li>列出。\n"
+    "- **重要**：即使原文是逐条罗列的新闻简报（例如\"IT早报\"这类多条新闻的合集），"
+    "也不要给每一条新闻单独设一个<h3>标题——请按主题（如：行业动态、移动设备、"
+    "新品发布、汽车与出行、软件与服务、其他）合并归类，用<li>逐条列出每条新闻，"
+    "不要制造大量零散的一次性标题。\n"
     "- 规格、参数、列表用<ul><li>...</li></ul>整理。\n"
     "- 普通叙述段落用<p>...</p>输出。\n"
     "- 文章最后加<h3>总结</h3>，用2~4句话概括核心内容。\n"
-    "- 不使用Markdown，只使用纯HTML标签。"
+    "- 不使用Markdown，只使用纯HTML标签。\n"
+    "- 只输出正文片段（h3/p/ul/li），绝对不要用<html>、<head>、<body>等"
+    "整页文档标签包裹输出内容。"
 )
 
 _TRANSLATE_SYSTEM_EN_FULL_PROMPT = (
@@ -529,7 +569,9 @@ _TRANSLATE_SYSTEM_EN_FULL_PROMPT = (
     "- Use <ul><li>...</li></ul> for specs, numbers, and lists.\n"
     "- Use <p>...</p> for narrative paragraphs.\n"
     "- End with a <h3>Summary</h3> section summarizing key points in 2-4 sentences.\n"
-    "- Use only pure HTML tags, no Markdown."
+    "- Use only pure HTML tags, no Markdown.\n"
+    "- Output only the content fragment (h3/p/ul/li). Never wrap the output "
+    "in full-document tags like <html>, <head>, or <body>."
 )
 
 _TRANSLATE_SYSTEM_JA_FULL_PROMPT = (
@@ -545,7 +587,9 @@ _TRANSLATE_SYSTEM_JA_FULL_PROMPT = (
     "- スペック・数値・リストは<ul><li>...</li></ul>で整理します。\n"
     "- 通常の叙述段落は<p>...</p>で出力します。\n"
     "- 記事の最後に<h3>まとめ</h3>セクションで主要内容を2~4文で要約します。\n"
-    "- MarkdownではなくHTMLタグのみ使用します。"
+    "- MarkdownではなくHTMLタグのみ使用します。\n"
+    "- 本文の断片（h3/p/ul/li）のみを出力し、<html>、<head>、<body>のような"
+    "文書全体のラッパータグは絶対に使わないでください。"
 )
 
 _TITLE_TRANSLATE_ZH_FROM_KO_PROMPT = (
@@ -554,7 +598,10 @@ _TITLE_TRANSLATE_ZH_FROM_KO_PROMPT = (
     "规则：\n"
     "1. 品牌/产品名称保持原文表记（Samsung、Xiaomi、iPhone等）。\n"
     "2. 货币：韩元（원/₩）表示为'韩元'。\n"
-    "3. 使用自然流畅的中文表达。"
+    "3. 使用自然流畅的中文表达。\n"
+    "4. 韩语标题中如果出现用韩文音译的外来品牌/产品名（例如'오스모'实际是"
+    "'Osmo'），必须还原成该品牌/产品的原文拉丁字母表记或通用中文译名，"
+    "绝对不能把韩文原样保留在输出中。"
 )
 
 _TITLE_TRANSLATE_EN_FROM_ZH_PROMPT = (
@@ -620,7 +667,9 @@ _TRANSLATE_SYSTEM_ZH_FULL_PROMPT = (
     "- 规格、参数、列表用<ul><li>...</li></ul>整理。\n"
     "- 普通叙述段落用<p>...</p>输出。\n"
     "- 文章最后加<h3>总结</h3>，用2~4句话概括核心内容。\n"
-    "- 不使用Markdown，只使用纯HTML标签。"
+    "- 不使用Markdown，只使用纯HTML标签。\n"
+    "- 只输出正文片段（h3/p/ul/li），绝对不要用<html>、<head>、<body>等"
+    "整页文档标签包裹输出内容。"
 )
 
 
@@ -661,8 +710,32 @@ def translate_title_zh(ko_title: str) -> Optional[str]:
         max_tokens=16384,
     )
     if result:
-        return result.split("\n", 1)[0].strip()
-    return None
+        result = result.split("\n", 1)[0].strip()
+
+    # 한글 음역 브랜드명(예: 오스모→Osmo)이 그대로 남는 경우, 직접적인
+    # 지시로 한 번 더 재시도한다.
+    if result and _contains_hangul(result):
+        logger.warning(f"zh 제목 번역 결과에 한글 잔존 (재시도): {result[:60]}")
+        retry_result = _chat(
+            system=(
+                "你是中文翻译。将输入的韩语标题完整翻译成中文，只输出一行中文结果。"
+                "标题中如果出现用韩文书写的外来品牌/产品名（韩文音译），"
+                "必须换成该名称的原始拉丁字母拼写或通用中文译名，"
+                "绝对不能在输出中保留任何韩文字符。"
+            ),
+            user=text,
+            temperature=0.1,
+            max_tokens=16384,
+            retries=3,
+        )
+        if retry_result:
+            retry_result = retry_result.split("\n", 1)[0].strip()
+            if not _contains_hangul(retry_result):
+                return retry_result
+            logger.warning(f"zh 제목 재시도에도 한글 잔존: {retry_result[:60]}")
+        return result
+
+    return result
 
 
 def translate_title_en(zh_title: str) -> Optional[str]:
