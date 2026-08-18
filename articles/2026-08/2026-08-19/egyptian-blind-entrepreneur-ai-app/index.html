@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 이집트 시각장애인 기업가, AI 앱 개발로 실시간 이미지 묘사 통해 시각장애인들의 &#39;세상 보기&#39; 지원</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="이집트 시각장애인 기업가, AI 앱 개발로 실시간 이미지 묘사 통해 시각장애인들의 &#39;세상 보기&#39; 지원">
+  <meta name="title-zh" content="이집트 시각장애인 기업가, AI 앱 개발로 실시간 이미지 묘사 통해 시각장애인들의 &#39;세상 보기&#39; 지원">
+  <meta name="title-ja" content="이집트 시각장애인 기업가, AI 앱 개발로 실시간 이미지 묘사 통해 시각장애인들의 &#39;세상 보기&#39; 지원">
+  <meta name="title-en" content="이집트 시각장애인 기업가, AI 앱 개발로 실시간 이미지 묘사 통해 시각장애인들의 &#39;세상 보기&#39; 지원">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="이집트 시각장애인 기업가, AI 앱 개발로 실시간 이미지 묘사 통해 시각장애인들의 &#39;세상 보기&#39; 지원" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="이집트 시각장애인 기업가, AI 앱 개발로 실시간 이미지 묘사 통해 시각장애인들의 &#39;세상 보기&#39; 지원"
+            data-zh="이집트 시각장애인 기업가, AI 앱 개발로 실시간 이미지 묘사 통해 시각장애인들의 &#39;세상 보기&#39; 지원"
+            data-ja="이집트 시각장애인 기업가, AI 앱 개발로 실시간 이미지 묘사 통해 시각장애인들의 &#39;세상 보기&#39; 지원"
+            data-en="이집트 시각장애인 기업가, AI 앱 개발로 실시간 이미지 묘사 통해 시각장애인들의 &#39;세상 보기&#39; 지원">이집트 시각장애인 기업가, AI 앱 개발로 실시간 이미지 묘사 통해 시각장애인들의 &#39;세상 보기&#39; 지원</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-19
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>AI 보조 앱 ScribeMe, 시각 장애인에게 '보는' 경험 선사</h3>
+          
+          <p>5년 전, 이집트 카이로에 사는 16세 학생 카렌 모라드는 시력을 잃었습니다. 올해 6월 케냐로 휴가를 갔을 때, 그녀는 처음으로 주변 세상을 다시 '보는' 듯한 느낌을 받았습니다. 그녀를 도운 것은 20세 오빠 마크 모라드가 개발한 AI 보조 앱 ScribeMe로, 주변 풍경을 실시간으로 묘사해 줍니다.</p>
+          
+          <p>로이터 통신이 오늘(18일) 보도한 바에 따르면, ScribeMe는 Meta 스마트 안경에 설치할 수 있으며, 카렌에게 주변에 어떤 동물이 있는지, 얼마나 떨어져 있는지, 그리고 동물들이 무엇을 하고 있는지 지속적으로 설명해 줍니다. 이 정보를 통해 그녀는 머릿속으로 완전한 장면을 구성하고 야생동물 관찰 현장의 분위기를 느낄 수 있었습니다. 카렌은 "이런 일은 불가능하다고 생각했는데, 정말로 일어났고, 정말로 볼 수 있게 되었어요"라고 솔직하게 말했습니다.</p>
+          
+          <p>ScribeMe는 주로 완전 시각 장애인을 대상으로 하며, 현재 140개 국가 및 지역에서 수천 명의 사용자를 보유하고 있습니다. Meta 스마트 안경뿐만 아니라 iOS 및 Android 시스템도 지원합니다.</p>
+          
+          <p>이 앱은 카렌의 오빠 마크가 개발했는데, 마크 본인도 시각 장애인입니다. 2018년, 그는 자신의 시력에 이상이 있음을 발견하기 시작했습니다. 의사는 희귀하고 치료 불가능한 시신경 질환으로 인해 결국 시력을 잃게 될 것이라고 말했지만, 정확한 시기는 아무도 예측할 수 없었습니다.</p>
+          
+          <p>2021년 말까지 남매는 모두 시력을 완전히 잃었습니다. 카렌은 시력 악화부터 완전 실명까지 6개월밖에 걸리지 않았고, 마크는 거의 3년이 걸렸습니다.</p>
+          
+          <p>어머니 마리안 모리스는 처음에는 현실을 받아들이기 어려웠고, 가족이 앞으로 어떻게 해야 할지 아무도 알려주지 않았습니다. 그 기간 동안 그녀는 매일 볼일이 있다는 핑계를 대고 나가서 혼자 울고 돌아오곤 했습니다.</p>
+          
+          <p>학습은 남매가 직면한 가장 큰 문제 중 하나였습니다. 마크는 학교에서 이화학을 공부할 때 특히 어려움을 겪었는데, 화면 판독 소프트웨어가 차트, 다이어그램 또는 방정식에 부딪히면 유효한 정보를 계속 제공할 수 없었기 때문입니다.</p>
+          
+          <p>마크는 해외에서 유사한 보조 도구를 개발하는 팀에 도움을 요청하는 편지를 보냈지만, 답장을 받지 못했습니다. 그래서 그는 YouTube 튜토리얼을 통해 프로그래밍을 독학하기 시작했고, 2023년에는 실제로 사용할 수 있는 ScribeMe를 만들었습니다.</p>
+          
+          <p>이후 여러 기술 경연 대회의 인정이 ScribeMe의 지속적인 발전에 도움이 되었습니다. 특히 2024년 Vodafone의 "AI 보조 도구 해커톤"은 큰 진전을 가져왔습니다. 이 대회는 장애인을 위한 보조 도구를 개발하는 것을 목표로 했으며, 마크가 공동 창업자를 찾는 데 도움을 주었을 뿐만 아니라 ScribeMe가 초기 문서 스캔 도구에서 더 완전한 시각 보조 앱으로 확장되도록 이끌었습니다.</p>
+          
+          <p>ScribeMe는 현재 휴대폰 카메라를 통해 사용자의 질문에 실시간으로 답변할 수 있으며, 20개 언어를 지원합니다. 이후 이 앱은 Meta 스마트 안경에 연결되어 시각 장애인 사용자가 휴대폰을 계속 들고 있을 필요 없이 지팡이를 사용할 수 있도록 두 손을 자유롭게 해줍니다.</p>
+          
+          <p>앱은 무료로 다운로드할 수 있으며, 추가 기능 구독 가격은 월 20달러(현재 환율 약 135.1위안) 또는 연간 200달러(현재 환율 약 1,351위안)입니다.</p>
+          
+          <p>카렌은 평소 ScribeMe를 사용하여 교실을 찾고, 상점을 식별하고, 옷을 고르고, 심지어 학습을 보조하기도 합니다. 아버지 모라드 세드키는 "4년 전 누군가 내 아들과 딸이 오늘날 이 단계에 도달할 것이라고 말했다면, 저는 농담으로만 여겼을 것입니다. 꿈은 계속 성장하며, 우리 가족은 더 이상 불가능한 것은 없다고 말합니다"라고 전했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>ScribeMe는 시각 장애인 남매가 개발한 AI 보조 앱으로, Meta 스마트 안경과 연동하여 주변 환경을 실시간으로 묘사해 시각 장애인에게 '보는' 경험을 제공합니다. 이 앱은 휴대폰 카메라를 통해 질문에 답변하고 20개 언어를 지원하며, 사용자가 두 손을 자유롭게 사용할 수 있도록 돕습니다. ScribeMe는 시각 장애인의 일상생활과 학습에 큰 도움을 주며, 불가능하다고 여겨지던 꿈을 현실로 만들고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>AI 보조 앱 ScribeMe, 시각 장애인에게 '보는' 경험 선사</h3>
+          
+          <p>5년 전, 이집트 카이로에 사는 16세 학생 카렌 모라드는 시력을 잃었습니다. 올해 6월 케냐로 휴가를 갔을 때, 그녀는 처음으로 주변 세상을 다시 '보는' 듯한 느낌을 받았습니다. 그녀를 도운 것은 20세 오빠 마크 모라드가 개발한 AI 보조 앱 ScribeMe로, 주변 풍경을 실시간으로 묘사해 줍니다.</p>
+          
+          <p>로이터 통신이 오늘(18일) 보도한 바에 따르면, ScribeMe는 Meta 스마트 안경에 설치할 수 있으며, 카렌에게 주변에 어떤 동물이 있는지, 얼마나 떨어져 있는지, 그리고 동물들이 무엇을 하고 있는지 지속적으로 설명해 줍니다. 이 정보를 통해 그녀는 머릿속으로 완전한 장면을 구성하고 야생동물 관찰 현장의 분위기를 느낄 수 있었습니다. 카렌은 "이런 일은 불가능하다고 생각했는데, 정말로 일어났고, 정말로 볼 수 있게 되었어요"라고 솔직하게 말했습니다.</p>
+          
+          <p>ScribeMe는 주로 완전 시각 장애인을 대상으로 하며, 현재 140개 국가 및 지역에서 수천 명의 사용자를 보유하고 있습니다. Meta 스마트 안경뿐만 아니라 iOS 및 Android 시스템도 지원합니다.</p>
+          
+          <p>이 앱은 카렌의 오빠 마크가 개발했는데, 마크 본인도 시각 장애인입니다. 2018년, 그는 자신의 시력에 이상이 있음을 발견하기 시작했습니다. 의사는 희귀하고 치료 불가능한 시신경 질환으로 인해 결국 시력을 잃게 될 것이라고 말했지만, 정확한 시기는 아무도 예측할 수 없었습니다.</p>
+          
+          <p>2021년 말까지 남매는 모두 시력을 완전히 잃었습니다. 카렌은 시력 악화부터 완전 실명까지 6개월밖에 걸리지 않았고, 마크는 거의 3년이 걸렸습니다.</p>
+          
+          <p>어머니 마리안 모리스는 처음에는 현실을 받아들이기 어려웠고, 가족이 앞으로 어떻게 해야 할지 아무도 알려주지 않았습니다. 그 기간 동안 그녀는 매일 볼일이 있다는 핑계를 대고 나가서 혼자 울고 돌아오곤 했습니다.</p>
+          
+          <p>학습은 남매가 직면한 가장 큰 문제 중 하나였습니다. 마크는 학교에서 이화학을 공부할 때 특히 어려움을 겪었는데, 화면 판독 소프트웨어가 차트, 다이어그램 또는 방정식에 부딪히면 유효한 정보를 계속 제공할 수 없었기 때문입니다.</p>
+          
+          <p>마크는 해외에서 유사한 보조 도구를 개발하는 팀에 도움을 요청하는 편지를 보냈지만, 답장을 받지 못했습니다. 그래서 그는 YouTube 튜토리얼을 통해 프로그래밍을 독학하기 시작했고, 2023년에는 실제로 사용할 수 있는 ScribeMe를 만들었습니다.</p>
+          
+          <p>이후 여러 기술 경연 대회의 인정이 ScribeMe의 지속적인 발전에 도움이 되었습니다. 특히 2024년 Vodafone의 "AI 보조 도구 해커톤"은 큰 진전을 가져왔습니다. 이 대회는 장애인을 위한 보조 도구를 개발하는 것을 목표로 했으며, 마크가 공동 창업자를 찾는 데 도움을 주었을 뿐만 아니라 ScribeMe가 초기 문서 스캔 도구에서 더 완전한 시각 보조 앱으로 확장되도록 이끌었습니다.</p>
+          
+          <p>ScribeMe는 현재 휴대폰 카메라를 통해 사용자의 질문에 실시간으로 답변할 수 있으며, 20개 언어를 지원합니다. 이후 이 앱은 Meta 스마트 안경에 연결되어 시각 장애인 사용자가 휴대폰을 계속 들고 있을 필요 없이 지팡이를 사용할 수 있도록 두 손을 자유롭게 해줍니다.</p>
+          
+          <p>앱은 무료로 다운로드할 수 있으며, 추가 기능 구독 가격은 월 20달러(현재 환율 약 135.1위안) 또는 연간 200달러(현재 환율 약 1,351위안)입니다.</p>
+          
+          <p>카렌은 평소 ScribeMe를 사용하여 교실을 찾고, 상점을 식별하고, 옷을 고르고, 심지어 학습을 보조하기도 합니다. 아버지 모라드 세드키는 "4년 전 누군가 내 아들과 딸이 오늘날 이 단계에 도달할 것이라고 말했다면, 저는 농담으로만 여겼을 것입니다. 꿈은 계속 성장하며, 우리 가족은 더 이상 불가능한 것은 없다고 말합니다"라고 전했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>ScribeMe는 시각 장애인 남매가 개발한 AI 보조 앱으로, Meta 스마트 안경과 연동하여 주변 환경을 실시간으로 묘사해 시각 장애인에게 '보는' 경험을 제공합니다. 이 앱은 휴대폰 카메라를 통해 질문에 답변하고 20개 언어를 지원하며, 사용자가 두 손을 자유롭게 사용할 수 있도록 돕습니다. ScribeMe는 시각 장애인의 일상생활과 학습에 큰 도움을 주며, 불가능하다고 여겨지던 꿈을 현실로 만들고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>AI 보조 앱 ScribeMe, 시각 장애인에게 '보는' 경험 선사</h3>
+          
+          <p>5년 전, 이집트 카이로에 사는 16세 학생 카렌 모라드는 시력을 잃었습니다. 올해 6월 케냐로 휴가를 갔을 때, 그녀는 처음으로 주변 세상을 다시 '보는' 듯한 느낌을 받았습니다. 그녀를 도운 것은 20세 오빠 마크 모라드가 개발한 AI 보조 앱 ScribeMe로, 주변 풍경을 실시간으로 묘사해 줍니다.</p>
+          
+          <p>로이터 통신이 오늘(18일) 보도한 바에 따르면, ScribeMe는 Meta 스마트 안경에 설치할 수 있으며, 카렌에게 주변에 어떤 동물이 있는지, 얼마나 떨어져 있는지, 그리고 동물들이 무엇을 하고 있는지 지속적으로 설명해 줍니다. 이 정보를 통해 그녀는 머릿속으로 완전한 장면을 구성하고 야생동물 관찰 현장의 분위기를 느낄 수 있었습니다. 카렌은 "이런 일은 불가능하다고 생각했는데, 정말로 일어났고, 정말로 볼 수 있게 되었어요"라고 솔직하게 말했습니다.</p>
+          
+          <p>ScribeMe는 주로 완전 시각 장애인을 대상으로 하며, 현재 140개 국가 및 지역에서 수천 명의 사용자를 보유하고 있습니다. Meta 스마트 안경뿐만 아니라 iOS 및 Android 시스템도 지원합니다.</p>
+          
+          <p>이 앱은 카렌의 오빠 마크가 개발했는데, 마크 본인도 시각 장애인입니다. 2018년, 그는 자신의 시력에 이상이 있음을 발견하기 시작했습니다. 의사는 희귀하고 치료 불가능한 시신경 질환으로 인해 결국 시력을 잃게 될 것이라고 말했지만, 정확한 시기는 아무도 예측할 수 없었습니다.</p>
+          
+          <p>2021년 말까지 남매는 모두 시력을 완전히 잃었습니다. 카렌은 시력 악화부터 완전 실명까지 6개월밖에 걸리지 않았고, 마크는 거의 3년이 걸렸습니다.</p>
+          
+          <p>어머니 마리안 모리스는 처음에는 현실을 받아들이기 어려웠고, 가족이 앞으로 어떻게 해야 할지 아무도 알려주지 않았습니다. 그 기간 동안 그녀는 매일 볼일이 있다는 핑계를 대고 나가서 혼자 울고 돌아오곤 했습니다.</p>
+          
+          <p>학습은 남매가 직면한 가장 큰 문제 중 하나였습니다. 마크는 학교에서 이화학을 공부할 때 특히 어려움을 겪었는데, 화면 판독 소프트웨어가 차트, 다이어그램 또는 방정식에 부딪히면 유효한 정보를 계속 제공할 수 없었기 때문입니다.</p>
+          
+          <p>마크는 해외에서 유사한 보조 도구를 개발하는 팀에 도움을 요청하는 편지를 보냈지만, 답장을 받지 못했습니다. 그래서 그는 YouTube 튜토리얼을 통해 프로그래밍을 독학하기 시작했고, 2023년에는 실제로 사용할 수 있는 ScribeMe를 만들었습니다.</p>
+          
+          <p>이후 여러 기술 경연 대회의 인정이 ScribeMe의 지속적인 발전에 도움이 되었습니다. 특히 2024년 Vodafone의 "AI 보조 도구 해커톤"은 큰 진전을 가져왔습니다. 이 대회는 장애인을 위한 보조 도구를 개발하는 것을 목표로 했으며, 마크가 공동 창업자를 찾는 데 도움을 주었을 뿐만 아니라 ScribeMe가 초기 문서 스캔 도구에서 더 완전한 시각 보조 앱으로 확장되도록 이끌었습니다.</p>
+          
+          <p>ScribeMe는 현재 휴대폰 카메라를 통해 사용자의 질문에 실시간으로 답변할 수 있으며, 20개 언어를 지원합니다. 이후 이 앱은 Meta 스마트 안경에 연결되어 시각 장애인 사용자가 휴대폰을 계속 들고 있을 필요 없이 지팡이를 사용할 수 있도록 두 손을 자유롭게 해줍니다.</p>
+          
+          <p>앱은 무료로 다운로드할 수 있으며, 추가 기능 구독 가격은 월 20달러(현재 환율 약 135.1위안) 또는 연간 200달러(현재 환율 약 1,351위안)입니다.</p>
+          
+          <p>카렌은 평소 ScribeMe를 사용하여 교실을 찾고, 상점을 식별하고, 옷을 고르고, 심지어 학습을 보조하기도 합니다. 아버지 모라드 세드키는 "4년 전 누군가 내 아들과 딸이 오늘날 이 단계에 도달할 것이라고 말했다면, 저는 농담으로만 여겼을 것입니다. 꿈은 계속 성장하며, 우리 가족은 더 이상 불가능한 것은 없다고 말합니다"라고 전했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>ScribeMe는 시각 장애인 남매가 개발한 AI 보조 앱으로, Meta 스마트 안경과 연동하여 주변 환경을 실시간으로 묘사해 시각 장애인에게 '보는' 경험을 제공합니다. 이 앱은 휴대폰 카메라를 통해 질문에 답변하고 20개 언어를 지원하며, 사용자가 두 손을 자유롭게 사용할 수 있도록 돕습니다. ScribeMe는 시각 장애인의 일상생활과 학습에 큰 도움을 주며, 불가능하다고 여겨지던 꿈을 현실로 만들고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>AI 보조 앱 ScribeMe, 시각 장애인에게 '보는' 경험 선사</h3>
+          
+          <p>5년 전, 이집트 카이로에 사는 16세 학생 카렌 모라드는 시력을 잃었습니다. 올해 6월 케냐로 휴가를 갔을 때, 그녀는 처음으로 주변 세상을 다시 '보는' 듯한 느낌을 받았습니다. 그녀를 도운 것은 20세 오빠 마크 모라드가 개발한 AI 보조 앱 ScribeMe로, 주변 풍경을 실시간으로 묘사해 줍니다.</p>
+          
+          <p>로이터 통신이 오늘(18일) 보도한 바에 따르면, ScribeMe는 Meta 스마트 안경에 설치할 수 있으며, 카렌에게 주변에 어떤 동물이 있는지, 얼마나 떨어져 있는지, 그리고 동물들이 무엇을 하고 있는지 지속적으로 설명해 줍니다. 이 정보를 통해 그녀는 머릿속으로 완전한 장면을 구성하고 야생동물 관찰 현장의 분위기를 느낄 수 있었습니다. 카렌은 "이런 일은 불가능하다고 생각했는데, 정말로 일어났고, 정말로 볼 수 있게 되었어요"라고 솔직하게 말했습니다.</p>
+          
+          <p>ScribeMe는 주로 완전 시각 장애인을 대상으로 하며, 현재 140개 국가 및 지역에서 수천 명의 사용자를 보유하고 있습니다. Meta 스마트 안경뿐만 아니라 iOS 및 Android 시스템도 지원합니다.</p>
+          
+          <p>이 앱은 카렌의 오빠 마크가 개발했는데, 마크 본인도 시각 장애인입니다. 2018년, 그는 자신의 시력에 이상이 있음을 발견하기 시작했습니다. 의사는 희귀하고 치료 불가능한 시신경 질환으로 인해 결국 시력을 잃게 될 것이라고 말했지만, 정확한 시기는 아무도 예측할 수 없었습니다.</p>
+          
+          <p>2021년 말까지 남매는 모두 시력을 완전히 잃었습니다. 카렌은 시력 악화부터 완전 실명까지 6개월밖에 걸리지 않았고, 마크는 거의 3년이 걸렸습니다.</p>
+          
+          <p>어머니 마리안 모리스는 처음에는 현실을 받아들이기 어려웠고, 가족이 앞으로 어떻게 해야 할지 아무도 알려주지 않았습니다. 그 기간 동안 그녀는 매일 볼일이 있다는 핑계를 대고 나가서 혼자 울고 돌아오곤 했습니다.</p>
+          
+          <p>학습은 남매가 직면한 가장 큰 문제 중 하나였습니다. 마크는 학교에서 이화학을 공부할 때 특히 어려움을 겪었는데, 화면 판독 소프트웨어가 차트, 다이어그램 또는 방정식에 부딪히면 유효한 정보를 계속 제공할 수 없었기 때문입니다.</p>
+          
+          <p>마크는 해외에서 유사한 보조 도구를 개발하는 팀에 도움을 요청하는 편지를 보냈지만, 답장을 받지 못했습니다. 그래서 그는 YouTube 튜토리얼을 통해 프로그래밍을 독학하기 시작했고, 2023년에는 실제로 사용할 수 있는 ScribeMe를 만들었습니다.</p>
+          
+          <p>이후 여러 기술 경연 대회의 인정이 ScribeMe의 지속적인 발전에 도움이 되었습니다. 특히 2024년 Vodafone의 "AI 보조 도구 해커톤"은 큰 진전을 가져왔습니다. 이 대회는 장애인을 위한 보조 도구를 개발하는 것을 목표로 했으며, 마크가 공동 창업자를 찾는 데 도움을 주었을 뿐만 아니라 ScribeMe가 초기 문서 스캔 도구에서 더 완전한 시각 보조 앱으로 확장되도록 이끌었습니다.</p>
+          
+          <p>ScribeMe는 현재 휴대폰 카메라를 통해 사용자의 질문에 실시간으로 답변할 수 있으며, 20개 언어를 지원합니다. 이후 이 앱은 Meta 스마트 안경에 연결되어 시각 장애인 사용자가 휴대폰을 계속 들고 있을 필요 없이 지팡이를 사용할 수 있도록 두 손을 자유롭게 해줍니다.</p>
+          
+          <p>앱은 무료로 다운로드할 수 있으며, 추가 기능 구독 가격은 월 20달러(현재 환율 약 135.1위안) 또는 연간 200달러(현재 환율 약 1,351위안)입니다.</p>
+          
+          <p>카렌은 평소 ScribeMe를 사용하여 교실을 찾고, 상점을 식별하고, 옷을 고르고, 심지어 학습을 보조하기도 합니다. 아버지 모라드 세드키는 "4년 전 누군가 내 아들과 딸이 오늘날 이 단계에 도달할 것이라고 말했다면, 저는 농담으로만 여겼을 것입니다. 꿈은 계속 성장하며, 우리 가족은 더 이상 불가능한 것은 없다고 말합니다"라고 전했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>ScribeMe는 시각 장애인 남매가 개발한 AI 보조 앱으로, Meta 스마트 안경과 연동하여 주변 환경을 실시간으로 묘사해 시각 장애인에게 '보는' 경험을 제공합니다. 이 앱은 휴대폰 카메라를 통해 질문에 답변하고 20개 언어를 지원하며, 사용자가 두 손을 자유롭게 사용할 수 있도록 돕습니다. ScribeMe는 시각 장애인의 일상생활과 학습에 큰 도움을 주며, 불가능하다고 여겨지던 꿈을 현실로 만들고 있습니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/991/357.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
