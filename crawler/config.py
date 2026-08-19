@@ -109,6 +109,7 @@ KEYWORDS_EXCLUDE = [
     "游戏新作", "新作游戏", "游玩形式", "免费游玩", "游戏玩法", "玩家阵营",
     "PlayStation", "PS6", "PS5", "PS4", "PS Plus", "PlayStation Plus", "Xbox", "任天堂", "Nintendo", "Steam平台",
     "PSVR", "PS VR", "掌机",  # VR 게임기 / 휴대용 콘솔
+    "索尼互动娱乐", "SIE",  # Sony Interactive Entertainment(SIE) — PlayStation 게임사업부 공식명, 단독으로도 게임 맥락 확정
     # 게이밍 주변기기 (홍마·레드매직 등 폰 브랜드 우회 차단)
     "电竞鼠标", "游戏鼠标",
     # 게임 장르 / 플랫폼 출시 표현
@@ -172,6 +173,18 @@ KEYWORDS_EXCLUDE_COMPOUND: list[dict] = [
         "comment": "索尼/Sony + 游戏 → 제외 (카메라 브랜드이지만 게임 맥락 기사 차단)",
         "require_any": ["索尼", "sony"],
         "also_any": ["游戏"],
+    },
+    {
+        # "索尼 Guerrilla 被曝重启《地平线：猎人集结》项目，因玩家反馈不佳被迫转型"처럼
+        # "游戏"라는 단어 없이 "玩家"(플레이어)/게임 스튜디오명/장르명만으로 게임
+        # 기사인 경우가 있어 추가. Guerrilla/Naughty Dog 등은 소니 산하 게임
+        # 스튜디오라 브랜드 키워드 우회 차단 목적도 겸함.
+        "comment": "索尼/Sony + 玩家/게임 스튜디오·프랜차이즈 → 제외 (PlayStation 게임 뉴스 차단)",
+        "require_any": ["索尼", "sony"],
+        "also_any": [
+            "玩家", "Guerrilla", "顽皮狗", "Naughty Dog", "地平线：",
+            "重启项目",
+        ],
     },
     {
         "comment": "索尼/Sony + 独占 → 제외 (PlayStation 독점 전략 기사)",
