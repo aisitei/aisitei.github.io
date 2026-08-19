@@ -37,6 +37,7 @@ recover_from_source.py — 손상된 multilang 기사를 원문 재스크레이�
   # 이후 en/ja/zh 백필은 로컬(무료)로:
   python3 backfill_multilang.py
 """
+import os
 import sys
 import re
 import time
@@ -49,6 +50,17 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
 sys.path.insert(0, str(SCRIPT_DIR))
+
+import env_local
+env_local.load_env_local()  # config를 import하기 전에 .env.local을 먼저 주입해야 함
+
+# ko 재번역을 클라우드(Gemini)로 — GEMINI_API_KEY가 있으면 config import 전에
+# LLM_* 환경변수를 세팅해준다 (config.py는 os.getenv를 import 시점에 평가함).
+if os.getenv("GEMINI_API_KEY") and not os.getenv("LLM_API_KEY"):
+    os.environ["LLM_API_KEY"] = os.environ["GEMINI_API_KEY"]
+    os.environ["LLM_BASE_URL"] = "https://generativelanguage.googleapis.com/v1beta/openai/"
+    os.environ["LLM_MODEL"] = "gemini-2.5-flash"
+    os.environ["LLM_EXTRA_BODY"] = '{"reasoning_effort": "none"}'
 
 import config
 from translator import translate_title, translate_article
