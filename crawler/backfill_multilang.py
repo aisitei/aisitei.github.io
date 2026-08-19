@@ -199,8 +199,20 @@ def main():
 
 def _commit_and_push(repo_root: Path, paths: list, no_push: bool):
     import subprocess
+    from deployer import run_build
+
+    # index.html의 카드 data-ko/zh/ja/en은 build.py가 각 기사 파일에서 직접
+    # 추출해 굽는 값이라, 여기서 en/ja/zh 본문을 patch만 하고 build.py를 다시
+    # 안 돌리면 인덱스 페이지는 계속 ko 전용(백필 전) 상태로 스테일하게 남는다
+    # (Phase A의 deployer.commit_and_push는 build.py를 이미 돌리지만, 이
+    # Phase B 전용 push 경로는 그걸 안 타서 발견된 회귀).
+    run_build(repo_root)
+
     try:
-        subprocess.run(["git", "-C", str(repo_root), "add"] + paths, check=True, capture_output=True)
+        subprocess.run(
+            ["git", "-C", str(repo_root), "add"] + paths + ["index.html", "reports.html"],
+            check=True, capture_output=True,
+        )
         subprocess.run(
             ["git", "-C", str(repo_root), "commit", "-m", f"feat: EN/JA/ZH 백필 {len(paths)}건"],
             check=True, capture_output=True,
