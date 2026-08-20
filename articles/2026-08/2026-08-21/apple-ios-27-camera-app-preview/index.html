@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Apple iOS 27 카메라 앱 미리 보기: 새로운 Siri 모드로 음식 칼로리 등 추정 가능</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple iOS 27 카메라 앱 미리 보기: 새로운 Siri 모드로 음식 칼로리 등 추정 가능">
+  <meta name="title-zh" content="Apple iOS 27 카메라 앱 미리 보기: 새로운 Siri 모드로 음식 칼로리 등 추정 가능">
+  <meta name="title-ja" content="Apple iOS 27 카메라 앱 미리 보기: 새로운 Siri 모드로 음식 칼로리 등 추정 가능">
+  <meta name="title-en" content="Apple iOS 27 카메라 앱 미리 보기: 새로운 Siri 모드로 음식 칼로리 등 추정 가능">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Apple iOS 27 카메라 앱 미리 보기: 새로운 Siri 모드로 음식 칼로리 등 추정 가능" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Apple iOS 27 카메라 앱 미리 보기: 새로운 Siri 모드로 음식 칼로리 등 추정 가능"
+            data-zh="Apple iOS 27 카메라 앱 미리 보기: 새로운 Siri 모드로 음식 칼로리 등 추정 가능"
+            data-ja="Apple iOS 27 카메라 앱 미리 보기: 새로운 Siri 모드로 음식 칼로리 등 추정 가능"
+            data-en="Apple iOS 27 카메라 앱 미리 보기: 새로운 Siri 모드로 음식 칼로리 등 추정 가능">Apple iOS 27 카메라 앱 미리 보기: 새로운 Siri 모드로 음식 칼로리 등 추정 가능</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-21
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>iOS 27 카메라 앱 업데이트 개요</h3>
+<p>IT매체 AppleInsider는 8월 19일 iOS 27 버전 카메라(Camera) 앱의 변경 사항을 정리한 블로그 게시물을 발표했습니다. 주요 업데이트 내용은 Siri 모드 추가, RAW 9 지원, AI 참조 이미지 모드 통합 등입니다.</p>
+          
+          <h3>인터페이스 및 사용자 경험</h3>
+<p>AppleInsider에 따르면, iOS 27 베타 6 테스트 버전의 카메라 앱 인터페이스는 전반적으로 큰 변화 없이 iOS 26의 레이아웃, 색상, 주요 기능을 유지했습니다. 셔터 버튼은 여전히 하단 중앙에 위치하며, 왼쪽 하단에는 갤러리 버튼, 오른쪽에는 전후면 카메라 전환 버튼이 있습니다. 상단에는 해상도, 노출 등 현재 설정이 계속 표시됩니다.</p>
+          
+          <p>인터페이스 측면에서 Apple은 제어 항목의 위치를 조정했습니다. 이전에는 사용자가 인터페이스 상단의 작은 아이콘을 클릭해야 관련 설정을 불러올 수 있었습니다. iOS 27에서는 셔터 버튼 오른쪽에 그리드 아이콘이 새로 추가되었으며, 이를 클릭하면 화면 하단에 제어판이 나타나 사용자가 현재 촬영 모드에서 지원하는 옵션을 직접 조정할 수 있습니다.</p>
+          
+          <p>다른 모드에서는 다른 제어 항목이 표시됩니다. 예를 들어, 사진 모드와 비디오 모드에 해당하는 패널 내용은 서로 다릅니다. Apple은 이러한 옵션들을 더 눈에 잘 띄는 위치로 옮기면서, 동시에 설정 앱의 카메라 메뉴를 간소화했습니다.</p>
+          
+          <h3>Siri 모드</h3>
+<p>iOS 27 버전 카메라 앱의 주요 추가 기능은 Siri 모드입니다. 사용자는 오른쪽으로 스와이프하여 이 모드로 진입할 수 있습니다. 이 모드는 새로운 기능이라기보다는, 기존에 사용자가 카메라 제어 버튼을 길게 눌러 시각 지능(Visual Intelligence)을 시작하여 AI를 통해 텍스트 번역, 의류 검색 등 시각적 작업을 수행하던 기능을 통합한 것입니다.</p>
+          
+          <p>AppleInsider의 테스트 결과, Siri 모드는 식물과 음식을 인식하고, 라즈베리 한 상자의 칼로리를 추정하며, 결혼식 청첩장을 스캔하여 정보를 캘린더에 추가할 수 있습니다. 카메라 제어 버튼은 여전히 시각 지능을 시작할 수 있지만, iOS 27에서는 이 버튼을 길게 누르면 Siri 모드의 카메라 앱이 직접 열립니다.</p>
+          
+          <h3>RAW 9 지원</h3>
+<p>Apple은 iPhone 및 기타 카메라로 촬영한 RAW 이미지를 처리하기 위한 RAW 9도 출시했습니다. Apple은 이를 RAW 지원에 있어 역대 가장 큰 업데이트라고 밝혔습니다.</p>
+          
+          <p>RAW 9는 새로운 Core ML 모델을 사용하여 디모자이킹과 노이즈 감소를 통합 처리하며, Apple Neural Engine 코어를 통해 기기 내에서 로컬로 계산을 완료합니다.</p>
+          
+          <p>Apple은 개발자 행사에서 여러 비교 이미지를 통해 RAW 9가 RAW 8에 비해 색상 분리 및 노이즈 억제 측면에서 개선되었음을 강조했습니다. 원문에서는 RAW 8의 성능도 이미 훌륭했지만, RAW 9는 디테일 선명도와 색상 식별력 면에서 훨씬 더 강력하다고 언급했습니다.</p>
+          
+          <h3>AI 참조 이미지 모드</h3>
+<p>iOS 27의 다섯 번째 개발자 베타 버전 코드에 따르면, Apple은 새로운 참조 이미지 모드를 개발 중일 가능성이 있습니다. 이 기능은 생성형 AI의 확산으로 사진의 진위 여부 인증 요구가 증가함에 따라 이미지 출처를 검증하는 것을 목표로 합니다.</p>
+          
+          <p>코드는 iOS 27이 카메라 하드웨어의 고유 정보를 활용하여 사진이 실제 카메라에서 촬영되었는지 판단하고, Apple의 Private Cloud Compute 아키텍처를 통해 검증을 처리할 수 있음을 시사합니다.</p>
+          
+          <h3>총평</h3>
+<p>iOS 27 카메라 앱은 사용자 인터페이스를 개선하고 새로운 Siri 모드를 도입하여 AI 기반 시각 지능 기능을 강화했습니다. 특히 RAW 9 지원을 통해 이미지 처리 품질을 크게 향상시켰으며, AI 생성 이미지의 확산에 대응하기 위한 참조 이미지 모드 개발 가능성도 엿보입니다. 이러한 변화들은 사용자 편의성과 사진 품질, 그리고 이미지 신뢰성 확보에 중점을 둔 것으로 보입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>iOS 27 카메라 앱 업데이트 개요</h3>
+<p>IT매체 AppleInsider는 8월 19일 iOS 27 버전 카메라(Camera) 앱의 변경 사항을 정리한 블로그 게시물을 발표했습니다. 주요 업데이트 내용은 Siri 모드 추가, RAW 9 지원, AI 참조 이미지 모드 통합 등입니다.</p>
+          
+          <h3>인터페이스 및 사용자 경험</h3>
+<p>AppleInsider에 따르면, iOS 27 베타 6 테스트 버전의 카메라 앱 인터페이스는 전반적으로 큰 변화 없이 iOS 26의 레이아웃, 색상, 주요 기능을 유지했습니다. 셔터 버튼은 여전히 하단 중앙에 위치하며, 왼쪽 하단에는 갤러리 버튼, 오른쪽에는 전후면 카메라 전환 버튼이 있습니다. 상단에는 해상도, 노출 등 현재 설정이 계속 표시됩니다.</p>
+          
+          <p>인터페이스 측면에서 Apple은 제어 항목의 위치를 조정했습니다. 이전에는 사용자가 인터페이스 상단의 작은 아이콘을 클릭해야 관련 설정을 불러올 수 있었습니다. iOS 27에서는 셔터 버튼 오른쪽에 그리드 아이콘이 새로 추가되었으며, 이를 클릭하면 화면 하단에 제어판이 나타나 사용자가 현재 촬영 모드에서 지원하는 옵션을 직접 조정할 수 있습니다.</p>
+          
+          <p>다른 모드에서는 다른 제어 항목이 표시됩니다. 예를 들어, 사진 모드와 비디오 모드에 해당하는 패널 내용은 서로 다릅니다. Apple은 이러한 옵션들을 더 눈에 잘 띄는 위치로 옮기면서, 동시에 설정 앱의 카메라 메뉴를 간소화했습니다.</p>
+          
+          <h3>Siri 모드</h3>
+<p>iOS 27 버전 카메라 앱의 주요 추가 기능은 Siri 모드입니다. 사용자는 오른쪽으로 스와이프하여 이 모드로 진입할 수 있습니다. 이 모드는 새로운 기능이라기보다는, 기존에 사용자가 카메라 제어 버튼을 길게 눌러 시각 지능(Visual Intelligence)을 시작하여 AI를 통해 텍스트 번역, 의류 검색 등 시각적 작업을 수행하던 기능을 통합한 것입니다.</p>
+          
+          <p>AppleInsider의 테스트 결과, Siri 모드는 식물과 음식을 인식하고, 라즈베리 한 상자의 칼로리를 추정하며, 결혼식 청첩장을 스캔하여 정보를 캘린더에 추가할 수 있습니다. 카메라 제어 버튼은 여전히 시각 지능을 시작할 수 있지만, iOS 27에서는 이 버튼을 길게 누르면 Siri 모드의 카메라 앱이 직접 열립니다.</p>
+          
+          <h3>RAW 9 지원</h3>
+<p>Apple은 iPhone 및 기타 카메라로 촬영한 RAW 이미지를 처리하기 위한 RAW 9도 출시했습니다. Apple은 이를 RAW 지원에 있어 역대 가장 큰 업데이트라고 밝혔습니다.</p>
+          
+          <p>RAW 9는 새로운 Core ML 모델을 사용하여 디모자이킹과 노이즈 감소를 통합 처리하며, Apple Neural Engine 코어를 통해 기기 내에서 로컬로 계산을 완료합니다.</p>
+          
+          <p>Apple은 개발자 행사에서 여러 비교 이미지를 통해 RAW 9가 RAW 8에 비해 색상 분리 및 노이즈 억제 측면에서 개선되었음을 강조했습니다. 원문에서는 RAW 8의 성능도 이미 훌륭했지만, RAW 9는 디테일 선명도와 색상 식별력 면에서 훨씬 더 강력하다고 언급했습니다.</p>
+          
+          <h3>AI 참조 이미지 모드</h3>
+<p>iOS 27의 다섯 번째 개발자 베타 버전 코드에 따르면, Apple은 새로운 참조 이미지 모드를 개발 중일 가능성이 있습니다. 이 기능은 생성형 AI의 확산으로 사진의 진위 여부 인증 요구가 증가함에 따라 이미지 출처를 검증하는 것을 목표로 합니다.</p>
+          
+          <p>코드는 iOS 27이 카메라 하드웨어의 고유 정보를 활용하여 사진이 실제 카메라에서 촬영되었는지 판단하고, Apple의 Private Cloud Compute 아키텍처를 통해 검증을 처리할 수 있음을 시사합니다.</p>
+          
+          <h3>총평</h3>
+<p>iOS 27 카메라 앱은 사용자 인터페이스를 개선하고 새로운 Siri 모드를 도입하여 AI 기반 시각 지능 기능을 강화했습니다. 특히 RAW 9 지원을 통해 이미지 처리 품질을 크게 향상시켰으며, AI 생성 이미지의 확산에 대응하기 위한 참조 이미지 모드 개발 가능성도 엿보입니다. 이러한 변화들은 사용자 편의성과 사진 품질, 그리고 이미지 신뢰성 확보에 중점을 둔 것으로 보입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>iOS 27 카메라 앱 업데이트 개요</h3>
+<p>IT매체 AppleInsider는 8월 19일 iOS 27 버전 카메라(Camera) 앱의 변경 사항을 정리한 블로그 게시물을 발표했습니다. 주요 업데이트 내용은 Siri 모드 추가, RAW 9 지원, AI 참조 이미지 모드 통합 등입니다.</p>
+          
+          <h3>인터페이스 및 사용자 경험</h3>
+<p>AppleInsider에 따르면, iOS 27 베타 6 테스트 버전의 카메라 앱 인터페이스는 전반적으로 큰 변화 없이 iOS 26의 레이아웃, 색상, 주요 기능을 유지했습니다. 셔터 버튼은 여전히 하단 중앙에 위치하며, 왼쪽 하단에는 갤러리 버튼, 오른쪽에는 전후면 카메라 전환 버튼이 있습니다. 상단에는 해상도, 노출 등 현재 설정이 계속 표시됩니다.</p>
+          
+          <p>인터페이스 측면에서 Apple은 제어 항목의 위치를 조정했습니다. 이전에는 사용자가 인터페이스 상단의 작은 아이콘을 클릭해야 관련 설정을 불러올 수 있었습니다. iOS 27에서는 셔터 버튼 오른쪽에 그리드 아이콘이 새로 추가되었으며, 이를 클릭하면 화면 하단에 제어판이 나타나 사용자가 현재 촬영 모드에서 지원하는 옵션을 직접 조정할 수 있습니다.</p>
+          
+          <p>다른 모드에서는 다른 제어 항목이 표시됩니다. 예를 들어, 사진 모드와 비디오 모드에 해당하는 패널 내용은 서로 다릅니다. Apple은 이러한 옵션들을 더 눈에 잘 띄는 위치로 옮기면서, 동시에 설정 앱의 카메라 메뉴를 간소화했습니다.</p>
+          
+          <h3>Siri 모드</h3>
+<p>iOS 27 버전 카메라 앱의 주요 추가 기능은 Siri 모드입니다. 사용자는 오른쪽으로 스와이프하여 이 모드로 진입할 수 있습니다. 이 모드는 새로운 기능이라기보다는, 기존에 사용자가 카메라 제어 버튼을 길게 눌러 시각 지능(Visual Intelligence)을 시작하여 AI를 통해 텍스트 번역, 의류 검색 등 시각적 작업을 수행하던 기능을 통합한 것입니다.</p>
+          
+          <p>AppleInsider의 테스트 결과, Siri 모드는 식물과 음식을 인식하고, 라즈베리 한 상자의 칼로리를 추정하며, 결혼식 청첩장을 스캔하여 정보를 캘린더에 추가할 수 있습니다. 카메라 제어 버튼은 여전히 시각 지능을 시작할 수 있지만, iOS 27에서는 이 버튼을 길게 누르면 Siri 모드의 카메라 앱이 직접 열립니다.</p>
+          
+          <h3>RAW 9 지원</h3>
+<p>Apple은 iPhone 및 기타 카메라로 촬영한 RAW 이미지를 처리하기 위한 RAW 9도 출시했습니다. Apple은 이를 RAW 지원에 있어 역대 가장 큰 업데이트라고 밝혔습니다.</p>
+          
+          <p>RAW 9는 새로운 Core ML 모델을 사용하여 디모자이킹과 노이즈 감소를 통합 처리하며, Apple Neural Engine 코어를 통해 기기 내에서 로컬로 계산을 완료합니다.</p>
+          
+          <p>Apple은 개발자 행사에서 여러 비교 이미지를 통해 RAW 9가 RAW 8에 비해 색상 분리 및 노이즈 억제 측면에서 개선되었음을 강조했습니다. 원문에서는 RAW 8의 성능도 이미 훌륭했지만, RAW 9는 디테일 선명도와 색상 식별력 면에서 훨씬 더 강력하다고 언급했습니다.</p>
+          
+          <h3>AI 참조 이미지 모드</h3>
+<p>iOS 27의 다섯 번째 개발자 베타 버전 코드에 따르면, Apple은 새로운 참조 이미지 모드를 개발 중일 가능성이 있습니다. 이 기능은 생성형 AI의 확산으로 사진의 진위 여부 인증 요구가 증가함에 따라 이미지 출처를 검증하는 것을 목표로 합니다.</p>
+          
+          <p>코드는 iOS 27이 카메라 하드웨어의 고유 정보를 활용하여 사진이 실제 카메라에서 촬영되었는지 판단하고, Apple의 Private Cloud Compute 아키텍처를 통해 검증을 처리할 수 있음을 시사합니다.</p>
+          
+          <h3>총평</h3>
+<p>iOS 27 카메라 앱은 사용자 인터페이스를 개선하고 새로운 Siri 모드를 도입하여 AI 기반 시각 지능 기능을 강화했습니다. 특히 RAW 9 지원을 통해 이미지 처리 품질을 크게 향상시켰으며, AI 생성 이미지의 확산에 대응하기 위한 참조 이미지 모드 개발 가능성도 엿보입니다. 이러한 변화들은 사용자 편의성과 사진 품질, 그리고 이미지 신뢰성 확보에 중점을 둔 것으로 보입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>iOS 27 카메라 앱 업데이트 개요</h3>
+<p>IT매체 AppleInsider는 8월 19일 iOS 27 버전 카메라(Camera) 앱의 변경 사항을 정리한 블로그 게시물을 발표했습니다. 주요 업데이트 내용은 Siri 모드 추가, RAW 9 지원, AI 참조 이미지 모드 통합 등입니다.</p>
+          
+          <h3>인터페이스 및 사용자 경험</h3>
+<p>AppleInsider에 따르면, iOS 27 베타 6 테스트 버전의 카메라 앱 인터페이스는 전반적으로 큰 변화 없이 iOS 26의 레이아웃, 색상, 주요 기능을 유지했습니다. 셔터 버튼은 여전히 하단 중앙에 위치하며, 왼쪽 하단에는 갤러리 버튼, 오른쪽에는 전후면 카메라 전환 버튼이 있습니다. 상단에는 해상도, 노출 등 현재 설정이 계속 표시됩니다.</p>
+          
+          <p>인터페이스 측면에서 Apple은 제어 항목의 위치를 조정했습니다. 이전에는 사용자가 인터페이스 상단의 작은 아이콘을 클릭해야 관련 설정을 불러올 수 있었습니다. iOS 27에서는 셔터 버튼 오른쪽에 그리드 아이콘이 새로 추가되었으며, 이를 클릭하면 화면 하단에 제어판이 나타나 사용자가 현재 촬영 모드에서 지원하는 옵션을 직접 조정할 수 있습니다.</p>
+          
+          <p>다른 모드에서는 다른 제어 항목이 표시됩니다. 예를 들어, 사진 모드와 비디오 모드에 해당하는 패널 내용은 서로 다릅니다. Apple은 이러한 옵션들을 더 눈에 잘 띄는 위치로 옮기면서, 동시에 설정 앱의 카메라 메뉴를 간소화했습니다.</p>
+          
+          <h3>Siri 모드</h3>
+<p>iOS 27 버전 카메라 앱의 주요 추가 기능은 Siri 모드입니다. 사용자는 오른쪽으로 스와이프하여 이 모드로 진입할 수 있습니다. 이 모드는 새로운 기능이라기보다는, 기존에 사용자가 카메라 제어 버튼을 길게 눌러 시각 지능(Visual Intelligence)을 시작하여 AI를 통해 텍스트 번역, 의류 검색 등 시각적 작업을 수행하던 기능을 통합한 것입니다.</p>
+          
+          <p>AppleInsider의 테스트 결과, Siri 모드는 식물과 음식을 인식하고, 라즈베리 한 상자의 칼로리를 추정하며, 결혼식 청첩장을 스캔하여 정보를 캘린더에 추가할 수 있습니다. 카메라 제어 버튼은 여전히 시각 지능을 시작할 수 있지만, iOS 27에서는 이 버튼을 길게 누르면 Siri 모드의 카메라 앱이 직접 열립니다.</p>
+          
+          <h3>RAW 9 지원</h3>
+<p>Apple은 iPhone 및 기타 카메라로 촬영한 RAW 이미지를 처리하기 위한 RAW 9도 출시했습니다. Apple은 이를 RAW 지원에 있어 역대 가장 큰 업데이트라고 밝혔습니다.</p>
+          
+          <p>RAW 9는 새로운 Core ML 모델을 사용하여 디모자이킹과 노이즈 감소를 통합 처리하며, Apple Neural Engine 코어를 통해 기기 내에서 로컬로 계산을 완료합니다.</p>
+          
+          <p>Apple은 개발자 행사에서 여러 비교 이미지를 통해 RAW 9가 RAW 8에 비해 색상 분리 및 노이즈 억제 측면에서 개선되었음을 강조했습니다. 원문에서는 RAW 8의 성능도 이미 훌륭했지만, RAW 9는 디테일 선명도와 색상 식별력 면에서 훨씬 더 강력하다고 언급했습니다.</p>
+          
+          <h3>AI 참조 이미지 모드</h3>
+<p>iOS 27의 다섯 번째 개발자 베타 버전 코드에 따르면, Apple은 새로운 참조 이미지 모드를 개발 중일 가능성이 있습니다. 이 기능은 생성형 AI의 확산으로 사진의 진위 여부 인증 요구가 증가함에 따라 이미지 출처를 검증하는 것을 목표로 합니다.</p>
+          
+          <p>코드는 iOS 27이 카메라 하드웨어의 고유 정보를 활용하여 사진이 실제 카메라에서 촬영되었는지 판단하고, Apple의 Private Cloud Compute 아키텍처를 통해 검증을 처리할 수 있음을 시사합니다.</p>
+          
+          <h3>총평</h3>
+<p>iOS 27 카메라 앱은 사용자 인터페이스를 개선하고 새로운 Siri 모드를 도입하여 AI 기반 시각 지능 기능을 강화했습니다. 특히 RAW 9 지원을 통해 이미지 처리 품질을 크게 향상시켰으며, AI 생성 이미지의 확산에 대응하기 위한 참조 이미지 모드 개발 가능성도 엿보입니다. 이러한 변화들은 사용자 편의성과 사진 품질, 그리고 이미지 신뢰성 확보에 중점을 둔 것으로 보입니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.jpg" alt="이미지 6" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img07.jpg" alt="이미지 7" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img08.jpg" alt="이미지 8" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img09.jpg" alt="이미지 9" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img10.jpg" alt="이미지 10" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/991/943.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
