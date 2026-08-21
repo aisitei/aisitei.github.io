@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - DeepSeek V4-Flash-Vision-Exp 출시: 멀티모달 API 서비스 시작, 에이전트 기능 Opus-4.8에 근접</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="DeepSeek V4-Flash-Vision-Exp 출시: 멀티모달 API 서비스 시작, 에이전트 기능 Opus-4.8에 근접">
+  <meta name="title-zh" content="DeepSeek V4-Flash-Vision-Exp 출시: 멀티모달 API 서비스 시작, 에이전트 기능 Opus-4.8에 근접">
+  <meta name="title-ja" content="DeepSeek V4-Flash-Vision-Exp 출시: 멀티모달 API 서비스 시작, 에이전트 기능 Opus-4.8에 근접">
+  <meta name="title-en" content="DeepSeek V4-Flash-Vision-Exp 출시: 멀티모달 API 서비스 시작, 에이전트 기능 Opus-4.8에 근접">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.png" alt="DeepSeek V4-Flash-Vision-Exp 출시: 멀티모달 API 서비스 시작, 에이전트 기능 Opus-4.8에 근접" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="DeepSeek V4-Flash-Vision-Exp 출시: 멀티모달 API 서비스 시작, 에이전트 기능 Opus-4.8에 근접"
+            data-zh="DeepSeek V4-Flash-Vision-Exp 출시: 멀티모달 API 서비스 시작, 에이전트 기능 Opus-4.8에 근접"
+            data-ja="DeepSeek V4-Flash-Vision-Exp 출시: 멀티모달 API 서비스 시작, 에이전트 기능 Opus-4.8에 근접"
+            data-en="DeepSeek V4-Flash-Vision-Exp 출시: 멀티모달 API 서비스 시작, 에이전트 기능 Opus-4.8에 근접">DeepSeek V4-Flash-Vision-Exp 출시: 멀티모달 API 서비스 시작, 에이전트 기능 Opus-4.8에 근접</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-22
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>DeepSeek-V4-Flash-Vision-Exp 모델 출시</h3>
+          
+          <p>DeepSeek은 새로운 멀티모달 시각 이해 모델인 DeepSeek-V4-Flash-Vision-Exp를 DeepSeek API 플랫폼에 출시했다고 발표했습니다.</p>
+          
+          <p>이 모델은 텍스트 외에 이미지 입력을 지원하며, 모델이 이미지를 설명하고, 스크린샷의 텍스트를 인식하고, 차트를 분석하는 등의 작업을 수행할 수 있도록 합니다. 지원되는 이미지 형식에는 JPEG, PNG, GIF, WebP가 포함됩니다.</p>
+          
+          <p>DeepSeek은 V4-Flash-Vision-Exp가 다양한 Agent 프레임워크 내에서 우수한 멀티모달 적응 능력을 보여주었으며, 다양한 Agent 도구를 활용하여 더 많은 실용적인 작업 시나리오를 구현하는 데 효과적으로 기여할 수 있다고 밝혔습니다.</p>
+          
+          <p>이 모델은 실험적인 모델이며, 사용자는 model='deepseek-v4-flash-vision-exp'를 설정하여 이 모델에 접근할 수 있습니다.</p>
+          
+          <h3>성능</h3>
+          
+          <p>DeepSeek-V4-Flash-Vision-Exp는 순수 텍스트 능력(Agent, 추론, 세계 지식 등) 면에서 DeepSeek-V4-Flash 정식 버전과 동등합니다. 시각 이해가 필요한 Agent 벤치마크에서는 DeepSeek-V4-Flash 대비 크게 향상되었으며, 멀티모달 Agent 능력은 Opus-4.8에 근접합니다.</p>
+          
+          <h3>API 접근 및 요금</h3>
+          
+          <p>사용자는 model='deepseek-v4-flash-vision-exp'를 설정하여 V4-Flash-Vision-Exp 모델의 API에 접근할 수 있습니다. API 서비스에서 이미지는 토큰으로 변환된 후 토큰 단위로 요금이 부과됩니다. 이미지 한 장은 최대 384 토큰을 차지하며, 요금은 V4-Flash 모델과 동일합니다.</p>
+          
+          <p>멀티모달 API는 Chat Completions, Messages, Responses 세 가지 형식의 호출을 지원하여 다양한 Agent 도구에 쉽게 통합될 수 있습니다. 이미지와 텍스트 혼합 입력을 지원하며, base64 인라인, 외부 URL, Files API 세 가지 이미지 전송 방식을 지원합니다.</p>
+          
+          <p>Files API는 현재 개방되어 있으며, 이 API는 무료입니다. 사용자는 먼저 이미지를 플랫폼에 업로드한 후 요청에서 file_id를 통해 참조하여 요청 대역폭을 절약할 수 있습니다(동일한 이미지를 여러 요청에서 반복적으로 업로드할 필요 없음).</p>
+          
+          <h3>총평</h3>
+          
+          <p>DeepSeek의 새로운 DeepSeek-V4-Flash-Vision-Exp 모델은 텍스트와 이미지 입력을 모두 처리하는 멀티모달 시각 이해 기능을 제공합니다. 이 실험적인 모델은 기존 DeepSeek-V4-Flash의 텍스트 처리 능력과 동등하며, 시각 이해 기반 Agent 작업에서 크게 향상된 성능을 보여줍니다. API를 통해 접근 가능하며, 다양한 이미지 형식과 전송 방식을 지원하여 여러 Agent 프레임워크에 쉽게 통합될 수 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>DeepSeek-V4-Flash-Vision-Exp 모델 출시</h3>
+          
+          <p>DeepSeek은 새로운 멀티모달 시각 이해 모델인 DeepSeek-V4-Flash-Vision-Exp를 DeepSeek API 플랫폼에 출시했다고 발표했습니다.</p>
+          
+          <p>이 모델은 텍스트 외에 이미지 입력을 지원하며, 모델이 이미지를 설명하고, 스크린샷의 텍스트를 인식하고, 차트를 분석하는 등의 작업을 수행할 수 있도록 합니다. 지원되는 이미지 형식에는 JPEG, PNG, GIF, WebP가 포함됩니다.</p>
+          
+          <p>DeepSeek은 V4-Flash-Vision-Exp가 다양한 Agent 프레임워크 내에서 우수한 멀티모달 적응 능력을 보여주었으며, 다양한 Agent 도구를 활용하여 더 많은 실용적인 작업 시나리오를 구현하는 데 효과적으로 기여할 수 있다고 밝혔습니다.</p>
+          
+          <p>이 모델은 실험적인 모델이며, 사용자는 model='deepseek-v4-flash-vision-exp'를 설정하여 이 모델에 접근할 수 있습니다.</p>
+          
+          <h3>성능</h3>
+          
+          <p>DeepSeek-V4-Flash-Vision-Exp는 순수 텍스트 능력(Agent, 추론, 세계 지식 등) 면에서 DeepSeek-V4-Flash 정식 버전과 동등합니다. 시각 이해가 필요한 Agent 벤치마크에서는 DeepSeek-V4-Flash 대비 크게 향상되었으며, 멀티모달 Agent 능력은 Opus-4.8에 근접합니다.</p>
+          
+          <h3>API 접근 및 요금</h3>
+          
+          <p>사용자는 model='deepseek-v4-flash-vision-exp'를 설정하여 V4-Flash-Vision-Exp 모델의 API에 접근할 수 있습니다. API 서비스에서 이미지는 토큰으로 변환된 후 토큰 단위로 요금이 부과됩니다. 이미지 한 장은 최대 384 토큰을 차지하며, 요금은 V4-Flash 모델과 동일합니다.</p>
+          
+          <p>멀티모달 API는 Chat Completions, Messages, Responses 세 가지 형식의 호출을 지원하여 다양한 Agent 도구에 쉽게 통합될 수 있습니다. 이미지와 텍스트 혼합 입력을 지원하며, base64 인라인, 외부 URL, Files API 세 가지 이미지 전송 방식을 지원합니다.</p>
+          
+          <p>Files API는 현재 개방되어 있으며, 이 API는 무료입니다. 사용자는 먼저 이미지를 플랫폼에 업로드한 후 요청에서 file_id를 통해 참조하여 요청 대역폭을 절약할 수 있습니다(동일한 이미지를 여러 요청에서 반복적으로 업로드할 필요 없음).</p>
+          
+          <h3>총평</h3>
+          
+          <p>DeepSeek의 새로운 DeepSeek-V4-Flash-Vision-Exp 모델은 텍스트와 이미지 입력을 모두 처리하는 멀티모달 시각 이해 기능을 제공합니다. 이 실험적인 모델은 기존 DeepSeek-V4-Flash의 텍스트 처리 능력과 동등하며, 시각 이해 기반 Agent 작업에서 크게 향상된 성능을 보여줍니다. API를 통해 접근 가능하며, 다양한 이미지 형식과 전송 방식을 지원하여 여러 Agent 프레임워크에 쉽게 통합될 수 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>DeepSeek-V4-Flash-Vision-Exp 모델 출시</h3>
+          
+          <p>DeepSeek은 새로운 멀티모달 시각 이해 모델인 DeepSeek-V4-Flash-Vision-Exp를 DeepSeek API 플랫폼에 출시했다고 발표했습니다.</p>
+          
+          <p>이 모델은 텍스트 외에 이미지 입력을 지원하며, 모델이 이미지를 설명하고, 스크린샷의 텍스트를 인식하고, 차트를 분석하는 등의 작업을 수행할 수 있도록 합니다. 지원되는 이미지 형식에는 JPEG, PNG, GIF, WebP가 포함됩니다.</p>
+          
+          <p>DeepSeek은 V4-Flash-Vision-Exp가 다양한 Agent 프레임워크 내에서 우수한 멀티모달 적응 능력을 보여주었으며, 다양한 Agent 도구를 활용하여 더 많은 실용적인 작업 시나리오를 구현하는 데 효과적으로 기여할 수 있다고 밝혔습니다.</p>
+          
+          <p>이 모델은 실험적인 모델이며, 사용자는 model='deepseek-v4-flash-vision-exp'를 설정하여 이 모델에 접근할 수 있습니다.</p>
+          
+          <h3>성능</h3>
+          
+          <p>DeepSeek-V4-Flash-Vision-Exp는 순수 텍스트 능력(Agent, 추론, 세계 지식 등) 면에서 DeepSeek-V4-Flash 정식 버전과 동등합니다. 시각 이해가 필요한 Agent 벤치마크에서는 DeepSeek-V4-Flash 대비 크게 향상되었으며, 멀티모달 Agent 능력은 Opus-4.8에 근접합니다.</p>
+          
+          <h3>API 접근 및 요금</h3>
+          
+          <p>사용자는 model='deepseek-v4-flash-vision-exp'를 설정하여 V4-Flash-Vision-Exp 모델의 API에 접근할 수 있습니다. API 서비스에서 이미지는 토큰으로 변환된 후 토큰 단위로 요금이 부과됩니다. 이미지 한 장은 최대 384 토큰을 차지하며, 요금은 V4-Flash 모델과 동일합니다.</p>
+          
+          <p>멀티모달 API는 Chat Completions, Messages, Responses 세 가지 형식의 호출을 지원하여 다양한 Agent 도구에 쉽게 통합될 수 있습니다. 이미지와 텍스트 혼합 입력을 지원하며, base64 인라인, 외부 URL, Files API 세 가지 이미지 전송 방식을 지원합니다.</p>
+          
+          <p>Files API는 현재 개방되어 있으며, 이 API는 무료입니다. 사용자는 먼저 이미지를 플랫폼에 업로드한 후 요청에서 file_id를 통해 참조하여 요청 대역폭을 절약할 수 있습니다(동일한 이미지를 여러 요청에서 반복적으로 업로드할 필요 없음).</p>
+          
+          <h3>총평</h3>
+          
+          <p>DeepSeek의 새로운 DeepSeek-V4-Flash-Vision-Exp 모델은 텍스트와 이미지 입력을 모두 처리하는 멀티모달 시각 이해 기능을 제공합니다. 이 실험적인 모델은 기존 DeepSeek-V4-Flash의 텍스트 처리 능력과 동등하며, 시각 이해 기반 Agent 작업에서 크게 향상된 성능을 보여줍니다. API를 통해 접근 가능하며, 다양한 이미지 형식과 전송 방식을 지원하여 여러 Agent 프레임워크에 쉽게 통합될 수 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>DeepSeek-V4-Flash-Vision-Exp 모델 출시</h3>
+          
+          <p>DeepSeek은 새로운 멀티모달 시각 이해 모델인 DeepSeek-V4-Flash-Vision-Exp를 DeepSeek API 플랫폼에 출시했다고 발표했습니다.</p>
+          
+          <p>이 모델은 텍스트 외에 이미지 입력을 지원하며, 모델이 이미지를 설명하고, 스크린샷의 텍스트를 인식하고, 차트를 분석하는 등의 작업을 수행할 수 있도록 합니다. 지원되는 이미지 형식에는 JPEG, PNG, GIF, WebP가 포함됩니다.</p>
+          
+          <p>DeepSeek은 V4-Flash-Vision-Exp가 다양한 Agent 프레임워크 내에서 우수한 멀티모달 적응 능력을 보여주었으며, 다양한 Agent 도구를 활용하여 더 많은 실용적인 작업 시나리오를 구현하는 데 효과적으로 기여할 수 있다고 밝혔습니다.</p>
+          
+          <p>이 모델은 실험적인 모델이며, 사용자는 model='deepseek-v4-flash-vision-exp'를 설정하여 이 모델에 접근할 수 있습니다.</p>
+          
+          <h3>성능</h3>
+          
+          <p>DeepSeek-V4-Flash-Vision-Exp는 순수 텍스트 능력(Agent, 추론, 세계 지식 등) 면에서 DeepSeek-V4-Flash 정식 버전과 동등합니다. 시각 이해가 필요한 Agent 벤치마크에서는 DeepSeek-V4-Flash 대비 크게 향상되었으며, 멀티모달 Agent 능력은 Opus-4.8에 근접합니다.</p>
+          
+          <h3>API 접근 및 요금</h3>
+          
+          <p>사용자는 model='deepseek-v4-flash-vision-exp'를 설정하여 V4-Flash-Vision-Exp 모델의 API에 접근할 수 있습니다. API 서비스에서 이미지는 토큰으로 변환된 후 토큰 단위로 요금이 부과됩니다. 이미지 한 장은 최대 384 토큰을 차지하며, 요금은 V4-Flash 모델과 동일합니다.</p>
+          
+          <p>멀티모달 API는 Chat Completions, Messages, Responses 세 가지 형식의 호출을 지원하여 다양한 Agent 도구에 쉽게 통합될 수 있습니다. 이미지와 텍스트 혼합 입력을 지원하며, base64 인라인, 외부 URL, Files API 세 가지 이미지 전송 방식을 지원합니다.</p>
+          
+          <p>Files API는 현재 개방되어 있으며, 이 API는 무료입니다. 사용자는 먼저 이미지를 플랫폼에 업로드한 후 요청에서 file_id를 통해 참조하여 요청 대역폭을 절약할 수 있습니다(동일한 이미지를 여러 요청에서 반복적으로 업로드할 필요 없음).</p>
+          
+          <h3>총평</h3>
+          
+          <p>DeepSeek의 새로운 DeepSeek-V4-Flash-Vision-Exp 모델은 텍스트와 이미지 입력을 모두 처리하는 멀티모달 시각 이해 기능을 제공합니다. 이 실험적인 모델은 기존 DeepSeek-V4-Flash의 텍스트 처리 능력과 동등하며, 시각 이해 기반 Agent 작업에서 크게 향상된 성능을 보여줍니다. API를 통해 접근 가능하며, 다양한 이미지 형식과 전송 방식을 지원하여 여러 Agent 프레임워크에 쉽게 통합될 수 있습니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/992/755.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
