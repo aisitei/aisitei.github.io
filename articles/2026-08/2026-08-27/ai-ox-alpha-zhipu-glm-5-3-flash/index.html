@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Ox Alpha 등장: Zhipu, GLM-5.3-Flash 네이티브 멀티모달 모델 오픈소스 공개, 한정 기간 GLM-5.3의 1/20 가격으로 할인</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="Ox Alpha 등장: Zhipu, GLM-5.3-Flash 네이티브 멀티모달 모델 오픈소스 공개, 한정 기간 GLM-5.3의 1/20 가격으로 할인">
+  <meta name="title-zh" content="Ox Alpha 등장: Zhipu, GLM-5.3-Flash 네이티브 멀티모달 모델 오픈소스 공개, 한정 기간 GLM-5.3의 1/20 가격으로 할인">
+  <meta name="title-ja" content="Ox Alpha 등장: Zhipu, GLM-5.3-Flash 네이티브 멀티모달 모델 오픈소스 공개, 한정 기간 GLM-5.3의 1/20 가격으로 할인">
+  <meta name="title-en" content="Ox Alpha 등장: Zhipu, GLM-5.3-Flash 네이티브 멀티모달 모델 오픈소스 공개, 한정 기간 GLM-5.3의 1/20 가격으로 할인">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Ox Alpha 등장: Zhipu, GLM-5.3-Flash 네이티브 멀티모달 모델 오픈소스 공개, 한정 기간 GLM-5.3의 1/20 가격으로 할인" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Ox Alpha 등장: Zhipu, GLM-5.3-Flash 네이티브 멀티모달 모델 오픈소스 공개, 한정 기간 GLM-5.3의 1/20 가격으로 할인"
+            data-zh="Ox Alpha 등장: Zhipu, GLM-5.3-Flash 네이티브 멀티모달 모델 오픈소스 공개, 한정 기간 GLM-5.3의 1/20 가격으로 할인"
+            data-ja="Ox Alpha 등장: Zhipu, GLM-5.3-Flash 네이티브 멀티모달 모델 오픈소스 공개, 한정 기간 GLM-5.3의 1/20 가격으로 할인"
+            data-en="Ox Alpha 등장: Zhipu, GLM-5.3-Flash 네이티브 멀티모달 모델 오픈소스 공개, 한정 기간 GLM-5.3의 1/20 가격으로 할인">Ox Alpha 등장: Zhipu, GLM-5.3-Flash 네이티브 멀티모달 모델 오픈소스 공개, 한정 기간 GLM-5.3의 1/20 가격으로 할인</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-27
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>GLM-5.3-Flash 출시</h3>
+<p>IT之家 8월 26일 소식에 따르면, Zhipu는 오늘 밤 GLM-5.3-Flash (320B-A18B)를 출시하고 오픈 소스로 공개했습니다. 이는 GLM-5 시리즈의 첫 번째 네이티브 멀티모달 모델입니다. 이 모델의 총 파라미터 수는 320B(3200억)이며, 활성화된 파라미터는 18B(180억)에 불과합니다.</p>
+          
+          <p>Zhipu는 공식 출시 전에 익명 모델 Ox-Alpha(중국 커뮤니티에서는 牛来라고 불림)를 OpenCode 및 OpenRouter에서 대규모 테스트했습니다. Ox-Alpha는 빠르게 그 주 가장 인기 있는 모델이 되었으며, 두 플랫폼에서 호출량 신기록을 세웠습니다. 이 모든 요청 트래픽은 중국산 칩의 컴퓨팅 파워 지원을 받았습니다.</p>
+          
+          <p>GLM-5.3-Flash는 GLM-5.2의 성능을 뛰어넘어, 세계 권위 있는 Artificial Analysis Intelligence Index(AA 종합 지능 지수)에서 57점을 획득하며 글로벌 최첨단 모델 능력 범위에 진입했습니다. 이는 Anthropic의 가장 인기 있는 모델인 Claude Opus 4.8과 동일한 점수입니다. 자체 개발한 Z.ai Code Bench 체감 평가에서도 프로그래밍 성능이 Claude Opus 4.8과 동등한 수준입니다.</p>
+          
+          <p>동시에 GLM-5.3-Flash의 가격은 GLM-5.3의 1/10이며, 한시적 할인 기간에는 GLM-5.3의 1/20, Opus 4.8의 1/40입니다.</p>
+          
+          <p>공식 발표에 따르면, GLM-5.3-Flash는 모든 벤치마크 테스트 및 실제 사용에서 파라미터 수가 두 배 높은 GLM-5.2를 전면적으로 능가하며, 가격은 GLM-5.2의 1/10에 불과합니다.</p>
+          
+          <h3>아키텍처 및 성능</h3>
+<p>이는 새로운 모델 아키텍처 덕분입니다. GLM-5.3-Flash의 아키텍처는 극도로 낮은 비용을 위해 특별히 설계되었으며, 총 파라미터 수는 GLM-4.5와 비슷하지만(355B vs. 320B), 활성화 파라미터 수(32B → 18B)와 레이어 수(92 → 45)는 거의 절반으로 줄었습니다. 최신 30T Token 멀티모달 사전 학습 코퍼스와 결합하여 GLM-5.3-Flash는 더 적은 컴퓨팅 자원으로 더 강력한 성능을 달성할 수 있습니다.</p>
+          
+          <p>GLM-5.3-Flash는 동시에 여러 아키텍처 업그레이드를 진행했습니다. 이는 희소 어텐션과 선형 어텐션 혼합 아키텍처를 채택한 최초의 오픈 소스 최첨단 모델로, 정확한 긴 컨텍스트 능력을 유지하면서 긴 컨텍스트 서비스 비용을 크게 절감합니다. 또한 Manifold-Constrained Hyper-Connections(mHC)를 채택하여 모델 스케일링 능력을 향상시켰습니다.</p>
+          
+          <h3>활용 분야</h3>
+<p>공식 발표에 따르면, GLM-5.3-Flash의 시각 능력은 코딩 루프에 네이티브로 통합되어 모델이 인터페이스, 렌더링 결과 및 상호 작용 피드백을 능동적으로 관찰하고 이를 바탕으로 지속적으로 테스트하고 개선할 수 있도록 합니다. 프런트엔드 개발, 게임 구축, Blender 3D 장면, 또는 BUA, CUA 기반의 실제 환경 작업 등 어떤 경우에도 모델은 코드, 브라우저 및 그래픽 인터페이스 간의 협업을 통해 작업을 완료할 수 있습니다.</p>
+          
+          <p>GLM-5.3-Flash는 Office, 금융 연구 및 전문 문서와 같은 작업 시나리오로 더욱 확장되었습니다. 복잡한 목표를 자율적으로 분해하고, 적절한 도구를 호출하며, 출력을 확인하고 최적화하여 연구 분석, 모델 구축부터 PPTX, PDF, DOCX, XLSX 최종 결과물 납품까지 완전한 워크플로우를 완료할 수 있습니다.</p>
+          
+          <h3>오픈 소스 및 API</h3>
+<p>GLM-5.3-Flash는 공식적으로 전 세계에 오픈 소스로 공개되었으며, ZCode와 같은 코딩 플랫폼에 통합되었고, GLM Coding Plan(매일 10,000장의 체험 카드 한정 배포)에 포함되었으며, API 호출도 동시에 개방되었습니다.</p>
+          
+          <p>또한, GLM Coding Plan의 모든 사용자 할당량이 재설정되어 모든 사용자 백엔드의 "사용량 통계"에서 사용 할당량이 다시 채워진 것을 확인할 수 있습니다.</p>
+          
+          <p>IT之家 관련 링크:</p>
+<ul>
+<li>BigModel 오픈 플랫폼: <a href="https://docs.bigmodel.cn/cn/guide/models/vlm/glm-5.3-flash">https://docs.bigmodel.cn/cn/guide/models/vlm/glm-5.3-flash</a></li>
+<li>Z.ai : <a href="https://docs.z.ai/guides/vlm/glm-5.3-flash">https://docs.z.ai/guides/vlm/glm-5.3-flash</a></li>
+<li>GLM Coding Plan: <a href="https://bigmodel.cn/glm-coding">https://bigmodel.cn/glm-coding</a></li>
+<li>HuggingFace: <a href="https://huggingface.co/zai-org/GLM-5.3-Flash">https://huggingface.co/zai-org/GLM-5.3-Flash</a></li>
+</ul>
+          
+          <p>광고 성명: 본문에는 외부 링크(하이퍼링크, QR 코드, 암호 등 포함)가 포함되어 있으며, 이는 더 많은 정보를 전달하고 선별 시간을 절약하기 위한 것입니다. 결과는 참고용이며, IT之家의 외부 링크가 포함된 모든 기사에는 본 성명이 포함됩니다.</p>
+          
+          <h3>총평</h3>
+<p>Zhipu는 GLM-5 시리즈의 첫 네이티브 멀티모달 모델인 GLM-5.3-Flash를 출시했습니다. 이 모델은 총 320B 파라미터와 18B 활성화 파라미터를 가지며, GLM-5.2를 능가하는 성능으로 Claude Opus 4.8과 동등한 수준을 달성했습니다. 새로운 아키텍처와 희소/선형 어텐션 혼합 구조를 통해 비용 효율성을 극대화했으며, 코딩, Office, 금융 등 다양한 작업 시나리오에서 활용될 수 있습니다. GLM-5.3-Flash는 현재 전 세계에 오픈 소스로 공개되었으며 API 호출도 지원합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>GLM-5.3-Flash 출시</h3>
+<p>IT之家 8월 26일 소식에 따르면, Zhipu는 오늘 밤 GLM-5.3-Flash (320B-A18B)를 출시하고 오픈 소스로 공개했습니다. 이는 GLM-5 시리즈의 첫 번째 네이티브 멀티모달 모델입니다. 이 모델의 총 파라미터 수는 320B(3200억)이며, 활성화된 파라미터는 18B(180억)에 불과합니다.</p>
+          
+          <p>Zhipu는 공식 출시 전에 익명 모델 Ox-Alpha(중국 커뮤니티에서는 牛来라고 불림)를 OpenCode 및 OpenRouter에서 대규모 테스트했습니다. Ox-Alpha는 빠르게 그 주 가장 인기 있는 모델이 되었으며, 두 플랫폼에서 호출량 신기록을 세웠습니다. 이 모든 요청 트래픽은 중국산 칩의 컴퓨팅 파워 지원을 받았습니다.</p>
+          
+          <p>GLM-5.3-Flash는 GLM-5.2의 성능을 뛰어넘어, 세계 권위 있는 Artificial Analysis Intelligence Index(AA 종합 지능 지수)에서 57점을 획득하며 글로벌 최첨단 모델 능력 범위에 진입했습니다. 이는 Anthropic의 가장 인기 있는 모델인 Claude Opus 4.8과 동일한 점수입니다. 자체 개발한 Z.ai Code Bench 체감 평가에서도 프로그래밍 성능이 Claude Opus 4.8과 동등한 수준입니다.</p>
+          
+          <p>동시에 GLM-5.3-Flash의 가격은 GLM-5.3의 1/10이며, 한시적 할인 기간에는 GLM-5.3의 1/20, Opus 4.8의 1/40입니다.</p>
+          
+          <p>공식 발표에 따르면, GLM-5.3-Flash는 모든 벤치마크 테스트 및 실제 사용에서 파라미터 수가 두 배 높은 GLM-5.2를 전면적으로 능가하며, 가격은 GLM-5.2의 1/10에 불과합니다.</p>
+          
+          <h3>아키텍처 및 성능</h3>
+<p>이는 새로운 모델 아키텍처 덕분입니다. GLM-5.3-Flash의 아키텍처는 극도로 낮은 비용을 위해 특별히 설계되었으며, 총 파라미터 수는 GLM-4.5와 비슷하지만(355B vs. 320B), 활성화 파라미터 수(32B → 18B)와 레이어 수(92 → 45)는 거의 절반으로 줄었습니다. 최신 30T Token 멀티모달 사전 학습 코퍼스와 결합하여 GLM-5.3-Flash는 더 적은 컴퓨팅 자원으로 더 강력한 성능을 달성할 수 있습니다.</p>
+          
+          <p>GLM-5.3-Flash는 동시에 여러 아키텍처 업그레이드를 진행했습니다. 이는 희소 어텐션과 선형 어텐션 혼합 아키텍처를 채택한 최초의 오픈 소스 최첨단 모델로, 정확한 긴 컨텍스트 능력을 유지하면서 긴 컨텍스트 서비스 비용을 크게 절감합니다. 또한 Manifold-Constrained Hyper-Connections(mHC)를 채택하여 모델 스케일링 능력을 향상시켰습니다.</p>
+          
+          <h3>활용 분야</h3>
+<p>공식 발표에 따르면, GLM-5.3-Flash의 시각 능력은 코딩 루프에 네이티브로 통합되어 모델이 인터페이스, 렌더링 결과 및 상호 작용 피드백을 능동적으로 관찰하고 이를 바탕으로 지속적으로 테스트하고 개선할 수 있도록 합니다. 프런트엔드 개발, 게임 구축, Blender 3D 장면, 또는 BUA, CUA 기반의 실제 환경 작업 등 어떤 경우에도 모델은 코드, 브라우저 및 그래픽 인터페이스 간의 협업을 통해 작업을 완료할 수 있습니다.</p>
+          
+          <p>GLM-5.3-Flash는 Office, 금융 연구 및 전문 문서와 같은 작업 시나리오로 더욱 확장되었습니다. 복잡한 목표를 자율적으로 분해하고, 적절한 도구를 호출하며, 출력을 확인하고 최적화하여 연구 분석, 모델 구축부터 PPTX, PDF, DOCX, XLSX 최종 결과물 납품까지 완전한 워크플로우를 완료할 수 있습니다.</p>
+          
+          <h3>오픈 소스 및 API</h3>
+<p>GLM-5.3-Flash는 공식적으로 전 세계에 오픈 소스로 공개되었으며, ZCode와 같은 코딩 플랫폼에 통합되었고, GLM Coding Plan(매일 10,000장의 체험 카드 한정 배포)에 포함되었으며, API 호출도 동시에 개방되었습니다.</p>
+          
+          <p>또한, GLM Coding Plan의 모든 사용자 할당량이 재설정되어 모든 사용자 백엔드의 "사용량 통계"에서 사용 할당량이 다시 채워진 것을 확인할 수 있습니다.</p>
+          
+          <p>IT之家 관련 링크:</p>
+<ul>
+<li>BigModel 오픈 플랫폼: <a href="https://docs.bigmodel.cn/cn/guide/models/vlm/glm-5.3-flash">https://docs.bigmodel.cn/cn/guide/models/vlm/glm-5.3-flash</a></li>
+<li>Z.ai : <a href="https://docs.z.ai/guides/vlm/glm-5.3-flash">https://docs.z.ai/guides/vlm/glm-5.3-flash</a></li>
+<li>GLM Coding Plan: <a href="https://bigmodel.cn/glm-coding">https://bigmodel.cn/glm-coding</a></li>
+<li>HuggingFace: <a href="https://huggingface.co/zai-org/GLM-5.3-Flash">https://huggingface.co/zai-org/GLM-5.3-Flash</a></li>
+</ul>
+          
+          <p>광고 성명: 본문에는 외부 링크(하이퍼링크, QR 코드, 암호 등 포함)가 포함되어 있으며, 이는 더 많은 정보를 전달하고 선별 시간을 절약하기 위한 것입니다. 결과는 참고용이며, IT之家의 외부 링크가 포함된 모든 기사에는 본 성명이 포함됩니다.</p>
+          
+          <h3>총평</h3>
+<p>Zhipu는 GLM-5 시리즈의 첫 네이티브 멀티모달 모델인 GLM-5.3-Flash를 출시했습니다. 이 모델은 총 320B 파라미터와 18B 활성화 파라미터를 가지며, GLM-5.2를 능가하는 성능으로 Claude Opus 4.8과 동등한 수준을 달성했습니다. 새로운 아키텍처와 희소/선형 어텐션 혼합 구조를 통해 비용 효율성을 극대화했으며, 코딩, Office, 금융 등 다양한 작업 시나리오에서 활용될 수 있습니다. GLM-5.3-Flash는 현재 전 세계에 오픈 소스로 공개되었으며 API 호출도 지원합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>GLM-5.3-Flash 출시</h3>
+<p>IT之家 8월 26일 소식에 따르면, Zhipu는 오늘 밤 GLM-5.3-Flash (320B-A18B)를 출시하고 오픈 소스로 공개했습니다. 이는 GLM-5 시리즈의 첫 번째 네이티브 멀티모달 모델입니다. 이 모델의 총 파라미터 수는 320B(3200억)이며, 활성화된 파라미터는 18B(180억)에 불과합니다.</p>
+          
+          <p>Zhipu는 공식 출시 전에 익명 모델 Ox-Alpha(중국 커뮤니티에서는 牛来라고 불림)를 OpenCode 및 OpenRouter에서 대규모 테스트했습니다. Ox-Alpha는 빠르게 그 주 가장 인기 있는 모델이 되었으며, 두 플랫폼에서 호출량 신기록을 세웠습니다. 이 모든 요청 트래픽은 중국산 칩의 컴퓨팅 파워 지원을 받았습니다.</p>
+          
+          <p>GLM-5.3-Flash는 GLM-5.2의 성능을 뛰어넘어, 세계 권위 있는 Artificial Analysis Intelligence Index(AA 종합 지능 지수)에서 57점을 획득하며 글로벌 최첨단 모델 능력 범위에 진입했습니다. 이는 Anthropic의 가장 인기 있는 모델인 Claude Opus 4.8과 동일한 점수입니다. 자체 개발한 Z.ai Code Bench 체감 평가에서도 프로그래밍 성능이 Claude Opus 4.8과 동등한 수준입니다.</p>
+          
+          <p>동시에 GLM-5.3-Flash의 가격은 GLM-5.3의 1/10이며, 한시적 할인 기간에는 GLM-5.3의 1/20, Opus 4.8의 1/40입니다.</p>
+          
+          <p>공식 발표에 따르면, GLM-5.3-Flash는 모든 벤치마크 테스트 및 실제 사용에서 파라미터 수가 두 배 높은 GLM-5.2를 전면적으로 능가하며, 가격은 GLM-5.2의 1/10에 불과합니다.</p>
+          
+          <h3>아키텍처 및 성능</h3>
+<p>이는 새로운 모델 아키텍처 덕분입니다. GLM-5.3-Flash의 아키텍처는 극도로 낮은 비용을 위해 특별히 설계되었으며, 총 파라미터 수는 GLM-4.5와 비슷하지만(355B vs. 320B), 활성화 파라미터 수(32B → 18B)와 레이어 수(92 → 45)는 거의 절반으로 줄었습니다. 최신 30T Token 멀티모달 사전 학습 코퍼스와 결합하여 GLM-5.3-Flash는 더 적은 컴퓨팅 자원으로 더 강력한 성능을 달성할 수 있습니다.</p>
+          
+          <p>GLM-5.3-Flash는 동시에 여러 아키텍처 업그레이드를 진행했습니다. 이는 희소 어텐션과 선형 어텐션 혼합 아키텍처를 채택한 최초의 오픈 소스 최첨단 모델로, 정확한 긴 컨텍스트 능력을 유지하면서 긴 컨텍스트 서비스 비용을 크게 절감합니다. 또한 Manifold-Constrained Hyper-Connections(mHC)를 채택하여 모델 스케일링 능력을 향상시켰습니다.</p>
+          
+          <h3>활용 분야</h3>
+<p>공식 발표에 따르면, GLM-5.3-Flash의 시각 능력은 코딩 루프에 네이티브로 통합되어 모델이 인터페이스, 렌더링 결과 및 상호 작용 피드백을 능동적으로 관찰하고 이를 바탕으로 지속적으로 테스트하고 개선할 수 있도록 합니다. 프런트엔드 개발, 게임 구축, Blender 3D 장면, 또는 BUA, CUA 기반의 실제 환경 작업 등 어떤 경우에도 모델은 코드, 브라우저 및 그래픽 인터페이스 간의 협업을 통해 작업을 완료할 수 있습니다.</p>
+          
+          <p>GLM-5.3-Flash는 Office, 금융 연구 및 전문 문서와 같은 작업 시나리오로 더욱 확장되었습니다. 복잡한 목표를 자율적으로 분해하고, 적절한 도구를 호출하며, 출력을 확인하고 최적화하여 연구 분석, 모델 구축부터 PPTX, PDF, DOCX, XLSX 최종 결과물 납품까지 완전한 워크플로우를 완료할 수 있습니다.</p>
+          
+          <h3>오픈 소스 및 API</h3>
+<p>GLM-5.3-Flash는 공식적으로 전 세계에 오픈 소스로 공개되었으며, ZCode와 같은 코딩 플랫폼에 통합되었고, GLM Coding Plan(매일 10,000장의 체험 카드 한정 배포)에 포함되었으며, API 호출도 동시에 개방되었습니다.</p>
+          
+          <p>또한, GLM Coding Plan의 모든 사용자 할당량이 재설정되어 모든 사용자 백엔드의 "사용량 통계"에서 사용 할당량이 다시 채워진 것을 확인할 수 있습니다.</p>
+          
+          <p>IT之家 관련 링크:</p>
+<ul>
+<li>BigModel 오픈 플랫폼: <a href="https://docs.bigmodel.cn/cn/guide/models/vlm/glm-5.3-flash">https://docs.bigmodel.cn/cn/guide/models/vlm/glm-5.3-flash</a></li>
+<li>Z.ai : <a href="https://docs.z.ai/guides/vlm/glm-5.3-flash">https://docs.z.ai/guides/vlm/glm-5.3-flash</a></li>
+<li>GLM Coding Plan: <a href="https://bigmodel.cn/glm-coding">https://bigmodel.cn/glm-coding</a></li>
+<li>HuggingFace: <a href="https://huggingface.co/zai-org/GLM-5.3-Flash">https://huggingface.co/zai-org/GLM-5.3-Flash</a></li>
+</ul>
+          
+          <p>광고 성명: 본문에는 외부 링크(하이퍼링크, QR 코드, 암호 등 포함)가 포함되어 있으며, 이는 더 많은 정보를 전달하고 선별 시간을 절약하기 위한 것입니다. 결과는 참고용이며, IT之家의 외부 링크가 포함된 모든 기사에는 본 성명이 포함됩니다.</p>
+          
+          <h3>총평</h3>
+<p>Zhipu는 GLM-5 시리즈의 첫 네이티브 멀티모달 모델인 GLM-5.3-Flash를 출시했습니다. 이 모델은 총 320B 파라미터와 18B 활성화 파라미터를 가지며, GLM-5.2를 능가하는 성능으로 Claude Opus 4.8과 동등한 수준을 달성했습니다. 새로운 아키텍처와 희소/선형 어텐션 혼합 구조를 통해 비용 효율성을 극대화했으며, 코딩, Office, 금융 등 다양한 작업 시나리오에서 활용될 수 있습니다. GLM-5.3-Flash는 현재 전 세계에 오픈 소스로 공개되었으며 API 호출도 지원합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>GLM-5.3-Flash 출시</h3>
+<p>IT之家 8월 26일 소식에 따르면, Zhipu는 오늘 밤 GLM-5.3-Flash (320B-A18B)를 출시하고 오픈 소스로 공개했습니다. 이는 GLM-5 시리즈의 첫 번째 네이티브 멀티모달 모델입니다. 이 모델의 총 파라미터 수는 320B(3200억)이며, 활성화된 파라미터는 18B(180억)에 불과합니다.</p>
+          
+          <p>Zhipu는 공식 출시 전에 익명 모델 Ox-Alpha(중국 커뮤니티에서는 牛来라고 불림)를 OpenCode 및 OpenRouter에서 대규모 테스트했습니다. Ox-Alpha는 빠르게 그 주 가장 인기 있는 모델이 되었으며, 두 플랫폼에서 호출량 신기록을 세웠습니다. 이 모든 요청 트래픽은 중국산 칩의 컴퓨팅 파워 지원을 받았습니다.</p>
+          
+          <p>GLM-5.3-Flash는 GLM-5.2의 성능을 뛰어넘어, 세계 권위 있는 Artificial Analysis Intelligence Index(AA 종합 지능 지수)에서 57점을 획득하며 글로벌 최첨단 모델 능력 범위에 진입했습니다. 이는 Anthropic의 가장 인기 있는 모델인 Claude Opus 4.8과 동일한 점수입니다. 자체 개발한 Z.ai Code Bench 체감 평가에서도 프로그래밍 성능이 Claude Opus 4.8과 동등한 수준입니다.</p>
+          
+          <p>동시에 GLM-5.3-Flash의 가격은 GLM-5.3의 1/10이며, 한시적 할인 기간에는 GLM-5.3의 1/20, Opus 4.8의 1/40입니다.</p>
+          
+          <p>공식 발표에 따르면, GLM-5.3-Flash는 모든 벤치마크 테스트 및 실제 사용에서 파라미터 수가 두 배 높은 GLM-5.2를 전면적으로 능가하며, 가격은 GLM-5.2의 1/10에 불과합니다.</p>
+          
+          <h3>아키텍처 및 성능</h3>
+<p>이는 새로운 모델 아키텍처 덕분입니다. GLM-5.3-Flash의 아키텍처는 극도로 낮은 비용을 위해 특별히 설계되었으며, 총 파라미터 수는 GLM-4.5와 비슷하지만(355B vs. 320B), 활성화 파라미터 수(32B → 18B)와 레이어 수(92 → 45)는 거의 절반으로 줄었습니다. 최신 30T Token 멀티모달 사전 학습 코퍼스와 결합하여 GLM-5.3-Flash는 더 적은 컴퓨팅 자원으로 더 강력한 성능을 달성할 수 있습니다.</p>
+          
+          <p>GLM-5.3-Flash는 동시에 여러 아키텍처 업그레이드를 진행했습니다. 이는 희소 어텐션과 선형 어텐션 혼합 아키텍처를 채택한 최초의 오픈 소스 최첨단 모델로, 정확한 긴 컨텍스트 능력을 유지하면서 긴 컨텍스트 서비스 비용을 크게 절감합니다. 또한 Manifold-Constrained Hyper-Connections(mHC)를 채택하여 모델 스케일링 능력을 향상시켰습니다.</p>
+          
+          <h3>활용 분야</h3>
+<p>공식 발표에 따르면, GLM-5.3-Flash의 시각 능력은 코딩 루프에 네이티브로 통합되어 모델이 인터페이스, 렌더링 결과 및 상호 작용 피드백을 능동적으로 관찰하고 이를 바탕으로 지속적으로 테스트하고 개선할 수 있도록 합니다. 프런트엔드 개발, 게임 구축, Blender 3D 장면, 또는 BUA, CUA 기반의 실제 환경 작업 등 어떤 경우에도 모델은 코드, 브라우저 및 그래픽 인터페이스 간의 협업을 통해 작업을 완료할 수 있습니다.</p>
+          
+          <p>GLM-5.3-Flash는 Office, 금융 연구 및 전문 문서와 같은 작업 시나리오로 더욱 확장되었습니다. 복잡한 목표를 자율적으로 분해하고, 적절한 도구를 호출하며, 출력을 확인하고 최적화하여 연구 분석, 모델 구축부터 PPTX, PDF, DOCX, XLSX 최종 결과물 납품까지 완전한 워크플로우를 완료할 수 있습니다.</p>
+          
+          <h3>오픈 소스 및 API</h3>
+<p>GLM-5.3-Flash는 공식적으로 전 세계에 오픈 소스로 공개되었으며, ZCode와 같은 코딩 플랫폼에 통합되었고, GLM Coding Plan(매일 10,000장의 체험 카드 한정 배포)에 포함되었으며, API 호출도 동시에 개방되었습니다.</p>
+          
+          <p>또한, GLM Coding Plan의 모든 사용자 할당량이 재설정되어 모든 사용자 백엔드의 "사용량 통계"에서 사용 할당량이 다시 채워진 것을 확인할 수 있습니다.</p>
+          
+          <p>IT之家 관련 링크:</p>
+<ul>
+<li>BigModel 오픈 플랫폼: <a href="https://docs.bigmodel.cn/cn/guide/models/vlm/glm-5.3-flash">https://docs.bigmodel.cn/cn/guide/models/vlm/glm-5.3-flash</a></li>
+<li>Z.ai : <a href="https://docs.z.ai/guides/vlm/glm-5.3-flash">https://docs.z.ai/guides/vlm/glm-5.3-flash</a></li>
+<li>GLM Coding Plan: <a href="https://bigmodel.cn/glm-coding">https://bigmodel.cn/glm-coding</a></li>
+<li>HuggingFace: <a href="https://huggingface.co/zai-org/GLM-5.3-Flash">https://huggingface.co/zai-org/GLM-5.3-Flash</a></li>
+</ul>
+          
+          <p>광고 성명: 본문에는 외부 링크(하이퍼링크, QR 코드, 암호 등 포함)가 포함되어 있으며, 이는 더 많은 정보를 전달하고 선별 시간을 절약하기 위한 것입니다. 결과는 참고용이며, IT之家의 외부 링크가 포함된 모든 기사에는 본 성명이 포함됩니다.</p>
+          
+          <h3>총평</h3>
+<p>Zhipu는 GLM-5 시리즈의 첫 네이티브 멀티모달 모델인 GLM-5.3-Flash를 출시했습니다. 이 모델은 총 320B 파라미터와 18B 활성화 파라미터를 가지며, GLM-5.2를 능가하는 성능으로 Claude Opus 4.8과 동등한 수준을 달성했습니다. 새로운 아키텍처와 희소/선형 어텐션 혼합 구조를 통해 비용 효율성을 극대화했으며, 코딩, Office, 금융 등 다양한 작업 시나리오에서 활용될 수 있습니다. GLM-5.3-Flash는 현재 전 세계에 오픈 소스로 공개되었으며 API 호출도 지원합니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.png" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg@s_2,w_820,h_171" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.jpg" alt="이미지 6" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img07.png" alt="이미지 7" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img08.png" alt="이미지 8" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/994/765.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
