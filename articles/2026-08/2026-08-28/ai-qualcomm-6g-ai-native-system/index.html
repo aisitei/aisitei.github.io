@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Qualcomm 마더자 인터뷰: 6G는 AI 네이티브 시스템, 두바오 스마트폰 여러 차례 극찬</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="Qualcomm 마더자 인터뷰: 6G는 AI 네이티브 시스템, 두바오 스마트폰 여러 차례 극찬">
+  <meta name="title-zh" content="Qualcomm 마더자 인터뷰: 6G는 AI 네이티브 시스템, 두바오 스마트폰 여러 차례 극찬">
+  <meta name="title-ja" content="Qualcomm 마더자 인터뷰: 6G는 AI 네이티브 시스템, 두바오 스마트폰 여러 차례 극찬">
+  <meta name="title-en" content="Qualcomm 마더자 인터뷰: 6G는 AI 네이티브 시스템, 두바오 스마트폰 여러 차례 극찬">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Qualcomm 마더자 인터뷰: 6G는 AI 네이티브 시스템, 두바오 스마트폰 여러 차례 극찬" loading="eager">
+      </div>
+      
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Qualcomm 마더자 인터뷰: 6G는 AI 네이티브 시스템, 두바오 스마트폰 여러 차례 극찬"
+            data-zh="Qualcomm 마더자 인터뷰: 6G는 AI 네이티브 시스템, 두바오 스마트폰 여러 차례 극찬"
+            data-ja="Qualcomm 마더자 인터뷰: 6G는 AI 네이티브 시스템, 두바오 스마트폰 여러 차례 극찬"
+            data-en="Qualcomm 마더자 인터뷰: 6G는 AI 네이티브 시스템, 두바오 스마트폰 여러 차례 극찬">Qualcomm 마더자 인터뷰: 6G는 AI 네이티브 시스템, 두바오 스마트폰 여러 차례 극찬</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-08-28
+          </span>
+          
+          
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>서론</h3>
+<p>IT之家 8월 27일 보도에 따르면, 오늘(8월 27일) 미국 샌디에이고에서 열린 Qualcomm 글로벌 6G 애널리스트 및 미디어 데이에서 Durga Malladi Qualcomm 수석 부사장 겸 엣지 솔루션 및 데이터센터 사업부 총괄 매니저가 IT之家를 포함한 언론과 인터뷰를 갖고 Qualcomm의 6G 전략과 데이터센터 배치 계획을 상세히 설명했습니다.</p>
+          
+          <p>글로벌 통신 기술이 6G 시대로 빠르게 전환됨에 따라 통신, 인공지능, 컴퓨팅 산업의 경계가 빠르게 허물어지고 있으며, 업계는 기술 패러다임과 비즈니스 모델의 이중 변혁을 맞이하고 있습니다.</p>
+          
+          <p>5G 시대가 모바일 광대역 보급에 중점을 둔 발전 경로를 따랐던 것과 달리, 2029년 상용화를 목표로 하는 6G는 AI 네이티브, 통신-감지 통합, 전 영역 컴퓨팅 협업을 핵심 특징으로 삼아 단말기 형태, 네트워크 아키텍처 및 산업 생태계를 재구성하며 글로벌 기술 거대 기업들의 핵심 경쟁 분야가 되고 있습니다.</p>
+          
+          <p>단말기 형태에 대해 Durga Malladi는 6G 시대에 새로운 범주의 장치, 즉 "스마트 AI 장치"가 탄생할 것이며, 이러한 추세가 이미 중국에서 나타나고 있다고 언급했습니다.</p>
+          
+          <p>그는 이러한 새로운 AI 장치가 스마트폰에 국한되지 않고 센서, 웨어러블 장치 등 다양한 연결 장치를 포함하며, 심지어 디스플레이가 없을 수도 있다고 보았습니다.</p>
+          
+          <p>Samsung, Apple, Honor, Xiaomi, vivo 등 제조사들도 스마트 AI 우선 단말기를 개발하고 있습니다. Durga Malladi는 이러한 차별화된 경쟁이 전체 산업의 발전을 이끌 것이라고 생각합니다.</p>
+          
+          <p>이번 인터뷰에서는 Qualcomm의 "컴퓨팅 연속체" 개념을 처음으로 체계적으로 설명하고, HBC 고대역폭 컴퓨팅 기술이 컴퓨팅 아키텍처에 가져올 혁신적 가치, 그리고 데이터센터, 엣지 컴퓨팅, 단말기 AI의 전반적인 배치 논리를 상세히 설명하며, 통신사가 데이터 서비스에서 컴퓨팅 서비스, 토큰 서비스로 전환하는 새로운 비즈니스 모델을 해석했습니다.</p>
+          
+          <p>질문해 주셔서 감사합니다. 먼저 6G의 몇 가지 핵심 영역에 대해 전반적으로 말씀드리고 싶습니다. 이 영역들은 2029년 상용 배포될 6G 기술에 매우 중요합니다.</p>
+          
+          <p>6G가 가져올 첫 번째 주요 영향 영역은 연결성입니다. 이는 모바일 통신 기술 세대 진화에서 예상되는 기본적인 개선 사항입니다. 더 나은 연결성, 더 넓은 커버리지, 더 큰 네트워크 용량. 이 모든 것은 네트워크 배포와 관련이 있으며, 5G의 발전 경로와 매우 유사한 방식으로 진화할 것으로 예상됩니다.</p>
+          
+          <p>단말기 측면에서는 "스마트 AI 단말기(Agentic AI devices)"라는 새로운 단말기 범주가 등장할 것으로 예상합니다. 이 단말기들은 스마트폰뿐만 아니라 고정 무선 접속 단말기도 아닙니다. AI 우선 설계 개념으로 구축된 새로운 유형의 단말기입니다. 다양한 형태를 가질 수 있으며, 심지어 디스플레이가 없을 수도 있습니다. 스마트 펜던트, 스마트 반지와 같은 네트워크 연결 단말기 등이 그 예이며, 이는 이전에 시장에 없었던 완전히 새로운 범주입니다. 동시에, 이 분야에 새로운 단말기 제조사들이 진입하여 6G를 채택하고, 이 단말기들의 형태는 더욱 다양해질 것으로 예상합니다.</p>
+          
+          <p>현재 많은 클라우드 AI 기업들도 하드웨어 분야에 투자하고 있으며, 새로운 단말기 제조사가 될 가능성이 있습니다. 이것 또한 우리가 보고 있는 새로운 시장 역학입니다.</p>
+          
+          <p>중국을 예로 들면, 스마트 AI 폰은 이전에 없었던 완전히 새로운 제품 형태입니다. 마찬가지로 미국에서도 많은 AI 기업들이 자체 하드웨어 장치 출시를 고려하고 있습니다. 이것이 바로 우리가 차별화가 나타나기 시작하는 지점이며, 이로 인해 건전하고 선의의 경쟁이 발생할 것으로 예상하며, 이를 매우 환영합니다.</p>
+          
+          <p>동시에 Samsung, Apple, Honor, OPPO, vivo, Xiaomi도 각자의 스마트 AI 단말기를 개발하고 있습니다. 이러한 의미에서 우리는 스마트 AI 단말기라는 범주의 등장을 매우 기대하고 있으며, 이곳에서 더 흥미로운 단말기 범주들이 나타나기 시작할 것입니다.</p>
+          
+          <p>다른 한편으로, 6G는 처음부터 AI 네이티브 기술로 설계되었습니다. 이는 네트워크 수준에서 AI 네이티브 네트워크 개념이 등장한다는 것을 의미합니다. 여기에는 고성능 컴퓨팅 프로세서의 더 많은 사용과 AI를 활용한 자율 네트워크 또는 네트워크 자율화가 포함됩니다. 따라서 네트워크 측면에서 많은 혁신이 나타날 것입니다. 이는 최종 사용자에게는 즉시 직관적으로 보이지 않을 수 있습니다. 최종 사용자는 단말기 자체에 더 많은 관심을 가지기 때문입니다. 그러나 네트워크 측면에서는 오늘날의 네트워크에서 AI 네이티브 네트워크로의 전환이 일어나고 있으며, 다음 세대로의 진화 과정에서 많은 선두 통신사들이 이 분야에 적극적으로 투자하고 있음을 확인했습니다.</p>
+          
+          <p>마지막으로 주목할 만한 방향은 현재로서는 최종 방향을 완전히 판단하기 어려운 네트워크 감지(Sensing)입니다. 각 지역 통신사들은 네트워크에 감지 기능을 도입하고 있으며, 이는 여전히 진화 중인 영역입니다. 이 분야의 경쟁 구도가 어떻게 형성될지 판단하기에는 아직 이르지만, 각 통신사가 감지가 어떤 새로운 애플리케이션 시나리오와 상업적 기회를 가져올 수 있는지 연구하고 있다는 것은 분명합니다.</p>
+          
+          <h3>6G와 5G의 차이점</h3>
+<p>총 세 가지 질문이 있습니다. 첫 번째 질문부터 시작하겠습니다. 6G는 5G와 비교하여 정확히 어떻게 다릅니까?</p>
+          
+          <p>5G와 달리 6G에 대한 우리의 가장 큰 기대는 AI와의 융합입니다. AI는 네트워크와 단말기 장치 모두에 걸쳐 어디에나 존재할 것입니다. 이는 과거 5G가 달성할 수 있었던 능력과 비교할 때 6G에서 더욱 두드러질 것입니다.</p>
+          
+          <p>5G 시대에는 모바일 광대역 능력 향상, 대규모 IoT, 초고신뢰 저지연 통신에 대해 자주 이야기했습니다. 지난 7년을 되돌아보면, 2019년은 5G 상용 배포의 원년이었습니다. 당시 5G의 대부분의 작업은 실제로 모바일 광대역에 집중되었고, IoT에 대한 관심은 그리 많지 않았습니다. 나중에 IoT가 점차 발전하기 시작했지만, 여전히 시간이 필요했습니다. 처음에는 초고신뢰 저지연 통신 분야에서도 많은 진전이 없었으며, 실제로 성과를 보인 것은 모바일 광대역과 소수의 IoT 애플리케이션이었습니다. 그 외에도 위성통신이 있었습니다.</p>
+          
+          <p>다른 한편으로, 6G에 대해 이야기할 때 우리는 단순히 광대역과 IoT만을 논하는 것이 아닙니다. 이들은 모두 애플리케이션 시나리오에 속합니다. 기술적인 관점에서 볼 때, 6G가 발전함에 따라 인공지능은 어디에나 존재할 것입니다. 이것이 한 가지입니다. 둘째, 우리는 새로운 단말기 범주와 새로운 애플리케이션 시나리오에 진정으로 집중할 것입니다. 우리는 6G를 단순히 광대역 관점에서만 논하지 않습니다. 이 수준에서 볼 때, 우리는 6G의 진화가 5G와 매우 다를 것으로 예상합니다.</p>
+          
+          <h3>6G와 AI의 융합</h3>
+<p>두 번째 질문은 6G와 AI의 융합입니다. 이전 질문에 대한 답변에서도 언급했듯이, 스마트 AI 단말기는 새로운 유형의 장치입니다. 우리가 보기에 이는 단순히 휴대폰에서 AI를 실행하는 것을 넘어, AI 추론 작업을 단말기에서 실행할지 클라우드에서 실행할지 결정하는 문제와도 관련이 있습니다. 그러나 이 모든 것은 스마트 AI를 기반으로 하며, 스마트 AI가 이러한 작업을 어디에서 완료할지 결정합니다. 사용자 관점에서 볼 때, AI 스마트 AI와의 상호 작용 인터페이스만 보게 될 것이며, 이는 매우 다른 사용자 경험이 될 것입니다. 2029년에 6G 장치를 구매한다면, AI 네이티브 장치이기를 바랄 것입니다. 이는 완전히 다른 경험을 제공할 것이며, 사용자가 6G와 AI의 긴밀한 융합을 즉시 볼 수 있는 시나리오이기도 합니다.</p>
+          
+          <p>마찬가지로, 네트워크에는 AI 애플리케이션 시나리오를 위한 고성능 컴퓨팅이 많이 있지만, 이 부분은 최종 소비자에게는 보이지 않습니다. 오늘날 이러한 네트워크가 점차 AI 네트워크로 진화함에 따라, 6G 네트워크도 AI 네트워크가 될 것이며, 컴퓨팅 작업이 여러 곳에서 완료될 수 있음을 알게 될 것입니다. 장치뿐만 아니라 네트워크 엣지, 네트워크 중앙, 심지어 데이터센터에서도 가능합니다.</p>
+          
+          <p>Qualcomm에서는 "컴퓨팅 연속체"라는 용어를 사용해 왔습니다. 컴퓨팅은 한 곳에만 존재하는 것이 아니라 단말기에서 데이터센터까지 모든 곳에 퍼져 있습니다. 이것이 바로 6G 네트워크와 컴퓨팅이 더욱 긴밀하게 융합되는 지점입니다.</p>
+          
+          <h3>6G 발전 현황</h3>
+<p>마지막 질문은 올해 MWC Barcelona 2026에서 통신사를 포함한 파트너들과 6G 발전 합의를 발표한 이후 어떤 진전이 있었는지입니다. 현재 우리는 미국, 중국의 통신사 및 파트너들과 긴밀히 협력하고 있으며, 일본, 한국, 유럽의 다른 통신사 및 제조사들과도 함께 관련 계획을 수립하고 있습니다.</p>
+          
+          <p>중국에서는 관련 산업 파트너들과 기술 연구 및 검증 분야에서 협력하여 미래 기술의 발전 및 적용 방향을 공동으로 모색하고 있습니다. 미국에서는 2028년에 올림픽이 개최될 예정이며, 그때 어떤 성과를 보여줄 수 있을지 계획하고 논의하고 있습니다. 계속해서 관심을 가져주시면 더 많은 관련 내용과 발표를 보게 될 것입니다. 우리는 각 통신사들과 협력하고 있습니다.</p>
+          
+          <h3>새로운 비즈니스 모델</h3>
+<p>세 번째 질문부터 시작하겠습니다. 새로운 비즈니스 모델이 등장하고 있습니까? 사실 저는 최근 전 세계 통신사들과 계속 소통하고 있습니다. 올해 4월에는 중국에서 대부분의 중국 통신사들과 심도 있는 논의를 했고, 미국 통신사들과도 마찬가지였습니다. 한 가지 분명해지고 있는 점은 통신사들이 단순히 데이터 서비스를 제공하는 것을 넘어 사업 범위를 확장하기를 원한다는 것입니다. 이것이 현재 그들의 최우선 고려 사항입니다.</p>
+          
+          <p>오늘날 일반적인 이동통신사는 주로 데이터 서비스를 제공합니다. 우리가 보고 있는 것은 다음과 같습니다. 만약 제가 통신사로서 AI 기능을 갖추고 네트워크 내에 강력한 처리 능력을 가진 6G 네트워크를 구축하고 있다면, 저는 "데이터 서비스"의 범위를 넘어 "컴퓨팅 서비스"와 "토큰 서비스"도 비즈니스 시스템의 일부로 포함하기를 원할 것입니다. 이것이 바로 모든 통신사가 탐색하고 있는 방향입니다. 다시 말해, 네트워크에 자금을 투자하고 업그레이드한다면, 저의 비즈니스 모델은 무엇이며, 어떻게 수익을 창출할 수 있을까요? 이것이 모든 통신사가 고민하는 문제입니다. 따라서 6G 시대에 통신사들이 이러한 네트워크 투자를 추진함에 따라, 그들은 또한 다양한 비즈니스 모델을 모색하고 있습니다.</p>
+          
+          <h3>감지 기술 기반의 킬러 앱</h3>
+<p>이제 두 번째 질문에 답하겠습니다. 감지 기술을 기반으로 한 새로운 킬러 앱이 등장할까요? 저는 먼저 감지 기술이 오늘날 우리에게 무엇을 가져다줄 수 있는지 생각해야 한다고 봅니다. 간단히 말해, 감지 기술은 네트워크 내의 모든 것을 식별할 수 있게 해줍니다. 이는 본질적으로 객체 감지 및 분류 문제입니다. 보행자, 자동차, 교통 신호등, 드론 또는 공중에 나타나는 다른 물체인지 판단하여 네트워크 커버리지 내에서 무슨 일이 일어나고 있는지 포괄적으로 감지해야 합니다. 이것은 방대한 데이터 문제이며, 모든 데이터를 수집하여 네트워크로 다시 피드백해야 합니다.</p>
+          
+          <p>이때 네트워크는 이러한 방대한 데이터를 수신하고 심층적으로 처리 및 분석할 수 있는 완전한 능력을 갖추고 있습니다. 우리는 이것이 새로운 네트워크 운영 방식을 가져올 것이라고 생각합니다. 우리는 이를 "자율 네트워크"라고 부르는데, 즉 스스로 작동할 수 있는 네트워크입니다. 네트워크는 네트워크 내의 다양한 정보를 실시간으로 감지하고 분석하며, 이를 기반으로 지속적으로 진화하고, 다양한 매개변수도 끊임없이 동적으로 조정됩니다. 이는 자동차 산업의 ADAS(첨단 운전자 보조 시스템) 상황과 다소 유사합니다. 차량이 주변 환경을 감지하고 다음 행동을 결정하는 것과 같습니다. 여기서 네트워크도 외부에서 일어나는 모든 것을 감지한 다음 자율적으로 조정합니다. 이러한 의미에서 우리는 이것이 완전히 새로운 네트워크 운영 방식을 나타낸다고 생각합니다. 최종적으로 "킬러 앱"이라는 이름이 붙을지는 확실하지 않지만, 의심할 여지 없이 완전히 다른 네트워크 운영 모델입니다.</p>
+          
+          <h3>데이터센터와 통신사</h3>
+<p>이제 마지막 질문을 살펴보겠습니다. 5G 시대에는 킬러 앱이 부족했다고 생각할 수 있지만, 실제로 많은 애플리케이션이 5G의 지원으로 크게 향상되었지만, 진정으로 새로운 애플리케이션은 나타나지 않았습니다. 저는 고정 무선 접속이 그중 하나라고 생각합니다. 반면 6G 시대에는 통신사들이 데이터센터에 더 많은 관심을 보이는 것 같습니다. 제 이전 답변에서 이미 설명했듯이, 그들은 데이터센터에 관심이 있지만, 그들이 정말로 관심 있는 것은 새로운 비즈니스 모델입니다. 통신사들은 더 이상 데이터 서비스 제공에만 국한되지 않고, 컴퓨팅 서비스(Compute as a Service)를 추가로 제공하려 합니다.</p>
+          
+          <p>컴퓨팅 서비스 모델에서 제가 통신사라면 몇 가지 선택지가 있습니다. 하나는 데이터센터만 구축하는 것이고, 다른 하나는 데이터센터를 구축할 뿐만 아니라 네트워크를 AI 네이티브 네트워크로 업그레이드하는 것입니다. 이렇게 하면 데이터센터에만 의존하는 것이 아니라 네트워크 자체의 능력을 활용하여 네트워크 내부에서 네트워크 엣지까지 서비스를 제공할 수 있습니다.</p>
+          
+          <p>이러한 의미에서 우리는 통신사들이 다른 사고방식과 개념을 보여주고 있음을 확인했습니다. 우리가 관찰한 바에 따르면, China Telecom은 좋은 예입니다. 그들은 이미 데이터 서비스 제공을 넘어 컴퓨팅 사업에 진출하고 있습니다. 이것이 바로 통신사들이 단순한 데이터 제공자 역할을 넘어 스스로를 재정의하는 한 가지 예입니다.</p>
+          
+          <h3>6G 표준화 및 기술 투자</h3>
+<p>좋은 질문입니다. 실제로 우리는 이러한 기술, 특히 확률적 성형(probabilistic shaping)에 많은 자원을 투자했습니다. 우리는 물리 계층에서도 이러한 기술을 사용하면 큰 성능 향상을 얻을 수 있다고 믿습니다.</p>
+          
+          <p>Qualcomm은 6G 표준화 작업에 깊이 참여하고 있지만, 6G 표준화 프로세스에는 자체적인 시간표가 있습니다. 2028년 말에야 6G에 최종적으로 어떤 내용이 확정될지 알 수 있을 것입니다. 하지만 성능 관점에서 볼 때, 우리는 현재 몇 가지 방향에 크게 투자하고 있습니다. 네트워크 측면의 Giga MIMO RF, 확률적 성형 기술, 그리고 무선 프로토콜에 AI를 적용하는 것입니다. 이것들이 최종적으로 어떻게 구현될지는 지켜봐야 하며, 표준화 작업이 어느 정도 진행된 후에야 이 질문에 대해 더 완전한 답변을 드릴 수 있을 것입니다.</p>
+          
+          <h3>AI 네이티브 네트워크</h3>
+<p>먼저, AI 네이티브 네트워크는 고성능 컴퓨팅 프로세서, 즉 CPU와 AI 가속기를 기반으로 구축됩니다. 이는 네트워크에 공랭식 서버와 공랭식 가속 카드가 대량으로 배포된다는 것을 의미합니다. 이들은 무선 접속 계층, DU(분산 장치) 계층 또는 더 깊은 네트워크 노드, 심지어 코어 네트워크 자체에 사용될 수 있습니다. 이것이 "AI 네이티브 네트워크"를 이해하는 한 가지 방법이라고 할 수 있습니다.</p>
+          
+          <p>현재로서는 이 개념에 대해 업계에서 논쟁이 없다고 생각합니다. 대부분의 통신사들은 AI 네이티브 네트워크가 기존 CPU와 같은 프로세서를 기반으로 다양한 무선 통신 프로토콜을 실행할 수 있을 뿐만 아니라, 네트워크 내에서 AI 추론을 실행할 수 있는 능력도 갖추고 있다는 데 동의합니다. 이것이 "AI 네이티브 네트워크"에 대한 비교적 일반적인 이해라고 할 수 있습니다.</p>
+          
+          <h3>Qualcomm의 데이터센터 사업 전략</h3>
+<p>이것은 상당히 광범위한 질문이므로, 이해하기 쉬운 수준으로 답변을 제한하도록 노력하겠습니다. 먼저, 데이터센터 사업 측면에서 우리는 대략 네 가지 다른 진입점을 가지고 있습니다. 올해 6월 24일에 개최된 투자자의 날 행사에서 설명했듯이, 이 몇 가지 방향은 현재 상당히 좋은 진전을 보이고 있습니다.</p>
+          
+          <ul>
+  <li>CPU 기반 솔루션을 데이터센터 사업에 적용하고 있습니다. 이러한 시스템은 훨씬 더 큰 규모로, 수백 개의 CPU를 특정 아키텍처에 따라 통합하여 데이터센터의 공랭식 및 액랭식 서버에 배포됩니다. 이는 현재 스마트폰에 사용되는 CPU와는 완전히 다릅니다. 비록 같은 제품군에 속하지만, 실제로는 완전히 다른 유형의 프로세서이며, 데이터센터 애플리케이션 시나리오에 특화되어 맞춤 제작되었습니다.</li>
+  <li>두 번째 진입점은 우리의 AI 가속기, 즉 NPU 기반 솔루션입니다. 현재 우리는 데이터센터에서 실행되는 생성형 AI 애플리케이션을 위해 NPU와 그 진화된 제품의 조합 솔루션을 점점 더 많이 채택하고 있습니다. 마찬가지로, 이들도 액랭식 랙에 배포됩니다. 현재 우리의 AI250 랙급 솔루션의 정격 전력은 160킬로와트에 달하며, 미래에는 수백 킬로와트 수준에 도달할 것으로 예상합니다. 이 점은 스마트폰과 완전히 다릅니다.</li>
+  <li>세 번째 진입점은 투자자의 날 행사에서도 많이 소개했던 고대역폭 컴퓨팅(HBC, High Bandwidth Compute)입니다. 이는 기존 시장의 솔루션과 비교하여 진정한 차별화된 이점을 형성하고, 매우 높은 메모리 대역폭을 제공하여 추론 과정의 디코딩 단계 성능을 향상시키는 새로운 메모리 아키텍처입니다.</li>
+  <li>네 번째 진입점은 맞춤형 칩 사업입니다. 이는 우리가 모든 IP를 제공할 필요는 없다는 것을 의미합니다. 우리는 일부 IP를 제공할 수 있으며, 고객의 IP도 통합하여 ASIC 서비스(주문형 반도체) 형태로 솔루션을 제공할 것입니다. 이것 또한 우리가 가진 능력 중 하나입니다.</li>
+</ul>
+          
+          <p>따라서 CPU, AI(가속기), HBC 기반 근접 메모리 컴퓨팅 아키텍처, 그리고 맞춤형 칩의 네 가지 다른 진입점이 있습니다.</p>
+          
+          <p>마지막으로, IP 재사용 및 스마트폰 문제에 대해 말씀드리고 싶은 것은 Qualcomm 내부에는 "통합 기술 로드맵"이 있지만, 이것이 모든 사업 부문에서 완전히 동일한 기술을 사용한다는 의미는 아니라는 것입니다.</p>
+          
+          <p>우리의 접근 방식은 확장 가능한 아키텍처를 채택하여 다양한 제품 세분화 영역에 맞게 맞춤 제작하는 것입니다. 따라서 우리의 CPU가 Oryon 제품군에 속한다고 말하더라도, 스마트폰, PC 또는 데이터센터에 사용되는 CPU 아키텍처가 완전히 동일하다는 의미는 아닙니다. 그들 사이에는 약간의 차이가 있을 것입니다. 재사용은 가능하지만, 실제로 적용되는 IP는 완전히 동일하지 않습니다.</p>
+          
+          <h3>HBC와 HBM의 차이점</h3>
+<p>두 가지 좋은 질문입니다. 먼저 HBC(High Bandwidth Compute, 고대역폭 컴퓨팅)와 HBM(High Bandwidth Memory, 고대역폭 메모리)의 차이점에 대해 잠시 말씀드리고 싶습니다. 두 가지의 가장 큰 차이점은 HBM 아키텍처에서 메모리가 한쪽에 위치한다는 점이라고 생각합니다.</p>
+          
+          <p>비유하자면, 메모리를 여기에 두고 처리는 다른 쪽에서 완료하는 것입니다. 메모리와 처리 장치는 고속 인터페이스를 통해 연결됩니다. 반면 HBC에서 우리가 하는 것은 "근접 메모리 컴퓨팅(near-memory computing)"이라고 불리는 아키텍처입니다.</p>
+          
+          <p>이는 여전히 메모리이지만, 모든 처리를 다른 쪽에서 완료하는 대신, 일부 컴퓨팅 로직을 메모리 바로 아래에 배치하는 것을 의미합니다.</p>
+          
+          <p>따라서 컴퓨팅이 메모리 아래에서 발생한다고 이해할 수 있습니다. 이렇게 하면 전력 소비를 크게 줄일 수 있을 뿐만 아니라, 컴퓨팅 장치와 메모리가 서로 매우 가깝기 때문에 매우 높은 대역폭을 달성할 수 있으며, 여전히 많은 컴퓨팅 작업을 완료할 수 있습니다.</p>
+          
+          <p>또한, 다른 SoC(System on Chip)를 다른 쪽에 구성하여 일부 처리 작업을 수행할 수도 있습니다. 물론 동일한 시스템이 모든 처리를 완료할 수도 있습니다.</p>
+          
+          <p>따라서 HBM에 비해 이러한 아키텍처는 더 높은 유효 대역폭을 달성할 수 있습니다. 둘째, 컴퓨팅 장치와 메모리가 전통적인 아키텍처처럼 서로 분리되지 않기 때문에 전력 소비를 줄일 수 있습니다.</p>
+          
+          <h3>클라우드 서비스 제공업체와의 협력</h3>
+<p>두 번째 질문에 대해, 초거대 클라우드 서비스 제공업체들이 이 기술을 채택하도록 어떻게 설득할 것인가에 대해 말씀드리자면, 사실 그들은 이 기술에 매우 관심이 많으며, 우리와 계속해서 심도 있는 대화를 나누고 있습니다.</p>
+          
+          <p>동시에 우리는 주요 메모리 제조사들과도 협력하고 있습니다. 이 메모리 제조사들이 DRAM(Dynamic Random-Access Memory) 스택 구현을 담당하기 때문입니다.</p>
+          
+          <p>그들도 우리와 협력하여 HBC 기술의 구현을 추진하고 있습니다. 따라서 초거대 클라우드 서비스 제공업체든 메모리 제조사든, 우리가 시장에 출시할 제품과 솔루션에 대해 양측의 소통은 매우 원활합니다.</p>
+          
+          <p>우리에게 HBC는 독립적인 제품으로 제공될 수도 있고, 다른 제품과 함께 사용될 수도 있습니다. 이는 만약 당신이 초거대 클라우드 서비스 제공업체이고 이미 자체 CPU 솔루션과 자체 AI 가속기 솔루션을 가지고 있다면, "당신의 HBC 솔루션에 관심이 있습니다. 이것은 저에게 매우 매력적입니다"라고 말할 수 있다는 의미입니다.</p>
+          
+          <p>동시에, 당신은 더 나아가 하위 계층의 컴퓨팅 로직에 어떤 특정 기능을 구현하기를 원하는지 제안할 수도 있습니다. 이것은 매우 긍정적인 논의 과정입니다. 제 말은, 실제로 초거대 클라우드 서비스 제공업체들이 어떤 기능을 반드시 구현해야 하는지 우리에게 알려줄 것이라는 의미입니다.</p>
+          
+          <h3>엣지 및 클라우드 추론의 비중</h3>
+<p>두 가지 매우 중요한 질문입니다. 먼저, 얼마나 많은 추론이 엣지에서 이루어지고 얼마나 많은 추론이 클라우드에서 이루어질지에 대해, 저는 고정된 비율이 존재하지 않으며 특정 애플리케이션 시나리오에 따라 달라진다고 생각합니다. 예를 들어, 우리는 이제 AI 에이전트가 언제든지 스스로 결정할 것이라고 생각합니다. 이 작업은 단말기 장치에서 실행되어야 하는가? 네트워크 엣지에서 실행되어야 하는가? 아니면 클라우드에서 실행되어야 하는가? 그리고 이 답변은 특정 애플리케이션 시나리오에 따라 달라질 것입니다. 따라서 단말기에서 실행되는 작업의 비율과 클라우드에서 실행되는 작업의 비율에 대한 통일된 답변은 없습니다. 최종 사용자 관점에서 볼 때, 사용자는 작업이 어디에서 실행되는지 신경 쓰지 않고, 적절한 시간에 올바른 결과를 얻을 수 있는지에만 관심이 있습니다.</p>
+          
+          <p>따라서 실제로 판단을 내리는 것은 에이전트 자체입니다. 예를 들어, 매우 빠른 응답이 필요한 일부 작업의 경우, 에이전트는 결과를 가능한 한 빨리 반환해야 한다고 판단할 것이므로, 이러한 작업은 단말기 장치에서 실행될 것입니다. 또 다른 예로, 인터넷 검색을 통해 답변을 얻어야 하는 경우, 이러한 작업은 분명히 클라우드에서 실행되어야 합니다. 세 번째 상황으로, 매우 큰 작업이 있어서 대규모 프로젝트를 위해 많은 질문을 작성해야 할 수도 있습니다. 그러면 이 작업을 단말기 장치에서 완료하는 것이 아니라 네트워크 어딘가에서 실행하기를 원할 수 있습니다. Qualcomm은 이 세 가지 모드를 모두 지원합니다. 그러나 방금 질문하신 내용에 답하기는 어렵습니다. 실제로 답은 세 가지 모두 가능합니다. 최종 사용자 관점에서 볼 때, 사용자는 작업이 장치에서 실행되는지 클라우드에서 실행되는지 신경 쓰지 않고, 최종 출력 결과에만 관심이 있습니다.</p>
+          
+          <p>두 번째 질문, 즉 어떤 유형의 추론이 엣지에서 실행하기에 적합한지에 대해서도 마찬가지로 특정 사용 사례에 따라 달라집니다. 일부 시나리오에서는 단말기 로컬에서 이미지 처리만 필요할 수 있으며, 이러한 작업은 기존 AI 기능을 사용할 수 있고 반드시 생성형 AI 기능이 필요하지는 않습니다. 다른 시나리오에서는 콘텐츠 생성이 필요하지만 장치가 네트워크에 연결할 수 없을 때, 추론은 로컬에서 실행되어야 합니다.</p>
+          
+          <p>현재 대부분의 추론은 여전히 클라우드에서 실행됩니다. 최근에야 점점 더 많은 추론이 엣지로 전환되기 시작했으며, 따라서 다양한 배포 방식이 차지하는 비중도 계속 변화하고 있습니다. 전반적으로 소비자 및 기업 애플리케이션 모두 특정 사용 사례에 따라 다양한 배포 방식의 조합을 채택할 것입니다.</p>
+          
+          <h3>메모리 기술의 변화</h3>
+<p>근본적인 변화는 없을 것으로 예상합니다. 우리는 항상 메모리 제조사들과 긴밀히 협력해 왔습니다. 현재 우리가 하는 일은 컴퓨팅을 메모리에 더 가깝게 만드는 것이지, 메모리 자체를 바꾸는 것이 아닙니다. 따라서 이러한 관점에서 볼 때, 근본적인 변화가 나타날 것이라고는 생각하지 않습니다.</p>
+          
+          <h3>통신사의 비즈니스 모델 전환</h3>
+<p>이동통신사 및 이 분야의 다른 참여자들은 궁극적으로 스스로 결론을 내려야 합니다. 우리는 그들에게 이 모델이 왜 가치가 있다고 생각하는지 설명할 수 있지만, 결국 각 통신사는 자체적인 실제 상황을 가지고 있으며, 자신에게 가장 적합한 운영 모델을 찾아야 합니다. 예를 들어, 통신사는 자체적으로 해당 사용자 기반을 가지고 있는지, 오늘날 "데이터 서비스(Data as a Service)"를 제공할 수 있는지, 미래에 "토큰 서비스(Token as a Service)"와 같은 새로운 서비스 모델로 확장할 기회가 있는지 평가해야 합니다.</p>
+          
+          <p>우리가 통신사들과 소통할 때, 우리는 이 모델이 실현 가능하다고 생각한다고 말하지만, 통신사는 스스로에게 적합한지 평가해야 합니다. 일부 통신사들은 이 모델이 매우 적합하다고 생각하여 빠르게 추진할 수 있습니다. 다른 통신사들은 자신에게 적합하지 않다고 생각하여 채택하지 않을 수도 있습니다. 우리에게는 이것도 문제가 되지 않습니다.</p>
+          
+          <p>Qualcomm은 모든 당사자와 협력하고 있습니다. 우리는 모든 통신사가 이 모델을 채택하도록 설득하려 하지 않고, 이 모델이 왜 가치가 있다고 생각하는지 설명하며, 최종 결정은 통신사에게 맡깁니다. 만약 그들이 이 모델이 자신에게 적합하다고 생각한다면, 우리는 기꺼이 지원할 것입니다.</p>
+          
+          <h3>총평</h3>
+<p>Qualcomm은 6G 시대를 맞아 AI 네이티브, 통신-감지 통합, 전 영역 컴퓨팅 협업을 핵심으로 하는 전략을 추진하고 있습니다. 6G는 연결성 향상과 함께 '스마트 AI 단말기'라는 새로운 기기 범주를 탄생시키고, 통신사들은 데이터 서비스에서 컴퓨팅 및 토큰 서비스로 비즈니스 모델을 확장할 것으로 예상됩니다. Qualcomm은 '컴퓨팅 연속체' 개념을 통해 단말기에서 데이터센터까지 전반적인 컴퓨팅 환경을 지원하며, HBC(고대역폭 컴퓨팅) 기술로 데이터센터 아키텍처 혁신을 주도하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>서론</h3>
+<p>IT之家 8월 27일 보도에 따르면, 오늘(8월 27일) 미국 샌디에이고에서 열린 Qualcomm 글로벌 6G 애널리스트 및 미디어 데이에서 Durga Malladi Qualcomm 수석 부사장 겸 엣지 솔루션 및 데이터센터 사업부 총괄 매니저가 IT之家를 포함한 언론과 인터뷰를 갖고 Qualcomm의 6G 전략과 데이터센터 배치 계획을 상세히 설명했습니다.</p>
+          
+          <p>글로벌 통신 기술이 6G 시대로 빠르게 전환됨에 따라 통신, 인공지능, 컴퓨팅 산업의 경계가 빠르게 허물어지고 있으며, 업계는 기술 패러다임과 비즈니스 모델의 이중 변혁을 맞이하고 있습니다.</p>
+          
+          <p>5G 시대가 모바일 광대역 보급에 중점을 둔 발전 경로를 따랐던 것과 달리, 2029년 상용화를 목표로 하는 6G는 AI 네이티브, 통신-감지 통합, 전 영역 컴퓨팅 협업을 핵심 특징으로 삼아 단말기 형태, 네트워크 아키텍처 및 산업 생태계를 재구성하며 글로벌 기술 거대 기업들의 핵심 경쟁 분야가 되고 있습니다.</p>
+          
+          <p>단말기 형태에 대해 Durga Malladi는 6G 시대에 새로운 범주의 장치, 즉 "스마트 AI 장치"가 탄생할 것이며, 이러한 추세가 이미 중국에서 나타나고 있다고 언급했습니다.</p>
+          
+          <p>그는 이러한 새로운 AI 장치가 스마트폰에 국한되지 않고 센서, 웨어러블 장치 등 다양한 연결 장치를 포함하며, 심지어 디스플레이가 없을 수도 있다고 보았습니다.</p>
+          
+          <p>Samsung, Apple, Honor, Xiaomi, vivo 등 제조사들도 스마트 AI 우선 단말기를 개발하고 있습니다. Durga Malladi는 이러한 차별화된 경쟁이 전체 산업의 발전을 이끌 것이라고 생각합니다.</p>
+          
+          <p>이번 인터뷰에서는 Qualcomm의 "컴퓨팅 연속체" 개념을 처음으로 체계적으로 설명하고, HBC 고대역폭 컴퓨팅 기술이 컴퓨팅 아키텍처에 가져올 혁신적 가치, 그리고 데이터센터, 엣지 컴퓨팅, 단말기 AI의 전반적인 배치 논리를 상세히 설명하며, 통신사가 데이터 서비스에서 컴퓨팅 서비스, 토큰 서비스로 전환하는 새로운 비즈니스 모델을 해석했습니다.</p>
+          
+          <p>질문해 주셔서 감사합니다. 먼저 6G의 몇 가지 핵심 영역에 대해 전반적으로 말씀드리고 싶습니다. 이 영역들은 2029년 상용 배포될 6G 기술에 매우 중요합니다.</p>
+          
+          <p>6G가 가져올 첫 번째 주요 영향 영역은 연결성입니다. 이는 모바일 통신 기술 세대 진화에서 예상되는 기본적인 개선 사항입니다. 더 나은 연결성, 더 넓은 커버리지, 더 큰 네트워크 용량. 이 모든 것은 네트워크 배포와 관련이 있으며, 5G의 발전 경로와 매우 유사한 방식으로 진화할 것으로 예상됩니다.</p>
+          
+          <p>단말기 측면에서는 "스마트 AI 단말기(Agentic AI devices)"라는 새로운 단말기 범주가 등장할 것으로 예상합니다. 이 단말기들은 스마트폰뿐만 아니라 고정 무선 접속 단말기도 아닙니다. AI 우선 설계 개념으로 구축된 새로운 유형의 단말기입니다. 다양한 형태를 가질 수 있으며, 심지어 디스플레이가 없을 수도 있습니다. 스마트 펜던트, 스마트 반지와 같은 네트워크 연결 단말기 등이 그 예이며, 이는 이전에 시장에 없었던 완전히 새로운 범주입니다. 동시에, 이 분야에 새로운 단말기 제조사들이 진입하여 6G를 채택하고, 이 단말기들의 형태는 더욱 다양해질 것으로 예상합니다.</p>
+          
+          <p>현재 많은 클라우드 AI 기업들도 하드웨어 분야에 투자하고 있으며, 새로운 단말기 제조사가 될 가능성이 있습니다. 이것 또한 우리가 보고 있는 새로운 시장 역학입니다.</p>
+          
+          <p>중국을 예로 들면, 스마트 AI 폰은 이전에 없었던 완전히 새로운 제품 형태입니다. 마찬가지로 미국에서도 많은 AI 기업들이 자체 하드웨어 장치 출시를 고려하고 있습니다. 이것이 바로 우리가 차별화가 나타나기 시작하는 지점이며, 이로 인해 건전하고 선의의 경쟁이 발생할 것으로 예상하며, 이를 매우 환영합니다.</p>
+          
+          <p>동시에 Samsung, Apple, Honor, OPPO, vivo, Xiaomi도 각자의 스마트 AI 단말기를 개발하고 있습니다. 이러한 의미에서 우리는 스마트 AI 단말기라는 범주의 등장을 매우 기대하고 있으며, 이곳에서 더 흥미로운 단말기 범주들이 나타나기 시작할 것입니다.</p>
+          
+          <p>다른 한편으로, 6G는 처음부터 AI 네이티브 기술로 설계되었습니다. 이는 네트워크 수준에서 AI 네이티브 네트워크 개념이 등장한다는 것을 의미합니다. 여기에는 고성능 컴퓨팅 프로세서의 더 많은 사용과 AI를 활용한 자율 네트워크 또는 네트워크 자율화가 포함됩니다. 따라서 네트워크 측면에서 많은 혁신이 나타날 것입니다. 이는 최종 사용자에게는 즉시 직관적으로 보이지 않을 수 있습니다. 최종 사용자는 단말기 자체에 더 많은 관심을 가지기 때문입니다. 그러나 네트워크 측면에서는 오늘날의 네트워크에서 AI 네이티브 네트워크로의 전환이 일어나고 있으며, 다음 세대로의 진화 과정에서 많은 선두 통신사들이 이 분야에 적극적으로 투자하고 있음을 확인했습니다.</p>
+          
+          <p>마지막으로 주목할 만한 방향은 현재로서는 최종 방향을 완전히 판단하기 어려운 네트워크 감지(Sensing)입니다. 각 지역 통신사들은 네트워크에 감지 기능을 도입하고 있으며, 이는 여전히 진화 중인 영역입니다. 이 분야의 경쟁 구도가 어떻게 형성될지 판단하기에는 아직 이르지만, 각 통신사가 감지가 어떤 새로운 애플리케이션 시나리오와 상업적 기회를 가져올 수 있는지 연구하고 있다는 것은 분명합니다.</p>
+          
+          <h3>6G와 5G의 차이점</h3>
+<p>총 세 가지 질문이 있습니다. 첫 번째 질문부터 시작하겠습니다. 6G는 5G와 비교하여 정확히 어떻게 다릅니까?</p>
+          
+          <p>5G와 달리 6G에 대한 우리의 가장 큰 기대는 AI와의 융합입니다. AI는 네트워크와 단말기 장치 모두에 걸쳐 어디에나 존재할 것입니다. 이는 과거 5G가 달성할 수 있었던 능력과 비교할 때 6G에서 더욱 두드러질 것입니다.</p>
+          
+          <p>5G 시대에는 모바일 광대역 능력 향상, 대규모 IoT, 초고신뢰 저지연 통신에 대해 자주 이야기했습니다. 지난 7년을 되돌아보면, 2019년은 5G 상용 배포의 원년이었습니다. 당시 5G의 대부분의 작업은 실제로 모바일 광대역에 집중되었고, IoT에 대한 관심은 그리 많지 않았습니다. 나중에 IoT가 점차 발전하기 시작했지만, 여전히 시간이 필요했습니다. 처음에는 초고신뢰 저지연 통신 분야에서도 많은 진전이 없었으며, 실제로 성과를 보인 것은 모바일 광대역과 소수의 IoT 애플리케이션이었습니다. 그 외에도 위성통신이 있었습니다.</p>
+          
+          <p>다른 한편으로, 6G에 대해 이야기할 때 우리는 단순히 광대역과 IoT만을 논하는 것이 아닙니다. 이들은 모두 애플리케이션 시나리오에 속합니다. 기술적인 관점에서 볼 때, 6G가 발전함에 따라 인공지능은 어디에나 존재할 것입니다. 이것이 한 가지입니다. 둘째, 우리는 새로운 단말기 범주와 새로운 애플리케이션 시나리오에 진정으로 집중할 것입니다. 우리는 6G를 단순히 광대역 관점에서만 논하지 않습니다. 이 수준에서 볼 때, 우리는 6G의 진화가 5G와 매우 다를 것으로 예상합니다.</p>
+          
+          <h3>6G와 AI의 융합</h3>
+<p>두 번째 질문은 6G와 AI의 융합입니다. 이전 질문에 대한 답변에서도 언급했듯이, 스마트 AI 단말기는 새로운 유형의 장치입니다. 우리가 보기에 이는 단순히 휴대폰에서 AI를 실행하는 것을 넘어, AI 추론 작업을 단말기에서 실행할지 클라우드에서 실행할지 결정하는 문제와도 관련이 있습니다. 그러나 이 모든 것은 스마트 AI를 기반으로 하며, 스마트 AI가 이러한 작업을 어디에서 완료할지 결정합니다. 사용자 관점에서 볼 때, AI 스마트 AI와의 상호 작용 인터페이스만 보게 될 것이며, 이는 매우 다른 사용자 경험이 될 것입니다. 2029년에 6G 장치를 구매한다면, AI 네이티브 장치이기를 바랄 것입니다. 이는 완전히 다른 경험을 제공할 것이며, 사용자가 6G와 AI의 긴밀한 융합을 즉시 볼 수 있는 시나리오이기도 합니다.</p>
+          
+          <p>마찬가지로, 네트워크에는 AI 애플리케이션 시나리오를 위한 고성능 컴퓨팅이 많이 있지만, 이 부분은 최종 소비자에게는 보이지 않습니다. 오늘날 이러한 네트워크가 점차 AI 네트워크로 진화함에 따라, 6G 네트워크도 AI 네트워크가 될 것이며, 컴퓨팅 작업이 여러 곳에서 완료될 수 있음을 알게 될 것입니다. 장치뿐만 아니라 네트워크 엣지, 네트워크 중앙, 심지어 데이터센터에서도 가능합니다.</p>
+          
+          <p>Qualcomm에서는 "컴퓨팅 연속체"라는 용어를 사용해 왔습니다. 컴퓨팅은 한 곳에만 존재하는 것이 아니라 단말기에서 데이터센터까지 모든 곳에 퍼져 있습니다. 이것이 바로 6G 네트워크와 컴퓨팅이 더욱 긴밀하게 융합되는 지점입니다.</p>
+          
+          <h3>6G 발전 현황</h3>
+<p>마지막 질문은 올해 MWC Barcelona 2026에서 통신사를 포함한 파트너들과 6G 발전 합의를 발표한 이후 어떤 진전이 있었는지입니다. 현재 우리는 미국, 중국의 통신사 및 파트너들과 긴밀히 협력하고 있으며, 일본, 한국, 유럽의 다른 통신사 및 제조사들과도 함께 관련 계획을 수립하고 있습니다.</p>
+          
+          <p>중국에서는 관련 산업 파트너들과 기술 연구 및 검증 분야에서 협력하여 미래 기술의 발전 및 적용 방향을 공동으로 모색하고 있습니다. 미국에서는 2028년에 올림픽이 개최될 예정이며, 그때 어떤 성과를 보여줄 수 있을지 계획하고 논의하고 있습니다. 계속해서 관심을 가져주시면 더 많은 관련 내용과 발표를 보게 될 것입니다. 우리는 각 통신사들과 협력하고 있습니다.</p>
+          
+          <h3>새로운 비즈니스 모델</h3>
+<p>세 번째 질문부터 시작하겠습니다. 새로운 비즈니스 모델이 등장하고 있습니까? 사실 저는 최근 전 세계 통신사들과 계속 소통하고 있습니다. 올해 4월에는 중국에서 대부분의 중국 통신사들과 심도 있는 논의를 했고, 미국 통신사들과도 마찬가지였습니다. 한 가지 분명해지고 있는 점은 통신사들이 단순히 데이터 서비스를 제공하는 것을 넘어 사업 범위를 확장하기를 원한다는 것입니다. 이것이 현재 그들의 최우선 고려 사항입니다.</p>
+          
+          <p>오늘날 일반적인 이동통신사는 주로 데이터 서비스를 제공합니다. 우리가 보고 있는 것은 다음과 같습니다. 만약 제가 통신사로서 AI 기능을 갖추고 네트워크 내에 강력한 처리 능력을 가진 6G 네트워크를 구축하고 있다면, 저는 "데이터 서비스"의 범위를 넘어 "컴퓨팅 서비스"와 "토큰 서비스"도 비즈니스 시스템의 일부로 포함하기를 원할 것입니다. 이것이 바로 모든 통신사가 탐색하고 있는 방향입니다. 다시 말해, 네트워크에 자금을 투자하고 업그레이드한다면, 저의 비즈니스 모델은 무엇이며, 어떻게 수익을 창출할 수 있을까요? 이것이 모든 통신사가 고민하는 문제입니다. 따라서 6G 시대에 통신사들이 이러한 네트워크 투자를 추진함에 따라, 그들은 또한 다양한 비즈니스 모델을 모색하고 있습니다.</p>
+          
+          <h3>감지 기술 기반의 킬러 앱</h3>
+<p>이제 두 번째 질문에 답하겠습니다. 감지 기술을 기반으로 한 새로운 킬러 앱이 등장할까요? 저는 먼저 감지 기술이 오늘날 우리에게 무엇을 가져다줄 수 있는지 생각해야 한다고 봅니다. 간단히 말해, 감지 기술은 네트워크 내의 모든 것을 식별할 수 있게 해줍니다. 이는 본질적으로 객체 감지 및 분류 문제입니다. 보행자, 자동차, 교통 신호등, 드론 또는 공중에 나타나는 다른 물체인지 판단하여 네트워크 커버리지 내에서 무슨 일이 일어나고 있는지 포괄적으로 감지해야 합니다. 이것은 방대한 데이터 문제이며, 모든 데이터를 수집하여 네트워크로 다시 피드백해야 합니다.</p>
+          
+          <p>이때 네트워크는 이러한 방대한 데이터를 수신하고 심층적으로 처리 및 분석할 수 있는 완전한 능력을 갖추고 있습니다. 우리는 이것이 새로운 네트워크 운영 방식을 가져올 것이라고 생각합니다. 우리는 이를 "자율 네트워크"라고 부르는데, 즉 스스로 작동할 수 있는 네트워크입니다. 네트워크는 네트워크 내의 다양한 정보를 실시간으로 감지하고 분석하며, 이를 기반으로 지속적으로 진화하고, 다양한 매개변수도 끊임없이 동적으로 조정됩니다. 이는 자동차 산업의 ADAS(첨단 운전자 보조 시스템) 상황과 다소 유사합니다. 차량이 주변 환경을 감지하고 다음 행동을 결정하는 것과 같습니다. 여기서 네트워크도 외부에서 일어나는 모든 것을 감지한 다음 자율적으로 조정합니다. 이러한 의미에서 우리는 이것이 완전히 새로운 네트워크 운영 방식을 나타낸다고 생각합니다. 최종적으로 "킬러 앱"이라는 이름이 붙을지는 확실하지 않지만, 의심할 여지 없이 완전히 다른 네트워크 운영 모델입니다.</p>
+          
+          <h3>데이터센터와 통신사</h3>
+<p>이제 마지막 질문을 살펴보겠습니다. 5G 시대에는 킬러 앱이 부족했다고 생각할 수 있지만, 실제로 많은 애플리케이션이 5G의 지원으로 크게 향상되었지만, 진정으로 새로운 애플리케이션은 나타나지 않았습니다. 저는 고정 무선 접속이 그중 하나라고 생각합니다. 반면 6G 시대에는 통신사들이 데이터센터에 더 많은 관심을 보이는 것 같습니다. 제 이전 답변에서 이미 설명했듯이, 그들은 데이터센터에 관심이 있지만, 그들이 정말로 관심 있는 것은 새로운 비즈니스 모델입니다. 통신사들은 더 이상 데이터 서비스 제공에만 국한되지 않고, 컴퓨팅 서비스(Compute as a Service)를 추가로 제공하려 합니다.</p>
+          
+          <p>컴퓨팅 서비스 모델에서 제가 통신사라면 몇 가지 선택지가 있습니다. 하나는 데이터센터만 구축하는 것이고, 다른 하나는 데이터센터를 구축할 뿐만 아니라 네트워크를 AI 네이티브 네트워크로 업그레이드하는 것입니다. 이렇게 하면 데이터센터에만 의존하는 것이 아니라 네트워크 자체의 능력을 활용하여 네트워크 내부에서 네트워크 엣지까지 서비스를 제공할 수 있습니다.</p>
+          
+          <p>이러한 의미에서 우리는 통신사들이 다른 사고방식과 개념을 보여주고 있음을 확인했습니다. 우리가 관찰한 바에 따르면, China Telecom은 좋은 예입니다. 그들은 이미 데이터 서비스 제공을 넘어 컴퓨팅 사업에 진출하고 있습니다. 이것이 바로 통신사들이 단순한 데이터 제공자 역할을 넘어 스스로를 재정의하는 한 가지 예입니다.</p>
+          
+          <h3>6G 표준화 및 기술 투자</h3>
+<p>좋은 질문입니다. 실제로 우리는 이러한 기술, 특히 확률적 성형(probabilistic shaping)에 많은 자원을 투자했습니다. 우리는 물리 계층에서도 이러한 기술을 사용하면 큰 성능 향상을 얻을 수 있다고 믿습니다.</p>
+          
+          <p>Qualcomm은 6G 표준화 작업에 깊이 참여하고 있지만, 6G 표준화 프로세스에는 자체적인 시간표가 있습니다. 2028년 말에야 6G에 최종적으로 어떤 내용이 확정될지 알 수 있을 것입니다. 하지만 성능 관점에서 볼 때, 우리는 현재 몇 가지 방향에 크게 투자하고 있습니다. 네트워크 측면의 Giga MIMO RF, 확률적 성형 기술, 그리고 무선 프로토콜에 AI를 적용하는 것입니다. 이것들이 최종적으로 어떻게 구현될지는 지켜봐야 하며, 표준화 작업이 어느 정도 진행된 후에야 이 질문에 대해 더 완전한 답변을 드릴 수 있을 것입니다.</p>
+          
+          <h3>AI 네이티브 네트워크</h3>
+<p>먼저, AI 네이티브 네트워크는 고성능 컴퓨팅 프로세서, 즉 CPU와 AI 가속기를 기반으로 구축됩니다. 이는 네트워크에 공랭식 서버와 공랭식 가속 카드가 대량으로 배포된다는 것을 의미합니다. 이들은 무선 접속 계층, DU(분산 장치) 계층 또는 더 깊은 네트워크 노드, 심지어 코어 네트워크 자체에 사용될 수 있습니다. 이것이 "AI 네이티브 네트워크"를 이해하는 한 가지 방법이라고 할 수 있습니다.</p>
+          
+          <p>현재로서는 이 개념에 대해 업계에서 논쟁이 없다고 생각합니다. 대부분의 통신사들은 AI 네이티브 네트워크가 기존 CPU와 같은 프로세서를 기반으로 다양한 무선 통신 프로토콜을 실행할 수 있을 뿐만 아니라, 네트워크 내에서 AI 추론을 실행할 수 있는 능력도 갖추고 있다는 데 동의합니다. 이것이 "AI 네이티브 네트워크"에 대한 비교적 일반적인 이해라고 할 수 있습니다.</p>
+          
+          <h3>Qualcomm의 데이터센터 사업 전략</h3>
+<p>이것은 상당히 광범위한 질문이므로, 이해하기 쉬운 수준으로 답변을 제한하도록 노력하겠습니다. 먼저, 데이터센터 사업 측면에서 우리는 대략 네 가지 다른 진입점을 가지고 있습니다. 올해 6월 24일에 개최된 투자자의 날 행사에서 설명했듯이, 이 몇 가지 방향은 현재 상당히 좋은 진전을 보이고 있습니다.</p>
+          
+          <ul>
+  <li>CPU 기반 솔루션을 데이터센터 사업에 적용하고 있습니다. 이러한 시스템은 훨씬 더 큰 규모로, 수백 개의 CPU를 특정 아키텍처에 따라 통합하여 데이터센터의 공랭식 및 액랭식 서버에 배포됩니다. 이는 현재 스마트폰에 사용되는 CPU와는 완전히 다릅니다. 비록 같은 제품군에 속하지만, 실제로는 완전히 다른 유형의 프로세서이며, 데이터센터 애플리케이션 시나리오에 특화되어 맞춤 제작되었습니다.</li>
+  <li>두 번째 진입점은 우리의 AI 가속기, 즉 NPU 기반 솔루션입니다. 현재 우리는 데이터센터에서 실행되는 생성형 AI 애플리케이션을 위해 NPU와 그 진화된 제품의 조합 솔루션을 점점 더 많이 채택하고 있습니다. 마찬가지로, 이들도 액랭식 랙에 배포됩니다. 현재 우리의 AI250 랙급 솔루션의 정격 전력은 160킬로와트에 달하며, 미래에는 수백 킬로와트 수준에 도달할 것으로 예상합니다. 이 점은 스마트폰과 완전히 다릅니다.</li>
+  <li>세 번째 진입점은 투자자의 날 행사에서도 많이 소개했던 고대역폭 컴퓨팅(HBC, High Bandwidth Compute)입니다. 이는 기존 시장의 솔루션과 비교하여 진정한 차별화된 이점을 형성하고, 매우 높은 메모리 대역폭을 제공하여 추론 과정의 디코딩 단계 성능을 향상시키는 새로운 메모리 아키텍처입니다.</li>
+  <li>네 번째 진입점은 맞춤형 칩 사업입니다. 이는 우리가 모든 IP를 제공할 필요는 없다는 것을 의미합니다. 우리는 일부 IP를 제공할 수 있으며, 고객의 IP도 통합하여 ASIC 서비스(주문형 반도체) 형태로 솔루션을 제공할 것입니다. 이것 또한 우리가 가진 능력 중 하나입니다.</li>
+</ul>
+          
+          <p>따라서 CPU, AI(가속기), HBC 기반 근접 메모리 컴퓨팅 아키텍처, 그리고 맞춤형 칩의 네 가지 다른 진입점이 있습니다.</p>
+          
+          <p>마지막으로, IP 재사용 및 스마트폰 문제에 대해 말씀드리고 싶은 것은 Qualcomm 내부에는 "통합 기술 로드맵"이 있지만, 이것이 모든 사업 부문에서 완전히 동일한 기술을 사용한다는 의미는 아니라는 것입니다.</p>
+          
+          <p>우리의 접근 방식은 확장 가능한 아키텍처를 채택하여 다양한 제품 세분화 영역에 맞게 맞춤 제작하는 것입니다. 따라서 우리의 CPU가 Oryon 제품군에 속한다고 말하더라도, 스마트폰, PC 또는 데이터센터에 사용되는 CPU 아키텍처가 완전히 동일하다는 의미는 아닙니다. 그들 사이에는 약간의 차이가 있을 것입니다. 재사용은 가능하지만, 실제로 적용되는 IP는 완전히 동일하지 않습니다.</p>
+          
+          <h3>HBC와 HBM의 차이점</h3>
+<p>두 가지 좋은 질문입니다. 먼저 HBC(High Bandwidth Compute, 고대역폭 컴퓨팅)와 HBM(High Bandwidth Memory, 고대역폭 메모리)의 차이점에 대해 잠시 말씀드리고 싶습니다. 두 가지의 가장 큰 차이점은 HBM 아키텍처에서 메모리가 한쪽에 위치한다는 점이라고 생각합니다.</p>
+          
+          <p>비유하자면, 메모리를 여기에 두고 처리는 다른 쪽에서 완료하는 것입니다. 메모리와 처리 장치는 고속 인터페이스를 통해 연결됩니다. 반면 HBC에서 우리가 하는 것은 "근접 메모리 컴퓨팅(near-memory computing)"이라고 불리는 아키텍처입니다.</p>
+          
+          <p>이는 여전히 메모리이지만, 모든 처리를 다른 쪽에서 완료하는 대신, 일부 컴퓨팅 로직을 메모리 바로 아래에 배치하는 것을 의미합니다.</p>
+          
+          <p>따라서 컴퓨팅이 메모리 아래에서 발생한다고 이해할 수 있습니다. 이렇게 하면 전력 소비를 크게 줄일 수 있을 뿐만 아니라, 컴퓨팅 장치와 메모리가 서로 매우 가깝기 때문에 매우 높은 대역폭을 달성할 수 있으며, 여전히 많은 컴퓨팅 작업을 완료할 수 있습니다.</p>
+          
+          <p>또한, 다른 SoC(System on Chip)를 다른 쪽에 구성하여 일부 처리 작업을 수행할 수도 있습니다. 물론 동일한 시스템이 모든 처리를 완료할 수도 있습니다.</p>
+          
+          <p>따라서 HBM에 비해 이러한 아키텍처는 더 높은 유효 대역폭을 달성할 수 있습니다. 둘째, 컴퓨팅 장치와 메모리가 전통적인 아키텍처처럼 서로 분리되지 않기 때문에 전력 소비를 줄일 수 있습니다.</p>
+          
+          <h3>클라우드 서비스 제공업체와의 협력</h3>
+<p>두 번째 질문에 대해, 초거대 클라우드 서비스 제공업체들이 이 기술을 채택하도록 어떻게 설득할 것인가에 대해 말씀드리자면, 사실 그들은 이 기술에 매우 관심이 많으며, 우리와 계속해서 심도 있는 대화를 나누고 있습니다.</p>
+          
+          <p>동시에 우리는 주요 메모리 제조사들과도 협력하고 있습니다. 이 메모리 제조사들이 DRAM(Dynamic Random-Access Memory) 스택 구현을 담당하기 때문입니다.</p>
+          
+          <p>그들도 우리와 협력하여 HBC 기술의 구현을 추진하고 있습니다. 따라서 초거대 클라우드 서비스 제공업체든 메모리 제조사든, 우리가 시장에 출시할 제품과 솔루션에 대해 양측의 소통은 매우 원활합니다.</p>
+          
+          <p>우리에게 HBC는 독립적인 제품으로 제공될 수도 있고, 다른 제품과 함께 사용될 수도 있습니다. 이는 만약 당신이 초거대 클라우드 서비스 제공업체이고 이미 자체 CPU 솔루션과 자체 AI 가속기 솔루션을 가지고 있다면, "당신의 HBC 솔루션에 관심이 있습니다. 이것은 저에게 매우 매력적입니다"라고 말할 수 있다는 의미입니다.</p>
+          
+          <p>동시에, 당신은 더 나아가 하위 계층의 컴퓨팅 로직에 어떤 특정 기능을 구현하기를 원하는지 제안할 수도 있습니다. 이것은 매우 긍정적인 논의 과정입니다. 제 말은, 실제로 초거대 클라우드 서비스 제공업체들이 어떤 기능을 반드시 구현해야 하는지 우리에게 알려줄 것이라는 의미입니다.</p>
+          
+          <h3>엣지 및 클라우드 추론의 비중</h3>
+<p>두 가지 매우 중요한 질문입니다. 먼저, 얼마나 많은 추론이 엣지에서 이루어지고 얼마나 많은 추론이 클라우드에서 이루어질지에 대해, 저는 고정된 비율이 존재하지 않으며 특정 애플리케이션 시나리오에 따라 달라진다고 생각합니다. 예를 들어, 우리는 이제 AI 에이전트가 언제든지 스스로 결정할 것이라고 생각합니다. 이 작업은 단말기 장치에서 실행되어야 하는가? 네트워크 엣지에서 실행되어야 하는가? 아니면 클라우드에서 실행되어야 하는가? 그리고 이 답변은 특정 애플리케이션 시나리오에 따라 달라질 것입니다. 따라서 단말기에서 실행되는 작업의 비율과 클라우드에서 실행되는 작업의 비율에 대한 통일된 답변은 없습니다. 최종 사용자 관점에서 볼 때, 사용자는 작업이 어디에서 실행되는지 신경 쓰지 않고, 적절한 시간에 올바른 결과를 얻을 수 있는지에만 관심이 있습니다.</p>
+          
+          <p>따라서 실제로 판단을 내리는 것은 에이전트 자체입니다. 예를 들어, 매우 빠른 응답이 필요한 일부 작업의 경우, 에이전트는 결과를 가능한 한 빨리 반환해야 한다고 판단할 것이므로, 이러한 작업은 단말기 장치에서 실행될 것입니다. 또 다른 예로, 인터넷 검색을 통해 답변을 얻어야 하는 경우, 이러한 작업은 분명히 클라우드에서 실행되어야 합니다. 세 번째 상황으로, 매우 큰 작업이 있어서 대규모 프로젝트를 위해 많은 질문을 작성해야 할 수도 있습니다. 그러면 이 작업을 단말기 장치에서 완료하는 것이 아니라 네트워크 어딘가에서 실행하기를 원할 수 있습니다. Qualcomm은 이 세 가지 모드를 모두 지원합니다. 그러나 방금 질문하신 내용에 답하기는 어렵습니다. 실제로 답은 세 가지 모두 가능합니다. 최종 사용자 관점에서 볼 때, 사용자는 작업이 장치에서 실행되는지 클라우드에서 실행되는지 신경 쓰지 않고, 최종 출력 결과에만 관심이 있습니다.</p>
+          
+          <p>두 번째 질문, 즉 어떤 유형의 추론이 엣지에서 실행하기에 적합한지에 대해서도 마찬가지로 특정 사용 사례에 따라 달라집니다. 일부 시나리오에서는 단말기 로컬에서 이미지 처리만 필요할 수 있으며, 이러한 작업은 기존 AI 기능을 사용할 수 있고 반드시 생성형 AI 기능이 필요하지는 않습니다. 다른 시나리오에서는 콘텐츠 생성이 필요하지만 장치가 네트워크에 연결할 수 없을 때, 추론은 로컬에서 실행되어야 합니다.</p>
+          
+          <p>현재 대부분의 추론은 여전히 클라우드에서 실행됩니다. 최근에야 점점 더 많은 추론이 엣지로 전환되기 시작했으며, 따라서 다양한 배포 방식이 차지하는 비중도 계속 변화하고 있습니다. 전반적으로 소비자 및 기업 애플리케이션 모두 특정 사용 사례에 따라 다양한 배포 방식의 조합을 채택할 것입니다.</p>
+          
+          <h3>메모리 기술의 변화</h3>
+<p>근본적인 변화는 없을 것으로 예상합니다. 우리는 항상 메모리 제조사들과 긴밀히 협력해 왔습니다. 현재 우리가 하는 일은 컴퓨팅을 메모리에 더 가깝게 만드는 것이지, 메모리 자체를 바꾸는 것이 아닙니다. 따라서 이러한 관점에서 볼 때, 근본적인 변화가 나타날 것이라고는 생각하지 않습니다.</p>
+          
+          <h3>통신사의 비즈니스 모델 전환</h3>
+<p>이동통신사 및 이 분야의 다른 참여자들은 궁극적으로 스스로 결론을 내려야 합니다. 우리는 그들에게 이 모델이 왜 가치가 있다고 생각하는지 설명할 수 있지만, 결국 각 통신사는 자체적인 실제 상황을 가지고 있으며, 자신에게 가장 적합한 운영 모델을 찾아야 합니다. 예를 들어, 통신사는 자체적으로 해당 사용자 기반을 가지고 있는지, 오늘날 "데이터 서비스(Data as a Service)"를 제공할 수 있는지, 미래에 "토큰 서비스(Token as a Service)"와 같은 새로운 서비스 모델로 확장할 기회가 있는지 평가해야 합니다.</p>
+          
+          <p>우리가 통신사들과 소통할 때, 우리는 이 모델이 실현 가능하다고 생각한다고 말하지만, 통신사는 스스로에게 적합한지 평가해야 합니다. 일부 통신사들은 이 모델이 매우 적합하다고 생각하여 빠르게 추진할 수 있습니다. 다른 통신사들은 자신에게 적합하지 않다고 생각하여 채택하지 않을 수도 있습니다. 우리에게는 이것도 문제가 되지 않습니다.</p>
+          
+          <p>Qualcomm은 모든 당사자와 협력하고 있습니다. 우리는 모든 통신사가 이 모델을 채택하도록 설득하려 하지 않고, 이 모델이 왜 가치가 있다고 생각하는지 설명하며, 최종 결정은 통신사에게 맡깁니다. 만약 그들이 이 모델이 자신에게 적합하다고 생각한다면, 우리는 기꺼이 지원할 것입니다.</p>
+          
+          <h3>총평</h3>
+<p>Qualcomm은 6G 시대를 맞아 AI 네이티브, 통신-감지 통합, 전 영역 컴퓨팅 협업을 핵심으로 하는 전략을 추진하고 있습니다. 6G는 연결성 향상과 함께 '스마트 AI 단말기'라는 새로운 기기 범주를 탄생시키고, 통신사들은 데이터 서비스에서 컴퓨팅 및 토큰 서비스로 비즈니스 모델을 확장할 것으로 예상됩니다. Qualcomm은 '컴퓨팅 연속체' 개념을 통해 단말기에서 데이터센터까지 전반적인 컴퓨팅 환경을 지원하며, HBC(고대역폭 컴퓨팅) 기술로 데이터센터 아키텍처 혁신을 주도하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>서론</h3>
+<p>IT之家 8월 27일 보도에 따르면, 오늘(8월 27일) 미국 샌디에이고에서 열린 Qualcomm 글로벌 6G 애널리스트 및 미디어 데이에서 Durga Malladi Qualcomm 수석 부사장 겸 엣지 솔루션 및 데이터센터 사업부 총괄 매니저가 IT之家를 포함한 언론과 인터뷰를 갖고 Qualcomm의 6G 전략과 데이터센터 배치 계획을 상세히 설명했습니다.</p>
+          
+          <p>글로벌 통신 기술이 6G 시대로 빠르게 전환됨에 따라 통신, 인공지능, 컴퓨팅 산업의 경계가 빠르게 허물어지고 있으며, 업계는 기술 패러다임과 비즈니스 모델의 이중 변혁을 맞이하고 있습니다.</p>
+          
+          <p>5G 시대가 모바일 광대역 보급에 중점을 둔 발전 경로를 따랐던 것과 달리, 2029년 상용화를 목표로 하는 6G는 AI 네이티브, 통신-감지 통합, 전 영역 컴퓨팅 협업을 핵심 특징으로 삼아 단말기 형태, 네트워크 아키텍처 및 산업 생태계를 재구성하며 글로벌 기술 거대 기업들의 핵심 경쟁 분야가 되고 있습니다.</p>
+          
+          <p>단말기 형태에 대해 Durga Malladi는 6G 시대에 새로운 범주의 장치, 즉 "스마트 AI 장치"가 탄생할 것이며, 이러한 추세가 이미 중국에서 나타나고 있다고 언급했습니다.</p>
+          
+          <p>그는 이러한 새로운 AI 장치가 스마트폰에 국한되지 않고 센서, 웨어러블 장치 등 다양한 연결 장치를 포함하며, 심지어 디스플레이가 없을 수도 있다고 보았습니다.</p>
+          
+          <p>Samsung, Apple, Honor, Xiaomi, vivo 등 제조사들도 스마트 AI 우선 단말기를 개발하고 있습니다. Durga Malladi는 이러한 차별화된 경쟁이 전체 산업의 발전을 이끌 것이라고 생각합니다.</p>
+          
+          <p>이번 인터뷰에서는 Qualcomm의 "컴퓨팅 연속체" 개념을 처음으로 체계적으로 설명하고, HBC 고대역폭 컴퓨팅 기술이 컴퓨팅 아키텍처에 가져올 혁신적 가치, 그리고 데이터센터, 엣지 컴퓨팅, 단말기 AI의 전반적인 배치 논리를 상세히 설명하며, 통신사가 데이터 서비스에서 컴퓨팅 서비스, 토큰 서비스로 전환하는 새로운 비즈니스 모델을 해석했습니다.</p>
+          
+          <p>질문해 주셔서 감사합니다. 먼저 6G의 몇 가지 핵심 영역에 대해 전반적으로 말씀드리고 싶습니다. 이 영역들은 2029년 상용 배포될 6G 기술에 매우 중요합니다.</p>
+          
+          <p>6G가 가져올 첫 번째 주요 영향 영역은 연결성입니다. 이는 모바일 통신 기술 세대 진화에서 예상되는 기본적인 개선 사항입니다. 더 나은 연결성, 더 넓은 커버리지, 더 큰 네트워크 용량. 이 모든 것은 네트워크 배포와 관련이 있으며, 5G의 발전 경로와 매우 유사한 방식으로 진화할 것으로 예상됩니다.</p>
+          
+          <p>단말기 측면에서는 "스마트 AI 단말기(Agentic AI devices)"라는 새로운 단말기 범주가 등장할 것으로 예상합니다. 이 단말기들은 스마트폰뿐만 아니라 고정 무선 접속 단말기도 아닙니다. AI 우선 설계 개념으로 구축된 새로운 유형의 단말기입니다. 다양한 형태를 가질 수 있으며, 심지어 디스플레이가 없을 수도 있습니다. 스마트 펜던트, 스마트 반지와 같은 네트워크 연결 단말기 등이 그 예이며, 이는 이전에 시장에 없었던 완전히 새로운 범주입니다. 동시에, 이 분야에 새로운 단말기 제조사들이 진입하여 6G를 채택하고, 이 단말기들의 형태는 더욱 다양해질 것으로 예상합니다.</p>
+          
+          <p>현재 많은 클라우드 AI 기업들도 하드웨어 분야에 투자하고 있으며, 새로운 단말기 제조사가 될 가능성이 있습니다. 이것 또한 우리가 보고 있는 새로운 시장 역학입니다.</p>
+          
+          <p>중국을 예로 들면, 스마트 AI 폰은 이전에 없었던 완전히 새로운 제품 형태입니다. 마찬가지로 미국에서도 많은 AI 기업들이 자체 하드웨어 장치 출시를 고려하고 있습니다. 이것이 바로 우리가 차별화가 나타나기 시작하는 지점이며, 이로 인해 건전하고 선의의 경쟁이 발생할 것으로 예상하며, 이를 매우 환영합니다.</p>
+          
+          <p>동시에 Samsung, Apple, Honor, OPPO, vivo, Xiaomi도 각자의 스마트 AI 단말기를 개발하고 있습니다. 이러한 의미에서 우리는 스마트 AI 단말기라는 범주의 등장을 매우 기대하고 있으며, 이곳에서 더 흥미로운 단말기 범주들이 나타나기 시작할 것입니다.</p>
+          
+          <p>다른 한편으로, 6G는 처음부터 AI 네이티브 기술로 설계되었습니다. 이는 네트워크 수준에서 AI 네이티브 네트워크 개념이 등장한다는 것을 의미합니다. 여기에는 고성능 컴퓨팅 프로세서의 더 많은 사용과 AI를 활용한 자율 네트워크 또는 네트워크 자율화가 포함됩니다. 따라서 네트워크 측면에서 많은 혁신이 나타날 것입니다. 이는 최종 사용자에게는 즉시 직관적으로 보이지 않을 수 있습니다. 최종 사용자는 단말기 자체에 더 많은 관심을 가지기 때문입니다. 그러나 네트워크 측면에서는 오늘날의 네트워크에서 AI 네이티브 네트워크로의 전환이 일어나고 있으며, 다음 세대로의 진화 과정에서 많은 선두 통신사들이 이 분야에 적극적으로 투자하고 있음을 확인했습니다.</p>
+          
+          <p>마지막으로 주목할 만한 방향은 현재로서는 최종 방향을 완전히 판단하기 어려운 네트워크 감지(Sensing)입니다. 각 지역 통신사들은 네트워크에 감지 기능을 도입하고 있으며, 이는 여전히 진화 중인 영역입니다. 이 분야의 경쟁 구도가 어떻게 형성될지 판단하기에는 아직 이르지만, 각 통신사가 감지가 어떤 새로운 애플리케이션 시나리오와 상업적 기회를 가져올 수 있는지 연구하고 있다는 것은 분명합니다.</p>
+          
+          <h3>6G와 5G의 차이점</h3>
+<p>총 세 가지 질문이 있습니다. 첫 번째 질문부터 시작하겠습니다. 6G는 5G와 비교하여 정확히 어떻게 다릅니까?</p>
+          
+          <p>5G와 달리 6G에 대한 우리의 가장 큰 기대는 AI와의 융합입니다. AI는 네트워크와 단말기 장치 모두에 걸쳐 어디에나 존재할 것입니다. 이는 과거 5G가 달성할 수 있었던 능력과 비교할 때 6G에서 더욱 두드러질 것입니다.</p>
+          
+          <p>5G 시대에는 모바일 광대역 능력 향상, 대규모 IoT, 초고신뢰 저지연 통신에 대해 자주 이야기했습니다. 지난 7년을 되돌아보면, 2019년은 5G 상용 배포의 원년이었습니다. 당시 5G의 대부분의 작업은 실제로 모바일 광대역에 집중되었고, IoT에 대한 관심은 그리 많지 않았습니다. 나중에 IoT가 점차 발전하기 시작했지만, 여전히 시간이 필요했습니다. 처음에는 초고신뢰 저지연 통신 분야에서도 많은 진전이 없었으며, 실제로 성과를 보인 것은 모바일 광대역과 소수의 IoT 애플리케이션이었습니다. 그 외에도 위성통신이 있었습니다.</p>
+          
+          <p>다른 한편으로, 6G에 대해 이야기할 때 우리는 단순히 광대역과 IoT만을 논하는 것이 아닙니다. 이들은 모두 애플리케이션 시나리오에 속합니다. 기술적인 관점에서 볼 때, 6G가 발전함에 따라 인공지능은 어디에나 존재할 것입니다. 이것이 한 가지입니다. 둘째, 우리는 새로운 단말기 범주와 새로운 애플리케이션 시나리오에 진정으로 집중할 것입니다. 우리는 6G를 단순히 광대역 관점에서만 논하지 않습니다. 이 수준에서 볼 때, 우리는 6G의 진화가 5G와 매우 다를 것으로 예상합니다.</p>
+          
+          <h3>6G와 AI의 융합</h3>
+<p>두 번째 질문은 6G와 AI의 융합입니다. 이전 질문에 대한 답변에서도 언급했듯이, 스마트 AI 단말기는 새로운 유형의 장치입니다. 우리가 보기에 이는 단순히 휴대폰에서 AI를 실행하는 것을 넘어, AI 추론 작업을 단말기에서 실행할지 클라우드에서 실행할지 결정하는 문제와도 관련이 있습니다. 그러나 이 모든 것은 스마트 AI를 기반으로 하며, 스마트 AI가 이러한 작업을 어디에서 완료할지 결정합니다. 사용자 관점에서 볼 때, AI 스마트 AI와의 상호 작용 인터페이스만 보게 될 것이며, 이는 매우 다른 사용자 경험이 될 것입니다. 2029년에 6G 장치를 구매한다면, AI 네이티브 장치이기를 바랄 것입니다. 이는 완전히 다른 경험을 제공할 것이며, 사용자가 6G와 AI의 긴밀한 융합을 즉시 볼 수 있는 시나리오이기도 합니다.</p>
+          
+          <p>마찬가지로, 네트워크에는 AI 애플리케이션 시나리오를 위한 고성능 컴퓨팅이 많이 있지만, 이 부분은 최종 소비자에게는 보이지 않습니다. 오늘날 이러한 네트워크가 점차 AI 네트워크로 진화함에 따라, 6G 네트워크도 AI 네트워크가 될 것이며, 컴퓨팅 작업이 여러 곳에서 완료될 수 있음을 알게 될 것입니다. 장치뿐만 아니라 네트워크 엣지, 네트워크 중앙, 심지어 데이터센터에서도 가능합니다.</p>
+          
+          <p>Qualcomm에서는 "컴퓨팅 연속체"라는 용어를 사용해 왔습니다. 컴퓨팅은 한 곳에만 존재하는 것이 아니라 단말기에서 데이터센터까지 모든 곳에 퍼져 있습니다. 이것이 바로 6G 네트워크와 컴퓨팅이 더욱 긴밀하게 융합되는 지점입니다.</p>
+          
+          <h3>6G 발전 현황</h3>
+<p>마지막 질문은 올해 MWC Barcelona 2026에서 통신사를 포함한 파트너들과 6G 발전 합의를 발표한 이후 어떤 진전이 있었는지입니다. 현재 우리는 미국, 중국의 통신사 및 파트너들과 긴밀히 협력하고 있으며, 일본, 한국, 유럽의 다른 통신사 및 제조사들과도 함께 관련 계획을 수립하고 있습니다.</p>
+          
+          <p>중국에서는 관련 산업 파트너들과 기술 연구 및 검증 분야에서 협력하여 미래 기술의 발전 및 적용 방향을 공동으로 모색하고 있습니다. 미국에서는 2028년에 올림픽이 개최될 예정이며, 그때 어떤 성과를 보여줄 수 있을지 계획하고 논의하고 있습니다. 계속해서 관심을 가져주시면 더 많은 관련 내용과 발표를 보게 될 것입니다. 우리는 각 통신사들과 협력하고 있습니다.</p>
+          
+          <h3>새로운 비즈니스 모델</h3>
+<p>세 번째 질문부터 시작하겠습니다. 새로운 비즈니스 모델이 등장하고 있습니까? 사실 저는 최근 전 세계 통신사들과 계속 소통하고 있습니다. 올해 4월에는 중국에서 대부분의 중국 통신사들과 심도 있는 논의를 했고, 미국 통신사들과도 마찬가지였습니다. 한 가지 분명해지고 있는 점은 통신사들이 단순히 데이터 서비스를 제공하는 것을 넘어 사업 범위를 확장하기를 원한다는 것입니다. 이것이 현재 그들의 최우선 고려 사항입니다.</p>
+          
+          <p>오늘날 일반적인 이동통신사는 주로 데이터 서비스를 제공합니다. 우리가 보고 있는 것은 다음과 같습니다. 만약 제가 통신사로서 AI 기능을 갖추고 네트워크 내에 강력한 처리 능력을 가진 6G 네트워크를 구축하고 있다면, 저는 "데이터 서비스"의 범위를 넘어 "컴퓨팅 서비스"와 "토큰 서비스"도 비즈니스 시스템의 일부로 포함하기를 원할 것입니다. 이것이 바로 모든 통신사가 탐색하고 있는 방향입니다. 다시 말해, 네트워크에 자금을 투자하고 업그레이드한다면, 저의 비즈니스 모델은 무엇이며, 어떻게 수익을 창출할 수 있을까요? 이것이 모든 통신사가 고민하는 문제입니다. 따라서 6G 시대에 통신사들이 이러한 네트워크 투자를 추진함에 따라, 그들은 또한 다양한 비즈니스 모델을 모색하고 있습니다.</p>
+          
+          <h3>감지 기술 기반의 킬러 앱</h3>
+<p>이제 두 번째 질문에 답하겠습니다. 감지 기술을 기반으로 한 새로운 킬러 앱이 등장할까요? 저는 먼저 감지 기술이 오늘날 우리에게 무엇을 가져다줄 수 있는지 생각해야 한다고 봅니다. 간단히 말해, 감지 기술은 네트워크 내의 모든 것을 식별할 수 있게 해줍니다. 이는 본질적으로 객체 감지 및 분류 문제입니다. 보행자, 자동차, 교통 신호등, 드론 또는 공중에 나타나는 다른 물체인지 판단하여 네트워크 커버리지 내에서 무슨 일이 일어나고 있는지 포괄적으로 감지해야 합니다. 이것은 방대한 데이터 문제이며, 모든 데이터를 수집하여 네트워크로 다시 피드백해야 합니다.</p>
+          
+          <p>이때 네트워크는 이러한 방대한 데이터를 수신하고 심층적으로 처리 및 분석할 수 있는 완전한 능력을 갖추고 있습니다. 우리는 이것이 새로운 네트워크 운영 방식을 가져올 것이라고 생각합니다. 우리는 이를 "자율 네트워크"라고 부르는데, 즉 스스로 작동할 수 있는 네트워크입니다. 네트워크는 네트워크 내의 다양한 정보를 실시간으로 감지하고 분석하며, 이를 기반으로 지속적으로 진화하고, 다양한 매개변수도 끊임없이 동적으로 조정됩니다. 이는 자동차 산업의 ADAS(첨단 운전자 보조 시스템) 상황과 다소 유사합니다. 차량이 주변 환경을 감지하고 다음 행동을 결정하는 것과 같습니다. 여기서 네트워크도 외부에서 일어나는 모든 것을 감지한 다음 자율적으로 조정합니다. 이러한 의미에서 우리는 이것이 완전히 새로운 네트워크 운영 방식을 나타낸다고 생각합니다. 최종적으로 "킬러 앱"이라는 이름이 붙을지는 확실하지 않지만, 의심할 여지 없이 완전히 다른 네트워크 운영 모델입니다.</p>
+          
+          <h3>데이터센터와 통신사</h3>
+<p>이제 마지막 질문을 살펴보겠습니다. 5G 시대에는 킬러 앱이 부족했다고 생각할 수 있지만, 실제로 많은 애플리케이션이 5G의 지원으로 크게 향상되었지만, 진정으로 새로운 애플리케이션은 나타나지 않았습니다. 저는 고정 무선 접속이 그중 하나라고 생각합니다. 반면 6G 시대에는 통신사들이 데이터센터에 더 많은 관심을 보이는 것 같습니다. 제 이전 답변에서 이미 설명했듯이, 그들은 데이터센터에 관심이 있지만, 그들이 정말로 관심 있는 것은 새로운 비즈니스 모델입니다. 통신사들은 더 이상 데이터 서비스 제공에만 국한되지 않고, 컴퓨팅 서비스(Compute as a Service)를 추가로 제공하려 합니다.</p>
+          
+          <p>컴퓨팅 서비스 모델에서 제가 통신사라면 몇 가지 선택지가 있습니다. 하나는 데이터센터만 구축하는 것이고, 다른 하나는 데이터센터를 구축할 뿐만 아니라 네트워크를 AI 네이티브 네트워크로 업그레이드하는 것입니다. 이렇게 하면 데이터센터에만 의존하는 것이 아니라 네트워크 자체의 능력을 활용하여 네트워크 내부에서 네트워크 엣지까지 서비스를 제공할 수 있습니다.</p>
+          
+          <p>이러한 의미에서 우리는 통신사들이 다른 사고방식과 개념을 보여주고 있음을 확인했습니다. 우리가 관찰한 바에 따르면, China Telecom은 좋은 예입니다. 그들은 이미 데이터 서비스 제공을 넘어 컴퓨팅 사업에 진출하고 있습니다. 이것이 바로 통신사들이 단순한 데이터 제공자 역할을 넘어 스스로를 재정의하는 한 가지 예입니다.</p>
+          
+          <h3>6G 표준화 및 기술 투자</h3>
+<p>좋은 질문입니다. 실제로 우리는 이러한 기술, 특히 확률적 성형(probabilistic shaping)에 많은 자원을 투자했습니다. 우리는 물리 계층에서도 이러한 기술을 사용하면 큰 성능 향상을 얻을 수 있다고 믿습니다.</p>
+          
+          <p>Qualcomm은 6G 표준화 작업에 깊이 참여하고 있지만, 6G 표준화 프로세스에는 자체적인 시간표가 있습니다. 2028년 말에야 6G에 최종적으로 어떤 내용이 확정될지 알 수 있을 것입니다. 하지만 성능 관점에서 볼 때, 우리는 현재 몇 가지 방향에 크게 투자하고 있습니다. 네트워크 측면의 Giga MIMO RF, 확률적 성형 기술, 그리고 무선 프로토콜에 AI를 적용하는 것입니다. 이것들이 최종적으로 어떻게 구현될지는 지켜봐야 하며, 표준화 작업이 어느 정도 진행된 후에야 이 질문에 대해 더 완전한 답변을 드릴 수 있을 것입니다.</p>
+          
+          <h3>AI 네이티브 네트워크</h3>
+<p>먼저, AI 네이티브 네트워크는 고성능 컴퓨팅 프로세서, 즉 CPU와 AI 가속기를 기반으로 구축됩니다. 이는 네트워크에 공랭식 서버와 공랭식 가속 카드가 대량으로 배포된다는 것을 의미합니다. 이들은 무선 접속 계층, DU(분산 장치) 계층 또는 더 깊은 네트워크 노드, 심지어 코어 네트워크 자체에 사용될 수 있습니다. 이것이 "AI 네이티브 네트워크"를 이해하는 한 가지 방법이라고 할 수 있습니다.</p>
+          
+          <p>현재로서는 이 개념에 대해 업계에서 논쟁이 없다고 생각합니다. 대부분의 통신사들은 AI 네이티브 네트워크가 기존 CPU와 같은 프로세서를 기반으로 다양한 무선 통신 프로토콜을 실행할 수 있을 뿐만 아니라, 네트워크 내에서 AI 추론을 실행할 수 있는 능력도 갖추고 있다는 데 동의합니다. 이것이 "AI 네이티브 네트워크"에 대한 비교적 일반적인 이해라고 할 수 있습니다.</p>
+          
+          <h3>Qualcomm의 데이터센터 사업 전략</h3>
+<p>이것은 상당히 광범위한 질문이므로, 이해하기 쉬운 수준으로 답변을 제한하도록 노력하겠습니다. 먼저, 데이터센터 사업 측면에서 우리는 대략 네 가지 다른 진입점을 가지고 있습니다. 올해 6월 24일에 개최된 투자자의 날 행사에서 설명했듯이, 이 몇 가지 방향은 현재 상당히 좋은 진전을 보이고 있습니다.</p>
+          
+          <ul>
+  <li>CPU 기반 솔루션을 데이터센터 사업에 적용하고 있습니다. 이러한 시스템은 훨씬 더 큰 규모로, 수백 개의 CPU를 특정 아키텍처에 따라 통합하여 데이터센터의 공랭식 및 액랭식 서버에 배포됩니다. 이는 현재 스마트폰에 사용되는 CPU와는 완전히 다릅니다. 비록 같은 제품군에 속하지만, 실제로는 완전히 다른 유형의 프로세서이며, 데이터센터 애플리케이션 시나리오에 특화되어 맞춤 제작되었습니다.</li>
+  <li>두 번째 진입점은 우리의 AI 가속기, 즉 NPU 기반 솔루션입니다. 현재 우리는 데이터센터에서 실행되는 생성형 AI 애플리케이션을 위해 NPU와 그 진화된 제품의 조합 솔루션을 점점 더 많이 채택하고 있습니다. 마찬가지로, 이들도 액랭식 랙에 배포됩니다. 현재 우리의 AI250 랙급 솔루션의 정격 전력은 160킬로와트에 달하며, 미래에는 수백 킬로와트 수준에 도달할 것으로 예상합니다. 이 점은 스마트폰과 완전히 다릅니다.</li>
+  <li>세 번째 진입점은 투자자의 날 행사에서도 많이 소개했던 고대역폭 컴퓨팅(HBC, High Bandwidth Compute)입니다. 이는 기존 시장의 솔루션과 비교하여 진정한 차별화된 이점을 형성하고, 매우 높은 메모리 대역폭을 제공하여 추론 과정의 디코딩 단계 성능을 향상시키는 새로운 메모리 아키텍처입니다.</li>
+  <li>네 번째 진입점은 맞춤형 칩 사업입니다. 이는 우리가 모든 IP를 제공할 필요는 없다는 것을 의미합니다. 우리는 일부 IP를 제공할 수 있으며, 고객의 IP도 통합하여 ASIC 서비스(주문형 반도체) 형태로 솔루션을 제공할 것입니다. 이것 또한 우리가 가진 능력 중 하나입니다.</li>
+</ul>
+          
+          <p>따라서 CPU, AI(가속기), HBC 기반 근접 메모리 컴퓨팅 아키텍처, 그리고 맞춤형 칩의 네 가지 다른 진입점이 있습니다.</p>
+          
+          <p>마지막으로, IP 재사용 및 스마트폰 문제에 대해 말씀드리고 싶은 것은 Qualcomm 내부에는 "통합 기술 로드맵"이 있지만, 이것이 모든 사업 부문에서 완전히 동일한 기술을 사용한다는 의미는 아니라는 것입니다.</p>
+          
+          <p>우리의 접근 방식은 확장 가능한 아키텍처를 채택하여 다양한 제품 세분화 영역에 맞게 맞춤 제작하는 것입니다. 따라서 우리의 CPU가 Oryon 제품군에 속한다고 말하더라도, 스마트폰, PC 또는 데이터센터에 사용되는 CPU 아키텍처가 완전히 동일하다는 의미는 아닙니다. 그들 사이에는 약간의 차이가 있을 것입니다. 재사용은 가능하지만, 실제로 적용되는 IP는 완전히 동일하지 않습니다.</p>
+          
+          <h3>HBC와 HBM의 차이점</h3>
+<p>두 가지 좋은 질문입니다. 먼저 HBC(High Bandwidth Compute, 고대역폭 컴퓨팅)와 HBM(High Bandwidth Memory, 고대역폭 메모리)의 차이점에 대해 잠시 말씀드리고 싶습니다. 두 가지의 가장 큰 차이점은 HBM 아키텍처에서 메모리가 한쪽에 위치한다는 점이라고 생각합니다.</p>
+          
+          <p>비유하자면, 메모리를 여기에 두고 처리는 다른 쪽에서 완료하는 것입니다. 메모리와 처리 장치는 고속 인터페이스를 통해 연결됩니다. 반면 HBC에서 우리가 하는 것은 "근접 메모리 컴퓨팅(near-memory computing)"이라고 불리는 아키텍처입니다.</p>
+          
+          <p>이는 여전히 메모리이지만, 모든 처리를 다른 쪽에서 완료하는 대신, 일부 컴퓨팅 로직을 메모리 바로 아래에 배치하는 것을 의미합니다.</p>
+          
+          <p>따라서 컴퓨팅이 메모리 아래에서 발생한다고 이해할 수 있습니다. 이렇게 하면 전력 소비를 크게 줄일 수 있을 뿐만 아니라, 컴퓨팅 장치와 메모리가 서로 매우 가깝기 때문에 매우 높은 대역폭을 달성할 수 있으며, 여전히 많은 컴퓨팅 작업을 완료할 수 있습니다.</p>
+          
+          <p>또한, 다른 SoC(System on Chip)를 다른 쪽에 구성하여 일부 처리 작업을 수행할 수도 있습니다. 물론 동일한 시스템이 모든 처리를 완료할 수도 있습니다.</p>
+          
+          <p>따라서 HBM에 비해 이러한 아키텍처는 더 높은 유효 대역폭을 달성할 수 있습니다. 둘째, 컴퓨팅 장치와 메모리가 전통적인 아키텍처처럼 서로 분리되지 않기 때문에 전력 소비를 줄일 수 있습니다.</p>
+          
+          <h3>클라우드 서비스 제공업체와의 협력</h3>
+<p>두 번째 질문에 대해, 초거대 클라우드 서비스 제공업체들이 이 기술을 채택하도록 어떻게 설득할 것인가에 대해 말씀드리자면, 사실 그들은 이 기술에 매우 관심이 많으며, 우리와 계속해서 심도 있는 대화를 나누고 있습니다.</p>
+          
+          <p>동시에 우리는 주요 메모리 제조사들과도 협력하고 있습니다. 이 메모리 제조사들이 DRAM(Dynamic Random-Access Memory) 스택 구현을 담당하기 때문입니다.</p>
+          
+          <p>그들도 우리와 협력하여 HBC 기술의 구현을 추진하고 있습니다. 따라서 초거대 클라우드 서비스 제공업체든 메모리 제조사든, 우리가 시장에 출시할 제품과 솔루션에 대해 양측의 소통은 매우 원활합니다.</p>
+          
+          <p>우리에게 HBC는 독립적인 제품으로 제공될 수도 있고, 다른 제품과 함께 사용될 수도 있습니다. 이는 만약 당신이 초거대 클라우드 서비스 제공업체이고 이미 자체 CPU 솔루션과 자체 AI 가속기 솔루션을 가지고 있다면, "당신의 HBC 솔루션에 관심이 있습니다. 이것은 저에게 매우 매력적입니다"라고 말할 수 있다는 의미입니다.</p>
+          
+          <p>동시에, 당신은 더 나아가 하위 계층의 컴퓨팅 로직에 어떤 특정 기능을 구현하기를 원하는지 제안할 수도 있습니다. 이것은 매우 긍정적인 논의 과정입니다. 제 말은, 실제로 초거대 클라우드 서비스 제공업체들이 어떤 기능을 반드시 구현해야 하는지 우리에게 알려줄 것이라는 의미입니다.</p>
+          
+          <h3>엣지 및 클라우드 추론의 비중</h3>
+<p>두 가지 매우 중요한 질문입니다. 먼저, 얼마나 많은 추론이 엣지에서 이루어지고 얼마나 많은 추론이 클라우드에서 이루어질지에 대해, 저는 고정된 비율이 존재하지 않으며 특정 애플리케이션 시나리오에 따라 달라진다고 생각합니다. 예를 들어, 우리는 이제 AI 에이전트가 언제든지 스스로 결정할 것이라고 생각합니다. 이 작업은 단말기 장치에서 실행되어야 하는가? 네트워크 엣지에서 실행되어야 하는가? 아니면 클라우드에서 실행되어야 하는가? 그리고 이 답변은 특정 애플리케이션 시나리오에 따라 달라질 것입니다. 따라서 단말기에서 실행되는 작업의 비율과 클라우드에서 실행되는 작업의 비율에 대한 통일된 답변은 없습니다. 최종 사용자 관점에서 볼 때, 사용자는 작업이 어디에서 실행되는지 신경 쓰지 않고, 적절한 시간에 올바른 결과를 얻을 수 있는지에만 관심이 있습니다.</p>
+          
+          <p>따라서 실제로 판단을 내리는 것은 에이전트 자체입니다. 예를 들어, 매우 빠른 응답이 필요한 일부 작업의 경우, 에이전트는 결과를 가능한 한 빨리 반환해야 한다고 판단할 것이므로, 이러한 작업은 단말기 장치에서 실행될 것입니다. 또 다른 예로, 인터넷 검색을 통해 답변을 얻어야 하는 경우, 이러한 작업은 분명히 클라우드에서 실행되어야 합니다. 세 번째 상황으로, 매우 큰 작업이 있어서 대규모 프로젝트를 위해 많은 질문을 작성해야 할 수도 있습니다. 그러면 이 작업을 단말기 장치에서 완료하는 것이 아니라 네트워크 어딘가에서 실행하기를 원할 수 있습니다. Qualcomm은 이 세 가지 모드를 모두 지원합니다. 그러나 방금 질문하신 내용에 답하기는 어렵습니다. 실제로 답은 세 가지 모두 가능합니다. 최종 사용자 관점에서 볼 때, 사용자는 작업이 장치에서 실행되는지 클라우드에서 실행되는지 신경 쓰지 않고, 최종 출력 결과에만 관심이 있습니다.</p>
+          
+          <p>두 번째 질문, 즉 어떤 유형의 추론이 엣지에서 실행하기에 적합한지에 대해서도 마찬가지로 특정 사용 사례에 따라 달라집니다. 일부 시나리오에서는 단말기 로컬에서 이미지 처리만 필요할 수 있으며, 이러한 작업은 기존 AI 기능을 사용할 수 있고 반드시 생성형 AI 기능이 필요하지는 않습니다. 다른 시나리오에서는 콘텐츠 생성이 필요하지만 장치가 네트워크에 연결할 수 없을 때, 추론은 로컬에서 실행되어야 합니다.</p>
+          
+          <p>현재 대부분의 추론은 여전히 클라우드에서 실행됩니다. 최근에야 점점 더 많은 추론이 엣지로 전환되기 시작했으며, 따라서 다양한 배포 방식이 차지하는 비중도 계속 변화하고 있습니다. 전반적으로 소비자 및 기업 애플리케이션 모두 특정 사용 사례에 따라 다양한 배포 방식의 조합을 채택할 것입니다.</p>
+          
+          <h3>메모리 기술의 변화</h3>
+<p>근본적인 변화는 없을 것으로 예상합니다. 우리는 항상 메모리 제조사들과 긴밀히 협력해 왔습니다. 현재 우리가 하는 일은 컴퓨팅을 메모리에 더 가깝게 만드는 것이지, 메모리 자체를 바꾸는 것이 아닙니다. 따라서 이러한 관점에서 볼 때, 근본적인 변화가 나타날 것이라고는 생각하지 않습니다.</p>
+          
+          <h3>통신사의 비즈니스 모델 전환</h3>
+<p>이동통신사 및 이 분야의 다른 참여자들은 궁극적으로 스스로 결론을 내려야 합니다. 우리는 그들에게 이 모델이 왜 가치가 있다고 생각하는지 설명할 수 있지만, 결국 각 통신사는 자체적인 실제 상황을 가지고 있으며, 자신에게 가장 적합한 운영 모델을 찾아야 합니다. 예를 들어, 통신사는 자체적으로 해당 사용자 기반을 가지고 있는지, 오늘날 "데이터 서비스(Data as a Service)"를 제공할 수 있는지, 미래에 "토큰 서비스(Token as a Service)"와 같은 새로운 서비스 모델로 확장할 기회가 있는지 평가해야 합니다.</p>
+          
+          <p>우리가 통신사들과 소통할 때, 우리는 이 모델이 실현 가능하다고 생각한다고 말하지만, 통신사는 스스로에게 적합한지 평가해야 합니다. 일부 통신사들은 이 모델이 매우 적합하다고 생각하여 빠르게 추진할 수 있습니다. 다른 통신사들은 자신에게 적합하지 않다고 생각하여 채택하지 않을 수도 있습니다. 우리에게는 이것도 문제가 되지 않습니다.</p>
+          
+          <p>Qualcomm은 모든 당사자와 협력하고 있습니다. 우리는 모든 통신사가 이 모델을 채택하도록 설득하려 하지 않고, 이 모델이 왜 가치가 있다고 생각하는지 설명하며, 최종 결정은 통신사에게 맡깁니다. 만약 그들이 이 모델이 자신에게 적합하다고 생각한다면, 우리는 기꺼이 지원할 것입니다.</p>
+          
+          <h3>총평</h3>
+<p>Qualcomm은 6G 시대를 맞아 AI 네이티브, 통신-감지 통합, 전 영역 컴퓨팅 협업을 핵심으로 하는 전략을 추진하고 있습니다. 6G는 연결성 향상과 함께 '스마트 AI 단말기'라는 새로운 기기 범주를 탄생시키고, 통신사들은 데이터 서비스에서 컴퓨팅 및 토큰 서비스로 비즈니스 모델을 확장할 것으로 예상됩니다. Qualcomm은 '컴퓨팅 연속체' 개념을 통해 단말기에서 데이터센터까지 전반적인 컴퓨팅 환경을 지원하며, HBC(고대역폭 컴퓨팅) 기술로 데이터센터 아키텍처 혁신을 주도하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>서론</h3>
+<p>IT之家 8월 27일 보도에 따르면, 오늘(8월 27일) 미국 샌디에이고에서 열린 Qualcomm 글로벌 6G 애널리스트 및 미디어 데이에서 Durga Malladi Qualcomm 수석 부사장 겸 엣지 솔루션 및 데이터센터 사업부 총괄 매니저가 IT之家를 포함한 언론과 인터뷰를 갖고 Qualcomm의 6G 전략과 데이터센터 배치 계획을 상세히 설명했습니다.</p>
+          
+          <p>글로벌 통신 기술이 6G 시대로 빠르게 전환됨에 따라 통신, 인공지능, 컴퓨팅 산업의 경계가 빠르게 허물어지고 있으며, 업계는 기술 패러다임과 비즈니스 모델의 이중 변혁을 맞이하고 있습니다.</p>
+          
+          <p>5G 시대가 모바일 광대역 보급에 중점을 둔 발전 경로를 따랐던 것과 달리, 2029년 상용화를 목표로 하는 6G는 AI 네이티브, 통신-감지 통합, 전 영역 컴퓨팅 협업을 핵심 특징으로 삼아 단말기 형태, 네트워크 아키텍처 및 산업 생태계를 재구성하며 글로벌 기술 거대 기업들의 핵심 경쟁 분야가 되고 있습니다.</p>
+          
+          <p>단말기 형태에 대해 Durga Malladi는 6G 시대에 새로운 범주의 장치, 즉 "스마트 AI 장치"가 탄생할 것이며, 이러한 추세가 이미 중국에서 나타나고 있다고 언급했습니다.</p>
+          
+          <p>그는 이러한 새로운 AI 장치가 스마트폰에 국한되지 않고 센서, 웨어러블 장치 등 다양한 연결 장치를 포함하며, 심지어 디스플레이가 없을 수도 있다고 보았습니다.</p>
+          
+          <p>Samsung, Apple, Honor, Xiaomi, vivo 등 제조사들도 스마트 AI 우선 단말기를 개발하고 있습니다. Durga Malladi는 이러한 차별화된 경쟁이 전체 산업의 발전을 이끌 것이라고 생각합니다.</p>
+          
+          <p>이번 인터뷰에서는 Qualcomm의 "컴퓨팅 연속체" 개념을 처음으로 체계적으로 설명하고, HBC 고대역폭 컴퓨팅 기술이 컴퓨팅 아키텍처에 가져올 혁신적 가치, 그리고 데이터센터, 엣지 컴퓨팅, 단말기 AI의 전반적인 배치 논리를 상세히 설명하며, 통신사가 데이터 서비스에서 컴퓨팅 서비스, 토큰 서비스로 전환하는 새로운 비즈니스 모델을 해석했습니다.</p>
+          
+          <p>질문해 주셔서 감사합니다. 먼저 6G의 몇 가지 핵심 영역에 대해 전반적으로 말씀드리고 싶습니다. 이 영역들은 2029년 상용 배포될 6G 기술에 매우 중요합니다.</p>
+          
+          <p>6G가 가져올 첫 번째 주요 영향 영역은 연결성입니다. 이는 모바일 통신 기술 세대 진화에서 예상되는 기본적인 개선 사항입니다. 더 나은 연결성, 더 넓은 커버리지, 더 큰 네트워크 용량. 이 모든 것은 네트워크 배포와 관련이 있으며, 5G의 발전 경로와 매우 유사한 방식으로 진화할 것으로 예상됩니다.</p>
+          
+          <p>단말기 측면에서는 "스마트 AI 단말기(Agentic AI devices)"라는 새로운 단말기 범주가 등장할 것으로 예상합니다. 이 단말기들은 스마트폰뿐만 아니라 고정 무선 접속 단말기도 아닙니다. AI 우선 설계 개념으로 구축된 새로운 유형의 단말기입니다. 다양한 형태를 가질 수 있으며, 심지어 디스플레이가 없을 수도 있습니다. 스마트 펜던트, 스마트 반지와 같은 네트워크 연결 단말기 등이 그 예이며, 이는 이전에 시장에 없었던 완전히 새로운 범주입니다. 동시에, 이 분야에 새로운 단말기 제조사들이 진입하여 6G를 채택하고, 이 단말기들의 형태는 더욱 다양해질 것으로 예상합니다.</p>
+          
+          <p>현재 많은 클라우드 AI 기업들도 하드웨어 분야에 투자하고 있으며, 새로운 단말기 제조사가 될 가능성이 있습니다. 이것 또한 우리가 보고 있는 새로운 시장 역학입니다.</p>
+          
+          <p>중국을 예로 들면, 스마트 AI 폰은 이전에 없었던 완전히 새로운 제품 형태입니다. 마찬가지로 미국에서도 많은 AI 기업들이 자체 하드웨어 장치 출시를 고려하고 있습니다. 이것이 바로 우리가 차별화가 나타나기 시작하는 지점이며, 이로 인해 건전하고 선의의 경쟁이 발생할 것으로 예상하며, 이를 매우 환영합니다.</p>
+          
+          <p>동시에 Samsung, Apple, Honor, OPPO, vivo, Xiaomi도 각자의 스마트 AI 단말기를 개발하고 있습니다. 이러한 의미에서 우리는 스마트 AI 단말기라는 범주의 등장을 매우 기대하고 있으며, 이곳에서 더 흥미로운 단말기 범주들이 나타나기 시작할 것입니다.</p>
+          
+          <p>다른 한편으로, 6G는 처음부터 AI 네이티브 기술로 설계되었습니다. 이는 네트워크 수준에서 AI 네이티브 네트워크 개념이 등장한다는 것을 의미합니다. 여기에는 고성능 컴퓨팅 프로세서의 더 많은 사용과 AI를 활용한 자율 네트워크 또는 네트워크 자율화가 포함됩니다. 따라서 네트워크 측면에서 많은 혁신이 나타날 것입니다. 이는 최종 사용자에게는 즉시 직관적으로 보이지 않을 수 있습니다. 최종 사용자는 단말기 자체에 더 많은 관심을 가지기 때문입니다. 그러나 네트워크 측면에서는 오늘날의 네트워크에서 AI 네이티브 네트워크로의 전환이 일어나고 있으며, 다음 세대로의 진화 과정에서 많은 선두 통신사들이 이 분야에 적극적으로 투자하고 있음을 확인했습니다.</p>
+          
+          <p>마지막으로 주목할 만한 방향은 현재로서는 최종 방향을 완전히 판단하기 어려운 네트워크 감지(Sensing)입니다. 각 지역 통신사들은 네트워크에 감지 기능을 도입하고 있으며, 이는 여전히 진화 중인 영역입니다. 이 분야의 경쟁 구도가 어떻게 형성될지 판단하기에는 아직 이르지만, 각 통신사가 감지가 어떤 새로운 애플리케이션 시나리오와 상업적 기회를 가져올 수 있는지 연구하고 있다는 것은 분명합니다.</p>
+          
+          <h3>6G와 5G의 차이점</h3>
+<p>총 세 가지 질문이 있습니다. 첫 번째 질문부터 시작하겠습니다. 6G는 5G와 비교하여 정확히 어떻게 다릅니까?</p>
+          
+          <p>5G와 달리 6G에 대한 우리의 가장 큰 기대는 AI와의 융합입니다. AI는 네트워크와 단말기 장치 모두에 걸쳐 어디에나 존재할 것입니다. 이는 과거 5G가 달성할 수 있었던 능력과 비교할 때 6G에서 더욱 두드러질 것입니다.</p>
+          
+          <p>5G 시대에는 모바일 광대역 능력 향상, 대규모 IoT, 초고신뢰 저지연 통신에 대해 자주 이야기했습니다. 지난 7년을 되돌아보면, 2019년은 5G 상용 배포의 원년이었습니다. 당시 5G의 대부분의 작업은 실제로 모바일 광대역에 집중되었고, IoT에 대한 관심은 그리 많지 않았습니다. 나중에 IoT가 점차 발전하기 시작했지만, 여전히 시간이 필요했습니다. 처음에는 초고신뢰 저지연 통신 분야에서도 많은 진전이 없었으며, 실제로 성과를 보인 것은 모바일 광대역과 소수의 IoT 애플리케이션이었습니다. 그 외에도 위성통신이 있었습니다.</p>
+          
+          <p>다른 한편으로, 6G에 대해 이야기할 때 우리는 단순히 광대역과 IoT만을 논하는 것이 아닙니다. 이들은 모두 애플리케이션 시나리오에 속합니다. 기술적인 관점에서 볼 때, 6G가 발전함에 따라 인공지능은 어디에나 존재할 것입니다. 이것이 한 가지입니다. 둘째, 우리는 새로운 단말기 범주와 새로운 애플리케이션 시나리오에 진정으로 집중할 것입니다. 우리는 6G를 단순히 광대역 관점에서만 논하지 않습니다. 이 수준에서 볼 때, 우리는 6G의 진화가 5G와 매우 다를 것으로 예상합니다.</p>
+          
+          <h3>6G와 AI의 융합</h3>
+<p>두 번째 질문은 6G와 AI의 융합입니다. 이전 질문에 대한 답변에서도 언급했듯이, 스마트 AI 단말기는 새로운 유형의 장치입니다. 우리가 보기에 이는 단순히 휴대폰에서 AI를 실행하는 것을 넘어, AI 추론 작업을 단말기에서 실행할지 클라우드에서 실행할지 결정하는 문제와도 관련이 있습니다. 그러나 이 모든 것은 스마트 AI를 기반으로 하며, 스마트 AI가 이러한 작업을 어디에서 완료할지 결정합니다. 사용자 관점에서 볼 때, AI 스마트 AI와의 상호 작용 인터페이스만 보게 될 것이며, 이는 매우 다른 사용자 경험이 될 것입니다. 2029년에 6G 장치를 구매한다면, AI 네이티브 장치이기를 바랄 것입니다. 이는 완전히 다른 경험을 제공할 것이며, 사용자가 6G와 AI의 긴밀한 융합을 즉시 볼 수 있는 시나리오이기도 합니다.</p>
+          
+          <p>마찬가지로, 네트워크에는 AI 애플리케이션 시나리오를 위한 고성능 컴퓨팅이 많이 있지만, 이 부분은 최종 소비자에게는 보이지 않습니다. 오늘날 이러한 네트워크가 점차 AI 네트워크로 진화함에 따라, 6G 네트워크도 AI 네트워크가 될 것이며, 컴퓨팅 작업이 여러 곳에서 완료될 수 있음을 알게 될 것입니다. 장치뿐만 아니라 네트워크 엣지, 네트워크 중앙, 심지어 데이터센터에서도 가능합니다.</p>
+          
+          <p>Qualcomm에서는 "컴퓨팅 연속체"라는 용어를 사용해 왔습니다. 컴퓨팅은 한 곳에만 존재하는 것이 아니라 단말기에서 데이터센터까지 모든 곳에 퍼져 있습니다. 이것이 바로 6G 네트워크와 컴퓨팅이 더욱 긴밀하게 융합되는 지점입니다.</p>
+          
+          <h3>6G 발전 현황</h3>
+<p>마지막 질문은 올해 MWC Barcelona 2026에서 통신사를 포함한 파트너들과 6G 발전 합의를 발표한 이후 어떤 진전이 있었는지입니다. 현재 우리는 미국, 중국의 통신사 및 파트너들과 긴밀히 협력하고 있으며, 일본, 한국, 유럽의 다른 통신사 및 제조사들과도 함께 관련 계획을 수립하고 있습니다.</p>
+          
+          <p>중국에서는 관련 산업 파트너들과 기술 연구 및 검증 분야에서 협력하여 미래 기술의 발전 및 적용 방향을 공동으로 모색하고 있습니다. 미국에서는 2028년에 올림픽이 개최될 예정이며, 그때 어떤 성과를 보여줄 수 있을지 계획하고 논의하고 있습니다. 계속해서 관심을 가져주시면 더 많은 관련 내용과 발표를 보게 될 것입니다. 우리는 각 통신사들과 협력하고 있습니다.</p>
+          
+          <h3>새로운 비즈니스 모델</h3>
+<p>세 번째 질문부터 시작하겠습니다. 새로운 비즈니스 모델이 등장하고 있습니까? 사실 저는 최근 전 세계 통신사들과 계속 소통하고 있습니다. 올해 4월에는 중국에서 대부분의 중국 통신사들과 심도 있는 논의를 했고, 미국 통신사들과도 마찬가지였습니다. 한 가지 분명해지고 있는 점은 통신사들이 단순히 데이터 서비스를 제공하는 것을 넘어 사업 범위를 확장하기를 원한다는 것입니다. 이것이 현재 그들의 최우선 고려 사항입니다.</p>
+          
+          <p>오늘날 일반적인 이동통신사는 주로 데이터 서비스를 제공합니다. 우리가 보고 있는 것은 다음과 같습니다. 만약 제가 통신사로서 AI 기능을 갖추고 네트워크 내에 강력한 처리 능력을 가진 6G 네트워크를 구축하고 있다면, 저는 "데이터 서비스"의 범위를 넘어 "컴퓨팅 서비스"와 "토큰 서비스"도 비즈니스 시스템의 일부로 포함하기를 원할 것입니다. 이것이 바로 모든 통신사가 탐색하고 있는 방향입니다. 다시 말해, 네트워크에 자금을 투자하고 업그레이드한다면, 저의 비즈니스 모델은 무엇이며, 어떻게 수익을 창출할 수 있을까요? 이것이 모든 통신사가 고민하는 문제입니다. 따라서 6G 시대에 통신사들이 이러한 네트워크 투자를 추진함에 따라, 그들은 또한 다양한 비즈니스 모델을 모색하고 있습니다.</p>
+          
+          <h3>감지 기술 기반의 킬러 앱</h3>
+<p>이제 두 번째 질문에 답하겠습니다. 감지 기술을 기반으로 한 새로운 킬러 앱이 등장할까요? 저는 먼저 감지 기술이 오늘날 우리에게 무엇을 가져다줄 수 있는지 생각해야 한다고 봅니다. 간단히 말해, 감지 기술은 네트워크 내의 모든 것을 식별할 수 있게 해줍니다. 이는 본질적으로 객체 감지 및 분류 문제입니다. 보행자, 자동차, 교통 신호등, 드론 또는 공중에 나타나는 다른 물체인지 판단하여 네트워크 커버리지 내에서 무슨 일이 일어나고 있는지 포괄적으로 감지해야 합니다. 이것은 방대한 데이터 문제이며, 모든 데이터를 수집하여 네트워크로 다시 피드백해야 합니다.</p>
+          
+          <p>이때 네트워크는 이러한 방대한 데이터를 수신하고 심층적으로 처리 및 분석할 수 있는 완전한 능력을 갖추고 있습니다. 우리는 이것이 새로운 네트워크 운영 방식을 가져올 것이라고 생각합니다. 우리는 이를 "자율 네트워크"라고 부르는데, 즉 스스로 작동할 수 있는 네트워크입니다. 네트워크는 네트워크 내의 다양한 정보를 실시간으로 감지하고 분석하며, 이를 기반으로 지속적으로 진화하고, 다양한 매개변수도 끊임없이 동적으로 조정됩니다. 이는 자동차 산업의 ADAS(첨단 운전자 보조 시스템) 상황과 다소 유사합니다. 차량이 주변 환경을 감지하고 다음 행동을 결정하는 것과 같습니다. 여기서 네트워크도 외부에서 일어나는 모든 것을 감지한 다음 자율적으로 조정합니다. 이러한 의미에서 우리는 이것이 완전히 새로운 네트워크 운영 방식을 나타낸다고 생각합니다. 최종적으로 "킬러 앱"이라는 이름이 붙을지는 확실하지 않지만, 의심할 여지 없이 완전히 다른 네트워크 운영 모델입니다.</p>
+          
+          <h3>데이터센터와 통신사</h3>
+<p>이제 마지막 질문을 살펴보겠습니다. 5G 시대에는 킬러 앱이 부족했다고 생각할 수 있지만, 실제로 많은 애플리케이션이 5G의 지원으로 크게 향상되었지만, 진정으로 새로운 애플리케이션은 나타나지 않았습니다. 저는 고정 무선 접속이 그중 하나라고 생각합니다. 반면 6G 시대에는 통신사들이 데이터센터에 더 많은 관심을 보이는 것 같습니다. 제 이전 답변에서 이미 설명했듯이, 그들은 데이터센터에 관심이 있지만, 그들이 정말로 관심 있는 것은 새로운 비즈니스 모델입니다. 통신사들은 더 이상 데이터 서비스 제공에만 국한되지 않고, 컴퓨팅 서비스(Compute as a Service)를 추가로 제공하려 합니다.</p>
+          
+          <p>컴퓨팅 서비스 모델에서 제가 통신사라면 몇 가지 선택지가 있습니다. 하나는 데이터센터만 구축하는 것이고, 다른 하나는 데이터센터를 구축할 뿐만 아니라 네트워크를 AI 네이티브 네트워크로 업그레이드하는 것입니다. 이렇게 하면 데이터센터에만 의존하는 것이 아니라 네트워크 자체의 능력을 활용하여 네트워크 내부에서 네트워크 엣지까지 서비스를 제공할 수 있습니다.</p>
+          
+          <p>이러한 의미에서 우리는 통신사들이 다른 사고방식과 개념을 보여주고 있음을 확인했습니다. 우리가 관찰한 바에 따르면, China Telecom은 좋은 예입니다. 그들은 이미 데이터 서비스 제공을 넘어 컴퓨팅 사업에 진출하고 있습니다. 이것이 바로 통신사들이 단순한 데이터 제공자 역할을 넘어 스스로를 재정의하는 한 가지 예입니다.</p>
+          
+          <h3>6G 표준화 및 기술 투자</h3>
+<p>좋은 질문입니다. 실제로 우리는 이러한 기술, 특히 확률적 성형(probabilistic shaping)에 많은 자원을 투자했습니다. 우리는 물리 계층에서도 이러한 기술을 사용하면 큰 성능 향상을 얻을 수 있다고 믿습니다.</p>
+          
+          <p>Qualcomm은 6G 표준화 작업에 깊이 참여하고 있지만, 6G 표준화 프로세스에는 자체적인 시간표가 있습니다. 2028년 말에야 6G에 최종적으로 어떤 내용이 확정될지 알 수 있을 것입니다. 하지만 성능 관점에서 볼 때, 우리는 현재 몇 가지 방향에 크게 투자하고 있습니다. 네트워크 측면의 Giga MIMO RF, 확률적 성형 기술, 그리고 무선 프로토콜에 AI를 적용하는 것입니다. 이것들이 최종적으로 어떻게 구현될지는 지켜봐야 하며, 표준화 작업이 어느 정도 진행된 후에야 이 질문에 대해 더 완전한 답변을 드릴 수 있을 것입니다.</p>
+          
+          <h3>AI 네이티브 네트워크</h3>
+<p>먼저, AI 네이티브 네트워크는 고성능 컴퓨팅 프로세서, 즉 CPU와 AI 가속기를 기반으로 구축됩니다. 이는 네트워크에 공랭식 서버와 공랭식 가속 카드가 대량으로 배포된다는 것을 의미합니다. 이들은 무선 접속 계층, DU(분산 장치) 계층 또는 더 깊은 네트워크 노드, 심지어 코어 네트워크 자체에 사용될 수 있습니다. 이것이 "AI 네이티브 네트워크"를 이해하는 한 가지 방법이라고 할 수 있습니다.</p>
+          
+          <p>현재로서는 이 개념에 대해 업계에서 논쟁이 없다고 생각합니다. 대부분의 통신사들은 AI 네이티브 네트워크가 기존 CPU와 같은 프로세서를 기반으로 다양한 무선 통신 프로토콜을 실행할 수 있을 뿐만 아니라, 네트워크 내에서 AI 추론을 실행할 수 있는 능력도 갖추고 있다는 데 동의합니다. 이것이 "AI 네이티브 네트워크"에 대한 비교적 일반적인 이해라고 할 수 있습니다.</p>
+          
+          <h3>Qualcomm의 데이터센터 사업 전략</h3>
+<p>이것은 상당히 광범위한 질문이므로, 이해하기 쉬운 수준으로 답변을 제한하도록 노력하겠습니다. 먼저, 데이터센터 사업 측면에서 우리는 대략 네 가지 다른 진입점을 가지고 있습니다. 올해 6월 24일에 개최된 투자자의 날 행사에서 설명했듯이, 이 몇 가지 방향은 현재 상당히 좋은 진전을 보이고 있습니다.</p>
+          
+          <ul>
+  <li>CPU 기반 솔루션을 데이터센터 사업에 적용하고 있습니다. 이러한 시스템은 훨씬 더 큰 규모로, 수백 개의 CPU를 특정 아키텍처에 따라 통합하여 데이터센터의 공랭식 및 액랭식 서버에 배포됩니다. 이는 현재 스마트폰에 사용되는 CPU와는 완전히 다릅니다. 비록 같은 제품군에 속하지만, 실제로는 완전히 다른 유형의 프로세서이며, 데이터센터 애플리케이션 시나리오에 특화되어 맞춤 제작되었습니다.</li>
+  <li>두 번째 진입점은 우리의 AI 가속기, 즉 NPU 기반 솔루션입니다. 현재 우리는 데이터센터에서 실행되는 생성형 AI 애플리케이션을 위해 NPU와 그 진화된 제품의 조합 솔루션을 점점 더 많이 채택하고 있습니다. 마찬가지로, 이들도 액랭식 랙에 배포됩니다. 현재 우리의 AI250 랙급 솔루션의 정격 전력은 160킬로와트에 달하며, 미래에는 수백 킬로와트 수준에 도달할 것으로 예상합니다. 이 점은 스마트폰과 완전히 다릅니다.</li>
+  <li>세 번째 진입점은 투자자의 날 행사에서도 많이 소개했던 고대역폭 컴퓨팅(HBC, High Bandwidth Compute)입니다. 이는 기존 시장의 솔루션과 비교하여 진정한 차별화된 이점을 형성하고, 매우 높은 메모리 대역폭을 제공하여 추론 과정의 디코딩 단계 성능을 향상시키는 새로운 메모리 아키텍처입니다.</li>
+  <li>네 번째 진입점은 맞춤형 칩 사업입니다. 이는 우리가 모든 IP를 제공할 필요는 없다는 것을 의미합니다. 우리는 일부 IP를 제공할 수 있으며, 고객의 IP도 통합하여 ASIC 서비스(주문형 반도체) 형태로 솔루션을 제공할 것입니다. 이것 또한 우리가 가진 능력 중 하나입니다.</li>
+</ul>
+          
+          <p>따라서 CPU, AI(가속기), HBC 기반 근접 메모리 컴퓨팅 아키텍처, 그리고 맞춤형 칩의 네 가지 다른 진입점이 있습니다.</p>
+          
+          <p>마지막으로, IP 재사용 및 스마트폰 문제에 대해 말씀드리고 싶은 것은 Qualcomm 내부에는 "통합 기술 로드맵"이 있지만, 이것이 모든 사업 부문에서 완전히 동일한 기술을 사용한다는 의미는 아니라는 것입니다.</p>
+          
+          <p>우리의 접근 방식은 확장 가능한 아키텍처를 채택하여 다양한 제품 세분화 영역에 맞게 맞춤 제작하는 것입니다. 따라서 우리의 CPU가 Oryon 제품군에 속한다고 말하더라도, 스마트폰, PC 또는 데이터센터에 사용되는 CPU 아키텍처가 완전히 동일하다는 의미는 아닙니다. 그들 사이에는 약간의 차이가 있을 것입니다. 재사용은 가능하지만, 실제로 적용되는 IP는 완전히 동일하지 않습니다.</p>
+          
+          <h3>HBC와 HBM의 차이점</h3>
+<p>두 가지 좋은 질문입니다. 먼저 HBC(High Bandwidth Compute, 고대역폭 컴퓨팅)와 HBM(High Bandwidth Memory, 고대역폭 메모리)의 차이점에 대해 잠시 말씀드리고 싶습니다. 두 가지의 가장 큰 차이점은 HBM 아키텍처에서 메모리가 한쪽에 위치한다는 점이라고 생각합니다.</p>
+          
+          <p>비유하자면, 메모리를 여기에 두고 처리는 다른 쪽에서 완료하는 것입니다. 메모리와 처리 장치는 고속 인터페이스를 통해 연결됩니다. 반면 HBC에서 우리가 하는 것은 "근접 메모리 컴퓨팅(near-memory computing)"이라고 불리는 아키텍처입니다.</p>
+          
+          <p>이는 여전히 메모리이지만, 모든 처리를 다른 쪽에서 완료하는 대신, 일부 컴퓨팅 로직을 메모리 바로 아래에 배치하는 것을 의미합니다.</p>
+          
+          <p>따라서 컴퓨팅이 메모리 아래에서 발생한다고 이해할 수 있습니다. 이렇게 하면 전력 소비를 크게 줄일 수 있을 뿐만 아니라, 컴퓨팅 장치와 메모리가 서로 매우 가깝기 때문에 매우 높은 대역폭을 달성할 수 있으며, 여전히 많은 컴퓨팅 작업을 완료할 수 있습니다.</p>
+          
+          <p>또한, 다른 SoC(System on Chip)를 다른 쪽에 구성하여 일부 처리 작업을 수행할 수도 있습니다. 물론 동일한 시스템이 모든 처리를 완료할 수도 있습니다.</p>
+          
+          <p>따라서 HBM에 비해 이러한 아키텍처는 더 높은 유효 대역폭을 달성할 수 있습니다. 둘째, 컴퓨팅 장치와 메모리가 전통적인 아키텍처처럼 서로 분리되지 않기 때문에 전력 소비를 줄일 수 있습니다.</p>
+          
+          <h3>클라우드 서비스 제공업체와의 협력</h3>
+<p>두 번째 질문에 대해, 초거대 클라우드 서비스 제공업체들이 이 기술을 채택하도록 어떻게 설득할 것인가에 대해 말씀드리자면, 사실 그들은 이 기술에 매우 관심이 많으며, 우리와 계속해서 심도 있는 대화를 나누고 있습니다.</p>
+          
+          <p>동시에 우리는 주요 메모리 제조사들과도 협력하고 있습니다. 이 메모리 제조사들이 DRAM(Dynamic Random-Access Memory) 스택 구현을 담당하기 때문입니다.</p>
+          
+          <p>그들도 우리와 협력하여 HBC 기술의 구현을 추진하고 있습니다. 따라서 초거대 클라우드 서비스 제공업체든 메모리 제조사든, 우리가 시장에 출시할 제품과 솔루션에 대해 양측의 소통은 매우 원활합니다.</p>
+          
+          <p>우리에게 HBC는 독립적인 제품으로 제공될 수도 있고, 다른 제품과 함께 사용될 수도 있습니다. 이는 만약 당신이 초거대 클라우드 서비스 제공업체이고 이미 자체 CPU 솔루션과 자체 AI 가속기 솔루션을 가지고 있다면, "당신의 HBC 솔루션에 관심이 있습니다. 이것은 저에게 매우 매력적입니다"라고 말할 수 있다는 의미입니다.</p>
+          
+          <p>동시에, 당신은 더 나아가 하위 계층의 컴퓨팅 로직에 어떤 특정 기능을 구현하기를 원하는지 제안할 수도 있습니다. 이것은 매우 긍정적인 논의 과정입니다. 제 말은, 실제로 초거대 클라우드 서비스 제공업체들이 어떤 기능을 반드시 구현해야 하는지 우리에게 알려줄 것이라는 의미입니다.</p>
+          
+          <h3>엣지 및 클라우드 추론의 비중</h3>
+<p>두 가지 매우 중요한 질문입니다. 먼저, 얼마나 많은 추론이 엣지에서 이루어지고 얼마나 많은 추론이 클라우드에서 이루어질지에 대해, 저는 고정된 비율이 존재하지 않으며 특정 애플리케이션 시나리오에 따라 달라진다고 생각합니다. 예를 들어, 우리는 이제 AI 에이전트가 언제든지 스스로 결정할 것이라고 생각합니다. 이 작업은 단말기 장치에서 실행되어야 하는가? 네트워크 엣지에서 실행되어야 하는가? 아니면 클라우드에서 실행되어야 하는가? 그리고 이 답변은 특정 애플리케이션 시나리오에 따라 달라질 것입니다. 따라서 단말기에서 실행되는 작업의 비율과 클라우드에서 실행되는 작업의 비율에 대한 통일된 답변은 없습니다. 최종 사용자 관점에서 볼 때, 사용자는 작업이 어디에서 실행되는지 신경 쓰지 않고, 적절한 시간에 올바른 결과를 얻을 수 있는지에만 관심이 있습니다.</p>
+          
+          <p>따라서 실제로 판단을 내리는 것은 에이전트 자체입니다. 예를 들어, 매우 빠른 응답이 필요한 일부 작업의 경우, 에이전트는 결과를 가능한 한 빨리 반환해야 한다고 판단할 것이므로, 이러한 작업은 단말기 장치에서 실행될 것입니다. 또 다른 예로, 인터넷 검색을 통해 답변을 얻어야 하는 경우, 이러한 작업은 분명히 클라우드에서 실행되어야 합니다. 세 번째 상황으로, 매우 큰 작업이 있어서 대규모 프로젝트를 위해 많은 질문을 작성해야 할 수도 있습니다. 그러면 이 작업을 단말기 장치에서 완료하는 것이 아니라 네트워크 어딘가에서 실행하기를 원할 수 있습니다. Qualcomm은 이 세 가지 모드를 모두 지원합니다. 그러나 방금 질문하신 내용에 답하기는 어렵습니다. 실제로 답은 세 가지 모두 가능합니다. 최종 사용자 관점에서 볼 때, 사용자는 작업이 장치에서 실행되는지 클라우드에서 실행되는지 신경 쓰지 않고, 최종 출력 결과에만 관심이 있습니다.</p>
+          
+          <p>두 번째 질문, 즉 어떤 유형의 추론이 엣지에서 실행하기에 적합한지에 대해서도 마찬가지로 특정 사용 사례에 따라 달라집니다. 일부 시나리오에서는 단말기 로컬에서 이미지 처리만 필요할 수 있으며, 이러한 작업은 기존 AI 기능을 사용할 수 있고 반드시 생성형 AI 기능이 필요하지는 않습니다. 다른 시나리오에서는 콘텐츠 생성이 필요하지만 장치가 네트워크에 연결할 수 없을 때, 추론은 로컬에서 실행되어야 합니다.</p>
+          
+          <p>현재 대부분의 추론은 여전히 클라우드에서 실행됩니다. 최근에야 점점 더 많은 추론이 엣지로 전환되기 시작했으며, 따라서 다양한 배포 방식이 차지하는 비중도 계속 변화하고 있습니다. 전반적으로 소비자 및 기업 애플리케이션 모두 특정 사용 사례에 따라 다양한 배포 방식의 조합을 채택할 것입니다.</p>
+          
+          <h3>메모리 기술의 변화</h3>
+<p>근본적인 변화는 없을 것으로 예상합니다. 우리는 항상 메모리 제조사들과 긴밀히 협력해 왔습니다. 현재 우리가 하는 일은 컴퓨팅을 메모리에 더 가깝게 만드는 것이지, 메모리 자체를 바꾸는 것이 아닙니다. 따라서 이러한 관점에서 볼 때, 근본적인 변화가 나타날 것이라고는 생각하지 않습니다.</p>
+          
+          <h3>통신사의 비즈니스 모델 전환</h3>
+<p>이동통신사 및 이 분야의 다른 참여자들은 궁극적으로 스스로 결론을 내려야 합니다. 우리는 그들에게 이 모델이 왜 가치가 있다고 생각하는지 설명할 수 있지만, 결국 각 통신사는 자체적인 실제 상황을 가지고 있으며, 자신에게 가장 적합한 운영 모델을 찾아야 합니다. 예를 들어, 통신사는 자체적으로 해당 사용자 기반을 가지고 있는지, 오늘날 "데이터 서비스(Data as a Service)"를 제공할 수 있는지, 미래에 "토큰 서비스(Token as a Service)"와 같은 새로운 서비스 모델로 확장할 기회가 있는지 평가해야 합니다.</p>
+          
+          <p>우리가 통신사들과 소통할 때, 우리는 이 모델이 실현 가능하다고 생각한다고 말하지만, 통신사는 스스로에게 적합한지 평가해야 합니다. 일부 통신사들은 이 모델이 매우 적합하다고 생각하여 빠르게 추진할 수 있습니다. 다른 통신사들은 자신에게 적합하지 않다고 생각하여 채택하지 않을 수도 있습니다. 우리에게는 이것도 문제가 되지 않습니다.</p>
+          
+          <p>Qualcomm은 모든 당사자와 협력하고 있습니다. 우리는 모든 통신사가 이 모델을 채택하도록 설득하려 하지 않고, 이 모델이 왜 가치가 있다고 생각하는지 설명하며, 최종 결정은 통신사에게 맡깁니다. 만약 그들이 이 모델이 자신에게 적합하다고 생각한다면, 우리는 기꺼이 지원할 것입니다.</p>
+          
+          <h3>총평</h3>
+<p>Qualcomm은 6G 시대를 맞아 AI 네이티브, 통신-감지 통합, 전 영역 컴퓨팅 협업을 핵심으로 하는 전략을 추진하고 있습니다. 6G는 연결성 향상과 함께 '스마트 AI 단말기'라는 새로운 기기 범주를 탄생시키고, 통신사들은 데이터 서비스에서 컴퓨팅 및 토큰 서비스로 비즈니스 모델을 확장할 것으로 예상됩니다. Qualcomm은 '컴퓨팅 연속체' 개념을 통해 단말기에서 데이터센터까지 전반적인 컴퓨팅 환경을 지원하며, HBC(고대역폭 컴퓨팅) 기술로 데이터센터 아키텍처 혁신을 주도하고 있습니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/0/994/802.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-08"
+               class="archive-btn active">
+              2026-08
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
+    var searchTimer;
+    document.getElementById('article-search').addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var q = this.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function () {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }, 800);
+      }
+    });
+  </script>
+
+</body>
+</html>
