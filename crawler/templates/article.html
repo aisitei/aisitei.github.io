@@ -493,6 +493,11 @@
     }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260909">
+<script defer src="../../../../assets/news.js?v=20260909"></script>
+<script defer src="../../../../assets/article.js?v=20260909"></script>
+<!-- /shared-reader-assets -->
 </head>
 <body>
 
@@ -521,15 +526,7 @@
     <!-- ── Article content ── -->
     <main class="article-main">
 
-      {% if images %}
-      <div class="hero-image-wrap">
-        <img src="{{ images[0] }}" alt="{{ title }}" loading="eager">
-      </div>
-      {% else %}
-      <div class="hero-image-wrap hero-image-fallback">
-        <img src="../../../../assets/images/apple-touch-icon.png" alt="{{ title }}" loading="eager">
-      </div>
-      {% endif %}
+
 
       <!-- Article meta: brand badge + category badge + title + info -->
       <div class="article-meta">
@@ -539,7 +536,7 @@
             {{ brand }}
           </span>
           {% endif %}
-          {% if category != 'ai' and (category == 'phone' or (brand and brand|lower in ['xiaomi','samsung','apple','oppo','vivo','huawei','honor','oneplus','realme','google','motorola','nothing','meizu','zte','nubia','iqoo','poco','redmi','lenovo','asus','sony'])) %}
+          {% if category == 'phone' %}
           <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
           {% endif %}
           {% if category == 'camera' %}
@@ -571,6 +568,16 @@
           {% endif %}
         </div>
       </div>
+
+      {% if images %}
+      <div class="hero-image-wrap">
+        <img src="{{ images[0] }}" alt="{{ title }}" loading="eager">
+      </div>
+      {% else %}
+      <div class="hero-image-wrap hero-image-fallback">
+        <img src="../../../../assets/images/apple-touch-icon.png" alt="{{ title }}" loading="eager">
+      </div>
+      {% endif %}
 
       <div class="divider"></div>
 
@@ -777,17 +784,6 @@
         if (q) {
           location.href = '../../../../index.html?search=' + encodeURIComponent(q);
         }
-      }
-    });
-    // 입력 중에도 딜레이 후 이동 (타이핑 멈추면 자동 이동)
-    var searchTimer;
-    document.getElementById('article-search').addEventListener('input', function () {
-      clearTimeout(searchTimer);
-      var q = this.value.trim();
-      if (q.length >= 2) {
-        searchTimer = setTimeout(function () {
-          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
-        }, 800);
       }
     });
   </script>

@@ -64,17 +64,26 @@ def run_build(repo_dir: str) -> bool:
         return False
 
 
+def generated_output_paths(repo_dir):
+    paths = ["articles/", "index.html", "reports.html", "assets/data/", "news/"]
+    if os.path.isdir(os.path.join(repo_dir, "report-pages")):
+        paths.append("report-pages/")
+    return paths
+
+
 def commit_and_push(repo_dir: str, article_dirs: list[str], article_titles: list[str]) -> bool:
     """변경된 파일을 commit하고 push합니다."""
     setup_git_config(repo_dir)
     run_git(["pull", "--rebase", "origin", config.GIT_BRANCH], repo_dir)
 
-    # articles/ 폴더 전체 스테이징
-    run_git(["add", "articles/"], repo_dir)
-
-    # build.py 실행 후 생성된 페이지도 스테이징
-    run_build(repo_dir)
-    run_git(["add", "index.html", "reports.html"], repo_dir)
+    # Build first: article presentation, page windows and search corpus are one release.
+    if not run_build(repo_dir):
+        logger.error("빌드 실패로 배포를 중단합니다.")
+        return False
+    code, output = run_git(["add"] + generated_output_paths(repo_dir), repo_dir)
+    if code != 0:
+        logger.error(f"생성 파일 스테이징 실패: {output}")
+        return False
 
     # 변경사항 확인
     code, status = run_git(["status", "--porcelain"], repo_dir)

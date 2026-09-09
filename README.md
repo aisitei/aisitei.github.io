@@ -356,3 +356,39 @@ pip install -r requirements.txt
 
 Phase A(ko 번역)를 클라우드로 돌리려면 `crawler/.env.local`에 `GEMINI_API_KEY`만
 채우면 되고, 이 경우 LM Studio는 Phase B(en/ja/zh)에만 필요합니다.
+
+
+## 뉴스 UI 개발 (2026-09)
+
+홈은 최신 기사 24개만 포함하고, `news/page-N.html` 정적 페이지로 전체 목록을 제공합니다.
+검색·카테고리·기간 필터는 `assets/data/articles.json`을 필요할 때 불러옵니다.
+언어 선택과 필터는 주소에 반영되며 브라우저 뒤로 가기로 복원할 수 있습니다.
+
+- `site_ui.py`: 목록, 검색 데이터, 기존 기사 레이아웃 마이그레이션 생성
+- `assets/site.css`: 홈과 기사 공통 스타일, 모바일 레이아웃
+- `assets/news.js`: 검색, 필터, 페이지 이동, 공통 언어 문구
+- `assets/article.js`: 기사 언어 선택, 출처, 본문 미리 읽기, 관련 기사
+- `crawler/templates/article.html`: 새 기사 템플릿
+
+`python3 build.py`는 기사 원문/번역을 재생성하지 않습니다. 기존 본문은 보존하고
+제목·이미지 순서와 공통 스타일 참조를 업데이트합니다. 여러 번 실행해도 결과가 같습니다.
+자동 발행의 Phase A/B는 빌드 성공 후 기사·목록·검색 데이터를 함께 스테이징합니다.
+공통 자산 변경 시 `site_ui.py`의 `ASSET_VERSION`과 템플릿의 자산 버전을 함께 올려 주세요.
+
+로컬 미리보기:
+
+```bash
+python3 build.py
+python3 -m http.server 8765 --bind 127.0.0.1
+```
+
+검증:
+
+```bash
+python3 -m unittest discover -s tests -v
+node --test tests/news.test.cjs
+python3 tests/verify_generated.py
+```
+
+`verify_generated.py`는 정적 페이지의 기사 누락·중복 수, 로컬 링크, 제목 순서,
+현재 HEAD 대비 기존 기사 본문 보존 여부를 검사합니다. 브라우저 화면의 시각적 검사는 별도입니다.
