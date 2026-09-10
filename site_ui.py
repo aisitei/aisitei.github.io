@@ -9,7 +9,7 @@ from pathlib import Path
 
 PAGE_SIZE = 24
 LABELS = {'': '전체', 'camera': '카메라', 'phone': '스마트폰', 'ai': 'AI', 'general': '테크'}
-ASSET_VERSION = '20260910'
+ASSET_VERSION = '20260910b'
 
 
 def esc(value):
@@ -27,7 +27,7 @@ def card(a, featured=False):
     if image and not image.endswith('apple-touch-icon.png'):
         visual = f'<img src="{esc(image)}" alt="" loading="{"eager" if featured else "lazy"}" width="640" height="400">'
     else:
-        visual = f'<div class="image-placeholder" aria-hidden="true"><span>{esc(LABELS.get(category, "테크"))}</span><b>AI시테이</b></div>'
+        visual = '<img class="fallback-image" src="assets/images/apple-touch-icon.png" alt="" loading="lazy" width="180" height="180">'
     return f'''<article class="news-card{' lead-card' if featured else ''}"><a href="{esc(a['url'])}">
       <div class="news-image">{visual}</div><div class="news-copy">
       <div class="news-meta"><span class="topic" data-category="{esc(category)}">{esc(LABELS.get(category, '테크'))}</span><time datetime="{esc(a['date'])}">{esc(a['date'])}</time></div>

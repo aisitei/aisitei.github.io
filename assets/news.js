@@ -42,7 +42,7 @@
   }
   function articleCard(a, lang, lead=false) {
     const t=copy[lang], title=a['title_'+lang] || a.title_ko || a.title, topic=t[a.category] || t.general;
-    const image = a.thumbnail && !a.thumbnail.endsWith('apple-touch-icon.png') ? `<img src="${escape(a.thumbnail)}" alt="" loading="${lead?'eager':'lazy'}" width="640" height="400">` : `<div class="image-placeholder" aria-hidden="true"><span>${escape(topic)}</span><b>AI시테이</b></div>`;
+    const image = a.thumbnail && !a.thumbnail.endsWith('apple-touch-icon.png') ? `<img src="${escape(a.thumbnail)}" alt="" loading="${lead?'eager':'lazy'}" width="640" height="400">` : `<img class="fallback-image" src="assets/images/apple-touch-icon.png" alt="" loading="lazy" width="180" height="180">`;
     return `<article class="news-card${lead?' lead-card':''}"><a href="${escape(a.url)}?lang=${lang}"><div class="news-image">${image}</div><div class="news-copy"><div class="news-meta"><span class="topic">${escape(topic)}</span><time datetime="${escape(a.date)}">${escape(a.date)}</time></div><h2>${escape(title)}</h2><span class="read-story" aria-hidden="true">${t.read}<span>↗</span></span></div></a></article>`;
   }
   const api={filterArticles,paginate,readState,pageLink,copy,validLang,savedLang,saveLang,escape,localize,articleCard};
@@ -136,6 +136,6 @@
   byId('language').addEventListener('change',event=>{state.lang=validLang(event.target.value);saveLang(state.lang);state.page=1;update(true);});
   byId('pagination').addEventListener('click',event=>{const link=event.target.closest('[data-page]');if(!link||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||event.button!==0)return;event.preventDefault();state.page=Number(link.dataset.page);update(true).then(ok=>{if(ok)byId('latest-heading').scrollIntoView({block:'start'});else if(ok===false&&!state.query&&!state.category&&!state.month)location.href=link.href;});});
   window.addEventListener('popstate',()=>{clearTimeout(timer);state=readState(location.search,savedLang());if(!new URLSearchParams(location.search).has('page'))state.page=Number(location.pathname.match(/\/page-(\d+)\.html$/)?.[1])||1;update();});
-  document.addEventListener('error',event=>{if(event.target.tagName==='IMG'&&event.target.closest('.news-image')){const target=event.target;const replacement=document.createElement('div');replacement.className='image-placeholder';replacement.textContent='AI시테이';replacement.setAttribute('aria-hidden','true');target.replaceWith(replacement);}},true);
+  document.addEventListener('error',event=>{if(event.target.tagName==='IMG'&&event.target.closest('.news-image')){const target=event.target;if(target.classList.contains('fallback-image'))return;target.classList.add('fallback-image');target.src=new URL('assets/images/apple-touch-icon.png',document.baseURI).href;}},true);
   update();
 })();
