@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 룽치 테크놀로지: Apple 폴더블 디스플레이 스마트폰 VC 방열 검사 과정에 참여</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="룽치 테크놀로지: Apple 폴더블 디스플레이 스마트폰 VC 방열 검사 과정에 참여">
+  <meta name="title-zh" content="荣旗科技：公司参与了苹果折叠屏手机 VC 散热的检测环节">
+  <meta name="title-ja" content="ロンチー・テクノロジー、Apple折りたたみディスプレイスマートフォン用VC放熱の検査プロセスに参加">
+  <meta name="title-en" content="Rongqi Technology: Company participated in the testing process for Apple foldable display smartphone VC cooling">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260910">
+<script defer src="../../../../assets/news.js?v=20260910"></script>
+<script defer src="../../../../assets/article.js?v=20260910"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="룽치 테크놀로지: Apple 폴더블 디스플레이 스마트폰 VC 방열 검사 과정에 참여"
+            data-zh="荣旗科技：公司参与了苹果折叠屏手机 VC 散热的检测环节"
+            data-ja="ロンチー・テクノロジー、Apple折りたたみディスプレイスマートフォン用VC放熱の検査プロセスに参加"
+            data-en="Rongqi Technology: Company participated in the testing process for Apple foldable display smartphone VC cooling">룽치 테크놀로지: Apple 폴더블 디스플레이 스마트폰 VC 방열 검사 과정에 참여</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-09-10
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+      <!-- Article image -->
+<div class="hero-image-wrap hero-image-fallback">
+        <img src="../../../../assets/images/apple-touch-icon.png" alt="룽치 테크놀로지: Apple 폴더블 디스플레이 스마트폰 VC 방열 검사 과정에 참여" loading="eager">
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>Apple 폴더블폰, VC 방열 검사 진행 중</h3>
+          
+          <p>IT之家 9월 9일 소식에 따르면, Honor Technology는 오늘 선전증권거래소 인터랙티브 플랫폼에서 Apple 폴더블 디스플레이폰의 VC 방열 검사 과정에 자사가 참여했다고 밝혔습니다.</p>
+          
+          <p>IT之家가 이전에 구르만(Gurman)의 소식을 인용한 바에 따르면, Apple의 첫 폴더블 디스플레이폰은 iPhone Duo라는 이름으로 출시될 예정이며, 시작 가격은 약 2,000달러(IT之家 주: 현재 환율로 약 13,457위안)가 될 것으로 보입니다. 이 기기는 5.5인치 외부 스크린과 7.8인치 내부 스크린을 탑재하고, 여권과 유사하게 짧고 넓은 폴더블 비율의 디자인을 가질 것으로 알려졌습니다.</p>
+          
+          <h3>성능 및 카메라</h3>
+          
+          <p>칩셋 측면에서 이 기기는 A20 Pro 칩을 탑재하고 Apple의 최신 자체 개발 셀룰러 네트워크 모뎀(모델명 C2)을 사용할 수 있습니다. 이미지 시스템은 광각 및 초광각 렌즈를 포함하지만, 망원 렌즈는 탑재되지 않을 것으로 전해졌습니다.</p>
+          
+          <h3>디자인 및 시스템</h3>
+          
+          <p>구조 측면에서 Apple은 내구성 있는 힌지를 채택하고 화면 주름을 최소화할 것으로 알려졌지만, 주름이 완전히 사라지지는 않을 것입니다. 시스템 측면에서는 Apple이 앱이 내부 및 외부의 두 가지 다른 크기의 화면에 맞춰 인터페이스 크기를 자동으로 조정하도록 개발 중인 것으로 전해졌습니다.</p>
+          
+          <h3>출시 및 공급</h3>
+          
+          <p>로이터 통신은 폴더블 디스플레이 iPhone 출시 초기 공급이 부족하여 유통 물량이 "극히 제한적"일 것이며, 이는 암표상들의 가격 인상 판매를 부추길 수 있다고 언급했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Apple의 첫 폴더블폰인 iPhone Duo는 5.5인치 외부, 7.8인치 내부 스크린을 탑재하고 A20 Pro 칩과 자체 개발 모뎀을 사용할 것으로 예상됩니다. 내구성 있는 힌지와 화면 주름 최소화에 중점을 두며, 앱 인터페이스 자동 조정 기능을 제공할 예정입니다. 출시 초기 공급 부족으로 인해 가격 인상 가능성이 제기되고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          <h3>产业链参与与合作</h3>
+<ul>
+<li>荣旗科技透露，公司参与了Apple折叠屏手机的VC散热检测环节。</li>
+</ul>
+          <h3>产品定位与核心规格预测</h3>
+<p>根据消息源推测，这款首款折叠屏设备预计将命名为 iPhone Duo，其起售价约为 2,000 美元（约合 13,457 元人民币）。</p>
+<ul>
+<li><strong>屏幕尺寸：</strong> 外屏预计为 5.5 英寸，内屏预计为 7.8 英寸。</li>
+<li><strong>机身设计：</strong> 据称采用较短且较宽的“护照式”阔折叠比例。</li>
+</ul>
+          <h3>核心硬件技术细节</h3>
+<ul>
+<li><strong>处理器与网络：</strong> 可能搭载 A20 Pro 芯片，并使用 Apple 最新自研蜂窝网络调制解调器（型号可能为 C2）。</li>
+<li><strong>影像系统：</strong> 据传包含广角和超广角镜头组合，但不会配备长焦镜头。</li>
+<li><strong>结构设计：</strong> Apple预计将采用耐用铰链来折叠设备，并致力于减弱屏幕折痕，但无法完全消除折痕。</li>
+</ul>
+          <h3>软件适配与市场风险</h3>
+<ul>
+<li><strong>系统优化：</strong> 预计系统将支持应用自动调整界面尺寸，以适应内外两块不同尺寸的显示屏。</li>
+<li><strong>供货警示：</strong> 路透社曾指出，该款折叠屏 iPhone 上市初期可能面临供货紧张、铺货数量“极其有限”的情况，这可能会加剧黄牛加价销售的风险。</li>
+</ul>
+          <h3>总结</h3>
+<p>Apple首款折叠屏手机（传名iPhone Duo）预计将采用A20 Pro芯片和双屏设计，起售价约为2,000美元。产业链合作伙伴已参与其散热检测环节，但市场需警惕初期供货紧张导致的黄牛加价风险。</p>
+        </div>
+        <div class="lang-body" data-lang="ja">
+          <h3>Appleの折りたたみ式スマートフォン、VC放熱テストを実施中</h3>
+<p>IT之家によると、Honor Technologyは本日、上海証券取引所のインタラクティブプラットフォームにおいて、Appleの折りたたみディスプレイ搭載スマートフォンがVC（電圧制御）放熱検査プロセスに参加したと発表しました。</p>
+<p>以前、IT之家がGurman氏の情報を引用していたところによれば、Apple初の折りたたみディスプレイ搭載スマートフォンは「iPhone Duo」という名称で発売される予定であり、開始価格は約2,000ドル（IT之家注：現在の為替レートで約13,457元）になると見られています。このデバイスは、以下の特徴を持つと報じられています。</p>
+<ul>
+<li>外部スクリーン：5.5インチ</li>
+<li>内部スクリーン：7.8インチ</li>
+<li>デザイン：パスポートのような、短く幅広の折りたたみ比率を採用する予定</li>
+</ul>
+          <h3>性能およびカメラ</h3>
+<p>チップセット面では、A20 Proチップを搭載し、Apple独自の最新開発セルラーネットワークモデム（モデル名C2）を使用できるとされています。画像システムは広角レンズと超広角レンズを含むものの、望遠レンズは搭載されない見込みです。</p>
+          <h3>デザインおよびシステム</h3>
+<p>構造面では、Appleが耐久性の高いヒンジを採用し、画面のシワを最小限に抑えることで知られていますが、シワが完全に消えるわけではないとされています。システム面においては、Appleがアプリが内部スクリーンと外部スクリーンの2種類の異なるサイズに合わせてインターフェースサイズを自動調整する機能を開発中であると報じられています。</p>
+          <h3>発売と供給</h3>
+<p>ロイター通信は、折りたたみディスプレイ搭載iPhoneの初期供給が不足し、流通量が「極めて限定的」になる可能性があり、これが転売業者による価格高騰を煽る可能性があると指摘しています。</p>
+          <h3>まとめ</h3>
+<p>Apple初の折りたたみスマートフォン「iPhone Duo」は、5.5インチの外部スクリーンと7.8インチの内部スクリーンを備え、A20 Proチップと独自開発モデムを使用すると予測されています。耐久性の高いヒンジとシワ軽減に重点を置き、アプリインターフェースの自動調整機能を提供予定です。ただし、発売初期には供給不足が懸念されており、価格が高騰する可能性があります。</p>
+        </div>
+        <div class="lang-body" data-lang="en">
+          <h3>Apple Foldable Phone Undergoing VC Thermal Testing</h3>
+<p>According to news from IT之家 on September 9, Honor Technology announced its participation in the VC thermal testing process for Apple's foldable display phone at the Shenzhen Stock Exchange Interactive Platform.</p>
+          <p>Previously, IT之家 cited reports from Gurman that suggest Apple’s first foldable display phone is expected to launch under the name iPhone Duo. The starting price is anticipated to be around $2,000 (IT之家 notes: approximately 13,457 RMB at current exchange rates). This device is reported to feature:</p>
+<ul>
+<li>A 5.5-inch external screen</li>
+<li>A 7.8-inch internal screen</li>
+<li>A short and wide foldable ratio, similar to a passport</li>
+</ul>
+          <h3>Performance and Camera</h3>
+<p>In terms of chipset, the device is expected to be equipped with the A20 Pro chip and utilize Apple's latest proprietary cellular network modem (Model C2). The image system will include both wide-angle and ultra-wide lenses, but no telephoto lens is anticipated.</p>
+          <h3>Design and System Features</h3>
+<p>Structurally, Apple is known to adopt a durable hinge designed to minimize screen crease visibility, although the crease may not be completely eliminated. On the system side, reports indicate that Apple is developing functionality allowing apps to automatically adjust their interface size to fit both the internal and external screens of different sizes.</p>
+          <h3>Launch Supply Concerns</h3>
+<p>Reuters reported that due to initial supply shortages following the launch of the foldable display iPhone, distribution volume will be "extremely limited." This scarcity could potentially fuel price increases from scalpers.</p>
+          <h3>Summary</h3>
+<p>Apple's first foldable phone, expected to be named iPhone Duo, is anticipated to feature a 5.5-inch external screen and a 7.8-inch internal screen, powered by the A20 Pro chip and Apple’s proprietary modem. The design focuses on a durable hinge and minimizing screen creases, while also offering automatic app interface adjustment for dual screens. However, initial supply shortages are raising concerns about potential price inflation upon launch.</p>
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/000/468.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-09"
+               class="archive-btn active">
+              2026-09
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

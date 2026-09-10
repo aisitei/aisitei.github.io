@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Samsung, 디스플레이 탑재 AI 안경 개발 중, 내년 하반기 출시 예상</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Samsung">
+  <meta name="article-brand-color" content="#1428A0">
+  <meta name="title-ko" content="Samsung, 디스플레이 탑재 AI 안경 개발 중, 내년 하반기 출시 예상">
+  <meta name="title-zh" content="消息称三星研发带显示屏的 AI 眼镜，预计最早明年下半年发布">
+  <meta name="title-ja" content="Samsungがディスプレイ搭載AIメガネを開発中、来年下半期頃の発売が予想される">
+  <meta name="title-en" content="Sources report that Samsung's AI glasses with a display screen are expected to launch as early as the second half of next year">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260910">
+<script defer src="../../../../assets/news.js?v=20260910"></script>
+<script defer src="../../../../assets/article.js?v=20260910"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+      
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #1428A0;">
+            Samsung
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Samsung, 디스플레이 탑재 AI 안경 개발 중, 내년 하반기 출시 예상"
+            data-zh="消息称三星研发带显示屏的 AI 眼镜，预计最早明年下半年发布"
+            data-ja="Samsungがディスプレイ搭載AIメガネを開発中、来年下半期頃の発売が予想される"
+            data-en="Sources report that Samsung's AI glasses with a display screen are expected to launch as early as the second half of next year">Samsung, 디스플레이 탑재 AI 안경 개발 중, 내년 하반기 출시 예상</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-09-10
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+      <!-- Article image -->
+<div class="hero-image-wrap hero-image-fallback">
+        <img src="../../../../assets/images/apple-touch-icon.png" alt="Samsung, 디스플레이 탑재 AI 안경 개발 중, 내년 하반기 출시 예상" loading="eager">
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>Samsung AI 안경 개발 착수</h3>
+<p>한국 언론 TheElec에 따르면, Samsung 전자가 디스플레이를 탑재한 첫 AI 안경 개발에 착수했습니다. Meta Ray-Ban Display 스마트 안경과 유사하게, 이 제품은 오디오 기능뿐만 아니라 렌즈에 컬러 시각 정보를 표시할 수 있습니다.</p>
+          
+          <p>업계 관계자들은 지난달 Samsung 전자가 Samsung 디스플레이에 AI 안경용 마이크로 디스플레이(Micro Display) 개발을 요청했으며, 제품 외형, 정보 표시 영역, 색상 기능 및 가격 등 구체적인 요구 사항을 제시했다고 9일 밝혔습니다.</p>
+          
+          <p>Samsung 전자는 현재 OLEDoS(실리콘 기반 OLED) 또는 LEDoS(실리콘 기반 LED)와 같은 후보 패널 솔루션을 평가 중이며, 성능과 비용을 중점적으로 고려하고 있습니다. 업계에서는 이 제품이 2027년 하반기 또는 2028년 상반기에 출시될 것으로 예상하며, 구체적인 시기는 패널 개발 및 제품 검증에 필요한 기간에 따라 달라질 것입니다.</p>
+          
+          <h3>디스플레이 및 하드웨어</h3>
+<ul>
+<li>Samsung 전자는 안경테에 직접 통합할 수 있도록 0.2인치 이하의 초소형 마이크로 디스플레이 패널을 평가하고 있습니다.</li>
+<li>시스템은 근안 광학 시스템을 통해 패널 이미지를 확대하여 사람의 눈에 투영하며, 주로 텍스트, 시스템 알림, UI 아이콘 및 내비게이션 화살표와 같은 경량 정보를 표시하는 데 사용됩니다.</li>
+<li>현재 하드웨어 형태는 최종 확정되지 않았으며, 양안 디스플레이와 단안 디스플레이 두 가지 광학 엔진 아키텍처 솔루션을 평가 중입니다.</li>
+</ul>
+          
+          <h3>디스플레이 전략</h3>
+<p>Samsung 전자는 색상의 명암을 섬세하게 표현하는 고해상도 화질보다는 4비트(4-bit) 그레이스케일 솔루션을 선택했습니다. 그레이스케일은 픽셀 밝기 단계를 측정하는 표준으로, 단일 색상 채널에서 4비트 깊이는 16단계의 그레이스케일을 표현할 수 있는 반면, 일반적인 8비트 깊이는 256단계의 그레이스케일을 표현합니다. Samsung의 이러한 움직임은 사진 및 비디오의 고채도 색상 재현보다는 텍스트와 UI 기호의 높은 식별성과 극히 낮은 전력 소비를 우선시하기 위함입니다.</p>
+          
+          <h3>시스템 생태계</h3>
+<p>Samsung 전자는 이 AI 안경을 스마트폰의 주변 확장 액세서리로 포지셔닝하고 있으며, 핵심 연산은 스마트폰과의 협업에 의존하고 안경은 주로 경량 정보의 즉각적인 표시와 인간-기계 상호작용을 담당합니다.</p>
+          
+          <p>업계 관계자는 "Samsung 전자는 현재 사양을 충족하는 OLEDoS 및 LEDoS 패널에 대한 다각적인 검증을 진행하여 상용화를 추진하고 있다"고 말했습니다. 또한 "Samsung 전자가 마이크로 디스플레이 기술 로드맵을 최종 확정하지는 않았지만, RGB OLEDoS의 높은 비용 및 수율 관리 위험을 고려할 때, 엔지니어링 단계에서는 백색 OLEDoS 솔루션이 우선적으로 도입될 가능성이 더 높다"고 덧붙였습니다.</p>
+          
+          <h3>이전 AI 안경 계획</h3>
+<p>IT之家의 이전 보도에 따르면, Samsung이 올해 출시할 예정인 1세대 AI 안경에는 디스플레이 모듈이 통합되지 않고 카메라 촬영 및 음성 상호작용 기능에만 초점을 맞출 계획이었습니다. 이 제품은 Samsung 전자와 Google, Gentle Monster 및 Warby Parker가 공동 개발했으며, Samsung의 하드웨어 엔지니어링 아키텍처, Google의 AI 멀티모달 대규모 모델 기능, 그리고 두 트렌디 안경 브랜드의 안경테 산업 디자인이 결합되었습니다.</p>
+          
+          <h3>총평</h3>
+<p>Samsung 전자가 디스플레이를 탑재한 AI 안경 개발에 착수했으며, 2027년 하반기 또는 2028년 상반기 출시를 목표로 하고 있습니다. 이 안경은 OLEDoS 또는 LEDoS 패널을 사용하며, 텍스트와 UI 아이콘 등 경량 정보 표시와 낮은 전력 소비를 위해 4비트 그레이스케일 솔루션을 채택할 예정입니다. 스마트폰의 주변 확장 액세서리로 기능하며, 핵심 연산은 스마트폰에 의존할 것으로 보입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          <h3>产品核心定位与功能升级</h3>
+<ul>
+<li>Samsung电子正在开发其首款配备显示屏的AI眼镜，预计将与Meta Ray-Ban Display智能眼镜类似。</li>
+<li>该产品的功能已从仅提供音频扩展，升级至能够在镜片上显示彩色视觉信息。</li>
+</ul>
+          <h3>技术规格与显示策略</h3>
+<ul>
+<li><strong>微显示面板：</strong> 评估超小型微显示面板，尺寸预计小于 0.2 英寸，用于直接集成于眼镜镜框内。</li>
+<li><strong>显示方式：</strong> 系统通过近眼光学系统将面板图像放大并投影至人眼，主要承载轻量化信息。</li>
+<li><strong>展示内容：</strong> 主要用于文字、系统通知、UI图标及导航箭头等非照片级信息。</li>
+<li><strong>色彩方案：</strong> 采用 4 位 (4-bit) 灰阶方案，而非追求高分辨率的彩色画质。此举旨在优先确保文本和UI符号的高辨识度与极低功耗。</li>
+</ul>
+          <h3>面板技术选型与开发周期</h3>
+<ul>
+<li><strong>评估技术：</strong> Samsung电子正在评估 OLEDoS（硅基 OLED）或 LEDoS（硅基 LED）等候选微显示面板方案，重点权衡性能与成本。</li>
+<li><strong>工程倾向性：</strong> 业内知情人士指出，考虑到 RGB OLEDoS 在成本和良率控制上的高风险，工程落地阶段优先导入白光 OLEDoS 方案的可能性更大。</li>
+<li><strong>发布时间预估：</strong> 预计该产品将在 2027 年下半年或 2028 年上半年发布，具体取决于面板开发周期。</li>
+</ul>
+          <h3>系统架构与生态定位</h3>
+<ul>
+<li><strong>核心依赖：</strong> 该AI眼镜被定位为智能手机的外围扩展配件，其核心运算能力仍依赖于智能手机协同。</li>
+<li><strong>交互模式：</strong> 眼镜端主要负责轻量化信息的即时呈现和人机交互功能。</li>
+</ul>
+          <h3>前期产品迭代信息</h3>
+<ul>
+<li>此前报道的AI眼镜版本（由Samsung电子与谷歌、Gentle Monster及Warby Parker联合研发）并未集成显示模组，仅聚焦于摄像头拍摄和语音交互功能。</li>
+</ul>
+          <h3>总结</h3>
+<p>Samsung电子正积极推进其首款带屏AI眼镜的开发，技术路线重点在于采用超小型微显示面板并利用 4 位灰阶方案实现高辨识度的文字信息展示。该产品将作为智能手机的外设扩展，目前正在评估 OLEDoS/LEDoS 等多种面板技术，预计将在 2027 年至 2028 年间逐步推向市场。</p>
+        </div>
+        <div class="lang-body" data-lang="ja">
+          <h3>Samsung、ディスプレイ搭載AIグラスの開発に着手</h3>
+<p>韓国のメディアTheElecによると、サムスン電子がディスプレイを搭載した初のAIグラス開発に着手しました。本製品は「Meta Ray-Ban Display」のようなスマートグラスに似ており、オーディオ機能だけでなく、レンズ上にカラー視覚情報も表示することが可能です。</p>
+          <p>業界関係者によると、先月、サムスン電子はSamsung Displayに対し、AIグラス用のマイクロディスプレイ（Micro Display）の開発を依頼し、製品の外観、情報表示領域、色機能、価格など具体的な要求事項を提示したとのことです。</p>
+          <p>サムスン電子は現在、OLEDoS（シリコンベースのOLED）またはLEDoS（シリコンベースのLED）といった候補パネルソリューションを評価しており、性能とコストを重点的に考慮しています。業界では、本製品が2027年後半または2028年前半に発売されると予測されていますが、具体的な時期はパネル開発や製品検証に必要な期間によって変動する見込みです。</p>
+          <h3>ディスプレイおよびハードウェア</h3>
+<ul>
+<li>サムスン電子は、メガネフレームに直接統合できる0.2インチ以下の超小型マイクロディスプレイパネルを評価しています。</li>
+<li>システムは近眼光学システムを通じてパネル画像を拡大し、人間の目に投影します。主にテキスト、システム通知、UIアイコン、ナビゲーション矢印といった軽量な情報を表示するために使用されます。</li>
+<li>現時点でのハードウェアの形態は最終決定されておらず、両眼ディスプレイと単眼ディスプレイという2種類の光学エンジンアーキテクチャソリューションを評価中です。</li>
+</ul>
+          <h3>ディスプレイ戦略</h3>
+<p>サムスン電子は、色の明暗を繊細に表現する高解像度な画質よりも、4ビット（4-bit）グレースケールソリューションを選択しました。グレースケールとはピクセルの明るさの段階を測定する標準であり、単一の色チャネルにおいて4ビット深度は16段階のグレースケールを表現できますが、一般的な8ビット深度では256段階のグレースケールを表現します。サムスン社のこの動きは、写真や動画の高彩度な色再現性よりも、テキストやUI記号の高い識別性と極めて低い消費電力を優先しているためです。</p>
+          <h3>システムエコシステム</h3>
+<p>サムスン電子は、このAIグラスをスマートフォン周辺の拡張アクセサリーとして位置づけています。主要な演算処理はスマートフォンとの連携に依存し、グラス本体は主に軽量情報の即時表示とヒューマン・マシンインターフェース（HMI）を担当します。</p>
+          <p>業界関係者によると、「サムスン電子は現在、仕様を満たすOLEDoSおよびLEDoSパネルについて多角的な検証を進め、商用化を推進しています」とのことです。また、「サムスン電子がマイクロディスプレイ技術ロードマップを最終決定したわけではありませんが、RGB OLEDoSの高いコストや歩留まり管理のリスクを考慮すると、エンジニアリング段階ではホワイトOLEDoSソリューションが優先的に導入される可能性が高い」とも付け加えられています。</p>
+          <h3>これまでのAIグラス計画</h3>
+<p>IT之家による以前の報道によると、サムスンが今年発売予定だった第1世代AIグラスは、ディスプレイモジュールを統合せず、カメラ撮影や音声インタラクション機能にのみ焦点を当てる計画でした。この製品は、サムスン電子とGoogle、Gentle Monster、Warby Parkerが共同開発し、サムスンのハードウェアエンジニアリングアーキテクチャ、GoogleのAIマルチモーダル大規模モデル機能、そして2つのトレンド性の高いメガネブランドのフレームデザインを組み合わせたものです。</p>
+          <h3>まとめ</h3>
+<p>サムスン電子はディスプレイ搭載型のAIグラス開発に着手し、2027年後半から2028年前半の発売を目指しています。本製品では、OLEDoSまたはLEDoSパネルを使用し、低消費電力と高い識別性を重視して4ビットグレースケールソリューションを採用する見込みです。機能的にはスマートフォンに依存した周辺拡張アクセサリーとして位置づけられ、軽量な情報表示を主な役割とします。</p>
+        </div>
+        <div class="lang-body" data-lang="en">
+          <h3>Samsung Begins Development of AI Glasses with Display Integration</h3>
+<p>According to Korean media outlet TheElec, Samsung Electronics has begun developing its first AI glasses equipped with a display. Similar to the Meta Ray-Ban Display smart glasses, this product will be capable of displaying color visual information on the lenses, in addition to audio functions.</p>
+          <p>Industry sources revealed on the 9th that Samsung Electronics had requested the development of a Micro Display for AI glasses from Samsung Display last month. They provided specific requirements regarding the product's exterior design, information display area, color functionality, and pricing.</p>
+          <p>Samsung Electronics is currently evaluating candidate panel solutions such as OLEDoS (Silicon-based OLED) or LEDoS (Silicon-based LED), focusing primarily on performance and cost. The industry anticipates that this product could be released in the second half of 2027 or the first half of 2028, though the exact timing will depend on the necessary period for panel development and product verification.</p>
+          <h3>Display and Hardware</h3>
+<ul>
+<li>Samsung Electronics is evaluating ultra-small micro display panels, measuring less than 0.2 inches, that can be directly integrated into eyeglass frames.</li>
+<li>The system uses a near-eye optical system to enlarge the panel image for projection into the user's eye, primarily used for displaying lightweight information such as text, system notifications, UI icons, and navigation arrows.</li>
+<li>The hardware form factor has not been finalized; they are evaluating two optical engine architecture solutions: binocular display and monocular display.</li>
+</ul>
+          <h3>Display Strategy</h3>
+<p>Samsung Electronics opted for a 4-bit grayscale solution rather than high-resolution color quality that delicately expresses color gradation. Grayscale is the standard measure for pixel brightness steps, where 4-bit depth in a single color channel can express 16 levels of grayscale, while typical 8-bit depth expresses 256 levels of grayscale. Samsung's move prioritizes high discernibility and extremely low power consumption for text and UI symbols over the reproduction of highly saturated colors found in photos and videos.</p>
+          <h3>System Ecosystem</h3>
+<p>Samsung Electronics plans to position these AI glasses as a peripheral extension accessory for smartphones, relying on collaboration with the smartphone for core computation while the glasses handle immediate display of lightweight information and human-machine interaction.</p>
+          <p>An industry source stated, "Samsung Electronics is pursuing commercialization by conducting diversified verification of OLEDoS and LEDoS panels that meet the specifications." The source added, "Although Samsung Electronics has not finalized its micro display technology roadmap, considering the high cost and yield management risks of RGB OLEDoS, a white OLEDoS solution is more likely to be adopted in the engineering phase."</p>
+          <h3>Previous AI Glasses Plans</h3>
+<p>According to previous reports from IT之家, Samsung's first-generation AI glasses planned for release this year were intended to focus only on camera capture and voice interaction features, without integrating a display module. This product was a joint development between Samsung Electronics and Google, Gentle Monster, and Warby Parker, combining Samsung's hardware engineering architecture, Google's AI multimodal large model capabilities, and the industrial design of two trendy eyewear brands.</p>
+          <h3>Summary</h3>
+<p>Samsung Electronics has initiated development on AI glasses featuring an integrated display, targeting a release in late 2027 or early 2028. The device will utilize OLEDoS or LEDoS panels and adopt a 4-bit grayscale solution to prioritize low power consumption and clear display of lightweight information like text and UI icons. Functioning as a peripheral accessory for smartphones, the glasses are expected to rely on the smartphone for core computational tasks.</p>
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/000/452.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-09"
+               class="archive-btn active">
+              2026-09
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
