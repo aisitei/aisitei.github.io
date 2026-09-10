@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 샤오미의 새 미지아 AI 가스레인지, 당신 대신 냄비를 지켜본다</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Xiaomi">
+  <meta name="article-brand-color" content="#FF6900">
+  <meta name="title-ko" content="샤오미의 새 미지아 AI 가스레인지, 당신 대신 냄비를 지켜본다">
+  <meta name="title-zh" content="샤오미의 새 미지아 AI 가스레인지, 당신 대신 냄비를 지켜본다">
+  <meta name="title-ja" content="샤오미의 새 미지아 AI 가스레인지, 당신 대신 냄비를 지켜본다">
+  <meta name="title-en" content="샤오미의 새 미지아 AI 가스레인지, 당신 대신 냄비를 지켜본다">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260910b">
+<script defer src="../../../../assets/news.js?v=20260910b"></script>
+<script defer src="../../../../assets/article.js?v=20260910b"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #FF6900;">
+            Xiaomi
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="샤오미의 새 미지아 AI 가스레인지, 당신 대신 냄비를 지켜본다"
+            data-zh="샤오미의 새 미지아 AI 가스레인지, 당신 대신 냄비를 지켜본다"
+            data-ja="샤오미의 새 미지아 AI 가스레인지, 당신 대신 냄비를 지켜본다"
+            data-en="샤오미의 새 미지아 AI 가스레인지, 당신 대신 냄비를 지켜본다">샤오미의 새 미지아 AI 가스레인지, 당신 대신 냄비를 지켜본다</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-09-11
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="샤오미의 새 미지아 AI 가스레인지, 당신 대신 냄비를 지켜본다" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>Xiaomi Mijia Smart Gas Stove 3 Max 출시</h3>
+  <p>Xiaomi가 중국에서 Mijia Smart Gas Stove 3 Max의 사전 판매를 시작했습니다. 이 제품은 단순히 조리 성능을 넘어 AI 안전 제어 기능을 중심으로 설계된 브랜드 최초의 가스레인지입니다. 현재 JD.com에서 2704위안(약 400달러)에 판매되고 있습니다.</p>
+          
+          <h3>AI 기반 안전 기능</h3>
+  <p>이 가스레인지는 두 가지 주요 안전 기능에 AI를 활용합니다: 건조 연소 방지 및 이탈 감지.</p>
+  <ul>
+    <li>오른쪽 버너에는 냄비 바닥에 밀착되는 500°C 압력 감지 티타늄 합금 프로브가 있어 조리 중 냄비 온도를 모니터링합니다.</li>
+    <li>AI 온도 알고리즘은 이 데이터를 사용하여 냄비가 비어있거나 건조한 상태를 감지합니다. 문제가 감지되면 가스 공급을 자동으로 차단하고 불을 끕니다.</li>
+    <li>주방을 비웠을 경우 Xiaomi Home 앱을 통해 경고를 보낼 수도 있습니다.</li>
+  </ul>
+          
+          <h3>이탈 감지 시스템</h3>
+  <p>이탈 감지 시스템은 가스레인지에 내장된 또 다른 안전 기능입니다.</p>
+  <ul>
+    <li>레이더는 기기 전방 최대 0.9미터까지 커버하여 사용자가 자리를 비웠을 때를 감지합니다.</li>
+    <li>30분 동안 자리를 비우면 가스레인지에서 알림음이 울려 상기시킵니다.</li>
+    <li>60분 동안 계속 자리를 비우면 자동으로 가스를 차단하고 앱을 통해 알림을 보냅니다.</li>
+  </ul>
+          
+          <h3>고성능 버너 및 타이머</h3>
+  <ul>
+    <li>양쪽 버너 모두 5,200W의 화력을 낼 수 있으며, 154개의 화염 구멍을 가진 듀얼 채널 산소 공급 설계를 사용하여 냄비 전체에 열을 더욱 고르게 분산시킵니다.</li>
+    <li>버너는 고온에도 쉽게 변형되지 않도록 설계된 단조 황동 캡을 사용합니다.</li>
+    <li>각 버너에는 1분에서 180분까지 설정할 수 있는 자체 타이머가 있습니다. 이를 통해 수프나 찜 요리처럼 계속 확인하지 않아도 되는 조리 시간을 설정할 수 있습니다.</li>
+    <li>오른쪽 버너는 버튼을 누르면 냄비 온도를 실시간으로 표시할 수 있어 튀김이나 볶음 요리에 유용합니다.</li>
+  </ul>
+          
+          <h3>조리 환경 개선</h3>
+  <p>Xiaomi는 또한 가스레인지 선반에 3중 에어 챔버를 추가했습니다. 회사는 이를 통해 조리대 주변 온도를 최대 22°C까지 낮출 수 있어 장시간 조리 시 주방을 더욱 쾌적하게 만들 수 있다고 설명합니다.</p>
+          
+          <h3>에너지 효율 및 디자인</h3>
+  <ul>
+    <li>Mijia Smart Gas Stove 3 Max는 75%의 열효율 등급을 가지고 있으며, 중국의 새로운 1등급 에너지 효율 표준을 충족합니다.</li>
+    <li>Xiaomi는 이는 이전 모델보다 12% 향상된 것이며, 일반 가구에서 8년 동안 약 980위안의 가스 비용을 절약할 수 있다고 말합니다.</li>
+    <li>유리 조리대는 연잎에서 영감을 받은 나노 코팅이 되어 있어 기름과 물을 튕겨냅니다.</li>
+    <li>설치 또한 비교적 유연합니다. 가스레인지는 630-710mm 너비와 330-400mm 깊이의 개구부를 지원하는 조절 가능한 섀시를 가지고 있어 대부분의 주방 교체 시 별도의 절단 작업이 필요하지 않습니다.</li>
+  </ul>
+          
+          <h3>총평</h3>
+  <p>Xiaomi Mijia Smart Gas Stove 3 Max는 AI 기반의 건조 연소 방지 및 이탈 감지 기능을 통해 주방 안전을 한층 강화한 스마트 가스레인지입니다. 고성능 버너와 타이머 기능으로 조리 편의성을 높였으며, 향상된 에너지 효율과 쾌적한 조리 환경을 위한 디자인 요소도 갖췄습니다. 이 제품은 안전과 편의성을 동시에 추구하는 현대 주방에 적합한 솔루션을 제공합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Xiaomi Mijia Smart Gas Stove 3 Max 출시</h3>
+  <p>Xiaomi가 중국에서 Mijia Smart Gas Stove 3 Max의 사전 판매를 시작했습니다. 이 제품은 단순히 조리 성능을 넘어 AI 안전 제어 기능을 중심으로 설계된 브랜드 최초의 가스레인지입니다. 현재 JD.com에서 2704위안(약 400달러)에 판매되고 있습니다.</p>
+          
+          <h3>AI 기반 안전 기능</h3>
+  <p>이 가스레인지는 두 가지 주요 안전 기능에 AI를 활용합니다: 건조 연소 방지 및 이탈 감지.</p>
+  <ul>
+    <li>오른쪽 버너에는 냄비 바닥에 밀착되는 500°C 압력 감지 티타늄 합금 프로브가 있어 조리 중 냄비 온도를 모니터링합니다.</li>
+    <li>AI 온도 알고리즘은 이 데이터를 사용하여 냄비가 비어있거나 건조한 상태를 감지합니다. 문제가 감지되면 가스 공급을 자동으로 차단하고 불을 끕니다.</li>
+    <li>주방을 비웠을 경우 Xiaomi Home 앱을 통해 경고를 보낼 수도 있습니다.</li>
+  </ul>
+          
+          <h3>이탈 감지 시스템</h3>
+  <p>이탈 감지 시스템은 가스레인지에 내장된 또 다른 안전 기능입니다.</p>
+  <ul>
+    <li>레이더는 기기 전방 최대 0.9미터까지 커버하여 사용자가 자리를 비웠을 때를 감지합니다.</li>
+    <li>30분 동안 자리를 비우면 가스레인지에서 알림음이 울려 상기시킵니다.</li>
+    <li>60분 동안 계속 자리를 비우면 자동으로 가스를 차단하고 앱을 통해 알림을 보냅니다.</li>
+  </ul>
+          
+          <h3>고성능 버너 및 타이머</h3>
+  <ul>
+    <li>양쪽 버너 모두 5,200W의 화력을 낼 수 있으며, 154개의 화염 구멍을 가진 듀얼 채널 산소 공급 설계를 사용하여 냄비 전체에 열을 더욱 고르게 분산시킵니다.</li>
+    <li>버너는 고온에도 쉽게 변형되지 않도록 설계된 단조 황동 캡을 사용합니다.</li>
+    <li>각 버너에는 1분에서 180분까지 설정할 수 있는 자체 타이머가 있습니다. 이를 통해 수프나 찜 요리처럼 계속 확인하지 않아도 되는 조리 시간을 설정할 수 있습니다.</li>
+    <li>오른쪽 버너는 버튼을 누르면 냄비 온도를 실시간으로 표시할 수 있어 튀김이나 볶음 요리에 유용합니다.</li>
+  </ul>
+          
+          <h3>조리 환경 개선</h3>
+  <p>Xiaomi는 또한 가스레인지 선반에 3중 에어 챔버를 추가했습니다. 회사는 이를 통해 조리대 주변 온도를 최대 22°C까지 낮출 수 있어 장시간 조리 시 주방을 더욱 쾌적하게 만들 수 있다고 설명합니다.</p>
+          
+          <h3>에너지 효율 및 디자인</h3>
+  <ul>
+    <li>Mijia Smart Gas Stove 3 Max는 75%의 열효율 등급을 가지고 있으며, 중국의 새로운 1등급 에너지 효율 표준을 충족합니다.</li>
+    <li>Xiaomi는 이는 이전 모델보다 12% 향상된 것이며, 일반 가구에서 8년 동안 약 980위안의 가스 비용을 절약할 수 있다고 말합니다.</li>
+    <li>유리 조리대는 연잎에서 영감을 받은 나노 코팅이 되어 있어 기름과 물을 튕겨냅니다.</li>
+    <li>설치 또한 비교적 유연합니다. 가스레인지는 630-710mm 너비와 330-400mm 깊이의 개구부를 지원하는 조절 가능한 섀시를 가지고 있어 대부분의 주방 교체 시 별도의 절단 작업이 필요하지 않습니다.</li>
+  </ul>
+          
+          <h3>총평</h3>
+  <p>Xiaomi Mijia Smart Gas Stove 3 Max는 AI 기반의 건조 연소 방지 및 이탈 감지 기능을 통해 주방 안전을 한층 강화한 스마트 가스레인지입니다. 고성능 버너와 타이머 기능으로 조리 편의성을 높였으며, 향상된 에너지 효율과 쾌적한 조리 환경을 위한 디자인 요소도 갖췄습니다. 이 제품은 안전과 편의성을 동시에 추구하는 현대 주방에 적합한 솔루션을 제공합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>Xiaomi Mijia Smart Gas Stove 3 Max 출시</h3>
+  <p>Xiaomi가 중국에서 Mijia Smart Gas Stove 3 Max의 사전 판매를 시작했습니다. 이 제품은 단순히 조리 성능을 넘어 AI 안전 제어 기능을 중심으로 설계된 브랜드 최초의 가스레인지입니다. 현재 JD.com에서 2704위안(약 400달러)에 판매되고 있습니다.</p>
+          
+          <h3>AI 기반 안전 기능</h3>
+  <p>이 가스레인지는 두 가지 주요 안전 기능에 AI를 활용합니다: 건조 연소 방지 및 이탈 감지.</p>
+  <ul>
+    <li>오른쪽 버너에는 냄비 바닥에 밀착되는 500°C 압력 감지 티타늄 합금 프로브가 있어 조리 중 냄비 온도를 모니터링합니다.</li>
+    <li>AI 온도 알고리즘은 이 데이터를 사용하여 냄비가 비어있거나 건조한 상태를 감지합니다. 문제가 감지되면 가스 공급을 자동으로 차단하고 불을 끕니다.</li>
+    <li>주방을 비웠을 경우 Xiaomi Home 앱을 통해 경고를 보낼 수도 있습니다.</li>
+  </ul>
+          
+          <h3>이탈 감지 시스템</h3>
+  <p>이탈 감지 시스템은 가스레인지에 내장된 또 다른 안전 기능입니다.</p>
+  <ul>
+    <li>레이더는 기기 전방 최대 0.9미터까지 커버하여 사용자가 자리를 비웠을 때를 감지합니다.</li>
+    <li>30분 동안 자리를 비우면 가스레인지에서 알림음이 울려 상기시킵니다.</li>
+    <li>60분 동안 계속 자리를 비우면 자동으로 가스를 차단하고 앱을 통해 알림을 보냅니다.</li>
+  </ul>
+          
+          <h3>고성능 버너 및 타이머</h3>
+  <ul>
+    <li>양쪽 버너 모두 5,200W의 화력을 낼 수 있으며, 154개의 화염 구멍을 가진 듀얼 채널 산소 공급 설계를 사용하여 냄비 전체에 열을 더욱 고르게 분산시킵니다.</li>
+    <li>버너는 고온에도 쉽게 변형되지 않도록 설계된 단조 황동 캡을 사용합니다.</li>
+    <li>각 버너에는 1분에서 180분까지 설정할 수 있는 자체 타이머가 있습니다. 이를 통해 수프나 찜 요리처럼 계속 확인하지 않아도 되는 조리 시간을 설정할 수 있습니다.</li>
+    <li>오른쪽 버너는 버튼을 누르면 냄비 온도를 실시간으로 표시할 수 있어 튀김이나 볶음 요리에 유용합니다.</li>
+  </ul>
+          
+          <h3>조리 환경 개선</h3>
+  <p>Xiaomi는 또한 가스레인지 선반에 3중 에어 챔버를 추가했습니다. 회사는 이를 통해 조리대 주변 온도를 최대 22°C까지 낮출 수 있어 장시간 조리 시 주방을 더욱 쾌적하게 만들 수 있다고 설명합니다.</p>
+          
+          <h3>에너지 효율 및 디자인</h3>
+  <ul>
+    <li>Mijia Smart Gas Stove 3 Max는 75%의 열효율 등급을 가지고 있으며, 중국의 새로운 1등급 에너지 효율 표준을 충족합니다.</li>
+    <li>Xiaomi는 이는 이전 모델보다 12% 향상된 것이며, 일반 가구에서 8년 동안 약 980위안의 가스 비용을 절약할 수 있다고 말합니다.</li>
+    <li>유리 조리대는 연잎에서 영감을 받은 나노 코팅이 되어 있어 기름과 물을 튕겨냅니다.</li>
+    <li>설치 또한 비교적 유연합니다. 가스레인지는 630-710mm 너비와 330-400mm 깊이의 개구부를 지원하는 조절 가능한 섀시를 가지고 있어 대부분의 주방 교체 시 별도의 절단 작업이 필요하지 않습니다.</li>
+  </ul>
+          
+          <h3>총평</h3>
+  <p>Xiaomi Mijia Smart Gas Stove 3 Max는 AI 기반의 건조 연소 방지 및 이탈 감지 기능을 통해 주방 안전을 한층 강화한 스마트 가스레인지입니다. 고성능 버너와 타이머 기능으로 조리 편의성을 높였으며, 향상된 에너지 효율과 쾌적한 조리 환경을 위한 디자인 요소도 갖췄습니다. 이 제품은 안전과 편의성을 동시에 추구하는 현대 주방에 적합한 솔루션을 제공합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Xiaomi Mijia Smart Gas Stove 3 Max 출시</h3>
+  <p>Xiaomi가 중국에서 Mijia Smart Gas Stove 3 Max의 사전 판매를 시작했습니다. 이 제품은 단순히 조리 성능을 넘어 AI 안전 제어 기능을 중심으로 설계된 브랜드 최초의 가스레인지입니다. 현재 JD.com에서 2704위안(약 400달러)에 판매되고 있습니다.</p>
+          
+          <h3>AI 기반 안전 기능</h3>
+  <p>이 가스레인지는 두 가지 주요 안전 기능에 AI를 활용합니다: 건조 연소 방지 및 이탈 감지.</p>
+  <ul>
+    <li>오른쪽 버너에는 냄비 바닥에 밀착되는 500°C 압력 감지 티타늄 합금 프로브가 있어 조리 중 냄비 온도를 모니터링합니다.</li>
+    <li>AI 온도 알고리즘은 이 데이터를 사용하여 냄비가 비어있거나 건조한 상태를 감지합니다. 문제가 감지되면 가스 공급을 자동으로 차단하고 불을 끕니다.</li>
+    <li>주방을 비웠을 경우 Xiaomi Home 앱을 통해 경고를 보낼 수도 있습니다.</li>
+  </ul>
+          
+          <h3>이탈 감지 시스템</h3>
+  <p>이탈 감지 시스템은 가스레인지에 내장된 또 다른 안전 기능입니다.</p>
+  <ul>
+    <li>레이더는 기기 전방 최대 0.9미터까지 커버하여 사용자가 자리를 비웠을 때를 감지합니다.</li>
+    <li>30분 동안 자리를 비우면 가스레인지에서 알림음이 울려 상기시킵니다.</li>
+    <li>60분 동안 계속 자리를 비우면 자동으로 가스를 차단하고 앱을 통해 알림을 보냅니다.</li>
+  </ul>
+          
+          <h3>고성능 버너 및 타이머</h3>
+  <ul>
+    <li>양쪽 버너 모두 5,200W의 화력을 낼 수 있으며, 154개의 화염 구멍을 가진 듀얼 채널 산소 공급 설계를 사용하여 냄비 전체에 열을 더욱 고르게 분산시킵니다.</li>
+    <li>버너는 고온에도 쉽게 변형되지 않도록 설계된 단조 황동 캡을 사용합니다.</li>
+    <li>각 버너에는 1분에서 180분까지 설정할 수 있는 자체 타이머가 있습니다. 이를 통해 수프나 찜 요리처럼 계속 확인하지 않아도 되는 조리 시간을 설정할 수 있습니다.</li>
+    <li>오른쪽 버너는 버튼을 누르면 냄비 온도를 실시간으로 표시할 수 있어 튀김이나 볶음 요리에 유용합니다.</li>
+  </ul>
+          
+          <h3>조리 환경 개선</h3>
+  <p>Xiaomi는 또한 가스레인지 선반에 3중 에어 챔버를 추가했습니다. 회사는 이를 통해 조리대 주변 온도를 최대 22°C까지 낮출 수 있어 장시간 조리 시 주방을 더욱 쾌적하게 만들 수 있다고 설명합니다.</p>
+          
+          <h3>에너지 효율 및 디자인</h3>
+  <ul>
+    <li>Mijia Smart Gas Stove 3 Max는 75%의 열효율 등급을 가지고 있으며, 중국의 새로운 1등급 에너지 효율 표준을 충족합니다.</li>
+    <li>Xiaomi는 이는 이전 모델보다 12% 향상된 것이며, 일반 가구에서 8년 동안 약 980위안의 가스 비용을 절약할 수 있다고 말합니다.</li>
+    <li>유리 조리대는 연잎에서 영감을 받은 나노 코팅이 되어 있어 기름과 물을 튕겨냅니다.</li>
+    <li>설치 또한 비교적 유연합니다. 가스레인지는 630-710mm 너비와 330-400mm 깊이의 개구부를 지원하는 조절 가능한 섀시를 가지고 있어 대부분의 주방 교체 시 별도의 절단 작업이 필요하지 않습니다.</li>
+  </ul>
+          
+          <h3>총평</h3>
+  <p>Xiaomi Mijia Smart Gas Stove 3 Max는 AI 기반의 건조 연소 방지 및 이탈 감지 기능을 통해 주방 안전을 한층 강화한 스마트 가스레인지입니다. 고성능 버너와 타이머 기능으로 조리 편의성을 높였으며, 향상된 에너지 효율과 쾌적한 조리 환경을 위한 디자인 요소도 갖췄습니다. 이 제품은 안전과 편의성을 동시에 추구하는 현대 주방에 적합한 솔루션을 제공합니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/09/10/xiaomis-new-mijia-ai-gas-stove-watches-the-pot-so-you-dont-have-to/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-09"
+               class="archive-btn active">
+              2026-09
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
