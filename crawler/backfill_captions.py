@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-backfill_captions.py — 이미 저장된 기사의 로컬 이미지에 Tesseract OCR로 캡션을 새로 붙이는 후처리 스크립트.
+backfill_captions.py — 이미 저장된 기사의 로컬 이미지에 로컬 OCR로 캡션을 새로 붙이는 후처리 스크립트.
 
 배경:
-  vision-LLM OCR로 처리된 기사들의 캡션을 Tesseract 기반으로 다시 만들어
-  기존 캡션(있으면 교체, 없으면 신규 추가)을 붙인다. 이미 저장된 index.html을
+  vision-LLM OCR로 처리된 기사들의 캡션을 로컬 OCR로 다시 만들어
+  누락 캡션을 붙인다. ko/en/ja가 모두 있으면 건너뛰며 --force로 교체할 수 있다. 이미 저장된 index.html을
   직접 패치하므로 재번역/재생성 없이 캡션만 갈아끼운다.
 
 사용법:
@@ -13,6 +13,8 @@ backfill_captions.py — 이미 저장된 기사의 로컬 이미지에 Tesserac
 """
 import sys
 import re
+from html import escape
+from bs4 import BeautifulSoup
 import glob
 import argparse
 import logging
@@ -36,11 +38,11 @@ def build_caption_html(translations: list) -> str:
             continue
         lines = []
         if t.translated_korean:
-            lines.append(f'                <div class="caption-lang" data-lang="ko">{t.translated_korean}</div>')
+            lines.append(f'                <div class="caption-lang" data-lang="ko">{escape(t.translated_korean)}</div>')
         if t.translated_english:
-            lines.append(f'                <div class="caption-lang" data-lang="en">{t.translated_english}</div>')
+            lines.append(f'                <div class="caption-lang" data-lang="en">{escape(t.translated_english)}</div>')
         if t.translated_japanese:
-            lines.append(f'                <div class="caption-lang" data-lang="ja">{t.translated_japanese}</div>')
+            lines.append(f'                <div class="caption-lang" data-lang="ja">{escape(t.translated_japanese)}</div>')
         pairs.append("              <div class=\"caption-pair\">\n" + "\n".join(lines) + "\n              </div>")
     if not pairs:
         return ""
@@ -52,8 +54,8 @@ def build_caption_html(translations: list) -> str:
     )
 
 
-def process_article(html_path: Path) -> bool:
-    html = html_path.read_text(encoding="utf-8", errors="replace")
+def process_article(html_path: Path, force: bool = False) -> bool:
+    html = html_path.read_bytes().decode("utf-8")
     images_dir = html_path.parent / "images"
     if not images_dir.is_dir():
         return False
@@ -65,6 +67,17 @@ def process_article(html_path: Path) -> bool:
 
     changed = False
     for src in img_srcs:
+        existing = re.search(
+            r'<div class="image-item">\s*<img src="' + re.escape(src) + r'"[^>]*>\s*(<figcaption[^>]*>[\s\S]*?</figcaption>)', html
+        )
+        if not force and existing:
+            pairs = BeautifulSoup(existing.group(1), "html.parser").select(".caption-pair")
+            if pairs and all(
+                all(any(node.get_text(strip=True) for node in pair.select(f'.caption-lang[data-lang="{lang}"]'))
+                    for lang in ("ko", "en", "ja"))
+                for pair in pairs
+            ):
+                continue
         local_path = html_path.parent / src
         if not local_path.exists():
             continue
@@ -73,7 +86,7 @@ def process_article(html_path: Path) -> bool:
         except OSError:
             continue
 
-        raw_text = ocr.call_tesseract_ocr(img_bytes)
+        raw_text = ocr.call_local_ocr(img_bytes, backend=ocr.config.OCR_BACKEND)
         if not raw_text:
             continue
         sentences = ocr._filter_caption_lines(raw_text)
@@ -111,8 +124,12 @@ def process_article(html_path: Path) -> bool:
             changed = True
             logger.info(f"  캡션 추가: {src} ({len(translations)}건)")
 
-    if changed:
-        html_path.write_text(html, encoding="utf-8")
+        # Checkpoint each successful image; an interrupted backfill can resume safely.
+        if changed:
+            temporary = html_path.with_name(html_path.name + ".captions.tmp")
+            temporary.write_bytes(html.encode("utf-8"))
+            temporary.replace(html_path)
+
     return changed
 
 
@@ -120,6 +137,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("paths", nargs="*", help="index.html 경로들 (glob 확장된 상태)")
     parser.add_argument("--glob", dest="glob_pattern", help="glob 패턴 (쉘 확장 없이 직접 전달)")
+    parser.add_argument("--force", action="store_true", help="완성된 기존 캡션도 다시 생성")
+    parser.add_argument("--limit", type=int, help="이번 실행에서 처리할 기사 수")
     args = parser.parse_args()
 
     paths = list(args.paths)
@@ -130,12 +149,15 @@ def main():
         logger.error("처리할 index.html 경로가 없습니다.")
         return
 
+    paths = sorted(set(paths), reverse=True)
+    if args.limit is not None:
+        paths = paths[:max(0, args.limit)]
     total_changed = 0
     for p in paths:
         html_path = Path(p)
         logger.info(f"처리 중: {html_path}")
         try:
-            if process_article(html_path):
+            if process_article(html_path, force=args.force):
                 total_changed += 1
         except Exception as e:
             logger.error(f"실패: {html_path} — {e}")

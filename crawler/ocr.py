@@ -1,12 +1,13 @@
 """
 이미지 OCR 인터페이스.
 
-기본 백엔드는 Tesseract(로컬 OCR 엔진, chi_sim+eng) — 순수 텍스트 추출 작업에
-vision-LLM을 쓰는 것보다 100배 이상 빠르고, 텍스트가 없는 이미지에 대해
-캡션을 지어내는(할루시네이션) 문제도 없음.
+기본 auto 백엔드는 macOS 내장 Vision으로 중국어를 추출하고, 사용할 수 없으면
+Tesseract로 대체합니다. OCR은 로컬에서 수행하며 이미지 내용에 없는 설명을 생성하지 않습니다.
 설정 예:
-    OCR_BACKEND=tesseract (기본): 로컬 tesseract 바이너리 + pytesseract 사용.
-    OCR_BACKEND=llm: LM Studio의 LLM_VISION_MODEL (OpenAI 호환 chat/completions).
+    OCR_BACKEND=auto (기본): macOS Vision → Tesseract.
+    OCR_BACKEND=tesseract: TESSERACT_CMD 또는 PATH/Homebrew에서 실행 파일 탐색.
+    OCR_BACKEND=vision: macOS Vision만 사용 (Swift command-line tools 필요).
+    OCR_BACKEND=llm: LM Studio 비전 모델.
 
 MCP 백엔드 사용 시:
     OCR_BACKEND=mcp OCR_MCP_URL=http://... 로 환경변수를 지정합니다.
@@ -16,6 +17,13 @@ import io
 import logging
 import os
 import re
+import shutil
+import sys
+import subprocess
+import tempfile
+import hashlib
+import json
+from pathlib import Path
 import time
 from typing import Optional
 from dataclasses import dataclass
@@ -120,6 +128,45 @@ def call_ocr_mcp(image_base64: str) -> Optional[str]:
         return None
 
 
+def call_apple_vision_ocr(image_bytes: bytes) -> Optional[str]:
+    """Use macOS on-device recognition; None means unavailable, empty means no text."""
+    if sys.platform != "darwin":
+        return None
+    try:
+        source = Path(__file__).parent / "native" / "vision_text.swift"
+        fingerprint = hashlib.sha256(source.read_bytes()).hexdigest()[:16]
+        cache = Path(tempfile.gettempdir()) / "aisitei-ocr" / fingerprint
+        cache.mkdir(parents=True, exist_ok=True)
+        binary = cache / "vision-text"
+        if not binary.exists():
+            compiler = shutil.which("swiftc") or "/usr/bin/swiftc"
+            temporary = cache / f"vision-text-{os.getpid()}"
+            subprocess.run([compiler, "-module-cache-path", str(cache / "modules"),
+                            str(source), "-o", str(temporary)], check=True,
+                           capture_output=True, timeout=120)
+            temporary.replace(binary)
+        with tempfile.NamedTemporaryFile(suffix=".image") as image:
+            image.write(image_bytes)
+            image.flush()
+            result = subprocess.run([str(binary), image.name], check=True,
+                                    capture_output=True, text=True, timeout=45)
+        lines = json.loads(result.stdout)
+        return "\n".join(line["text"] for line in lines if line.get("confidence", 0) >= 0.6)
+    except (OSError, ValueError, subprocess.SubprocessError) as error:
+        logger.warning("macOS OCR 사용 불가, Tesseract 대체 가능: %s", type(error).__name__)
+        return None
+
+
+def call_local_ocr(image_bytes: bytes, backend: str = "auto") -> Optional[str]:
+    if backend in ("auto", "vision"):
+        text = call_apple_vision_ocr(image_bytes)
+        if text is not None:
+            return text
+        if backend == "vision":
+            return None
+    return call_tesseract_ocr(image_bytes)
+
+
 def call_tesseract_ocr(image_bytes: bytes) -> Optional[str]:
     """로컬 Tesseract OCR로 이미지 속 텍스트를 추출합니다 (중국어 간체 + 영어).
 
@@ -129,9 +176,17 @@ def call_tesseract_ocr(image_bytes: bytes) -> Optional[str]:
     if pytesseract is None:
         logger.error("pytesseract 미설치. `pip install pytesseract` 및 `brew install tesseract tesseract-lang` 필요.")
         return None
+    # launchd does not inherit the interactive shell's Homebrew PATH.
+    explicit = os.getenv("TESSERACT_CMD", "").strip()
+    candidates = [explicit] if explicit else [shutil.which("tesseract"), "/opt/homebrew/bin/tesseract", "/usr/local/bin/tesseract", "/usr/bin/tesseract"]
+    executable = next((path for path in candidates if path and os.path.isfile(path) and os.access(path, os.X_OK)), None)
+    if not executable:
+        logger.error("Tesseract 실행 파일을 찾지 못했습니다. TESSERACT_CMD에 절대 경로를 지정하세요.")
+        return None
+    pytesseract.pytesseract.tesseract_cmd = executable
     try:
         img = Image.open(io.BytesIO(image_bytes))
-        text = pytesseract.image_to_string(img, lang="chi_sim+eng")
+        text = pytesseract.image_to_string(img, lang="chi_sim+eng", config="--psm 11")
         text = text.strip()
         return text or None
     except Exception as e:
@@ -243,7 +298,7 @@ def extract_image_text(image_url: str) -> Optional[str]:
     """이미지에서 중국어 텍스트를 추출합니다.
 
     OCR이 비활성화되어 있으면 None을 반환합니다.
-    config.OCR_BACKEND('tesseract' 기본 | 'llm' | 'mcp')에 따라 백엔드를 선택합니다.
+    config.OCR_BACKEND('auto' 기본 | 'vision' | 'tesseract' | 'llm' | 'mcp')에 따라 백엔드를 선택합니다.
     """
     if not config.OCR_ENABLED:
         return None
@@ -260,9 +315,9 @@ def extract_image_text(image_url: str) -> Optional[str]:
     except Exception:
         return None
 
-    backend = getattr(config, "OCR_BACKEND", "tesseract").lower()
-    if backend == "tesseract":
-        text = call_tesseract_ocr(image_bytes)
+    backend = getattr(config, "OCR_BACKEND", "auto").lower()
+    if backend in ("auto", "vision", "tesseract"):
+        text = call_local_ocr(image_bytes, backend)
     elif backend == "mcp":
         text = call_ocr_mcp(image_to_base64(image_bytes))
     else:
@@ -322,6 +377,13 @@ def _filter_caption_lines(raw: str) -> list[str]:
     out: list[str] = []
     seen: set[str] = set()
     for ln in lines:
+        # Remove OCR word spacing within Chinese; reject isolated glyphs and mixed noise.
+        ln = re.sub(r'(?<=[\u4e00-\u9fff])\s+(?=[\u4e00-\u9fff])', '', ln)
+        chinese = len(_CJK_RE.findall(ln))
+        ascii_words = re.findall(r"[A-Za-z]+", ln)
+        short_word_noise = len(ascii_words) >= 3 and all(len(word) <= 3 for word in ascii_words) and chinese < 6
+        if chinese < 2 or short_word_noise or (chinese < 4 and re.search(r'[|&"\\]', ln)):
+            continue
         if not _CJK_RE.search(ln):
             continue
         if _WATERMARK_RE.search(ln):
@@ -352,7 +414,12 @@ def _translate_sentences(
     """
     if translate_batch_fn:
         batch = translate_batch_fn(sentences)
-        if batch and len(batch.get("ko", [])) == len(sentences):
+        required = ["ko"] + (["en"] if translate_en_fn else []) + (["ja"] if translate_ja_fn else [])
+        if isinstance(batch, dict) and all(
+            isinstance(batch.get(lang), list) and len(batch[lang]) == len(sentences)
+            and all(isinstance(value, str) and value.strip() for value in batch[lang])
+            for lang in required
+        ):
             translations = []
             for i, sentence in enumerate(sentences):
                 korean = batch["ko"][i]
@@ -360,8 +427,8 @@ def _translate_sentences(
                     translations.append(ImageTranslation(
                         original_chinese=sentence,
                         translated_korean=korean,
-                        translated_english=(batch.get("en") or [""] * len(sentences))[i],
-                        translated_japanese=(batch.get("ja") or [""] * len(sentences))[i],
+                        translated_english=batch["en"][i] if "en" in required else "",
+                        translated_japanese=batch["ja"][i] if "ja" in required else "",
                     ))
             return translations
         logger.warning("caption 배치 번역 실패 → 문장별 개별 호출로 폴백")
@@ -466,9 +533,9 @@ def process_local_image_translations(
         except Exception:
             continue
 
-        backend = getattr(config, "OCR_BACKEND", "tesseract").lower()
-        if backend == "tesseract":
-            chinese_text = call_tesseract_ocr(img_bytes)
+        backend = getattr(config, "OCR_BACKEND", "auto").lower()
+        if backend in ("auto", "vision", "tesseract"):
+            chinese_text = call_local_ocr(img_bytes, backend)
         elif backend == "mcp":
             chinese_text = call_ocr_mcp(image_to_base64(img_bytes))
         else:

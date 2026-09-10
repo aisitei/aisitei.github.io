@@ -15,7 +15,7 @@
   const oldSelector=document.querySelector('.lang-selector');
   const languageLabel=document.createElement('label');languageLabel.className='language-control';
   const select=document.createElement('select');select.id='reader-language';
-  for(const [value,label] of Object.entries({ko:'한국어',en:'English',ja:'日本語',zh:'中文'})){const option=document.createElement('option');option.value=value;option.textContent=label;select.append(option);}
+  for(const [value,label] of Object.entries({ko:'🇰🇷 한국어',en:'🇺🇸 English',ja:'🇯🇵 日本語',zh:'🇨🇳 中文'})){const option=document.createElement('option');option.value=value;option.textContent=label;select.append(option);}
   languageLabel.append(select);oldSelector?.after(languageLabel);
   const crumb=document.createElement('a');crumb.className='reader-breadcrumb';crumb.href=new URL('index.html?cat='+encodeURIComponent(category),root);meta.prepend(crumb);
   // Only the actual category is used. Supplier/brand metadata can be ambiguous.
@@ -31,6 +31,15 @@
   const searchForm=document.createElement('form');searchForm.className='article-search-form';searchForm.action=home.href;searchForm.setAttribute('role','search');
   const searchInput=document.createElement('input');searchInput.type='search';searchInput.name='search';const searchButton=document.createElement('button');searchButton.type='submit';searchButton.dataset.i18n='search';searchForm.append(searchInput,searchButton);meta.prepend(searchForm);
   const back=document.createElement('a');back.className='reader-back';back.href=home.href;back.dataset.i18n='back';main.append(back);
+  // The lead image is also present in the gallery; show its OCR caption at both locations.
+  const hero=document.querySelector('.hero-image-wrap');
+  const heroImage=hero?.querySelector('img');
+  const matchingImage=[...document.querySelectorAll('.image-item img')].find(image=>image.src===heroImage?.src);
+  const heroCaption=matchingImage?.closest('.image-item')?.querySelector('.image-caption');
+  if(hero&&heroCaption)hero.append(heroCaption.cloneNode(true));
+  document.querySelectorAll('.image-caption').forEach(caption=>{
+    const label=document.createElement('strong');label.className='ocr-caption-label';caption.prepend(label);
+  });
   let related=[];
   const relatedSection=document.createElement('section');relatedSection.className='related-reading';relatedSection.hidden=true;
   const relatedHeading=document.createElement('h2');relatedHeading.dataset.i18n='related';const relatedLinks=document.createElement('div');relatedSection.append(relatedHeading,relatedLinks);main.append(relatedSection);
@@ -45,6 +54,12 @@
     bodies.forEach(el=>{el.classList.toggle('lang-active',el===chosen);el.hidden=el!==chosen;});
     pending.hidden=lang==='ko'||!korean||!chosen||chosen.textContent.trim()!==korean.textContent.trim();
     document.querySelectorAll('.caption-lang').forEach(el=>{const active=el.dataset.lang===lang;el.classList.toggle('lang-active',active);el.hidden=!active;});
+    document.querySelectorAll('.image-caption').forEach(caption=>{
+      const visible=[...caption.querySelectorAll('.caption-lang')].some(line=>line.dataset.lang===lang&&line.textContent.trim());
+      caption.hidden=!visible;
+      const label=caption.querySelector('.ocr-caption-label');
+      if(label)label.textContent={ko:'이미지 속 중국어 · 자동 번역',en:'Chinese text in image · Auto-translated',ja:'画像内の中国語 · 自動翻訳',zh:''}[lang];
+    });
     if(badges)badges.firstElementChild.textContent=t[category]||t.general;
     crumb.textContent=t.back+' / '+(t[category]||t.general);
     crumb.href=new URL('index.html?cat='+encodeURIComponent(category)+'&lang='+lang,root);

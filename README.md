@@ -34,7 +34,7 @@ IT之家/Gizmochina 크롤링 → 키워드 필터링 → 중복 제거
 4. **Phase A (ko)** — 제목·본문을 클라우드 LLM(Gemini 2.5 Flash, `GEMINI_API_KEY` 있을 때)으로 한국어 번역, 즉시 저장·push
 5. **다이제스트 메일** — Phase A 직후, en/ja/zh 백필 시작 *전에* 그날 발행분 전체를 정리해 이메일 발송 (아래 [이메일 다이제스트](#이메일-다이제스트) 참고)
 6. **Phase B (en/ja/zh)** — `backfill_multilang.py`가 로컬 LM Studio로 나머지 3개 언어 번역, 큐/완료 로그로 재시작 가능
-7. **OCR** — 이미지 속 중국어 텍스트 추출 및 4개 언어 캡션 번역 (로컬 Tesseract, 기본값)
+7. **OCR** — 이미지 속 중국어 텍스트 추출 및 한국어·영어·일본어 캡션 번역 (macOS Vision 우선, Tesseract 대체)
 8. **HTML 생성** — 기사 페이지 생성, `build.py`로 인덱스 페이지 재빌드 (Phase A/B 각 push마다 자동 실행)
 9. **배포** — `git commit & push` → GitHub Pages 자동 반영
 
@@ -311,7 +311,7 @@ reports/YYYY-MM-DD-brand-slug/
 | `LLM_API_KEY` / `LLM_EXTRA_BODY` | — | 클라우드 API 오버라이드 (직접 지정 시) |
 | `LLM_VISION_MODEL` | (LLM_MODEL과 동일) | OCR 비전 모델 (`OCR_BACKEND=llm`일 때만) |
 | `OCR_ENABLED` | `true` | OCR 활성화 여부 |
-| `OCR_BACKEND` | `tesseract` | `tesseract`(기본, 로컬·무료) / `llm` / `mcp` |
+| `OCR_BACKEND` | `auto` | `auto`(Vision 우선, Tesseract 대체) / `vision` / `tesseract` / `llm` / `mcp` |
 | `SCHEDULE_TIME` | `07:00` | 자동 실행 시각 |
 | `SITE_URL` | `https://aisitei.github.io` | 다이제스트 메일 기사 링크 생성용 |
 
@@ -351,7 +351,7 @@ pip install -r requirements.txt
 
 1. LM Studio 실행 후 `google/gemma-4-12b` (또는 원하는 번역 모델) 로드
 2. Local Server 탭에서 서버 시작 (기본 포트 1234)
-3. OCR은 기본이 로컬 Tesseract라 LM Studio 비전 모델이 필수는 아님
+3. OCR은 기본이 로컬 Vision/Tesseract라 LM Studio 비전 모델이 필수는 아님
    (`OCR_BACKEND=llm`로 바꿀 때만 멀티모달 모델 필요)
 
 Phase A(ko 번역)를 클라우드로 돌리려면 `crawler/.env.local`에 `GEMINI_API_KEY`만
@@ -392,3 +392,29 @@ python3 tests/verify_generated.py
 
 `verify_generated.py`는 정적 페이지의 기사 누락·중복 수, 로컬 링크, 제목 순서,
 현재 HEAD 대비 기존 기사 본문 보존 여부를 검사합니다. 브라우저 화면의 시각적 검사는 별도입니다.
+
+
+### 중국어 이미지 OCR 캡션
+
+자동 실행 시 `PATH`에 Homebrew가 없어 Tesseract를 찾지 못하던 문제를 수정했습니다.
+`OCR_BACKEND=auto`가 기본이며 macOS에서는 내장 Vision을 우선 사용합니다.
+Vision을 사용할 수 없으면 Tesseract를 사용합니다. Tesseract는 `TESSERACT_CMD`에
+지정한 실행 파일 또는 PATH, `/opt/homebrew/bin/tesseract`, `/usr/local/bin/tesseract`에서 찾습니다.
+macOS Vision은 설치된 Swift command-line tools로 작은 로컬 프로그램을 최초 1회 컴파일하고
+임시 캐시에 재사용합니다. 이미지와 OCR은 로컬에 머물며, 인식된 문구만 기존 번역기로 전달됩니다.
+
+캡션은 중국어가 인식된 이미지에만 생성하고, 한국어·영어·일본어 선택에 맞춰 표시합니다.
+중국어를 선택하면 번역 캡션 전체를 숨깁니다. 대표 이미지에도 같은 이미지의 캡션을 표시합니다.
+
+기존 기사 복구 (본문 재번역이나 배포 없이 캡션만 수정):
+
+```bash
+python3 crawler/backfill_captions.py --glob 'articles/2026-09/*/*/index.html'
+# 첫 5개 기사만 처리하거나 기존 캡션도 교체할 때
+python3 crawler/backfill_captions.py --glob 'articles/2026-09/*/*/index.html' --limit 5
+python3 crawler/backfill_captions.py articles/YYYY-MM/YYYY-MM-DD/slug/index.html --force
+python3 build.py
+```
+
+복구는 이미지마다 저장하므로 중단 후 같은 명령으로 재개할 수 있습니다.
+세 언어가 모두 있는 이미지는 기본적으로 다시 번역하지 않습니다.
