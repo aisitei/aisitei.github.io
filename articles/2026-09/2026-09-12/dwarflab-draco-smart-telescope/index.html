@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 드워프랩, 전문가용 천체 사진 촬영을 위한 휴대용 스마트 망원경 &#39;드라코&#39; 출시</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="드워프랩, 전문가용 천체 사진 촬영을 위한 휴대용 스마트 망원경 &#39;드라코&#39; 출시">
+  <meta name="title-zh" content="드워프랩, 전문가용 천체 사진 촬영을 위한 휴대용 스마트 망원경 &#39;드라코&#39; 출시">
+  <meta name="title-ja" content="드워프랩, 전문가용 천체 사진 촬영을 위한 휴대용 스마트 망원경 &#39;드라코&#39; 출시">
+  <meta name="title-en" content="드워프랩, 전문가용 천체 사진 촬영을 위한 휴대용 스마트 망원경 &#39;드라코&#39; 출시">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260910b">
+<script defer src="../../../../assets/news.js?v=20260910b"></script>
+<script defer src="../../../../assets/article.js?v=20260910b"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="드워프랩, 전문가용 천체 사진 촬영을 위한 휴대용 스마트 망원경 &#39;드라코&#39; 출시"
+            data-zh="드워프랩, 전문가용 천체 사진 촬영을 위한 휴대용 스마트 망원경 &#39;드라코&#39; 출시"
+            data-ja="드워프랩, 전문가용 천체 사진 촬영을 위한 휴대용 스마트 망원경 &#39;드라코&#39; 출시"
+            data-en="드워프랩, 전문가용 천체 사진 촬영을 위한 휴대용 스마트 망원경 &#39;드라코&#39; 출시">드워프랩, 전문가용 천체 사진 촬영을 위한 휴대용 스마트 망원경 &#39;드라코&#39; 출시</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-09-12
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.jpeg" alt="드워프랩, 전문가용 천체 사진 촬영을 위한 휴대용 스마트 망원경 &#39;드라코&#39; 출시" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>Dwarflab Draco 스마트 망원경 발표</h3>
+<p>Dwarflab은 90mm 구경과 자동 추적 기능을 5.5kg(12.1파운드)의 유닛에 통합한 새로운 스마트 망원경 Draco를 발표했습니다. 이 장치는 정렬 및 캡처 프로세스를 자동화하여 심우주 천체 사진 촬영을 단순화하도록 설계되었으며, 장시간 노출에 필요한 하드웨어도 제공합니다.</p>
+          
+          <h3>Dwarflab Draco 사양</h3>
+<ul>
+<li>단일 프레임 노출: 최대 300초</li>
+<li>무게: 5.5kg (12.1 lbs)</li>
+<li>배터리: 10,000 mAh (최대 5시간 작동)</li>
+</ul>
+          
+          <p>Draco는 최대 300초 동안 단일 프레임 노출을 캡처할 수 있습니다. 일반적인 고도-방위 망원경 마운트는 장시간 노출 시 시야 회전으로 인해 하늘이 움직이면서 별이 흐릿하게 보일 수 있습니다.</p>
+          
+          <p>이 문제를 해결하기 위해 Draco는 CMOS 이미지 센서를 물리적으로 회전시켜 하늘의 움직임에 맞춰 추적합니다. 내장된 가이드 스코프는 추적을 모니터링하고 실시간으로 오류를 수정합니다. 또한 금속 베이스를 기울여 망원경을 적도의 모드로 전환할 수 있으므로 별도의 마운팅 시스템이 필요 없습니다.</p>
+          
+          <p>광학적으로 이 망원경은 340mm 초점 거리의 접이식 f/3.8 설계를 특징으로 합니다. 주 망원 카메라는 1/1.3인치 5000만 화소 센서를 사용합니다. 은하수와 같은 어두운 심우주 대상을 촬영할 때는 2x2 픽셀 비닝을 적용하여 1200만 화소 이미지를 출력합니다. 이는 유효 픽셀 크기를 2.4µm로 증가시켜 빛 수집을 개선하고 노이즈를 줄입니다.</p>
+          
+          <p>태양계 내의 밝은 대상을 촬영할 때는 Draco가 센서의 전체 5000만 화소 해상도를 사용하여 더 미세한 세부 정보를 캡처합니다. 이 망원경에는 23.3mm 상당의 초점 거리를 가진 보조 광각 카메라가 포함되어 있어 더 넓은 풍경과 은하수 사진을 촬영할 수 있습니다.</p>
+          
+          <h3>구성 및 가격</h3>
+<p>Dwarflab은 Draco를 두 가지 구성으로 제공합니다.</p>
+<ul>
+<li><b>Standard Edition:</b> $1,399
+<ul>
+<li>내장 H+O 듀얼 내로우밴드 필터 (방출 성운 촬영용)</li>
+<li>내부 ND 필터 (태양 촬영용)</li>
+<li>앱이 태양 관측 시 자동으로 ND 필터로 전환</li>
+</ul>
+</li>
+<li><b>SHO Edition:</b> $1,599
+<ul>
+<li>내부 ND 필터 대신 S+O 필터 장착</li>
+<li>두 개의 내부 필터를 자동으로 순서대로 사용하여 황, 수소, 산소 데이터를 캡처</li>
+<li>앱이 데이터를 표준 파란색 및 금색 SHO 이미지로 결합</li>
+<li>태양 촬영 시 포함된 외부 ND 필터를 수동으로 부착해야 함</li>
+</ul>
+</li>
+</ul>
+          
+          <h3>스마트 기능 및 소프트웨어</h3>
+<p>동반 앱은 자동 초점, 플레이트 솔빙, 자동 다크 프레임 보정을 통한 라이브 스태킹과 같은 주요 스마트 망원경 기능을 처리합니다. 프로 모드는 노출 및 게인에 대한 수동 제어를 제공하며, FITS 및 TIFF 내보내기 지원을 통해 외부 편집 소프트웨어를 사용하여 원본 데이터를 처리할 수 있습니다.</p>
+          
+          <h3>하드웨어 및 출시</h3>
+<p>하드웨어는 10,000mAh 배터리로 구동되며 최대 5시간의 작동 시간을 제공합니다. 또한 장시간 세션 동안 열 노이즈를 완화하기 위한 능동 센서 냉각 기능도 갖추고 있습니다. 현재 Dwarflab 웹사이트에서 사전 주문이 가능하며, 배송은 3개월 이내로 예상됩니다.</p>
+          
+          <h3>총평</h3>
+<p>Dwarflab Draco는 90mm 구경과 자동 추적 기능을 통합하여 심우주 천체 사진 촬영을 간소화하는 스마트 망원경입니다. 독특한 센서 회전 기술과 실시간 오류 보정 기능을 통해 장시간 노출 시 별의 흐림 현상을 방지하며, 두 가지 구성으로 제공되어 사용자의 필요에 따라 선택할 수 있습니다. 강력한 하드웨어와 스마트 앱 기능을 결합하여 초보자부터 전문가까지 다양한 사용자에게 매력적인 솔루션을 제공합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Dwarflab Draco 스마트 망원경 발표</h3>
+<p>Dwarflab은 90mm 구경과 자동 추적 기능을 5.5kg(12.1파운드)의 유닛에 통합한 새로운 스마트 망원경 Draco를 발표했습니다. 이 장치는 정렬 및 캡처 프로세스를 자동화하여 심우주 천체 사진 촬영을 단순화하도록 설계되었으며, 장시간 노출에 필요한 하드웨어도 제공합니다.</p>
+          
+          <h3>Dwarflab Draco 사양</h3>
+<ul>
+<li>단일 프레임 노출: 최대 300초</li>
+<li>무게: 5.5kg (12.1 lbs)</li>
+<li>배터리: 10,000 mAh (최대 5시간 작동)</li>
+</ul>
+          
+          <p>Draco는 최대 300초 동안 단일 프레임 노출을 캡처할 수 있습니다. 일반적인 고도-방위 망원경 마운트는 장시간 노출 시 시야 회전으로 인해 하늘이 움직이면서 별이 흐릿하게 보일 수 있습니다.</p>
+          
+          <p>이 문제를 해결하기 위해 Draco는 CMOS 이미지 센서를 물리적으로 회전시켜 하늘의 움직임에 맞춰 추적합니다. 내장된 가이드 스코프는 추적을 모니터링하고 실시간으로 오류를 수정합니다. 또한 금속 베이스를 기울여 망원경을 적도의 모드로 전환할 수 있으므로 별도의 마운팅 시스템이 필요 없습니다.</p>
+          
+          <p>광학적으로 이 망원경은 340mm 초점 거리의 접이식 f/3.8 설계를 특징으로 합니다. 주 망원 카메라는 1/1.3인치 5000만 화소 센서를 사용합니다. 은하수와 같은 어두운 심우주 대상을 촬영할 때는 2x2 픽셀 비닝을 적용하여 1200만 화소 이미지를 출력합니다. 이는 유효 픽셀 크기를 2.4µm로 증가시켜 빛 수집을 개선하고 노이즈를 줄입니다.</p>
+          
+          <p>태양계 내의 밝은 대상을 촬영할 때는 Draco가 센서의 전체 5000만 화소 해상도를 사용하여 더 미세한 세부 정보를 캡처합니다. 이 망원경에는 23.3mm 상당의 초점 거리를 가진 보조 광각 카메라가 포함되어 있어 더 넓은 풍경과 은하수 사진을 촬영할 수 있습니다.</p>
+          
+          <h3>구성 및 가격</h3>
+<p>Dwarflab은 Draco를 두 가지 구성으로 제공합니다.</p>
+<ul>
+<li><b>Standard Edition:</b> $1,399
+<ul>
+<li>내장 H+O 듀얼 내로우밴드 필터 (방출 성운 촬영용)</li>
+<li>내부 ND 필터 (태양 촬영용)</li>
+<li>앱이 태양 관측 시 자동으로 ND 필터로 전환</li>
+</ul>
+</li>
+<li><b>SHO Edition:</b> $1,599
+<ul>
+<li>내부 ND 필터 대신 S+O 필터 장착</li>
+<li>두 개의 내부 필터를 자동으로 순서대로 사용하여 황, 수소, 산소 데이터를 캡처</li>
+<li>앱이 데이터를 표준 파란색 및 금색 SHO 이미지로 결합</li>
+<li>태양 촬영 시 포함된 외부 ND 필터를 수동으로 부착해야 함</li>
+</ul>
+</li>
+</ul>
+          
+          <h3>스마트 기능 및 소프트웨어</h3>
+<p>동반 앱은 자동 초점, 플레이트 솔빙, 자동 다크 프레임 보정을 통한 라이브 스태킹과 같은 주요 스마트 망원경 기능을 처리합니다. 프로 모드는 노출 및 게인에 대한 수동 제어를 제공하며, FITS 및 TIFF 내보내기 지원을 통해 외부 편집 소프트웨어를 사용하여 원본 데이터를 처리할 수 있습니다.</p>
+          
+          <h3>하드웨어 및 출시</h3>
+<p>하드웨어는 10,000mAh 배터리로 구동되며 최대 5시간의 작동 시간을 제공합니다. 또한 장시간 세션 동안 열 노이즈를 완화하기 위한 능동 센서 냉각 기능도 갖추고 있습니다. 현재 Dwarflab 웹사이트에서 사전 주문이 가능하며, 배송은 3개월 이내로 예상됩니다.</p>
+          
+          <h3>총평</h3>
+<p>Dwarflab Draco는 90mm 구경과 자동 추적 기능을 통합하여 심우주 천체 사진 촬영을 간소화하는 스마트 망원경입니다. 독특한 센서 회전 기술과 실시간 오류 보정 기능을 통해 장시간 노출 시 별의 흐림 현상을 방지하며, 두 가지 구성으로 제공되어 사용자의 필요에 따라 선택할 수 있습니다. 강력한 하드웨어와 스마트 앱 기능을 결합하여 초보자부터 전문가까지 다양한 사용자에게 매력적인 솔루션을 제공합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>Dwarflab Draco 스마트 망원경 발표</h3>
+<p>Dwarflab은 90mm 구경과 자동 추적 기능을 5.5kg(12.1파운드)의 유닛에 통합한 새로운 스마트 망원경 Draco를 발표했습니다. 이 장치는 정렬 및 캡처 프로세스를 자동화하여 심우주 천체 사진 촬영을 단순화하도록 설계되었으며, 장시간 노출에 필요한 하드웨어도 제공합니다.</p>
+          
+          <h3>Dwarflab Draco 사양</h3>
+<ul>
+<li>단일 프레임 노출: 최대 300초</li>
+<li>무게: 5.5kg (12.1 lbs)</li>
+<li>배터리: 10,000 mAh (최대 5시간 작동)</li>
+</ul>
+          
+          <p>Draco는 최대 300초 동안 단일 프레임 노출을 캡처할 수 있습니다. 일반적인 고도-방위 망원경 마운트는 장시간 노출 시 시야 회전으로 인해 하늘이 움직이면서 별이 흐릿하게 보일 수 있습니다.</p>
+          
+          <p>이 문제를 해결하기 위해 Draco는 CMOS 이미지 센서를 물리적으로 회전시켜 하늘의 움직임에 맞춰 추적합니다. 내장된 가이드 스코프는 추적을 모니터링하고 실시간으로 오류를 수정합니다. 또한 금속 베이스를 기울여 망원경을 적도의 모드로 전환할 수 있으므로 별도의 마운팅 시스템이 필요 없습니다.</p>
+          
+          <p>광학적으로 이 망원경은 340mm 초점 거리의 접이식 f/3.8 설계를 특징으로 합니다. 주 망원 카메라는 1/1.3인치 5000만 화소 센서를 사용합니다. 은하수와 같은 어두운 심우주 대상을 촬영할 때는 2x2 픽셀 비닝을 적용하여 1200만 화소 이미지를 출력합니다. 이는 유효 픽셀 크기를 2.4µm로 증가시켜 빛 수집을 개선하고 노이즈를 줄입니다.</p>
+          
+          <p>태양계 내의 밝은 대상을 촬영할 때는 Draco가 센서의 전체 5000만 화소 해상도를 사용하여 더 미세한 세부 정보를 캡처합니다. 이 망원경에는 23.3mm 상당의 초점 거리를 가진 보조 광각 카메라가 포함되어 있어 더 넓은 풍경과 은하수 사진을 촬영할 수 있습니다.</p>
+          
+          <h3>구성 및 가격</h3>
+<p>Dwarflab은 Draco를 두 가지 구성으로 제공합니다.</p>
+<ul>
+<li><b>Standard Edition:</b> $1,399
+<ul>
+<li>내장 H+O 듀얼 내로우밴드 필터 (방출 성운 촬영용)</li>
+<li>내부 ND 필터 (태양 촬영용)</li>
+<li>앱이 태양 관측 시 자동으로 ND 필터로 전환</li>
+</ul>
+</li>
+<li><b>SHO Edition:</b> $1,599
+<ul>
+<li>내부 ND 필터 대신 S+O 필터 장착</li>
+<li>두 개의 내부 필터를 자동으로 순서대로 사용하여 황, 수소, 산소 데이터를 캡처</li>
+<li>앱이 데이터를 표준 파란색 및 금색 SHO 이미지로 결합</li>
+<li>태양 촬영 시 포함된 외부 ND 필터를 수동으로 부착해야 함</li>
+</ul>
+</li>
+</ul>
+          
+          <h3>스마트 기능 및 소프트웨어</h3>
+<p>동반 앱은 자동 초점, 플레이트 솔빙, 자동 다크 프레임 보정을 통한 라이브 스태킹과 같은 주요 스마트 망원경 기능을 처리합니다. 프로 모드는 노출 및 게인에 대한 수동 제어를 제공하며, FITS 및 TIFF 내보내기 지원을 통해 외부 편집 소프트웨어를 사용하여 원본 데이터를 처리할 수 있습니다.</p>
+          
+          <h3>하드웨어 및 출시</h3>
+<p>하드웨어는 10,000mAh 배터리로 구동되며 최대 5시간의 작동 시간을 제공합니다. 또한 장시간 세션 동안 열 노이즈를 완화하기 위한 능동 센서 냉각 기능도 갖추고 있습니다. 현재 Dwarflab 웹사이트에서 사전 주문이 가능하며, 배송은 3개월 이내로 예상됩니다.</p>
+          
+          <h3>총평</h3>
+<p>Dwarflab Draco는 90mm 구경과 자동 추적 기능을 통합하여 심우주 천체 사진 촬영을 간소화하는 스마트 망원경입니다. 독특한 센서 회전 기술과 실시간 오류 보정 기능을 통해 장시간 노출 시 별의 흐림 현상을 방지하며, 두 가지 구성으로 제공되어 사용자의 필요에 따라 선택할 수 있습니다. 강력한 하드웨어와 스마트 앱 기능을 결합하여 초보자부터 전문가까지 다양한 사용자에게 매력적인 솔루션을 제공합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Dwarflab Draco 스마트 망원경 발표</h3>
+<p>Dwarflab은 90mm 구경과 자동 추적 기능을 5.5kg(12.1파운드)의 유닛에 통합한 새로운 스마트 망원경 Draco를 발표했습니다. 이 장치는 정렬 및 캡처 프로세스를 자동화하여 심우주 천체 사진 촬영을 단순화하도록 설계되었으며, 장시간 노출에 필요한 하드웨어도 제공합니다.</p>
+          
+          <h3>Dwarflab Draco 사양</h3>
+<ul>
+<li>단일 프레임 노출: 최대 300초</li>
+<li>무게: 5.5kg (12.1 lbs)</li>
+<li>배터리: 10,000 mAh (최대 5시간 작동)</li>
+</ul>
+          
+          <p>Draco는 최대 300초 동안 단일 프레임 노출을 캡처할 수 있습니다. 일반적인 고도-방위 망원경 마운트는 장시간 노출 시 시야 회전으로 인해 하늘이 움직이면서 별이 흐릿하게 보일 수 있습니다.</p>
+          
+          <p>이 문제를 해결하기 위해 Draco는 CMOS 이미지 센서를 물리적으로 회전시켜 하늘의 움직임에 맞춰 추적합니다. 내장된 가이드 스코프는 추적을 모니터링하고 실시간으로 오류를 수정합니다. 또한 금속 베이스를 기울여 망원경을 적도의 모드로 전환할 수 있으므로 별도의 마운팅 시스템이 필요 없습니다.</p>
+          
+          <p>광학적으로 이 망원경은 340mm 초점 거리의 접이식 f/3.8 설계를 특징으로 합니다. 주 망원 카메라는 1/1.3인치 5000만 화소 센서를 사용합니다. 은하수와 같은 어두운 심우주 대상을 촬영할 때는 2x2 픽셀 비닝을 적용하여 1200만 화소 이미지를 출력합니다. 이는 유효 픽셀 크기를 2.4µm로 증가시켜 빛 수집을 개선하고 노이즈를 줄입니다.</p>
+          
+          <p>태양계 내의 밝은 대상을 촬영할 때는 Draco가 센서의 전체 5000만 화소 해상도를 사용하여 더 미세한 세부 정보를 캡처합니다. 이 망원경에는 23.3mm 상당의 초점 거리를 가진 보조 광각 카메라가 포함되어 있어 더 넓은 풍경과 은하수 사진을 촬영할 수 있습니다.</p>
+          
+          <h3>구성 및 가격</h3>
+<p>Dwarflab은 Draco를 두 가지 구성으로 제공합니다.</p>
+<ul>
+<li><b>Standard Edition:</b> $1,399
+<ul>
+<li>내장 H+O 듀얼 내로우밴드 필터 (방출 성운 촬영용)</li>
+<li>내부 ND 필터 (태양 촬영용)</li>
+<li>앱이 태양 관측 시 자동으로 ND 필터로 전환</li>
+</ul>
+</li>
+<li><b>SHO Edition:</b> $1,599
+<ul>
+<li>내부 ND 필터 대신 S+O 필터 장착</li>
+<li>두 개의 내부 필터를 자동으로 순서대로 사용하여 황, 수소, 산소 데이터를 캡처</li>
+<li>앱이 데이터를 표준 파란색 및 금색 SHO 이미지로 결합</li>
+<li>태양 촬영 시 포함된 외부 ND 필터를 수동으로 부착해야 함</li>
+</ul>
+</li>
+</ul>
+          
+          <h3>스마트 기능 및 소프트웨어</h3>
+<p>동반 앱은 자동 초점, 플레이트 솔빙, 자동 다크 프레임 보정을 통한 라이브 스태킹과 같은 주요 스마트 망원경 기능을 처리합니다. 프로 모드는 노출 및 게인에 대한 수동 제어를 제공하며, FITS 및 TIFF 내보내기 지원을 통해 외부 편집 소프트웨어를 사용하여 원본 데이터를 처리할 수 있습니다.</p>
+          
+          <h3>하드웨어 및 출시</h3>
+<p>하드웨어는 10,000mAh 배터리로 구동되며 최대 5시간의 작동 시간을 제공합니다. 또한 장시간 세션 동안 열 노이즈를 완화하기 위한 능동 센서 냉각 기능도 갖추고 있습니다. 현재 Dwarflab 웹사이트에서 사전 주문이 가능하며, 배송은 3개월 이내로 예상됩니다.</p>
+          
+          <h3>총평</h3>
+<p>Dwarflab Draco는 90mm 구경과 자동 추적 기능을 통합하여 심우주 천체 사진 촬영을 간소화하는 스마트 망원경입니다. 독특한 센서 회전 기술과 실시간 오류 보정 기능을 통해 장시간 노출 시 별의 흐림 현상을 방지하며, 두 가지 구성으로 제공되어 사용자의 필요에 따라 선택할 수 있습니다. 강력한 하드웨어와 스마트 앱 기능을 결합하여 초보자부터 전문가까지 다양한 사용자에게 매력적인 솔루션을 제공합니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpeg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpeg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpeg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpeg" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpeg" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/09/11/dwarflab-draco-smart-telescope-launched-specs-pric/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-09"
+               class="archive-btn active">
+              2026-09
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
