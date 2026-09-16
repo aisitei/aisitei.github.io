@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Apple iOS 27 정식 버전 업데이트 요약: 60가지 업그레이드, 시스템/기능/앱/AI 전반 최적화</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple iOS 27 정식 버전 업데이트 요약: 60가지 업그레이드, 시스템/기능/앱/AI 전반 최적화">
+  <meta name="title-zh" content="Apple iOS 27 정식 버전 업데이트 요약: 60가지 업그레이드, 시스템/기능/앱/AI 전반 최적화">
+  <meta name="title-ja" content="Apple iOS 27 정식 버전 업데이트 요약: 60가지 업그레이드, 시스템/기능/앱/AI 전반 최적화">
+  <meta name="title-en" content="Apple iOS 27 정식 버전 업데이트 요약: 60가지 업그레이드, 시스템/기능/앱/AI 전반 최적화">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260910b">
+<script defer src="../../../../assets/news.js?v=20260910b"></script>
+<script defer src="../../../../assets/article.js?v=20260910b"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Apple iOS 27 정식 버전 업데이트 요약: 60가지 업그레이드, 시스템/기능/앱/AI 전반 최적화"
+            data-zh="Apple iOS 27 정식 버전 업데이트 요약: 60가지 업그레이드, 시스템/기능/앱/AI 전반 최적화"
+            data-ja="Apple iOS 27 정식 버전 업데이트 요약: 60가지 업그레이드, 시스템/기능/앱/AI 전반 최적화"
+            data-en="Apple iOS 27 정식 버전 업데이트 요약: 60가지 업그레이드, 시스템/기능/앱/AI 전반 최적화">Apple iOS 27 정식 버전 업데이트 요약: 60가지 업그레이드, 시스템/기능/앱/AI 전반 최적화</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-09-17
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Apple iOS 27 정식 버전 업데이트 요약: 60가지 업그레이드, 시스템/기능/앱/AI 전반 최적화" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>서론</h3>
+<p>WWDC26에서 처음 공개된 이후 8개의 베타 버전을 거치며 '버그 수정' 과정을 거친 iOS 27이 마침내 9월 15일 정식 출시되었습니다. Apple은 어제 모든 iPhone 사용자에게 iOS 27 정식 업데이트를 배포했습니다.</p>
+<p>iOS 27 베타 버전을 경험해 본 결과, 사소한 문제들이 완전히 사라지지는 않았지만 iOS 26에 비하면 훨씬 개선되었습니다.</p>
+<p>그렇다면 iOS 27에는 어떤 새로운 기능들이 추가되었을까요? IT之家 편집자가 공식 발표된 내용과 숨겨진 내용을 포함하여 60가지 업데이트 사항을 정리했습니다.</p>
+          
+          <h3>성능</h3>
+<ul>
+<li>다양한 일상 작업 속도가 향상되었습니다. 앱 실행 속도는 최대 30% 빨라졌고, 사진 라이브러리에서 새 사진 로딩 속도는 최대 70% 빨라졌으며, AirDrop 전송 속도는 최대 80% 빨라졌습니다.</li>
+</ul>
+          
+          <h3>디스플레이 및 디자인</h3>
+<ul>
+<li>액체 유리(Liquid Glass) 효과가 정교하게 조정되어 굴절이 더욱 균일해지고 대비가 향상되었으며, 하위 복잡한 콘텐츠의 투명도 표현이 개선되어 더욱 강력한 입체감과 깊이감을 제공합니다.</li>
+<li>액체 유리 설정에 조절 슬라이더가 추가되어 '더 투명하게, 기본, 더 어둡게' 사이에서 외관 투명도를 사용자 지정할 수 있습니다. '투명'은 더 투명하게, '색조'는 불투명도를 높여 콘텐츠와 컨트롤의 대비를 향상시킵니다.</li>
+<li>다층 액체 유리 디자인이 아이콘 디자인에 통합되어 레이어 사이에 굴절 효과가 발생하여 더욱 선명하고 윤곽이 뚜렷해졌습니다. 투명 아이콘의 거울 하이라이트는 부드럽게 처리되어 주변의 어두운 테두리를 완화했습니다.</li>
+<li>Safari, Siri, 설정, App Store, 리모컨, 미리보기, 나침반, 미리 알림 등 앱 아이콘이 새롭게 바뀌었습니다.</li>
+<li>상태 표시줄 아이콘이 최적화되었습니다. Wi-Fi, 셀룰러 데이터 신호는 더욱 둥글고 높이가 높아졌으며, 배터리 아이콘은 테두리 없는 디자인으로 변경되었고, 오른쪽 전극이 확대되었으며, 배터리 숫자 글꼴이 더욱 둥글어졌습니다.</li>
+<li>4x6 크기의 초대형 위젯이 도입되어 홈 화면과 오늘 보기에서 표시 영역을 확장합니다.</li>
+<li>잠금 화면 시계에 '더 작고 가장자리에 가깝게'라는 새로운 옵션이 제공되어 축소하여 상단 위젯 바에 수납할 수 있습니다.</li>
+<li>오디오 또는 비디오가 재생 중일 때 잠금 화면에서 '지금 재생 중' 카드를 스와이프하여 지우고 제거할 수 있습니다.</li>
+</ul>
+          
+          <h3>설정 및 접근성</h3>
+<ul>
+<li>3가지 볼륨 그룹을 개별적으로 설정할 수 있습니다. 첫 번째 그룹은 벨소리 볼륨, 두 번째 그룹은 알람 및 타이머 볼륨, 세 번째 그룹은 알림 및 시스템 사운드 볼륨입니다.</li>
+<li>설정 앱에서 기존 '손쉬운 사용'이 '접근성'으로 변경되었습니다.</li>
+<li>새로운 색인 이름은 '검색 및 Siri 최적화 중'이며, 클릭하면 구체적인 설명이 표시됩니다. '자세히 알아보기'를 클릭하여 'Apple 기기의 Spotlight 색인 및 검색 결과 정보'를 확인할 수 있습니다.</li>
+<li>제어 센터 표시가 최적화되었습니다. Wi-Fi 연결 후에도 셀룰러 네트워크 연결 세부 정보를 확인할 수 있으며, 신호 강도뿐만 아니라 네트워크 방식도 확인할 수 있습니다.</li>
+<li>'설정 - 배터리' 페이지에 '셀룰러 네트워크 커버리지' 알림이 추가되었습니다. 셀룰러 네트워크 커버리지가 좋지 않을 때 '전화'를 사용하면 신호를 검색하기 위해 추가 배터리 전력이 소모됩니다.</li>
+</ul>
+          
+          <h3>자녀 보호 기능</h3>
+<ul>
+<li>부모는 자녀가 사용할 수 있는 앱을 정확하게 선택할 수 있습니다. 자녀가 새 웹사이트에 접속하려면 개별적으로 승인해야 합니다. '사용 시간 제한'은 엔터테인먼트, 게임 및 소셜 미디어 앱의 사용 시간 경계를 설정하는 데 도움이 됩니다. '일정'은 자녀가 특정 시간에 어떤 앱에 접속할 수 있는지 결정할 수 있도록 합니다. '스크린 타임' 설정은 자녀의 기기 사용 상황을 파악할 수 있도록 합니다. 확장된 '커뮤니케이션 안전' 보호 기능은 자녀가 공유 이미지 또는 비디오에서 피 묻은 폭력적인 콘텐츠를 보기 전에 개입할 수 있습니다.</li>
+</ul>
+          
+          <h3>메시지 및 커뮤니케이션</h3>
+<ul>
+<li>RCS 대화에 인라인 답장 기능이 추가되었습니다. 메시지를 길게 누르면 답장 옵션이 표시되며 직접 답장할 수 있습니다.</li>
+<li>RCS 이모티콘 반응 표시가 개선되었습니다. 이모티콘이 이미지 또는 비디오 위에 직접 겹쳐져 표시되어 iMessage 대화와 더 유사한 효과를 제공합니다.</li>
+<li>사용자의 설명을 바탕으로 이모티콘을 만들 수 있습니다. 기존 이모티콘을 수정하거나 사진에서 이미지를 선택하고 인물을 선택할 수 있습니다. 새로 추가된 '설명 변경' 인터페이스는 이미 생성된 이모티콘 팩을 미세 조정하는 데 사용할 수 있습니다.</li>
+</ul>
+          
+          <h3>입력 및 키보드</h3>
+<ul>
+<li>중국어 구두점 제안이 추가되어 문맥에 따라 단어의 정확도가 향상되었습니다. 클립보드 콘텐츠를 제안하여 이미지 및 텍스트를 한 번의 탭으로 붙여넣을 수 있습니다. 한자 분해 로직이 최적화되어 두 부분의 병음을 입력하여 생소한 한자를 찾을 수 있습니다.</li>
+</ul>
+          
+          <h3>AirPods</h3>
+<ul>
+<li>새로운 사용자 지정 이퀄라이저 기능이 추가되어 자신만의 사운드 효과를 더욱 정교하게 만들 수 있습니다. '적응형' 모드에 노이즈 캔슬링 강도 슬라이더가 추가되어 주변음 허용 모드와 노이즈 캔슬링 사이에서 청취 선호도를 자유롭게 조절할 수 있습니다.</li>
+</ul>
+          
+          <h3>앱 업데이트</h3>
+<ul>
+<li>시계 앱에 주중(대체 휴일) 알람이 추가되어 연중 공휴일 및 대체 휴무일에 알람을 설정할 수 있습니다.</li>
+<li>홈 앱의 알림이 간소화되었으며, 연결된 카메라의 비디오 클립을 식별하고 설명을 생성할 수 있습니다. Apple TV 원격 업데이트 지원이 추가되어 업데이트 버튼을 클릭하면 최신 소프트웨어를 설치할 수 있습니다.</li>
+<li>암호 앱은 암호 위험을 식별하는 기능을 갖추고 있어 많은 시나리오에서 사용자를 대신하여 암호를 자동으로 변경하고 계정 복구 단계를 줄일 수 있습니다.</li>
+<li>사진 앱에 기본 사실적인 이미지 생성 기능이 추가되었습니다. 텍스트 프롬프트만 입력하면 실제 사진에 더 가까운 이미지를 직접 생성할 수 있으며, 애니메이션, 일러스트레이션, 스케치 등 기존 스타일도 계속 사용할 수 있습니다.</li>
+<li>App Store는 개발자를 위한 고객 확보, 프로모션 및 구독 관리 기능을 강화했으며, iPhone 17 등 사용자가 앱을 찾고 구독을 관리하는 데 더 편리해졌습니다.</li>
+<li>메시지 앱의 새로운 기능은 채팅 내용에 따라 제안을 제공하며, 대화 내에서 미리 알림 또는 메모 생성을 제안할 수 있고, 스마트 답장 기능도 업그레이드되었습니다.</li>
+<li>Call Context 전화 컨텍스트 기능이 도입되어 사용자가 상점 전화번호로 전화를 걸면 관련 정보가 자동으로 표시됩니다.</li>
+<li>Apple Music은 인터페이스, 재생 연결, 성능 및 음성 상호 작용을 최적화했습니다. 가수 페이지가 재설계되어 더 눈에 띄는 무작위 재생 버튼이 추가되었고, 가수 이름 표시 방식이 조정되었습니다. 가로 화면 사용을 지원하며, 앨범 표지는 화면 왼쪽에, 가사 및 노래 제목 등의 정보는 오른쪽에 표시됩니다.</li>
+<li>캘린더 앱은 자연어를 사용하여 일정을 만들고 수정할 수 있으며, 시스템이 시간, 날짜 및 이벤트 내용을 자동으로 인식하여 해당 일정을 생성합니다.</li>
+<li>미리 알림도 '수동 입력'에서 '자연어 입력'으로 전환되어 시스템이 작업 내용과 미리 알림 시간을 자동으로 추출하여 빠르게 할 일을 생성합니다.</li>
+<li>지갑 앱에 티켓 생성 및 Apple Cash로 청구서 분할 기능이 도입되었습니다. 전자는 수동으로 생성하거나 실제 티켓을 스캔할 수 있으며, 후자는 카메라의 새로운 Siri 모드에서 영수증을 스캔한 후 청구서 분할 옵션을 제공합니다.</li>
+<li>건강 앱의 생리 주기 추적 기능이 업그레이드되어 폐경 전후 및 폐경기에 대한 전용 지원이 추가되었습니다. 여기에는 알림, 증상 기록 및 관련 과학적 가이드가 포함됩니다.</li>
+<li>카메라 앱의 모드 전환이 비디오 / 사진 / 인물로 조정되었으며, 파일 형식 및 바로 가기 항목은 상단 중앙에 집중되어 있고, 설정 서랍 입구는 오른쪽 하단으로 이동했습니다. 필터를 조정한 후 오른쪽 하단 도구 아이콘에 노란색 원이 켜집니다.</li>
+<li>지도 앱의 '항공 보기' 기능이 중점적으로 업그레이드되어 식생 효과 및 3D 모델링이 모두 최적화되었습니다. '지역 인기 목록' 기능이 도입되어 상호 작용 데이터를 활용하여 인기 있는 레스토랑을 통계하고 추천합니다. 경로 기본 설정이 취소되지 않았음을 더 명확하게 나타내는 도구 설명이 추가되었습니다.</li>
+<li>새로운 Siri는 독립적인 전용 앱을 가지고 있어 과거 대화를 쉽게 볼 수 있으며, iPhone에서 대화를 시작하고 iPad, Mac에서 계속할 수 있습니다.</li>
+<li>날씨 앱은 '날씨 상태' 외에도 '강수' 및 '바람'이 추가되어 강수량과 풍속의 구체적인 상황을 확인할 수 있습니다.</li>
+<li>Safari 브라우저는 열린 웹 페이지를 감지하고 자동으로 탭을 통합할 수 있으며, 자연어로 자신이 관심 있는 내용을 알릴 수 있고, 내용이 업데이트될 때 알림을 받게 됩니다.</li>
+<li>Apple은 단축어의 각 자동화에 독립적인 스위치를 할당하여 한 번의 탭으로 켜거나 끌 수 있습니다.</li>
+<li>리모컨은 Apple TV의 가상 리모컨을 홈 화면에 추가하는 것을 지원하여 이전처럼 제어 센터에만 고정할 수 있었던 것보다 더 직관적입니다.</li>
+<li>메모 작업 메뉴에 '구분선 삽입'이 추가되었고, 노트 상호 연결이 섹션 링크로 업그레이드되었으며, 공유 시트에서 전체 노트를 Markdown으로 내보낼 수 있고, 단축어를 통해 Markdown을 가져올 수도 있습니다.</li>
+<li>사진 앱에 '카메라 롤'이 필터 형식으로 돌아왔습니다. '비디오 프레임을 사진으로 저장' 기능이 추가되었고, 신분증 통합 앨범이 추가되었으며, 사진 및 비디오에 수동으로 키워드를 추가할 수 있습니다. '지금 iCloud에 동기화' 옵션이 추가되었고, 별점 평가로 사진에 별점을 매길 수 있으며, Clean Up에 고품질 모드가 추가되었습니다.</li>
+<li>'나의 찾기'에서 위치를 공유할 때 '사용자 지정' 옵션이 추가되어 정확한 시간 길이를 선택하거나 공유 종료의 특정 날짜와 시간을 설정할 수 있으며, 최소 15분 동안 공유할 수 있습니다.</li>
+</ul>
+          
+          <h3>Siri AI 및 지능형 기능</h3>
+<ul>
+<li>새로운 Siri는 'Siri AI'라는 이름으로 Apple Intelligence의 다양한 새로운 기능을 지원합니다. 개인적인 상황을 이해할 뿐만 아니라 앱 작업 실행, 화면 인식, 이미지 이해 및 광범위한 세계 지식 호출 등의 능력을 갖추고 있습니다.</li>
+<li>Siri는 새로운 애니메이션 표시 효과를 가지고 있으며, 다양한 표현력에 따라 Dynamic Island 영역의 거품 애니메이션이 점프 리듬을 조정하고 하단에 명확한 발광 효과가 있습니다.</li>
+<li>Siri AI의 음성 사용자 지정 기능이 확장되어 여러 음색이 추가되었으며, 슬라이더를 통해 말하기 속도와 표현력을 독립적으로 조절할 수 있습니다.</li>
+<li>화면 인식 기능이 중점적으로 강화되어 Siri는 현재 화면의 객체, 목록 위치 및 콘텐츠 문맥을 이해하고 자연어 명령을 구체적인 작업으로 매핑할 수 있습니다.</li>
+<li>파일을 길게 누르거나, 텍스트를 선택하거나, 메모 내용 또는 링크를 선택할 때 나타나는 모든 컨텍스트 메뉴에 'Siri에게 물어보기'가 항상 표시되어 다양한 객체 작업 메뉴의 일반적인 진입점이 됩니다.</li>
+<li>Siri AI를 기반으로 시스템 수준의 AI 자동 교정 기능이 출시되어 자동으로 교정하고, 철자 및 문법 오류를 확인하며, 최적화 및 개선을 제공합니다.</li>
+<li>텍스트를 편집한 후 입력 키보드에 'Write with Siri'가 표시됩니다. 자연어 명령을 통해 Siri가 새 텍스트를 생성하고, 이미 작성된 내용을 교정하며, 특정 텍스트 스타일을 다시 작성하도록 할 수 있습니다.</li>
+<li>Siri가 카메라 앱에 통합되어 셔터 버튼을 누르면 보이는 것을 보고 응답할 수 있으며, 음식에 초점을 맞추면 영양 성분을 알 수 있습니다. 또한 AI 제거 도구, AI 이미지 확장, 공간 구성 등 더 많은 AI 기능이 추가되었습니다.</li>
+<li>파일 앱은 AI 기반 파일 및 폴더 이름 변경을 지원합니다. '이름 변경'을 선택한 후 잠시 기다리면 키보드 위에 제안된 이름이 표시됩니다. 시스템은 PDF를 읽고, 폴더 내용을 확인하며, 시각적 인식을 통해 이미지 내용을 이해할 수 있습니다.</li>
+<li>iOS 27은 iOS 18.2부터 시작된 ChatGPT 확장을 여전히 유지합니다. Siri 검색 상자를 수동으로 클릭하고 '질문'을 선택한 다음 공급자를 ChatGPT로 전환해야 합니다. ChatGPT가 완전히 사라진 것은 아니지만, 진입점이 더 깊고 시스템은 자체 Siri 경로를 우선적으로 사용하려는 경향이 있습니다.</li>
+</ul>
+          
+          <h3>기타 개선 사항</h3>
+<ul>
+<li>Spotlight 검색 상자의 배경이 약간 밝아지고, 검은색 액체 유리 효과가 약화되어 더 투명해졌습니다. 선택 가능한 제안 앱의 수는 4개, 8개 또는 표시 안 함으로 설정할 수 있습니다.</li>
+<li>Siri AI를 지원하는 모델의 경우 알림 애니메이션 팝업이 중앙에서 왼쪽 상단으로 변경되었습니다.</li>
+<li>WeChat 등 액체 유리를 능동적으로 적용하지 않은 앱의 경우, iOS 27 시스템은 앱에서 시스템 컨트롤을 사용하는 부분에 액체 유리 효과를 자동으로 적용합니다.</li>
+<li>스크린샷 또는 사진 앱에서 사진을 편집할 때 도구 모음을 접을 수 있습니다.</li>
+<li>iCloud 기능이 확장되어 Android 및 Windows 10, Windows 11 기기에서 iCloud 공유 앨범에 사진을 추가할 수 있으며, 전체 해상도 공유를 지원합니다.</li>
+<li>새로운 iPhone Handoff 기능이 추가되어 두 대의 iPhone에서 동일한 전화번호를 공유할 수 있습니다. 미국 T-Mobile과 독일 Telekom이 이 서비스를 먼저 지원합니다.</li>
+<li>CarPlay는 개발자가 비디오 시청 앱을 만들 수 있도록 허용합니다. 사용자는 AirPlay 비디오 스트리밍을 지원하는 iPhone 앱을 호환되는 신차의 차량 내 화면에 투사할 수 있지만, 차량이 정지했을 때만 재생됩니다.</li>
+<li>평가 및 발표된 iOS/iPadOS 27 보안 공지에 따르면 총 126개의 보안 취약점이 수정되었으며, 여기에는 시스템 커널과 관련된 여러 고위험 문제가 포함됩니다.</li>
+</ul>
+          
+          <h3>총평</h3>
+<p>Apple iOS 27의 업데이트 내용은 여기까지입니다. iOS 26에 비해 iOS 27의 발전은 눈에 띄지만, 아쉽게도 중국 내 AI 기능은 여전히 찾아볼 수 없습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>서론</h3>
+<p>WWDC26에서 처음 공개된 이후 8개의 베타 버전을 거치며 '버그 수정' 과정을 거친 iOS 27이 마침내 9월 15일 정식 출시되었습니다. Apple은 어제 모든 iPhone 사용자에게 iOS 27 정식 업데이트를 배포했습니다.</p>
+<p>iOS 27 베타 버전을 경험해 본 결과, 사소한 문제들이 완전히 사라지지는 않았지만 iOS 26에 비하면 훨씬 개선되었습니다.</p>
+<p>그렇다면 iOS 27에는 어떤 새로운 기능들이 추가되었을까요? IT之家 편집자가 공식 발표된 내용과 숨겨진 내용을 포함하여 60가지 업데이트 사항을 정리했습니다.</p>
+          
+          <h3>성능</h3>
+<ul>
+<li>다양한 일상 작업 속도가 향상되었습니다. 앱 실행 속도는 최대 30% 빨라졌고, 사진 라이브러리에서 새 사진 로딩 속도는 최대 70% 빨라졌으며, AirDrop 전송 속도는 최대 80% 빨라졌습니다.</li>
+</ul>
+          
+          <h3>디스플레이 및 디자인</h3>
+<ul>
+<li>액체 유리(Liquid Glass) 효과가 정교하게 조정되어 굴절이 더욱 균일해지고 대비가 향상되었으며, 하위 복잡한 콘텐츠의 투명도 표현이 개선되어 더욱 강력한 입체감과 깊이감을 제공합니다.</li>
+<li>액체 유리 설정에 조절 슬라이더가 추가되어 '더 투명하게, 기본, 더 어둡게' 사이에서 외관 투명도를 사용자 지정할 수 있습니다. '투명'은 더 투명하게, '색조'는 불투명도를 높여 콘텐츠와 컨트롤의 대비를 향상시킵니다.</li>
+<li>다층 액체 유리 디자인이 아이콘 디자인에 통합되어 레이어 사이에 굴절 효과가 발생하여 더욱 선명하고 윤곽이 뚜렷해졌습니다. 투명 아이콘의 거울 하이라이트는 부드럽게 처리되어 주변의 어두운 테두리를 완화했습니다.</li>
+<li>Safari, Siri, 설정, App Store, 리모컨, 미리보기, 나침반, 미리 알림 등 앱 아이콘이 새롭게 바뀌었습니다.</li>
+<li>상태 표시줄 아이콘이 최적화되었습니다. Wi-Fi, 셀룰러 데이터 신호는 더욱 둥글고 높이가 높아졌으며, 배터리 아이콘은 테두리 없는 디자인으로 변경되었고, 오른쪽 전극이 확대되었으며, 배터리 숫자 글꼴이 더욱 둥글어졌습니다.</li>
+<li>4x6 크기의 초대형 위젯이 도입되어 홈 화면과 오늘 보기에서 표시 영역을 확장합니다.</li>
+<li>잠금 화면 시계에 '더 작고 가장자리에 가깝게'라는 새로운 옵션이 제공되어 축소하여 상단 위젯 바에 수납할 수 있습니다.</li>
+<li>오디오 또는 비디오가 재생 중일 때 잠금 화면에서 '지금 재생 중' 카드를 스와이프하여 지우고 제거할 수 있습니다.</li>
+</ul>
+          
+          <h3>설정 및 접근성</h3>
+<ul>
+<li>3가지 볼륨 그룹을 개별적으로 설정할 수 있습니다. 첫 번째 그룹은 벨소리 볼륨, 두 번째 그룹은 알람 및 타이머 볼륨, 세 번째 그룹은 알림 및 시스템 사운드 볼륨입니다.</li>
+<li>설정 앱에서 기존 '손쉬운 사용'이 '접근성'으로 변경되었습니다.</li>
+<li>새로운 색인 이름은 '검색 및 Siri 최적화 중'이며, 클릭하면 구체적인 설명이 표시됩니다. '자세히 알아보기'를 클릭하여 'Apple 기기의 Spotlight 색인 및 검색 결과 정보'를 확인할 수 있습니다.</li>
+<li>제어 센터 표시가 최적화되었습니다. Wi-Fi 연결 후에도 셀룰러 네트워크 연결 세부 정보를 확인할 수 있으며, 신호 강도뿐만 아니라 네트워크 방식도 확인할 수 있습니다.</li>
+<li>'설정 - 배터리' 페이지에 '셀룰러 네트워크 커버리지' 알림이 추가되었습니다. 셀룰러 네트워크 커버리지가 좋지 않을 때 '전화'를 사용하면 신호를 검색하기 위해 추가 배터리 전력이 소모됩니다.</li>
+</ul>
+          
+          <h3>자녀 보호 기능</h3>
+<ul>
+<li>부모는 자녀가 사용할 수 있는 앱을 정확하게 선택할 수 있습니다. 자녀가 새 웹사이트에 접속하려면 개별적으로 승인해야 합니다. '사용 시간 제한'은 엔터테인먼트, 게임 및 소셜 미디어 앱의 사용 시간 경계를 설정하는 데 도움이 됩니다. '일정'은 자녀가 특정 시간에 어떤 앱에 접속할 수 있는지 결정할 수 있도록 합니다. '스크린 타임' 설정은 자녀의 기기 사용 상황을 파악할 수 있도록 합니다. 확장된 '커뮤니케이션 안전' 보호 기능은 자녀가 공유 이미지 또는 비디오에서 피 묻은 폭력적인 콘텐츠를 보기 전에 개입할 수 있습니다.</li>
+</ul>
+          
+          <h3>메시지 및 커뮤니케이션</h3>
+<ul>
+<li>RCS 대화에 인라인 답장 기능이 추가되었습니다. 메시지를 길게 누르면 답장 옵션이 표시되며 직접 답장할 수 있습니다.</li>
+<li>RCS 이모티콘 반응 표시가 개선되었습니다. 이모티콘이 이미지 또는 비디오 위에 직접 겹쳐져 표시되어 iMessage 대화와 더 유사한 효과를 제공합니다.</li>
+<li>사용자의 설명을 바탕으로 이모티콘을 만들 수 있습니다. 기존 이모티콘을 수정하거나 사진에서 이미지를 선택하고 인물을 선택할 수 있습니다. 새로 추가된 '설명 변경' 인터페이스는 이미 생성된 이모티콘 팩을 미세 조정하는 데 사용할 수 있습니다.</li>
+</ul>
+          
+          <h3>입력 및 키보드</h3>
+<ul>
+<li>중국어 구두점 제안이 추가되어 문맥에 따라 단어의 정확도가 향상되었습니다. 클립보드 콘텐츠를 제안하여 이미지 및 텍스트를 한 번의 탭으로 붙여넣을 수 있습니다. 한자 분해 로직이 최적화되어 두 부분의 병음을 입력하여 생소한 한자를 찾을 수 있습니다.</li>
+</ul>
+          
+          <h3>AirPods</h3>
+<ul>
+<li>새로운 사용자 지정 이퀄라이저 기능이 추가되어 자신만의 사운드 효과를 더욱 정교하게 만들 수 있습니다. '적응형' 모드에 노이즈 캔슬링 강도 슬라이더가 추가되어 주변음 허용 모드와 노이즈 캔슬링 사이에서 청취 선호도를 자유롭게 조절할 수 있습니다.</li>
+</ul>
+          
+          <h3>앱 업데이트</h3>
+<ul>
+<li>시계 앱에 주중(대체 휴일) 알람이 추가되어 연중 공휴일 및 대체 휴무일에 알람을 설정할 수 있습니다.</li>
+<li>홈 앱의 알림이 간소화되었으며, 연결된 카메라의 비디오 클립을 식별하고 설명을 생성할 수 있습니다. Apple TV 원격 업데이트 지원이 추가되어 업데이트 버튼을 클릭하면 최신 소프트웨어를 설치할 수 있습니다.</li>
+<li>암호 앱은 암호 위험을 식별하는 기능을 갖추고 있어 많은 시나리오에서 사용자를 대신하여 암호를 자동으로 변경하고 계정 복구 단계를 줄일 수 있습니다.</li>
+<li>사진 앱에 기본 사실적인 이미지 생성 기능이 추가되었습니다. 텍스트 프롬프트만 입력하면 실제 사진에 더 가까운 이미지를 직접 생성할 수 있으며, 애니메이션, 일러스트레이션, 스케치 등 기존 스타일도 계속 사용할 수 있습니다.</li>
+<li>App Store는 개발자를 위한 고객 확보, 프로모션 및 구독 관리 기능을 강화했으며, iPhone 17 등 사용자가 앱을 찾고 구독을 관리하는 데 더 편리해졌습니다.</li>
+<li>메시지 앱의 새로운 기능은 채팅 내용에 따라 제안을 제공하며, 대화 내에서 미리 알림 또는 메모 생성을 제안할 수 있고, 스마트 답장 기능도 업그레이드되었습니다.</li>
+<li>Call Context 전화 컨텍스트 기능이 도입되어 사용자가 상점 전화번호로 전화를 걸면 관련 정보가 자동으로 표시됩니다.</li>
+<li>Apple Music은 인터페이스, 재생 연결, 성능 및 음성 상호 작용을 최적화했습니다. 가수 페이지가 재설계되어 더 눈에 띄는 무작위 재생 버튼이 추가되었고, 가수 이름 표시 방식이 조정되었습니다. 가로 화면 사용을 지원하며, 앨범 표지는 화면 왼쪽에, 가사 및 노래 제목 등의 정보는 오른쪽에 표시됩니다.</li>
+<li>캘린더 앱은 자연어를 사용하여 일정을 만들고 수정할 수 있으며, 시스템이 시간, 날짜 및 이벤트 내용을 자동으로 인식하여 해당 일정을 생성합니다.</li>
+<li>미리 알림도 '수동 입력'에서 '자연어 입력'으로 전환되어 시스템이 작업 내용과 미리 알림 시간을 자동으로 추출하여 빠르게 할 일을 생성합니다.</li>
+<li>지갑 앱에 티켓 생성 및 Apple Cash로 청구서 분할 기능이 도입되었습니다. 전자는 수동으로 생성하거나 실제 티켓을 스캔할 수 있으며, 후자는 카메라의 새로운 Siri 모드에서 영수증을 스캔한 후 청구서 분할 옵션을 제공합니다.</li>
+<li>건강 앱의 생리 주기 추적 기능이 업그레이드되어 폐경 전후 및 폐경기에 대한 전용 지원이 추가되었습니다. 여기에는 알림, 증상 기록 및 관련 과학적 가이드가 포함됩니다.</li>
+<li>카메라 앱의 모드 전환이 비디오 / 사진 / 인물로 조정되었으며, 파일 형식 및 바로 가기 항목은 상단 중앙에 집중되어 있고, 설정 서랍 입구는 오른쪽 하단으로 이동했습니다. 필터를 조정한 후 오른쪽 하단 도구 아이콘에 노란색 원이 켜집니다.</li>
+<li>지도 앱의 '항공 보기' 기능이 중점적으로 업그레이드되어 식생 효과 및 3D 모델링이 모두 최적화되었습니다. '지역 인기 목록' 기능이 도입되어 상호 작용 데이터를 활용하여 인기 있는 레스토랑을 통계하고 추천합니다. 경로 기본 설정이 취소되지 않았음을 더 명확하게 나타내는 도구 설명이 추가되었습니다.</li>
+<li>새로운 Siri는 독립적인 전용 앱을 가지고 있어 과거 대화를 쉽게 볼 수 있으며, iPhone에서 대화를 시작하고 iPad, Mac에서 계속할 수 있습니다.</li>
+<li>날씨 앱은 '날씨 상태' 외에도 '강수' 및 '바람'이 추가되어 강수량과 풍속의 구체적인 상황을 확인할 수 있습니다.</li>
+<li>Safari 브라우저는 열린 웹 페이지를 감지하고 자동으로 탭을 통합할 수 있으며, 자연어로 자신이 관심 있는 내용을 알릴 수 있고, 내용이 업데이트될 때 알림을 받게 됩니다.</li>
+<li>Apple은 단축어의 각 자동화에 독립적인 스위치를 할당하여 한 번의 탭으로 켜거나 끌 수 있습니다.</li>
+<li>리모컨은 Apple TV의 가상 리모컨을 홈 화면에 추가하는 것을 지원하여 이전처럼 제어 센터에만 고정할 수 있었던 것보다 더 직관적입니다.</li>
+<li>메모 작업 메뉴에 '구분선 삽입'이 추가되었고, 노트 상호 연결이 섹션 링크로 업그레이드되었으며, 공유 시트에서 전체 노트를 Markdown으로 내보낼 수 있고, 단축어를 통해 Markdown을 가져올 수도 있습니다.</li>
+<li>사진 앱에 '카메라 롤'이 필터 형식으로 돌아왔습니다. '비디오 프레임을 사진으로 저장' 기능이 추가되었고, 신분증 통합 앨범이 추가되었으며, 사진 및 비디오에 수동으로 키워드를 추가할 수 있습니다. '지금 iCloud에 동기화' 옵션이 추가되었고, 별점 평가로 사진에 별점을 매길 수 있으며, Clean Up에 고품질 모드가 추가되었습니다.</li>
+<li>'나의 찾기'에서 위치를 공유할 때 '사용자 지정' 옵션이 추가되어 정확한 시간 길이를 선택하거나 공유 종료의 특정 날짜와 시간을 설정할 수 있으며, 최소 15분 동안 공유할 수 있습니다.</li>
+</ul>
+          
+          <h3>Siri AI 및 지능형 기능</h3>
+<ul>
+<li>새로운 Siri는 'Siri AI'라는 이름으로 Apple Intelligence의 다양한 새로운 기능을 지원합니다. 개인적인 상황을 이해할 뿐만 아니라 앱 작업 실행, 화면 인식, 이미지 이해 및 광범위한 세계 지식 호출 등의 능력을 갖추고 있습니다.</li>
+<li>Siri는 새로운 애니메이션 표시 효과를 가지고 있으며, 다양한 표현력에 따라 Dynamic Island 영역의 거품 애니메이션이 점프 리듬을 조정하고 하단에 명확한 발광 효과가 있습니다.</li>
+<li>Siri AI의 음성 사용자 지정 기능이 확장되어 여러 음색이 추가되었으며, 슬라이더를 통해 말하기 속도와 표현력을 독립적으로 조절할 수 있습니다.</li>
+<li>화면 인식 기능이 중점적으로 강화되어 Siri는 현재 화면의 객체, 목록 위치 및 콘텐츠 문맥을 이해하고 자연어 명령을 구체적인 작업으로 매핑할 수 있습니다.</li>
+<li>파일을 길게 누르거나, 텍스트를 선택하거나, 메모 내용 또는 링크를 선택할 때 나타나는 모든 컨텍스트 메뉴에 'Siri에게 물어보기'가 항상 표시되어 다양한 객체 작업 메뉴의 일반적인 진입점이 됩니다.</li>
+<li>Siri AI를 기반으로 시스템 수준의 AI 자동 교정 기능이 출시되어 자동으로 교정하고, 철자 및 문법 오류를 확인하며, 최적화 및 개선을 제공합니다.</li>
+<li>텍스트를 편집한 후 입력 키보드에 'Write with Siri'가 표시됩니다. 자연어 명령을 통해 Siri가 새 텍스트를 생성하고, 이미 작성된 내용을 교정하며, 특정 텍스트 스타일을 다시 작성하도록 할 수 있습니다.</li>
+<li>Siri가 카메라 앱에 통합되어 셔터 버튼을 누르면 보이는 것을 보고 응답할 수 있으며, 음식에 초점을 맞추면 영양 성분을 알 수 있습니다. 또한 AI 제거 도구, AI 이미지 확장, 공간 구성 등 더 많은 AI 기능이 추가되었습니다.</li>
+<li>파일 앱은 AI 기반 파일 및 폴더 이름 변경을 지원합니다. '이름 변경'을 선택한 후 잠시 기다리면 키보드 위에 제안된 이름이 표시됩니다. 시스템은 PDF를 읽고, 폴더 내용을 확인하며, 시각적 인식을 통해 이미지 내용을 이해할 수 있습니다.</li>
+<li>iOS 27은 iOS 18.2부터 시작된 ChatGPT 확장을 여전히 유지합니다. Siri 검색 상자를 수동으로 클릭하고 '질문'을 선택한 다음 공급자를 ChatGPT로 전환해야 합니다. ChatGPT가 완전히 사라진 것은 아니지만, 진입점이 더 깊고 시스템은 자체 Siri 경로를 우선적으로 사용하려는 경향이 있습니다.</li>
+</ul>
+          
+          <h3>기타 개선 사항</h3>
+<ul>
+<li>Spotlight 검색 상자의 배경이 약간 밝아지고, 검은색 액체 유리 효과가 약화되어 더 투명해졌습니다. 선택 가능한 제안 앱의 수는 4개, 8개 또는 표시 안 함으로 설정할 수 있습니다.</li>
+<li>Siri AI를 지원하는 모델의 경우 알림 애니메이션 팝업이 중앙에서 왼쪽 상단으로 변경되었습니다.</li>
+<li>WeChat 등 액체 유리를 능동적으로 적용하지 않은 앱의 경우, iOS 27 시스템은 앱에서 시스템 컨트롤을 사용하는 부분에 액체 유리 효과를 자동으로 적용합니다.</li>
+<li>스크린샷 또는 사진 앱에서 사진을 편집할 때 도구 모음을 접을 수 있습니다.</li>
+<li>iCloud 기능이 확장되어 Android 및 Windows 10, Windows 11 기기에서 iCloud 공유 앨범에 사진을 추가할 수 있으며, 전체 해상도 공유를 지원합니다.</li>
+<li>새로운 iPhone Handoff 기능이 추가되어 두 대의 iPhone에서 동일한 전화번호를 공유할 수 있습니다. 미국 T-Mobile과 독일 Telekom이 이 서비스를 먼저 지원합니다.</li>
+<li>CarPlay는 개발자가 비디오 시청 앱을 만들 수 있도록 허용합니다. 사용자는 AirPlay 비디오 스트리밍을 지원하는 iPhone 앱을 호환되는 신차의 차량 내 화면에 투사할 수 있지만, 차량이 정지했을 때만 재생됩니다.</li>
+<li>평가 및 발표된 iOS/iPadOS 27 보안 공지에 따르면 총 126개의 보안 취약점이 수정되었으며, 여기에는 시스템 커널과 관련된 여러 고위험 문제가 포함됩니다.</li>
+</ul>
+          
+          <h3>총평</h3>
+<p>Apple iOS 27의 업데이트 내용은 여기까지입니다. iOS 26에 비해 iOS 27의 발전은 눈에 띄지만, 아쉽게도 중국 내 AI 기능은 여전히 찾아볼 수 없습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>서론</h3>
+<p>WWDC26에서 처음 공개된 이후 8개의 베타 버전을 거치며 '버그 수정' 과정을 거친 iOS 27이 마침내 9월 15일 정식 출시되었습니다. Apple은 어제 모든 iPhone 사용자에게 iOS 27 정식 업데이트를 배포했습니다.</p>
+<p>iOS 27 베타 버전을 경험해 본 결과, 사소한 문제들이 완전히 사라지지는 않았지만 iOS 26에 비하면 훨씬 개선되었습니다.</p>
+<p>그렇다면 iOS 27에는 어떤 새로운 기능들이 추가되었을까요? IT之家 편집자가 공식 발표된 내용과 숨겨진 내용을 포함하여 60가지 업데이트 사항을 정리했습니다.</p>
+          
+          <h3>성능</h3>
+<ul>
+<li>다양한 일상 작업 속도가 향상되었습니다. 앱 실행 속도는 최대 30% 빨라졌고, 사진 라이브러리에서 새 사진 로딩 속도는 최대 70% 빨라졌으며, AirDrop 전송 속도는 최대 80% 빨라졌습니다.</li>
+</ul>
+          
+          <h3>디스플레이 및 디자인</h3>
+<ul>
+<li>액체 유리(Liquid Glass) 효과가 정교하게 조정되어 굴절이 더욱 균일해지고 대비가 향상되었으며, 하위 복잡한 콘텐츠의 투명도 표현이 개선되어 더욱 강력한 입체감과 깊이감을 제공합니다.</li>
+<li>액체 유리 설정에 조절 슬라이더가 추가되어 '더 투명하게, 기본, 더 어둡게' 사이에서 외관 투명도를 사용자 지정할 수 있습니다. '투명'은 더 투명하게, '색조'는 불투명도를 높여 콘텐츠와 컨트롤의 대비를 향상시킵니다.</li>
+<li>다층 액체 유리 디자인이 아이콘 디자인에 통합되어 레이어 사이에 굴절 효과가 발생하여 더욱 선명하고 윤곽이 뚜렷해졌습니다. 투명 아이콘의 거울 하이라이트는 부드럽게 처리되어 주변의 어두운 테두리를 완화했습니다.</li>
+<li>Safari, Siri, 설정, App Store, 리모컨, 미리보기, 나침반, 미리 알림 등 앱 아이콘이 새롭게 바뀌었습니다.</li>
+<li>상태 표시줄 아이콘이 최적화되었습니다. Wi-Fi, 셀룰러 데이터 신호는 더욱 둥글고 높이가 높아졌으며, 배터리 아이콘은 테두리 없는 디자인으로 변경되었고, 오른쪽 전극이 확대되었으며, 배터리 숫자 글꼴이 더욱 둥글어졌습니다.</li>
+<li>4x6 크기의 초대형 위젯이 도입되어 홈 화면과 오늘 보기에서 표시 영역을 확장합니다.</li>
+<li>잠금 화면 시계에 '더 작고 가장자리에 가깝게'라는 새로운 옵션이 제공되어 축소하여 상단 위젯 바에 수납할 수 있습니다.</li>
+<li>오디오 또는 비디오가 재생 중일 때 잠금 화면에서 '지금 재생 중' 카드를 스와이프하여 지우고 제거할 수 있습니다.</li>
+</ul>
+          
+          <h3>설정 및 접근성</h3>
+<ul>
+<li>3가지 볼륨 그룹을 개별적으로 설정할 수 있습니다. 첫 번째 그룹은 벨소리 볼륨, 두 번째 그룹은 알람 및 타이머 볼륨, 세 번째 그룹은 알림 및 시스템 사운드 볼륨입니다.</li>
+<li>설정 앱에서 기존 '손쉬운 사용'이 '접근성'으로 변경되었습니다.</li>
+<li>새로운 색인 이름은 '검색 및 Siri 최적화 중'이며, 클릭하면 구체적인 설명이 표시됩니다. '자세히 알아보기'를 클릭하여 'Apple 기기의 Spotlight 색인 및 검색 결과 정보'를 확인할 수 있습니다.</li>
+<li>제어 센터 표시가 최적화되었습니다. Wi-Fi 연결 후에도 셀룰러 네트워크 연결 세부 정보를 확인할 수 있으며, 신호 강도뿐만 아니라 네트워크 방식도 확인할 수 있습니다.</li>
+<li>'설정 - 배터리' 페이지에 '셀룰러 네트워크 커버리지' 알림이 추가되었습니다. 셀룰러 네트워크 커버리지가 좋지 않을 때 '전화'를 사용하면 신호를 검색하기 위해 추가 배터리 전력이 소모됩니다.</li>
+</ul>
+          
+          <h3>자녀 보호 기능</h3>
+<ul>
+<li>부모는 자녀가 사용할 수 있는 앱을 정확하게 선택할 수 있습니다. 자녀가 새 웹사이트에 접속하려면 개별적으로 승인해야 합니다. '사용 시간 제한'은 엔터테인먼트, 게임 및 소셜 미디어 앱의 사용 시간 경계를 설정하는 데 도움이 됩니다. '일정'은 자녀가 특정 시간에 어떤 앱에 접속할 수 있는지 결정할 수 있도록 합니다. '스크린 타임' 설정은 자녀의 기기 사용 상황을 파악할 수 있도록 합니다. 확장된 '커뮤니케이션 안전' 보호 기능은 자녀가 공유 이미지 또는 비디오에서 피 묻은 폭력적인 콘텐츠를 보기 전에 개입할 수 있습니다.</li>
+</ul>
+          
+          <h3>메시지 및 커뮤니케이션</h3>
+<ul>
+<li>RCS 대화에 인라인 답장 기능이 추가되었습니다. 메시지를 길게 누르면 답장 옵션이 표시되며 직접 답장할 수 있습니다.</li>
+<li>RCS 이모티콘 반응 표시가 개선되었습니다. 이모티콘이 이미지 또는 비디오 위에 직접 겹쳐져 표시되어 iMessage 대화와 더 유사한 효과를 제공합니다.</li>
+<li>사용자의 설명을 바탕으로 이모티콘을 만들 수 있습니다. 기존 이모티콘을 수정하거나 사진에서 이미지를 선택하고 인물을 선택할 수 있습니다. 새로 추가된 '설명 변경' 인터페이스는 이미 생성된 이모티콘 팩을 미세 조정하는 데 사용할 수 있습니다.</li>
+</ul>
+          
+          <h3>입력 및 키보드</h3>
+<ul>
+<li>중국어 구두점 제안이 추가되어 문맥에 따라 단어의 정확도가 향상되었습니다. 클립보드 콘텐츠를 제안하여 이미지 및 텍스트를 한 번의 탭으로 붙여넣을 수 있습니다. 한자 분해 로직이 최적화되어 두 부분의 병음을 입력하여 생소한 한자를 찾을 수 있습니다.</li>
+</ul>
+          
+          <h3>AirPods</h3>
+<ul>
+<li>새로운 사용자 지정 이퀄라이저 기능이 추가되어 자신만의 사운드 효과를 더욱 정교하게 만들 수 있습니다. '적응형' 모드에 노이즈 캔슬링 강도 슬라이더가 추가되어 주변음 허용 모드와 노이즈 캔슬링 사이에서 청취 선호도를 자유롭게 조절할 수 있습니다.</li>
+</ul>
+          
+          <h3>앱 업데이트</h3>
+<ul>
+<li>시계 앱에 주중(대체 휴일) 알람이 추가되어 연중 공휴일 및 대체 휴무일에 알람을 설정할 수 있습니다.</li>
+<li>홈 앱의 알림이 간소화되었으며, 연결된 카메라의 비디오 클립을 식별하고 설명을 생성할 수 있습니다. Apple TV 원격 업데이트 지원이 추가되어 업데이트 버튼을 클릭하면 최신 소프트웨어를 설치할 수 있습니다.</li>
+<li>암호 앱은 암호 위험을 식별하는 기능을 갖추고 있어 많은 시나리오에서 사용자를 대신하여 암호를 자동으로 변경하고 계정 복구 단계를 줄일 수 있습니다.</li>
+<li>사진 앱에 기본 사실적인 이미지 생성 기능이 추가되었습니다. 텍스트 프롬프트만 입력하면 실제 사진에 더 가까운 이미지를 직접 생성할 수 있으며, 애니메이션, 일러스트레이션, 스케치 등 기존 스타일도 계속 사용할 수 있습니다.</li>
+<li>App Store는 개발자를 위한 고객 확보, 프로모션 및 구독 관리 기능을 강화했으며, iPhone 17 등 사용자가 앱을 찾고 구독을 관리하는 데 더 편리해졌습니다.</li>
+<li>메시지 앱의 새로운 기능은 채팅 내용에 따라 제안을 제공하며, 대화 내에서 미리 알림 또는 메모 생성을 제안할 수 있고, 스마트 답장 기능도 업그레이드되었습니다.</li>
+<li>Call Context 전화 컨텍스트 기능이 도입되어 사용자가 상점 전화번호로 전화를 걸면 관련 정보가 자동으로 표시됩니다.</li>
+<li>Apple Music은 인터페이스, 재생 연결, 성능 및 음성 상호 작용을 최적화했습니다. 가수 페이지가 재설계되어 더 눈에 띄는 무작위 재생 버튼이 추가되었고, 가수 이름 표시 방식이 조정되었습니다. 가로 화면 사용을 지원하며, 앨범 표지는 화면 왼쪽에, 가사 및 노래 제목 등의 정보는 오른쪽에 표시됩니다.</li>
+<li>캘린더 앱은 자연어를 사용하여 일정을 만들고 수정할 수 있으며, 시스템이 시간, 날짜 및 이벤트 내용을 자동으로 인식하여 해당 일정을 생성합니다.</li>
+<li>미리 알림도 '수동 입력'에서 '자연어 입력'으로 전환되어 시스템이 작업 내용과 미리 알림 시간을 자동으로 추출하여 빠르게 할 일을 생성합니다.</li>
+<li>지갑 앱에 티켓 생성 및 Apple Cash로 청구서 분할 기능이 도입되었습니다. 전자는 수동으로 생성하거나 실제 티켓을 스캔할 수 있으며, 후자는 카메라의 새로운 Siri 모드에서 영수증을 스캔한 후 청구서 분할 옵션을 제공합니다.</li>
+<li>건강 앱의 생리 주기 추적 기능이 업그레이드되어 폐경 전후 및 폐경기에 대한 전용 지원이 추가되었습니다. 여기에는 알림, 증상 기록 및 관련 과학적 가이드가 포함됩니다.</li>
+<li>카메라 앱의 모드 전환이 비디오 / 사진 / 인물로 조정되었으며, 파일 형식 및 바로 가기 항목은 상단 중앙에 집중되어 있고, 설정 서랍 입구는 오른쪽 하단으로 이동했습니다. 필터를 조정한 후 오른쪽 하단 도구 아이콘에 노란색 원이 켜집니다.</li>
+<li>지도 앱의 '항공 보기' 기능이 중점적으로 업그레이드되어 식생 효과 및 3D 모델링이 모두 최적화되었습니다. '지역 인기 목록' 기능이 도입되어 상호 작용 데이터를 활용하여 인기 있는 레스토랑을 통계하고 추천합니다. 경로 기본 설정이 취소되지 않았음을 더 명확하게 나타내는 도구 설명이 추가되었습니다.</li>
+<li>새로운 Siri는 독립적인 전용 앱을 가지고 있어 과거 대화를 쉽게 볼 수 있으며, iPhone에서 대화를 시작하고 iPad, Mac에서 계속할 수 있습니다.</li>
+<li>날씨 앱은 '날씨 상태' 외에도 '강수' 및 '바람'이 추가되어 강수량과 풍속의 구체적인 상황을 확인할 수 있습니다.</li>
+<li>Safari 브라우저는 열린 웹 페이지를 감지하고 자동으로 탭을 통합할 수 있으며, 자연어로 자신이 관심 있는 내용을 알릴 수 있고, 내용이 업데이트될 때 알림을 받게 됩니다.</li>
+<li>Apple은 단축어의 각 자동화에 독립적인 스위치를 할당하여 한 번의 탭으로 켜거나 끌 수 있습니다.</li>
+<li>리모컨은 Apple TV의 가상 리모컨을 홈 화면에 추가하는 것을 지원하여 이전처럼 제어 센터에만 고정할 수 있었던 것보다 더 직관적입니다.</li>
+<li>메모 작업 메뉴에 '구분선 삽입'이 추가되었고, 노트 상호 연결이 섹션 링크로 업그레이드되었으며, 공유 시트에서 전체 노트를 Markdown으로 내보낼 수 있고, 단축어를 통해 Markdown을 가져올 수도 있습니다.</li>
+<li>사진 앱에 '카메라 롤'이 필터 형식으로 돌아왔습니다. '비디오 프레임을 사진으로 저장' 기능이 추가되었고, 신분증 통합 앨범이 추가되었으며, 사진 및 비디오에 수동으로 키워드를 추가할 수 있습니다. '지금 iCloud에 동기화' 옵션이 추가되었고, 별점 평가로 사진에 별점을 매길 수 있으며, Clean Up에 고품질 모드가 추가되었습니다.</li>
+<li>'나의 찾기'에서 위치를 공유할 때 '사용자 지정' 옵션이 추가되어 정확한 시간 길이를 선택하거나 공유 종료의 특정 날짜와 시간을 설정할 수 있으며, 최소 15분 동안 공유할 수 있습니다.</li>
+</ul>
+          
+          <h3>Siri AI 및 지능형 기능</h3>
+<ul>
+<li>새로운 Siri는 'Siri AI'라는 이름으로 Apple Intelligence의 다양한 새로운 기능을 지원합니다. 개인적인 상황을 이해할 뿐만 아니라 앱 작업 실행, 화면 인식, 이미지 이해 및 광범위한 세계 지식 호출 등의 능력을 갖추고 있습니다.</li>
+<li>Siri는 새로운 애니메이션 표시 효과를 가지고 있으며, 다양한 표현력에 따라 Dynamic Island 영역의 거품 애니메이션이 점프 리듬을 조정하고 하단에 명확한 발광 효과가 있습니다.</li>
+<li>Siri AI의 음성 사용자 지정 기능이 확장되어 여러 음색이 추가되었으며, 슬라이더를 통해 말하기 속도와 표현력을 독립적으로 조절할 수 있습니다.</li>
+<li>화면 인식 기능이 중점적으로 강화되어 Siri는 현재 화면의 객체, 목록 위치 및 콘텐츠 문맥을 이해하고 자연어 명령을 구체적인 작업으로 매핑할 수 있습니다.</li>
+<li>파일을 길게 누르거나, 텍스트를 선택하거나, 메모 내용 또는 링크를 선택할 때 나타나는 모든 컨텍스트 메뉴에 'Siri에게 물어보기'가 항상 표시되어 다양한 객체 작업 메뉴의 일반적인 진입점이 됩니다.</li>
+<li>Siri AI를 기반으로 시스템 수준의 AI 자동 교정 기능이 출시되어 자동으로 교정하고, 철자 및 문법 오류를 확인하며, 최적화 및 개선을 제공합니다.</li>
+<li>텍스트를 편집한 후 입력 키보드에 'Write with Siri'가 표시됩니다. 자연어 명령을 통해 Siri가 새 텍스트를 생성하고, 이미 작성된 내용을 교정하며, 특정 텍스트 스타일을 다시 작성하도록 할 수 있습니다.</li>
+<li>Siri가 카메라 앱에 통합되어 셔터 버튼을 누르면 보이는 것을 보고 응답할 수 있으며, 음식에 초점을 맞추면 영양 성분을 알 수 있습니다. 또한 AI 제거 도구, AI 이미지 확장, 공간 구성 등 더 많은 AI 기능이 추가되었습니다.</li>
+<li>파일 앱은 AI 기반 파일 및 폴더 이름 변경을 지원합니다. '이름 변경'을 선택한 후 잠시 기다리면 키보드 위에 제안된 이름이 표시됩니다. 시스템은 PDF를 읽고, 폴더 내용을 확인하며, 시각적 인식을 통해 이미지 내용을 이해할 수 있습니다.</li>
+<li>iOS 27은 iOS 18.2부터 시작된 ChatGPT 확장을 여전히 유지합니다. Siri 검색 상자를 수동으로 클릭하고 '질문'을 선택한 다음 공급자를 ChatGPT로 전환해야 합니다. ChatGPT가 완전히 사라진 것은 아니지만, 진입점이 더 깊고 시스템은 자체 Siri 경로를 우선적으로 사용하려는 경향이 있습니다.</li>
+</ul>
+          
+          <h3>기타 개선 사항</h3>
+<ul>
+<li>Spotlight 검색 상자의 배경이 약간 밝아지고, 검은색 액체 유리 효과가 약화되어 더 투명해졌습니다. 선택 가능한 제안 앱의 수는 4개, 8개 또는 표시 안 함으로 설정할 수 있습니다.</li>
+<li>Siri AI를 지원하는 모델의 경우 알림 애니메이션 팝업이 중앙에서 왼쪽 상단으로 변경되었습니다.</li>
+<li>WeChat 등 액체 유리를 능동적으로 적용하지 않은 앱의 경우, iOS 27 시스템은 앱에서 시스템 컨트롤을 사용하는 부분에 액체 유리 효과를 자동으로 적용합니다.</li>
+<li>스크린샷 또는 사진 앱에서 사진을 편집할 때 도구 모음을 접을 수 있습니다.</li>
+<li>iCloud 기능이 확장되어 Android 및 Windows 10, Windows 11 기기에서 iCloud 공유 앨범에 사진을 추가할 수 있으며, 전체 해상도 공유를 지원합니다.</li>
+<li>새로운 iPhone Handoff 기능이 추가되어 두 대의 iPhone에서 동일한 전화번호를 공유할 수 있습니다. 미국 T-Mobile과 독일 Telekom이 이 서비스를 먼저 지원합니다.</li>
+<li>CarPlay는 개발자가 비디오 시청 앱을 만들 수 있도록 허용합니다. 사용자는 AirPlay 비디오 스트리밍을 지원하는 iPhone 앱을 호환되는 신차의 차량 내 화면에 투사할 수 있지만, 차량이 정지했을 때만 재생됩니다.</li>
+<li>평가 및 발표된 iOS/iPadOS 27 보안 공지에 따르면 총 126개의 보안 취약점이 수정되었으며, 여기에는 시스템 커널과 관련된 여러 고위험 문제가 포함됩니다.</li>
+</ul>
+          
+          <h3>총평</h3>
+<p>Apple iOS 27의 업데이트 내용은 여기까지입니다. iOS 26에 비해 iOS 27의 발전은 눈에 띄지만, 아쉽게도 중국 내 AI 기능은 여전히 찾아볼 수 없습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>서론</h3>
+<p>WWDC26에서 처음 공개된 이후 8개의 베타 버전을 거치며 '버그 수정' 과정을 거친 iOS 27이 마침내 9월 15일 정식 출시되었습니다. Apple은 어제 모든 iPhone 사용자에게 iOS 27 정식 업데이트를 배포했습니다.</p>
+<p>iOS 27 베타 버전을 경험해 본 결과, 사소한 문제들이 완전히 사라지지는 않았지만 iOS 26에 비하면 훨씬 개선되었습니다.</p>
+<p>그렇다면 iOS 27에는 어떤 새로운 기능들이 추가되었을까요? IT之家 편집자가 공식 발표된 내용과 숨겨진 내용을 포함하여 60가지 업데이트 사항을 정리했습니다.</p>
+          
+          <h3>성능</h3>
+<ul>
+<li>다양한 일상 작업 속도가 향상되었습니다. 앱 실행 속도는 최대 30% 빨라졌고, 사진 라이브러리에서 새 사진 로딩 속도는 최대 70% 빨라졌으며, AirDrop 전송 속도는 최대 80% 빨라졌습니다.</li>
+</ul>
+          
+          <h3>디스플레이 및 디자인</h3>
+<ul>
+<li>액체 유리(Liquid Glass) 효과가 정교하게 조정되어 굴절이 더욱 균일해지고 대비가 향상되었으며, 하위 복잡한 콘텐츠의 투명도 표현이 개선되어 더욱 강력한 입체감과 깊이감을 제공합니다.</li>
+<li>액체 유리 설정에 조절 슬라이더가 추가되어 '더 투명하게, 기본, 더 어둡게' 사이에서 외관 투명도를 사용자 지정할 수 있습니다. '투명'은 더 투명하게, '색조'는 불투명도를 높여 콘텐츠와 컨트롤의 대비를 향상시킵니다.</li>
+<li>다층 액체 유리 디자인이 아이콘 디자인에 통합되어 레이어 사이에 굴절 효과가 발생하여 더욱 선명하고 윤곽이 뚜렷해졌습니다. 투명 아이콘의 거울 하이라이트는 부드럽게 처리되어 주변의 어두운 테두리를 완화했습니다.</li>
+<li>Safari, Siri, 설정, App Store, 리모컨, 미리보기, 나침반, 미리 알림 등 앱 아이콘이 새롭게 바뀌었습니다.</li>
+<li>상태 표시줄 아이콘이 최적화되었습니다. Wi-Fi, 셀룰러 데이터 신호는 더욱 둥글고 높이가 높아졌으며, 배터리 아이콘은 테두리 없는 디자인으로 변경되었고, 오른쪽 전극이 확대되었으며, 배터리 숫자 글꼴이 더욱 둥글어졌습니다.</li>
+<li>4x6 크기의 초대형 위젯이 도입되어 홈 화면과 오늘 보기에서 표시 영역을 확장합니다.</li>
+<li>잠금 화면 시계에 '더 작고 가장자리에 가깝게'라는 새로운 옵션이 제공되어 축소하여 상단 위젯 바에 수납할 수 있습니다.</li>
+<li>오디오 또는 비디오가 재생 중일 때 잠금 화면에서 '지금 재생 중' 카드를 스와이프하여 지우고 제거할 수 있습니다.</li>
+</ul>
+          
+          <h3>설정 및 접근성</h3>
+<ul>
+<li>3가지 볼륨 그룹을 개별적으로 설정할 수 있습니다. 첫 번째 그룹은 벨소리 볼륨, 두 번째 그룹은 알람 및 타이머 볼륨, 세 번째 그룹은 알림 및 시스템 사운드 볼륨입니다.</li>
+<li>설정 앱에서 기존 '손쉬운 사용'이 '접근성'으로 변경되었습니다.</li>
+<li>새로운 색인 이름은 '검색 및 Siri 최적화 중'이며, 클릭하면 구체적인 설명이 표시됩니다. '자세히 알아보기'를 클릭하여 'Apple 기기의 Spotlight 색인 및 검색 결과 정보'를 확인할 수 있습니다.</li>
+<li>제어 센터 표시가 최적화되었습니다. Wi-Fi 연결 후에도 셀룰러 네트워크 연결 세부 정보를 확인할 수 있으며, 신호 강도뿐만 아니라 네트워크 방식도 확인할 수 있습니다.</li>
+<li>'설정 - 배터리' 페이지에 '셀룰러 네트워크 커버리지' 알림이 추가되었습니다. 셀룰러 네트워크 커버리지가 좋지 않을 때 '전화'를 사용하면 신호를 검색하기 위해 추가 배터리 전력이 소모됩니다.</li>
+</ul>
+          
+          <h3>자녀 보호 기능</h3>
+<ul>
+<li>부모는 자녀가 사용할 수 있는 앱을 정확하게 선택할 수 있습니다. 자녀가 새 웹사이트에 접속하려면 개별적으로 승인해야 합니다. '사용 시간 제한'은 엔터테인먼트, 게임 및 소셜 미디어 앱의 사용 시간 경계를 설정하는 데 도움이 됩니다. '일정'은 자녀가 특정 시간에 어떤 앱에 접속할 수 있는지 결정할 수 있도록 합니다. '스크린 타임' 설정은 자녀의 기기 사용 상황을 파악할 수 있도록 합니다. 확장된 '커뮤니케이션 안전' 보호 기능은 자녀가 공유 이미지 또는 비디오에서 피 묻은 폭력적인 콘텐츠를 보기 전에 개입할 수 있습니다.</li>
+</ul>
+          
+          <h3>메시지 및 커뮤니케이션</h3>
+<ul>
+<li>RCS 대화에 인라인 답장 기능이 추가되었습니다. 메시지를 길게 누르면 답장 옵션이 표시되며 직접 답장할 수 있습니다.</li>
+<li>RCS 이모티콘 반응 표시가 개선되었습니다. 이모티콘이 이미지 또는 비디오 위에 직접 겹쳐져 표시되어 iMessage 대화와 더 유사한 효과를 제공합니다.</li>
+<li>사용자의 설명을 바탕으로 이모티콘을 만들 수 있습니다. 기존 이모티콘을 수정하거나 사진에서 이미지를 선택하고 인물을 선택할 수 있습니다. 새로 추가된 '설명 변경' 인터페이스는 이미 생성된 이모티콘 팩을 미세 조정하는 데 사용할 수 있습니다.</li>
+</ul>
+          
+          <h3>입력 및 키보드</h3>
+<ul>
+<li>중국어 구두점 제안이 추가되어 문맥에 따라 단어의 정확도가 향상되었습니다. 클립보드 콘텐츠를 제안하여 이미지 및 텍스트를 한 번의 탭으로 붙여넣을 수 있습니다. 한자 분해 로직이 최적화되어 두 부분의 병음을 입력하여 생소한 한자를 찾을 수 있습니다.</li>
+</ul>
+          
+          <h3>AirPods</h3>
+<ul>
+<li>새로운 사용자 지정 이퀄라이저 기능이 추가되어 자신만의 사운드 효과를 더욱 정교하게 만들 수 있습니다. '적응형' 모드에 노이즈 캔슬링 강도 슬라이더가 추가되어 주변음 허용 모드와 노이즈 캔슬링 사이에서 청취 선호도를 자유롭게 조절할 수 있습니다.</li>
+</ul>
+          
+          <h3>앱 업데이트</h3>
+<ul>
+<li>시계 앱에 주중(대체 휴일) 알람이 추가되어 연중 공휴일 및 대체 휴무일에 알람을 설정할 수 있습니다.</li>
+<li>홈 앱의 알림이 간소화되었으며, 연결된 카메라의 비디오 클립을 식별하고 설명을 생성할 수 있습니다. Apple TV 원격 업데이트 지원이 추가되어 업데이트 버튼을 클릭하면 최신 소프트웨어를 설치할 수 있습니다.</li>
+<li>암호 앱은 암호 위험을 식별하는 기능을 갖추고 있어 많은 시나리오에서 사용자를 대신하여 암호를 자동으로 변경하고 계정 복구 단계를 줄일 수 있습니다.</li>
+<li>사진 앱에 기본 사실적인 이미지 생성 기능이 추가되었습니다. 텍스트 프롬프트만 입력하면 실제 사진에 더 가까운 이미지를 직접 생성할 수 있으며, 애니메이션, 일러스트레이션, 스케치 등 기존 스타일도 계속 사용할 수 있습니다.</li>
+<li>App Store는 개발자를 위한 고객 확보, 프로모션 및 구독 관리 기능을 강화했으며, iPhone 17 등 사용자가 앱을 찾고 구독을 관리하는 데 더 편리해졌습니다.</li>
+<li>메시지 앱의 새로운 기능은 채팅 내용에 따라 제안을 제공하며, 대화 내에서 미리 알림 또는 메모 생성을 제안할 수 있고, 스마트 답장 기능도 업그레이드되었습니다.</li>
+<li>Call Context 전화 컨텍스트 기능이 도입되어 사용자가 상점 전화번호로 전화를 걸면 관련 정보가 자동으로 표시됩니다.</li>
+<li>Apple Music은 인터페이스, 재생 연결, 성능 및 음성 상호 작용을 최적화했습니다. 가수 페이지가 재설계되어 더 눈에 띄는 무작위 재생 버튼이 추가되었고, 가수 이름 표시 방식이 조정되었습니다. 가로 화면 사용을 지원하며, 앨범 표지는 화면 왼쪽에, 가사 및 노래 제목 등의 정보는 오른쪽에 표시됩니다.</li>
+<li>캘린더 앱은 자연어를 사용하여 일정을 만들고 수정할 수 있으며, 시스템이 시간, 날짜 및 이벤트 내용을 자동으로 인식하여 해당 일정을 생성합니다.</li>
+<li>미리 알림도 '수동 입력'에서 '자연어 입력'으로 전환되어 시스템이 작업 내용과 미리 알림 시간을 자동으로 추출하여 빠르게 할 일을 생성합니다.</li>
+<li>지갑 앱에 티켓 생성 및 Apple Cash로 청구서 분할 기능이 도입되었습니다. 전자는 수동으로 생성하거나 실제 티켓을 스캔할 수 있으며, 후자는 카메라의 새로운 Siri 모드에서 영수증을 스캔한 후 청구서 분할 옵션을 제공합니다.</li>
+<li>건강 앱의 생리 주기 추적 기능이 업그레이드되어 폐경 전후 및 폐경기에 대한 전용 지원이 추가되었습니다. 여기에는 알림, 증상 기록 및 관련 과학적 가이드가 포함됩니다.</li>
+<li>카메라 앱의 모드 전환이 비디오 / 사진 / 인물로 조정되었으며, 파일 형식 및 바로 가기 항목은 상단 중앙에 집중되어 있고, 설정 서랍 입구는 오른쪽 하단으로 이동했습니다. 필터를 조정한 후 오른쪽 하단 도구 아이콘에 노란색 원이 켜집니다.</li>
+<li>지도 앱의 '항공 보기' 기능이 중점적으로 업그레이드되어 식생 효과 및 3D 모델링이 모두 최적화되었습니다. '지역 인기 목록' 기능이 도입되어 상호 작용 데이터를 활용하여 인기 있는 레스토랑을 통계하고 추천합니다. 경로 기본 설정이 취소되지 않았음을 더 명확하게 나타내는 도구 설명이 추가되었습니다.</li>
+<li>새로운 Siri는 독립적인 전용 앱을 가지고 있어 과거 대화를 쉽게 볼 수 있으며, iPhone에서 대화를 시작하고 iPad, Mac에서 계속할 수 있습니다.</li>
+<li>날씨 앱은 '날씨 상태' 외에도 '강수' 및 '바람'이 추가되어 강수량과 풍속의 구체적인 상황을 확인할 수 있습니다.</li>
+<li>Safari 브라우저는 열린 웹 페이지를 감지하고 자동으로 탭을 통합할 수 있으며, 자연어로 자신이 관심 있는 내용을 알릴 수 있고, 내용이 업데이트될 때 알림을 받게 됩니다.</li>
+<li>Apple은 단축어의 각 자동화에 독립적인 스위치를 할당하여 한 번의 탭으로 켜거나 끌 수 있습니다.</li>
+<li>리모컨은 Apple TV의 가상 리모컨을 홈 화면에 추가하는 것을 지원하여 이전처럼 제어 센터에만 고정할 수 있었던 것보다 더 직관적입니다.</li>
+<li>메모 작업 메뉴에 '구분선 삽입'이 추가되었고, 노트 상호 연결이 섹션 링크로 업그레이드되었으며, 공유 시트에서 전체 노트를 Markdown으로 내보낼 수 있고, 단축어를 통해 Markdown을 가져올 수도 있습니다.</li>
+<li>사진 앱에 '카메라 롤'이 필터 형식으로 돌아왔습니다. '비디오 프레임을 사진으로 저장' 기능이 추가되었고, 신분증 통합 앨범이 추가되었으며, 사진 및 비디오에 수동으로 키워드를 추가할 수 있습니다. '지금 iCloud에 동기화' 옵션이 추가되었고, 별점 평가로 사진에 별점을 매길 수 있으며, Clean Up에 고품질 모드가 추가되었습니다.</li>
+<li>'나의 찾기'에서 위치를 공유할 때 '사용자 지정' 옵션이 추가되어 정확한 시간 길이를 선택하거나 공유 종료의 특정 날짜와 시간을 설정할 수 있으며, 최소 15분 동안 공유할 수 있습니다.</li>
+</ul>
+          
+          <h3>Siri AI 및 지능형 기능</h3>
+<ul>
+<li>새로운 Siri는 'Siri AI'라는 이름으로 Apple Intelligence의 다양한 새로운 기능을 지원합니다. 개인적인 상황을 이해할 뿐만 아니라 앱 작업 실행, 화면 인식, 이미지 이해 및 광범위한 세계 지식 호출 등의 능력을 갖추고 있습니다.</li>
+<li>Siri는 새로운 애니메이션 표시 효과를 가지고 있으며, 다양한 표현력에 따라 Dynamic Island 영역의 거품 애니메이션이 점프 리듬을 조정하고 하단에 명확한 발광 효과가 있습니다.</li>
+<li>Siri AI의 음성 사용자 지정 기능이 확장되어 여러 음색이 추가되었으며, 슬라이더를 통해 말하기 속도와 표현력을 독립적으로 조절할 수 있습니다.</li>
+<li>화면 인식 기능이 중점적으로 강화되어 Siri는 현재 화면의 객체, 목록 위치 및 콘텐츠 문맥을 이해하고 자연어 명령을 구체적인 작업으로 매핑할 수 있습니다.</li>
+<li>파일을 길게 누르거나, 텍스트를 선택하거나, 메모 내용 또는 링크를 선택할 때 나타나는 모든 컨텍스트 메뉴에 'Siri에게 물어보기'가 항상 표시되어 다양한 객체 작업 메뉴의 일반적인 진입점이 됩니다.</li>
+<li>Siri AI를 기반으로 시스템 수준의 AI 자동 교정 기능이 출시되어 자동으로 교정하고, 철자 및 문법 오류를 확인하며, 최적화 및 개선을 제공합니다.</li>
+<li>텍스트를 편집한 후 입력 키보드에 'Write with Siri'가 표시됩니다. 자연어 명령을 통해 Siri가 새 텍스트를 생성하고, 이미 작성된 내용을 교정하며, 특정 텍스트 스타일을 다시 작성하도록 할 수 있습니다.</li>
+<li>Siri가 카메라 앱에 통합되어 셔터 버튼을 누르면 보이는 것을 보고 응답할 수 있으며, 음식에 초점을 맞추면 영양 성분을 알 수 있습니다. 또한 AI 제거 도구, AI 이미지 확장, 공간 구성 등 더 많은 AI 기능이 추가되었습니다.</li>
+<li>파일 앱은 AI 기반 파일 및 폴더 이름 변경을 지원합니다. '이름 변경'을 선택한 후 잠시 기다리면 키보드 위에 제안된 이름이 표시됩니다. 시스템은 PDF를 읽고, 폴더 내용을 확인하며, 시각적 인식을 통해 이미지 내용을 이해할 수 있습니다.</li>
+<li>iOS 27은 iOS 18.2부터 시작된 ChatGPT 확장을 여전히 유지합니다. Siri 검색 상자를 수동으로 클릭하고 '질문'을 선택한 다음 공급자를 ChatGPT로 전환해야 합니다. ChatGPT가 완전히 사라진 것은 아니지만, 진입점이 더 깊고 시스템은 자체 Siri 경로를 우선적으로 사용하려는 경향이 있습니다.</li>
+</ul>
+          
+          <h3>기타 개선 사항</h3>
+<ul>
+<li>Spotlight 검색 상자의 배경이 약간 밝아지고, 검은색 액체 유리 효과가 약화되어 더 투명해졌습니다. 선택 가능한 제안 앱의 수는 4개, 8개 또는 표시 안 함으로 설정할 수 있습니다.</li>
+<li>Siri AI를 지원하는 모델의 경우 알림 애니메이션 팝업이 중앙에서 왼쪽 상단으로 변경되었습니다.</li>
+<li>WeChat 등 액체 유리를 능동적으로 적용하지 않은 앱의 경우, iOS 27 시스템은 앱에서 시스템 컨트롤을 사용하는 부분에 액체 유리 효과를 자동으로 적용합니다.</li>
+<li>스크린샷 또는 사진 앱에서 사진을 편집할 때 도구 모음을 접을 수 있습니다.</li>
+<li>iCloud 기능이 확장되어 Android 및 Windows 10, Windows 11 기기에서 iCloud 공유 앨범에 사진을 추가할 수 있으며, 전체 해상도 공유를 지원합니다.</li>
+<li>새로운 iPhone Handoff 기능이 추가되어 두 대의 iPhone에서 동일한 전화번호를 공유할 수 있습니다. 미국 T-Mobile과 독일 Telekom이 이 서비스를 먼저 지원합니다.</li>
+<li>CarPlay는 개발자가 비디오 시청 앱을 만들 수 있도록 허용합니다. 사용자는 AirPlay 비디오 스트리밍을 지원하는 iPhone 앱을 호환되는 신차의 차량 내 화면에 투사할 수 있지만, 차량이 정지했을 때만 재생됩니다.</li>
+<li>평가 및 발표된 iOS/iPadOS 27 보안 공지에 따르면 총 126개의 보안 취약점이 수정되었으며, 여기에는 시스템 커널과 관련된 여러 고위험 문제가 포함됩니다.</li>
+</ul>
+          
+          <h3>총평</h3>
+<p>Apple iOS 27의 업데이트 내용은 여기까지입니다. iOS 26에 비해 iOS 27의 발전은 눈에 띄지만, 아쉽게도 중국 내 AI 기능은 여전히 찾아볼 수 없습니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">업데이트 가능</div>
+                <div class="caption-lang" data-lang="en">Updates available</div>
+                <div class="caption-lang" data-lang="ja">利用可能なアップデート</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">더 빠른 속도와 뛰어난 사용 경험을 제공하며 다양한 기능을 지원합니다.</div>
+                <div class="caption-lang" data-lang="en">For speed and a better user experience, while offering multiple features</div>
+                <div class="caption-lang" data-lang="ja">より速い速度と優れたユーザーエクスペリエンス、複数の機能を提供</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">부모가 자녀를 위해 안전한 디지털 경험을 만들 수 있도록 지원합니다.</div>
+                <div class="caption-lang" data-lang="en">Help parents create safe digital experiences for their children.</div>
+                <div class="caption-lang" data-lang="ja">親が子供のために安全なデジタル体験を構築するのを支援する。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">디자인, 성능, 연결성, 검색 등 모든 면에서 개선되었습니다.</div>
+                <div class="caption-lang" data-lang="en">Improvements in design, performance, connectivity, and search,</div>
+                <div class="caption-lang" data-lang="ja">デザイン、性能、接続性、検索機能など、あらゆる面での改善。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">새로운 자녀 보호 기능과 스크린 타임 기능이 더욱 향상되었습니다.</div>
+                <div class="caption-lang" data-lang="en">Better. In addition, new parental controls and &#34;screen time</div>
+                <div class="caption-lang" data-lang="ja">さらに優れたものになった。また、新しいペアレンタルコントロールと「スクリーンタイム」</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">간&#34;의 대규모 업데이트로 사용이 더욱 직관적이고 간편해져 가정에 도움이 됩니다.</div>
+                <div class="caption-lang" data-lang="en">Major update makes it more intuitive and convenient to use, helping families</div>
+                <div class="caption-lang" data-lang="ja">「間」のメジャーアップデートにより、より直感的で使いやすくなり、家庭での利用に役立つ。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">자녀를 위한 적절한 디지털 경험을 제공하는 장안신.</div>
+                <div class="caption-lang" data-lang="en">Chang&#39;an builds suitable digital experiences for children.</div>
+                <div class="caption-lang" data-lang="ja">長安は、子供たちに適したデジタル体験を創造することに尽力しています。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Apple 소프트웨어 업데이트의 보안 콘텐츠에 대해 알아보려면 다음을 방문하십시오.</div>
+                <div class="caption-lang" data-lang="en">For information on the security content of Apple software updates, please visit</div>
+                <div class="caption-lang" data-lang="ja">Appleソフトウェアアップデートのセキュリティコンテンツについては、こちらをご覧ください。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">지금 업데이트</div>
+                <div class="caption-lang" data-lang="en">Update now</div>
+                <div class="caption-lang" data-lang="ja">今すぐ更新</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오늘 밤 업데이트</div>
+                <div class="caption-lang" data-lang="en">Update tonight</div>
+                <div class="caption-lang" data-lang="ja">今夜更新</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">자세히 알아보기</div>
+                <div class="caption-lang" data-lang="en">Learn more</div>
+                <div class="caption-lang" data-lang="ja">さらに詳しく</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">하위 계층의 복잡한 콘텐츠가 더 잘 보이도록 합니다.</div>
+                <div class="caption-lang" data-lang="en">Make the complex content of the lower layer more transparent.</div>
+                <div class="caption-lang" data-lang="ja">下層の複雑なコンテンツの透過効果を向上させます</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg" alt="이미지 4" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">검색</div>
+                <div class="caption-lang" data-lang="en">Search</div>
+                <div class="caption-lang" data-lang="ja">検索</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">컨트롤의 대비.</div>
+                <div class="caption-lang" data-lang="en">Contrast of controls.</div>
+                <div class="caption-lang" data-lang="ja">コントロールのコントラスト。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg" alt="이미지 5" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">가장 잘 사는 사람</div>
+                <div class="caption-lang" data-lang="en">The best buyer</div>
+                <div class="caption-lang" data-lang="ja">一番買い物上手</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">알아야 한다</div>
+                <div class="caption-lang" data-lang="en">Need to know</div>
+                <div class="caption-lang" data-lang="ja">知るべき</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">위챗</div>
+                <div class="caption-lang" data-lang="en">WeChat</div>
+                <div class="caption-lang" data-lang="ja">WeChat</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.jpg" alt="이미지 6" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img07.jpg" alt="이미지 7" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img08.jpg" alt="이미지 8" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">날씨</div>
+                <div class="caption-lang" data-lang="en">Weather</div>
+                <div class="caption-lang" data-lang="ja">天気</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">일기 예보</div>
+                <div class="caption-lang" data-lang="en">Weather forecast</div>
+                <div class="caption-lang" data-lang="ja">天気予報</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">특정 지역의 현재 날씨 상황 및 예보를 확인합니다.</div>
+                <div class="caption-lang" data-lang="en">Check the current weather conditions and forecast for a specific location.</div>
+                <div class="caption-lang" data-lang="ja">特定の場所の現在の天気状況と予報を確認します。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img09.jpg" alt="이미지 9" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">취소</div>
+                <div class="caption-lang" data-lang="en">Cancel</div>
+                <div class="caption-lang" data-lang="ja">キャンセル</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">완료</div>
+                <div class="caption-lang" data-lang="en">Complete</div>
+                <div class="caption-lang" data-lang="ja">完了</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img10.jpg" alt="이미지 10" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">지우기</div>
+                <div class="caption-lang" data-lang="en">Clear</div>
+                <div class="caption-lang" data-lang="ja">クリア</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img11.jpg" alt="이미지 11" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">음향 효과 및 햅틱 피드백</div>
+                <div class="caption-lang" data-lang="en">Sound effects and haptic feedback</div>
+                <div class="caption-lang" data-lang="ja">サウンドエフェクトと触覚フィードバック</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">전화 벨소리</div>
+                <div class="caption-lang" data-lang="en">Phone ringtone</div>
+                <div class="caption-lang" data-lang="ja">電話の着信音</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">버튼으로 조정</div>
+                <div class="caption-lang" data-lang="en">Adjust with buttons</div>
+                <div class="caption-lang" data-lang="ja">ボタンで調整</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">햅틱 피드백</div>
+                <div class="caption-lang" data-lang="en">Haptic feedback</div>
+                <div class="caption-lang" data-lang="ja">触覚フィードバック</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">볼륨 버튼을 사용하여 전화 벨소리 볼륨을 조정할 수 있습니다.</div>
+                <div class="caption-lang" data-lang="en">The volume buttons can be used to adjust the phone ringtone volume.</div>
+                <div class="caption-lang" data-lang="ja">音量ボタンで電話の着信音量を調整できます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">알람 및 타이머</div>
+                <div class="caption-lang" data-lang="en">Alarms and timers</div>
+                <div class="caption-lang" data-lang="ja">アラームとタイマー</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">전화 벨소리 볼륨과 동일</div>
+                <div class="caption-lang" data-lang="en">Consistent with phone ringtone volume</div>
+                <div class="caption-lang" data-lang="ja">電話の着信音量と一致</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이 볼륨은 기상 알람 및 독립적인 볼륨 제어 기능이 있는 다른 알람에는 영향을 미치지 않습니다.</div>
+                <div class="caption-lang" data-lang="en">This volume will not affect wake-up alarms and other alarms with independent volume controls.</div>
+                <div class="caption-lang" data-lang="ja">この音量は、起床アラームや独立した音量制御を持つ他のアラームには影響しません。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">알림 및 시스템 사운드</div>
+                <div class="caption-lang" data-lang="en">Reminders and system sounds</div>
+                <div class="caption-lang" data-lang="ja">リマインダーとシステムサウンド</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">새 메시지 등 알림 소리, 키음 및 카메라 셔터음</div>
+                <div class="caption-lang" data-lang="en">Play reminder sounds such as new messages, as well as key tones and camera shutter sounds</div>
+                <div class="caption-lang" data-lang="ja">新着メッセージなどのリマインダー音、キー音、カメラのシャッター音を再生します</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">등 시스템 사운드.</div>
+                <div class="caption-lang" data-lang="en">and other system sounds.</div>
+                <div class="caption-lang" data-lang="ja">などのシステムサウンド。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img12.jpg" alt="이미지 12" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">일반</div>
+                <div class="caption-lang" data-lang="en">General</div>
+                <div class="caption-lang" data-lang="ja">一般</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">접근성</div>
+                <div class="caption-lang" data-lang="en">Accessibility</div>
+                <div class="caption-lang" data-lang="ja">アクセシビリティ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">대기 디스플레이</div>
+                <div class="caption-lang" data-lang="en">Standby Display</div>
+                <div class="caption-lang" data-lang="ja">スタンバイディスプレイ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">설정</div>
+                <div class="caption-lang" data-lang="en">Settings</div>
+                <div class="caption-lang" data-lang="ja">設定</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img13.jpg" alt="이미지 13" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">평소처럼 iPhone을 사용할 수 있습니다. 색인 생성은 검색 기능을 개선합니다.</div>
+                <div class="caption-lang" data-lang="en">You can use your iPhone as usual. Indexing will improve search.</div>
+                <div class="caption-lang" data-lang="ja">iPhoneは通常通り使用できます。インデックスは検索機能を改善します。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">네, 이 과정은 최신 데이터부터 시작하며 시간이 걸릴 수 있습니다.</div>
+                <div class="caption-lang" data-lang="en">Yes, this process will start with your latest data and may require</div>
+                <div class="caption-lang" data-lang="ja">はい、このプロセスは最新のデータから始まり、時間がかかる場合があります。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">시간이 좀 걸립니다. 충전 시간이 길수록 인덱싱 속도가 빨라집니다.</div>
+                <div class="caption-lang" data-lang="en">Some time. Longer charging times help speed up indexing.</div>
+                <div class="caption-lang" data-lang="ja">少し時間がかかります。充電時間が長いほど、インデックス作成が速くなります。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">더 알아보기</div>
+                <div class="caption-lang" data-lang="en">Learn more</div>
+                <div class="caption-lang" data-lang="ja">さらに詳しく</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img14.jpg" alt="이미지 14" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">재생 중이 아님</div>
+                <div class="caption-lang" data-lang="en">Not playing</div>
+                <div class="caption-lang" data-lang="ja">再生していません</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">가족이 설정되지 않았습니다.</div>
+                <div class="caption-lang" data-lang="en">Family not set</div>
+                <div class="caption-lang" data-lang="ja">家族が設定されていません</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img15.jpg" alt="이미지 15" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">셀룰러 네트워크 커버리지</div>
+                <div class="caption-lang" data-lang="en">Cellular network coverage</div>
+                <div class="caption-lang" data-lang="ja">セルラーネットワークカバレッジ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">셀룰러 네트워크 커버리지가 좋지 않을 때 “전화”를 사용했습니다.</div>
+                <div class="caption-lang" data-lang="en">“Phone” was used when cellular network coverage was poor.</div>
+                <div class="caption-lang" data-lang="ja">セルラーネットワークのカバレッジが悪いときに「電話」を使用しました。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">신호를 검색하기 위해 추가 배터리 전력을 소모합니다.</div>
+                <div class="caption-lang" data-lang="en">Consumes additional battery power to search for signals.</div>
+                <div class="caption-lang" data-lang="ja">信号を検索するために追加のバッテリー電力を消費します。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img16.png" alt="이미지 16" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img17.png" alt="이미지 17" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img18.jpg" alt="이미지 18" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img19.jpg" alt="이미지 19" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img20.jpg" alt="이미지 20" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img21.jpg" alt="이미지 21" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img22.jpg" alt="이미지 22" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img23.png" alt="이미지 23" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img24.jpg" alt="이미지 24" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img25.png" alt="이미지 25" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img26.jpg" alt="이미지 26" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img27.png" alt="이미지 27" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img28.png" alt="이미지 28" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img29.jpg" alt="이미지 29" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img30.png" alt="이미지 30" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img31.jpg" alt="이미지 31" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img32.jpg" alt="이미지 32" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img33.jpg" alt="이미지 33" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img34.jpg" alt="이미지 34" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img35.jpg" alt="이미지 35" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img36.jpg" alt="이미지 36" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img37.jpg" alt="이미지 37" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img38.jpg" alt="이미지 38" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img39.jpg" alt="이미지 39" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img40.jpg" alt="이미지 40" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img41.jpg" alt="이미지 41" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img42.jpg" alt="이미지 42" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img43.jpg" alt="이미지 43" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img44.jpg" alt="이미지 44" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img45.jpg" alt="이미지 45" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img46.jpg" alt="이미지 46" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img47.png" alt="이미지 47" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img48.jpg" alt="이미지 48" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img49.jpg" alt="이미지 49" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img50.jpg" alt="이미지 50" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img51.png" alt="이미지 51" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img52.jpg" alt="이미지 52" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img53.jpg" alt="이미지 53" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img54.jpg" alt="이미지 54" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img55.jpg" alt="이미지 55" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img56.jpg" alt="이미지 56" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img57.jpg" alt="이미지 57" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img58.jpg" alt="이미지 58" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img59.jpg" alt="이미지 59" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img60.jpg" alt="이미지 60" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img61.png" alt="이미지 61" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/003/303.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-09"
+               class="archive-btn active">
+              2026-09
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

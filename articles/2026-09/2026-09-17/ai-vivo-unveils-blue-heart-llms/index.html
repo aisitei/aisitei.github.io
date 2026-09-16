@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - vivo, 4가지 블루하트 대규모 언어 모델 공개 및 시스템급 블루하트 하네스 출시</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="vivo">
+  <meta name="article-brand-color" content="#415FFF">
+  <meta name="title-ko" content="vivo, 4가지 블루하트 대규모 언어 모델 공개 및 시스템급 블루하트 하네스 출시">
+  <meta name="title-zh" content="vivo, 4가지 블루하트 대규모 언어 모델 공개 및 시스템급 블루하트 하네스 출시">
+  <meta name="title-ja" content="vivo, 4가지 블루하트 대규모 언어 모델 공개 및 시스템급 블루하트 하네스 출시">
+  <meta name="title-en" content="vivo, 4가지 블루하트 대규모 언어 모델 공개 및 시스템급 블루하트 하네스 출시">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260910b">
+<script defer src="../../../../assets/news.js?v=20260910b"></script>
+<script defer src="../../../../assets/article.js?v=20260910b"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #415FFF;">
+            vivo
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="vivo, 4가지 블루하트 대규모 언어 모델 공개 및 시스템급 블루하트 하네스 출시"
+            data-zh="vivo, 4가지 블루하트 대규모 언어 모델 공개 및 시스템급 블루하트 하네스 출시"
+            data-ja="vivo, 4가지 블루하트 대규모 언어 모델 공개 및 시스템급 블루하트 하네스 출시"
+            data-en="vivo, 4가지 블루하트 대규모 언어 모델 공개 및 시스템급 블루하트 하네스 출시">vivo, 4가지 블루하트 대규모 언어 모델 공개 및 시스템급 블루하트 하네스 출시</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-09-17
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="vivo, 4가지 블루하트 대규모 언어 모델 공개 및 시스템급 블루하트 하네스 출시" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>새로운 BlueLM 대규모 언어 모델 발표</h3>
+<p>IT之家 9월 16일 보도에 따르면, 오늘 개최된 2026 vivo 개발자 컨퍼런스에서 vivo는 4가지 새로운 BlueLM 대규모 언어 모델을 발표했습니다.</p>
+          
+          <p>「당신의 말을 이해하는 BlueLM 음성 대규모 언어 모델 RealTime」은 새로운 엔드투엔드 음성 이해 아키텍처를 채택하여 더 많은 개인 정보를 통합합니다. 더 중요한 것은 시끄러운 환경, 작은 목소리, 사투리, 연속적인 표현, 중국어와 영어 혼용 등 모든 것을 이해할 수 있다는 점입니다.</p>
+          
+          <p>「당신을 기억하는 BlueLM 온디바이스 대규모 언어 모델 Nano」의 임무는 실시간으로 개인 기억을 감지하고 축적하는 것입니다. 이 모델은 화면, 이미지, 비디오, 텍스트 및 파일을 통합하여 이해할 수 있으며, 현재를 파악할 뿐만 아니라 사용자의 습관, 선호도, 기기 사용 상태, 시공간 시나리오 등을 장기적으로 기억할 수 있습니다. 여러 권위 있는 평가에서 BlueLM 온디바이스 대규모 언어 모델은 감지 및 기억 능력에서 업계 선두를 유지하며 여러 부문에서 1위를 차지했습니다.</p>
+          
+          <p>「BlueLM 클라우드 대규모 언어 모델 Flash / Pro」는 휴대폰의 작업 제어 센터 역할을 하며, 자체 개발한 Agentic 엔진과 시스템 수준의 Harness를 깊이 있게 매칭하여 휴대폰을 사용자를 위해 작업하는 "총괄 제어판"으로 만듭니다. 사용자가 의도를 말하면 BlueLM Xiao V가 기기, 애플리케이션, 시나리오를 넘나들며 실행합니다. 또한 사용할수록 더욱 편리해집니다. 매번 수정될 때마다 다음번에는 더 나은 성능을 보여줍니다. 여러 권위 있는 평가에서 BlueLM 클라우드 대규모 언어 모델은 뛰어난 성능을 보였습니다.</p>
+          
+          <ul>
+<li>BlueLM-RealTime은 엔드투엔드 MoE 아키텍처를 채택하여 복잡한 음성 이해를 지원합니다.</li>
+<li>BlueLM-Nano는 30억 개의 매개변수를 가지며, 멀티모달 실시간 감지 및 개인 기억 축적을 지원합니다.</li>
+<li>BlueLM-Flash / Pro 모델은 자체 개발한 Agentic 엔진을 탑재하여 시스템 수준의 Harness 실행을 지원합니다.</li>
+</ul>
+          
+          <h3>BlueLM 개인 지능형 프레임워크</h3>
+<p>IT之家는 컨퍼런스에서 BlueLM 개인 지능형 프레임워크에 vivo가 시스템 수준의 BlueLM Harness를 추가했다는 사실을 확인했습니다. vivo는 BlueLM 지능을 위한 Main Loop를 구축했습니다. 사용자는 목표를 말하기만 하면 AI가 결과를 제공합니다.</p>
+          
+          <p>이를 기반으로 vivo는 휴대폰의 기능을 대규모 언어 모델의 손과 발로 만들었습니다. BlueLM Harness는 원본 시스템 커널 계층에 깊이 침투하여 시스템, 애플리케이션, 기기 기능을 지능형 에이전트가 이해하고 호출할 수 있는 도구로 전환합니다. 현재 6000개 이상의 원자 기술이 추가되어 자유롭게 조합할 수 있으며, 만 가지 이상의 작업을 지원합니다.</p>
+          
+          <p>또한 vivo는 각 사용자를 위해 시스템 수준의 감지 및 개인 기억 저장소를 구축하여 지능형 에이전트에게 연속적이고 제어 가능한 개인 컨텍스트를 제공합니다. vivo는 원본 시스템이 일반적인 "운영 체제"에서 사용자의 의도를 이해하고 결과를 제공하는 개인화된 "지능형 시스템"으로 변화하기를 희망합니다.</p>
+          
+          <p>vivo 공식 관계자는 「BlueLM 30B MoE 온디바이스 대규모 언어 모델」을 사전 연구 중이며 휴대폰에 적용하는 방안을 모색하고 있다고 밝혔습니다.</p>
+          
+          <h3>총평</h3>
+<p>vivo는 2026 vivo 개발자 컨퍼런스에서 4가지 새로운 BlueLM 대규모 언어 모델을 공개하며 AI 기술 혁신을 강조했습니다. 이 모델들은 음성 이해, 개인 기억 축적, 클라우드 기반 작업 실행 등 다양한 기능을 제공하며, 특히 시스템 수준의 BlueLM Harness를 통해 휴대폰의 기능을 AI 에이전트가 활용할 수 있는 도구로 전환하여 사용자 경험을 개인화하는 데 중점을 둡니다. vivo는 또한 30B MoE 온디바이스 대규모 언어 모델을 연구하며 모바일 AI 기술의 미래를 모색하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>새로운 BlueLM 대규모 언어 모델 발표</h3>
+<p>IT之家 9월 16일 보도에 따르면, 오늘 개최된 2026 vivo 개발자 컨퍼런스에서 vivo는 4가지 새로운 BlueLM 대규모 언어 모델을 발표했습니다.</p>
+          
+          <p>「당신의 말을 이해하는 BlueLM 음성 대규모 언어 모델 RealTime」은 새로운 엔드투엔드 음성 이해 아키텍처를 채택하여 더 많은 개인 정보를 통합합니다. 더 중요한 것은 시끄러운 환경, 작은 목소리, 사투리, 연속적인 표현, 중국어와 영어 혼용 등 모든 것을 이해할 수 있다는 점입니다.</p>
+          
+          <p>「당신을 기억하는 BlueLM 온디바이스 대규모 언어 모델 Nano」의 임무는 실시간으로 개인 기억을 감지하고 축적하는 것입니다. 이 모델은 화면, 이미지, 비디오, 텍스트 및 파일을 통합하여 이해할 수 있으며, 현재를 파악할 뿐만 아니라 사용자의 습관, 선호도, 기기 사용 상태, 시공간 시나리오 등을 장기적으로 기억할 수 있습니다. 여러 권위 있는 평가에서 BlueLM 온디바이스 대규모 언어 모델은 감지 및 기억 능력에서 업계 선두를 유지하며 여러 부문에서 1위를 차지했습니다.</p>
+          
+          <p>「BlueLM 클라우드 대규모 언어 모델 Flash / Pro」는 휴대폰의 작업 제어 센터 역할을 하며, 자체 개발한 Agentic 엔진과 시스템 수준의 Harness를 깊이 있게 매칭하여 휴대폰을 사용자를 위해 작업하는 "총괄 제어판"으로 만듭니다. 사용자가 의도를 말하면 BlueLM Xiao V가 기기, 애플리케이션, 시나리오를 넘나들며 실행합니다. 또한 사용할수록 더욱 편리해집니다. 매번 수정될 때마다 다음번에는 더 나은 성능을 보여줍니다. 여러 권위 있는 평가에서 BlueLM 클라우드 대규모 언어 모델은 뛰어난 성능을 보였습니다.</p>
+          
+          <ul>
+<li>BlueLM-RealTime은 엔드투엔드 MoE 아키텍처를 채택하여 복잡한 음성 이해를 지원합니다.</li>
+<li>BlueLM-Nano는 30억 개의 매개변수를 가지며, 멀티모달 실시간 감지 및 개인 기억 축적을 지원합니다.</li>
+<li>BlueLM-Flash / Pro 모델은 자체 개발한 Agentic 엔진을 탑재하여 시스템 수준의 Harness 실행을 지원합니다.</li>
+</ul>
+          
+          <h3>BlueLM 개인 지능형 프레임워크</h3>
+<p>IT之家는 컨퍼런스에서 BlueLM 개인 지능형 프레임워크에 vivo가 시스템 수준의 BlueLM Harness를 추가했다는 사실을 확인했습니다. vivo는 BlueLM 지능을 위한 Main Loop를 구축했습니다. 사용자는 목표를 말하기만 하면 AI가 결과를 제공합니다.</p>
+          
+          <p>이를 기반으로 vivo는 휴대폰의 기능을 대규모 언어 모델의 손과 발로 만들었습니다. BlueLM Harness는 원본 시스템 커널 계층에 깊이 침투하여 시스템, 애플리케이션, 기기 기능을 지능형 에이전트가 이해하고 호출할 수 있는 도구로 전환합니다. 현재 6000개 이상의 원자 기술이 추가되어 자유롭게 조합할 수 있으며, 만 가지 이상의 작업을 지원합니다.</p>
+          
+          <p>또한 vivo는 각 사용자를 위해 시스템 수준의 감지 및 개인 기억 저장소를 구축하여 지능형 에이전트에게 연속적이고 제어 가능한 개인 컨텍스트를 제공합니다. vivo는 원본 시스템이 일반적인 "운영 체제"에서 사용자의 의도를 이해하고 결과를 제공하는 개인화된 "지능형 시스템"으로 변화하기를 희망합니다.</p>
+          
+          <p>vivo 공식 관계자는 「BlueLM 30B MoE 온디바이스 대규모 언어 모델」을 사전 연구 중이며 휴대폰에 적용하는 방안을 모색하고 있다고 밝혔습니다.</p>
+          
+          <h3>총평</h3>
+<p>vivo는 2026 vivo 개발자 컨퍼런스에서 4가지 새로운 BlueLM 대규모 언어 모델을 공개하며 AI 기술 혁신을 강조했습니다. 이 모델들은 음성 이해, 개인 기억 축적, 클라우드 기반 작업 실행 등 다양한 기능을 제공하며, 특히 시스템 수준의 BlueLM Harness를 통해 휴대폰의 기능을 AI 에이전트가 활용할 수 있는 도구로 전환하여 사용자 경험을 개인화하는 데 중점을 둡니다. vivo는 또한 30B MoE 온디바이스 대규모 언어 모델을 연구하며 모바일 AI 기술의 미래를 모색하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>새로운 BlueLM 대규모 언어 모델 발표</h3>
+<p>IT之家 9월 16일 보도에 따르면, 오늘 개최된 2026 vivo 개발자 컨퍼런스에서 vivo는 4가지 새로운 BlueLM 대규모 언어 모델을 발표했습니다.</p>
+          
+          <p>「당신의 말을 이해하는 BlueLM 음성 대규모 언어 모델 RealTime」은 새로운 엔드투엔드 음성 이해 아키텍처를 채택하여 더 많은 개인 정보를 통합합니다. 더 중요한 것은 시끄러운 환경, 작은 목소리, 사투리, 연속적인 표현, 중국어와 영어 혼용 등 모든 것을 이해할 수 있다는 점입니다.</p>
+          
+          <p>「당신을 기억하는 BlueLM 온디바이스 대규모 언어 모델 Nano」의 임무는 실시간으로 개인 기억을 감지하고 축적하는 것입니다. 이 모델은 화면, 이미지, 비디오, 텍스트 및 파일을 통합하여 이해할 수 있으며, 현재를 파악할 뿐만 아니라 사용자의 습관, 선호도, 기기 사용 상태, 시공간 시나리오 등을 장기적으로 기억할 수 있습니다. 여러 권위 있는 평가에서 BlueLM 온디바이스 대규모 언어 모델은 감지 및 기억 능력에서 업계 선두를 유지하며 여러 부문에서 1위를 차지했습니다.</p>
+          
+          <p>「BlueLM 클라우드 대규모 언어 모델 Flash / Pro」는 휴대폰의 작업 제어 센터 역할을 하며, 자체 개발한 Agentic 엔진과 시스템 수준의 Harness를 깊이 있게 매칭하여 휴대폰을 사용자를 위해 작업하는 "총괄 제어판"으로 만듭니다. 사용자가 의도를 말하면 BlueLM Xiao V가 기기, 애플리케이션, 시나리오를 넘나들며 실행합니다. 또한 사용할수록 더욱 편리해집니다. 매번 수정될 때마다 다음번에는 더 나은 성능을 보여줍니다. 여러 권위 있는 평가에서 BlueLM 클라우드 대규모 언어 모델은 뛰어난 성능을 보였습니다.</p>
+          
+          <ul>
+<li>BlueLM-RealTime은 엔드투엔드 MoE 아키텍처를 채택하여 복잡한 음성 이해를 지원합니다.</li>
+<li>BlueLM-Nano는 30억 개의 매개변수를 가지며, 멀티모달 실시간 감지 및 개인 기억 축적을 지원합니다.</li>
+<li>BlueLM-Flash / Pro 모델은 자체 개발한 Agentic 엔진을 탑재하여 시스템 수준의 Harness 실행을 지원합니다.</li>
+</ul>
+          
+          <h3>BlueLM 개인 지능형 프레임워크</h3>
+<p>IT之家는 컨퍼런스에서 BlueLM 개인 지능형 프레임워크에 vivo가 시스템 수준의 BlueLM Harness를 추가했다는 사실을 확인했습니다. vivo는 BlueLM 지능을 위한 Main Loop를 구축했습니다. 사용자는 목표를 말하기만 하면 AI가 결과를 제공합니다.</p>
+          
+          <p>이를 기반으로 vivo는 휴대폰의 기능을 대규모 언어 모델의 손과 발로 만들었습니다. BlueLM Harness는 원본 시스템 커널 계층에 깊이 침투하여 시스템, 애플리케이션, 기기 기능을 지능형 에이전트가 이해하고 호출할 수 있는 도구로 전환합니다. 현재 6000개 이상의 원자 기술이 추가되어 자유롭게 조합할 수 있으며, 만 가지 이상의 작업을 지원합니다.</p>
+          
+          <p>또한 vivo는 각 사용자를 위해 시스템 수준의 감지 및 개인 기억 저장소를 구축하여 지능형 에이전트에게 연속적이고 제어 가능한 개인 컨텍스트를 제공합니다. vivo는 원본 시스템이 일반적인 "운영 체제"에서 사용자의 의도를 이해하고 결과를 제공하는 개인화된 "지능형 시스템"으로 변화하기를 희망합니다.</p>
+          
+          <p>vivo 공식 관계자는 「BlueLM 30B MoE 온디바이스 대규모 언어 모델」을 사전 연구 중이며 휴대폰에 적용하는 방안을 모색하고 있다고 밝혔습니다.</p>
+          
+          <h3>총평</h3>
+<p>vivo는 2026 vivo 개발자 컨퍼런스에서 4가지 새로운 BlueLM 대규모 언어 모델을 공개하며 AI 기술 혁신을 강조했습니다. 이 모델들은 음성 이해, 개인 기억 축적, 클라우드 기반 작업 실행 등 다양한 기능을 제공하며, 특히 시스템 수준의 BlueLM Harness를 통해 휴대폰의 기능을 AI 에이전트가 활용할 수 있는 도구로 전환하여 사용자 경험을 개인화하는 데 중점을 둡니다. vivo는 또한 30B MoE 온디바이스 대규모 언어 모델을 연구하며 모바일 AI 기술의 미래를 모색하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>새로운 BlueLM 대규모 언어 모델 발표</h3>
+<p>IT之家 9월 16일 보도에 따르면, 오늘 개최된 2026 vivo 개발자 컨퍼런스에서 vivo는 4가지 새로운 BlueLM 대규모 언어 모델을 발표했습니다.</p>
+          
+          <p>「당신의 말을 이해하는 BlueLM 음성 대규모 언어 모델 RealTime」은 새로운 엔드투엔드 음성 이해 아키텍처를 채택하여 더 많은 개인 정보를 통합합니다. 더 중요한 것은 시끄러운 환경, 작은 목소리, 사투리, 연속적인 표현, 중국어와 영어 혼용 등 모든 것을 이해할 수 있다는 점입니다.</p>
+          
+          <p>「당신을 기억하는 BlueLM 온디바이스 대규모 언어 모델 Nano」의 임무는 실시간으로 개인 기억을 감지하고 축적하는 것입니다. 이 모델은 화면, 이미지, 비디오, 텍스트 및 파일을 통합하여 이해할 수 있으며, 현재를 파악할 뿐만 아니라 사용자의 습관, 선호도, 기기 사용 상태, 시공간 시나리오 등을 장기적으로 기억할 수 있습니다. 여러 권위 있는 평가에서 BlueLM 온디바이스 대규모 언어 모델은 감지 및 기억 능력에서 업계 선두를 유지하며 여러 부문에서 1위를 차지했습니다.</p>
+          
+          <p>「BlueLM 클라우드 대규모 언어 모델 Flash / Pro」는 휴대폰의 작업 제어 센터 역할을 하며, 자체 개발한 Agentic 엔진과 시스템 수준의 Harness를 깊이 있게 매칭하여 휴대폰을 사용자를 위해 작업하는 "총괄 제어판"으로 만듭니다. 사용자가 의도를 말하면 BlueLM Xiao V가 기기, 애플리케이션, 시나리오를 넘나들며 실행합니다. 또한 사용할수록 더욱 편리해집니다. 매번 수정될 때마다 다음번에는 더 나은 성능을 보여줍니다. 여러 권위 있는 평가에서 BlueLM 클라우드 대규모 언어 모델은 뛰어난 성능을 보였습니다.</p>
+          
+          <ul>
+<li>BlueLM-RealTime은 엔드투엔드 MoE 아키텍처를 채택하여 복잡한 음성 이해를 지원합니다.</li>
+<li>BlueLM-Nano는 30억 개의 매개변수를 가지며, 멀티모달 실시간 감지 및 개인 기억 축적을 지원합니다.</li>
+<li>BlueLM-Flash / Pro 모델은 자체 개발한 Agentic 엔진을 탑재하여 시스템 수준의 Harness 실행을 지원합니다.</li>
+</ul>
+          
+          <h3>BlueLM 개인 지능형 프레임워크</h3>
+<p>IT之家는 컨퍼런스에서 BlueLM 개인 지능형 프레임워크에 vivo가 시스템 수준의 BlueLM Harness를 추가했다는 사실을 확인했습니다. vivo는 BlueLM 지능을 위한 Main Loop를 구축했습니다. 사용자는 목표를 말하기만 하면 AI가 결과를 제공합니다.</p>
+          
+          <p>이를 기반으로 vivo는 휴대폰의 기능을 대규모 언어 모델의 손과 발로 만들었습니다. BlueLM Harness는 원본 시스템 커널 계층에 깊이 침투하여 시스템, 애플리케이션, 기기 기능을 지능형 에이전트가 이해하고 호출할 수 있는 도구로 전환합니다. 현재 6000개 이상의 원자 기술이 추가되어 자유롭게 조합할 수 있으며, 만 가지 이상의 작업을 지원합니다.</p>
+          
+          <p>또한 vivo는 각 사용자를 위해 시스템 수준의 감지 및 개인 기억 저장소를 구축하여 지능형 에이전트에게 연속적이고 제어 가능한 개인 컨텍스트를 제공합니다. vivo는 원본 시스템이 일반적인 "운영 체제"에서 사용자의 의도를 이해하고 결과를 제공하는 개인화된 "지능형 시스템"으로 변화하기를 희망합니다.</p>
+          
+          <p>vivo 공식 관계자는 「BlueLM 30B MoE 온디바이스 대규모 언어 모델」을 사전 연구 중이며 휴대폰에 적용하는 방안을 모색하고 있다고 밝혔습니다.</p>
+          
+          <h3>총평</h3>
+<p>vivo는 2026 vivo 개발자 컨퍼런스에서 4가지 새로운 BlueLM 대규모 언어 모델을 공개하며 AI 기술 혁신을 강조했습니다. 이 모델들은 음성 이해, 개인 기억 축적, 클라우드 기반 작업 실행 등 다양한 기능을 제공하며, 특히 시스템 수준의 BlueLM Harness를 통해 휴대폰의 기능을 AI 에이전트가 활용할 수 있는 도구로 전환하여 사용자 경험을 개인화하는 데 중점을 둡니다. vivo는 또한 30B MoE 온디바이스 대규모 언어 모델을 연구하며 모바일 AI 기술의 미래를 모색하고 있습니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">블루하트 대형 모델</div>
+                <div class="caption-lang" data-lang="en">Lanxin large model</div>
+                <div class="caption-lang" data-lang="ja">ランシン大規模モデル</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">「개인 중심」의 지능형 에이전트 대형 모델 전체 매트릭스 구축</div>
+                <div class="caption-lang" data-lang="en">Building a full matrix of &#34;person-centered&#34; intelligent agent large models</div>
+                <div class="caption-lang" data-lang="ja">「個人中心」のインテリジェントエージェント大規模モデルの全マトリックスを構築</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg" alt="이미지 4" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">PersonaMem 개인화 기억 목록</div>
+                <div class="caption-lang" data-lang="en">PersonaMem Personalized Memory List</div>
+                <div class="caption-lang" data-lang="ja">PersonaMemパーソナライズドメモリーリスト</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.jpg" alt="이미지 6" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">글로벌 최고 수준의 범용 대규모 모델과 협력하여 고난도 과제 탐색</div>
+                <div class="caption-lang" data-lang="en">Collaborate with top global general large models to explore high-difficulty tasks</div>
+                <div class="caption-lang" data-lang="ja">世界トップクラスの汎用大規模モデルと協力し、高難度タスクを探索</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img07.jpg@s_2,w_820,h_616" alt="이미지 7" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">시스템 수준의 하네스를 구축하고 원래 시스템과 깊이 통합합니다.</div>
+                <div class="caption-lang" data-lang="en">Build system-level Harness and deeply integrate with the original system</div>
+                <div class="caption-lang" data-lang="ja">システムレベルのハーネスを構築し、元のシステムと深く統合する</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img08.jpg" alt="이미지 8" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">블루 하트 하네스</div>
+                <div class="caption-lang" data-lang="en">Blue Heart Harness</div>
+                <div class="caption-lang" data-lang="ja">ブルーハートハーネス</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">시스템 수준의 하네스를 구축하고 원래 시스템과 깊이 통합합니다.</div>
+                <div class="caption-lang" data-lang="en">Build system-level Harness and deeply integrate with the original system.</div>
+                <div class="caption-lang" data-lang="ja">システムレベルのハーネスを構築し、元のシステムと深く統合します。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/002/937.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-09"
+               class="archive-btn active">
+              2026-09
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
