@@ -503,30 +503,38 @@ def _collect_body_images(body) -> list[str]:
     return found
 
 
-def scrape_article_images(article_id: str) -> list[str]:
+def scrape_article_images(article_id: str, source_url: str) -> list[str]:
     """IT之家 기사 이미지를 수집합니다. **본문 컨테이너 내부만 스캔**하므로
     사이드바·관련 기사·출처 로고 반복(예: Counterpoint 로고 중복)이 포함되지 않습니다.
 
     우선순위: 데스크톱 페이지 본문 → 모바일 페이지 본문(보완).
+
+    주의: IT之家는 `/0/`, `/1/` 등 서로 다른 URL 네임스페이스를 쓰며, 뒤쪽 숫자 ID만으로는
+    어느 네임스페이스인지 구분할 수 없다 (예: `/0/002/418.htm`과 `/1/002/418.htm`은
+    서로 무관한 별개의 기사). 따라서 `article_id`로부터 데스크톱 URL을 재구성하지 않고
+    호출자가 실제로 수집한 원본 URL(`source_url`)을 그대로 사용해야 한다.
     """
     image_urls: list[str] = []
     seen: set[str] = set()
 
-    # ── 데스크톱 본문 ────────────────────────────────────────
-    desktop_url = f"https://www.ithome.com/0/{article_id[:-3]}/{article_id[-3:]}.htm"
-    desktop_html = fetch_page(desktop_url)
+    # ── 데스크톱 본문 (원본 URL을 그대로 사용) ─────────────────
+    desktop_html = fetch_page(source_url)
     if desktop_html:
         desktop_body = _find_article_body(BeautifulSoup(desktop_html, "html.parser"))
         for url in _collect_body_images(desktop_body):
             _add_unique(image_urls, url, seen)
 
     # ── 모바일 본문 (보완) ───────────────────────────────────
-    mobile_url = config.ITHOME_MOBILE_URL.format(article_id=article_id)
-    mobile_html = fetch_page(mobile_url)
-    if mobile_html:
-        mobile_body = _find_article_body(BeautifulSoup(mobile_html, "html.parser"))
-        for url in _collect_body_images(mobile_body):
-            _add_unique(image_urls, url, seen)
+    # 모바일 사이트(m.ithome.com)는 "/0/" 네임스페이스와 동일한 숫자 ID 공간을 쓰는
+    # 것으로 확인됐다. source_url이 "/0/" 네임스페이스가 아니면 모바일 ID가 전혀 다른
+    # 기사를 가리킬 수 있으므로, 그 경우엔 모바일 폴백을 건너뛴다.
+    if re.match(r"https?://www\.ithome\.com/0/\d+/\d+\.htm", source_url):
+        mobile_url = config.ITHOME_MOBILE_URL.format(article_id=article_id)
+        mobile_html = fetch_page(mobile_url)
+        if mobile_html:
+            mobile_body = _find_article_body(BeautifulSoup(mobile_html, "html.parser"))
+            for url in _collect_body_images(mobile_body):
+                _add_unique(image_urls, url, seen)
 
     logger.info(f"기사 {article_id}: 본문 이미지 {len(image_urls)}장")
     return image_urls
@@ -550,7 +558,7 @@ def collect_articles() -> list[Article]:
         logger.info(f"기사 수집 중: {item['title'][:40]}...")
 
         paragraphs, author = scrape_article_content(item["url"])
-        images = scrape_article_images(item["article_id"])
+        images = scrape_article_images(item["article_id"], item["url"])
 
         # 브랜드 감지
         content_sample = " ".join(paragraphs[:3])

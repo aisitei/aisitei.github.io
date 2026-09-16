@@ -62,7 +62,7 @@ def reprocess(url: str, push: bool = True):
         return
 
     logger.info("[2/5] 이미지 수집...")
-    images = scrape_article_images(article_id)
+    images = scrape_article_images(article_id, url)
 
     content_sample = " ".join(paragraphs[:3])
     brand, brand_color = detect_brand(title, content_sample)

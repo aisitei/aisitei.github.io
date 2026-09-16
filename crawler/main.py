@@ -218,7 +218,7 @@ def main():
             continue
         try:
             paragraphs, author = scrape_article_content(item["url"])
-            images = scrape_article_images(item["article_id"])
+            images = scrape_article_images(item["article_id"], item["url"])
             content_sample = " ".join(paragraphs[:3])
             brand, brand_color = detect_brand(item["title"], content_sample)
 

@@ -95,7 +95,7 @@ def reprocess_one(url: str, articles_root: str) -> Optional[dict]:
         logger.error("  본문 수집 실패")
         return None
 
-    images = scrape_article_images(article_id)
+    images = scrape_article_images(article_id, url)
     content_sample = " ".join(paragraphs[:3])
     brand, brand_color = detect_brand(title, content_sample)
     category = classify_article(title)
