@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - OPPO, Xiaomi, vivo, Honor, Samsung, Huawei 등 스마트폰 제조사, 중고 스마트폰 데이터 삭제 및 식별 가이드라인 초안 작성</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Xiaomi">
+  <meta name="article-brand-color" content="#FF6900">
+  <meta name="title-ko" content="OPPO, Xiaomi, vivo, Honor, Samsung, Huawei 등 스마트폰 제조사, 중고 스마트폰 데이터 삭제 및 식별 가이드라인 초안 작성">
+  <meta name="title-zh" content="OPPO, Xiaomi, vivo, Honor, Samsung, Huawei 등 스마트폰 제조사, 중고 스마트폰 데이터 삭제 및 식별 가이드라인 초안 작성">
+  <meta name="title-ja" content="OPPO, Xiaomi, vivo, Honor, Samsung, Huawei 등 스마트폰 제조사, 중고 스마트폰 데이터 삭제 및 식별 가이드라인 초안 작성">
+  <meta name="title-en" content="OPPO, Xiaomi, vivo, Honor, Samsung, Huawei 등 스마트폰 제조사, 중고 스마트폰 데이터 삭제 및 식별 가이드라인 초안 작성">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260910b">
+<script defer src="../../../../assets/news.js?v=20260910b"></script>
+<script defer src="../../../../assets/article.js?v=20260910b"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #FF6900;">
+            Xiaomi
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="OPPO, Xiaomi, vivo, Honor, Samsung, Huawei 등 스마트폰 제조사, 중고 스마트폰 데이터 삭제 및 식별 가이드라인 초안 작성"
+            data-zh="OPPO, Xiaomi, vivo, Honor, Samsung, Huawei 등 스마트폰 제조사, 중고 스마트폰 데이터 삭제 및 식별 가이드라인 초안 작성"
+            data-ja="OPPO, Xiaomi, vivo, Honor, Samsung, Huawei 등 스마트폰 제조사, 중고 스마트폰 데이터 삭제 및 식별 가이드라인 초안 작성"
+            data-en="OPPO, Xiaomi, vivo, Honor, Samsung, Huawei 등 스마트폰 제조사, 중고 스마트폰 데이터 삭제 및 식별 가이드라인 초안 작성">OPPO, Xiaomi, vivo, Honor, Samsung, Huawei 등 스마트폰 제조사, 중고 스마트폰 데이터 삭제 및 식별 가이드라인 초안 작성</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-09-18
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.png" alt="OPPO, Xiaomi, vivo, Honor, Samsung, Huawei 등 스마트폰 제조사, 중고 스마트폰 데이터 삭제 및 식별 가이드라인 초안 작성" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>서론</h3>
+          
+          <p>IT之家 9월 17일 보도에 따르면, CCTV 뉴스는 오늘 "반도체 저장 매체 블록 삭제 기술 지침", "전자 제품 재활용 과정의 정보 삭제 관리 지침", "모바일 스마트 단말 정보 삭제 기술 지침" 등 3가지 네트워크 보안 표준 실천 지침이 공식적으로 발표되었다고 전했습니다.</p>
+          
+          <p>GB 46864-2025 "데이터 보안 기술 전자 제품 정보 삭제 기술 요구사항" 강제 국가 표준의 시행을 지원하고, 전자 제품 정보 삭제 활동을 지도 및 규범화하기 위해 중앙사이버공간관리판공실, 공업정보화부 등 부서의 지도하에 전국 네트워크 보안 표준 위원회 사무국은 30여 개 저장 칩 제조업체, 전자 제품 제조업체, 재활용 사업자 및 제3자 기관 등을 조직하여 3가지 네트워크 보안 표준 실천 지침을 제정했습니다.</p>
+          
+          <p>IT之家는 3가지 지침의 주요 내용을 다음과 같이 요약했습니다.</p>
+          
+          <h3>반도체 저장 매체 블록 삭제 기술 지침</h3>
+          
+          <p>"반도체 저장 매체 블록 삭제 기술 지침"은 반도체 저장 매체 블록 삭제 기술의 구현 방법과 구체적인 작동 명령을 명확히 하며, 반도체 저장 매체 제조업체, 전자 제품 제조업체 등이 블록 삭제 명령을 적용, 호출 및 검증하는 데 적합합니다.</p>
+          
+          <p>초안 작성 기관:</p>
+<ul>
+<li>중국전자기술표준화연구원</li>
+<li>Yangtze Memory Technologies Co., Ltd.</li>
+<li>Shenzhen Longsys Electronics Co., Ltd.</li>
+<li>GigaDevice Semiconductor Inc.</li>
+<li>Huawei Terminal Co., Ltd.</li>
+<li>Honor Terminal Co., Ltd.</li>
+<li>Beijing Xiaomi Mobile Software Co., Ltd.</li>
+</ul>
+          
+          <p>이 실천 지침은 SSD(Solid State Drive), UFS(Universal Flash Storage), eMMC(Embedded MultiMediaCard) 및 RawFlash에 대해 블록 삭제의 적용 범위, 블록 삭제 방법, 삭제 범위, 구현 효과, 반환 상태 및 검증 및 감사 방법을 명확히 하고, 주류 반도체 저장 매체 블록 삭제 명령과 등가 메커니즘 비교표를 제공합니다.</p>
+          
+          <h3>전자 제품 재활용 과정의 정보 삭제 관리 지침</h3>
+          
+          <p>"전자 제품 재활용 과정의 정보 삭제 관리 지침"은 정보 삭제 로그 형식, 내용 및 재활용 관리 요구사항, 그리고 정보 삭제 식별자의 형식 및 사용 방법을 명확히 하며, 재활용 사업자가 정보 삭제 로그를 생성하고, 정보 삭제 식별자를 사용하며, 정보 삭제 행위 및 경영 활동을 규범화하는 데 적합합니다.</p>
+          
+          <p>초안 작성 기관:</p>
+<ul>
+<li>중국전자기술표준화연구원</li>
+<li>중국과학원 정보공학연구소</li>
+<li>SAISI (Shenzhen) Electronic Information Product Standardization Engineering Center Co., Ltd.</li>
+<li>Shanghai Aihuishou Information Technology Group Co., Ltd.</li>
+<li>China Resources Recycling Group Electronic Appliances Co., Ltd.</li>
+<li>중국전자장비기술개발협회</li>
+<li>중국순환경제협회</li>
+<li>Zhongzaichengzi (Beijing) Environmental Protection Technology Development Co., Ltd.</li>
+<li>Beijing SAISI Technology Development Co., Ltd.</li>
+<li>Hangzhou Qili Software Technology Co., Ltd.</li>
+<li>Anyunshudun Technology (Hangzhou) Co., Ltd.</li>
+<li>Sichuan Changhong Greentech Environmental Protection Co., Ltd. 등</li>
+</ul>
+          
+          <p>이 지침은 전자 제품 정보 삭제 로그 형식과 내용을 통일함으로써 전자 제품 재활용 정보 삭제의 과정 관리 및 조직 관리를 규범화하고, 정보 삭제 식별자를 기반으로 한 신뢰 메커니즘을 구축하여 정보 삭제 전 과정의 추적 및 검증 가능성을 실현하고, 재활용 작업 효율성을 높이는 동시에 사용자의 실질적인 권익을 충분히 보장하며, 전자 제품 재활용 및 중고 거래 산업의 건강하고 규범적인 발전을 촉진하는 것을 목표로 합니다.</p>
+          
+          <p>승인 후, 재활용 사업자는 정보 삭제가 완료된 전자 제품 또는 대량 전자 제품의 외부 포장에 정보 삭제 물리적 식별자를 부착할 수 있습니다.</p>
+          
+          <p>정보 삭제가 완료된 중고 전자 제품이 유통되거나 재판매될 때, 정보 삭제 로그 코드를 제공하는 경우 전자 식별자 또는 물리적 식별자를 정보 삭제 로그 코드 중앙에 배치하여 동시에 표시할 수 있습니다.</p>
+          
+          <h3>모바일 스마트 단말 정보 삭제 기술 지침</h3>
+          
+          <p>"모바일 스마트 단말 정보 삭제 기술 지침"은 휴대폰, 태블릿 PC 등 모바일 스마트 단말의 정보 삭제 구체적인 방법, 작동 과정 및 검증 요구사항을 명확히 하며, 모바일 스마트 단말 제품의 정보 삭제 기능 설계, 개발 테스트에 적합하고, 통신 장비 네트워크 접속 허가 감독 기관 등에 참고 자료를 제공할 수 있습니다.</p>
+          
+          <p>초안 작성 기관:</p>
+<ul>
+<li>중국정보통신연구원</li>
+<li>Boding Shihua (Beijing) Technology Co., Ltd.</li>
+<li>Telecommunication Terminal Testing & Certification Co., Ltd.</li>
+<li>OPPO Guangdong Mobile Communications Co., Ltd.</li>
+<li>Beijing Xiaomi Mobile Software Co., Ltd.</li>
+<li>vivo Mobile Communication Co., Ltd.</li>
+<li>Honor Terminal Co., Ltd.</li>
+<li>Beijing Samsung Communication Technology Research Co., Ltd.</li>
+<li>Huawei Terminal Co., Ltd.</li>
+</ul>
+          
+          <p>스마트폰, 태블릿 PC 등 모바일 통신 네트워크에 접속할 수 있는 전자 제품의 정보 삭제 능력 요구사항을 이행하기 위해 전국 네트워크 보안 표준화 기술 위원회는 이 문서를 조직하여 제정했습니다. 정보 삭제 기본 요구사항, 삭제 범위, 삭제 방법, 삭제 작동 과정 등 4가지 측면에서 스마트폰과 태블릿 PC에 대한 관련 요구사항을 제시하고, 각 요구사항의 검증 방법을 명확히 했습니다. 이는 모바일 스마트 단말 제품의 정보 삭제 기능 설계, 개발, 테스트를 지도하는 데 적합하며, 감독 기관 및 제3자 평가 기관에도 참고 자료를 제공할 수 있습니다.</p>
+          
+          <p>모바일 스마트 단말 정보 삭제는 데이터 덮어쓰기(overwrite)와 블록 삭제 두 가지 방법을 포함하며, 구체적인 요구사항은 다음과 같습니다.</p>
+<ul>
+<li>a) 모바일 스마트 단말 저장 매체가 자기 매체인 경우, 데이터 덮어쓰기 방법을 사용하여 사용자 데이터 영역의 정보를 삭제합니다. 데이터 덮어쓰기 시, 사용자 데이터 영역, 다른 영역의 사용자 데이터 논리 주소와 물리 주소의 매핑 관계를 삭제하고, 사용자 데이터 영역의 남은 공간에 최소 3회 덮어쓰기를 수행하며, 최소 1회는 난수 덮어쓰기를 포함해야 합니다. 데이터 덮어쓰기 전체 과정 로그를 출력하거나 보존해야 하며, 여기에는 덮어쓰기 시작 시간, 종료 시간, 명령 정보, 실행 상태 등이 포함되지만 이에 국한되지 않습니다.</li>
+<li>b) 모바일 스마트 단말 저장 매체가 반도체 매체인 경우, 데이터 덮어쓰기 또는 블록 삭제를 선택하여 사용자 데이터 영역의 정보를 삭제할 수 있습니다.
+  <ol>
+    <li>데이터 덮어쓰기를 선택하는 경우, 사용자 데이터 영역, 다른 영역의 사용자 데이터 논리 주소와 물리 주소의 매핑 관계를 삭제하고, 사용자 데이터 영역의 남은 공간에 최소 1회 덮어쓰기를 수행합니다.</li>
+    <li>블록 삭제를 선택하는 경우, 사용자 데이터 영역, 다른 영역의 사용자 데이터 논리 주소와 물리 주소의 매핑 관계를 삭제하고, 사용자 데이터 영역의 남은 공간에 블록 삭제 명령을 실행합니다. 블록 삭제 명령 실행 전체 과정 로그를 출력하거나 보존해야 하며, 여기에는 블록 삭제 시작 시간, 종료 시간, 명령 정보, 실행 상태 등이 포함되지만 이에 국한되지 않습니다.</li>
+  </ol>
+</li>
+</ul>
+          
+          <h3>총평</h3>
+          
+          <p>중국은 전자 제품의 정보 삭제에 대한 3가지 네트워크 보안 표준 실천 지침을 발표하여 데이터 보안을 강화하고 재활용 산업의 건전한 발전을 도모합니다. 이 지침들은 반도체 저장 매체의 블록 삭제 방법, 재활용 과정에서의 정보 삭제 관리, 그리고 모바일 스마트 단말의 정보 삭제 기술 요구사항을 상세히 규정하여 사용자 정보 보호와 산업 투명성을 높이는 데 중점을 둡니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>서론</h3>
+          
+          <p>IT之家 9월 17일 보도에 따르면, CCTV 뉴스는 오늘 "반도체 저장 매체 블록 삭제 기술 지침", "전자 제품 재활용 과정의 정보 삭제 관리 지침", "모바일 스마트 단말 정보 삭제 기술 지침" 등 3가지 네트워크 보안 표준 실천 지침이 공식적으로 발표되었다고 전했습니다.</p>
+          
+          <p>GB 46864-2025 "데이터 보안 기술 전자 제품 정보 삭제 기술 요구사항" 강제 국가 표준의 시행을 지원하고, 전자 제품 정보 삭제 활동을 지도 및 규범화하기 위해 중앙사이버공간관리판공실, 공업정보화부 등 부서의 지도하에 전국 네트워크 보안 표준 위원회 사무국은 30여 개 저장 칩 제조업체, 전자 제품 제조업체, 재활용 사업자 및 제3자 기관 등을 조직하여 3가지 네트워크 보안 표준 실천 지침을 제정했습니다.</p>
+          
+          <p>IT之家는 3가지 지침의 주요 내용을 다음과 같이 요약했습니다.</p>
+          
+          <h3>반도체 저장 매체 블록 삭제 기술 지침</h3>
+          
+          <p>"반도체 저장 매체 블록 삭제 기술 지침"은 반도체 저장 매체 블록 삭제 기술의 구현 방법과 구체적인 작동 명령을 명확히 하며, 반도체 저장 매체 제조업체, 전자 제품 제조업체 등이 블록 삭제 명령을 적용, 호출 및 검증하는 데 적합합니다.</p>
+          
+          <p>초안 작성 기관:</p>
+<ul>
+<li>중국전자기술표준화연구원</li>
+<li>Yangtze Memory Technologies Co., Ltd.</li>
+<li>Shenzhen Longsys Electronics Co., Ltd.</li>
+<li>GigaDevice Semiconductor Inc.</li>
+<li>Huawei Terminal Co., Ltd.</li>
+<li>Honor Terminal Co., Ltd.</li>
+<li>Beijing Xiaomi Mobile Software Co., Ltd.</li>
+</ul>
+          
+          <p>이 실천 지침은 SSD(Solid State Drive), UFS(Universal Flash Storage), eMMC(Embedded MultiMediaCard) 및 RawFlash에 대해 블록 삭제의 적용 범위, 블록 삭제 방법, 삭제 범위, 구현 효과, 반환 상태 및 검증 및 감사 방법을 명확히 하고, 주류 반도체 저장 매체 블록 삭제 명령과 등가 메커니즘 비교표를 제공합니다.</p>
+          
+          <h3>전자 제품 재활용 과정의 정보 삭제 관리 지침</h3>
+          
+          <p>"전자 제품 재활용 과정의 정보 삭제 관리 지침"은 정보 삭제 로그 형식, 내용 및 재활용 관리 요구사항, 그리고 정보 삭제 식별자의 형식 및 사용 방법을 명확히 하며, 재활용 사업자가 정보 삭제 로그를 생성하고, 정보 삭제 식별자를 사용하며, 정보 삭제 행위 및 경영 활동을 규범화하는 데 적합합니다.</p>
+          
+          <p>초안 작성 기관:</p>
+<ul>
+<li>중국전자기술표준화연구원</li>
+<li>중국과학원 정보공학연구소</li>
+<li>SAISI (Shenzhen) Electronic Information Product Standardization Engineering Center Co., Ltd.</li>
+<li>Shanghai Aihuishou Information Technology Group Co., Ltd.</li>
+<li>China Resources Recycling Group Electronic Appliances Co., Ltd.</li>
+<li>중국전자장비기술개발협회</li>
+<li>중국순환경제협회</li>
+<li>Zhongzaichengzi (Beijing) Environmental Protection Technology Development Co., Ltd.</li>
+<li>Beijing SAISI Technology Development Co., Ltd.</li>
+<li>Hangzhou Qili Software Technology Co., Ltd.</li>
+<li>Anyunshudun Technology (Hangzhou) Co., Ltd.</li>
+<li>Sichuan Changhong Greentech Environmental Protection Co., Ltd. 등</li>
+</ul>
+          
+          <p>이 지침은 전자 제품 정보 삭제 로그 형식과 내용을 통일함으로써 전자 제품 재활용 정보 삭제의 과정 관리 및 조직 관리를 규범화하고, 정보 삭제 식별자를 기반으로 한 신뢰 메커니즘을 구축하여 정보 삭제 전 과정의 추적 및 검증 가능성을 실현하고, 재활용 작업 효율성을 높이는 동시에 사용자의 실질적인 권익을 충분히 보장하며, 전자 제품 재활용 및 중고 거래 산업의 건강하고 규범적인 발전을 촉진하는 것을 목표로 합니다.</p>
+          
+          <p>승인 후, 재활용 사업자는 정보 삭제가 완료된 전자 제품 또는 대량 전자 제품의 외부 포장에 정보 삭제 물리적 식별자를 부착할 수 있습니다.</p>
+          
+          <p>정보 삭제가 완료된 중고 전자 제품이 유통되거나 재판매될 때, 정보 삭제 로그 코드를 제공하는 경우 전자 식별자 또는 물리적 식별자를 정보 삭제 로그 코드 중앙에 배치하여 동시에 표시할 수 있습니다.</p>
+          
+          <h3>모바일 스마트 단말 정보 삭제 기술 지침</h3>
+          
+          <p>"모바일 스마트 단말 정보 삭제 기술 지침"은 휴대폰, 태블릿 PC 등 모바일 스마트 단말의 정보 삭제 구체적인 방법, 작동 과정 및 검증 요구사항을 명확히 하며, 모바일 스마트 단말 제품의 정보 삭제 기능 설계, 개발 테스트에 적합하고, 통신 장비 네트워크 접속 허가 감독 기관 등에 참고 자료를 제공할 수 있습니다.</p>
+          
+          <p>초안 작성 기관:</p>
+<ul>
+<li>중국정보통신연구원</li>
+<li>Boding Shihua (Beijing) Technology Co., Ltd.</li>
+<li>Telecommunication Terminal Testing & Certification Co., Ltd.</li>
+<li>OPPO Guangdong Mobile Communications Co., Ltd.</li>
+<li>Beijing Xiaomi Mobile Software Co., Ltd.</li>
+<li>vivo Mobile Communication Co., Ltd.</li>
+<li>Honor Terminal Co., Ltd.</li>
+<li>Beijing Samsung Communication Technology Research Co., Ltd.</li>
+<li>Huawei Terminal Co., Ltd.</li>
+</ul>
+          
+          <p>스마트폰, 태블릿 PC 등 모바일 통신 네트워크에 접속할 수 있는 전자 제품의 정보 삭제 능력 요구사항을 이행하기 위해 전국 네트워크 보안 표준화 기술 위원회는 이 문서를 조직하여 제정했습니다. 정보 삭제 기본 요구사항, 삭제 범위, 삭제 방법, 삭제 작동 과정 등 4가지 측면에서 스마트폰과 태블릿 PC에 대한 관련 요구사항을 제시하고, 각 요구사항의 검증 방법을 명확히 했습니다. 이는 모바일 스마트 단말 제품의 정보 삭제 기능 설계, 개발, 테스트를 지도하는 데 적합하며, 감독 기관 및 제3자 평가 기관에도 참고 자료를 제공할 수 있습니다.</p>
+          
+          <p>모바일 스마트 단말 정보 삭제는 데이터 덮어쓰기(overwrite)와 블록 삭제 두 가지 방법을 포함하며, 구체적인 요구사항은 다음과 같습니다.</p>
+<ul>
+<li>a) 모바일 스마트 단말 저장 매체가 자기 매체인 경우, 데이터 덮어쓰기 방법을 사용하여 사용자 데이터 영역의 정보를 삭제합니다. 데이터 덮어쓰기 시, 사용자 데이터 영역, 다른 영역의 사용자 데이터 논리 주소와 물리 주소의 매핑 관계를 삭제하고, 사용자 데이터 영역의 남은 공간에 최소 3회 덮어쓰기를 수행하며, 최소 1회는 난수 덮어쓰기를 포함해야 합니다. 데이터 덮어쓰기 전체 과정 로그를 출력하거나 보존해야 하며, 여기에는 덮어쓰기 시작 시간, 종료 시간, 명령 정보, 실행 상태 등이 포함되지만 이에 국한되지 않습니다.</li>
+<li>b) 모바일 스마트 단말 저장 매체가 반도체 매체인 경우, 데이터 덮어쓰기 또는 블록 삭제를 선택하여 사용자 데이터 영역의 정보를 삭제할 수 있습니다.
+  <ol>
+    <li>데이터 덮어쓰기를 선택하는 경우, 사용자 데이터 영역, 다른 영역의 사용자 데이터 논리 주소와 물리 주소의 매핑 관계를 삭제하고, 사용자 데이터 영역의 남은 공간에 최소 1회 덮어쓰기를 수행합니다.</li>
+    <li>블록 삭제를 선택하는 경우, 사용자 데이터 영역, 다른 영역의 사용자 데이터 논리 주소와 물리 주소의 매핑 관계를 삭제하고, 사용자 데이터 영역의 남은 공간에 블록 삭제 명령을 실행합니다. 블록 삭제 명령 실행 전체 과정 로그를 출력하거나 보존해야 하며, 여기에는 블록 삭제 시작 시간, 종료 시간, 명령 정보, 실행 상태 등이 포함되지만 이에 국한되지 않습니다.</li>
+  </ol>
+</li>
+</ul>
+          
+          <h3>총평</h3>
+          
+          <p>중국은 전자 제품의 정보 삭제에 대한 3가지 네트워크 보안 표준 실천 지침을 발표하여 데이터 보안을 강화하고 재활용 산업의 건전한 발전을 도모합니다. 이 지침들은 반도체 저장 매체의 블록 삭제 방법, 재활용 과정에서의 정보 삭제 관리, 그리고 모바일 스마트 단말의 정보 삭제 기술 요구사항을 상세히 규정하여 사용자 정보 보호와 산업 투명성을 높이는 데 중점을 둡니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>서론</h3>
+          
+          <p>IT之家 9월 17일 보도에 따르면, CCTV 뉴스는 오늘 "반도체 저장 매체 블록 삭제 기술 지침", "전자 제품 재활용 과정의 정보 삭제 관리 지침", "모바일 스마트 단말 정보 삭제 기술 지침" 등 3가지 네트워크 보안 표준 실천 지침이 공식적으로 발표되었다고 전했습니다.</p>
+          
+          <p>GB 46864-2025 "데이터 보안 기술 전자 제품 정보 삭제 기술 요구사항" 강제 국가 표준의 시행을 지원하고, 전자 제품 정보 삭제 활동을 지도 및 규범화하기 위해 중앙사이버공간관리판공실, 공업정보화부 등 부서의 지도하에 전국 네트워크 보안 표준 위원회 사무국은 30여 개 저장 칩 제조업체, 전자 제품 제조업체, 재활용 사업자 및 제3자 기관 등을 조직하여 3가지 네트워크 보안 표준 실천 지침을 제정했습니다.</p>
+          
+          <p>IT之家는 3가지 지침의 주요 내용을 다음과 같이 요약했습니다.</p>
+          
+          <h3>반도체 저장 매체 블록 삭제 기술 지침</h3>
+          
+          <p>"반도체 저장 매체 블록 삭제 기술 지침"은 반도체 저장 매체 블록 삭제 기술의 구현 방법과 구체적인 작동 명령을 명확히 하며, 반도체 저장 매체 제조업체, 전자 제품 제조업체 등이 블록 삭제 명령을 적용, 호출 및 검증하는 데 적합합니다.</p>
+          
+          <p>초안 작성 기관:</p>
+<ul>
+<li>중국전자기술표준화연구원</li>
+<li>Yangtze Memory Technologies Co., Ltd.</li>
+<li>Shenzhen Longsys Electronics Co., Ltd.</li>
+<li>GigaDevice Semiconductor Inc.</li>
+<li>Huawei Terminal Co., Ltd.</li>
+<li>Honor Terminal Co., Ltd.</li>
+<li>Beijing Xiaomi Mobile Software Co., Ltd.</li>
+</ul>
+          
+          <p>이 실천 지침은 SSD(Solid State Drive), UFS(Universal Flash Storage), eMMC(Embedded MultiMediaCard) 및 RawFlash에 대해 블록 삭제의 적용 범위, 블록 삭제 방법, 삭제 범위, 구현 효과, 반환 상태 및 검증 및 감사 방법을 명확히 하고, 주류 반도체 저장 매체 블록 삭제 명령과 등가 메커니즘 비교표를 제공합니다.</p>
+          
+          <h3>전자 제품 재활용 과정의 정보 삭제 관리 지침</h3>
+          
+          <p>"전자 제품 재활용 과정의 정보 삭제 관리 지침"은 정보 삭제 로그 형식, 내용 및 재활용 관리 요구사항, 그리고 정보 삭제 식별자의 형식 및 사용 방법을 명확히 하며, 재활용 사업자가 정보 삭제 로그를 생성하고, 정보 삭제 식별자를 사용하며, 정보 삭제 행위 및 경영 활동을 규범화하는 데 적합합니다.</p>
+          
+          <p>초안 작성 기관:</p>
+<ul>
+<li>중국전자기술표준화연구원</li>
+<li>중국과학원 정보공학연구소</li>
+<li>SAISI (Shenzhen) Electronic Information Product Standardization Engineering Center Co., Ltd.</li>
+<li>Shanghai Aihuishou Information Technology Group Co., Ltd.</li>
+<li>China Resources Recycling Group Electronic Appliances Co., Ltd.</li>
+<li>중국전자장비기술개발협회</li>
+<li>중국순환경제협회</li>
+<li>Zhongzaichengzi (Beijing) Environmental Protection Technology Development Co., Ltd.</li>
+<li>Beijing SAISI Technology Development Co., Ltd.</li>
+<li>Hangzhou Qili Software Technology Co., Ltd.</li>
+<li>Anyunshudun Technology (Hangzhou) Co., Ltd.</li>
+<li>Sichuan Changhong Greentech Environmental Protection Co., Ltd. 등</li>
+</ul>
+          
+          <p>이 지침은 전자 제품 정보 삭제 로그 형식과 내용을 통일함으로써 전자 제품 재활용 정보 삭제의 과정 관리 및 조직 관리를 규범화하고, 정보 삭제 식별자를 기반으로 한 신뢰 메커니즘을 구축하여 정보 삭제 전 과정의 추적 및 검증 가능성을 실현하고, 재활용 작업 효율성을 높이는 동시에 사용자의 실질적인 권익을 충분히 보장하며, 전자 제품 재활용 및 중고 거래 산업의 건강하고 규범적인 발전을 촉진하는 것을 목표로 합니다.</p>
+          
+          <p>승인 후, 재활용 사업자는 정보 삭제가 완료된 전자 제품 또는 대량 전자 제품의 외부 포장에 정보 삭제 물리적 식별자를 부착할 수 있습니다.</p>
+          
+          <p>정보 삭제가 완료된 중고 전자 제품이 유통되거나 재판매될 때, 정보 삭제 로그 코드를 제공하는 경우 전자 식별자 또는 물리적 식별자를 정보 삭제 로그 코드 중앙에 배치하여 동시에 표시할 수 있습니다.</p>
+          
+          <h3>모바일 스마트 단말 정보 삭제 기술 지침</h3>
+          
+          <p>"모바일 스마트 단말 정보 삭제 기술 지침"은 휴대폰, 태블릿 PC 등 모바일 스마트 단말의 정보 삭제 구체적인 방법, 작동 과정 및 검증 요구사항을 명확히 하며, 모바일 스마트 단말 제품의 정보 삭제 기능 설계, 개발 테스트에 적합하고, 통신 장비 네트워크 접속 허가 감독 기관 등에 참고 자료를 제공할 수 있습니다.</p>
+          
+          <p>초안 작성 기관:</p>
+<ul>
+<li>중국정보통신연구원</li>
+<li>Boding Shihua (Beijing) Technology Co., Ltd.</li>
+<li>Telecommunication Terminal Testing & Certification Co., Ltd.</li>
+<li>OPPO Guangdong Mobile Communications Co., Ltd.</li>
+<li>Beijing Xiaomi Mobile Software Co., Ltd.</li>
+<li>vivo Mobile Communication Co., Ltd.</li>
+<li>Honor Terminal Co., Ltd.</li>
+<li>Beijing Samsung Communication Technology Research Co., Ltd.</li>
+<li>Huawei Terminal Co., Ltd.</li>
+</ul>
+          
+          <p>스마트폰, 태블릿 PC 등 모바일 통신 네트워크에 접속할 수 있는 전자 제품의 정보 삭제 능력 요구사항을 이행하기 위해 전국 네트워크 보안 표준화 기술 위원회는 이 문서를 조직하여 제정했습니다. 정보 삭제 기본 요구사항, 삭제 범위, 삭제 방법, 삭제 작동 과정 등 4가지 측면에서 스마트폰과 태블릿 PC에 대한 관련 요구사항을 제시하고, 각 요구사항의 검증 방법을 명확히 했습니다. 이는 모바일 스마트 단말 제품의 정보 삭제 기능 설계, 개발, 테스트를 지도하는 데 적합하며, 감독 기관 및 제3자 평가 기관에도 참고 자료를 제공할 수 있습니다.</p>
+          
+          <p>모바일 스마트 단말 정보 삭제는 데이터 덮어쓰기(overwrite)와 블록 삭제 두 가지 방법을 포함하며, 구체적인 요구사항은 다음과 같습니다.</p>
+<ul>
+<li>a) 모바일 스마트 단말 저장 매체가 자기 매체인 경우, 데이터 덮어쓰기 방법을 사용하여 사용자 데이터 영역의 정보를 삭제합니다. 데이터 덮어쓰기 시, 사용자 데이터 영역, 다른 영역의 사용자 데이터 논리 주소와 물리 주소의 매핑 관계를 삭제하고, 사용자 데이터 영역의 남은 공간에 최소 3회 덮어쓰기를 수행하며, 최소 1회는 난수 덮어쓰기를 포함해야 합니다. 데이터 덮어쓰기 전체 과정 로그를 출력하거나 보존해야 하며, 여기에는 덮어쓰기 시작 시간, 종료 시간, 명령 정보, 실행 상태 등이 포함되지만 이에 국한되지 않습니다.</li>
+<li>b) 모바일 스마트 단말 저장 매체가 반도체 매체인 경우, 데이터 덮어쓰기 또는 블록 삭제를 선택하여 사용자 데이터 영역의 정보를 삭제할 수 있습니다.
+  <ol>
+    <li>데이터 덮어쓰기를 선택하는 경우, 사용자 데이터 영역, 다른 영역의 사용자 데이터 논리 주소와 물리 주소의 매핑 관계를 삭제하고, 사용자 데이터 영역의 남은 공간에 최소 1회 덮어쓰기를 수행합니다.</li>
+    <li>블록 삭제를 선택하는 경우, 사용자 데이터 영역, 다른 영역의 사용자 데이터 논리 주소와 물리 주소의 매핑 관계를 삭제하고, 사용자 데이터 영역의 남은 공간에 블록 삭제 명령을 실행합니다. 블록 삭제 명령 실행 전체 과정 로그를 출력하거나 보존해야 하며, 여기에는 블록 삭제 시작 시간, 종료 시간, 명령 정보, 실행 상태 등이 포함되지만 이에 국한되지 않습니다.</li>
+  </ol>
+</li>
+</ul>
+          
+          <h3>총평</h3>
+          
+          <p>중국은 전자 제품의 정보 삭제에 대한 3가지 네트워크 보안 표준 실천 지침을 발표하여 데이터 보안을 강화하고 재활용 산업의 건전한 발전을 도모합니다. 이 지침들은 반도체 저장 매체의 블록 삭제 방법, 재활용 과정에서의 정보 삭제 관리, 그리고 모바일 스마트 단말의 정보 삭제 기술 요구사항을 상세히 규정하여 사용자 정보 보호와 산업 투명성을 높이는 데 중점을 둡니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>서론</h3>
+          
+          <p>IT之家 9월 17일 보도에 따르면, CCTV 뉴스는 오늘 "반도체 저장 매체 블록 삭제 기술 지침", "전자 제품 재활용 과정의 정보 삭제 관리 지침", "모바일 스마트 단말 정보 삭제 기술 지침" 등 3가지 네트워크 보안 표준 실천 지침이 공식적으로 발표되었다고 전했습니다.</p>
+          
+          <p>GB 46864-2025 "데이터 보안 기술 전자 제품 정보 삭제 기술 요구사항" 강제 국가 표준의 시행을 지원하고, 전자 제품 정보 삭제 활동을 지도 및 규범화하기 위해 중앙사이버공간관리판공실, 공업정보화부 등 부서의 지도하에 전국 네트워크 보안 표준 위원회 사무국은 30여 개 저장 칩 제조업체, 전자 제품 제조업체, 재활용 사업자 및 제3자 기관 등을 조직하여 3가지 네트워크 보안 표준 실천 지침을 제정했습니다.</p>
+          
+          <p>IT之家는 3가지 지침의 주요 내용을 다음과 같이 요약했습니다.</p>
+          
+          <h3>반도체 저장 매체 블록 삭제 기술 지침</h3>
+          
+          <p>"반도체 저장 매체 블록 삭제 기술 지침"은 반도체 저장 매체 블록 삭제 기술의 구현 방법과 구체적인 작동 명령을 명확히 하며, 반도체 저장 매체 제조업체, 전자 제품 제조업체 등이 블록 삭제 명령을 적용, 호출 및 검증하는 데 적합합니다.</p>
+          
+          <p>초안 작성 기관:</p>
+<ul>
+<li>중국전자기술표준화연구원</li>
+<li>Yangtze Memory Technologies Co., Ltd.</li>
+<li>Shenzhen Longsys Electronics Co., Ltd.</li>
+<li>GigaDevice Semiconductor Inc.</li>
+<li>Huawei Terminal Co., Ltd.</li>
+<li>Honor Terminal Co., Ltd.</li>
+<li>Beijing Xiaomi Mobile Software Co., Ltd.</li>
+</ul>
+          
+          <p>이 실천 지침은 SSD(Solid State Drive), UFS(Universal Flash Storage), eMMC(Embedded MultiMediaCard) 및 RawFlash에 대해 블록 삭제의 적용 범위, 블록 삭제 방법, 삭제 범위, 구현 효과, 반환 상태 및 검증 및 감사 방법을 명확히 하고, 주류 반도체 저장 매체 블록 삭제 명령과 등가 메커니즘 비교표를 제공합니다.</p>
+          
+          <h3>전자 제품 재활용 과정의 정보 삭제 관리 지침</h3>
+          
+          <p>"전자 제품 재활용 과정의 정보 삭제 관리 지침"은 정보 삭제 로그 형식, 내용 및 재활용 관리 요구사항, 그리고 정보 삭제 식별자의 형식 및 사용 방법을 명확히 하며, 재활용 사업자가 정보 삭제 로그를 생성하고, 정보 삭제 식별자를 사용하며, 정보 삭제 행위 및 경영 활동을 규범화하는 데 적합합니다.</p>
+          
+          <p>초안 작성 기관:</p>
+<ul>
+<li>중국전자기술표준화연구원</li>
+<li>중국과학원 정보공학연구소</li>
+<li>SAISI (Shenzhen) Electronic Information Product Standardization Engineering Center Co., Ltd.</li>
+<li>Shanghai Aihuishou Information Technology Group Co., Ltd.</li>
+<li>China Resources Recycling Group Electronic Appliances Co., Ltd.</li>
+<li>중국전자장비기술개발협회</li>
+<li>중국순환경제협회</li>
+<li>Zhongzaichengzi (Beijing) Environmental Protection Technology Development Co., Ltd.</li>
+<li>Beijing SAISI Technology Development Co., Ltd.</li>
+<li>Hangzhou Qili Software Technology Co., Ltd.</li>
+<li>Anyunshudun Technology (Hangzhou) Co., Ltd.</li>
+<li>Sichuan Changhong Greentech Environmental Protection Co., Ltd. 등</li>
+</ul>
+          
+          <p>이 지침은 전자 제품 정보 삭제 로그 형식과 내용을 통일함으로써 전자 제품 재활용 정보 삭제의 과정 관리 및 조직 관리를 규범화하고, 정보 삭제 식별자를 기반으로 한 신뢰 메커니즘을 구축하여 정보 삭제 전 과정의 추적 및 검증 가능성을 실현하고, 재활용 작업 효율성을 높이는 동시에 사용자의 실질적인 권익을 충분히 보장하며, 전자 제품 재활용 및 중고 거래 산업의 건강하고 규범적인 발전을 촉진하는 것을 목표로 합니다.</p>
+          
+          <p>승인 후, 재활용 사업자는 정보 삭제가 완료된 전자 제품 또는 대량 전자 제품의 외부 포장에 정보 삭제 물리적 식별자를 부착할 수 있습니다.</p>
+          
+          <p>정보 삭제가 완료된 중고 전자 제품이 유통되거나 재판매될 때, 정보 삭제 로그 코드를 제공하는 경우 전자 식별자 또는 물리적 식별자를 정보 삭제 로그 코드 중앙에 배치하여 동시에 표시할 수 있습니다.</p>
+          
+          <h3>모바일 스마트 단말 정보 삭제 기술 지침</h3>
+          
+          <p>"모바일 스마트 단말 정보 삭제 기술 지침"은 휴대폰, 태블릿 PC 등 모바일 스마트 단말의 정보 삭제 구체적인 방법, 작동 과정 및 검증 요구사항을 명확히 하며, 모바일 스마트 단말 제품의 정보 삭제 기능 설계, 개발 테스트에 적합하고, 통신 장비 네트워크 접속 허가 감독 기관 등에 참고 자료를 제공할 수 있습니다.</p>
+          
+          <p>초안 작성 기관:</p>
+<ul>
+<li>중국정보통신연구원</li>
+<li>Boding Shihua (Beijing) Technology Co., Ltd.</li>
+<li>Telecommunication Terminal Testing & Certification Co., Ltd.</li>
+<li>OPPO Guangdong Mobile Communications Co., Ltd.</li>
+<li>Beijing Xiaomi Mobile Software Co., Ltd.</li>
+<li>vivo Mobile Communication Co., Ltd.</li>
+<li>Honor Terminal Co., Ltd.</li>
+<li>Beijing Samsung Communication Technology Research Co., Ltd.</li>
+<li>Huawei Terminal Co., Ltd.</li>
+</ul>
+          
+          <p>스마트폰, 태블릿 PC 등 모바일 통신 네트워크에 접속할 수 있는 전자 제품의 정보 삭제 능력 요구사항을 이행하기 위해 전국 네트워크 보안 표준화 기술 위원회는 이 문서를 조직하여 제정했습니다. 정보 삭제 기본 요구사항, 삭제 범위, 삭제 방법, 삭제 작동 과정 등 4가지 측면에서 스마트폰과 태블릿 PC에 대한 관련 요구사항을 제시하고, 각 요구사항의 검증 방법을 명확히 했습니다. 이는 모바일 스마트 단말 제품의 정보 삭제 기능 설계, 개발, 테스트를 지도하는 데 적합하며, 감독 기관 및 제3자 평가 기관에도 참고 자료를 제공할 수 있습니다.</p>
+          
+          <p>모바일 스마트 단말 정보 삭제는 데이터 덮어쓰기(overwrite)와 블록 삭제 두 가지 방법을 포함하며, 구체적인 요구사항은 다음과 같습니다.</p>
+<ul>
+<li>a) 모바일 스마트 단말 저장 매체가 자기 매체인 경우, 데이터 덮어쓰기 방법을 사용하여 사용자 데이터 영역의 정보를 삭제합니다. 데이터 덮어쓰기 시, 사용자 데이터 영역, 다른 영역의 사용자 데이터 논리 주소와 물리 주소의 매핑 관계를 삭제하고, 사용자 데이터 영역의 남은 공간에 최소 3회 덮어쓰기를 수행하며, 최소 1회는 난수 덮어쓰기를 포함해야 합니다. 데이터 덮어쓰기 전체 과정 로그를 출력하거나 보존해야 하며, 여기에는 덮어쓰기 시작 시간, 종료 시간, 명령 정보, 실행 상태 등이 포함되지만 이에 국한되지 않습니다.</li>
+<li>b) 모바일 스마트 단말 저장 매체가 반도체 매체인 경우, 데이터 덮어쓰기 또는 블록 삭제를 선택하여 사용자 데이터 영역의 정보를 삭제할 수 있습니다.
+  <ol>
+    <li>데이터 덮어쓰기를 선택하는 경우, 사용자 데이터 영역, 다른 영역의 사용자 데이터 논리 주소와 물리 주소의 매핑 관계를 삭제하고, 사용자 데이터 영역의 남은 공간에 최소 1회 덮어쓰기를 수행합니다.</li>
+    <li>블록 삭제를 선택하는 경우, 사용자 데이터 영역, 다른 영역의 사용자 데이터 논리 주소와 물리 주소의 매핑 관계를 삭제하고, 사용자 데이터 영역의 남은 공간에 블록 삭제 명령을 실행합니다. 블록 삭제 명령 실행 전체 과정 로그를 출력하거나 보존해야 하며, 여기에는 블록 삭제 시작 시간, 종료 시간, 명령 정보, 실행 상태 등이 포함되지만 이에 국한되지 않습니다.</li>
+  </ol>
+</li>
+</ul>
+          
+          <h3>총평</h3>
+          
+          <p>중국은 전자 제품의 정보 삭제에 대한 3가지 네트워크 보안 표준 실천 지침을 발표하여 데이터 보안을 강화하고 재활용 산업의 건전한 발전을 도모합니다. 이 지침들은 반도체 저장 매체의 블록 삭제 방법, 재활용 과정에서의 정보 삭제 관리, 그리고 모바일 스마트 단말의 정보 삭제 기술 요구사항을 상세히 규정하여 사용자 정보 보호와 산업 투명성을 높이는 데 중점을 둡니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">저장 유형</div>
+                <div class="caption-lang" data-lang="en">Storage type</div>
+                <div class="caption-lang" data-lang="ja">ストレージタイプ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">블록 소거 관련 명령 및</div>
+                <div class="caption-lang" data-lang="en">Block erase related commands and</div>
+                <div class="caption-lang" data-lang="ja">ブロック消去関連コマンドおよび</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">매개변수</div>
+                <div class="caption-lang" data-lang="en">Parameters</div>
+                <div class="caption-lang" data-lang="ja">パラメータ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">논리 장치 수준</div>
+                <div class="caption-lang" data-lang="en">Logical unit level</div>
+                <div class="caption-lang" data-lang="ja">論理ユニットレベル</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">시스템 수준</div>
+                <div class="caption-lang" data-lang="en">System level</div>
+                <div class="caption-lang" data-lang="ja">システムレベル</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">적용 범위 설명</div>
+                <div class="caption-lang" data-lang="en">Coverage description</div>
+                <div class="caption-lang" data-lang="ja">適用範囲の説明</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">장비 사양서 선언,</div>
+                <div class="caption-lang" data-lang="en">Equipment specification declaration,</div>
+                <div class="caption-lang" data-lang="ja">機器仕様書宣言、</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">영역 실행 블록 소거</div>
+                <div class="caption-lang" data-lang="en">Area execution block erase</div>
+                <div class="caption-lang" data-lang="ja">領域実行ブロック消去</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">표준 버전</div>
+                <div class="caption-lang" data-lang="en">Standard version</div>
+                <div class="caption-lang" data-lang="ja">標準バージョン</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">적용 범위 설명</div>
+                <div class="caption-lang" data-lang="en">Coverage description</div>
+                <div class="caption-lang" data-lang="ja">適用範囲の説明</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">매핑 해제된 용도</div>
+                <div class="caption-lang" data-lang="en">Unmapped use</div>
+                <div class="caption-lang" data-lang="ja">マップ解除された用途</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">사용자 주소 공간.</div>
+                <div class="caption-lang" data-lang="en">User address space.</div>
+                <div class="caption-lang" data-lang="ja">ユーザーアドレス空間。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">사용자 주소 공간.</div>
+                <div class="caption-lang" data-lang="en">User address space.</div>
+                <div class="caption-lang" data-lang="ja">ユーザーアドレス空間。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">블록 소거 관련 메커니즘</div>
+                <div class="caption-lang" data-lang="en">Block erase related mechanisms</div>
+                <div class="caption-lang" data-lang="ja">ブロック消去関連メカニズム</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이상</div>
+                <div class="caption-lang" data-lang="en">and above</div>
+                <div class="caption-lang" data-lang="ja">以上</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">제어 방식</div>
+                <div class="caption-lang" data-lang="en">Control method</div>
+                <div class="caption-lang" data-lang="ja">制御方式</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이미 매핑 해제된 사용자 주소 공간을 처리합니다.</div>
+                <div class="caption-lang" data-lang="en">Handle the user address space that has been unmapped.</div>
+                <div class="caption-lang" data-lang="ja">既にマップ解除されたユーザーアドレス空間を処理します。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">매핑 해제 목적</div>
+                <div class="caption-lang" data-lang="en">Purpose of unmapping</div>
+                <div class="caption-lang" data-lang="ja">マップ解除の目的</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.png" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">저장 유형</div>
+                <div class="caption-lang" data-lang="en">Storage type</div>
+                <div class="caption-lang" data-lang="ja">ストレージタイプ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">일반적인 명령</div>
+                <div class="caption-lang" data-lang="en">Typical commands</div>
+                <div class="caption-lang" data-lang="ja">典型的なコマンド</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">명령 시퀀스 예시</div>
+                <div class="caption-lang" data-lang="en">Example command sequence</div>
+                <div class="caption-lang" data-lang="ja">コマンドシーケンスの例</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">장치에 지정된 행 주소로,</div>
+                <div class="caption-lang" data-lang="en">To the row address specified by the device,</div>
+                <div class="caption-lang" data-lang="ja">デバイスで指定された行アドレスに、</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">행 주소 필드, 마지막으로 루프</div>
+                <div class="caption-lang" data-lang="en">row address field, and finally loop</div>
+                <div class="caption-lang" data-lang="ja">行アドレスフィールド、最後にループ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">블록 지우기</div>
+                <div class="caption-lang" data-lang="en">Erase block</div>
+                <div class="caption-lang" data-lang="ja">ブロック消去</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">섹터 또는 블록</div>
+                <div class="caption-lang" data-lang="en">Sector or block</div>
+                <div class="caption-lang" data-lang="ja">セクタまたはブロック</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">쓰기 실행.</div>
+                <div class="caption-lang" data-lang="en">Write execution.</div>
+                <div class="caption-lang" data-lang="ja">書き込み実行。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">장치 사양에 따라</div>
+                <div class="caption-lang" data-lang="en">According to device specifications</div>
+                <div class="caption-lang" data-lang="ja">デバイスの仕様書に従って</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.png" alt="이미지 4" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">저장 유형</div>
+                <div class="caption-lang" data-lang="en">Storage Type</div>
+                <div class="caption-lang" data-lang="ja">ストレージタイプ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">일반적인 명령</div>
+                <div class="caption-lang" data-lang="en">Typical Commands</div>
+                <div class="caption-lang" data-lang="ja">典型的なコマンド</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">명령 시퀀스 예시</div>
+                <div class="caption-lang" data-lang="en">Command Sequence Example</div>
+                <div class="caption-lang" data-lang="ja">コマンドシーケンスの例</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">소거 단위</div>
+                <div class="caption-lang" data-lang="en">Erase Granularity</div>
+                <div class="caption-lang" data-lang="ja">消去粒度</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">그리고 상태 확인 완료를 읽습니다.</div>
+                <div class="caption-lang" data-lang="en">and read status to confirm completion;</div>
+                <div class="caption-lang" data-lang="ja">そして、ステータスを読み取り完了を確認します。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">설명</div>
+                <div class="caption-lang" data-lang="en">Description</div>
+                <div class="caption-lang" data-lang="ja">説明</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">집합 식별 및 장치</div>
+                <div class="caption-lang" data-lang="en">Set ID and Device</div>
+                <div class="caption-lang" data-lang="ja">セットIDとデバイス</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">사양서 실행.</div>
+                <div class="caption-lang" data-lang="en">Datasheet execution.</div>
+                <div class="caption-lang" data-lang="ja">仕様書実行。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">6주기 섹터 소거 시퀀스,</div>
+                <div class="caption-lang" data-lang="en">Six-cycle sector erase sequence,</div>
+                <div class="caption-lang" data-lang="ja">6サイクルセクター消去シーケンス、</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">소거 오퍼레이션 코드, 대규모 소거 선택</div>
+                <div class="caption-lang" data-lang="en">select erase opcode, erase large</div>
+                <div class="caption-lang" data-lang="ja">消去オペコード、大規模消去を選択</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">섹터 또는 블록</div>
+                <div class="caption-lang" data-lang="en">Sector or Block</div>
+                <div class="caption-lang" data-lang="ja">セクターまたはブロック</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">크기 및 주소 형식; 다음을 통해</div>
+                <div class="caption-lang" data-lang="en">size and address format; through</div>
+                <div class="caption-lang" data-lang="ja">サイズとアドレス形式；を通じて</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">바쁜 상태를 알리고, 오류</div>
+                <div class="caption-lang" data-lang="en">report busy status, error</div>
+                <div class="caption-lang" data-lang="ja">ビジー状態を報告し、エラー</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">비트는 장치에 따라 정의됩니다.</div>
+                <div class="caption-lang" data-lang="en">bits are defined by the device.</div>
+                <div class="caption-lang" data-lang="ja">ビットはデバイスによって定義されます。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.png" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/003/747.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-09"
+               class="archive-btn active">
+              2026-09
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

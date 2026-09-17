@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Apple iOS 27.2 베타 1 업데이트 요약: 건강 앱 업그레이드, Siri AI 확장, 중국 사용자에게 저장 공간 덮어쓰기 삭제 옵션 제공</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="Apple iOS 27.2 베타 1 업데이트 요약: 건강 앱 업그레이드, Siri AI 확장, 중국 사용자에게 저장 공간 덮어쓰기 삭제 옵션 제공">
+  <meta name="title-zh" content="Apple iOS 27.2 베타 1 업데이트 요약: 건강 앱 업그레이드, Siri AI 확장, 중국 사용자에게 저장 공간 덮어쓰기 삭제 옵션 제공">
+  <meta name="title-ja" content="Apple iOS 27.2 베타 1 업데이트 요약: 건강 앱 업그레이드, Siri AI 확장, 중국 사용자에게 저장 공간 덮어쓰기 삭제 옵션 제공">
+  <meta name="title-en" content="Apple iOS 27.2 베타 1 업데이트 요약: 건강 앱 업그레이드, Siri AI 확장, 중국 사용자에게 저장 공간 덮어쓰기 삭제 옵션 제공">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260910b">
+<script defer src="../../../../assets/news.js?v=20260910b"></script>
+<script defer src="../../../../assets/article.js?v=20260910b"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Apple iOS 27.2 베타 1 업데이트 요약: 건강 앱 업그레이드, Siri AI 확장, 중국 사용자에게 저장 공간 덮어쓰기 삭제 옵션 제공"
+            data-zh="Apple iOS 27.2 베타 1 업데이트 요약: 건강 앱 업그레이드, Siri AI 확장, 중국 사용자에게 저장 공간 덮어쓰기 삭제 옵션 제공"
+            data-ja="Apple iOS 27.2 베타 1 업데이트 요약: 건강 앱 업그레이드, Siri AI 확장, 중국 사용자에게 저장 공간 덮어쓰기 삭제 옵션 제공"
+            data-en="Apple iOS 27.2 베타 1 업데이트 요약: 건강 앱 업그레이드, Siri AI 확장, 중국 사용자에게 저장 공간 덮어쓰기 삭제 옵션 제공">Apple iOS 27.2 베타 1 업데이트 요약: 건강 앱 업그레이드, Siri AI 확장, 중국 사용자에게 저장 공간 덮어쓰기 삭제 옵션 제공</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-09-18
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Apple iOS 27.2 베타 1 업데이트 요약: 건강 앱 업그레이드, Siri AI 확장, 중국 사용자에게 저장 공간 덮어쓰기 삭제 옵션 제공" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>iOS/iPadOS 27.2 개발자 베타 업데이트</h3>
+          
+          <p>Apple은 iPhone 및 iPad 사용자에게 iOS/iPadOS 27.2 개발자 프리뷰 베타 업데이트(내부 빌드 번호: 24B5084k)를 배포했습니다. MacRumors 등 여러 매체 보도를 종합하여 이번 업데이트에 포함된 다양한 신기능 및 특성을 정리했습니다.</p>
+          
+          <p>업데이트 버전과 관련하여 Apple은 이번에 iOS 27.1 업데이트를 건너뛰었습니다. 이는 Apple의 첫 폴더블 폰인 iPhone Duo와 관련이 있을 것으로 예상됩니다. Apple은 이전에 해당 기기가 10월 23일에 출시되며 iOS 27.1 시스템이 사전 설치될 것이라고 발표했습니다. 만약 iOS 27.1 베타가 미리 공개되었다면, 아직 발표되지 않은 기기의 일부 세부 정보가 유출될 수 있었을 것입니다.</p>
+          
+          <h3>Siri AI 언어 지원 확장</h3>
+          
+          <p>Apple Siri AI는 초기에는 영어만 지원했지만, iOS 27.2 베타 1 업데이트에서는 Apple이 개발자들에게 프랑스어, 일본어, 한국어, 포르투갈어 또는 스페인어를 테스트하도록 초대했습니다.</p>
+          
+          <h3>건강(Health) 앱 업데이트</h3>
+          
+          <p>이번 베타 업데이트에서 Apple은 건강(Health) 앱을 업그레이드하여 개발자들이 Insights(통찰) 및 Longevity(건강 수명) 탭을 테스트하도록 초대했습니다.</p>
+          
+          <p>"통찰" 탭은 사용자의 현재 건강 정보를 표시하는 데 사용되며, "건강 수명" 탭은 사용자의 장기 건강 데이터를 분석합니다. 여기에는 Health Age(건강 나이) 기능이 포함되어 일부 건강 지표가 사용자의 실제 나이에 비해 어떻게 변화하는지 보여줍니다.</p>
+          
+          <p>"건강 나이" 평가 기능은 Apple Watch가 장기간 기록한 건강 데이터를 사용자의 실제 나이와 비교하여, 동년배 대비 신체 상태에 대한 참고 자료를 제공합니다.</p>
+          
+          <p>이 기능은 주로 Apple Watch가 기록한 다음 4가지 지표를 사용합니다.</p>
+<ul>
+<li>최대 산소 섭취량(VO2 max): 심폐 지구력과 운동 시 산소 활용 능력을 반영합니다.</li>
+<li>안정 시 심박수: 활동하지 않을 때의 심박수로, 기본적인 심혈관 상태 변화를 관찰하는 데 사용될 수 있습니다.</li>
+<li>수면: 수면 상태를 반영하는 데 사용됩니다.</li>
+<li>심박 변이도(HRV): 인접한 심박 간격의 변동으로, 회복 및 스트레스 관련 신체 신호를 관찰하는 데 자주 사용됩니다.</li>
+</ul>
+<p>시스템은 이러한 데이터를 사용자의 실제 나이와 비교하여 "건강 나이"라는 참고 결과를 생성합니다. 이 기능은 Apple Watch Series 12 및 Apple Watch Ultra 4 전용이 아니며, 기존 Apple Watch가 위 4가지 데이터를 안정적으로 제공할 수 있다면 이론적으로 데이터 소스로 활용될 수 있습니다.</p>
+          
+          <h3>Apple Intelligence 통화 기능</h3>
+          
+          <p>Apple은 "Apple Intelligence" 통화 상황 기능에 기념일 알림을 추가했습니다. 만약 사용자가 특정인에게 전화를 걸고, "연락처" 앱에 해당인의 기념일이 설정되어 있다면, "전화" 앱에서 알림을 받게 됩니다.</p>
+          
+          <h3>CarPlay Ultra 테마</h3>
+          
+          <p>CarPlay Ultra는 배경화면, 계기판 스타일, 색상 등 다양한 테마 옵션을 제공합니다. 코드에 따르면, 지원되는 차량에서는 주변 조명 색상도 선택한 테마 색상과 일치하게 됩니다.</p>
+          
+          <h3>Apple TV 앱 프로필 기능 확장</h3>
+          
+          <p>Apple은 iOS 27.2에서 Apple TV 앱의 프로필 기능을 iPhone 및 iPad로 확장했습니다. Apple TV 앱 사용자는 계정 설정에서 프로필을 생성하고 이 프로필들 사이를 전환할 수 있습니다.</p>
+          
+          <p>프로필에는 이름, 프로필 등급, 그리고 사용자가 어린이인지 여부에 대한 정보만 포함하면 됩니다.</p>
+          
+          <p>어린이용 계정을 생성하면 기본적으로 콘텐츠가 PG 등급으로 제한되지만, 사용자는 설정을 사용자 정의하여 더 세밀하게 제어할 수 있습니다. 자녀의 연령에 따라 적합한 TV 프로그램 및 영화의 연령 등급을 선택할 수 있습니다.</p>
+          
+          <h3>FaceTime 수어 통역 API</h3>
+          
+          <p>Apple은 5월에 FaceTime에 새로운 API를 추가하여 수어 통역 앱 개발자가 진행 중인 영상 통화에 수동 통역을 추가할 수 있도록 할 것이라고 밝혔습니다.</p>
+          
+          <h3>시계 앱 알람 표시 변경</h3>
+          
+          <p>Apple은 시계 앱에서 알람 표시 방식을 조정했습니다. 이제 오전과 오후의 표시 글꼴이 시간 글꼴보다 작아졌습니다.</p>
+          
+          <h3>음악 앱 디자인 변경</h3>
+          
+          <p>음악 앱에서 Apple은 일부 빨간색 장식을 제거했습니다. "보관함"의 "재생" 및 "셔플" 버튼과 보관함 각 부분 옆의 모든 아이콘이 빨간색에서 검은색으로 변경되었습니다.</p>
+          
+          <h3>설정 앱 Siri 접근 권한 변경</h3>
+          
+          <p>"설정" 앱의 "Siri 접근 권한"이 이제 "제외된 앱"으로 이름이 변경되었습니다. "앱 추가"를 클릭하면 목록이 표시되며, 사용자는 이전에는 앱을 하나씩 제외해야 했던 것과 달리 한 번에 여러 앱을 제외할 수 있습니다.</p>
+          
+          <h3>TV 앱 "다음 재생" 변경</h3>
+          
+          <p>Apple은 "다음 재생"을 "새 에피소드"로 이름을 변경하고 그 아래에 "계속 재생" 옵션을 추가했습니다.</p>
+          
+          <h3>EU App Tracking Transparency 변경</h3>
+          
+          <p>유럽 연합에서는 Apple과 독일 연방 카르텔청 간의 합의에 따라 iOS 27.2부터 개발자가 대체 App Tracking Transparency 시스템 프롬프트를 사용할 수 있습니다. 독일, 프랑스, 이탈리아, 폴란드, 루마니아에서는 법적 요구 사항으로 인해 앱 배포 시 대체 시스템 프롬프트만 사용할 수 있습니다.</p>
+          
+          <h3>iPhone 데이터 완전 삭제 옵션 (중국 한정)</h3>
+          
+          <p>iOS 27.2 베타는 새로운 iPhone 지우기 옵션을 언급하고 있습니다. 이는 지우기 후 사용되지 않는 부분을 포함하여 전체 저장 공간을 빈 데이터로 덮어쓸 수 있습니다.</p>
+          
+          <p>Apple은 이 과정이 표준 지우기보다 시간이 오래 걸릴 수 있으며 기기 수명에 영향을 미칠 수 있다고 경고했습니다. 또한, 이 기능은 현재 중국에서 판매되는 iPhone에만 적용되는 것으로 보입니다.</p>
+          
+          <p>이 기능은 2027년 1월 1일부터 발효되는 중국의 새로운 표준(GB 46864-2025)과 관련이 있습니다. 이 표준은 스마트폰과 같은 전자 기기가 저장 공간 덮어쓰기와 같은 보다 철저한 데이터 삭제 방식을 제공하도록 요구합니다. 물론, iPad, HomePod 및 Apple Vision Pro도 향후 지원될 수 있습니다.</p>
+          
+          <p>이 표준은 중앙 사이버 공간 관리국(CAC)이 제안하고 전국 네트워크 보안 표준화 기술 위원회가 제정했으며, 휴대폰, 태블릿, 노트북 등 비휘발성 저장 장치가 있는 거의 모든 전자 제품을 포괄합니다. 이는 중고 기기 유통을 더 안전하고 규범적으로 만들어 사진, 계정, 비밀번호가 다음 소유자에게 유출되는 것을 방지하기 위함입니다. 이 표준은 사용자 파일, 연락처, 계정 비밀번호, 암호화 키, Wi-Fi 기록, NFC 연결 카드 등 개인 정보 유출 가능성이 있는 모든 내용을 삭제 범위에 포함하도록 요구합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>iOS/iPadOS 27.2 개발자 베타 업데이트는 Siri AI의 다국어 지원 확장, 건강 앱의 "건강 나이" 기능 도입, Apple TV 앱의 프로필 기능 확장 등 다양한 개선 사항을 포함합니다. 특히, 중국 시장을 위한 iPhone 데이터 완전 삭제 옵션은 새로운 규제 환경에 대응하는 Apple의 노력을 보여줍니다. 전반적으로 사용자 경험 향상과 개인 정보 보호 강화에 중점을 둔 업데이트입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>iOS/iPadOS 27.2 개발자 베타 업데이트</h3>
+          
+          <p>Apple은 iPhone 및 iPad 사용자에게 iOS/iPadOS 27.2 개발자 프리뷰 베타 업데이트(내부 빌드 번호: 24B5084k)를 배포했습니다. MacRumors 등 여러 매체 보도를 종합하여 이번 업데이트에 포함된 다양한 신기능 및 특성을 정리했습니다.</p>
+          
+          <p>업데이트 버전과 관련하여 Apple은 이번에 iOS 27.1 업데이트를 건너뛰었습니다. 이는 Apple의 첫 폴더블 폰인 iPhone Duo와 관련이 있을 것으로 예상됩니다. Apple은 이전에 해당 기기가 10월 23일에 출시되며 iOS 27.1 시스템이 사전 설치될 것이라고 발표했습니다. 만약 iOS 27.1 베타가 미리 공개되었다면, 아직 발표되지 않은 기기의 일부 세부 정보가 유출될 수 있었을 것입니다.</p>
+          
+          <h3>Siri AI 언어 지원 확장</h3>
+          
+          <p>Apple Siri AI는 초기에는 영어만 지원했지만, iOS 27.2 베타 1 업데이트에서는 Apple이 개발자들에게 프랑스어, 일본어, 한국어, 포르투갈어 또는 스페인어를 테스트하도록 초대했습니다.</p>
+          
+          <h3>건강(Health) 앱 업데이트</h3>
+          
+          <p>이번 베타 업데이트에서 Apple은 건강(Health) 앱을 업그레이드하여 개발자들이 Insights(통찰) 및 Longevity(건강 수명) 탭을 테스트하도록 초대했습니다.</p>
+          
+          <p>"통찰" 탭은 사용자의 현재 건강 정보를 표시하는 데 사용되며, "건강 수명" 탭은 사용자의 장기 건강 데이터를 분석합니다. 여기에는 Health Age(건강 나이) 기능이 포함되어 일부 건강 지표가 사용자의 실제 나이에 비해 어떻게 변화하는지 보여줍니다.</p>
+          
+          <p>"건강 나이" 평가 기능은 Apple Watch가 장기간 기록한 건강 데이터를 사용자의 실제 나이와 비교하여, 동년배 대비 신체 상태에 대한 참고 자료를 제공합니다.</p>
+          
+          <p>이 기능은 주로 Apple Watch가 기록한 다음 4가지 지표를 사용합니다.</p>
+<ul>
+<li>최대 산소 섭취량(VO2 max): 심폐 지구력과 운동 시 산소 활용 능력을 반영합니다.</li>
+<li>안정 시 심박수: 활동하지 않을 때의 심박수로, 기본적인 심혈관 상태 변화를 관찰하는 데 사용될 수 있습니다.</li>
+<li>수면: 수면 상태를 반영하는 데 사용됩니다.</li>
+<li>심박 변이도(HRV): 인접한 심박 간격의 변동으로, 회복 및 스트레스 관련 신체 신호를 관찰하는 데 자주 사용됩니다.</li>
+</ul>
+<p>시스템은 이러한 데이터를 사용자의 실제 나이와 비교하여 "건강 나이"라는 참고 결과를 생성합니다. 이 기능은 Apple Watch Series 12 및 Apple Watch Ultra 4 전용이 아니며, 기존 Apple Watch가 위 4가지 데이터를 안정적으로 제공할 수 있다면 이론적으로 데이터 소스로 활용될 수 있습니다.</p>
+          
+          <h3>Apple Intelligence 통화 기능</h3>
+          
+          <p>Apple은 "Apple Intelligence" 통화 상황 기능에 기념일 알림을 추가했습니다. 만약 사용자가 특정인에게 전화를 걸고, "연락처" 앱에 해당인의 기념일이 설정되어 있다면, "전화" 앱에서 알림을 받게 됩니다.</p>
+          
+          <h3>CarPlay Ultra 테마</h3>
+          
+          <p>CarPlay Ultra는 배경화면, 계기판 스타일, 색상 등 다양한 테마 옵션을 제공합니다. 코드에 따르면, 지원되는 차량에서는 주변 조명 색상도 선택한 테마 색상과 일치하게 됩니다.</p>
+          
+          <h3>Apple TV 앱 프로필 기능 확장</h3>
+          
+          <p>Apple은 iOS 27.2에서 Apple TV 앱의 프로필 기능을 iPhone 및 iPad로 확장했습니다. Apple TV 앱 사용자는 계정 설정에서 프로필을 생성하고 이 프로필들 사이를 전환할 수 있습니다.</p>
+          
+          <p>프로필에는 이름, 프로필 등급, 그리고 사용자가 어린이인지 여부에 대한 정보만 포함하면 됩니다.</p>
+          
+          <p>어린이용 계정을 생성하면 기본적으로 콘텐츠가 PG 등급으로 제한되지만, 사용자는 설정을 사용자 정의하여 더 세밀하게 제어할 수 있습니다. 자녀의 연령에 따라 적합한 TV 프로그램 및 영화의 연령 등급을 선택할 수 있습니다.</p>
+          
+          <h3>FaceTime 수어 통역 API</h3>
+          
+          <p>Apple은 5월에 FaceTime에 새로운 API를 추가하여 수어 통역 앱 개발자가 진행 중인 영상 통화에 수동 통역을 추가할 수 있도록 할 것이라고 밝혔습니다.</p>
+          
+          <h3>시계 앱 알람 표시 변경</h3>
+          
+          <p>Apple은 시계 앱에서 알람 표시 방식을 조정했습니다. 이제 오전과 오후의 표시 글꼴이 시간 글꼴보다 작아졌습니다.</p>
+          
+          <h3>음악 앱 디자인 변경</h3>
+          
+          <p>음악 앱에서 Apple은 일부 빨간색 장식을 제거했습니다. "보관함"의 "재생" 및 "셔플" 버튼과 보관함 각 부분 옆의 모든 아이콘이 빨간색에서 검은색으로 변경되었습니다.</p>
+          
+          <h3>설정 앱 Siri 접근 권한 변경</h3>
+          
+          <p>"설정" 앱의 "Siri 접근 권한"이 이제 "제외된 앱"으로 이름이 변경되었습니다. "앱 추가"를 클릭하면 목록이 표시되며, 사용자는 이전에는 앱을 하나씩 제외해야 했던 것과 달리 한 번에 여러 앱을 제외할 수 있습니다.</p>
+          
+          <h3>TV 앱 "다음 재생" 변경</h3>
+          
+          <p>Apple은 "다음 재생"을 "새 에피소드"로 이름을 변경하고 그 아래에 "계속 재생" 옵션을 추가했습니다.</p>
+          
+          <h3>EU App Tracking Transparency 변경</h3>
+          
+          <p>유럽 연합에서는 Apple과 독일 연방 카르텔청 간의 합의에 따라 iOS 27.2부터 개발자가 대체 App Tracking Transparency 시스템 프롬프트를 사용할 수 있습니다. 독일, 프랑스, 이탈리아, 폴란드, 루마니아에서는 법적 요구 사항으로 인해 앱 배포 시 대체 시스템 프롬프트만 사용할 수 있습니다.</p>
+          
+          <h3>iPhone 데이터 완전 삭제 옵션 (중국 한정)</h3>
+          
+          <p>iOS 27.2 베타는 새로운 iPhone 지우기 옵션을 언급하고 있습니다. 이는 지우기 후 사용되지 않는 부분을 포함하여 전체 저장 공간을 빈 데이터로 덮어쓸 수 있습니다.</p>
+          
+          <p>Apple은 이 과정이 표준 지우기보다 시간이 오래 걸릴 수 있으며 기기 수명에 영향을 미칠 수 있다고 경고했습니다. 또한, 이 기능은 현재 중국에서 판매되는 iPhone에만 적용되는 것으로 보입니다.</p>
+          
+          <p>이 기능은 2027년 1월 1일부터 발효되는 중국의 새로운 표준(GB 46864-2025)과 관련이 있습니다. 이 표준은 스마트폰과 같은 전자 기기가 저장 공간 덮어쓰기와 같은 보다 철저한 데이터 삭제 방식을 제공하도록 요구합니다. 물론, iPad, HomePod 및 Apple Vision Pro도 향후 지원될 수 있습니다.</p>
+          
+          <p>이 표준은 중앙 사이버 공간 관리국(CAC)이 제안하고 전국 네트워크 보안 표준화 기술 위원회가 제정했으며, 휴대폰, 태블릿, 노트북 등 비휘발성 저장 장치가 있는 거의 모든 전자 제품을 포괄합니다. 이는 중고 기기 유통을 더 안전하고 규범적으로 만들어 사진, 계정, 비밀번호가 다음 소유자에게 유출되는 것을 방지하기 위함입니다. 이 표준은 사용자 파일, 연락처, 계정 비밀번호, 암호화 키, Wi-Fi 기록, NFC 연결 카드 등 개인 정보 유출 가능성이 있는 모든 내용을 삭제 범위에 포함하도록 요구합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>iOS/iPadOS 27.2 개발자 베타 업데이트는 Siri AI의 다국어 지원 확장, 건강 앱의 "건강 나이" 기능 도입, Apple TV 앱의 프로필 기능 확장 등 다양한 개선 사항을 포함합니다. 특히, 중국 시장을 위한 iPhone 데이터 완전 삭제 옵션은 새로운 규제 환경에 대응하는 Apple의 노력을 보여줍니다. 전반적으로 사용자 경험 향상과 개인 정보 보호 강화에 중점을 둔 업데이트입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>iOS/iPadOS 27.2 개발자 베타 업데이트</h3>
+          
+          <p>Apple은 iPhone 및 iPad 사용자에게 iOS/iPadOS 27.2 개발자 프리뷰 베타 업데이트(내부 빌드 번호: 24B5084k)를 배포했습니다. MacRumors 등 여러 매체 보도를 종합하여 이번 업데이트에 포함된 다양한 신기능 및 특성을 정리했습니다.</p>
+          
+          <p>업데이트 버전과 관련하여 Apple은 이번에 iOS 27.1 업데이트를 건너뛰었습니다. 이는 Apple의 첫 폴더블 폰인 iPhone Duo와 관련이 있을 것으로 예상됩니다. Apple은 이전에 해당 기기가 10월 23일에 출시되며 iOS 27.1 시스템이 사전 설치될 것이라고 발표했습니다. 만약 iOS 27.1 베타가 미리 공개되었다면, 아직 발표되지 않은 기기의 일부 세부 정보가 유출될 수 있었을 것입니다.</p>
+          
+          <h3>Siri AI 언어 지원 확장</h3>
+          
+          <p>Apple Siri AI는 초기에는 영어만 지원했지만, iOS 27.2 베타 1 업데이트에서는 Apple이 개발자들에게 프랑스어, 일본어, 한국어, 포르투갈어 또는 스페인어를 테스트하도록 초대했습니다.</p>
+          
+          <h3>건강(Health) 앱 업데이트</h3>
+          
+          <p>이번 베타 업데이트에서 Apple은 건강(Health) 앱을 업그레이드하여 개발자들이 Insights(통찰) 및 Longevity(건강 수명) 탭을 테스트하도록 초대했습니다.</p>
+          
+          <p>"통찰" 탭은 사용자의 현재 건강 정보를 표시하는 데 사용되며, "건강 수명" 탭은 사용자의 장기 건강 데이터를 분석합니다. 여기에는 Health Age(건강 나이) 기능이 포함되어 일부 건강 지표가 사용자의 실제 나이에 비해 어떻게 변화하는지 보여줍니다.</p>
+          
+          <p>"건강 나이" 평가 기능은 Apple Watch가 장기간 기록한 건강 데이터를 사용자의 실제 나이와 비교하여, 동년배 대비 신체 상태에 대한 참고 자료를 제공합니다.</p>
+          
+          <p>이 기능은 주로 Apple Watch가 기록한 다음 4가지 지표를 사용합니다.</p>
+<ul>
+<li>최대 산소 섭취량(VO2 max): 심폐 지구력과 운동 시 산소 활용 능력을 반영합니다.</li>
+<li>안정 시 심박수: 활동하지 않을 때의 심박수로, 기본적인 심혈관 상태 변화를 관찰하는 데 사용될 수 있습니다.</li>
+<li>수면: 수면 상태를 반영하는 데 사용됩니다.</li>
+<li>심박 변이도(HRV): 인접한 심박 간격의 변동으로, 회복 및 스트레스 관련 신체 신호를 관찰하는 데 자주 사용됩니다.</li>
+</ul>
+<p>시스템은 이러한 데이터를 사용자의 실제 나이와 비교하여 "건강 나이"라는 참고 결과를 생성합니다. 이 기능은 Apple Watch Series 12 및 Apple Watch Ultra 4 전용이 아니며, 기존 Apple Watch가 위 4가지 데이터를 안정적으로 제공할 수 있다면 이론적으로 데이터 소스로 활용될 수 있습니다.</p>
+          
+          <h3>Apple Intelligence 통화 기능</h3>
+          
+          <p>Apple은 "Apple Intelligence" 통화 상황 기능에 기념일 알림을 추가했습니다. 만약 사용자가 특정인에게 전화를 걸고, "연락처" 앱에 해당인의 기념일이 설정되어 있다면, "전화" 앱에서 알림을 받게 됩니다.</p>
+          
+          <h3>CarPlay Ultra 테마</h3>
+          
+          <p>CarPlay Ultra는 배경화면, 계기판 스타일, 색상 등 다양한 테마 옵션을 제공합니다. 코드에 따르면, 지원되는 차량에서는 주변 조명 색상도 선택한 테마 색상과 일치하게 됩니다.</p>
+          
+          <h3>Apple TV 앱 프로필 기능 확장</h3>
+          
+          <p>Apple은 iOS 27.2에서 Apple TV 앱의 프로필 기능을 iPhone 및 iPad로 확장했습니다. Apple TV 앱 사용자는 계정 설정에서 프로필을 생성하고 이 프로필들 사이를 전환할 수 있습니다.</p>
+          
+          <p>프로필에는 이름, 프로필 등급, 그리고 사용자가 어린이인지 여부에 대한 정보만 포함하면 됩니다.</p>
+          
+          <p>어린이용 계정을 생성하면 기본적으로 콘텐츠가 PG 등급으로 제한되지만, 사용자는 설정을 사용자 정의하여 더 세밀하게 제어할 수 있습니다. 자녀의 연령에 따라 적합한 TV 프로그램 및 영화의 연령 등급을 선택할 수 있습니다.</p>
+          
+          <h3>FaceTime 수어 통역 API</h3>
+          
+          <p>Apple은 5월에 FaceTime에 새로운 API를 추가하여 수어 통역 앱 개발자가 진행 중인 영상 통화에 수동 통역을 추가할 수 있도록 할 것이라고 밝혔습니다.</p>
+          
+          <h3>시계 앱 알람 표시 변경</h3>
+          
+          <p>Apple은 시계 앱에서 알람 표시 방식을 조정했습니다. 이제 오전과 오후의 표시 글꼴이 시간 글꼴보다 작아졌습니다.</p>
+          
+          <h3>음악 앱 디자인 변경</h3>
+          
+          <p>음악 앱에서 Apple은 일부 빨간색 장식을 제거했습니다. "보관함"의 "재생" 및 "셔플" 버튼과 보관함 각 부분 옆의 모든 아이콘이 빨간색에서 검은색으로 변경되었습니다.</p>
+          
+          <h3>설정 앱 Siri 접근 권한 변경</h3>
+          
+          <p>"설정" 앱의 "Siri 접근 권한"이 이제 "제외된 앱"으로 이름이 변경되었습니다. "앱 추가"를 클릭하면 목록이 표시되며, 사용자는 이전에는 앱을 하나씩 제외해야 했던 것과 달리 한 번에 여러 앱을 제외할 수 있습니다.</p>
+          
+          <h3>TV 앱 "다음 재생" 변경</h3>
+          
+          <p>Apple은 "다음 재생"을 "새 에피소드"로 이름을 변경하고 그 아래에 "계속 재생" 옵션을 추가했습니다.</p>
+          
+          <h3>EU App Tracking Transparency 변경</h3>
+          
+          <p>유럽 연합에서는 Apple과 독일 연방 카르텔청 간의 합의에 따라 iOS 27.2부터 개발자가 대체 App Tracking Transparency 시스템 프롬프트를 사용할 수 있습니다. 독일, 프랑스, 이탈리아, 폴란드, 루마니아에서는 법적 요구 사항으로 인해 앱 배포 시 대체 시스템 프롬프트만 사용할 수 있습니다.</p>
+          
+          <h3>iPhone 데이터 완전 삭제 옵션 (중국 한정)</h3>
+          
+          <p>iOS 27.2 베타는 새로운 iPhone 지우기 옵션을 언급하고 있습니다. 이는 지우기 후 사용되지 않는 부분을 포함하여 전체 저장 공간을 빈 데이터로 덮어쓸 수 있습니다.</p>
+          
+          <p>Apple은 이 과정이 표준 지우기보다 시간이 오래 걸릴 수 있으며 기기 수명에 영향을 미칠 수 있다고 경고했습니다. 또한, 이 기능은 현재 중국에서 판매되는 iPhone에만 적용되는 것으로 보입니다.</p>
+          
+          <p>이 기능은 2027년 1월 1일부터 발효되는 중국의 새로운 표준(GB 46864-2025)과 관련이 있습니다. 이 표준은 스마트폰과 같은 전자 기기가 저장 공간 덮어쓰기와 같은 보다 철저한 데이터 삭제 방식을 제공하도록 요구합니다. 물론, iPad, HomePod 및 Apple Vision Pro도 향후 지원될 수 있습니다.</p>
+          
+          <p>이 표준은 중앙 사이버 공간 관리국(CAC)이 제안하고 전국 네트워크 보안 표준화 기술 위원회가 제정했으며, 휴대폰, 태블릿, 노트북 등 비휘발성 저장 장치가 있는 거의 모든 전자 제품을 포괄합니다. 이는 중고 기기 유통을 더 안전하고 규범적으로 만들어 사진, 계정, 비밀번호가 다음 소유자에게 유출되는 것을 방지하기 위함입니다. 이 표준은 사용자 파일, 연락처, 계정 비밀번호, 암호화 키, Wi-Fi 기록, NFC 연결 카드 등 개인 정보 유출 가능성이 있는 모든 내용을 삭제 범위에 포함하도록 요구합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>iOS/iPadOS 27.2 개발자 베타 업데이트는 Siri AI의 다국어 지원 확장, 건강 앱의 "건강 나이" 기능 도입, Apple TV 앱의 프로필 기능 확장 등 다양한 개선 사항을 포함합니다. 특히, 중국 시장을 위한 iPhone 데이터 완전 삭제 옵션은 새로운 규제 환경에 대응하는 Apple의 노력을 보여줍니다. 전반적으로 사용자 경험 향상과 개인 정보 보호 강화에 중점을 둔 업데이트입니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>iOS/iPadOS 27.2 개발자 베타 업데이트</h3>
+          
+          <p>Apple은 iPhone 및 iPad 사용자에게 iOS/iPadOS 27.2 개발자 프리뷰 베타 업데이트(내부 빌드 번호: 24B5084k)를 배포했습니다. MacRumors 등 여러 매체 보도를 종합하여 이번 업데이트에 포함된 다양한 신기능 및 특성을 정리했습니다.</p>
+          
+          <p>업데이트 버전과 관련하여 Apple은 이번에 iOS 27.1 업데이트를 건너뛰었습니다. 이는 Apple의 첫 폴더블 폰인 iPhone Duo와 관련이 있을 것으로 예상됩니다. Apple은 이전에 해당 기기가 10월 23일에 출시되며 iOS 27.1 시스템이 사전 설치될 것이라고 발표했습니다. 만약 iOS 27.1 베타가 미리 공개되었다면, 아직 발표되지 않은 기기의 일부 세부 정보가 유출될 수 있었을 것입니다.</p>
+          
+          <h3>Siri AI 언어 지원 확장</h3>
+          
+          <p>Apple Siri AI는 초기에는 영어만 지원했지만, iOS 27.2 베타 1 업데이트에서는 Apple이 개발자들에게 프랑스어, 일본어, 한국어, 포르투갈어 또는 스페인어를 테스트하도록 초대했습니다.</p>
+          
+          <h3>건강(Health) 앱 업데이트</h3>
+          
+          <p>이번 베타 업데이트에서 Apple은 건강(Health) 앱을 업그레이드하여 개발자들이 Insights(통찰) 및 Longevity(건강 수명) 탭을 테스트하도록 초대했습니다.</p>
+          
+          <p>"통찰" 탭은 사용자의 현재 건강 정보를 표시하는 데 사용되며, "건강 수명" 탭은 사용자의 장기 건강 데이터를 분석합니다. 여기에는 Health Age(건강 나이) 기능이 포함되어 일부 건강 지표가 사용자의 실제 나이에 비해 어떻게 변화하는지 보여줍니다.</p>
+          
+          <p>"건강 나이" 평가 기능은 Apple Watch가 장기간 기록한 건강 데이터를 사용자의 실제 나이와 비교하여, 동년배 대비 신체 상태에 대한 참고 자료를 제공합니다.</p>
+          
+          <p>이 기능은 주로 Apple Watch가 기록한 다음 4가지 지표를 사용합니다.</p>
+<ul>
+<li>최대 산소 섭취량(VO2 max): 심폐 지구력과 운동 시 산소 활용 능력을 반영합니다.</li>
+<li>안정 시 심박수: 활동하지 않을 때의 심박수로, 기본적인 심혈관 상태 변화를 관찰하는 데 사용될 수 있습니다.</li>
+<li>수면: 수면 상태를 반영하는 데 사용됩니다.</li>
+<li>심박 변이도(HRV): 인접한 심박 간격의 변동으로, 회복 및 스트레스 관련 신체 신호를 관찰하는 데 자주 사용됩니다.</li>
+</ul>
+<p>시스템은 이러한 데이터를 사용자의 실제 나이와 비교하여 "건강 나이"라는 참고 결과를 생성합니다. 이 기능은 Apple Watch Series 12 및 Apple Watch Ultra 4 전용이 아니며, 기존 Apple Watch가 위 4가지 데이터를 안정적으로 제공할 수 있다면 이론적으로 데이터 소스로 활용될 수 있습니다.</p>
+          
+          <h3>Apple Intelligence 통화 기능</h3>
+          
+          <p>Apple은 "Apple Intelligence" 통화 상황 기능에 기념일 알림을 추가했습니다. 만약 사용자가 특정인에게 전화를 걸고, "연락처" 앱에 해당인의 기념일이 설정되어 있다면, "전화" 앱에서 알림을 받게 됩니다.</p>
+          
+          <h3>CarPlay Ultra 테마</h3>
+          
+          <p>CarPlay Ultra는 배경화면, 계기판 스타일, 색상 등 다양한 테마 옵션을 제공합니다. 코드에 따르면, 지원되는 차량에서는 주변 조명 색상도 선택한 테마 색상과 일치하게 됩니다.</p>
+          
+          <h3>Apple TV 앱 프로필 기능 확장</h3>
+          
+          <p>Apple은 iOS 27.2에서 Apple TV 앱의 프로필 기능을 iPhone 및 iPad로 확장했습니다. Apple TV 앱 사용자는 계정 설정에서 프로필을 생성하고 이 프로필들 사이를 전환할 수 있습니다.</p>
+          
+          <p>프로필에는 이름, 프로필 등급, 그리고 사용자가 어린이인지 여부에 대한 정보만 포함하면 됩니다.</p>
+          
+          <p>어린이용 계정을 생성하면 기본적으로 콘텐츠가 PG 등급으로 제한되지만, 사용자는 설정을 사용자 정의하여 더 세밀하게 제어할 수 있습니다. 자녀의 연령에 따라 적합한 TV 프로그램 및 영화의 연령 등급을 선택할 수 있습니다.</p>
+          
+          <h3>FaceTime 수어 통역 API</h3>
+          
+          <p>Apple은 5월에 FaceTime에 새로운 API를 추가하여 수어 통역 앱 개발자가 진행 중인 영상 통화에 수동 통역을 추가할 수 있도록 할 것이라고 밝혔습니다.</p>
+          
+          <h3>시계 앱 알람 표시 변경</h3>
+          
+          <p>Apple은 시계 앱에서 알람 표시 방식을 조정했습니다. 이제 오전과 오후의 표시 글꼴이 시간 글꼴보다 작아졌습니다.</p>
+          
+          <h3>음악 앱 디자인 변경</h3>
+          
+          <p>음악 앱에서 Apple은 일부 빨간색 장식을 제거했습니다. "보관함"의 "재생" 및 "셔플" 버튼과 보관함 각 부분 옆의 모든 아이콘이 빨간색에서 검은색으로 변경되었습니다.</p>
+          
+          <h3>설정 앱 Siri 접근 권한 변경</h3>
+          
+          <p>"설정" 앱의 "Siri 접근 권한"이 이제 "제외된 앱"으로 이름이 변경되었습니다. "앱 추가"를 클릭하면 목록이 표시되며, 사용자는 이전에는 앱을 하나씩 제외해야 했던 것과 달리 한 번에 여러 앱을 제외할 수 있습니다.</p>
+          
+          <h3>TV 앱 "다음 재생" 변경</h3>
+          
+          <p>Apple은 "다음 재생"을 "새 에피소드"로 이름을 변경하고 그 아래에 "계속 재생" 옵션을 추가했습니다.</p>
+          
+          <h3>EU App Tracking Transparency 변경</h3>
+          
+          <p>유럽 연합에서는 Apple과 독일 연방 카르텔청 간의 합의에 따라 iOS 27.2부터 개발자가 대체 App Tracking Transparency 시스템 프롬프트를 사용할 수 있습니다. 독일, 프랑스, 이탈리아, 폴란드, 루마니아에서는 법적 요구 사항으로 인해 앱 배포 시 대체 시스템 프롬프트만 사용할 수 있습니다.</p>
+          
+          <h3>iPhone 데이터 완전 삭제 옵션 (중국 한정)</h3>
+          
+          <p>iOS 27.2 베타는 새로운 iPhone 지우기 옵션을 언급하고 있습니다. 이는 지우기 후 사용되지 않는 부분을 포함하여 전체 저장 공간을 빈 데이터로 덮어쓸 수 있습니다.</p>
+          
+          <p>Apple은 이 과정이 표준 지우기보다 시간이 오래 걸릴 수 있으며 기기 수명에 영향을 미칠 수 있다고 경고했습니다. 또한, 이 기능은 현재 중국에서 판매되는 iPhone에만 적용되는 것으로 보입니다.</p>
+          
+          <p>이 기능은 2027년 1월 1일부터 발효되는 중국의 새로운 표준(GB 46864-2025)과 관련이 있습니다. 이 표준은 스마트폰과 같은 전자 기기가 저장 공간 덮어쓰기와 같은 보다 철저한 데이터 삭제 방식을 제공하도록 요구합니다. 물론, iPad, HomePod 및 Apple Vision Pro도 향후 지원될 수 있습니다.</p>
+          
+          <p>이 표준은 중앙 사이버 공간 관리국(CAC)이 제안하고 전국 네트워크 보안 표준화 기술 위원회가 제정했으며, 휴대폰, 태블릿, 노트북 등 비휘발성 저장 장치가 있는 거의 모든 전자 제품을 포괄합니다. 이는 중고 기기 유통을 더 안전하고 규범적으로 만들어 사진, 계정, 비밀번호가 다음 소유자에게 유출되는 것을 방지하기 위함입니다. 이 표준은 사용자 파일, 연락처, 계정 비밀번호, 암호화 키, Wi-Fi 기록, NFC 연결 카드 등 개인 정보 유출 가능성이 있는 모든 내용을 삭제 범위에 포함하도록 요구합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>iOS/iPadOS 27.2 개발자 베타 업데이트는 Siri AI의 다국어 지원 확장, 건강 앱의 "건강 나이" 기능 도입, Apple TV 앱의 프로필 기능 확장 등 다양한 개선 사항을 포함합니다. 특히, 중국 시장을 위한 iPhone 데이터 완전 삭제 옵션은 새로운 규제 환경에 대응하는 Apple의 노력을 보여줍니다. 전반적으로 사용자 경험 향상과 개인 정보 보호 강화에 중점을 둔 업데이트입니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.png" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.jpg" alt="이미지 6" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img07.jpg" alt="이미지 7" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img08.jpg" alt="이미지 8" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img09.jpg" alt="이미지 9" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img10.jpg" alt="이미지 10" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img11.jpg" alt="이미지 11" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img12.jpg" alt="이미지 12" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img13.jpg" alt="이미지 13" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/003/375.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-09"
+               class="archive-btn active">
+              2026-09
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
