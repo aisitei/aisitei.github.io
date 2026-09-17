@@ -130,18 +130,23 @@ def patch_article(entry: dict, repo_root: Path) -> bool:
     }
 
     # 1) title-xx 메타 태그 교체
+    # 주의: re.sub의 교체 문자열 인자는 백슬래시 이스케이프(\1, \g<name> 등)를
+    # 해석하므로, 번역된 제목에 리터럴 백슬래시가 섞여 있으면(예: "\s")
+    # "bad escape" 에러가 난다. 함수(lambda)를 넘기면 이 해석을 건너뛴다.
     for lang in ("zh", "ja", "en"):
+        replacement = f'<meta name="title-{lang}" content="{_esc_attr(titles[lang])}">'
         html = re.sub(
             rf'<meta name="title-{lang}"[^>]*>',
-            f'<meta name="title-{lang}" content="{_esc_attr(titles[lang])}">',
+            lambda m, replacement=replacement: replacement,
             html, count=1,
         )
 
     # 2) h1 data-xx 속성 교체
     for lang in ("zh", "ja", "en"):
+        replacement = f'data-{lang}="{_esc_attr(titles[lang])}"'
         html = re.sub(
             rf'data-{lang}="[^"]*"',
-            f'data-{lang}="{_esc_attr(titles[lang])}"',
+            lambda m, replacement=replacement: replacement,
             html, count=1,
         )
 
