@@ -10,9 +10,9 @@
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
   <meta name="title-ko" content="iOS 27.2 코드 유출: Apple, 아이폰 도난 방지 기능 테스트 중, 아직 활성화되지 않아">
-  <meta name="title-zh" content="iOS 27.2 코드 유출: Apple, 아이폰 도난 방지 기능 테스트 중, 아직 활성화되지 않아">
-  <meta name="title-ja" content="iOS 27.2 코드 유출: Apple, 아이폰 도난 방지 기능 테스트 중, 아직 활성화되지 않아">
-  <meta name="title-en" content="iOS 27.2 코드 유출: Apple, 아이폰 도난 방지 기능 테스트 중, 아직 활성화되지 않아">
+  <meta name="title-zh" content="iOS 27.2 代码曝光：苹果正测试 iPhone 防抢夺功能，尚未启用">
+  <meta name="title-ja" content="iOS 27.2のコードが公開：AppleがiPhoneの盗難防止機能をテスト中、未実装">
+  <meta name="title-en" content="iOS 27.2 Code Exposed: Apple Is Testing iPhone Anti-Theft Feature, Which Has Not Been Enabled">
   <style>
     :root {
       --bg: #0f172a;
@@ -545,9 +545,9 @@
 
         <h1 class="article-title"
             data-ko="iOS 27.2 코드 유출: Apple, 아이폰 도난 방지 기능 테스트 중, 아직 활성화되지 않아"
-            data-zh="iOS 27.2 코드 유출: Apple, 아이폰 도난 방지 기능 테스트 중, 아직 활성화되지 않아"
-            data-ja="iOS 27.2 코드 유출: Apple, 아이폰 도난 방지 기능 테스트 중, 아직 활성화되지 않아"
-            data-en="iOS 27.2 코드 유출: Apple, 아이폰 도난 방지 기능 테스트 중, 아직 활성화되지 않아">iOS 27.2 코드 유출: Apple, 아이폰 도난 방지 기능 테스트 중, 아직 활성화되지 않아</h1>
+            data-zh="iOS 27.2 代码曝光：苹果正测试 iPhone 防抢夺功能，尚未启用"
+            data-ja="iOS 27.2のコードが公開：AppleがiPhoneの盗難防止機能をテスト中、未実装"
+            data-en="iOS 27.2 Code Exposed: Apple Is Testing iPhone Anti-Theft Feature, Which Has Not Been Enabled">iOS 27.2 코드 유출: Apple, 아이폰 도난 방지 기능 테스트 중, 아직 활성화되지 않아</h1>
 
         <div class="article-info">
           
@@ -600,91 +600,64 @@
           
         </div>
         <div class="lang-body" data-lang="zh">
-          
-          <h3>iPhone 도난 방지 자동 잠금 기능</h3>
-          
-          <p>9to5Mac은 iOS 27.2 Beta2 개발자 테스트 버전에서 Apple이 iPhone 도난 방지 자동 잠금 기능을 계속 개발 중임을 발견했습니다. 이 기능의 내부 코드명은 "AutoLock"이며 현재 활성화되지 않은 상태입니다.</p>
-          
-          <p>코드에 따르면, AutoLock은 여러 신호를 종합하여 iPhone이 사용자로부터 도난당했을 가능성이 있는지 판단합니다. 여기에는 다음이 포함됩니다.</p>
-          
-          <ul>
-<li>기기가 강탈 동작과 일치하는 급격한 가속을 보일 때</li>
-<li>페어링된 Apple Watch가 일정 시간 동안 연결되지 않을 때</li>
-<li>Apple Watch와의 연결이 끊겼을 때</li>
-<li>장시간 네트워크 연결이 끊겼을 때</li>
-<li>기기가 일정 시간 이상 잠금 해제 상태로 유지될 때</li>
+          <h3>核心功能与版本状态</h3>
+<p>Apple 在 iOS 27.2 Beta 2 开发者测试版中，正在开发一项名为“AutoLock”的自动锁定功能。该功能旨在综合多种信号判断 iPhone 是否可能遭到用户抢夺。</p>
+<p>目前，AutoLock 功能尚未启用，仅在后台激活了底层服务，但实际执行自动锁定的组件仍处于关闭状态，且未作为用户选项提供。</p>
+          <h3>潜在盗窃触发信号</h3>
+<p>代码显示，AutoLock 会综合以下多种信号来判断设备是否可能被抢夺：</p>
+<ul>
+<li>设备出现与抢夺动作相符的剧烈加速。</li>
+<li>配对的 Apple Watch 在一段时间内无法连接或失去连接。</li>
+<li>长时间失去网络连接。</li>
+<li>设备在超过一定时间后仍处于解锁状态。</li>
 </ul>
-          
-          <p>동시에 Apple은 오작동 가능성을 줄이기 위해 여러 메커니즘을 추가했습니다. 예를 들어, 사용자가 생체 인식 인증을 성공적으로 완료하면 잠금을 방지할 수 있습니다. 일부 포그라운드 앱 활동 또한 정상적인 사용 행위로 간주되어 휴대폰이 도난당한 것으로 오판되는 것을 방지합니다.</p>
-          
-          <p>코드에는 AutoLock이 투표 메커니즘을 사용한다는 내용도 포함되어 있습니다. 잠재적인 도난 신호는 잠금을 요청할 수 있으며, 생체 인식, 익숙한 장소 또는 특정 앱 활동과 같은 보안 조건은 잠금 요청을 거부할 수 있습니다.</p>
-          
-          <p>이번 코드에서는 이전 정보와 일치하는 장소 판단 메커니즘도 발견되었습니다. 이 메커니즘은 iPhone의 "도난당한 기기 보호"와 유사한 점이 있으며, 기기가 익숙한 장소에 있는지 여부에 따라 보호 조치 트리거 여부를 판단하는 데 도움을 줍니다.</p>
-          
-          <p>하지만 이 기능은 iOS 27.2 beta 2에서 아직 활성화되지 않았으며, 사용자 옵션으로도 제공되지 않습니다. Apple은 백그라운드에서 기본 AutoLock 서비스만 활성화했지만, iPhone 자동 잠금을 실제로 실행하는 구성 요소는 여전히 비활성화 상태입니다.</p>
-          
-          <h3>총평</h3>
-          
-          <p>Apple은 iOS 27.2 Beta2에서 "AutoLock"이라는 코드명의 iPhone 도난 방지 자동 잠금 기능을 개발 중입니다. 이 기능은 기기의 급격한 가속, Apple Watch 연결 상태, 네트워크 연결 여부, 잠금 해제 시간 등을 종합적으로 판단하여 도난 가능성을 감지합니다. 오작동 방지를 위해 생체 인식 인증 성공이나 특정 앱 활동 시에는 잠금을 방지하며, 현재는 백그라운드 서비스만 활성화된 상태입니다.</p>
-          
+          <h3>误判规避与安全机制</h3>
+<p>为降低误触的可能性，Apple 加入了多项复杂的判断和否决机制：</p>
+<ul>
+<li>**生物识别验证阻止锁定：** 用户成功完成生物识别验证后，可以立即阻止自动锁定功能触发。</li>
+<li>**正常使用行为判定：** 部分前台应用活动会被视为正常的设备使用行为，从而避免被误判为遭抢夺。</li>
+<li>**投票机制（Voting Mechanism）：** 该系统采用投票机制进行决策，潜在盗窃信号会请求执行锁定，而生物识别、熟悉地点或特定应用活动等安全条件则拥有否决锁定请求的权力。</li>
+</ul>
+          <h3>辅助判断与地理位置判定</h3>
+<p>该功能还集成了与此前“失窃设备保护”相似的地点判断机制。系统会根据设备当前是否处于用户熟悉的地点，来辅助判断是否需要触发自动保护措施。</p>
+          <h3>总结</h3>
+<p>Apple 在 iOS 27.2 Beta 2 中展示了 AutoLock 功能的原型代码，该功能旨在通过监测剧烈加速、与 Apple Watch 的连接状态以及网络异常等信号，实现防抢自动锁定。系统设计了复杂的投票和否决机制，结合生物识别验证和熟悉地点判断，以确保在保护设备的同时最大限度地避免误判。</p>
         </div>
         <div class="lang-body" data-lang="ja">
-          
-          <h3>iPhone 도난 방지 자동 잠금 기능</h3>
-          
-          <p>9to5Mac은 iOS 27.2 Beta2 개발자 테스트 버전에서 Apple이 iPhone 도난 방지 자동 잠금 기능을 계속 개발 중임을 발견했습니다. 이 기능의 내부 코드명은 "AutoLock"이며 현재 활성화되지 않은 상태입니다.</p>
-          
-          <p>코드에 따르면, AutoLock은 여러 신호를 종합하여 iPhone이 사용자로부터 도난당했을 가능성이 있는지 판단합니다. 여기에는 다음이 포함됩니다.</p>
-          
+          <h3>iPhoneの盗難防止自動ロック機能</h3>
+          <p>9to5Macが報じたところによると、AppleはiOS 27.2 Beta 2の開発者テストバージョンにおいて、「盗難防止自動ロック機能」を開発していることが判明しました。この機能の内部コードネームは「AutoLock」であり、現時点では有効化されていません。</p>
+          <p>コードの内容から、AutoLockは複数のシグナルを総合的に判断し、iPhoneがユーザーから盗まれた可能性が高いかどうかを判定することがわかります。検出される主なシグナルには以下が含まれます。</p>
           <ul>
-<li>기기가 강탈 동작과 일치하는 급격한 가속을 보일 때</li>
-<li>페어링된 Apple Watch가 일정 시간 동안 연결되지 않을 때</li>
-<li>Apple Watch와의 연결이 끊겼을 때</li>
-<li>장시간 네트워크 연결이 끊겼을 때</li>
-<li>기기가 일정 시간 이상 잠금 해제 상태로 유지될 때</li>
+<li>デバイスが強奪動作に一致する急激な加速度を示す場合</li>
+<li>ペアリングされたApple Watchが一定時間接続されない場合</li>
+<li>Apple Watchとの接続が切断された場合</li>
+<li>ネットワークへの接続が長時間途絶した場合</li>
+<li>デバイスが一定時間以上ロック解除された状態を維持している場合</li>
 </ul>
-          
-          <p>동시에 Apple은 오작동 가능성을 줄이기 위해 여러 메커니즘을 추가했습니다. 예를 들어, 사용자가 생체 인식 인증을 성공적으로 완료하면 잠금을 방지할 수 있습니다. 일부 포그라운드 앱 활동 또한 정상적인 사용 행위로 간주되어 휴대폰이 도난당한 것으로 오판되는 것을 방지합니다.</p>
-          
-          <p>코드에는 AutoLock이 투표 메커니즘을 사용한다는 내용도 포함되어 있습니다. 잠재적인 도난 신호는 잠금을 요청할 수 있으며, 생체 인식, 익숙한 장소 또는 특정 앱 활동과 같은 보안 조건은 잠금 요청을 거부할 수 있습니다.</p>
-          
-          <p>이번 코드에서는 이전 정보와 일치하는 장소 판단 메커니즘도 발견되었습니다. 이 메커니즘은 iPhone의 "도난당한 기기 보호"와 유사한 점이 있으며, 기기가 익숙한 장소에 있는지 여부에 따라 보호 조치 트리거 여부를 판단하는 데 도움을 줍니다.</p>
-          
-          <p>하지만 이 기능은 iOS 27.2 beta 2에서 아직 활성화되지 않았으며, 사용자 옵션으로도 제공되지 않습니다. Apple은 백그라운드에서 기본 AutoLock 서비스만 활성화했지만, iPhone 자동 잠금을 실제로 실행하는 구성 요소는 여전히 비활성화 상태입니다.</p>
-          
-          <h3>총평</h3>
-          
-          <p>Apple은 iOS 27.2 Beta2에서 "AutoLock"이라는 코드명의 iPhone 도난 방지 자동 잠금 기능을 개발 중입니다. 이 기능은 기기의 급격한 가속, Apple Watch 연결 상태, 네트워크 연결 여부, 잠금 해제 시간 등을 종합적으로 판단하여 도난 가능성을 감지합니다. 오작동 방지를 위해 생체 인식 인증 성공이나 특정 앱 활동 시에는 잠금을 방지하며, 현재는 백그라운드 서비스만 활성화된 상태입니다.</p>
-          
+          <p>同時に、Appleは誤作動のリスクを減らすため、複数のメカニズムを追加しています。例えば、ユーザーが生体認証の認証に成功した場合や、一部のフォアグラウンドアプリのアクティビティも通常の利用行為として認識され、スマートフォンが盗難されたと誤判断されるのを防ぎます。</p>
+          <p>コードには、AutoLockが「投票メカニズム」を使用していることも含まれています。潜在的な盗難シグナルはロックを要求できますが、生体認証、よく知られた場所（慣れた場所）、または特定のアプリのアクティビティといったセキュリティ条件が、そのロック要求を拒否する役割を果たします。</p>
+          <p>さらに、このコードからは以前の情報と一致する「場所の判断メカニズム」も発見されました。この仕組みはiPhoneの「盗難されたデバイス保護」機能に類似しており、デバイスが慣れた場所にいるかどうかによって、保護措置を発動するかどうかを判断するのに役立ちます。</p>
+          <p>ただし、この機能はiOS 27.2 beta 2ではまだ有効化されておらず、ユーザーオプションとしても提供されていません。Appleはバックグラウンドで基本的なAutoLockサービスのみを有効にしていますが、実際にiPhoneの自動ロックを実行するコンポーネント自体は未だ無効な状態です。</p>
+          <h3>まとめ</h3>
+<p>AppleはiOS 27.2 Beta 2において、「AutoLock」というコードネームの盗難防止自動ロック機能を開発中です。この機能は、急激な加速度、Apple Watchとの接続状況、ネットワークの状態、およびロック解除時間といった複数の要因を総合的に判断し、盗難の可能性を検出します。誤作動を防ぐための生体認証やアプリ活動による例外処理が組み込まれていますが、現時点ではバックグラウンドサービスのみが有効化されている段階です。</p>
         </div>
         <div class="lang-body" data-lang="en">
-          
-          <h3>iPhone 도난 방지 자동 잠금 기능</h3>
-          
-          <p>9to5Mac은 iOS 27.2 Beta2 개발자 테스트 버전에서 Apple이 iPhone 도난 방지 자동 잠금 기능을 계속 개발 중임을 발견했습니다. 이 기능의 내부 코드명은 "AutoLock"이며 현재 활성화되지 않은 상태입니다.</p>
-          
-          <p>코드에 따르면, AutoLock은 여러 신호를 종합하여 iPhone이 사용자로부터 도난당했을 가능성이 있는지 판단합니다. 여기에는 다음이 포함됩니다.</p>
-          
-          <ul>
-<li>기기가 강탈 동작과 일치하는 급격한 가속을 보일 때</li>
-<li>페어링된 Apple Watch가 일정 시간 동안 연결되지 않을 때</li>
-<li>Apple Watch와의 연결이 끊겼을 때</li>
-<li>장시간 네트워크 연결이 끊겼을 때</li>
-<li>기기가 일정 시간 이상 잠금 해제 상태로 유지될 때</li>
+          <h3>Anti-Theft Auto-Lock Feature for iPhone</h3>
+          <p>9to5Mac discovered that Apple is continuing to develop an anti-theft auto-lock feature for iPhone in the iOS 27.2 Beta 2 developer test version. This internal code name is "AutoLock," and it is currently inactive.</p>
+          <p>According to the code, AutoLock determines whether an iPhone may have been stolen by synthesizing multiple signals. These include:</p>
+<ul>
+<li>The device exhibiting sudden acceleration consistent with a snatching motion</li>
+<li>A paired Apple Watch failing to connect for a certain period of time</li>
+<li>Disconnection from the Apple Watch</li>
+<li>Prolonged network disconnection</li>
+<li>The device remaining unlocked for an extended duration</li>
 </ul>
-          
-          <p>동시에 Apple은 오작동 가능성을 줄이기 위해 여러 메커니즘을 추가했습니다. 예를 들어, 사용자가 생체 인식 인증을 성공적으로 완료하면 잠금을 방지할 수 있습니다. 일부 포그라운드 앱 활동 또한 정상적인 사용 행위로 간주되어 휴대폰이 도난당한 것으로 오판되는 것을 방지합니다.</p>
-          
-          <p>코드에는 AutoLock이 투표 메커니즘을 사용한다는 내용도 포함되어 있습니다. 잠재적인 도난 신호는 잠금을 요청할 수 있으며, 생체 인식, 익숙한 장소 또는 특정 앱 활동과 같은 보안 조건은 잠금 요청을 거부할 수 있습니다.</p>
-          
-          <p>이번 코드에서는 이전 정보와 일치하는 장소 판단 메커니즘도 발견되었습니다. 이 메커니즘은 iPhone의 "도난당한 기기 보호"와 유사한 점이 있으며, 기기가 익숙한 장소에 있는지 여부에 따라 보호 조치 트리거 여부를 판단하는 데 도움을 줍니다.</p>
-          
-          <p>하지만 이 기능은 iOS 27.2 beta 2에서 아직 활성화되지 않았으며, 사용자 옵션으로도 제공되지 않습니다. Apple은 백그라운드에서 기본 AutoLock 서비스만 활성화했지만, iPhone 자동 잠금을 실제로 실행하는 구성 요소는 여전히 비활성화 상태입니다.</p>
-          
-          <h3>총평</h3>
-          
-          <p>Apple은 iOS 27.2 Beta2에서 "AutoLock"이라는 코드명의 iPhone 도난 방지 자동 잠금 기능을 개발 중입니다. 이 기능은 기기의 급격한 가속, Apple Watch 연결 상태, 네트워크 연결 여부, 잠금 해제 시간 등을 종합적으로 판단하여 도난 가능성을 감지합니다. 오작동 방지를 위해 생체 인식 인증 성공이나 특정 앱 활동 시에는 잠금을 방지하며, 현재는 백그라운드 서비스만 활성화된 상태입니다.</p>
-          
+          <p>Apple has also added several mechanisms to reduce potential false positives. For instance, successful biometric authentication by the user can prevent locking. Furthermore, certain foreground app activities are considered normal usage and help prevent the phone from being mistakenly flagged as stolen.</p>
+          <p>The code also indicates that AutoLock utilizes a voting mechanism. Potential theft signals may request a lock, while security conditions—such as biometrics, familiar locations, or specific app activity—can reject that locking request.</p>
+          <p>Additionally, the code reveals a location determination mechanism consistent with previously reported information. This mechanism is similar to iPhone's "Lost Device Protection" and helps determine whether protective measures should be triggered based on whether the device is in a familiar location.</p>
+          <p>However, this feature is not yet active in iOS 27.2 beta 2, nor is it available as a user option. Apple has only activated the basic AutoLock service in the background; the component that actually executes the iPhone auto-lock remains disabled.</p>
+          <h3>Summary</h3>
+<p>Apple is developing an anti-theft automatic lock feature for iPhone, codenamed "AutoLock," within iOS 27.2 Beta 2. This system assesses theft risk by analyzing multiple signals, including sudden acceleration, Apple Watch connection status, network connectivity loss, and prolonged unlocked time. To prevent false positives, the system requires confirmation through successful biometric authentication or specific app activity. Currently, while a basic background service is active, the full auto-lock functionality remains disabled.</p>
         </div>
       </div>
 
