@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Huawei Mate XT 2 트리플 폴더블 스마트폰의 독점 기능, Pura X View에 데스크톱 슬라이드 다운 사용자 정의 기능 추가</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Huawei">
+  <meta name="article-brand-color" content="#CF0A2C">
+  <meta name="title-ko" content="Huawei Mate XT 2 트리플 폴더블 스마트폰의 독점 기능, Pura X View에 데스크톱 슬라이드 다운 사용자 정의 기능 추가">
+  <meta name="title-zh" content="Huawei Mate XT 2 트리플 폴더블 스마트폰의 독점 기능, Pura X View에 데스크톱 슬라이드 다운 사용자 정의 기능 추가">
+  <meta name="title-ja" content="Huawei Mate XT 2 트리플 폴더블 스마트폰의 독점 기능, Pura X View에 데스크톱 슬라이드 다운 사용자 정의 기능 추가">
+  <meta name="title-en" content="Huawei Mate XT 2 트리플 폴더블 스마트폰의 독점 기능, Pura X View에 데스크톱 슬라이드 다운 사용자 정의 기능 추가">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260910b">
+<script defer src="../../../../assets/news.js?v=20260910b"></script>
+<script defer src="../../../../assets/article.js?v=20260910b"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #CF0A2C;">
+            Huawei
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Huawei Mate XT 2 트리플 폴더블 스마트폰의 독점 기능, Pura X View에 데스크톱 슬라이드 다운 사용자 정의 기능 추가"
+            data-zh="Huawei Mate XT 2 트리플 폴더블 스마트폰의 독점 기능, Pura X View에 데스크톱 슬라이드 다운 사용자 정의 기능 추가"
+            data-ja="Huawei Mate XT 2 트리플 폴더블 스마트폰의 독점 기능, Pura X View에 데스크톱 슬라이드 다운 사용자 정의 기능 추가"
+            data-en="Huawei Mate XT 2 트리플 폴더블 스마트폰의 독점 기능, Pura X View에 데스크톱 슬라이드 다운 사용자 정의 기능 추가">Huawei Mate XT 2 트리플 폴더블 스마트폰의 독점 기능, Pura X View에 데스크톱 슬라이드 다운 사용자 정의 기능 추가</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-09-23
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Huawei Mate XT 2 트리플 폴더블 스마트폰의 독점 기능, Pura X View에 데스크톱 슬라이드 다운 사용자 정의 기능 추가" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>새로운 사용자 정의 기능</h3>
+<p>이달 초 HarmonyOS 7 | HUAWEI Mate XT 2 및 올 시나리오 신제품 발표회에서 Huawei 상무이사 겸 제품 투자 심사 위원회 주임, 터미널 BG 회장인 위청둥(Yu Chengdong)은 Mate XT 2 비범대사(非凡大师)의 새로운 윙 타입 트리플 폴더블 폰을 공식 발표했습니다.</p>
+          
+          <p>이 기기는 출시 후 새로운 기능인 '데스크톱 스크롤 다운 작업 사용자 정의'를 독점적으로 지원했습니다. 사용자는 데스크톱의 어느 위치에서든 아래로 스크롤할 때 샤오이(小艺) 검색으로 진입하거나, 다른 스크롤 영역에 따라 샤오이 검색, 알림 센터, 제어 센터로 각각 진입하도록 선택할 수 있습니다.</p>
+          
+          <ul>
+<li>데스크톱 상단 영역을 아래로 스크롤하여 샤오이 검색 진입</li>
+<li>왼쪽 하단 영역을 아래로 스크롤하여 알림 센터 진입</li>
+<li>오른쪽 하단 영역을 아래로 스크롤하여 제어 센터 진입</li>
+</ul>
+          
+          <p>주목할 만한 점은 Huawei Pura X View 바 타입 폰이 HarmonyOS 7.0.0.107 SP8 버전 푸시를 시작했다는 것입니다. IT之家의 실제 테스트 결과, 이 버전으로 업데이트한 후 Pura X View도 해당 기능을 지원하는 것으로 확인되었습니다(새 버전 업데이트 로그에는 언급되지 않음).</p>
+          
+          <p>Huawei Pura X View 사용자는 "설정 - 데스크톱 및 개인화 - 데스크톱 설정"의 "데스크톱 스크롤 다운"에서 해당 옵션을 찾을 수 있습니다.</p>
+          
+          <p>현재 이 기능에는 "단점"도 있습니다. 이전에는 데스크톱 스크롤 다운을 켜거나 끌 수 있었지만, 새 버전에서는 이 설정을 지원하지 않습니다. 사용자는 이전 버전에서 이 기능을 끌 수 있었고, 그러면 데스크톱에서 스크롤 다운 작업을 할 수 없어 일부 상황에서의 오작동을 피할 수 있었습니다. 버전 업데이트 후에는 현재 두 가지 사용자 정의 옵션 중에서 하나만 선택할 수 있습니다.</p>
+          
+          <p>만약 사용자가 이전에 데스크톱 스크롤 다운 작업을 비활성화했다면, 업데이트 후에도 해당 설정을 유지할 수 있습니다. 그러나 업데이트 후 두 가지 옵션 중 하나를 수동으로 선택하면 현재 페이지에서 데스크톱 스크롤 다운 작업을 비활성화할 수 없습니다.</p>
+          
+          <h3>Huawei Pura X View 새 버전 업데이트 로그</h3>
+<ul>
+<li>몰입형 광감 균형 모드에 입자 애니메이션이 추가되었습니다. 알림 센터에서 알림 제거, 데스크톱에서 아이콘/카드 제거, 제어 센터에서 볼륨 조절 등 다양한 시나리오에서 입자 애니메이션이 생성됩니다 (설정 > 데스크톱 및 개인화 > 몰입형 광감 > 균형 모드).</li>
+<li>제어 센터 일부 아이콘의 표시 효과를 최적화했습니다.</li>
+<li>알림 센터 미디어 제어 카드의 표시 효과를 최적화했습니다.</li>
+</ul>
+          
+          <p>야간 모드에 화려한 별이 빛나는 밤하늘, 별이 빛나는 밤하늘 인물 촬영 시나리오가 추가되어 야간에 별이 빛나는 밤하늘과 별이 빛나는 밤하늘 아래 인물을 촬영하는 새로운 경험을 제공하며, 더 많은 멋진 순간을 기록할 수 있도록 돕습니다.</p>
+          
+          <p>畅连(Changlian) 실시간 인터콤이 친구 찾기 기능을 지원합니다. 실시간 인터콤 위치 공유 중에 친구가 근처에 있을 때 친구 아바타의 찾기 아이콘을 클릭하면 안내에 따라 친구를 빠르게 찾을 수 있어 야외 만남이나 쇼핑몰에서 길을 잃지 않고 친구를 찾을 수 있습니다.</p>
+          
+          <ul>
+<li>일부 시나리오에서 동반 AI 사용 경험을 최적화했습니다.</li>
+<li>샤오이 입력기 시작 속도를 최적화했습니다.</li>
+<li>오디오 외부 출력 효과를 최적화했습니다.</li>
+</ul>
+          
+          <h3>총평</h3>
+<p>Huawei는 Mate XT 2 폴더블 폰에 처음 도입된 '데스크톱 스크롤 다운 사용자 정의' 기능을 Pura X View 바 타입 폰에도 확장 적용했습니다. 이 기능은 사용자가 스크롤 영역에 따라 샤오이 검색, 알림 센터, 제어 센터를 선택적으로 실행할 수 있게 하지만, 기존의 스크롤 다운 비활성화 옵션은 사라졌습니다. 또한, 이번 업데이트에는 야간 모드 개선, 畅连 인터콤 친구 찾기 기능 추가, AI 및 오디오 성능 최적화 등 다양한 개선 사항이 포함되었습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>새로운 사용자 정의 기능</h3>
+<p>이달 초 HarmonyOS 7 | HUAWEI Mate XT 2 및 올 시나리오 신제품 발표회에서 Huawei 상무이사 겸 제품 투자 심사 위원회 주임, 터미널 BG 회장인 위청둥(Yu Chengdong)은 Mate XT 2 비범대사(非凡大师)의 새로운 윙 타입 트리플 폴더블 폰을 공식 발표했습니다.</p>
+          
+          <p>이 기기는 출시 후 새로운 기능인 '데스크톱 스크롤 다운 작업 사용자 정의'를 독점적으로 지원했습니다. 사용자는 데스크톱의 어느 위치에서든 아래로 스크롤할 때 샤오이(小艺) 검색으로 진입하거나, 다른 스크롤 영역에 따라 샤오이 검색, 알림 센터, 제어 센터로 각각 진입하도록 선택할 수 있습니다.</p>
+          
+          <ul>
+<li>데스크톱 상단 영역을 아래로 스크롤하여 샤오이 검색 진입</li>
+<li>왼쪽 하단 영역을 아래로 스크롤하여 알림 센터 진입</li>
+<li>오른쪽 하단 영역을 아래로 스크롤하여 제어 센터 진입</li>
+</ul>
+          
+          <p>주목할 만한 점은 Huawei Pura X View 바 타입 폰이 HarmonyOS 7.0.0.107 SP8 버전 푸시를 시작했다는 것입니다. IT之家의 실제 테스트 결과, 이 버전으로 업데이트한 후 Pura X View도 해당 기능을 지원하는 것으로 확인되었습니다(새 버전 업데이트 로그에는 언급되지 않음).</p>
+          
+          <p>Huawei Pura X View 사용자는 "설정 - 데스크톱 및 개인화 - 데스크톱 설정"의 "데스크톱 스크롤 다운"에서 해당 옵션을 찾을 수 있습니다.</p>
+          
+          <p>현재 이 기능에는 "단점"도 있습니다. 이전에는 데스크톱 스크롤 다운을 켜거나 끌 수 있었지만, 새 버전에서는 이 설정을 지원하지 않습니다. 사용자는 이전 버전에서 이 기능을 끌 수 있었고, 그러면 데스크톱에서 스크롤 다운 작업을 할 수 없어 일부 상황에서의 오작동을 피할 수 있었습니다. 버전 업데이트 후에는 현재 두 가지 사용자 정의 옵션 중에서 하나만 선택할 수 있습니다.</p>
+          
+          <p>만약 사용자가 이전에 데스크톱 스크롤 다운 작업을 비활성화했다면, 업데이트 후에도 해당 설정을 유지할 수 있습니다. 그러나 업데이트 후 두 가지 옵션 중 하나를 수동으로 선택하면 현재 페이지에서 데스크톱 스크롤 다운 작업을 비활성화할 수 없습니다.</p>
+          
+          <h3>Huawei Pura X View 새 버전 업데이트 로그</h3>
+<ul>
+<li>몰입형 광감 균형 모드에 입자 애니메이션이 추가되었습니다. 알림 센터에서 알림 제거, 데스크톱에서 아이콘/카드 제거, 제어 센터에서 볼륨 조절 등 다양한 시나리오에서 입자 애니메이션이 생성됩니다 (설정 > 데스크톱 및 개인화 > 몰입형 광감 > 균형 모드).</li>
+<li>제어 센터 일부 아이콘의 표시 효과를 최적화했습니다.</li>
+<li>알림 센터 미디어 제어 카드의 표시 효과를 최적화했습니다.</li>
+</ul>
+          
+          <p>야간 모드에 화려한 별이 빛나는 밤하늘, 별이 빛나는 밤하늘 인물 촬영 시나리오가 추가되어 야간에 별이 빛나는 밤하늘과 별이 빛나는 밤하늘 아래 인물을 촬영하는 새로운 경험을 제공하며, 더 많은 멋진 순간을 기록할 수 있도록 돕습니다.</p>
+          
+          <p>畅连(Changlian) 실시간 인터콤이 친구 찾기 기능을 지원합니다. 실시간 인터콤 위치 공유 중에 친구가 근처에 있을 때 친구 아바타의 찾기 아이콘을 클릭하면 안내에 따라 친구를 빠르게 찾을 수 있어 야외 만남이나 쇼핑몰에서 길을 잃지 않고 친구를 찾을 수 있습니다.</p>
+          
+          <ul>
+<li>일부 시나리오에서 동반 AI 사용 경험을 최적화했습니다.</li>
+<li>샤오이 입력기 시작 속도를 최적화했습니다.</li>
+<li>오디오 외부 출력 효과를 최적화했습니다.</li>
+</ul>
+          
+          <h3>총평</h3>
+<p>Huawei는 Mate XT 2 폴더블 폰에 처음 도입된 '데스크톱 스크롤 다운 사용자 정의' 기능을 Pura X View 바 타입 폰에도 확장 적용했습니다. 이 기능은 사용자가 스크롤 영역에 따라 샤오이 검색, 알림 센터, 제어 센터를 선택적으로 실행할 수 있게 하지만, 기존의 스크롤 다운 비활성화 옵션은 사라졌습니다. 또한, 이번 업데이트에는 야간 모드 개선, 畅连 인터콤 친구 찾기 기능 추가, AI 및 오디오 성능 최적화 등 다양한 개선 사항이 포함되었습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>새로운 사용자 정의 기능</h3>
+<p>이달 초 HarmonyOS 7 | HUAWEI Mate XT 2 및 올 시나리오 신제품 발표회에서 Huawei 상무이사 겸 제품 투자 심사 위원회 주임, 터미널 BG 회장인 위청둥(Yu Chengdong)은 Mate XT 2 비범대사(非凡大师)의 새로운 윙 타입 트리플 폴더블 폰을 공식 발표했습니다.</p>
+          
+          <p>이 기기는 출시 후 새로운 기능인 '데스크톱 스크롤 다운 작업 사용자 정의'를 독점적으로 지원했습니다. 사용자는 데스크톱의 어느 위치에서든 아래로 스크롤할 때 샤오이(小艺) 검색으로 진입하거나, 다른 스크롤 영역에 따라 샤오이 검색, 알림 센터, 제어 센터로 각각 진입하도록 선택할 수 있습니다.</p>
+          
+          <ul>
+<li>데스크톱 상단 영역을 아래로 스크롤하여 샤오이 검색 진입</li>
+<li>왼쪽 하단 영역을 아래로 스크롤하여 알림 센터 진입</li>
+<li>오른쪽 하단 영역을 아래로 스크롤하여 제어 센터 진입</li>
+</ul>
+          
+          <p>주목할 만한 점은 Huawei Pura X View 바 타입 폰이 HarmonyOS 7.0.0.107 SP8 버전 푸시를 시작했다는 것입니다. IT之家의 실제 테스트 결과, 이 버전으로 업데이트한 후 Pura X View도 해당 기능을 지원하는 것으로 확인되었습니다(새 버전 업데이트 로그에는 언급되지 않음).</p>
+          
+          <p>Huawei Pura X View 사용자는 "설정 - 데스크톱 및 개인화 - 데스크톱 설정"의 "데스크톱 스크롤 다운"에서 해당 옵션을 찾을 수 있습니다.</p>
+          
+          <p>현재 이 기능에는 "단점"도 있습니다. 이전에는 데스크톱 스크롤 다운을 켜거나 끌 수 있었지만, 새 버전에서는 이 설정을 지원하지 않습니다. 사용자는 이전 버전에서 이 기능을 끌 수 있었고, 그러면 데스크톱에서 스크롤 다운 작업을 할 수 없어 일부 상황에서의 오작동을 피할 수 있었습니다. 버전 업데이트 후에는 현재 두 가지 사용자 정의 옵션 중에서 하나만 선택할 수 있습니다.</p>
+          
+          <p>만약 사용자가 이전에 데스크톱 스크롤 다운 작업을 비활성화했다면, 업데이트 후에도 해당 설정을 유지할 수 있습니다. 그러나 업데이트 후 두 가지 옵션 중 하나를 수동으로 선택하면 현재 페이지에서 데스크톱 스크롤 다운 작업을 비활성화할 수 없습니다.</p>
+          
+          <h3>Huawei Pura X View 새 버전 업데이트 로그</h3>
+<ul>
+<li>몰입형 광감 균형 모드에 입자 애니메이션이 추가되었습니다. 알림 센터에서 알림 제거, 데스크톱에서 아이콘/카드 제거, 제어 센터에서 볼륨 조절 등 다양한 시나리오에서 입자 애니메이션이 생성됩니다 (설정 > 데스크톱 및 개인화 > 몰입형 광감 > 균형 모드).</li>
+<li>제어 센터 일부 아이콘의 표시 효과를 최적화했습니다.</li>
+<li>알림 센터 미디어 제어 카드의 표시 효과를 최적화했습니다.</li>
+</ul>
+          
+          <p>야간 모드에 화려한 별이 빛나는 밤하늘, 별이 빛나는 밤하늘 인물 촬영 시나리오가 추가되어 야간에 별이 빛나는 밤하늘과 별이 빛나는 밤하늘 아래 인물을 촬영하는 새로운 경험을 제공하며, 더 많은 멋진 순간을 기록할 수 있도록 돕습니다.</p>
+          
+          <p>畅连(Changlian) 실시간 인터콤이 친구 찾기 기능을 지원합니다. 실시간 인터콤 위치 공유 중에 친구가 근처에 있을 때 친구 아바타의 찾기 아이콘을 클릭하면 안내에 따라 친구를 빠르게 찾을 수 있어 야외 만남이나 쇼핑몰에서 길을 잃지 않고 친구를 찾을 수 있습니다.</p>
+          
+          <ul>
+<li>일부 시나리오에서 동반 AI 사용 경험을 최적화했습니다.</li>
+<li>샤오이 입력기 시작 속도를 최적화했습니다.</li>
+<li>오디오 외부 출력 효과를 최적화했습니다.</li>
+</ul>
+          
+          <h3>총평</h3>
+<p>Huawei는 Mate XT 2 폴더블 폰에 처음 도입된 '데스크톱 스크롤 다운 사용자 정의' 기능을 Pura X View 바 타입 폰에도 확장 적용했습니다. 이 기능은 사용자가 스크롤 영역에 따라 샤오이 검색, 알림 센터, 제어 센터를 선택적으로 실행할 수 있게 하지만, 기존의 스크롤 다운 비활성화 옵션은 사라졌습니다. 또한, 이번 업데이트에는 야간 모드 개선, 畅连 인터콤 친구 찾기 기능 추가, AI 및 오디오 성능 최적화 등 다양한 개선 사항이 포함되었습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>새로운 사용자 정의 기능</h3>
+<p>이달 초 HarmonyOS 7 | HUAWEI Mate XT 2 및 올 시나리오 신제품 발표회에서 Huawei 상무이사 겸 제품 투자 심사 위원회 주임, 터미널 BG 회장인 위청둥(Yu Chengdong)은 Mate XT 2 비범대사(非凡大师)의 새로운 윙 타입 트리플 폴더블 폰을 공식 발표했습니다.</p>
+          
+          <p>이 기기는 출시 후 새로운 기능인 '데스크톱 스크롤 다운 작업 사용자 정의'를 독점적으로 지원했습니다. 사용자는 데스크톱의 어느 위치에서든 아래로 스크롤할 때 샤오이(小艺) 검색으로 진입하거나, 다른 스크롤 영역에 따라 샤오이 검색, 알림 센터, 제어 센터로 각각 진입하도록 선택할 수 있습니다.</p>
+          
+          <ul>
+<li>데스크톱 상단 영역을 아래로 스크롤하여 샤오이 검색 진입</li>
+<li>왼쪽 하단 영역을 아래로 스크롤하여 알림 센터 진입</li>
+<li>오른쪽 하단 영역을 아래로 스크롤하여 제어 센터 진입</li>
+</ul>
+          
+          <p>주목할 만한 점은 Huawei Pura X View 바 타입 폰이 HarmonyOS 7.0.0.107 SP8 버전 푸시를 시작했다는 것입니다. IT之家의 실제 테스트 결과, 이 버전으로 업데이트한 후 Pura X View도 해당 기능을 지원하는 것으로 확인되었습니다(새 버전 업데이트 로그에는 언급되지 않음).</p>
+          
+          <p>Huawei Pura X View 사용자는 "설정 - 데스크톱 및 개인화 - 데스크톱 설정"의 "데스크톱 스크롤 다운"에서 해당 옵션을 찾을 수 있습니다.</p>
+          
+          <p>현재 이 기능에는 "단점"도 있습니다. 이전에는 데스크톱 스크롤 다운을 켜거나 끌 수 있었지만, 새 버전에서는 이 설정을 지원하지 않습니다. 사용자는 이전 버전에서 이 기능을 끌 수 있었고, 그러면 데스크톱에서 스크롤 다운 작업을 할 수 없어 일부 상황에서의 오작동을 피할 수 있었습니다. 버전 업데이트 후에는 현재 두 가지 사용자 정의 옵션 중에서 하나만 선택할 수 있습니다.</p>
+          
+          <p>만약 사용자가 이전에 데스크톱 스크롤 다운 작업을 비활성화했다면, 업데이트 후에도 해당 설정을 유지할 수 있습니다. 그러나 업데이트 후 두 가지 옵션 중 하나를 수동으로 선택하면 현재 페이지에서 데스크톱 스크롤 다운 작업을 비활성화할 수 없습니다.</p>
+          
+          <h3>Huawei Pura X View 새 버전 업데이트 로그</h3>
+<ul>
+<li>몰입형 광감 균형 모드에 입자 애니메이션이 추가되었습니다. 알림 센터에서 알림 제거, 데스크톱에서 아이콘/카드 제거, 제어 센터에서 볼륨 조절 등 다양한 시나리오에서 입자 애니메이션이 생성됩니다 (설정 > 데스크톱 및 개인화 > 몰입형 광감 > 균형 모드).</li>
+<li>제어 센터 일부 아이콘의 표시 효과를 최적화했습니다.</li>
+<li>알림 센터 미디어 제어 카드의 표시 효과를 최적화했습니다.</li>
+</ul>
+          
+          <p>야간 모드에 화려한 별이 빛나는 밤하늘, 별이 빛나는 밤하늘 인물 촬영 시나리오가 추가되어 야간에 별이 빛나는 밤하늘과 별이 빛나는 밤하늘 아래 인물을 촬영하는 새로운 경험을 제공하며, 더 많은 멋진 순간을 기록할 수 있도록 돕습니다.</p>
+          
+          <p>畅连(Changlian) 실시간 인터콤이 친구 찾기 기능을 지원합니다. 실시간 인터콤 위치 공유 중에 친구가 근처에 있을 때 친구 아바타의 찾기 아이콘을 클릭하면 안내에 따라 친구를 빠르게 찾을 수 있어 야외 만남이나 쇼핑몰에서 길을 잃지 않고 친구를 찾을 수 있습니다.</p>
+          
+          <ul>
+<li>일부 시나리오에서 동반 AI 사용 경험을 최적화했습니다.</li>
+<li>샤오이 입력기 시작 속도를 최적화했습니다.</li>
+<li>오디오 외부 출력 효과를 최적화했습니다.</li>
+</ul>
+          
+          <h3>총평</h3>
+<p>Huawei는 Mate XT 2 폴더블 폰에 처음 도입된 '데스크톱 스크롤 다운 사용자 정의' 기능을 Pura X View 바 타입 폰에도 확장 적용했습니다. 이 기능은 사용자가 스크롤 영역에 따라 샤오이 검색, 알림 센터, 제어 센터를 선택적으로 실행할 수 있게 하지만, 기존의 스크롤 다운 비활성화 옵션은 사라졌습니다. 또한, 이번 업데이트에는 야간 모드 개선, 畅连 인터콤 친구 찾기 기능 추가, AI 및 오디오 성능 최적화 등 다양한 개선 사항이 포함되었습니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">더욱 강력해진</div>
+                <div class="caption-lang" data-lang="en">More powerful</div>
+                <div class="caption-lang" data-lang="ja">より強力な</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">새로운 윙 폴딩 3단 접이식</div>
+                <div class="caption-lang" data-lang="en">New wing folding three-fold</div>
+                <div class="caption-lang" data-lang="ja">新しいウィングフォールディング3つ折り</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">바탕화면 설정</div>
+                <div class="caption-lang" data-lang="en">Desktop settings</div>
+                <div class="caption-lang" data-lang="ja">デスクトップ設定</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">바탕화면 아래로 스크롤</div>
+                <div class="caption-lang" data-lang="en">Swipe down on desktop</div>
+                <div class="caption-lang" data-lang="ja">デスクトップを下にスワイプ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">바탕화면 위로 스크롤</div>
+                <div class="caption-lang" data-lang="en">Swipe up on desktop</div>
+                <div class="caption-lang" data-lang="ja">デスクトップを上にスワイプ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">레이아웃</div>
+                <div class="caption-lang" data-lang="en">Layout</div>
+                <div class="caption-lang" data-lang="ja">レイアウト</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">바탕화면 레이아웃</div>
+                <div class="caption-lang" data-lang="en">Desktop layout</div>
+                <div class="caption-lang" data-lang="ja">デスクトップレイアウト</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">앱 삭제 후 빈 공간 자동 채우기</div>
+                <div class="caption-lang" data-lang="en">After deleting an app, automatically fill in the empty space</div>
+                <div class="caption-lang" data-lang="ja">アプリ削除後、空きスペースを自動的に埋める</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">마이너스 1 화면</div>
+                <div class="caption-lang" data-lang="en">Minus one screen</div>
+                <div class="caption-lang" data-lang="ja">マイナス1画面</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">레이아웃 잠금</div>
+                <div class="caption-lang" data-lang="en">Lock layout</div>
+                <div class="caption-lang" data-lang="ja">レイアウトをロック</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">켜면 바탕화면 요소를 이동하거나 제거할 수 없습니다.</div>
+                <div class="caption-lang" data-lang="en">When enabled, desktop elements cannot be moved or removed.</div>
+                <div class="caption-lang" data-lang="ja">有効にすると、デスクトップ要素を移動または削除できなくなります。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">아이콘 조정</div>
+                <div class="caption-lang" data-lang="en">Icon adjustment</div>
+                <div class="caption-lang" data-lang="ja">アイコン調整</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">바탕화면 아이콘 크기, 글꼴 크기 및 표시 이름 조정</div>
+                <div class="caption-lang" data-lang="en">Adjust desktop icon size, font size, and display name</div>
+                <div class="caption-lang" data-lang="ja">デスクトップアイコンのサイズ、フォントサイズ、表示名を調整</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">데스크톱 아래로 스크롤</div>
+                <div class="caption-lang" data-lang="en">Desktop scroll down</div>
+                <div class="caption-lang" data-lang="ja">デスクトップを下にスクロール</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">7월 12일 수요일</div>
+                <div class="caption-lang" data-lang="en">Wednesday, July 12</div>
+                <div class="caption-lang" data-lang="ja">7月12日水曜日</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">데스크톱 상단 영역을 아래로 스크롤하여 Xiaoyi Search로 이동하고, 왼쪽 하단 영역을 아래로 스크롤하여 알림 센터로 이동합니다.</div>
+                <div class="caption-lang" data-lang="en">Scroll down the upper area of the desktop to enter Xiaoyi Search, and scroll down the lower left area to enter the notification center.</div>
+                <div class="caption-lang" data-lang="ja">デスクトップの上部領域を下にスワイプしてXiaoyi Searchに入り、左下領域を下にスワイプして通知センターに入ります。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오른쪽 하단 영역을 아래로 스크롤하여 제어 센터로 이동합니다.</div>
+                <div class="caption-lang" data-lang="en">Scroll down the lower right area to enter the control center.</div>
+                <div class="caption-lang" data-lang="ja">右下領域を下にスワイプしてコントロールセンターに入ります。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xiaoyi 검색</div>
+                <div class="caption-lang" data-lang="en">Xiaoyi Search</div>
+                <div class="caption-lang" data-lang="ja">Xiaoyi検索</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xiaoyi 검색, 알림 센터, 제어 센터</div>
+                <div class="caption-lang" data-lang="en">Xiaoyi Search, Notification Center, Control Center</div>
+                <div class="caption-lang" data-lang="ja">Xiaoyi検索、通知センター、コントロールセンター</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">애플리케이션</div>
+                <div class="caption-lang" data-lang="en">Application</div>
+                <div class="caption-lang" data-lang="ja">アプリケーション</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg" alt="이미지 4" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">바탕화면 설정</div>
+                <div class="caption-lang" data-lang="en">Desktop settings</div>
+                <div class="caption-lang" data-lang="ja">デスクトップ設定</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">샤오이 검색</div>
+                <div class="caption-lang" data-lang="en">Xiaoyi Search</div>
+                <div class="caption-lang" data-lang="ja">シャオイー検索</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">앱 센터</div>
+                <div class="caption-lang" data-lang="en">App Center</div>
+                <div class="caption-lang" data-lang="ja">アプリセンター</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">바탕화면 위로 스와이프</div>
+                <div class="caption-lang" data-lang="en">Swipe up on desktop</div>
+                <div class="caption-lang" data-lang="ja">デスクトップを上にスワイプ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">바탕화면 레이아웃</div>
+                <div class="caption-lang" data-lang="en">Desktop layout</div>
+                <div class="caption-lang" data-lang="ja">デスクトップレイアウト</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">자동 정렬</div>
+                <div class="caption-lang" data-lang="en">Auto-align</div>
+                <div class="caption-lang" data-lang="ja">自動整列</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">앱 삭제 후 빈 공간 자동 채우기</div>
+                <div class="caption-lang" data-lang="en">After deleting an app, automatically fill in empty spaces</div>
+                <div class="caption-lang" data-lang="ja">アプリ削除後、空きスペースを自動的に埋める</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">마이너스 1 화면</div>
+                <div class="caption-lang" data-lang="en">Minus one screen</div>
+                <div class="caption-lang" data-lang="ja">マイナス1画面</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">레이아웃 잠금</div>
+                <div class="caption-lang" data-lang="en">Lock layout</div>
+                <div class="caption-lang" data-lang="ja">レイアウトをロック</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">활성화하면 바탕화면 요소를 이동하거나 제거할 수 없습니다.</div>
+                <div class="caption-lang" data-lang="en">Once enabled, desktop elements cannot be moved or removed.</div>
+                <div class="caption-lang" data-lang="ja">有効にすると、デスクトップ要素を移動または削除できなくなります</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">아이콘</div>
+                <div class="caption-lang" data-lang="en">Icons</div>
+                <div class="caption-lang" data-lang="ja">アイコン</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">아이콘 조정</div>
+                <div class="caption-lang" data-lang="en">Icon adjustment</div>
+                <div class="caption-lang" data-lang="ja">アイコン調整</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">바탕화면 아이콘 크기, 글꼴 크기 및 표시 이름 조정</div>
+                <div class="caption-lang" data-lang="en">Adjust desktop icon size, font size, and display name</div>
+                <div class="caption-lang" data-lang="ja">デスクトップアイコンのサイズ、フォントサイズ、表示名を調整する</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg" alt="이미지 5" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">소프트웨어 업데이트</div>
+                <div class="caption-lang" data-lang="en">Software Update</div>
+                <div class="caption-lang" data-lang="ja">ソフトウェアアップデート</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">친애하는 사용자 여러분, 이번 업데이트를 통해 몰입형 광감도 균형 모드에 입자 애니메이션이 추가됩니다.</div>
+                <div class="caption-lang" data-lang="en">Dear user, this update adds particle effects to the Immersive Light Sense Balance mode.</div>
+                <div class="caption-lang" data-lang="ja">ユーザーの皆様、今回のアップデートにより、没入型光感バランスモードに粒子アニメーションが追加されます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">고급 및 균형 몰입형 광감 모드에서 데스크톱 카드 제거 및 조정.</div>
+                <div class="caption-lang" data-lang="en">Effect, remove and adjust desktop cards in immersive light-sensing mode in high-end and balanced gears</div>
+                <div class="caption-lang" data-lang="ja">ハイエンドおよびバランスの取れたイマーシブライトセンシングモードで、デスクトップカードの削除と調整を行います。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">볼륨 조절 등 조작 시 재미있는 입자 효과가 생성되며, 카메라 야간 모드</div>
+                <div class="caption-lang" data-lang="en">Interesting particle effects are produced when adjusting the volume bar and other operations; camera night mode</div>
+                <div class="caption-lang" data-lang="ja">音量バーなどの操作を行うと、興味深いパーティクルアニメーションが生成されます。カメラの夜景モード</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">화려한 별이 빛나는 밤하늘, 별이 빛나는 밤하늘 인물 촬영 장면이 추가되어 더 나은 야경을 선사합니다.</div>
+                <div class="caption-lang" data-lang="en">New starry sky and starry portrait scenes for better night views</div>
+                <div class="caption-lang" data-lang="ja">より良い夜景のために、まばゆい星空と星空ポートレートの撮影シーンが追加されました。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">촬영 성능, 업데이트를 추천합니다.</div>
+                <div class="caption-lang" data-lang="en">Shoot for performance, recommend you update your experience.</div>
+                <div class="caption-lang" data-lang="ja">撮影のパフォーマンスを向上させるため、体験を更新することをお勧めします。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">바탕화면 아이콘/카드 제거, 제어 센터 볼륨 조절 등 모든 상황에서 입자 효과가 발생합니다.</div>
+                <div class="caption-lang" data-lang="en">Granularity occurs in scenarios like removing icons/cards from the desktop or adjusting the volume bar in the control center.</div>
+                <div class="caption-lang" data-lang="ja">デスクトップからアイコンやカードを削除したり、コントロールセンターで音量バーを調整したりする際に、粒子が発生します。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/005/969.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-09"
+               class="archive-btn active">
+              2026-09
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
