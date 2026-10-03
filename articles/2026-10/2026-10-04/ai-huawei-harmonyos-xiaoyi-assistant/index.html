@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Huawei HarmonyOS 7.0 샤오이 스마트 비서 기능 조정, 향후 추가되는 기기 미지원</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="Huawei">
+  <meta name="article-brand-color" content="#CF0A2C">
+  <meta name="title-ko" content="Huawei HarmonyOS 7.0 샤오이 스마트 비서 기능 조정, 향후 추가되는 기기 미지원">
+  <meta name="title-zh" content="Huawei HarmonyOS 7.0 샤오이 스마트 비서 기능 조정, 향후 추가되는 기기 미지원">
+  <meta name="title-ja" content="Huawei HarmonyOS 7.0 샤오이 스마트 비서 기능 조정, 향후 추가되는 기기 미지원">
+  <meta name="title-en" content="Huawei HarmonyOS 7.0 샤오이 스마트 비서 기능 조정, 향후 추가되는 기기 미지원">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260910b">
+<script defer src="../../../../assets/news.js?v=20260910b"></script>
+<script defer src="../../../../assets/article.js?v=20260910b"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #CF0A2C;">
+            Huawei
+          </span>
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Huawei HarmonyOS 7.0 샤오이 스마트 비서 기능 조정, 향후 추가되는 기기 미지원"
+            data-zh="Huawei HarmonyOS 7.0 샤오이 스마트 비서 기능 조정, 향후 추가되는 기기 미지원"
+            data-ja="Huawei HarmonyOS 7.0 샤오이 스마트 비서 기능 조정, 향후 추가되는 기기 미지원"
+            data-en="Huawei HarmonyOS 7.0 샤오이 스마트 비서 기능 조정, 향후 추가되는 기기 미지원">Huawei HarmonyOS 7.0 샤오이 스마트 비서 기능 조정, 향후 추가되는 기기 미지원</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-10-04
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.jpg@s_2,w_820,h_361" alt="Huawei HarmonyOS 7.0 샤오이 스마트 비서 기능 조정, 향후 추가되는 기기 미지원" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>서비스 변경 안내</h3>
+          
+          <p>IT之家 10월 3일 소식에 따르면, Xiaoyi Bangbang(小艺帮帮忙) 스마트 에이전트는 HarmonyOS 6.0에서 출시된 탐색형 스마트 에이전트입니다. Huawei 공식 웹사이트에 따르면, 사업 조정으로 인해 Xiaoyi Bangbang 스마트 에이전트는 더 이상 신규 기기를 지원하지 않을 예정입니다.</p>
+          
+          <p>Xiaoyi Bangbang 스마트 에이전트는 애플리케이션 제어에 특화된 스마트 에이전트로, 더 많은 시나리오 제어를 지원합니다. 스마트 에이전트 대화 목록 페이지에서 Xiaoyi Bangbang 스마트 에이전트를 찾거나, 광장에서 Xiaoyi Bangbang을 검색하여 사용할 수 있습니다.</p>
+          
+          <p>기존 HarmonyOS 6.0 기간 동안 지원되던 기기에서는 Xiaoyi Bangbang 스마트 에이전트를 계속 사용할 수 있으며, 사용자의 개인 스킬과 예약된 작업은 HarmonyOS 7.0으로 업그레이드한 후에도 계속 사용할 수 있습니다.</p>
+          
+          <p>Xiaoyi Bangbang 스마트 에이전트를 지원하지 않는 기기에서는 데이터 클론을 통해 스마트 에이전트, 개인 스킬, 예약된 작업을 해당 기기로 클론할 수 없습니다.</p>
+          
+          <h3>지원 기기 목록 (HarmonyOS 6.0)</h3>
+          
+          <p>IT之家가 제공하는 HarmonyOS 6.0 기간 동안 지원되었던 기기는 다음과 같습니다.</p>
+          
+          <ul>
+<li>Mate 80 전 시리즈, Mate 70 전 시리즈, Mate 60 전 시리즈</li>
+<li>Mate X7 전 시리즈, Mate X6 전 시리즈, Mate X5 전 시리즈</li>
+<li>Pura X 전 시리즈, Pura X Max 전 시리즈</li>
+<li>Pura 90 전 시리즈, Pura 80 전 시리즈, Pura 70 전 시리즈</li>
+<li>Pocket 2 전 시리즈</li>
+<li>nova 16 전 시리즈 (nova 16 SE 제외), nova 15 전 시리즈, nova 14 전 시리즈 (nova 14 활력판 제외)</li>
+<li>Changxiang 90 Plus, Changxiang 90 Pro Max</li>
+</ul>
+          
+          <h3>총평</h3>
+          
+          <p>Huawei는 HarmonyOS 6.0에서 선보였던 Xiaoyi Bangbang 스마트 에이전트의 신규 기기 지원을 중단한다고 발표했습니다. 이는 사업 조정에 따른 결정으로, 기존 HarmonyOS 6.0 지원 기기에서는 계속 사용할 수 있지만, 신규 기기에서는 더 이상 지원되지 않습니다. 사용자의 개인 스킬과 예약된 작업은 HarmonyOS 7.0 업그레이드 후에도 유지됩니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>서비스 변경 안내</h3>
+          
+          <p>IT之家 10월 3일 소식에 따르면, Xiaoyi Bangbang(小艺帮帮忙) 스마트 에이전트는 HarmonyOS 6.0에서 출시된 탐색형 스마트 에이전트입니다. Huawei 공식 웹사이트에 따르면, 사업 조정으로 인해 Xiaoyi Bangbang 스마트 에이전트는 더 이상 신규 기기를 지원하지 않을 예정입니다.</p>
+          
+          <p>Xiaoyi Bangbang 스마트 에이전트는 애플리케이션 제어에 특화된 스마트 에이전트로, 더 많은 시나리오 제어를 지원합니다. 스마트 에이전트 대화 목록 페이지에서 Xiaoyi Bangbang 스마트 에이전트를 찾거나, 광장에서 Xiaoyi Bangbang을 검색하여 사용할 수 있습니다.</p>
+          
+          <p>기존 HarmonyOS 6.0 기간 동안 지원되던 기기에서는 Xiaoyi Bangbang 스마트 에이전트를 계속 사용할 수 있으며, 사용자의 개인 스킬과 예약된 작업은 HarmonyOS 7.0으로 업그레이드한 후에도 계속 사용할 수 있습니다.</p>
+          
+          <p>Xiaoyi Bangbang 스마트 에이전트를 지원하지 않는 기기에서는 데이터 클론을 통해 스마트 에이전트, 개인 스킬, 예약된 작업을 해당 기기로 클론할 수 없습니다.</p>
+          
+          <h3>지원 기기 목록 (HarmonyOS 6.0)</h3>
+          
+          <p>IT之家가 제공하는 HarmonyOS 6.0 기간 동안 지원되었던 기기는 다음과 같습니다.</p>
+          
+          <ul>
+<li>Mate 80 전 시리즈, Mate 70 전 시리즈, Mate 60 전 시리즈</li>
+<li>Mate X7 전 시리즈, Mate X6 전 시리즈, Mate X5 전 시리즈</li>
+<li>Pura X 전 시리즈, Pura X Max 전 시리즈</li>
+<li>Pura 90 전 시리즈, Pura 80 전 시리즈, Pura 70 전 시리즈</li>
+<li>Pocket 2 전 시리즈</li>
+<li>nova 16 전 시리즈 (nova 16 SE 제외), nova 15 전 시리즈, nova 14 전 시리즈 (nova 14 활력판 제외)</li>
+<li>Changxiang 90 Plus, Changxiang 90 Pro Max</li>
+</ul>
+          
+          <h3>총평</h3>
+          
+          <p>Huawei는 HarmonyOS 6.0에서 선보였던 Xiaoyi Bangbang 스마트 에이전트의 신규 기기 지원을 중단한다고 발표했습니다. 이는 사업 조정에 따른 결정으로, 기존 HarmonyOS 6.0 지원 기기에서는 계속 사용할 수 있지만, 신규 기기에서는 더 이상 지원되지 않습니다. 사용자의 개인 스킬과 예약된 작업은 HarmonyOS 7.0 업그레이드 후에도 유지됩니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>서비스 변경 안내</h3>
+          
+          <p>IT之家 10월 3일 소식에 따르면, Xiaoyi Bangbang(小艺帮帮忙) 스마트 에이전트는 HarmonyOS 6.0에서 출시된 탐색형 스마트 에이전트입니다. Huawei 공식 웹사이트에 따르면, 사업 조정으로 인해 Xiaoyi Bangbang 스마트 에이전트는 더 이상 신규 기기를 지원하지 않을 예정입니다.</p>
+          
+          <p>Xiaoyi Bangbang 스마트 에이전트는 애플리케이션 제어에 특화된 스마트 에이전트로, 더 많은 시나리오 제어를 지원합니다. 스마트 에이전트 대화 목록 페이지에서 Xiaoyi Bangbang 스마트 에이전트를 찾거나, 광장에서 Xiaoyi Bangbang을 검색하여 사용할 수 있습니다.</p>
+          
+          <p>기존 HarmonyOS 6.0 기간 동안 지원되던 기기에서는 Xiaoyi Bangbang 스마트 에이전트를 계속 사용할 수 있으며, 사용자의 개인 스킬과 예약된 작업은 HarmonyOS 7.0으로 업그레이드한 후에도 계속 사용할 수 있습니다.</p>
+          
+          <p>Xiaoyi Bangbang 스마트 에이전트를 지원하지 않는 기기에서는 데이터 클론을 통해 스마트 에이전트, 개인 스킬, 예약된 작업을 해당 기기로 클론할 수 없습니다.</p>
+          
+          <h3>지원 기기 목록 (HarmonyOS 6.0)</h3>
+          
+          <p>IT之家가 제공하는 HarmonyOS 6.0 기간 동안 지원되었던 기기는 다음과 같습니다.</p>
+          
+          <ul>
+<li>Mate 80 전 시리즈, Mate 70 전 시리즈, Mate 60 전 시리즈</li>
+<li>Mate X7 전 시리즈, Mate X6 전 시리즈, Mate X5 전 시리즈</li>
+<li>Pura X 전 시리즈, Pura X Max 전 시리즈</li>
+<li>Pura 90 전 시리즈, Pura 80 전 시리즈, Pura 70 전 시리즈</li>
+<li>Pocket 2 전 시리즈</li>
+<li>nova 16 전 시리즈 (nova 16 SE 제외), nova 15 전 시리즈, nova 14 전 시리즈 (nova 14 활력판 제외)</li>
+<li>Changxiang 90 Plus, Changxiang 90 Pro Max</li>
+</ul>
+          
+          <h3>총평</h3>
+          
+          <p>Huawei는 HarmonyOS 6.0에서 선보였던 Xiaoyi Bangbang 스마트 에이전트의 신규 기기 지원을 중단한다고 발표했습니다. 이는 사업 조정에 따른 결정으로, 기존 HarmonyOS 6.0 지원 기기에서는 계속 사용할 수 있지만, 신규 기기에서는 더 이상 지원되지 않습니다. 사용자의 개인 스킬과 예약된 작업은 HarmonyOS 7.0 업그레이드 후에도 유지됩니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>서비스 변경 안내</h3>
+          
+          <p>IT之家 10월 3일 소식에 따르면, Xiaoyi Bangbang(小艺帮帮忙) 스마트 에이전트는 HarmonyOS 6.0에서 출시된 탐색형 스마트 에이전트입니다. Huawei 공식 웹사이트에 따르면, 사업 조정으로 인해 Xiaoyi Bangbang 스마트 에이전트는 더 이상 신규 기기를 지원하지 않을 예정입니다.</p>
+          
+          <p>Xiaoyi Bangbang 스마트 에이전트는 애플리케이션 제어에 특화된 스마트 에이전트로, 더 많은 시나리오 제어를 지원합니다. 스마트 에이전트 대화 목록 페이지에서 Xiaoyi Bangbang 스마트 에이전트를 찾거나, 광장에서 Xiaoyi Bangbang을 검색하여 사용할 수 있습니다.</p>
+          
+          <p>기존 HarmonyOS 6.0 기간 동안 지원되던 기기에서는 Xiaoyi Bangbang 스마트 에이전트를 계속 사용할 수 있으며, 사용자의 개인 스킬과 예약된 작업은 HarmonyOS 7.0으로 업그레이드한 후에도 계속 사용할 수 있습니다.</p>
+          
+          <p>Xiaoyi Bangbang 스마트 에이전트를 지원하지 않는 기기에서는 데이터 클론을 통해 스마트 에이전트, 개인 스킬, 예약된 작업을 해당 기기로 클론할 수 없습니다.</p>
+          
+          <h3>지원 기기 목록 (HarmonyOS 6.0)</h3>
+          
+          <p>IT之家가 제공하는 HarmonyOS 6.0 기간 동안 지원되었던 기기는 다음과 같습니다.</p>
+          
+          <ul>
+<li>Mate 80 전 시리즈, Mate 70 전 시리즈, Mate 60 전 시리즈</li>
+<li>Mate X7 전 시리즈, Mate X6 전 시리즈, Mate X5 전 시리즈</li>
+<li>Pura X 전 시리즈, Pura X Max 전 시리즈</li>
+<li>Pura 90 전 시리즈, Pura 80 전 시리즈, Pura 70 전 시리즈</li>
+<li>Pocket 2 전 시리즈</li>
+<li>nova 16 전 시리즈 (nova 16 SE 제외), nova 15 전 시리즈, nova 14 전 시리즈 (nova 14 활력판 제외)</li>
+<li>Changxiang 90 Plus, Changxiang 90 Pro Max</li>
+</ul>
+          
+          <h3>총평</h3>
+          
+          <p>Huawei는 HarmonyOS 6.0에서 선보였던 Xiaoyi Bangbang 스마트 에이전트의 신규 기기 지원을 중단한다고 발표했습니다. 이는 사업 조정에 따른 결정으로, 기존 HarmonyOS 6.0 지원 기기에서는 계속 사용할 수 있지만, 신규 기기에서는 더 이상 지원되지 않습니다. 사용자의 개인 스킬과 예약된 작업은 HarmonyOS 7.0 업그레이드 후에도 유지됩니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg@s_2,w_820,h_361" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">안녕하세요, 그동안 샤오이방방망(小艺帮帮忙) 스마트 에이전트에 보내주신 관심과 성원에 감사드립니다.</div>
+                <div class="caption-lang" data-lang="en">Hello, thank you for your continued attention and support for the Xiaoyibangbangmang intelligent agent.</div>
+                <div class="caption-lang" data-lang="ja">こんにちは、これまで小芸幇幇忙スマートエージェントにご関心とご支援をいただき、誠にありがとうございます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">계속 사용하세요.</div>
+                <div class="caption-lang" data-lang="en">Continue to use.</div>
+                <div class="caption-lang" data-lang="ja">引き続きご利用ください。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">안녕하세요, 그동안 XiaoYi Help Assistant에 보내주신 관심과 성원에 감사드립니다.</div>
+                <div class="caption-lang" data-lang="en">Hello, thank you for your continued attention and support to the XiaoYi Help Assistant.</div>
+                <div class="caption-lang" data-lang="ja">こんにちは、これまでXiaoYi Help Assistantにご関心とご支援をいただき、誠にありがとうございます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">계속 사용하세요.</div>
+                <div class="caption-lang" data-lang="en">Continue to use.</div>
+                <div class="caption-lang" data-lang="ja">引き続きご利用ください。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">• XiaoYi Help Assistant를 지원하지 않는 기기의 경우, 데이터 복제를 통해 어시스턴트, 개인 스킬, 예약된 작업 등을 지원하지 않는 기기로 복제할 수 없습니다.</div>
+                <div class="caption-lang" data-lang="en">• For devices that do not support XiaoYi Help Assistant, the assistant, personal skills, and scheduled tasks cannot be cloned to unsupported devices through data cloning.</div>
+                <div class="caption-lang" data-lang="ja">• XiaoYi Help Assistantをサポートしていないデバイスの場合、データクローンを介してアシスタント、個人スキル、スケジュールされたタスクなどをサポートしていないデバイスにクローンすることはできません。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.png" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">심층 사고</div>
+                <div class="caption-lang" data-lang="en">Deep thinking</div>
+                <div class="caption-lang" data-lang="ja">深く考える</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">샤오이</div>
+                <div class="caption-lang" data-lang="en">Xiaoyi</div>
+                <div class="caption-lang" data-lang="ja">シャオイー</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">샤오이, 도와줘</div>
+                <div class="caption-lang" data-lang="en">Xiaoyi help me</div>
+                <div class="caption-lang" data-lang="ja">小艺、助けて</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">샤오이 지식창고</div>
+                <div class="caption-lang" data-lang="en">Xiaoyi Knowledge Base</div>
+                <div class="caption-lang" data-lang="ja">小芸ナレッジベース</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">창작을 더 잘 이해하는 지식 관리자</div>
+                <div class="caption-lang" data-lang="en">Knowledge housekeeper that understands creation better</div>
+                <div class="caption-lang" data-lang="ja">創作をより深く理解するための知識の番人</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">샤오이 타임머신</div>
+                <div class="caption-lang" data-lang="en">Xiao Yi Time Machine</div>
+                <div class="caption-lang" data-lang="ja">小芸タイムマシン</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">당신의 멋진 순간을 기록하세요.</div>
+                <div class="caption-lang" data-lang="en">Record your wonderful moments</div>
+                <div class="caption-lang" data-lang="ja">あなたの素晴らしい時間を記録しましょう</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">샤오이 문서 어시스턴트</div>
+                <div class="caption-lang" data-lang="en">Xiaoyi Document Assistant</div>
+                <div class="caption-lang" data-lang="ja">Xiaoyiドキュメントアシスタント</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">샤오이 사진관</div>
+                <div class="caption-lang" data-lang="en">Xiaoyi Photo Studio</div>
+                <div class="caption-lang" data-lang="ja">シャオイー写真館</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">당신의 이미지에 따라 아름다운 창의적인 사진을 생성합니다.</div>
+                <div class="caption-lang" data-lang="en">Generate beautiful creative portraits based on your image.</div>
+                <div class="caption-lang" data-lang="ja">あなたのイメージから美しいクリエイティブな写真を作成します。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">샤오이 심층 문제 풀이</div>
+                <div class="caption-lang" data-lang="en">Xiaoyi&#39;s in-depth problem solving</div>
+                <div class="caption-lang" data-lang="ja">Xiaoyiが問題を深く解決する</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">대화</div>
+                <div class="caption-lang" data-lang="en">Dialogue</div>
+                <div class="caption-lang" data-lang="ja">対話</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">쇼핑</div>
+                <div class="caption-lang" data-lang="en">Shopping</div>
+                <div class="caption-lang" data-lang="ja">ショッピング</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">여행</div>
+                <div class="caption-lang" data-lang="en">Travel</div>
+                <div class="caption-lang" data-lang="ja">旅行</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">샤오이 스킬 학습</div>
+                <div class="caption-lang" data-lang="en">Xiao Yi learns skills</div>
+                <div class="caption-lang" data-lang="ja">小芸がスキルを学ぶ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이미지, 인터넷, 작동 관찰을 통해 애플리케이션을 학습할 수 있습니다.</div>
+                <div class="caption-lang" data-lang="en">You can try to learn the application by looking at pictures, connecting to the internet, and observing operations.</div>
+                <div class="caption-lang" data-lang="ja">画像を見て、インターネットに接続し、操作を観察することで、アプリケーションを学習しようとすることができます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">나만의 맞춤형 스킬을 만들 수 있는 조작.</div>
+                <div class="caption-lang" data-lang="en">Operate, form your personalized skills</div>
+                <div class="caption-lang" data-lang="ja">操作、あなたの個性的なスキルを形成する</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">업로드 작업 단계 이미지를 보내주세요.</div>
+                <div class="caption-lang" data-lang="en">Upload operation step pictures, I will</div>
+                <div class="caption-lang" data-lang="ja">操作手順の画像をアップロードします。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">그림을 보고 따라 하세요.</div>
+                <div class="caption-lang" data-lang="en">Learn to operate by looking at the pictures.</div>
+                <div class="caption-lang" data-lang="ja">図を見て操作を学ぶ。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">네트워크로 기술 배우기</div>
+                <div class="caption-lang" data-lang="en">Learn skills online</div>
+                <div class="caption-lang" data-lang="ja">オンラインでスキルを学ぶ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">원하는 앱 작업을 말해주세요.</div>
+                <div class="caption-lang" data-lang="en">Tell me what you want to do with the app, I</div>
+                <div class="caption-lang" data-lang="ja">やりたいアプリ操作を言ってください</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">인터넷 학습이 가능합니다.</div>
+                <div class="caption-lang" data-lang="en">Learning online at the conference.</div>
+                <div class="caption-lang" data-lang="ja">会議でインターネット学習をする。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">자세히 알아보기</div>
+                <div class="caption-lang" data-lang="en">Learn more</div>
+                <div class="caption-lang" data-lang="ja">詳細はこちら</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">내 기술</div>
+                <div class="caption-lang" data-lang="en">My Skills</div>
+                <div class="caption-lang" data-lang="ja">私のスキル</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">무엇을 도와드릴까요?</div>
+                <div class="caption-lang" data-lang="en">What can I help you with</div>
+                <div class="caption-lang" data-lang="ja">何をお手伝いしましょうか</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">샤오이 헬프&#34; 크라우드 테스트 버전에 오신 것을 환영합니다. 저는 아직 배우고 성장하는 중입니다.</div>
+                <div class="caption-lang" data-lang="en">Welcome to &#34;Xiaoyi Help Me&#34; crowdsourcing beta, I&#39;m still learning and growing</div>
+                <div class="caption-lang" data-lang="ja">「小芸がお手伝い」ベータ版へようこそ、私はまだ学習成長中です</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">명령을 듣고 스스로 학습할 수 있습니다! 일반적인 작업:</div>
+                <div class="caption-lang" data-lang="en">middle. Can listen to your commands, and can self-learn! Routine operation: to</div>
+                <div class="caption-lang" data-lang="ja">あなたの指示を聞き、自己学習もできる。通常の操作：対</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">예술 학습 기술&#34;로 나만의 맞춤형 작업을 학습하세요.</div>
+                <div class="caption-lang" data-lang="en">Learn your personalized operations.</div>
+                <div class="caption-lang" data-lang="ja">「芸術を学び技能を学ぶ」で、あなたの個性的な操作を学びましょう。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">스킬 라이브러리</div>
+                <div class="caption-lang" data-lang="en">Skill Library</div>
+                <div class="caption-lang" data-lang="ja">スキルライブラリ</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/009/516.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-10"
+               class="archive-btn active">
+              2026-10
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
