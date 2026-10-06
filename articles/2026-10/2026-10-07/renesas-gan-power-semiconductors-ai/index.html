@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 르네사스, AI 데이터센터 및 휴머노이드 로봇용 저전압 GaN 전력 반도체 첫 출시</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="image_sensor">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="르네사스, AI 데이터센터 및 휴머노이드 로봇용 저전압 GaN 전력 반도체 첫 출시">
+  <meta name="title-zh" content="르네사스, AI 데이터센터 및 휴머노이드 로봇용 저전압 GaN 전력 반도체 첫 출시">
+  <meta name="title-ja" content="르네사스, AI 데이터센터 및 휴머노이드 로봇용 저전압 GaN 전력 반도체 첫 출시">
+  <meta name="title-en" content="르네사스, AI 데이터센터 및 휴머노이드 로봇용 저전압 GaN 전력 반도체 첫 출시">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260910b">
+<script defer src="../../../../assets/news.js?v=20260910b"></script>
+<script defer src="../../../../assets/article.js?v=20260910b"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="르네사스, AI 데이터센터 및 휴머노이드 로봇용 저전압 GaN 전력 반도체 첫 출시"
+            data-zh="르네사스, AI 데이터센터 및 휴머노이드 로봇용 저전압 GaN 전력 반도체 첫 출시"
+            data-ja="르네사스, AI 데이터센터 및 휴머노이드 로봇용 저전압 GaN 전력 반도체 첫 출시"
+            data-en="르네사스, AI 데이터센터 및 휴머노이드 로봇용 저전압 GaN 전력 반도체 첫 출시">르네사스, AI 데이터센터 및 휴머노이드 로봇용 저전압 GaN 전력 반도체 첫 출시</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-10-07
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="르네사스, AI 데이터센터 및 휴머노이드 로봇용 저전압 GaN 전력 반도체 첫 출시" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>Renesas, 저전압 GaN 전력 반도체 출시</h3>
+          
+          <p>Renesas는 오늘 회사 최초의 저전압 질화갈륨(GaN) 전력 반도체 제품을 출시했다고 발표했습니다. 이번에 출시된 제품은 100V E-mode GaN 개별 전력 트랜지스터 시리즈로, AI 데이터 센터, 휴머노이드 로봇, 공장 자동화 및 산업용 모터 드라이브와 같은 애플리케이션 분야를 대상으로 합니다.</p>
+          
+          <p>Renesas가 이번에 출시한 제품은 RTP100E005G1FL, RTP100E2P6G1FL, RTP100E1P8G1FL-DSC 및 RTP100E1P2G1FL-DSC로, 우수한 하드 스위칭 및 소프트 스위칭 FOM(Figure of Merit) 성능을 제공합니다. 유사한 GaN 장치와 비교하여 하드 스위칭 FOM은 최대 35% 감소하고, 소프트 스위칭 FOM은 최대 63% 감소합니다. 저전압 GaN 장치는 또한 실리콘 장치와 호환되는 패키지 크기를 유지하여 기존 설계에 쉽게 통합할 수 있습니다.</p>
+          
+          <p>동시에 이 시리즈 제품은 실리콘 기반 설계에 비해 효율이 1%에서 3% 향상되었으며, Qrr 손실을 제거하여 스위칭 손실을 40%에서 70%까지 크게 줄였습니다. 다양한 표준 MOSFET 호환 패키지를 제공하여 고객이 PCB를 크게 재설계할 필요 없이 실리콘 MOSFET 레이아웃에서 GaN 솔루션으로 빠르게 전환할 수 있도록 합니다.</p>
+          
+          <h3>GaN 기술의 특징</h3>
+          
+          <p>질화갈륨(GaN)은 와이드 밴드갭 반도체 재료로, 밴드갭은 약 3.4 전자볼트로 실리콘의 약 1.12 전자볼트보다 훨씬 높으며, 임계 항복 전계는 실리콘의 약 10배입니다. GaN 전력 장치는 AlGaN/GaN 이종 접합 계면에서 편광 효과로 인해 형성되는 2차원 전자 가스(2DEG) 전도에 의존하며, 도핑 없이도 낮은 저항 전도를 달성할 수 있어 더 빠른 스위칭 속도, 더 낮은 게이트 전하 및 출력 커패시턴스를 가집니다. 또한 GaN 장치에는 바디 다이오드가 없으며, 역방향 전도는 채널 개방에 의존하므로 역방향 복구 전하(Qrr)가 거의 0입니다.</p>
+          
+          <p>질화갈륨 전력 장치는 주로 E-mode와 D-mode 캐스코드의 두 가지 기술 경로로 나뉩니다. E-mode GaN은 게이트 구조를 통해 2차원 전자 가스를 변조하여 양의 문턱 전압을 달성합니다. D-mode GaN은 본질적으로 상시 온(normally-on) 장치로, 저전압 실리콘 MOSFET과 함께 패키징되어 상시 오프(normally-off) 캐스코드 구조를 형성해야 하며, 더 높은 구동 내전압과 더 강력한 간섭 방지 기능을 가집니다. Renesas의 이전 GaN 제품은 주로 인수한 Transphorm의 D-mode SuperGaN 기술을 기반으로 했으며, 이번 100V 제품은 최초의 E-mode GaN 개별 장치입니다.</p>
+          
+          <p>본문에서 언급된 FOM(Figure of Merit)은 전력 장치의 종합적인 성능을 측정하는 데 사용되는 일반적인 지표로, 일반적으로 온 저항과 게이트 전하의 곱(RDS(on)×Qg) 등의 형태로 나타나며, 값이 낮을수록 일반적으로 동일한 손실에서 더 높은 스위칭 주파수를 지원하거나 동일한 주파수에서 손실이 더 낮다는 것을 의미합니다. 실리콘 MOSFET의 이 지표는 일반적으로 약 1000mΩ·nC인 반면, GaN 장치는 약 50~100mΩ·nC에 불과합니다.</p>
+          
+          <h3>Renesas의 GaN 시장 진출</h3>
+          
+          <p>Renesas는 2024년 6월 20일 미국 GaN 전력 반도체 제조업체 Transphorm 인수를 완료하여 GaN 전력 장치 분야에 진출했으며, 동시에 GaN 기반 성공적인 제품 포트폴리오 레퍼런스 디자인 15개를 출시했습니다. 2025년 7월, Renesas는 SuperGaN 플랫폼 기반의 650V 4세대 E-mode GaN FET를 출시하여 AI 데이터 센터, 서버 전원, 전기 자동차 충전 등 수 킬로와트급 애플리케이션을 대상으로 했습니다. 이번 100V 저전압 제품은 GaN 기술을 저전압 분야로 확장한 첫 번째 사례입니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Renesas는 AI 데이터 센터, 로봇, 산업 자동화 등 다양한 분야에 적용될 수 있는 최초의 저전압 E-mode GaN 전력 반도체를 출시했습니다. 이 신제품은 기존 실리콘 기반 설계 대비 효율을 높이고 스위칭 손실을 크게 줄였으며, 기존 실리콘 MOSFET 레이아웃에서 쉽게 전환할 수 있도록 호환성을 제공합니다. Transphorm 인수를 통해 GaN 기술을 확보한 Renesas는 고전압 및 저전압 GaN 시장 모두에서 입지를 강화하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Renesas, 저전압 GaN 전력 반도체 출시</h3>
+          
+          <p>Renesas는 오늘 회사 최초의 저전압 질화갈륨(GaN) 전력 반도체 제품을 출시했다고 발표했습니다. 이번에 출시된 제품은 100V E-mode GaN 개별 전력 트랜지스터 시리즈로, AI 데이터 센터, 휴머노이드 로봇, 공장 자동화 및 산업용 모터 드라이브와 같은 애플리케이션 분야를 대상으로 합니다.</p>
+          
+          <p>Renesas가 이번에 출시한 제품은 RTP100E005G1FL, RTP100E2P6G1FL, RTP100E1P8G1FL-DSC 및 RTP100E1P2G1FL-DSC로, 우수한 하드 스위칭 및 소프트 스위칭 FOM(Figure of Merit) 성능을 제공합니다. 유사한 GaN 장치와 비교하여 하드 스위칭 FOM은 최대 35% 감소하고, 소프트 스위칭 FOM은 최대 63% 감소합니다. 저전압 GaN 장치는 또한 실리콘 장치와 호환되는 패키지 크기를 유지하여 기존 설계에 쉽게 통합할 수 있습니다.</p>
+          
+          <p>동시에 이 시리즈 제품은 실리콘 기반 설계에 비해 효율이 1%에서 3% 향상되었으며, Qrr 손실을 제거하여 스위칭 손실을 40%에서 70%까지 크게 줄였습니다. 다양한 표준 MOSFET 호환 패키지를 제공하여 고객이 PCB를 크게 재설계할 필요 없이 실리콘 MOSFET 레이아웃에서 GaN 솔루션으로 빠르게 전환할 수 있도록 합니다.</p>
+          
+          <h3>GaN 기술의 특징</h3>
+          
+          <p>질화갈륨(GaN)은 와이드 밴드갭 반도체 재료로, 밴드갭은 약 3.4 전자볼트로 실리콘의 약 1.12 전자볼트보다 훨씬 높으며, 임계 항복 전계는 실리콘의 약 10배입니다. GaN 전력 장치는 AlGaN/GaN 이종 접합 계면에서 편광 효과로 인해 형성되는 2차원 전자 가스(2DEG) 전도에 의존하며, 도핑 없이도 낮은 저항 전도를 달성할 수 있어 더 빠른 스위칭 속도, 더 낮은 게이트 전하 및 출력 커패시턴스를 가집니다. 또한 GaN 장치에는 바디 다이오드가 없으며, 역방향 전도는 채널 개방에 의존하므로 역방향 복구 전하(Qrr)가 거의 0입니다.</p>
+          
+          <p>질화갈륨 전력 장치는 주로 E-mode와 D-mode 캐스코드의 두 가지 기술 경로로 나뉩니다. E-mode GaN은 게이트 구조를 통해 2차원 전자 가스를 변조하여 양의 문턱 전압을 달성합니다. D-mode GaN은 본질적으로 상시 온(normally-on) 장치로, 저전압 실리콘 MOSFET과 함께 패키징되어 상시 오프(normally-off) 캐스코드 구조를 형성해야 하며, 더 높은 구동 내전압과 더 강력한 간섭 방지 기능을 가집니다. Renesas의 이전 GaN 제품은 주로 인수한 Transphorm의 D-mode SuperGaN 기술을 기반으로 했으며, 이번 100V 제품은 최초의 E-mode GaN 개별 장치입니다.</p>
+          
+          <p>본문에서 언급된 FOM(Figure of Merit)은 전력 장치의 종합적인 성능을 측정하는 데 사용되는 일반적인 지표로, 일반적으로 온 저항과 게이트 전하의 곱(RDS(on)×Qg) 등의 형태로 나타나며, 값이 낮을수록 일반적으로 동일한 손실에서 더 높은 스위칭 주파수를 지원하거나 동일한 주파수에서 손실이 더 낮다는 것을 의미합니다. 실리콘 MOSFET의 이 지표는 일반적으로 약 1000mΩ·nC인 반면, GaN 장치는 약 50~100mΩ·nC에 불과합니다.</p>
+          
+          <h3>Renesas의 GaN 시장 진출</h3>
+          
+          <p>Renesas는 2024년 6월 20일 미국 GaN 전력 반도체 제조업체 Transphorm 인수를 완료하여 GaN 전력 장치 분야에 진출했으며, 동시에 GaN 기반 성공적인 제품 포트폴리오 레퍼런스 디자인 15개를 출시했습니다. 2025년 7월, Renesas는 SuperGaN 플랫폼 기반의 650V 4세대 E-mode GaN FET를 출시하여 AI 데이터 센터, 서버 전원, 전기 자동차 충전 등 수 킬로와트급 애플리케이션을 대상으로 했습니다. 이번 100V 저전압 제품은 GaN 기술을 저전압 분야로 확장한 첫 번째 사례입니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Renesas는 AI 데이터 센터, 로봇, 산업 자동화 등 다양한 분야에 적용될 수 있는 최초의 저전압 E-mode GaN 전력 반도체를 출시했습니다. 이 신제품은 기존 실리콘 기반 설계 대비 효율을 높이고 스위칭 손실을 크게 줄였으며, 기존 실리콘 MOSFET 레이아웃에서 쉽게 전환할 수 있도록 호환성을 제공합니다. Transphorm 인수를 통해 GaN 기술을 확보한 Renesas는 고전압 및 저전압 GaN 시장 모두에서 입지를 강화하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>Renesas, 저전압 GaN 전력 반도체 출시</h3>
+          
+          <p>Renesas는 오늘 회사 최초의 저전압 질화갈륨(GaN) 전력 반도체 제품을 출시했다고 발표했습니다. 이번에 출시된 제품은 100V E-mode GaN 개별 전력 트랜지스터 시리즈로, AI 데이터 센터, 휴머노이드 로봇, 공장 자동화 및 산업용 모터 드라이브와 같은 애플리케이션 분야를 대상으로 합니다.</p>
+          
+          <p>Renesas가 이번에 출시한 제품은 RTP100E005G1FL, RTP100E2P6G1FL, RTP100E1P8G1FL-DSC 및 RTP100E1P2G1FL-DSC로, 우수한 하드 스위칭 및 소프트 스위칭 FOM(Figure of Merit) 성능을 제공합니다. 유사한 GaN 장치와 비교하여 하드 스위칭 FOM은 최대 35% 감소하고, 소프트 스위칭 FOM은 최대 63% 감소합니다. 저전압 GaN 장치는 또한 실리콘 장치와 호환되는 패키지 크기를 유지하여 기존 설계에 쉽게 통합할 수 있습니다.</p>
+          
+          <p>동시에 이 시리즈 제품은 실리콘 기반 설계에 비해 효율이 1%에서 3% 향상되었으며, Qrr 손실을 제거하여 스위칭 손실을 40%에서 70%까지 크게 줄였습니다. 다양한 표준 MOSFET 호환 패키지를 제공하여 고객이 PCB를 크게 재설계할 필요 없이 실리콘 MOSFET 레이아웃에서 GaN 솔루션으로 빠르게 전환할 수 있도록 합니다.</p>
+          
+          <h3>GaN 기술의 특징</h3>
+          
+          <p>질화갈륨(GaN)은 와이드 밴드갭 반도체 재료로, 밴드갭은 약 3.4 전자볼트로 실리콘의 약 1.12 전자볼트보다 훨씬 높으며, 임계 항복 전계는 실리콘의 약 10배입니다. GaN 전력 장치는 AlGaN/GaN 이종 접합 계면에서 편광 효과로 인해 형성되는 2차원 전자 가스(2DEG) 전도에 의존하며, 도핑 없이도 낮은 저항 전도를 달성할 수 있어 더 빠른 스위칭 속도, 더 낮은 게이트 전하 및 출력 커패시턴스를 가집니다. 또한 GaN 장치에는 바디 다이오드가 없으며, 역방향 전도는 채널 개방에 의존하므로 역방향 복구 전하(Qrr)가 거의 0입니다.</p>
+          
+          <p>질화갈륨 전력 장치는 주로 E-mode와 D-mode 캐스코드의 두 가지 기술 경로로 나뉩니다. E-mode GaN은 게이트 구조를 통해 2차원 전자 가스를 변조하여 양의 문턱 전압을 달성합니다. D-mode GaN은 본질적으로 상시 온(normally-on) 장치로, 저전압 실리콘 MOSFET과 함께 패키징되어 상시 오프(normally-off) 캐스코드 구조를 형성해야 하며, 더 높은 구동 내전압과 더 강력한 간섭 방지 기능을 가집니다. Renesas의 이전 GaN 제품은 주로 인수한 Transphorm의 D-mode SuperGaN 기술을 기반으로 했으며, 이번 100V 제품은 최초의 E-mode GaN 개별 장치입니다.</p>
+          
+          <p>본문에서 언급된 FOM(Figure of Merit)은 전력 장치의 종합적인 성능을 측정하는 데 사용되는 일반적인 지표로, 일반적으로 온 저항과 게이트 전하의 곱(RDS(on)×Qg) 등의 형태로 나타나며, 값이 낮을수록 일반적으로 동일한 손실에서 더 높은 스위칭 주파수를 지원하거나 동일한 주파수에서 손실이 더 낮다는 것을 의미합니다. 실리콘 MOSFET의 이 지표는 일반적으로 약 1000mΩ·nC인 반면, GaN 장치는 약 50~100mΩ·nC에 불과합니다.</p>
+          
+          <h3>Renesas의 GaN 시장 진출</h3>
+          
+          <p>Renesas는 2024년 6월 20일 미국 GaN 전력 반도체 제조업체 Transphorm 인수를 완료하여 GaN 전력 장치 분야에 진출했으며, 동시에 GaN 기반 성공적인 제품 포트폴리오 레퍼런스 디자인 15개를 출시했습니다. 2025년 7월, Renesas는 SuperGaN 플랫폼 기반의 650V 4세대 E-mode GaN FET를 출시하여 AI 데이터 센터, 서버 전원, 전기 자동차 충전 등 수 킬로와트급 애플리케이션을 대상으로 했습니다. 이번 100V 저전압 제품은 GaN 기술을 저전압 분야로 확장한 첫 번째 사례입니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Renesas는 AI 데이터 센터, 로봇, 산업 자동화 등 다양한 분야에 적용될 수 있는 최초의 저전압 E-mode GaN 전력 반도체를 출시했습니다. 이 신제품은 기존 실리콘 기반 설계 대비 효율을 높이고 스위칭 손실을 크게 줄였으며, 기존 실리콘 MOSFET 레이아웃에서 쉽게 전환할 수 있도록 호환성을 제공합니다. Transphorm 인수를 통해 GaN 기술을 확보한 Renesas는 고전압 및 저전압 GaN 시장 모두에서 입지를 강화하고 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Renesas, 저전압 GaN 전력 반도체 출시</h3>
+          
+          <p>Renesas는 오늘 회사 최초의 저전압 질화갈륨(GaN) 전력 반도체 제품을 출시했다고 발표했습니다. 이번에 출시된 제품은 100V E-mode GaN 개별 전력 트랜지스터 시리즈로, AI 데이터 센터, 휴머노이드 로봇, 공장 자동화 및 산업용 모터 드라이브와 같은 애플리케이션 분야를 대상으로 합니다.</p>
+          
+          <p>Renesas가 이번에 출시한 제품은 RTP100E005G1FL, RTP100E2P6G1FL, RTP100E1P8G1FL-DSC 및 RTP100E1P2G1FL-DSC로, 우수한 하드 스위칭 및 소프트 스위칭 FOM(Figure of Merit) 성능을 제공합니다. 유사한 GaN 장치와 비교하여 하드 스위칭 FOM은 최대 35% 감소하고, 소프트 스위칭 FOM은 최대 63% 감소합니다. 저전압 GaN 장치는 또한 실리콘 장치와 호환되는 패키지 크기를 유지하여 기존 설계에 쉽게 통합할 수 있습니다.</p>
+          
+          <p>동시에 이 시리즈 제품은 실리콘 기반 설계에 비해 효율이 1%에서 3% 향상되었으며, Qrr 손실을 제거하여 스위칭 손실을 40%에서 70%까지 크게 줄였습니다. 다양한 표준 MOSFET 호환 패키지를 제공하여 고객이 PCB를 크게 재설계할 필요 없이 실리콘 MOSFET 레이아웃에서 GaN 솔루션으로 빠르게 전환할 수 있도록 합니다.</p>
+          
+          <h3>GaN 기술의 특징</h3>
+          
+          <p>질화갈륨(GaN)은 와이드 밴드갭 반도체 재료로, 밴드갭은 약 3.4 전자볼트로 실리콘의 약 1.12 전자볼트보다 훨씬 높으며, 임계 항복 전계는 실리콘의 약 10배입니다. GaN 전력 장치는 AlGaN/GaN 이종 접합 계면에서 편광 효과로 인해 형성되는 2차원 전자 가스(2DEG) 전도에 의존하며, 도핑 없이도 낮은 저항 전도를 달성할 수 있어 더 빠른 스위칭 속도, 더 낮은 게이트 전하 및 출력 커패시턴스를 가집니다. 또한 GaN 장치에는 바디 다이오드가 없으며, 역방향 전도는 채널 개방에 의존하므로 역방향 복구 전하(Qrr)가 거의 0입니다.</p>
+          
+          <p>질화갈륨 전력 장치는 주로 E-mode와 D-mode 캐스코드의 두 가지 기술 경로로 나뉩니다. E-mode GaN은 게이트 구조를 통해 2차원 전자 가스를 변조하여 양의 문턱 전압을 달성합니다. D-mode GaN은 본질적으로 상시 온(normally-on) 장치로, 저전압 실리콘 MOSFET과 함께 패키징되어 상시 오프(normally-off) 캐스코드 구조를 형성해야 하며, 더 높은 구동 내전압과 더 강력한 간섭 방지 기능을 가집니다. Renesas의 이전 GaN 제품은 주로 인수한 Transphorm의 D-mode SuperGaN 기술을 기반으로 했으며, 이번 100V 제품은 최초의 E-mode GaN 개별 장치입니다.</p>
+          
+          <p>본문에서 언급된 FOM(Figure of Merit)은 전력 장치의 종합적인 성능을 측정하는 데 사용되는 일반적인 지표로, 일반적으로 온 저항과 게이트 전하의 곱(RDS(on)×Qg) 등의 형태로 나타나며, 값이 낮을수록 일반적으로 동일한 손실에서 더 높은 스위칭 주파수를 지원하거나 동일한 주파수에서 손실이 더 낮다는 것을 의미합니다. 실리콘 MOSFET의 이 지표는 일반적으로 약 1000mΩ·nC인 반면, GaN 장치는 약 50~100mΩ·nC에 불과합니다.</p>
+          
+          <h3>Renesas의 GaN 시장 진출</h3>
+          
+          <p>Renesas는 2024년 6월 20일 미국 GaN 전력 반도체 제조업체 Transphorm 인수를 완료하여 GaN 전력 장치 분야에 진출했으며, 동시에 GaN 기반 성공적인 제품 포트폴리오 레퍼런스 디자인 15개를 출시했습니다. 2025년 7월, Renesas는 SuperGaN 플랫폼 기반의 650V 4세대 E-mode GaN FET를 출시하여 AI 데이터 센터, 서버 전원, 전기 자동차 충전 등 수 킬로와트급 애플리케이션을 대상으로 했습니다. 이번 100V 저전압 제품은 GaN 기술을 저전압 분야로 확장한 첫 번째 사례입니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Renesas는 AI 데이터 센터, 로봇, 산업 자동화 등 다양한 분야에 적용될 수 있는 최초의 저전압 E-mode GaN 전력 반도체를 출시했습니다. 이 신제품은 기존 실리콘 기반 설계 대비 효율을 높이고 스위칭 손실을 크게 줄였으며, 기존 실리콘 MOSFET 레이아웃에서 쉽게 전환할 수 있도록 호환성을 제공합니다. Transphorm 인수를 통해 GaN 기술을 확보한 Renesas는 고전압 및 저전압 GaN 시장 모두에서 입지를 강화하고 있습니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/010/015.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-10"
+               class="archive-btn active">
+              2026-10
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
