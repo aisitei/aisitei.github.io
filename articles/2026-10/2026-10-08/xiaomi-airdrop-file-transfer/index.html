@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - AirDrop 연동: Xiaomi 18 Pro Max 스마트폰, &#34;Apple 기기 간 파일 전송&#34; 기능 출시</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Xiaomi">
+  <meta name="article-brand-color" content="#FF6900">
+  <meta name="title-ko" content="AirDrop 연동: Xiaomi 18 Pro Max 스마트폰, &#34;Apple 기기 간 파일 전송&#34; 기능 출시">
+  <meta name="title-zh" content="AirDrop 연동: Xiaomi 18 Pro Max 스마트폰, &#34;Apple 기기 간 파일 전송&#34; 기능 출시">
+  <meta name="title-ja" content="AirDrop 연동: Xiaomi 18 Pro Max 스마트폰, &#34;Apple 기기 간 파일 전송&#34; 기능 출시">
+  <meta name="title-en" content="AirDrop 연동: Xiaomi 18 Pro Max 스마트폰, &#34;Apple 기기 간 파일 전송&#34; 기능 출시">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260910b">
+<script defer src="../../../../assets/news.js?v=20260910b"></script>
+<script defer src="../../../../assets/article.js?v=20260910b"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #FF6900;">
+            Xiaomi
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="AirDrop 연동: Xiaomi 18 Pro Max 스마트폰, &#34;Apple 기기 간 파일 전송&#34; 기능 출시"
+            data-zh="AirDrop 연동: Xiaomi 18 Pro Max 스마트폰, &#34;Apple 기기 간 파일 전송&#34; 기능 출시"
+            data-ja="AirDrop 연동: Xiaomi 18 Pro Max 스마트폰, &#34;Apple 기기 간 파일 전송&#34; 기능 출시"
+            data-en="AirDrop 연동: Xiaomi 18 Pro Max 스마트폰, &#34;Apple 기기 간 파일 전송&#34; 기능 출시">AirDrop 연동: Xiaomi 18 Pro Max 스마트폰, &#34;Apple 기기 간 파일 전송&#34; 기능 출시</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-10-08
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.png" alt="AirDrop 연동: Xiaomi 18 Pro Max 스마트폰, &#34;Apple 기기 간 파일 전송&#34; 기능 출시" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>Apple 기기 간 파일 공유 기능</h3>
+          
+          <p>IT之家 10월 7일 소식통에 따르면, 블로거 @懒酱的日记本의 공유에 따라 Xiaomi HyperOS 4 시스템을 탑재한 Xiaomi 18 Pro Max에 "Apple 기기 간 파일 공유" 기능이 추가되었습니다. 첨부된 이미지로 볼 때, 이 새로운 기능은 Apple AirDrop과의 연동을 지원합니다.</p>
+          
+          <p>파일 공유 과정에서 상대방의 Apple 기기는 "제어 센터"에서 "AirDrop"을 "모든 사람(10분)"으로 설정해야 파일을 받을 수 있습니다.</p>
+          
+          <h3>Xiaomi Connect와 Apple Watch 연동</h3>
+          
+          <p>IT之家의 이전 보도에 따르면, 지난 9월 Xiaomi Connect가 Apple Watch 앱 스토어에 공식 출시되어 Apple Watch와 Xiaomi 휴대폰을 페어링할 수 있게 되었습니다. 이를 통해 알림 연동, 건강 데이터 동기화, 벨소리 찾기 등 다양한 크로스 플랫폼 협업이 가능해졌습니다.</p>
+          
+          <p>Xiaomi Connect를 통해 사용자는 Xiaomi 휴대폰의 전화, 문자 메시지, 앱 알림 및 슈퍼 아일랜드 실시간 활동을 Apple Watch로 동기화하여 손목을 들어 확인하고 전화를 받을 수 있습니다. Apple Watch에 기록된 걸음 수, 심박수, 칼로리, 수면, 운동 시간 등 건강 데이터는 Xiaomi 스포츠 건강 앱으로 동기화될 수 있으며, 기기가 옆에 없을 때는 벨소리를 통해 휴대폰이나 시계를 빠르게 찾을 수도 있습니다.</p>
+          
+          <h3>Quick Share 기반의 크로스 플랫폼 공유</h3>
+          
+          <p>이 기능의 기반은 Google의 Quick Share 크로스 플랫폼 솔루션입니다. Google은 2025년 11월 Pixel 10 시리즈에서 안드로이드 Quick Share와 Apple AirDrop 간의 상호 운용성을 처음으로 구현했으며, 같은 해 말에는 더 많은 안드로이드 기기로 확장을 발표했습니다. AirDrop의 기반은 Apple의 독점적인 AWDL(Apple Wireless Direct Link) 프로토콜로, Bluetooth 및 Wi-Fi Direct와 같은 개방형 표준을 기반으로 합니다. 업계에서는 Google이 "클린룸 리버스 엔지니어링"을 통해 관련 기능을 재현했으며, Rust로 강화된 보안 아키텍처를 채택하고 독립적인 보안 전문가의 감사를 받았다고 보고 있습니다.</p>
+          
+          <p>Xiaomi 이전에 Samsung, Google Pixel 시리즈 모델, 그리고 OPPO Find X9 Ultra, vivo X300 Ultra 등 플래그십 기기들이 AirDrop 전송 지원을 추가했습니다. Xiaomi 17T Pro도 2026년 6월 Quick Share를 통해 Apple 기기와의 AirDrop 파일 공유를 지원한다고 발표했습니다. HyperOS 3(Android 16 기반)를 실행하는 다른 Xiaomi 기기들도 이 기능을 지원할 가능성이 있지만, 하드웨어 수준의 제한이 있어 플래그십 칩이 아닌 모델은 업그레이드할 수 없을 수도 있습니다.</p>
+          
+          <h3>개인 정보 보호 및 보안</h3>
+          
+          <p>Apple 기기에서 AirDrop을 "모든 사람(10분)"으로 설정해야 하는 제한은 Apple AirDrop 자체의 개인 정보 보호 프로토콜에서 비롯된 것이며, 상대방의 전화번호가 주소록에 저장되어 있는지 여부와는 관련이 없습니다. 마찬가지로 안드로이드 휴대폰에서 파일을 받을 때도 Quick Share를 "모든 사람(10분)"으로 설정하거나 수신 모드에 있어야 합니다. Google은 크로스 플랫폼 전송이 안전한 P2P 직접 연결 채널을 통해 완료되며, 데이터는 어떤 서버도 거치지 않는다고 밝혔습니다.</p>
+          
+          <h3>Xiaomi Connect 앱 요구 사항</h3>
+          
+          <p>기사에 언급된 Xiaomi Connect 앱은 Xiaomi 휴대폰이 Xiaomi HyperOS 4.0.1 이상 버전으로 업그레이드되어야 합니다. 지원되는 Apple Watch 모델은 Apple Watch Series 6 이상, Apple Watch SE 2 이상, 그리고 Apple Watch Ultra 시리즈이며, watchOS 11 이상을 실행해야 합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Xiaomi 18 Pro Max는 Xiaomi HyperOS 4 시스템을 통해 Apple AirDrop과의 파일 공유 기능을 지원하며, 이는 Google Quick Share 기술을 기반으로 합니다. 이 기능은 Xiaomi Connect 앱을 통해 Apple Watch와의 연동도 가능하게 하여 알림, 건강 데이터 동기화 등 크로스 플랫폼 경험을 제공합니다. 다만, 일부 하드웨어 제한으로 인해 모든 Xiaomi 기기가 이 기능을 지원하지는 않을 수 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Apple 기기 간 파일 공유 기능</h3>
+          
+          <p>IT之家 10월 7일 소식통에 따르면, 블로거 @懒酱的日记本의 공유에 따라 Xiaomi HyperOS 4 시스템을 탑재한 Xiaomi 18 Pro Max에 "Apple 기기 간 파일 공유" 기능이 추가되었습니다. 첨부된 이미지로 볼 때, 이 새로운 기능은 Apple AirDrop과의 연동을 지원합니다.</p>
+          
+          <p>파일 공유 과정에서 상대방의 Apple 기기는 "제어 센터"에서 "AirDrop"을 "모든 사람(10분)"으로 설정해야 파일을 받을 수 있습니다.</p>
+          
+          <h3>Xiaomi Connect와 Apple Watch 연동</h3>
+          
+          <p>IT之家의 이전 보도에 따르면, 지난 9월 Xiaomi Connect가 Apple Watch 앱 스토어에 공식 출시되어 Apple Watch와 Xiaomi 휴대폰을 페어링할 수 있게 되었습니다. 이를 통해 알림 연동, 건강 데이터 동기화, 벨소리 찾기 등 다양한 크로스 플랫폼 협업이 가능해졌습니다.</p>
+          
+          <p>Xiaomi Connect를 통해 사용자는 Xiaomi 휴대폰의 전화, 문자 메시지, 앱 알림 및 슈퍼 아일랜드 실시간 활동을 Apple Watch로 동기화하여 손목을 들어 확인하고 전화를 받을 수 있습니다. Apple Watch에 기록된 걸음 수, 심박수, 칼로리, 수면, 운동 시간 등 건강 데이터는 Xiaomi 스포츠 건강 앱으로 동기화될 수 있으며, 기기가 옆에 없을 때는 벨소리를 통해 휴대폰이나 시계를 빠르게 찾을 수도 있습니다.</p>
+          
+          <h3>Quick Share 기반의 크로스 플랫폼 공유</h3>
+          
+          <p>이 기능의 기반은 Google의 Quick Share 크로스 플랫폼 솔루션입니다. Google은 2025년 11월 Pixel 10 시리즈에서 안드로이드 Quick Share와 Apple AirDrop 간의 상호 운용성을 처음으로 구현했으며, 같은 해 말에는 더 많은 안드로이드 기기로 확장을 발표했습니다. AirDrop의 기반은 Apple의 독점적인 AWDL(Apple Wireless Direct Link) 프로토콜로, Bluetooth 및 Wi-Fi Direct와 같은 개방형 표준을 기반으로 합니다. 업계에서는 Google이 "클린룸 리버스 엔지니어링"을 통해 관련 기능을 재현했으며, Rust로 강화된 보안 아키텍처를 채택하고 독립적인 보안 전문가의 감사를 받았다고 보고 있습니다.</p>
+          
+          <p>Xiaomi 이전에 Samsung, Google Pixel 시리즈 모델, 그리고 OPPO Find X9 Ultra, vivo X300 Ultra 등 플래그십 기기들이 AirDrop 전송 지원을 추가했습니다. Xiaomi 17T Pro도 2026년 6월 Quick Share를 통해 Apple 기기와의 AirDrop 파일 공유를 지원한다고 발표했습니다. HyperOS 3(Android 16 기반)를 실행하는 다른 Xiaomi 기기들도 이 기능을 지원할 가능성이 있지만, 하드웨어 수준의 제한이 있어 플래그십 칩이 아닌 모델은 업그레이드할 수 없을 수도 있습니다.</p>
+          
+          <h3>개인 정보 보호 및 보안</h3>
+          
+          <p>Apple 기기에서 AirDrop을 "모든 사람(10분)"으로 설정해야 하는 제한은 Apple AirDrop 자체의 개인 정보 보호 프로토콜에서 비롯된 것이며, 상대방의 전화번호가 주소록에 저장되어 있는지 여부와는 관련이 없습니다. 마찬가지로 안드로이드 휴대폰에서 파일을 받을 때도 Quick Share를 "모든 사람(10분)"으로 설정하거나 수신 모드에 있어야 합니다. Google은 크로스 플랫폼 전송이 안전한 P2P 직접 연결 채널을 통해 완료되며, 데이터는 어떤 서버도 거치지 않는다고 밝혔습니다.</p>
+          
+          <h3>Xiaomi Connect 앱 요구 사항</h3>
+          
+          <p>기사에 언급된 Xiaomi Connect 앱은 Xiaomi 휴대폰이 Xiaomi HyperOS 4.0.1 이상 버전으로 업그레이드되어야 합니다. 지원되는 Apple Watch 모델은 Apple Watch Series 6 이상, Apple Watch SE 2 이상, 그리고 Apple Watch Ultra 시리즈이며, watchOS 11 이상을 실행해야 합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Xiaomi 18 Pro Max는 Xiaomi HyperOS 4 시스템을 통해 Apple AirDrop과의 파일 공유 기능을 지원하며, 이는 Google Quick Share 기술을 기반으로 합니다. 이 기능은 Xiaomi Connect 앱을 통해 Apple Watch와의 연동도 가능하게 하여 알림, 건강 데이터 동기화 등 크로스 플랫폼 경험을 제공합니다. 다만, 일부 하드웨어 제한으로 인해 모든 Xiaomi 기기가 이 기능을 지원하지는 않을 수 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>Apple 기기 간 파일 공유 기능</h3>
+          
+          <p>IT之家 10월 7일 소식통에 따르면, 블로거 @懒酱的日记本의 공유에 따라 Xiaomi HyperOS 4 시스템을 탑재한 Xiaomi 18 Pro Max에 "Apple 기기 간 파일 공유" 기능이 추가되었습니다. 첨부된 이미지로 볼 때, 이 새로운 기능은 Apple AirDrop과의 연동을 지원합니다.</p>
+          
+          <p>파일 공유 과정에서 상대방의 Apple 기기는 "제어 센터"에서 "AirDrop"을 "모든 사람(10분)"으로 설정해야 파일을 받을 수 있습니다.</p>
+          
+          <h3>Xiaomi Connect와 Apple Watch 연동</h3>
+          
+          <p>IT之家의 이전 보도에 따르면, 지난 9월 Xiaomi Connect가 Apple Watch 앱 스토어에 공식 출시되어 Apple Watch와 Xiaomi 휴대폰을 페어링할 수 있게 되었습니다. 이를 통해 알림 연동, 건강 데이터 동기화, 벨소리 찾기 등 다양한 크로스 플랫폼 협업이 가능해졌습니다.</p>
+          
+          <p>Xiaomi Connect를 통해 사용자는 Xiaomi 휴대폰의 전화, 문자 메시지, 앱 알림 및 슈퍼 아일랜드 실시간 활동을 Apple Watch로 동기화하여 손목을 들어 확인하고 전화를 받을 수 있습니다. Apple Watch에 기록된 걸음 수, 심박수, 칼로리, 수면, 운동 시간 등 건강 데이터는 Xiaomi 스포츠 건강 앱으로 동기화될 수 있으며, 기기가 옆에 없을 때는 벨소리를 통해 휴대폰이나 시계를 빠르게 찾을 수도 있습니다.</p>
+          
+          <h3>Quick Share 기반의 크로스 플랫폼 공유</h3>
+          
+          <p>이 기능의 기반은 Google의 Quick Share 크로스 플랫폼 솔루션입니다. Google은 2025년 11월 Pixel 10 시리즈에서 안드로이드 Quick Share와 Apple AirDrop 간의 상호 운용성을 처음으로 구현했으며, 같은 해 말에는 더 많은 안드로이드 기기로 확장을 발표했습니다. AirDrop의 기반은 Apple의 독점적인 AWDL(Apple Wireless Direct Link) 프로토콜로, Bluetooth 및 Wi-Fi Direct와 같은 개방형 표준을 기반으로 합니다. 업계에서는 Google이 "클린룸 리버스 엔지니어링"을 통해 관련 기능을 재현했으며, Rust로 강화된 보안 아키텍처를 채택하고 독립적인 보안 전문가의 감사를 받았다고 보고 있습니다.</p>
+          
+          <p>Xiaomi 이전에 Samsung, Google Pixel 시리즈 모델, 그리고 OPPO Find X9 Ultra, vivo X300 Ultra 등 플래그십 기기들이 AirDrop 전송 지원을 추가했습니다. Xiaomi 17T Pro도 2026년 6월 Quick Share를 통해 Apple 기기와의 AirDrop 파일 공유를 지원한다고 발표했습니다. HyperOS 3(Android 16 기반)를 실행하는 다른 Xiaomi 기기들도 이 기능을 지원할 가능성이 있지만, 하드웨어 수준의 제한이 있어 플래그십 칩이 아닌 모델은 업그레이드할 수 없을 수도 있습니다.</p>
+          
+          <h3>개인 정보 보호 및 보안</h3>
+          
+          <p>Apple 기기에서 AirDrop을 "모든 사람(10분)"으로 설정해야 하는 제한은 Apple AirDrop 자체의 개인 정보 보호 프로토콜에서 비롯된 것이며, 상대방의 전화번호가 주소록에 저장되어 있는지 여부와는 관련이 없습니다. 마찬가지로 안드로이드 휴대폰에서 파일을 받을 때도 Quick Share를 "모든 사람(10분)"으로 설정하거나 수신 모드에 있어야 합니다. Google은 크로스 플랫폼 전송이 안전한 P2P 직접 연결 채널을 통해 완료되며, 데이터는 어떤 서버도 거치지 않는다고 밝혔습니다.</p>
+          
+          <h3>Xiaomi Connect 앱 요구 사항</h3>
+          
+          <p>기사에 언급된 Xiaomi Connect 앱은 Xiaomi 휴대폰이 Xiaomi HyperOS 4.0.1 이상 버전으로 업그레이드되어야 합니다. 지원되는 Apple Watch 모델은 Apple Watch Series 6 이상, Apple Watch SE 2 이상, 그리고 Apple Watch Ultra 시리즈이며, watchOS 11 이상을 실행해야 합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Xiaomi 18 Pro Max는 Xiaomi HyperOS 4 시스템을 통해 Apple AirDrop과의 파일 공유 기능을 지원하며, 이는 Google Quick Share 기술을 기반으로 합니다. 이 기능은 Xiaomi Connect 앱을 통해 Apple Watch와의 연동도 가능하게 하여 알림, 건강 데이터 동기화 등 크로스 플랫폼 경험을 제공합니다. 다만, 일부 하드웨어 제한으로 인해 모든 Xiaomi 기기가 이 기능을 지원하지는 않을 수 있습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Apple 기기 간 파일 공유 기능</h3>
+          
+          <p>IT之家 10월 7일 소식통에 따르면, 블로거 @懒酱的日记本의 공유에 따라 Xiaomi HyperOS 4 시스템을 탑재한 Xiaomi 18 Pro Max에 "Apple 기기 간 파일 공유" 기능이 추가되었습니다. 첨부된 이미지로 볼 때, 이 새로운 기능은 Apple AirDrop과의 연동을 지원합니다.</p>
+          
+          <p>파일 공유 과정에서 상대방의 Apple 기기는 "제어 센터"에서 "AirDrop"을 "모든 사람(10분)"으로 설정해야 파일을 받을 수 있습니다.</p>
+          
+          <h3>Xiaomi Connect와 Apple Watch 연동</h3>
+          
+          <p>IT之家의 이전 보도에 따르면, 지난 9월 Xiaomi Connect가 Apple Watch 앱 스토어에 공식 출시되어 Apple Watch와 Xiaomi 휴대폰을 페어링할 수 있게 되었습니다. 이를 통해 알림 연동, 건강 데이터 동기화, 벨소리 찾기 등 다양한 크로스 플랫폼 협업이 가능해졌습니다.</p>
+          
+          <p>Xiaomi Connect를 통해 사용자는 Xiaomi 휴대폰의 전화, 문자 메시지, 앱 알림 및 슈퍼 아일랜드 실시간 활동을 Apple Watch로 동기화하여 손목을 들어 확인하고 전화를 받을 수 있습니다. Apple Watch에 기록된 걸음 수, 심박수, 칼로리, 수면, 운동 시간 등 건강 데이터는 Xiaomi 스포츠 건강 앱으로 동기화될 수 있으며, 기기가 옆에 없을 때는 벨소리를 통해 휴대폰이나 시계를 빠르게 찾을 수도 있습니다.</p>
+          
+          <h3>Quick Share 기반의 크로스 플랫폼 공유</h3>
+          
+          <p>이 기능의 기반은 Google의 Quick Share 크로스 플랫폼 솔루션입니다. Google은 2025년 11월 Pixel 10 시리즈에서 안드로이드 Quick Share와 Apple AirDrop 간의 상호 운용성을 처음으로 구현했으며, 같은 해 말에는 더 많은 안드로이드 기기로 확장을 발표했습니다. AirDrop의 기반은 Apple의 독점적인 AWDL(Apple Wireless Direct Link) 프로토콜로, Bluetooth 및 Wi-Fi Direct와 같은 개방형 표준을 기반으로 합니다. 업계에서는 Google이 "클린룸 리버스 엔지니어링"을 통해 관련 기능을 재현했으며, Rust로 강화된 보안 아키텍처를 채택하고 독립적인 보안 전문가의 감사를 받았다고 보고 있습니다.</p>
+          
+          <p>Xiaomi 이전에 Samsung, Google Pixel 시리즈 모델, 그리고 OPPO Find X9 Ultra, vivo X300 Ultra 등 플래그십 기기들이 AirDrop 전송 지원을 추가했습니다. Xiaomi 17T Pro도 2026년 6월 Quick Share를 통해 Apple 기기와의 AirDrop 파일 공유를 지원한다고 발표했습니다. HyperOS 3(Android 16 기반)를 실행하는 다른 Xiaomi 기기들도 이 기능을 지원할 가능성이 있지만, 하드웨어 수준의 제한이 있어 플래그십 칩이 아닌 모델은 업그레이드할 수 없을 수도 있습니다.</p>
+          
+          <h3>개인 정보 보호 및 보안</h3>
+          
+          <p>Apple 기기에서 AirDrop을 "모든 사람(10분)"으로 설정해야 하는 제한은 Apple AirDrop 자체의 개인 정보 보호 프로토콜에서 비롯된 것이며, 상대방의 전화번호가 주소록에 저장되어 있는지 여부와는 관련이 없습니다. 마찬가지로 안드로이드 휴대폰에서 파일을 받을 때도 Quick Share를 "모든 사람(10분)"으로 설정하거나 수신 모드에 있어야 합니다. Google은 크로스 플랫폼 전송이 안전한 P2P 직접 연결 채널을 통해 완료되며, 데이터는 어떤 서버도 거치지 않는다고 밝혔습니다.</p>
+          
+          <h3>Xiaomi Connect 앱 요구 사항</h3>
+          
+          <p>기사에 언급된 Xiaomi Connect 앱은 Xiaomi 휴대폰이 Xiaomi HyperOS 4.0.1 이상 버전으로 업그레이드되어야 합니다. 지원되는 Apple Watch 모델은 Apple Watch Series 6 이상, Apple Watch SE 2 이상, 그리고 Apple Watch Ultra 시리즈이며, watchOS 11 이상을 실행해야 합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Xiaomi 18 Pro Max는 Xiaomi HyperOS 4 시스템을 통해 Apple AirDrop과의 파일 공유 기능을 지원하며, 이는 Google Quick Share 기술을 기반으로 합니다. 이 기능은 Xiaomi Connect 앱을 통해 Apple Watch와의 연동도 가능하게 하여 알림, 건강 데이터 동기화 등 크로스 플랫폼 경험을 제공합니다. 다만, 일부 하드웨어 제한으로 인해 모든 Xiaomi 기기가 이 기능을 지원하지는 않을 수 있습니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이 기기에서 블루투스를 켜고 현재 화면으로 들어가면 Apple 기기를 수신할 수 있습니다.</div>
+                <div class="caption-lang" data-lang="en">Turn on Bluetooth on this device and enter the current interface to receive Apple devices.</div>
+                <div class="caption-lang" data-lang="ja">本機でBluetoothをオンにし、現在の画面に入ると、Appleデバイスを受信できます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">공유 팝업에서 Apple 기기를 찾을 수 있습니다.</div>
+                <div class="caption-lang" data-lang="en">You can find Apple devices in the share pop-up.</div>
+                <div class="caption-lang" data-lang="ja">共有ポップアップでAppleデバイスを見つけることができます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이 기기에서 사진, 비디오 또는 파일을 선택한 후 공유 팝업을 클릭할 수 있습니다.</div>
+                <div class="caption-lang" data-lang="en">After selecting photos, videos, or files on this device, you can click the share pop-up.</div>
+                <div class="caption-lang" data-lang="ja">本機で写真、ビデオ、またはファイルを選択した後、共有ポップアップをクリックできます。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">상대방의 Apple 기기에서 “제어 센터”의 “AirDrop” 설정을 변경해야 합니다.</div>
+                <div class="caption-lang" data-lang="en">The other person&#39;s Apple device needs to change the “AirDrop” setting in “Control Center”.</div>
+                <div class="caption-lang" data-lang="ja">相手のAppleデバイスで「コントロールセンター」の「AirDrop」設定を変更する必要があります。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">운동 건강</div>
+                <div class="caption-lang" data-lang="en">Sports &amp; Health</div>
+                <div class="caption-lang" data-lang="ja">運動健康</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">칼로리</div>
+                <div class="caption-lang" data-lang="en">Calories</div>
+                <div class="caption-lang" data-lang="ja">カロリー</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">걸음 수</div>
+                <div class="caption-lang" data-lang="en">Steps</div>
+                <div class="caption-lang" data-lang="ja">歩数</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">활동</div>
+                <div class="caption-lang" data-lang="en">Activity</div>
+                <div class="caption-lang" data-lang="ja">アクティビティ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xiaomi 연결</div>
+                <div class="caption-lang" data-lang="en">Xiaomi Interconnect</div>
+                <div class="caption-lang" data-lang="ja">Xiaomi相互接続</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xiaomi 기기와의 상호 연결 및 상호 운용성 달성</div>
+                <div class="caption-lang" data-lang="en">Achieve interconnectivity and interoperability with Xiaomi devices</div>
+                <div class="caption-lang" data-lang="ja">Xiaomiデバイスとの相互接続と相互運用性を実現</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">기기 연결</div>
+                <div class="caption-lang" data-lang="en">Device Interconnect</div>
+                <div class="caption-lang" data-lang="ja">デバイス相互接続</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">설정</div>
+                <div class="caption-lang" data-lang="en">Settings</div>
+                <div class="caption-lang" data-lang="ja">設定</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">개발자</div>
+                <div class="caption-lang" data-lang="en">Developer</div>
+                <div class="caption-lang" data-lang="ja">開発者</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xiaomi 슈퍼 아일랜드</div>
+                <div class="caption-lang" data-lang="en">Xiaomi Super Island</div>
+                <div class="caption-lang" data-lang="ja">Xiaomiスーパーアイランド</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">수신 전화</div>
+                <div class="caption-lang" data-lang="en">Incoming call</div>
+                <div class="caption-lang" data-lang="ja">着信</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">슈퍼 아일랜드</div>
+                <div class="caption-lang" data-lang="en">Super Island</div>
+                <div class="caption-lang" data-lang="ja">スーパーアイランド</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">체크인 오픈</div>
+                <div class="caption-lang" data-lang="en">Check-in open</div>
+                <div class="caption-lang" data-lang="ja">チェックイン開始</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">건강 데이터 동기화</div>
+                <div class="caption-lang" data-lang="en">Sync health data</div>
+                <div class="caption-lang" data-lang="ja">健康データを同期</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">개인 정보 보호 정책</div>
+                <div class="caption-lang" data-lang="en">Privacy Policy</div>
+                <div class="caption-lang" data-lang="ja">プライバシーポリシー</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/010/209.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-10"
+               class="archive-btn active">
+              2026-10
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
