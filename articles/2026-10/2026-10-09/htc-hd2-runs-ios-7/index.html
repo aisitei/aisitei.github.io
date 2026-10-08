@@ -10,9 +10,9 @@
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
   <meta name="title-ko" content="2010년 클래식 스마트폰 HTC HD2, Apple iOS 7 구동 성공 및 관련 코드 오픈소스화">
-  <meta name="title-zh" content="2010년 클래식 스마트폰 HTC HD2, Apple iOS 7 구동 성공 및 관련 코드 오픈소스화">
-  <meta name="title-ja" content="2010년 클래식 스마트폰 HTC HD2, Apple iOS 7 구동 성공 및 관련 코드 오픈소스화">
-  <meta name="title-en" content="2010년 클래식 스마트폰 HTC HD2, Apple iOS 7 구동 성공 및 관련 코드 오픈소스화">
+  <meta name="title-zh" content="2010 年经典手机 HTC HD2 成功运行苹果 iOS 7 系统，相关代码已开源">
+  <meta name="title-ja" content="2010年の名機スマートフォン HTC HD2がApple iOS 7システムを正常に動作させ、関連コードもオープンソース化された">
+  <meta name="title-en" content="The Classic 2010 Smartphone HTC HD2 Successfully Running Apple iOS 7, Related Code Open-Sourced">
   <style>
     :root {
       --bg: #0f172a;
@@ -545,9 +545,9 @@
 
         <h1 class="article-title"
             data-ko="2010년 클래식 스마트폰 HTC HD2, Apple iOS 7 구동 성공 및 관련 코드 오픈소스화"
-            data-zh="2010년 클래식 스마트폰 HTC HD2, Apple iOS 7 구동 성공 및 관련 코드 오픈소스화"
-            data-ja="2010년 클래식 스마트폰 HTC HD2, Apple iOS 7 구동 성공 및 관련 코드 오픈소스화"
-            data-en="2010년 클래식 스마트폰 HTC HD2, Apple iOS 7 구동 성공 및 관련 코드 오픈소스화">2010년 클래식 스마트폰 HTC HD2, Apple iOS 7 구동 성공 및 관련 코드 오픈소스화</h1>
+            data-zh="2010 年经典手机 HTC HD2 成功运行苹果 iOS 7 系统，相关代码已开源"
+            data-ja="2010年の名機スマートフォン HTC HD2がApple iOS 7システムを正常に動作させ、関連コードもオープンソース化された"
+            data-en="The Classic 2010 Smartphone HTC HD2 Successfully Running Apple iOS 7, Related Code Open-Sourced">2010년 클래식 스마트폰 HTC HD2, Apple iOS 7 구동 성공 및 관련 코드 오픈소스화</h1>
 
         <div class="article-info">
           
@@ -609,118 +609,80 @@
           
         </div>
         <div class="lang-body" data-lang="zh">
-          
-          <h3>iOS 7 구동 성공</h3>
-          
-          <p>개발자 j0sh1x는 어제 레트로 하드웨어 이식 프로젝트를 공개하며, HTC HD2에서 iOS 7을 성공적으로 구동한 결과를 보여주었고 관련 XNU 커널 및 하드웨어 지원 코드를 공개했습니다. 공개된 정보에 따르면, 이 프로젝트는 현재 iOS 사용자 모드 구성 요소가 HTC HD2에서 실행되도록 하며, 터치스크린도 작동하는 상태입니다.</p>
-          
-          <h3>HTC HD2 정보</h3>
-          
-          <p>HTC HD2는 2010년에 출시되었으며, 내부 코드명은 HTC Leo입니다. Qualcomm QSD8250 프로세서를 탑재했습니다. 이번 프로젝트는 에뮬레이터를 통해 iOS를 실행하는 것이 아니라, HTC HD2의 하드웨어 플랫폼에 XNU 커널을 이식하고 프로세서, 메모리, 디스플레이, 터치 및 스토리지 등 하드웨어에 대한 지원을 제공하는 방식입니다. 공개된 저장소에 따르면, 프로젝트 목표 플랫폼은 QSD8250_LEO이며 ARMv7 Thumb 아키텍처를 사용합니다.</p>
-          
-          <h3>프로젝트 상세</h3>
-          
-          <p>GitHub 저장소 이름은 "XNU Kernel and Board Support for HTC HD2"(HTC-Leo-Revival-Project의 XNU 코드베이스를 수정)이며, HD2에 맞춤화된 CPU, 인터럽트, 타이머 및 메모리 매핑 코드를 포함하고 있습니다. 또한 SDCC 스토리지, MDP 디스플레이 출력 및 Type 2A 터치 경로를 추가했으며, 해당 IOKit 디스플레이 및 HID 서비스를 제공합니다.</p>
-          
-          <p>프로젝트 설명에 따르면, 이 저장소는 휴대폰에 직접 플래싱할 수 있는 완전한 펌웨어 패키지가 아니라 소스 코드 위주입니다. 프로젝트를 빌드하려면 추가적인 Darwin / Mach-O ARM 툴체인, 생성된 XNU 헤더 파일 및 일치하는 대상 구성이 필요합니다. 저장소에는 Apple 사용자 모드 구성 요소, 루트 파일 시스템, 펌웨어, 부팅 이미지, SDK 또는 툴체인 바이너리가 포함되어 있지 않으므로, 이를 완전한 iOS 7 플래싱 패키지로 간단히 이해해서는 안 됩니다.</p>
-          
-          <h3>XNU 커널</h3>
-          
-          <p>이번 이식의 핵심 중 하나는 XNU입니다. XNU는 Apple이 Darwin 시스템에 사용하는 하이브리드 커널로, macOS 및 iOS와 같은 Apple 운영체제의 커널 기반입니다. Mach 커널, FreeBSD 관련 구성 요소 및 IOKit 등으로 구성됩니다. Apple은 현재도 XNU 소스 코드를 공개적으로 유지 관리하고 있지만, 32비트 ARM 관련 지원은 이미 과거 플랫폼 범주에 속합니다.</p>
-          
-          <h3>프로젝트 현황</h3>
-          
-          <p>프로젝트 저장소는 현재 정적 감사로는 소스 파일 경로 및 로컬 헤더 파일 종속성만 확인할 수 있으며, 코드가 완전히 컴파일되거나 HTC HD2에서 부팅되거나 하드웨어가 안정적으로 작동함을 증명할 수 없다고 특별히 강조합니다. 따라서 현재 HTC HD2에서 iOS 7이 실행되는 실제 시연이 나왔지만, 오픈 소스 저장소 자체는 개발 및 이식 프로젝트로 간주되어야 하며, 성숙한 범용 플래싱 솔루션으로 간주해서는 안 됩니다.</p>
-          
-          <h3>HTC HD2의 역사</h3>
-          
-          <p>HTC HD2는 이전에 고도로 개방된 부팅 환경과 풍부한 타사 시스템 이식 역사로 인해 고전적인 "만능 기기"로 자리매김했습니다. 커뮤니티 자료에 따르면, 이 휴대폰은 과거에 Windows Phone, Android, Symbian 등 다양한 비공식 시스템 이식이 있었으며, 이번 iOS 7 프로젝트는 Apple 모바일 운영체제를 이 기기에 추가로 가져왔습니다.</p>
-          
-          <ul>
-<li>GitHub: https://github.com/Garysss123/xnu-hd2</li>
-<li>펌웨어: https://pixeldrain.com/u/1Twt8v4F</li>
+          <h3>复古硬件移植项目发布</h3>
+<ul>
+<li>开发者 j0sh1x 成功展示了将 iOS 7 操作系统移植到 HTC HD2 设备上的成果。</li>
+<li>该项目并非通过模拟器运行，而是针对 HTC HD2 的实际硬件平台进行了 XNU 内核的底层移植工作。</li>
 </ul>
-          
-          <h3>총평</h3>
-          
-          <p>개발자 j0sh1x가 HTC HD2에 iOS 7을 성공적으로 이식하여 구동하는 데 성공했습니다. 이 프로젝트는 에뮬레이션이 아닌 하드웨어 직접 이식 방식으로, XNU 커널과 하드웨어 지원 코드를 공개했습니다. 현재 터치스크린이 작동하는 등 기본적인 기능이 구현되었으나, 아직 개발 단계에 있으며 완전한 펌웨어 패키지는 아닙니다. HTC HD2는 과거에도 다양한 운영체제 이식이 이루어졌던 기기로, 이번 iOS 7 이식은 그 역사를 이어가는 중요한 성과입니다.</p>
-          
+          <h3>设备与核心技术规格</h3>
+<ul>
+<li>**目标设备：** HTC HD2（代号 HTC Leo）。</li>
+<li>**处理器架构：** 采用 Qualcomm QSD8250 处理器，基于 ARMv7 Thumb 架构。</li>
+<li>**实现功能：** 项目已成功让 iOS 用户态组件在 HTC HD2 上运行，并实现了触摸屏工作。</li>
+<li>**硬件支持范围：** 移植覆盖了处理器、内存、显示、触控和存储等多个核心硬件模块。</li>
+</ul>
+          <h3>XNU 内核与代码实现细节</h3>
+<ul>
+<li>**内核基础：** 项目的核心是 XNU 内核，它是 Apple 用于 Darwin 系统的混合内核（由 Mach 内核、FreeBSD 组件及 IOKit 等组成）。</li>
+<li>**代码库内容：** 开源仓库包含针对 HD2 定制的 CPU、中断、定时器和内存映射代码。</li>
+<li>**外设支持：** 特别加入了 SDCC 存储、MDP 显示输出以及 Type 2A 触控路径，并提供了相应的 IOKit 显示和 HID 服务。</li>
+</ul>
+          <h3>项目性质与使用限制</h3>
+<ul>
+<li>**源代码状态：** 该 GitHub 仓库提供的是源代码（Source Code），而非可以直接刷入手机的完整固件包或启动镜像。</li>
+<li>**构建要求：** 构建此项目需要额外的 Darwin / Mach-O ARM 工具链、生成的 XNU 头文件以及匹配的目标配置。</li>
+<li>**局限性说明：** 开发者强调，开源仓库目前仅为开发和移植项目，无法证明代码已完整编译或稳定运行。</li>
+</ul>
+          <h3>HTC HD2 设备背景</h3>
+<ul>
+<li>**设备历史：** HTC HD2 发布于 2010 年，曾因其高度开放的启动环境，成为一个著名的“万能机”。</li>
+<li>**系统兼容性：** 该设备历史上曾成功移植过 Windows Phone、Android 和 Symbian 等多种非官方操作系统。</li>
+</ul>
+          <h3>总结</h3>
+<p>开发者 j0sh1x 宣布了一项具有里程碑意义的复古硬件项目，成功将 iOS 7 的 XNU 内核移植到了老旧的 HTC HD2 设备上。该项目展示了底层内核和多硬件组件（如 QSD8250、触控屏）的深度适配能力。需要注意的是，目前公开的代码库是源代码级别的开发资料，而非可以直接用于刷机的完整固件。</p>
         </div>
         <div class="lang-body" data-lang="ja">
-          
-          <h3>iOS 7 구동 성공</h3>
-          
-          <p>개발자 j0sh1x는 어제 레트로 하드웨어 이식 프로젝트를 공개하며, HTC HD2에서 iOS 7을 성공적으로 구동한 결과를 보여주었고 관련 XNU 커널 및 하드웨어 지원 코드를 공개했습니다. 공개된 정보에 따르면, 이 프로젝트는 현재 iOS 사용자 모드 구성 요소가 HTC HD2에서 실행되도록 하며, 터치스크린도 작동하는 상태입니다.</p>
-          
-          <h3>HTC HD2 정보</h3>
-          
-          <p>HTC HD2는 2010년에 출시되었으며, 내부 코드명은 HTC Leo입니다. Qualcomm QSD8250 프로세서를 탑재했습니다. 이번 프로젝트는 에뮬레이터를 통해 iOS를 실행하는 것이 아니라, HTC HD2의 하드웨어 플랫폼에 XNU 커널을 이식하고 프로세서, 메모리, 디스플레이, 터치 및 스토리지 등 하드웨어에 대한 지원을 제공하는 방식입니다. 공개된 저장소에 따르면, 프로젝트 목표 플랫폼은 QSD8250_LEO이며 ARMv7 Thumb 아키텍처를 사용합니다.</p>
-          
-          <h3>프로젝트 상세</h3>
-          
-          <p>GitHub 저장소 이름은 "XNU Kernel and Board Support for HTC HD2"(HTC-Leo-Revival-Project의 XNU 코드베이스를 수정)이며, HD2에 맞춤화된 CPU, 인터럽트, 타이머 및 메모리 매핑 코드를 포함하고 있습니다. 또한 SDCC 스토리지, MDP 디스플레이 출력 및 Type 2A 터치 경로를 추가했으며, 해당 IOKit 디스플레이 및 HID 서비스를 제공합니다.</p>
-          
-          <p>프로젝트 설명에 따르면, 이 저장소는 휴대폰에 직접 플래싱할 수 있는 완전한 펌웨어 패키지가 아니라 소스 코드 위주입니다. 프로젝트를 빌드하려면 추가적인 Darwin / Mach-O ARM 툴체인, 생성된 XNU 헤더 파일 및 일치하는 대상 구성이 필요합니다. 저장소에는 Apple 사용자 모드 구성 요소, 루트 파일 시스템, 펌웨어, 부팅 이미지, SDK 또는 툴체인 바이너리가 포함되어 있지 않으므로, 이를 완전한 iOS 7 플래싱 패키지로 간단히 이해해서는 안 됩니다.</p>
-          
-          <h3>XNU 커널</h3>
-          
-          <p>이번 이식의 핵심 중 하나는 XNU입니다. XNU는 Apple이 Darwin 시스템에 사용하는 하이브리드 커널로, macOS 및 iOS와 같은 Apple 운영체제의 커널 기반입니다. Mach 커널, FreeBSD 관련 구성 요소 및 IOKit 등으로 구성됩니다. Apple은 현재도 XNU 소스 코드를 공개적으로 유지 관리하고 있지만, 32비트 ARM 관련 지원은 이미 과거 플랫폼 범주에 속합니다.</p>
-          
-          <h3>프로젝트 현황</h3>
-          
-          <p>프로젝트 저장소는 현재 정적 감사로는 소스 파일 경로 및 로컬 헤더 파일 종속성만 확인할 수 있으며, 코드가 완전히 컴파일되거나 HTC HD2에서 부팅되거나 하드웨어가 안정적으로 작동함을 증명할 수 없다고 특별히 강조합니다. 따라서 현재 HTC HD2에서 iOS 7이 실행되는 실제 시연이 나왔지만, 오픈 소스 저장소 자체는 개발 및 이식 프로젝트로 간주되어야 하며, 성숙한 범용 플래싱 솔루션으로 간주해서는 안 됩니다.</p>
-          
-          <h3>HTC HD2의 역사</h3>
-          
-          <p>HTC HD2는 이전에 고도로 개방된 부팅 환경과 풍부한 타사 시스템 이식 역사로 인해 고전적인 "만능 기기"로 자리매김했습니다. 커뮤니티 자료에 따르면, 이 휴대폰은 과거에 Windows Phone, Android, Symbian 등 다양한 비공식 시스템 이식이 있었으며, 이번 iOS 7 프로젝트는 Apple 모바일 운영체제를 이 기기에 추가로 가져왔습니다.</p>
-          
-          <ul>
+          <h3>iOS 7の動作成功</h3>
+<p>開発者のj0sh1x氏が、レトロハードウェアへの移植プロジェクトを発表し、HTC HD2でiOS 7を正常に動作させた成果を公開しました。これに伴い、関連するXNUカーネルおよびハードウェアサポートコードも公開されています。公開された情報によると、このプロジェクトは現在、iOSのユーザーモードコンポーネントがHTC HD2上で実行可能であり、タッチスクリーンも機能することが確認されています。</p>
+          <h3>HTC HD2の情報</h3>
+<p>HTC HD2は2010年に発売され、内部コードネームはHTC Leoです。Qualcomm QSD8250プロセッサを搭載しています。このプロジェクトは、単にエミュレーターを通じてiOSを実行しているわけではなく、XNUカーネルをHTC HD2のハードウェアプラットフォームに移植し、プロセッサ、メモリ、ディスプレイ、タッチ、ストレージなど、ハードウェア全体に対するサポートを提供する方法を採用しています。公開されたリポジトリによれば、プロジェクトの目標プラットフォームはQSD8250_LEOであり、ARMv7 Thumbアーキテクチャを使用しています。</p>
+          <h3>プロジェクトの詳細</h3>
+<p>GitHubのリポジトリ名は「XNU Kernel and Board Support for HTC HD2」（HTC-Leo-Revival-ProjectのXNUコードベースを修正）というもので、HD2に特化したCPU、割り込み（interrupt）、タイマー、およびメモリマッピングコードが含まれています。さらに、SDCCストレージ、MDPディスプレイ出力、Type 2Aタッチパスを追加し、対応するIOKitディスプレイおよびHIDサービスを提供しています。</p>
+<p>プロジェクトの説明によると、このリポジトリは携帯電話に直接フラッシュできる完全なファームウェアパッケージではなく、主にソースコードで構成されています。ビルドを行うには、追加のDarwin / Mach-O ARMツールチェーン、生成されたXNUヘッダーファイル、および整合性の取れたターゲットコンフィグレーションが必要です。そのため、リポジトリ内にAppleのユーザーモードコンポーネント、ルートファイルシステム、ファームウェア、ブートイメージ、SDK、またはツールチェーンバイナリがすべて含まれているわけではないため、「完全なiOS 7フラッシュパッケージ」として単純に理解することはできません。</p>
+          <h3>XNUカーネルについて</h3>
+<p>今回の移植における重要な要素の一つがXNUです。XNUはAppleがDarwinシステムで使用するハイブリッドカーネルであり、macOSやiOSといったAppleのオペレーティングシステムの基盤となっています。これはMachカーネル、FreeBSD関連コンポーネント、およびIOKitなどで構成されています。Appleは現在もXNUのソースコードを公開で維持管理していますが、32ビットARMに関するサポートはすでに過去のプラットフォームカテゴリに分類されます。</p>
+          <h3>プロジェクトの現状</h3>
+<p>このプロジェクトのリポジトリは、「静的監査」のみが可能であり、ソースファイルパスやローカルヘッダーファイルの依存関係を確認できるに留まり、コードが完全にコンパイルされたこと、HTC HD2でブートしたこと、またはハードウェアが安定して動作することを証明するものではないと特別に強調されています。したがって、現在iOS 7がHTC HD2上で実行されている実際のデモは存在しますが、オープンソースリポジトリ自体は開発・移植プロジェクトとして扱われるべきであり、成熟した汎用フラッシングソリューションとは見なすべきではありません。</p>
+          <h3>HTC HD2の歴史的背景</h3>
+<p>HTC HD2は、以前から非常にオープンなブート環境と豊富なサードパーティシステム移植の歴史を持つため、「万能デバイス」として知られてきました。コミュニティの情報によると、この携帯電話には過去にWindows Phone、Android、Symbianなど様々な非公式システムの移植が行われており、今回のiOS 7プロジェクトは、AppleのモバイルOSをこのデバイスに追加で持たせた重要な成果となっています。</p>
+<ul>
 <li>GitHub: https://github.com/Garysss123/xnu-hd2</li>
-<li>펌웨어: https://pixeldrain.com/u/1Twt8v4F</li>
+<li>ファームウェア: https://pixeldrain.com/u/1Twt8v4F</li>
 </ul>
-          
-          <h3>총평</h3>
-          
-          <p>개발자 j0sh1x가 HTC HD2에 iOS 7을 성공적으로 이식하여 구동하는 데 성공했습니다. 이 프로젝트는 에뮬레이션이 아닌 하드웨어 직접 이식 방식으로, XNU 커널과 하드웨어 지원 코드를 공개했습니다. 현재 터치스크린이 작동하는 등 기본적인 기능이 구현되었으나, 아직 개발 단계에 있으며 완전한 펌웨어 패키지는 아닙니다. HTC HD2는 과거에도 다양한 운영체제 이식이 이루어졌던 기기로, 이번 iOS 7 이식은 그 역사를 이어가는 중요한 성과입니다.</p>
-          
+          <h3>まとめ</h3>
+<p>開発者のj0sh1x氏が、HTC HD2にiOS 7を移植し動作させることに成功しました。このプロジェクトはエミュレーションではなくハードウェアへの直接的なカーネル移植であり、XNUカーネルとハードウェアサポートコードが公開されています。現在タッチスクリーンなどが機能するなど基本的な実装はなされていますが、これは開発段階のソースコードであり、完成したファームウェアパッケージではない点に注意が必要です。HTC HD2は過去からOS移植の歴史を持つデバイスであり、今回のiOS 7移植はその歴史を彩る重要な成果と言えます。</p>
         </div>
         <div class="lang-body" data-lang="en">
-          
-          <h3>iOS 7 구동 성공</h3>
-          
-          <p>개발자 j0sh1x는 어제 레트로 하드웨어 이식 프로젝트를 공개하며, HTC HD2에서 iOS 7을 성공적으로 구동한 결과를 보여주었고 관련 XNU 커널 및 하드웨어 지원 코드를 공개했습니다. 공개된 정보에 따르면, 이 프로젝트는 현재 iOS 사용자 모드 구성 요소가 HTC HD2에서 실행되도록 하며, 터치스크린도 작동하는 상태입니다.</p>
-          
-          <h3>HTC HD2 정보</h3>
-          
-          <p>HTC HD2는 2010년에 출시되었으며, 내부 코드명은 HTC Leo입니다. Qualcomm QSD8250 프로세서를 탑재했습니다. 이번 프로젝트는 에뮬레이터를 통해 iOS를 실행하는 것이 아니라, HTC HD2의 하드웨어 플랫폼에 XNU 커널을 이식하고 프로세서, 메모리, 디스플레이, 터치 및 스토리지 등 하드웨어에 대한 지원을 제공하는 방식입니다. 공개된 저장소에 따르면, 프로젝트 목표 플랫폼은 QSD8250_LEO이며 ARMv7 Thumb 아키텍처를 사용합니다.</p>
-          
-          <h3>프로젝트 상세</h3>
-          
-          <p>GitHub 저장소 이름은 "XNU Kernel and Board Support for HTC HD2"(HTC-Leo-Revival-Project의 XNU 코드베이스를 수정)이며, HD2에 맞춤화된 CPU, 인터럽트, 타이머 및 메모리 매핑 코드를 포함하고 있습니다. 또한 SDCC 스토리지, MDP 디스플레이 출력 및 Type 2A 터치 경로를 추가했으며, 해당 IOKit 디스플레이 및 HID 서비스를 제공합니다.</p>
-          
-          <p>프로젝트 설명에 따르면, 이 저장소는 휴대폰에 직접 플래싱할 수 있는 완전한 펌웨어 패키지가 아니라 소스 코드 위주입니다. 프로젝트를 빌드하려면 추가적인 Darwin / Mach-O ARM 툴체인, 생성된 XNU 헤더 파일 및 일치하는 대상 구성이 필요합니다. 저장소에는 Apple 사용자 모드 구성 요소, 루트 파일 시스템, 펌웨어, 부팅 이미지, SDK 또는 툴체인 바이너리가 포함되어 있지 않으므로, 이를 완전한 iOS 7 플래싱 패키지로 간단히 이해해서는 안 됩니다.</p>
-          
-          <h3>XNU 커널</h3>
-          
-          <p>이번 이식의 핵심 중 하나는 XNU입니다. XNU는 Apple이 Darwin 시스템에 사용하는 하이브리드 커널로, macOS 및 iOS와 같은 Apple 운영체제의 커널 기반입니다. Mach 커널, FreeBSD 관련 구성 요소 및 IOKit 등으로 구성됩니다. Apple은 현재도 XNU 소스 코드를 공개적으로 유지 관리하고 있지만, 32비트 ARM 관련 지원은 이미 과거 플랫폼 범주에 속합니다.</p>
-          
-          <h3>프로젝트 현황</h3>
-          
-          <p>프로젝트 저장소는 현재 정적 감사로는 소스 파일 경로 및 로컬 헤더 파일 종속성만 확인할 수 있으며, 코드가 완전히 컴파일되거나 HTC HD2에서 부팅되거나 하드웨어가 안정적으로 작동함을 증명할 수 없다고 특별히 강조합니다. 따라서 현재 HTC HD2에서 iOS 7이 실행되는 실제 시연이 나왔지만, 오픈 소스 저장소 자체는 개발 및 이식 프로젝트로 간주되어야 하며, 성숙한 범용 플래싱 솔루션으로 간주해서는 안 됩니다.</p>
-          
-          <h3>HTC HD2의 역사</h3>
-          
-          <p>HTC HD2는 이전에 고도로 개방된 부팅 환경과 풍부한 타사 시스템 이식 역사로 인해 고전적인 "만능 기기"로 자리매김했습니다. 커뮤니티 자료에 따르면, 이 휴대폰은 과거에 Windows Phone, Android, Symbian 등 다양한 비공식 시스템 이식이 있었으며, 이번 iOS 7 프로젝트는 Apple 모바일 운영체제를 이 기기에 추가로 가져왔습니다.</p>
-          
-          <ul>
+          <h3>Successful Porting of iOS 7</h3>
+<p>Developer j0sh1x revealed a retro hardware porting project yesterday, demonstrating the successful operation of iOS 7 on an HTC HD2. He also released related XNU kernel and hardware support code. According to the disclosed information, this project currently allows iOS user mode components to run on the HTC HD2, and the touchscreen is functional.</p>
+          <h3>About the HTC HD2</h3>
+<p>The HTC HD2 was released in 2010 and used the internal codename HTC Leo. It was equipped with a Qualcomm QSD8250 processor. This project does not run iOS via an emulator; rather, it ports the XNU kernel onto the HTC HD2's hardware platform, providing support for components such as the processor, memory, display, touch, and storage.</p>
+<p>The disclosed repository indicates that the target platform is QSD8250_LEO, utilizing the ARMv7 Thumb architecture.</p>
+          <h3>Project Details</h3>
+<p>The GitHub repository is titled "XNU Kernel and Board Support for HTC HD2" (modifying the XNU codebase from HTC-Leo-Revival-Project). It includes customized code for CPU, interrupt, timer, and memory mapping tailored for the HD2. Additionally, it adds SDCC storage, MDP display output, and Type 2A touch paths, providing corresponding IOKit Display and HID services.</p>
+<p>The project description clarifies that this repository is primarily source code, not a complete firmware package that can be flashed directly onto a phone. To build the project, additional Darwin / Mach-O ARM toolchains, generated XNU header files, and matching target configurations are required. Users should not assume it is a simple, complete iOS 7 flashing package, as the repository does not contain Apple user mode components, root file systems, firmware, boot images, SDKs, or toolchain binaries.</p>
+          <h3>XNU Kernel</h3>
+<p>One of the core elements of this porting effort is XNU. XNU is a hybrid kernel used by Apple for its Darwin system, forming the basis for operating systems like macOS and iOS. It consists of components such as the Mach kernel, FreeBSD-related components, and IOKit. While Apple continues to publicly maintain the XNU source code, support related to 32-bit ARM already falls into a past platform category.</p>
+          <h3>Project Status</h3>
+<p>The project repository explicitly emphasizes that static audits can only confirm file paths and local header file dependencies; they cannot prove that the code fully compiles, boots on the HTC HD2, or operates stably. Therefore, while a live demonstration of iOS 7 running on the HTC HD2 has occurred, the open-source repository itself must be considered a development and porting project, not a mature, general-purpose flashing solution.</p>
+          <h3>History of the HTC HD2</h3>
+<p>The HTC HD2 was historically known as a classic "Swiss Army Knife" device due to its highly open booting environment and rich history of third-party system ports. Community resources indicate that this phone previously received unofficial porting of various systems, including Windows Phone, Android, and Symbian. This iOS 7 project represents the addition of an Apple mobile operating system to this device's established history.</p>
+<ul>
 <li>GitHub: https://github.com/Garysss123/xnu-hd2</li>
-<li>펌웨어: https://pixeldrain.com/u/1Twt8v4F</li>
+<li>Firmware: https://pixeldrain.com/u/1Twt8v4F</li>
 </ul>
-          
-          <h3>총평</h3>
-          
-          <p>개발자 j0sh1x가 HTC HD2에 iOS 7을 성공적으로 이식하여 구동하는 데 성공했습니다. 이 프로젝트는 에뮬레이션이 아닌 하드웨어 직접 이식 방식으로, XNU 커널과 하드웨어 지원 코드를 공개했습니다. 현재 터치스크린이 작동하는 등 기본적인 기능이 구현되었으나, 아직 개발 단계에 있으며 완전한 펌웨어 패키지는 아닙니다. HTC HD2는 과거에도 다양한 운영체제 이식이 이루어졌던 기기로, 이번 iOS 7 이식은 그 역사를 이어가는 중요한 성과입니다.</p>
-          
+          <h3>Summary</h3>
+<p>Developer j0sh1x successfully ported and demonstrated iOS 7 running on the HTC HD2 using a hardware direct porting method, rather than emulation. The project released XNU kernel code and necessary hardware support components. Although basic functions like touchscreen operation are implemented, the repository is currently in an early development stage and does not constitute a complete firmware package. This achievement continues the historical legacy of the HTC HD2 as a device known for its ability to run various operating systems.</p>
         </div>
       </div>
 
