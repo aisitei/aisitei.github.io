@@ -10,9 +10,9 @@
   <meta name="article-brand" content="">
   <meta name="article-brand-color" content="">
   <meta name="title-ko" content="Liquid AI, d1 시리즈 의사결정 모델 오픈소스 공개: 단일 판단 8ms, 이미지 입력 지원">
-  <meta name="title-zh" content="Liquid AI, d1 시리즈 의사결정 모델 오픈소스 공개: 단일 판단 8ms, 이미지 입력 지원">
-  <meta name="title-ja" content="Liquid AI, d1 시리즈 의사결정 모델 오픈소스 공개: 단일 판단 8ms, 이미지 입력 지원">
-  <meta name="title-en" content="Liquid AI, d1 시리즈 의사결정 모델 오픈소스 공개: 단일 판단 8ms, 이미지 입력 지원">
+  <meta name="title-zh" content="Liquid AI 开源 d1 系列决策模型：单次判断仅 8 毫秒，支持图像输入">
+  <meta name="title-ja" content="Liquid AIがオープンソース化したd1シリーズ意思決定モデル：単回判定はわずか8ミリ秒、画像入力に対応">
+  <meta name="title-en" content="Liquid AI Open-Source d1 Series Decision Model: Single Inference in Just 8 Milliseconds, Supports Image Input">
   <style>
     :root {
       --bg: #0f172a;
@@ -541,9 +541,9 @@
 
         <h1 class="article-title"
             data-ko="Liquid AI, d1 시리즈 의사결정 모델 오픈소스 공개: 단일 판단 8ms, 이미지 입력 지원"
-            data-zh="Liquid AI, d1 시리즈 의사결정 모델 오픈소스 공개: 단일 판단 8ms, 이미지 입력 지원"
-            data-ja="Liquid AI, d1 시리즈 의사결정 모델 오픈소스 공개: 단일 판단 8ms, 이미지 입력 지원"
-            data-en="Liquid AI, d1 시리즈 의사결정 모델 오픈소스 공개: 단일 판단 8ms, 이미지 입력 지원">Liquid AI, d1 시리즈 의사결정 모델 오픈소스 공개: 단일 판단 8ms, 이미지 입력 지원</h1>
+            data-zh="Liquid AI 开源 d1 系列决策模型：单次判断仅 8 毫秒，支持图像输入"
+            data-ja="Liquid AIがオープンソース化したd1シリーズ意思決定モデル：単回判定はわずか8ミリ秒、画像入力に対応"
+            data-en="Liquid AI Open-Source d1 Series Decision Model: Single Inference in Just 8 Milliseconds, Supports Image Input">Liquid AI, d1 시리즈 의사결정 모델 오픈소스 공개: 단일 판단 8ms, 이미지 입력 지원</h1>
 
         <div class="article-info">
           
@@ -594,85 +594,116 @@
           
         </div>
         <div class="lang-body" data-lang="zh">
-          
-          <h3>Liquid AI의 d1 시리즈 결정 모델 출시</h3>
-          
-          <p>Liquid AI는 10월 7일 블로그 게시물을 통해 두 가지 오픈 웨이트 결정 모델인 d1 시리즈를 출시했다고 발표했습니다. d1-3B는 31.2억 개의 파라미터를 통해 텍스트 및 이미지 판단을 지원하며, d1-omni-600M은 5.87억 개의 파라미터로 텍스트, 이미지 및 음성 입력을 지원합니다.</p>
-          
-          <p>Liquid AI의 블로그 게시물에 따르면, 9월 Jev 모델이 폭발적인 인기를 얻은 후 OpenAI 등 여러 회사들도 유사한 결정 모델을 연이어 출시했습니다. Liquid AI는 이 경쟁에 새로 합류한 회사로, 이번에 출시된 d1-3B와 d1-omni-600M은 Hugging Face에 공개되어 사용자들이 다운로드, 미세 조정 및 배포할 수 있습니다.</p>
-          
-          <h3>d1-3B 모델 상세</h3>
-          
-          <p>d1-3B는 31.2억 개의 파라미터를 가지고 있으며, 시각 언어 모델 LFM2.5-VL-3B를 기반으로 훈련되었습니다. 이 모델은 텍스트 및 이미지 입력을 지원합니다. Decision Index v0.2.1 공개 테스트 세트에서 48.57점을 획득했으며, Liquid AI는 이 모델이 10B 미만의 모든 모델 중 최고 성능을 보인다고 밝혔습니다.</p>
-          
-          <h3>d1-omni-600M 모델 상세</h3>
-          
-          <p>d1-omni-600M은 5.87억 개의 파라미터를 가지고 있으며, 양방향 인코더 LFM2.5-Encoder-350M을 기반으로 훈련되었습니다. 이 모델은 텍스트와 이미지 또는 텍스트와 음성의 조합 입력을 지원하며, Liquid AI의 첫 번째 실험적인 멀티모달 결정 모델 체크포인트입니다.</p>
-          
-          <h3>추론 속도</h3>
-          
-          <p>추론 속도 측면에서, d1-3B는 NVIDIA RTX 4090에서 단일 질문에 답변하는 데 8밀리초, 384픽셀 이미지를 처리하는 데 102밀리초가 소요됩니다. Jetson AGX Thor에서는 단일 질문에 16밀리초, Jetson Orin Nano에서는 50밀리초가 걸립니다.</p>
-          
-          <p>사용자 테스트 결과, d1-3B는 12GB VRAM을 가진 GeForce RTX 3060에서 단일 판단에 25밀리초, 640x480픽셀 이미지를 처리하는 데 146밀리초가 소요되었으며, 최대 VRAM 사용량은 약 6GB였습니다. 다른 사용자는 RTX 3090에서 이 모델의 단일 판단 시간이 8밀리초라고 보고했습니다.</p>
-          
-          <h3>총평</h3>
-          
-          <p>Liquid AI는 텍스트, 이미지, 음성 입력을 지원하는 d1-3B와 d1-omni-600M 두 가지 오픈 웨이트 결정 모델을 출시하며 AI 결정 모델 시장에 진출했습니다. 이 모델들은 Hugging Face에 공개되어 사용자들이 자유롭게 활용할 수 있으며, 특히 d1-3B는 10B 미만 모델 중 최고 성능을 자랑하고 빠른 추론 속도를 제공합니다.</p>
-          
+          <h3>模型发布与行业定位</h3>
+<ul>
+<li>Liquid AI 于 10 月 7 日宣布推出 d1 系列两款开放权重决策模型：d1-3B 和 d1-omni-600M。</li>
+<li>本次发布的模型已在 Hugging Face 公开，用户可下载、微调并部署。</li>
+<li>Liquid AI 的发布旨在加入当前由 Jev 模型和 OpenAI 等公司引领的决策模型竞争战局。</li>
+</ul>
+          <h3>d1-3B 核心参数与能力</h3>
+<ul>
+<li>**参数量：** d1-3B 拥有 31.2 亿参数。</li>
+<li>**训练基础：** 基于视觉语言模型 LFM2.5-VL-3B 训练。</li>
+<li>**输入支持：** 支持文本与图像的判断输入。</li>
+<li>**性能表现：** 在 Decision Index v0.2.1 公开测试集获得 48.57 分，Liquid AI 声称其领先所有 10B 以下模型。</li>
+</ul>
+          <h3>d1-omni-600M 多模态特性</h3>
+<ul>
+<li>**参数量：** d1-omni-600M 拥有 5.87 亿参数。</li>
+<li>**训练基础：** 基于双向编码器 LFM2.5-Encoder-350M 训练。</li>
+<li>**输入支持：** 支持文本与图像，或文本与语音的组合输入。</li>
+<li>**定位：** 是 Liquid AI 首个实验性多模态决策模型检查点。</li>
+</ul>
+          <h3>设备性能测试指标</h3>
+<ul>
+<li>**NVIDIA RTX 4090 (d1-3B)：** 回答单个问题耗时 8 毫秒；处理 384 像素图像耗时 102 毫秒。</li>
+<li>**Jetson AGX Thor：** d1-3B 单问耗时 16 毫秒；d1-omni-600M 支持文本、图像及语音输入。</li>
+<li>**Jetson Orin Nano (d1-3B)：** 单问耗时 50 毫秒。</li>
+</ul>
+          <h3>用户实际运行效率测试</h3>
+<ul>
+<li>**GeForce RTX 3060 (d1-3B, 12GB显存)：** 单次判断耗时 25 毫秒；处理 640×480 像素图像耗时 146 毫秒，峰值显存占用约 6GB。</li>
+<li>**RTX 3090 (d1-3B)：** 用户报告单次判断耗时为 8 毫秒。</li>
+</ul>
+          <h3>总结</h3>
+<p>Liquid AI 发布了 d1 系列两款开放权重决策模型，包括参数量为 31.2 亿的 d1-3B 和支持多模态输入的 d1-omni-600M。这些模型已在 Hugging Face 公开，并在多个硬件平台上展示了其高效的推理速度和强大的跨模态判断能力，标志着 Liquid AI 正式进入决策模型领域竞争。</p>
         </div>
         <div class="lang-body" data-lang="ja">
-          
-          <h3>Liquid AI의 d1 시리즈 결정 모델 출시</h3>
-          
-          <p>Liquid AI는 10월 7일 블로그 게시물을 통해 두 가지 오픈 웨이트 결정 모델인 d1 시리즈를 출시했다고 발표했습니다. d1-3B는 31.2억 개의 파라미터를 통해 텍스트 및 이미지 판단을 지원하며, d1-omni-600M은 5.87억 개의 파라미터로 텍스트, 이미지 및 음성 입력을 지원합니다.</p>
-          
-          <p>Liquid AI의 블로그 게시물에 따르면, 9월 Jev 모델이 폭발적인 인기를 얻은 후 OpenAI 등 여러 회사들도 유사한 결정 모델을 연이어 출시했습니다. Liquid AI는 이 경쟁에 새로 합류한 회사로, 이번에 출시된 d1-3B와 d1-omni-600M은 Hugging Face에 공개되어 사용자들이 다운로드, 미세 조정 및 배포할 수 있습니다.</p>
-          
-          <h3>d1-3B 모델 상세</h3>
-          
-          <p>d1-3B는 31.2억 개의 파라미터를 가지고 있으며, 시각 언어 모델 LFM2.5-VL-3B를 기반으로 훈련되었습니다. 이 모델은 텍스트 및 이미지 입력을 지원합니다. Decision Index v0.2.1 공개 테스트 세트에서 48.57점을 획득했으며, Liquid AI는 이 모델이 10B 미만의 모든 모델 중 최고 성능을 보인다고 밝혔습니다.</p>
-          
-          <h3>d1-omni-600M 모델 상세</h3>
-          
-          <p>d1-omni-600M은 5.87억 개의 파라미터를 가지고 있으며, 양방향 인코더 LFM2.5-Encoder-350M을 기반으로 훈련되었습니다. 이 모델은 텍스트와 이미지 또는 텍스트와 음성의 조합 입력을 지원하며, Liquid AI의 첫 번째 실험적인 멀티모달 결정 모델 체크포인트입니다.</p>
-          
-          <h3>추론 속도</h3>
-          
-          <p>추론 속도 측면에서, d1-3B는 NVIDIA RTX 4090에서 단일 질문에 답변하는 데 8밀리초, 384픽셀 이미지를 처리하는 데 102밀리초가 소요됩니다. Jetson AGX Thor에서는 단일 질문에 16밀리초, Jetson Orin Nano에서는 50밀리초가 걸립니다.</p>
-          
-          <p>사용자 테스트 결과, d1-3B는 12GB VRAM을 가진 GeForce RTX 3060에서 단일 판단에 25밀리초, 640x480픽셀 이미지를 처리하는 데 146밀리초가 소요되었으며, 최대 VRAM 사용량은 약 6GB였습니다. 다른 사용자는 RTX 3090에서 이 모델의 단일 판단 시간이 8밀리초라고 보고했습니다.</p>
-          
-          <h3>총평</h3>
-          
-          <p>Liquid AI는 텍스트, 이미지, 음성 입력을 지원하는 d1-3B와 d1-omni-600M 두 가지 오픈 웨이트 결정 모델을 출시하며 AI 결정 모델 시장에 진출했습니다. 이 모델들은 Hugging Face에 공개되어 사용자들이 자유롭게 활용할 수 있으며, 특히 d1-3B는 10B 미만 모델 중 최고 성능을 자랑하고 빠른 추론 속도를 제공합니다.</p>
-          
+          <h3>Liquid AI、d1シリーズの決定モデルを発表</h3>
+<p>Liquid AIは、ブログ投稿を通じて、2つのオープンウェイトな決定モデル「d1シリーズ」をリリースしたと発表しました。d1-3Bは31.2億のパラメータを持ち、テキストおよび画像判断をサポートします。一方、d1-omni-600Mは5.87億のパラメータで、テキスト、画像、音声の入力に対応しています。</p>
+<p>Liquid AIによると、9月のJevモデルが大きな人気を集めた後、OpenAIなど複数の企業が同様の決定モデルを次々と発表しました。今回、この競争に参入したLiquid AIが提供するd1-3Bとd1-omni-600MはHugging Faceで公開されており、ユーザーはこれらをダウンロード、ファインチューニング、デプロイすることが可能です。</p>
+          <h3>d1-3Bモデルの詳細</h3>
+<p>d1-3Bは31.2億のパラメータを搭載し、ビジョン言語モデルLFM2.5-VL-3Bに基づいて訓練されました。このモデルはテキストおよび画像入力に対応しています。</p>
+<ul>
+<li><strong>性能スコア:</strong> Decision Index v0.2.1公開テストセットで48.57点を獲得しました。</li>
+<li><strong>特筆点:</strong> Liquid AIは、本モデルが10B未満の全モデルの中で最高性能を達成したと発表しています。</li>
+</ul>
+          <h3>d1-omni-600Mモデルの詳細</h3>
+<p>d1-omni-600Mは5.87億のパラメータを持ち、双方向エンコーダーLFM2.5-Encoder-350Mに基づいて訓練されました。このモデルはテキストと画像、またはテキストと音声という組み合わせ入力に対応しており、Liquid AI初の実験的なマルチモーダル決定モデルチェックポイントです。</p>
+          <h3>推論速度（Inference Speed）</h3>
+<p>複数のハードウェア環境での推論速度が報告されています。</p>
+<h4>主要な計測結果</h4>
+<ul>
+<li><strong>NVIDIA RTX 4090:</strong>
+<ul>
+<li>単一質問への回答時間：8ミリ秒</li>
+<li>384ピクセル画像の処理時間：102ミリ秒</li>
+</ul>
+</li>
+<li><strong>Jetson AGX Thor:</strong>
+<ul>
+<li>単一質問への回答時間：16ミリ秒</li>
+</ul>
+</li>
+<li><strong>Jetson Orin Nano:</strong>
+<ul>
+<li>単一質問への回答時間：50ミリ秒</li>
+</ul>
+</li>
+</ul>
+<h4>ユーザーテスト結果</h4>
+<p>一般ユーザーによるテストでは、d1-3Bが以下の速度を示しています。</p>
+<ul>
+<li><strong>GeForce RTX 3060 (VRAM 12GB):</strong>
+<ul>
+<li>単一判断時間：25ミリ秒</li>
+<li>640x480ピクセル画像の処理時間：146ミリ秒</li>
+</ul>
+<p>（最大VRAM使用量は約6GBでした。）</p>
+<li><strong>RTX 3090:</strong>
+<ul>
+<li>単一判断時間：8ミリ秒と報告されています。</li>
+</ul>
+</li>
+</ul>
+          <h3>まとめ</h3>
+<p>Liquid AIは、テキスト、画像、音声の入力をサポートする2つのオープンウェイトな決定モデル（d1-3Bおよびd1-omni-600M）をリリースし、AI決定モデル市場に参入しました。これらのモデルはHugging Faceで公開されており、特にd1-3Bは10B未満のモデルの中で最高性能を誇り、高い推論速度を提供することが強みです。</p>
         </div>
         <div class="lang-body" data-lang="en">
-          
-          <h3>Liquid AI의 d1 시리즈 결정 모델 출시</h3>
-          
-          <p>Liquid AI는 10월 7일 블로그 게시물을 통해 두 가지 오픈 웨이트 결정 모델인 d1 시리즈를 출시했다고 발표했습니다. d1-3B는 31.2억 개의 파라미터를 통해 텍스트 및 이미지 판단을 지원하며, d1-omni-600M은 5.87억 개의 파라미터로 텍스트, 이미지 및 음성 입력을 지원합니다.</p>
-          
-          <p>Liquid AI의 블로그 게시물에 따르면, 9월 Jev 모델이 폭발적인 인기를 얻은 후 OpenAI 등 여러 회사들도 유사한 결정 모델을 연이어 출시했습니다. Liquid AI는 이 경쟁에 새로 합류한 회사로, 이번에 출시된 d1-3B와 d1-omni-600M은 Hugging Face에 공개되어 사용자들이 다운로드, 미세 조정 및 배포할 수 있습니다.</p>
-          
-          <h3>d1-3B 모델 상세</h3>
-          
-          <p>d1-3B는 31.2억 개의 파라미터를 가지고 있으며, 시각 언어 모델 LFM2.5-VL-3B를 기반으로 훈련되었습니다. 이 모델은 텍스트 및 이미지 입력을 지원합니다. Decision Index v0.2.1 공개 테스트 세트에서 48.57점을 획득했으며, Liquid AI는 이 모델이 10B 미만의 모든 모델 중 최고 성능을 보인다고 밝혔습니다.</p>
-          
-          <h3>d1-omni-600M 모델 상세</h3>
-          
-          <p>d1-omni-600M은 5.87억 개의 파라미터를 가지고 있으며, 양방향 인코더 LFM2.5-Encoder-350M을 기반으로 훈련되었습니다. 이 모델은 텍스트와 이미지 또는 텍스트와 음성의 조합 입력을 지원하며, Liquid AI의 첫 번째 실험적인 멀티모달 결정 모델 체크포인트입니다.</p>
-          
-          <h3>추론 속도</h3>
-          
-          <p>추론 속도 측면에서, d1-3B는 NVIDIA RTX 4090에서 단일 질문에 답변하는 데 8밀리초, 384픽셀 이미지를 처리하는 데 102밀리초가 소요됩니다. Jetson AGX Thor에서는 단일 질문에 16밀리초, Jetson Orin Nano에서는 50밀리초가 걸립니다.</p>
-          
-          <p>사용자 테스트 결과, d1-3B는 12GB VRAM을 가진 GeForce RTX 3060에서 단일 판단에 25밀리초, 640x480픽셀 이미지를 처리하는 데 146밀리초가 소요되었으며, 최대 VRAM 사용량은 약 6GB였습니다. 다른 사용자는 RTX 3090에서 이 모델의 단일 판단 시간이 8밀리초라고 보고했습니다.</p>
-          
-          <h3>총평</h3>
-          
-          <p>Liquid AI는 텍스트, 이미지, 음성 입력을 지원하는 d1-3B와 d1-omni-600M 두 가지 오픈 웨이트 결정 모델을 출시하며 AI 결정 모델 시장에 진출했습니다. 이 모델들은 Hugging Face에 공개되어 사용자들이 자유롭게 활용할 수 있으며, 특히 d1-3B는 10B 미만 모델 중 최고 성능을 자랑하고 빠른 추론 속도를 제공합니다.</p>
-          
+          <h3>Liquid AI Launches d1 Series of Decision Models</h3>
+<p>Liquid AI announced on October 7th via a blog post the release of two open-weight decision models belonging to the d1 series. The d1-3B model supports text and image judgment with 3.12 billion parameters, while the d1-omni-600M model supports text, image, and voice inputs using 587 million parameters.</p>
+<p>According to Liquid AI's blog post, following the massive popularity of the Jev model in September, several companies, including OpenAI, have successively released similar decision models. Liquid AI joins this competitive field with the release of d1-3B and d1-omni-600M. These models are made available on Hugging Face for users to download, fine-tune, and deploy.</p>
+          <h3>d1-3B Model Details</h3>
+<p>The d1-3B model possesses 3.12 billion parameters and was trained based on the visual language model LFM2.5-VL-3B. This model supports both text and image inputs. It achieved a score of 48.57 points on the Decision Index v0.2.1 public test set, with Liquid AI stating that this model demonstrates top performance among all models under 10B parameters.</p>
+          <h3>d1-omni-600M Model Details</h3>
+<p>The d1-omni-600M model has 587 million parameters and was trained based on the bidirectional encoder LFM2.5-Encoder-350M. This model supports combined inputs of text with image, or text with voice. It represents Liquid AI's first experimental multimodal decision model checkpoint.</p>
+          <h3>Inference Speed</h3>
+<p>Regarding inference speed, d1-3B required the following times:</p>
+<ul>
+<li>NVIDIA RTX 4090: 8 milliseconds for answering a single question and 102 milliseconds for processing a 384-pixel image.</li>
+<li>Jetson AGX Thor: 16 milliseconds for a single question.</li>
+<li>Jetson Orin Nano: 50 milliseconds.</li>
+</ul>
+<p>In user tests, d1-3B required the following times:</p>
+<ul>
+<li>GeForce RTX 3060 (with 12GB VRAM): 25 milliseconds for a single judgment and 146 milliseconds for processing a 640x480 pixel image.</li>
+<li>Maximum VRAM usage: Approximately 6GB.</li>
+</ul>
+<p>Another user reported that the single judgment time on an RTX 3090 was 8 milliseconds.</p>
+          <h3>Conclusion</h3>
+<p>Liquid AI has entered the AI decision model market by launching two open-weight decision models, d1-3B and d1-omni-600M, which support text, image, and voice inputs. These models are available on Hugging Face for free use, with d1-3B notably boasting top performance among models under 10B parameters and providing fast inference speeds.</p>
+          <h3>Summary</h3>
+<p>Liquid AI has released two open-weight decision models, d1-3B (3.12B parameters) and d1-omni-600M (587M parameters), supporting multimodal inputs including text, image, and voice. The models are publicly available on Hugging Face for community use. Key highlights include d1-3B achieving top performance among sub-10B models and demonstrating fast inference speeds across various hardware platforms.</p>
         </div>
       </div>
 
