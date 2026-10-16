@@ -10,9 +10,9 @@
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
   <meta name="title-ko" content="Apple Minions 연구: 유휴 Mac GPU를 팀으로 구성하여 10시간 분량의 AI 작업을 몇 분 만에 완료">
-  <meta name="title-zh" content="Apple Minions 연구: 유휴 Mac GPU를 팀으로 구성하여 10시간 분량의 AI 작업을 몇 분 만에 완료">
-  <meta name="title-ja" content="Apple Minions 연구: 유휴 Mac GPU를 팀으로 구성하여 10시간 분량의 AI 작업을 몇 분 만에 완료">
-  <meta name="title-en" content="Apple Minions 연구: 유휴 Mac GPU를 팀으로 구성하여 10시간 분량의 AI 작업을 몇 분 만에 완료">
+  <meta name="title-zh" content="苹果 Minions 研究：闲置 Mac GPU 组队，几分钟就能完成 10 小时 AI 任务">
+  <meta name="title-ja" content="Apple Minionsの研究：遊休のMac GPUがチームを組み、わずか数分で10時間のAIタスクを完了">
+  <meta name="title-en" content="Apple Minions Research: Grouping Idle Mac GPUs Completes 10-Hour AI Tasks in Minutes">
   <style>
     :root {
       --bg: #0f172a;
@@ -545,9 +545,9 @@
 
         <h1 class="article-title"
             data-ko="Apple Minions 연구: 유휴 Mac GPU를 팀으로 구성하여 10시간 분량의 AI 작업을 몇 분 만에 완료"
-            data-zh="Apple Minions 연구: 유휴 Mac GPU를 팀으로 구성하여 10시간 분량의 AI 작업을 몇 분 만에 완료"
-            data-ja="Apple Minions 연구: 유휴 Mac GPU를 팀으로 구성하여 10시간 분량의 AI 작업을 몇 분 만에 완료"
-            data-en="Apple Minions 연구: 유휴 Mac GPU를 팀으로 구성하여 10시간 분량의 AI 작업을 몇 분 만에 완료">Apple Minions 연구: 유휴 Mac GPU를 팀으로 구성하여 10시간 분량의 AI 작업을 몇 분 만에 완료</h1>
+            data-zh="苹果 Minions 研究：闲置 Mac GPU 组队，几分钟就能完成 10 小时 AI 任务"
+            data-ja="Apple Minionsの研究：遊休のMac GPUがチームを組み、わずか数分で10時間のAIタスクを完了"
+            data-en="Apple Minions Research: Grouping Idle Mac GPUs Completes 10-Hour AI Tasks in Minutes">Apple Minions 연구: 유휴 Mac GPU를 팀으로 구성하여 10시간 분량의 AI 작업을 몇 분 만에 완료</h1>
 
         <div class="article-info">
           
@@ -603,100 +603,79 @@
           
         </div>
         <div class="lang-body" data-lang="zh">
-          
-          <h3>Apple의 Minions 프로젝트</h3>
-          
-          <p>IT之家 10월 16일 소식에 따르면, IT 매체 AppleInsider는 어제(10월 15일) Apple 연구팀이 Minions라는 시스템 연구를 발표했다고 보도했습니다. 이 연구는 유휴 Mac GPU를 통합하여 동적으로 스케줄링 가능한 "가상 GPU 클라우드"를 형성하고, 대규모 머신러닝 추론 작업을 실행하는 것을 목표로 합니다.</p>
-          
-          <p>IT之家가 인용한 보도에 따르면, 기존 AI 추론은 일반적으로 중앙 집중식 GPU 클러스터에 의존하며, 높은 비용, 느린 확장성, 긴 대기 시간 등의 문제에 직면해 있습니다. 반면 Mac은 일상적인 사무, 웹 브라우징, 콘텐츠 제작 시나리오에서 GPU가 종종 장시간 유휴 상태로 있습니다.</p>
-          
-          <p>Apple은 Minions 솔루션이 이러한 "보이지 않는 컴퓨팅 파워"를 재구성하여 추가 GPU 구매 없이 여러 Mac이 협력하여 AI 작업을 완료할 수 있도록 하는 것을 목표로 한다고 논문에서 설명했습니다.</p>
-          
-          <p>논문 개요에 따르면, 시스템은 네 가지 핵심 부분으로 구성됩니다.</p>
-          
-          <ul>
-<li>Minion Server는 작업을 수신하고, 서브태스크로 분할하며, 스케줄링을 조정합니다.</li>
-<li>PostgreSQL 메타데이터 저장소는 작업 및 장치 상태를 기록합니다.</li>
-<li>각 macOS 장치에서 실행되는 Minion Executor는 Apple Silicon GPU를 통해 로컬에서 추론을 실행합니다.</li>
-<li>Minion Watchdog은 장치 연결 끊김, 절전 모드 또는 전원 차단과 같은 상황을 모니터링하고, 미완료 작업을 다른 사용 가능한 장치에 재할당합니다.</li>
+          <h3>系统核心概念与目标</h3>
+<p>Apple研究团队公布了一项名为 Minions 的系统研究，旨在解决大规模机器学习推理任务的算力瓶颈。该方案的核心是将闲置的 Mac GPU 资源进行聚合，构建一个可动态调度的“虚拟 GPU 云”，从而高效运行AI推理任务。</p>
+<ul>
+<li><strong>痛点分析：</strong>传统AI推理依赖集中式GPU集群，存在成本高、扩容慢和排队时间长等问题。</li>
+<li><strong>解决方案：</strong>Minions利用日常办公或创作场景中长期空闲的Mac GPU算力，实现多台Mac协同完成AI任务，无需额外采购硬件。</li>
 </ul>
-          
-          <p>기술 구현 측면에서 Minions는 "풀(pull) 방식" 작업 모델을 채택합니다. 장치가 서버로부터 실행 가능한 서브태스크를 능동적으로 가져오고, 원자적 메커니즘을 통해 여러 장치가 동일한 작업을 중복 처리하는 것을 방지합니다. 추론 결과는 객체 저장소에 기록될 수 있으며, 시스템은 Grafana 기반의 실시간 모니터링 패널을 제공하여 팀이 온라인, 사용 중, 유휴 장치 수를 쉽게 파악할 수 있도록 합니다.</p>
-          
-          <p>Apple이 공개한 테스트 결과에 따르면, 이전에 중앙 집중식 GPU 자원 부족으로 10시간 이상 대기해야 했던 일부 추론 작업이 Minions 환경에서는 몇 분 내에 실행될 수 있었습니다. 팀은 새로운 GPU 하드웨어를 추가할 필요 없이 인프라 비용도 절감했습니다.</p>
-          
-          <p>그러나 이 기술은 현재 일반 소비자를 위한 정식 제품이라기보다는 기업 내부 연구 및 엔지니어링 솔루션에 가깝습니다. 연구팀은 또한 다른 부서의 장치를 사용할 때 데이터 기밀성 및 거버넌스가 중요한 고려 사항이라고 지적했습니다.</p>
-          
-          <p>Minions: 유휴 Apple Silicon 장치 기반의 동적 분산 가상 GPU 클라우드</p>
-          
-          <h3>총평</h3>
-          
-          <p>Apple의 Minions 프로젝트는 유휴 Mac GPU를 활용하여 동적으로 스케줄링 가능한 "가상 GPU 클라우드"를 구축하는 연구입니다. 이 시스템은 기존 중앙 집중식 GPU 클러스터의 높은 비용과 긴 대기 시간 문제를 해결하고, 여러 Mac이 협력하여 대규모 머신러닝 추론 작업을 효율적으로 처리할 수 있도록 설계되었습니다. 테스트 결과, Minions는 추론 작업의 대기 시간을 크게 단축하고 인프라 비용을 절감하는 효과를 보였습니다.</p>
-          
+          <h3>Minions系统架构组件</h3>
+<p>该虚拟GPU云系统由四个关键部分组成，共同协作管理和调度计算资源：</p>
+<ul>
+<li><strong>Minion Server：</strong>负责接收外部任务、将大任务拆分成子任务并进行全局协调调度。</li>
+<li><strong>PostgreSQL 元数据存储：</strong>用于记录系统的任务状态和各设备的实时信息。</li>
+<li><strong>Minion Executor：</strong>运行在每台macOS设备上的执行器，通过Apple Silicon GPU本地执行具体的推理计算。</li>
+<li><strong>Minion Watchdog：</strong>负责监控设备连接状态（如掉线、休眠或断电），并能将未完成的任务重新分配给其他可用的设备。</li>
+</ul>
+          <h3>技术实现与运行机制</h3>
+<p>在任务调度和数据处理方面，Minions采用了高效的“拉取式”任务模型，确保了系统的稳定性和高并发性。</p>
+<ul>
+<li><strong>任务获取：</strong>各设备主动向服务器领取可执行的子任务。</li>
+<li><strong>去重机制：</strong>系统通过原子化机制来避免多台设备重复处理同一份任务。</li>
+<li><strong>数据监控与管理：</strong>推理结果可以写入对象存储；同时，系统提供基于Grafana的实时监控面板，便于团队了解在线、忙碌和空闲设备的数量分布。</li>
+</ul>
+          <h3>性能提升与应用价值</h3>
+<p>Apple披露的测试结果展示了Minions在算力调度上的巨大潜力，显著降低了AI任务的执行门槛。</p>
+<ul>
+<li><strong>效率提升：</strong>此前因集中式GPU资源不足而需要排队超过10小时的部分推理任务，在Minions系统下可在数分钟内开始执行。</li>
+<li><strong>成本优势：</strong>团队无需新增GPU硬件投入，有效降低了整体基础设施的运营和采购成本。</li>
+</ul>
+          <h3>适用范围与局限性</h3>
+<p>需要注意的是，Minions目前定位为面向企业内部的研究与工程方案，而非直接面向普通消费者的正式产品。</p>
+<ul>
+<li><strong>潜在顾虑：</strong>研究团队指出，在跨部门使用他人设备时，数据保密性和治理问题是重要的考量点。</li>
+</ul>
+          <h3>总结</h3>
+<p>Minions系统展示了利用闲置Mac GPU算力构建分布式虚拟GPU云的可行性。该方案通过精巧的架构设计和拉取式任务模型，解决了传统AI推理集群成本高、扩容慢的问题。它为企业级机器学习推理提供了低成本、高效能的替代解决方案，但目前仍局限于内部工程应用。</p>
         </div>
         <div class="lang-body" data-lang="ja">
-          
-          <h3>Apple의 Minions 프로젝트</h3>
-          
-          <p>IT之家 10월 16일 소식에 따르면, IT 매체 AppleInsider는 어제(10월 15일) Apple 연구팀이 Minions라는 시스템 연구를 발표했다고 보도했습니다. 이 연구는 유휴 Mac GPU를 통합하여 동적으로 스케줄링 가능한 "가상 GPU 클라우드"를 형성하고, 대규모 머신러닝 추론 작업을 실행하는 것을 목표로 합니다.</p>
-          
-          <p>IT之家가 인용한 보도에 따르면, 기존 AI 추론은 일반적으로 중앙 집중식 GPU 클러스터에 의존하며, 높은 비용, 느린 확장성, 긴 대기 시간 등의 문제에 직면해 있습니다. 반면 Mac은 일상적인 사무, 웹 브라우징, 콘텐츠 제작 시나리오에서 GPU가 종종 장시간 유휴 상태로 있습니다.</p>
-          
-          <p>Apple은 Minions 솔루션이 이러한 "보이지 않는 컴퓨팅 파워"를 재구성하여 추가 GPU 구매 없이 여러 Mac이 협력하여 AI 작업을 완료할 수 있도록 하는 것을 목표로 한다고 논문에서 설명했습니다.</p>
-          
-          <p>논문 개요에 따르면, 시스템은 네 가지 핵심 부분으로 구성됩니다.</p>
-          
-          <ul>
-<li>Minion Server는 작업을 수신하고, 서브태스크로 분할하며, 스케줄링을 조정합니다.</li>
-<li>PostgreSQL 메타데이터 저장소는 작업 및 장치 상태를 기록합니다.</li>
-<li>각 macOS 장치에서 실행되는 Minion Executor는 Apple Silicon GPU를 통해 로컬에서 추론을 실행합니다.</li>
-<li>Minion Watchdog은 장치 연결 끊김, 절전 모드 또는 전원 차단과 같은 상황을 모니터링하고, 미완료 작업을 다른 사용 가능한 장치에 재할당합니다.</li>
+          <h3>AppleのMinionsプロジェクト：アイドルGPUを活用した仮想クラウド構築</h3>
+<p>IT之家が10月16日に報じたところによると、ITメディアのAppleInsiderは、Appleの研究チームが「Minions」というシステム研究を発表したと伝えています。この研究は、遊休（アイドル）なMacのGPUを統合し、動的にスケジューリング可能な「仮想GPUクラウド」を構築することで、大規模な機械学習推論タスクを実行することを目的としています。</p>
+<p>従来のAI推論は一般的に中央集権的なGPUクラスターに依存しており、高コスト、スケーラビリティの低さ、長い待ち時間といった問題に直面しています。一方、Macは日常的なオフィス作業、ウェブブラウジング、コンテンツ制作などのシナリオにおいて、GPUが長時間アイドル状態になることが多くあります。</p>
+<p>Appleは論文の中で、Minionsソリューションがこのような「目に見えないコンピューティングパワー」を再構築し、追加のGPU購入なしに複数のMacが協調してAIタスクを完了できるようにすることを目指していると説明しています。</p>
+          <h3>システム構成要素</h3>
+<p>論文の概要によると、このシステムは以下の4つの主要な部分で構成されています。</p>
+<ul>
+<li>Minion Server：タスクを受信し、サブタスクに分割し、スケジューリングを調整します。</li>
+<li>PostgreSQLメタデータストレージ：タスクやデバイスの状態を記録します。</li>
+<li>Minion Executor：各macOSデバイス上で動作し、Apple Silicon GPUを利用してローカルで推論を実行します。</li>
+<li>Minion Watchdog：デバイスの接続切断、スリープモード、電源遮断などの状況を監視し、未完了タスクを他の利用可能なデバイスに再割り当てします。</li>
 </ul>
-          
-          <p>기술 구현 측면에서 Minions는 "풀(pull) 방식" 작업 모델을 채택합니다. 장치가 서버로부터 실행 가능한 서브태스크를 능동적으로 가져오고, 원자적 메커니즘을 통해 여러 장치가 동일한 작업을 중복 처리하는 것을 방지합니다. 추론 결과는 객체 저장소에 기록될 수 있으며, 시스템은 Grafana 기반의 실시간 모니터링 패널을 제공하여 팀이 온라인, 사용 중, 유휴 장치 수를 쉽게 파악할 수 있도록 합니다.</p>
-          
-          <p>Apple이 공개한 테스트 결과에 따르면, 이전에 중앙 집중식 GPU 자원 부족으로 10시간 이상 대기해야 했던 일부 추론 작업이 Minions 환경에서는 몇 분 내에 실행될 수 있었습니다. 팀은 새로운 GPU 하드웨어를 추가할 필요 없이 인프라 비용도 절감했습니다.</p>
-          
-          <p>그러나 이 기술은 현재 일반 소비자를 위한 정식 제품이라기보다는 기업 내부 연구 및 엔지니어링 솔루션에 가깝습니다. 연구팀은 또한 다른 부서의 장치를 사용할 때 데이터 기밀성 및 거버넌스가 중요한 고려 사항이라고 지적했습니다.</p>
-          
-          <p>Minions: 유휴 Apple Silicon 장치 기반의 동적 분산 가상 GPU 클라우드</p>
-          
-          <h3>총평</h3>
-          
-          <p>Apple의 Minions 프로젝트는 유휴 Mac GPU를 활용하여 동적으로 스케줄링 가능한 "가상 GPU 클라우드"를 구축하는 연구입니다. 이 시스템은 기존 중앙 집중식 GPU 클러스터의 높은 비용과 긴 대기 시간 문제를 해결하고, 여러 Mac이 협력하여 대규모 머신러닝 추론 작업을 효율적으로 처리할 수 있도록 설계되었습니다. 테스트 결과, Minions는 추론 작업의 대기 시간을 크게 단축하고 인프라 비용을 절감하는 효과를 보였습니다.</p>
-          
+          <h3>技術的な仕組みと性能</h3>
+<p>技術的な実装面では、Minionsは「プル（pull）方式」のワークロードモデルを採用しています。これは、デバイスがサーバーから実行可能なサブタスクを能動的に取得し、アトミックなメカニズムによって複数のデバイスが同じタスクを重複して処理することを防ぐ仕組みです。推論結果はオブジェクトストレージに記録され、システムはGrafanaベースのリアルタイム監視パネルを提供することで、チームがオンライン、使用中、アイドル状態のデバイス数を容易に把握できるようにしています。</p>
+<p>Appleが公開したテスト結果によると、以前は中央集権的なGPUリソース不足のため10時間以上待機していた推論タスクの一部が、Minions環境では数分以内に実行可能になりました。これにより、チームは新しいGPUハードウェアを追加することなくインフラコストの削減を実現しました。</p>
+<p>ただし、この技術は現時点では一般消費者向けの製品というよりは、企業内部の研究およびエンジニアリングソリューションに近いものです。研究チームはまた、他部署のデバイスを使用する際には、データ機密性やガバナンスが重要な考慮事項であると指摘しています。</p>
+          <h3>まとめ</h3>
+<p>AppleのMinionsプロジェクトは、アイドル状態にあるMacのGPUを活用し、動的にスケジューリング可能な「仮想GPUクラウド」を構築する研究です。このシステムは、従来の集中型GPUクラスターが高コストで待ち時間が長いという課題を解決し、複数のMacが協力して大規模な機械学習推論タスクを効率的に処理できるように設計されています。テスト結果では、Minionsが推論タスクの待機時間を大幅に短縮し、インフラ費用削減効果を示すことが確認されました。</p>
         </div>
         <div class="lang-body" data-lang="en">
-          
-          <h3>Apple의 Minions 프로젝트</h3>
-          
-          <p>IT之家 10월 16일 소식에 따르면, IT 매체 AppleInsider는 어제(10월 15일) Apple 연구팀이 Minions라는 시스템 연구를 발표했다고 보도했습니다. 이 연구는 유휴 Mac GPU를 통합하여 동적으로 스케줄링 가능한 "가상 GPU 클라우드"를 형성하고, 대규모 머신러닝 추론 작업을 실행하는 것을 목표로 합니다.</p>
-          
-          <p>IT之家가 인용한 보도에 따르면, 기존 AI 추론은 일반적으로 중앙 집중식 GPU 클러스터에 의존하며, 높은 비용, 느린 확장성, 긴 대기 시간 등의 문제에 직면해 있습니다. 반면 Mac은 일상적인 사무, 웹 브라우징, 콘텐츠 제작 시나리오에서 GPU가 종종 장시간 유휴 상태로 있습니다.</p>
-          
-          <p>Apple은 Minions 솔루션이 이러한 "보이지 않는 컴퓨팅 파워"를 재구성하여 추가 GPU 구매 없이 여러 Mac이 협력하여 AI 작업을 완료할 수 있도록 하는 것을 목표로 한다고 논문에서 설명했습니다.</p>
-          
-          <p>논문 개요에 따르면, 시스템은 네 가지 핵심 부분으로 구성됩니다.</p>
-          
-          <ul>
-<li>Minion Server는 작업을 수신하고, 서브태스크로 분할하며, 스케줄링을 조정합니다.</li>
-<li>PostgreSQL 메타데이터 저장소는 작업 및 장치 상태를 기록합니다.</li>
-<li>각 macOS 장치에서 실행되는 Minion Executor는 Apple Silicon GPU를 통해 로컬에서 추론을 실행합니다.</li>
-<li>Minion Watchdog은 장치 연결 끊김, 절전 모드 또는 전원 차단과 같은 상황을 모니터링하고, 미완료 작업을 다른 사용 가능한 장치에 재할당합니다.</li>
+          <h3>Apple's Minions Project</h3>
+<p>According to news reported on October 16th by IT Zhome, the tech media outlet AppleInsider reported that an Apple research team presented a system study called Minions yesterday (October 15th). This research aims to form a dynamically schedulable "virtual GPU cloud" by integrating idle Mac GPUs, enabling the execution of large-scale machine learning inference tasks.</p>
+<p>The report cited by IT Zhome noted that existing AI inference typically relies on centralized GPU clusters, which face issues such as high costs, slow scalability, and long wait times. Conversely, Macs often have their GPUs idling for extended periods during typical scenarios like general office work, web browsing, or content creation.</p>
+<p>The paper explained that the Minions solution aims to repurpose this "invisible computing power," allowing multiple Macs to collaborate on AI tasks without requiring additional GPU purchases.</p>
+<p>According to the paper's overview, the system consists of four core components:</p>
+<ul>
+<li>Minion Server receives tasks, divides them into subtasks, and coordinates scheduling.</li>
+<li>A PostgreSQL metadata repository records task and device status.</li>
+<li>The Minion Executor, which runs on each macOS device, executes inference locally using Apple Silicon GPUs.</li>
+<li>The Minion Watchdog monitors situations like device disconnections, sleep mode, or power loss, reassigning incomplete tasks to other available devices.</li>
 </ul>
-          
-          <p>기술 구현 측면에서 Minions는 "풀(pull) 방식" 작업 모델을 채택합니다. 장치가 서버로부터 실행 가능한 서브태스크를 능동적으로 가져오고, 원자적 메커니즘을 통해 여러 장치가 동일한 작업을 중복 처리하는 것을 방지합니다. 추론 결과는 객체 저장소에 기록될 수 있으며, 시스템은 Grafana 기반의 실시간 모니터링 패널을 제공하여 팀이 온라인, 사용 중, 유휴 장치 수를 쉽게 파악할 수 있도록 합니다.</p>
-          
-          <p>Apple이 공개한 테스트 결과에 따르면, 이전에 중앙 집중식 GPU 자원 부족으로 10시간 이상 대기해야 했던 일부 추론 작업이 Minions 환경에서는 몇 분 내에 실행될 수 있었습니다. 팀은 새로운 GPU 하드웨어를 추가할 필요 없이 인프라 비용도 절감했습니다.</p>
-          
-          <p>그러나 이 기술은 현재 일반 소비자를 위한 정식 제품이라기보다는 기업 내부 연구 및 엔지니어링 솔루션에 가깝습니다. 연구팀은 또한 다른 부서의 장치를 사용할 때 데이터 기밀성 및 거버넌스가 중요한 고려 사항이라고 지적했습니다.</p>
-          
-          <p>Minions: 유휴 Apple Silicon 장치 기반의 동적 분산 가상 GPU 클라우드</p>
-          
-          <h3>총평</h3>
-          
-          <p>Apple의 Minions 프로젝트는 유휴 Mac GPU를 활용하여 동적으로 스케줄링 가능한 "가상 GPU 클라우드"를 구축하는 연구입니다. 이 시스템은 기존 중앙 집중식 GPU 클러스터의 높은 비용과 긴 대기 시간 문제를 해결하고, 여러 Mac이 협력하여 대규모 머신러닝 추론 작업을 효율적으로 처리할 수 있도록 설계되었습니다. 테스트 결과, Minions는 추론 작업의 대기 시간을 크게 단축하고 인프라 비용을 절감하는 효과를 보였습니다.</p>
-          
+<p>In terms of technical implementation, Minions adopts a "pull" task model. Devices actively fetch executable subtasks from the server and use an atomic mechanism to prevent multiple devices from redundantly processing the same task. Inference results can be recorded in an object store, and the system provides a Grafana-based real-time monitoring panel, allowing teams to easily track the number of online, in-use, and idle devices.</p>
+<p>According to test results released by Apple, certain inference tasks that previously required waiting over 10 hours due to centralized GPU resource shortages could be executed within minutes in the Minions environment. The team also achieved reduced infrastructure costs without needing to add new GPU hardware.</p>
+<p>However, this technology is described as being closer to an internal corporate research and engineering solution rather than a commercial product for general consumers. The research team also pointed out that data confidentiality and governance are critical considerations when using devices from other departments.</p>
+<p><em>Minions: A dynamic distributed virtual GPU cloud based on idle Apple Silicon devices</em></p>
+          <h3>Summary</h3>
+<p>Apple's Minions project is a research initiative designed to build a dynamically schedulable "virtual GPU cloud" by utilizing idle Mac GPUs. The system addresses the high costs and long wait times associated with traditional centralized GPU clusters, allowing multiple Macs to collaborate efficiently on large-scale machine learning inference tasks. Test results demonstrated that Minions significantly reduced task waiting times and lowered infrastructure costs.</p>
         </div>
       </div>
 
