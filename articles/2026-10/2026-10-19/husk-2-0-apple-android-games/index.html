@@ -10,9 +10,9 @@
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
   <meta name="title-ko" content="오픈소스 프로젝트 Husk 2.0 공개: 자체 개발 번역 레이어로 Apple iPhone에서 Android 게임 실행, 150개 이상 앱 호환">
-  <meta name="title-zh" content="오픈소스 프로젝트 Husk 2.0 공개: 자체 개발 번역 레이어로 Apple iPhone에서 Android 게임 실행, 150개 이상 앱 호환">
-  <meta name="title-ja" content="오픈소스 프로젝트 Husk 2.0 공개: 자체 개발 번역 레이어로 Apple iPhone에서 Android 게임 실행, 150개 이상 앱 호환">
-  <meta name="title-en" content="오픈소스 프로젝트 Husk 2.0 공개: 자체 개발 번역 레이어로 Apple iPhone에서 Android 게임 실행, 150개 이상 앱 호환">
+  <meta name="title-zh" content="开源项目 Husk 2.0 公布：利用自研翻译层让苹果 iPhone 运行 Android 游戏，兼容超 150 款应用">
+  <meta name="title-ja" content="オープンソースプロジェクトHusk 2.0が公開：独自開発の翻訳層を利用し、Apple iPhoneでAndroidゲームを動作させ、150以上のアプリに対応">
+  <meta name="title-en" content="Open-source project Husk 2.0 released: Running Android games on Apple iPhone using proprietary translation layer, compatible with over 150 applications">
   <style>
     :root {
       --bg: #0f172a;
@@ -545,9 +545,9 @@
 
         <h1 class="article-title"
             data-ko="오픈소스 프로젝트 Husk 2.0 공개: 자체 개발 번역 레이어로 Apple iPhone에서 Android 게임 실행, 150개 이상 앱 호환"
-            data-zh="오픈소스 프로젝트 Husk 2.0 공개: 자체 개발 번역 레이어로 Apple iPhone에서 Android 게임 실행, 150개 이상 앱 호환"
-            data-ja="오픈소스 프로젝트 Husk 2.0 공개: 자체 개발 번역 레이어로 Apple iPhone에서 Android 게임 실행, 150개 이상 앱 호환"
-            data-en="오픈소스 프로젝트 Husk 2.0 공개: 자체 개발 번역 레이어로 Apple iPhone에서 Android 게임 실행, 150개 이상 앱 호환">오픈소스 프로젝트 Husk 2.0 공개: 자체 개발 번역 레이어로 Apple iPhone에서 Android 게임 실행, 150개 이상 앱 호환</h1>
+            data-zh="开源项目 Husk 2.0 公布：利用自研翻译层让苹果 iPhone 运行 Android 游戏，兼容超 150 款应用"
+            data-ja="オープンソースプロジェクトHusk 2.0が公開：独自開発の翻訳層を利用し、Apple iPhoneでAndroidゲームを動作させ、150以上のアプリに対応"
+            data-en="Open-source project Husk 2.0 released: Running Android games on Apple iPhone using proprietary translation layer, compatible with over 150 applications">오픈소스 프로젝트 Husk 2.0 공개: 자체 개발 번역 레이어로 Apple iPhone에서 Android 게임 실행, 150개 이상 앱 호환</h1>
 
         <div class="article-info">
           
@@ -603,100 +603,96 @@
           
         </div>
         <div class="lang-body" data-lang="zh">
-          
-          <h3>개요</h3>
-          
-          <p>독립 개발자 Leviidev는 최근 Husk 2.0 오픈소스 프로젝트를 공개했습니다. 이 프로젝트는 자체 개발한 번역 계층을 활용하여 일부 Android 앱의 64비트 네이티브 코드를 iPhone 프로세서에서 직접 실행할 수 있도록 합니다. 해당 프로젝트는 iPhone 탈옥이 필요 없으며, iOS 16 이상 시스템을 지원하고 현재 150개 이상의 앱과 호환됩니다.</p>
-          
-          <h3>작동 방식</h3>
-          
-          <p>Husk 2.0은 기존 Android 에뮬레이터와 다릅니다. QEMU와 같은 기존 에뮬레이터는 일반적으로 시스템 부팅, 커널 로드, 시스템 서비스 실행을 포함하여 완전한 Android 시스템을 시뮬레이션해야 합니다. 반면 Husk는 번역 계층을 통해 완전한 시스템 환경을 우회하고, 게임의 DEX 파일과 .so 동적 라이브러리를 일반 iOS 앱 프로세스에 로드한 다음, 자체적으로 게임에 필요한 Android 런타임 환경을 제공합니다.</p>
-          
-          <p>구체적으로 Husk는 C 함수 라이브러리, 게임이 호출하는 Java 인터페이스를 제공하고, ANGLE을 통해 OpenGL ES 그래픽 호출을 Apple 플랫폼에 적합한 그래픽 인터페이스로 변환하며, MoltenVK를 통해 Vulkan을 지원합니다. 또한 이 프로젝트는 오디오, 터치 및 게임패드 입력과 같은 기능도 처리합니다. 호환되는 네이티브 코드가 실제 CPU에서 직접 실행되므로 완전한 시스템 시뮬레이션으로 인한 추가 오버헤드가 발생하지 않아 일부 게임은 몇 초 내에 시작될 수 있습니다.</p>
-          
-          <p>이러한 기능을 구현하기 위해 Husk는 iOS 버전으로 컴파일된 Android Runtime(ART), Android bionic 함수 라이브러리 인터페이스를 iOS 시스템 계층에 매핑하는 기능, 그리고 자체 개발한 .so 동적 라이브러리 로더를 포함하는 자체 Android 런타임 환경을 구축했습니다. 이러한 구성 요소를 통해 Husk는 iOS 앱과 Android 소프트웨어 사이에 호환 환경 계층을 구축합니다.</p>
-          
-          <h3>호환성</h3>
-          
-          <ul>
-<li>Husk 2.0은 iOS 16 이상 버전을 지원합니다.</li>
-<li>APK, XAPK, APKM 및 APKS 형식의 설치 패키지를 가져올 수 있으며, Google Play 스토어에서 사용하는 분할 설치 패키지도 처리할 수 있습니다.</li>
-<li>Unity, Unreal Engine 4, Godot 3 및 Godot 4와 같은 게임 엔진을 지원합니다.</li>
-<li>cocos2d-x, SDL2 및 SDL3과도 호환되며, 심지어 고전 게임 《GTA: 산 안드레아스》도 실행할 수 있습니다.</li>
+          <h3>项目概述与核心功能</h3>
+<ul>
+<li>独立开发者 Leviidev 发布了开源项目 Husk 2.0，旨在解决在 iPhone 上运行 Android 应用的问题。</li>
+<li>该项目利用自研翻译层技术，使得部分自带 64 位原生代码的 Android 应用能够直接在 iPhone 处理器上运行。</li>
+<li>用户无需越狱即可使用，支持 iOS 16 及以上系统版本，目前已兼容超过 150 款应用。</li>
 </ul>
-          
-          <h3>설치 및 사용</h3>
-          
-          <p>"탈옥 불필요" 설치가 설치 과정이 간단하다는 의미는 아닙니다. Husk는 JIT(Just-In-Time) 컴파일 기능을 사용하는데, iOS는 JIT 권한에 엄격한 제한을 두어 일반적으로 디버거 등을 통해 권한을 부여해야 합니다. 사용자가 해당 기능을 성공적으로 활성화한 후에는 사이드로드 방식으로 Husk를 배포해야 합니다. 또한 현재 Husk는 한 번에 하나의 앱만 실행할 수 있으며, 사용자가 게임을 전환할 때 Husk를 완전히 종료하고 다시 시작해야 합니다. 이는 어느 정도 진입 장벽이 있어 애호가들이 시험 삼아 사용해 보기에 적합합니다. GitHub 프로젝트 주소는 (https://github.com/Leviidev/Husk)입니다.</p>
-          
-          <h3>총평</h3>
-          
-          <p>Husk 2.0은 iPhone에서 Android 앱의 64비트 네이티브 코드를 탈옥 없이 실행할 수 있게 하는 혁신적인 오픈소스 프로젝트입니다. 자체 번역 계층을 통해 완전한 Android 시스템 시뮬레이션 없이 앱을 실행하며, 다양한 게임 엔진과 호환됩니다. 다만, JIT 권한 설정 및 사이드로드 방식의 설치 과정에 진입 장벽이 있어 일반 사용자보다는 기술 애호가에게 적합합니다.</p>
-          
+          <h3>技术实现与架构优势</h3>
+<ul>
+<li>Husk 2.0 的核心是“翻译层”，它绕过了传统模拟器（如 QEMU）需要模拟完整的 Android 系统环境的复杂流程。</li>
+<li>项目将游戏的 DEX 文件及 .so 动态库加载到普通 iOS 应用进程中，并由自身提供所需的 Android 运行环境。</li>
+<li>为实现跨平台兼容性，Husk 集成了多项技术：
+    <ul>
+        <li>通过 ANGLE 将 OpenGL ES 图形调用转换为适用于 Apple 平台的图形接口。</li>
+        <li>借助 MoltenVK 实现 Vulkan 支持。</li>
+        <li>处理了音频、触控和手柄输入等功能模块。</li>
+    </ul>
+</li>
+<li>Husk 自建了一套 Android 运行环境，包括：编译为 iOS 版本的 Android Runtime（ART）、将 Android bionic 函数库接口映射至 iOS 系统层，以及自研的 .so 动态库加载器。</li>
+</ul>
+          <h3>兼容性与支持范围</h3>
+<ul>
+<li>**系统版本支持：** 支持 iOS 16 及以上版本。</li>
+<li>**应用格式支持：** 可导入 APK、XAPK、APKM 和 APKS 等多种安装包格式，包括 Google Play 商店使用的分割安装包。</li>
+<li>**游戏引擎兼容性：** 支持 Unity、Unreal Engine 4、Godot 3 和 Godot 4 等主流游戏引擎，同时兼容 cocos2d-x、SDL2 和 SDL3。</li>
+<li>**运行能力：** 能够运行包括经典游戏《GTA：圣安地列斯》在内的多种应用。</li>
+</ul>
+          <h3>性能与运行特点</h3>
+<ul>
+<li>由于兼容的原生代码能够在实体 CPU 上直接执行，因此避免了完整系统模拟带来的额外开销。</li>
+<li>部分游戏可以在数秒内快速启动。</li>
+</ul>
+          <h3>使用门槛与限制条件</h3>
+<ul>
+<li>**部署要求：** Husk 依赖即时编译（JIT）功能，用户需通过侧载方式部署，并可能需要通过调试器等方式授予相应的 JIT 权限。</li>
+<li>**使用体验：** 目前项目一次只能运行一款应用，用户在切换游戏时必须完全关闭并重新启动 Husk，具有一定的操作门槛。</li>
+</ul>
+          <h3>总结</h3>
+<p>Husk 2.0 是一个突破性的开源项目，它通过自研翻译层技术，实现了让 Android 应用（特别是原生代码）无需越狱即可在 iOS 设备上运行，极大地拓宽了跨平台游戏和应用的可达性。虽然兼容性广、性能优化出色，但由于其依赖 JIT 权限和单应用运行机制，目前仍适合技术爱好者进行尝鲜体验。</p>
         </div>
         <div class="lang-body" data-lang="ja">
-          
-          <h3>개요</h3>
-          
-          <p>독립 개발자 Leviidev는 최근 Husk 2.0 오픈소스 프로젝트를 공개했습니다. 이 프로젝트는 자체 개발한 번역 계층을 활용하여 일부 Android 앱의 64비트 네이티브 코드를 iPhone 프로세서에서 직접 실행할 수 있도록 합니다. 해당 프로젝트는 iPhone 탈옥이 필요 없으며, iOS 16 이상 시스템을 지원하고 현재 150개 이상의 앱과 호환됩니다.</p>
-          
-          <h3>작동 방식</h3>
-          
-          <p>Husk 2.0은 기존 Android 에뮬레이터와 다릅니다. QEMU와 같은 기존 에뮬레이터는 일반적으로 시스템 부팅, 커널 로드, 시스템 서비스 실행을 포함하여 완전한 Android 시스템을 시뮬레이션해야 합니다. 반면 Husk는 번역 계층을 통해 완전한 시스템 환경을 우회하고, 게임의 DEX 파일과 .so 동적 라이브러리를 일반 iOS 앱 프로세스에 로드한 다음, 자체적으로 게임에 필요한 Android 런타임 환경을 제공합니다.</p>
-          
-          <p>구체적으로 Husk는 C 함수 라이브러리, 게임이 호출하는 Java 인터페이스를 제공하고, ANGLE을 통해 OpenGL ES 그래픽 호출을 Apple 플랫폼에 적합한 그래픽 인터페이스로 변환하며, MoltenVK를 통해 Vulkan을 지원합니다. 또한 이 프로젝트는 오디오, 터치 및 게임패드 입력과 같은 기능도 처리합니다. 호환되는 네이티브 코드가 실제 CPU에서 직접 실행되므로 완전한 시스템 시뮬레이션으로 인한 추가 오버헤드가 발생하지 않아 일부 게임은 몇 초 내에 시작될 수 있습니다.</p>
-          
-          <p>이러한 기능을 구현하기 위해 Husk는 iOS 버전으로 컴파일된 Android Runtime(ART), Android bionic 함수 라이브러리 인터페이스를 iOS 시스템 계층에 매핑하는 기능, 그리고 자체 개발한 .so 동적 라이브러리 로더를 포함하는 자체 Android 런타임 환경을 구축했습니다. 이러한 구성 요소를 통해 Husk는 iOS 앱과 Android 소프트웨어 사이에 호환 환경 계층을 구축합니다.</p>
-          
-          <h3>호환성</h3>
-          
-          <ul>
-<li>Husk 2.0은 iOS 16 이상 버전을 지원합니다.</li>
-<li>APK, XAPK, APKM 및 APKS 형식의 설치 패키지를 가져올 수 있으며, Google Play 스토어에서 사용하는 분할 설치 패키지도 처리할 수 있습니다.</li>
-<li>Unity, Unreal Engine 4, Godot 3 및 Godot 4와 같은 게임 엔진을 지원합니다.</li>
-<li>cocos2d-x, SDL2 및 SDL3과도 호환되며, 심지어 고전 게임 《GTA: 산 안드레아스》도 실행할 수 있습니다.</li>
+          <h3>概要</h3>
+<p>独立開発者であるLeviidevが、オープンソースプロジェクト「Husk 2.0」を公開しました。このプロジェクトは、独自に開発した翻訳レイヤーを活用することで、一部のAndroidアプリの64ビットネイティブコードをiPhoneプロセッサ上で直接実行することを可能にします。本プロジェクトはiPhoneの脱獄（ジェイルブレイク）を必要とせず、iOS 16以降のシステムに対応し、現在150以上のアプリとの互換性を誇ります。</p>
+          <h3>動作原理</h3>
+<p>Husk 2.0は、従来のAndroidエミュレータとは根本的に異なります。QEMUのような既存のエミュレータは、通常、システムの起動、カーネルのロード、システムサービスの実行といった完全なAndroidシステム全体をシミュレーションする必要があります。一方、Huskは翻訳レイヤーを通じて完全なシステム環境を迂回します。ゲームのDEXファイルや.soダイナミックライブラリを通常のiOSアプリプロセスにロードし、必要なAndroidランタイム環境を独自に提供します。</p>
+<p>具体的には、Huskは以下の機能を提供します。<br/>
+<ul>
+<li>C関数ライブラリ：ゲームが呼び出すJavaインターフェースを提供します。</li>
+<li>グラフィック処理：ANGLEを通じてOpenGL ESのグラフィックコールをAppleプラットフォームに適したグラフィックインターフェースに変換し、MoltenVKを通じてVulkanをサポートします。</li>
 </ul>
-          
-          <h3>설치 및 사용</h3>
-          
-          <p>"탈옥 불필요" 설치가 설치 과정이 간단하다는 의미는 아닙니다. Husk는 JIT(Just-In-Time) 컴파일 기능을 사용하는데, iOS는 JIT 권한에 엄격한 제한을 두어 일반적으로 디버거 등을 통해 권한을 부여해야 합니다. 사용자가 해당 기능을 성공적으로 활성화한 후에는 사이드로드 방식으로 Husk를 배포해야 합니다. 또한 현재 Husk는 한 번에 하나의 앱만 실행할 수 있으며, 사용자가 게임을 전환할 때 Husk를 완전히 종료하고 다시 시작해야 합니다. 이는 어느 정도 진입 장벽이 있어 애호가들이 시험 삼아 사용해 보기에 적합합니다. GitHub 프로젝트 주소는 (https://github.com/Leviidev/Husk)입니다.</p>
-          
-          <h3>총평</h3>
-          
-          <p>Husk 2.0은 iPhone에서 Android 앱의 64비트 네이티브 코드를 탈옥 없이 실행할 수 있게 하는 혁신적인 오픈소스 프로젝트입니다. 자체 번역 계층을 통해 완전한 Android 시스템 시뮬레이션 없이 앱을 실행하며, 다양한 게임 엔진과 호환됩니다. 다만, JIT 권한 설정 및 사이드로드 방식의 설치 과정에 진입 장벽이 있어 일반 사용자보다는 기술 애호가에게 적합합니다.</p>
-          
+<p>さらに、オーディオ、タッチ、ゲームパッド入力といった機能も処理します。互換性のあるネイティブコードが実際のCPU上で直接実行されるため、完全なシステムシミュレーションに伴う追加のオーバーヘッドが発生せず、一部のゲームは数秒以内という速さで起動することが可能です。</p>
+<p>これらの機能を実装するため、Huskは以下の要素を含む独自のAndroidランタイム環境を構築しました。<br/>
+<ul>
+<li>iOSバージョン向けにコンパイルされたAndroid Runtime (ART)</li>
+<li>Android bionic関数ライブラリインターフェースをiOSシステムレイヤーにマッピングする機能</li>
+<li>独自開発の.soダイナミックライブラリローダー</li>
+</ul>
+<p>これらの構成要素により、HuskはiOSアプリとAndroidソフトウェアの間に互換性環境レイヤーを構築しています。</p>
+          <h3>互換性</h3>
+<ul>
+<li>Husk 2.0はiOS 16以降のバージョンに対応しています。</li>
+<li>APK、XAPK、APKM、APKSといったインストールパッケージ形式に加え、Google Playストアで使用される分割インストールパッケージも処理可能です。</li>
+<li>Unity、Unreal Engine 4、Godot 3、Godot 4などのゲームエンジンをサポートします。</li>
+<li>cocos2d-x、SDL2、SDL3とも互換性があり、古典的なゲーム『GTA: サンアンドレアス』さえ実行できます。</li>
+</ul>
+          <h3>インストールと使用方法</h3>
+<p>「脱獄不要」の設置プロセスが簡単なという意味ではありません。HuskはJIT（Just-In-Time）コンパイル機能を使用しますが、iOSはこのJIT権限に厳格な制限を設けているため、通常はデバッガーなどを通じて特別な権限付与が必要です。ユーザーがこの機能を正常に有効にした後、サイドロード方式でHuskを展開する必要があります。</p>
+<p>また、現在のHuskでは一度に一つのアプリしか実行できず、ゲームを切り替える際にはHuskを完全に終了し、再起動しなければなりません。そのため、ある程度の参入障壁があり、技術愛好家が試用するのに適したツールとなっています。GitHubプロジェクトのアドレスは (https://github.com/Leviidev/Husk) です。</p>
+          <h3>総評</h3>
+<p>Husk 2.0は、iPhone上でAndroidアプリの64ビットネイティブコードを脱獄なしで実行可能にした画期的なオープンソースプロジェクトです。独自の翻訳レイヤーを用いることで、完全なAndroidシステムシミュレーションを経由せずにアプリを実行でき、多様なゲームエンジンとの互換性も実現しています。ただし、JIT権限の設定やサイドロード方式でのインストールプロセスに高い技術的ハードルがあるため、一般ユーザーというよりは技術愛好家向けのツールと言えます。</p>
+          <h3>まとめ</h3>
+<p>Husk 2.0は、独自開発の翻訳レイヤーを利用し、Androidアプリの64ビットネイティブコードをiOS上で直接実行できる革新的なオープンソースプロジェクトです。完全なシステムシミュレーションを回避することで高いパフォーマンスを実現し、複数のゲームエンジンや古典タイトルに対応しています。ただし、JIT権限設定やサイドロードといった専門知識が必要なため、技術に精通したユーザー向けのツールとなっています。</p>
         </div>
         <div class="lang-body" data-lang="en">
-          
-          <h3>개요</h3>
-          
-          <p>독립 개발자 Leviidev는 최근 Husk 2.0 오픈소스 프로젝트를 공개했습니다. 이 프로젝트는 자체 개발한 번역 계층을 활용하여 일부 Android 앱의 64비트 네이티브 코드를 iPhone 프로세서에서 직접 실행할 수 있도록 합니다. 해당 프로젝트는 iPhone 탈옥이 필요 없으며, iOS 16 이상 시스템을 지원하고 현재 150개 이상의 앱과 호환됩니다.</p>
-          
-          <h3>작동 방식</h3>
-          
-          <p>Husk 2.0은 기존 Android 에뮬레이터와 다릅니다. QEMU와 같은 기존 에뮬레이터는 일반적으로 시스템 부팅, 커널 로드, 시스템 서비스 실행을 포함하여 완전한 Android 시스템을 시뮬레이션해야 합니다. 반면 Husk는 번역 계층을 통해 완전한 시스템 환경을 우회하고, 게임의 DEX 파일과 .so 동적 라이브러리를 일반 iOS 앱 프로세스에 로드한 다음, 자체적으로 게임에 필요한 Android 런타임 환경을 제공합니다.</p>
-          
-          <p>구체적으로 Husk는 C 함수 라이브러리, 게임이 호출하는 Java 인터페이스를 제공하고, ANGLE을 통해 OpenGL ES 그래픽 호출을 Apple 플랫폼에 적합한 그래픽 인터페이스로 변환하며, MoltenVK를 통해 Vulkan을 지원합니다. 또한 이 프로젝트는 오디오, 터치 및 게임패드 입력과 같은 기능도 처리합니다. 호환되는 네이티브 코드가 실제 CPU에서 직접 실행되므로 완전한 시스템 시뮬레이션으로 인한 추가 오버헤드가 발생하지 않아 일부 게임은 몇 초 내에 시작될 수 있습니다.</p>
-          
-          <p>이러한 기능을 구현하기 위해 Husk는 iOS 버전으로 컴파일된 Android Runtime(ART), Android bionic 함수 라이브러리 인터페이스를 iOS 시스템 계층에 매핑하는 기능, 그리고 자체 개발한 .so 동적 라이브러리 로더를 포함하는 자체 Android 런타임 환경을 구축했습니다. 이러한 구성 요소를 통해 Husk는 iOS 앱과 Android 소프트웨어 사이에 호환 환경 계층을 구축합니다.</p>
-          
-          <h3>호환성</h3>
-          
-          <ul>
-<li>Husk 2.0은 iOS 16 이상 버전을 지원합니다.</li>
-<li>APK, XAPK, APKM 및 APKS 형식의 설치 패키지를 가져올 수 있으며, Google Play 스토어에서 사용하는 분할 설치 패키지도 처리할 수 있습니다.</li>
-<li>Unity, Unreal Engine 4, Godot 3 및 Godot 4와 같은 게임 엔진을 지원합니다.</li>
-<li>cocos2d-x, SDL2 및 SDL3과도 호환되며, 심지어 고전 게임 《GTA: 산 안드레아스》도 실행할 수 있습니다.</li>
+          <h3>Overview</h3>
+<p>Independent developer Leviidev recently unveiled Husk 2.0, an open-source project. This project utilizes its self-developed translation layer to allow 64-bit native code from select Android apps to run directly on iPhone processors. Notably, the project does not require jailbreaking and supports systems running iOS 16 or later, currently maintaining compatibility with over 150 applications.</p>
+          <h3>How It Works</h3>
+<p>Husk 2.0 differs significantly from traditional Android emulators. Existing emulators, such as QEMU, typically have to simulate a complete Android system—including system booting, kernel loading, and running system services. In contrast, Husk bypasses the need for a full system environment through its translation layer. It loads a game's DEX files and .so dynamic libraries into a standard iOS app process and then provides the necessary Android runtime environment required by the game itself.</p>
+<p>Specifically, Husk offers C function libraries and Java interfaces that games call. It translates OpenGL ES graphics calls to an interface suitable for Apple platforms via ANGLE, and supports Vulkan through MoltenVK. The project also handles functionalities like audio, touch, and gamepad input. Since the compatible native code runs directly on the actual CPU, there is no additional overhead incurred from full system simulation, allowing some games to launch within seconds.</p>
+<p>To achieve these features, Husk has built its own Android runtime environment, which includes an Android Runtime (ART) compiled for iOS, a function to map Android bionic library interfaces to the iOS system layer, and a self-developed .so dynamic library loader. These components allow Husk to establish a compatibility environment layer between iOS apps and Android software.</p>
+          <h3>Compatibility</h3>
+<ul>
+<li>Husk 2.0 supports versions of iOS 16 or later.</li>
+<li>It can import installation packages in APK, XAPK, APKM, and APKS formats, and also handles split installation packages used by the Google Play Store.</li>
+<li>It supports game engines such as Unity, Unreal Engine 4, Godot 3, and Godot 4.</li>
+<li>It is compatible with cocos2d-x and SDL2/SDL3, and can even run the classic game *GTA: San Andreas*.</li>
 </ul>
-          
-          <h3>설치 및 사용</h3>
-          
-          <p>"탈옥 불필요" 설치가 설치 과정이 간단하다는 의미는 아닙니다. Husk는 JIT(Just-In-Time) 컴파일 기능을 사용하는데, iOS는 JIT 권한에 엄격한 제한을 두어 일반적으로 디버거 등을 통해 권한을 부여해야 합니다. 사용자가 해당 기능을 성공적으로 활성화한 후에는 사이드로드 방식으로 Husk를 배포해야 합니다. 또한 현재 Husk는 한 번에 하나의 앱만 실행할 수 있으며, 사용자가 게임을 전환할 때 Husk를 완전히 종료하고 다시 시작해야 합니다. 이는 어느 정도 진입 장벽이 있어 애호가들이 시험 삼아 사용해 보기에 적합합니다. GitHub 프로젝트 주소는 (https://github.com/Leviidev/Husk)입니다.</p>
-          
-          <h3>총평</h3>
-          
-          <p>Husk 2.0은 iPhone에서 Android 앱의 64비트 네이티브 코드를 탈옥 없이 실행할 수 있게 하는 혁신적인 오픈소스 프로젝트입니다. 자체 번역 계층을 통해 완전한 Android 시스템 시뮬레이션 없이 앱을 실행하며, 다양한 게임 엔진과 호환됩니다. 다만, JIT 권한 설정 및 사이드로드 방식의 설치 과정에 진입 장벽이 있어 일반 사용자보다는 기술 애호가에게 적합합니다.</p>
-          
+          <h3>Installation and Usage</h3>
+<p>The "no jailbreak required" installation does not imply a simple setup process. Husk uses Just-In-Time (JIT) compilation, and iOS places strict restrictions on JIT permissions, typically requiring them to be granted through debuggers or similar methods. After the user successfully activates this functionality, Husk must be distributed via side-loading. Furthermore, the current version of Husk can only run one app at a time; users must completely quit and restart Husk when switching games. Due to these factors, there is a degree of entry barrier, making it suitable for tech enthusiasts who wish to experiment with it. The GitHub project address is (https://github.com/Leviidev/Husk).</p>
+          <h3>Summary</h3>
+<p>Husk 2.0 is an innovative open-source project that enables the execution of 64-bit native Android app code on iPhones without requiring jailbreaking. It runs apps by utilizing a proprietary translation layer, bypassing the need for full Android system simulation, and boasts compatibility with various game engines. However, due to the entry barriers associated with JIT permission setup and side-loading installation methods, it is best suited for technical enthusiasts rather than general users.</p>
         </div>
       </div>
 
