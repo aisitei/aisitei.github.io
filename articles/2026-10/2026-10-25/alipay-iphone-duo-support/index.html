@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 알리페이, iPhone Duo 전면 지원 공식 발표, 페이지 레이아웃 자동 조정 등 기능 지원</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="알리페이, iPhone Duo 전면 지원 공식 발표, 페이지 레이아웃 자동 조정 등 기능 지원">
+  <meta name="title-zh" content="알리페이, iPhone Duo 전면 지원 공식 발표, 페이지 레이아웃 자동 조정 등 기능 지원">
+  <meta name="title-ja" content="알리페이, iPhone Duo 전면 지원 공식 발표, 페이지 레이아웃 자동 조정 등 기능 지원">
+  <meta name="title-en" content="알리페이, iPhone Duo 전면 지원 공식 발표, 페이지 레이아웃 자동 조정 등 기능 지원">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260910b">
+<script defer src="../../../../assets/news.js?v=20260910b"></script>
+<script defer src="../../../../assets/article.js?v=20260910b"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="알리페이, iPhone Duo 전면 지원 공식 발표, 페이지 레이아웃 자동 조정 등 기능 지원"
+            data-zh="알리페이, iPhone Duo 전면 지원 공식 발표, 페이지 레이아웃 자동 조정 등 기능 지원"
+            data-ja="알리페이, iPhone Duo 전면 지원 공식 발표, 페이지 레이아웃 자동 조정 등 기능 지원"
+            data-en="알리페이, iPhone Duo 전면 지원 공식 발표, 페이지 레이아웃 자동 조정 등 기능 지원">알리페이, iPhone Duo 전면 지원 공식 발표, 페이지 레이아웃 자동 조정 등 기능 지원</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-10-25
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="알리페이, iPhone Duo 전면 지원 공식 발표, 페이지 레이아웃 자동 조정 등 기능 지원" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>알리페이, iPhone Duo 지원</h3>
+          
+          <p>알리페이(Alipay)는 어제 밤 공식 발표를 통해 iPhone Duo를 지원한다고 밝혔습니다.</p>
+          
+          <p>iPhone Duo에서 알리페이 앱을 최신 버전 12.12.38로 업데이트하면 다음 기능을 사용할 수 있습니다.</p>
+<ul>
+<li>하단 바: 리퀴드 글래스 효과로 투명한 인터페이스와 새로운 경험을 제공합니다.</li>
+<li>모든 시나리오 지원: 내부 화면, 외부 화면, 가로 모드, 세로 모드 등 다양한 사용 방식에 따라 페이지 레이아웃이 자동으로 조정됩니다.</li>
+</ul>
+          
+          <p>알리페이 공식 관계자는 "알리페이는 iPhone Duo의 모든 생활 방식에 맞춰 지원합니다. 펼치면 생활이 한눈에 들어오고, 접으면 지갑처럼 휴대할 수 있습니다"라고 말했습니다.</p>
+          
+          <p>iPhone Duo에 대한 더 자세한 소식은 IT之家의 첫 사용 경험 영상을 참고하시기 바랍니다.</p>
+          
+          <p>IT之家 Bilibili 계정을 팔로우하세요.</p>
+          
+          <h3>iPhone Duo 스펙</h3>
+          
+          <p>iPhone Duo는 Apple이 출시한 첫 폴더블 디스플레이 스마트폰으로, 책처럼 접히는 디자인을 채택했습니다. 7.6인치 폴더블 내부 디스플레이와 5.4인치 외부 디스플레이를 탑재했으며, 두 디스플레이 모두 Super Retina XDR 디스플레이와 ProMotion 적응형 주사율 기술을 지원합니다. 이 기기는 A20 Pro 칩을 탑재하여 하드웨어 가속 레이 트레이싱을 지원하며, 후면에는 4800만 화소 융합형 메인 카메라와 4800만 화소 융합형 초광각 렌즈가 장착되어 최대 4K, 120fps Dolby Vision 비디오 촬영을 지원합니다. 또한, 물리 SIM 카드 슬롯이 없으며 eSIM만 지원합니다.</p>
+          
+          <h3>출시 정보</h3>
+          
+          <p>iPhone Duo는 2026년 10월 23일 정식 출시되었으며, 중국 내수 시장 시작 가격은 15,999위안으로 Apple 역사상 가장 비싼 iPhone입니다. Apple 중국 공식 웹사이트에 따르면 고객당 2대만 구매할 수 있습니다. Apple 공식 데이터에 따르면, 이 기기는 외부 화면으로 동영상 재생 시 최대 44시간, 내부 화면으로 동영상 재생 시 최대 31시간 사용 가능합니다.</p>
+          
+          <h3>Liquid Glass 디자인 언어</h3>
+          
+          <p>본문에서 언급된 "리퀴드 글래스"는 Apple이 iOS 26에 도입한 Liquid Glass 디자인 언어를 의미합니다. 이는 iOS 7 이후 가장 큰 디자인 업데이트로 평가되며, 잠금 화면, 홈 화면, 제어 센터 및 앱에 새로운 디자인을 적용했습니다. 시스템 내의 다양한 UI 버튼도 리퀴드 글래스와 둥근 모서리 디자인을 중심으로 설계되어 빛을 굴절시키고 거울 같은 하이라이트를 통해 사용자 동작에 동적으로 반응합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>알리페이가 Apple의 첫 폴더블 스마트폰 iPhone Duo를 지원하기 시작했습니다. 최신 버전 알리페이 앱은 리퀴드 글래스 효과와 다양한 화면 모드에 최적화된 레이아웃 조정을 제공하여 iPhone Duo의 폴더블 디자인을 최대한 활용합니다. iPhone Duo는 A20 Pro 칩과 고성능 카메라를 탑재했으며, Apple의 새로운 Liquid Glass 디자인 언어가 적용되어 사용자 경험을 향상시켰습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>알리페이, iPhone Duo 지원</h3>
+          
+          <p>알리페이(Alipay)는 어제 밤 공식 발표를 통해 iPhone Duo를 지원한다고 밝혔습니다.</p>
+          
+          <p>iPhone Duo에서 알리페이 앱을 최신 버전 12.12.38로 업데이트하면 다음 기능을 사용할 수 있습니다.</p>
+<ul>
+<li>하단 바: 리퀴드 글래스 효과로 투명한 인터페이스와 새로운 경험을 제공합니다.</li>
+<li>모든 시나리오 지원: 내부 화면, 외부 화면, 가로 모드, 세로 모드 등 다양한 사용 방식에 따라 페이지 레이아웃이 자동으로 조정됩니다.</li>
+</ul>
+          
+          <p>알리페이 공식 관계자는 "알리페이는 iPhone Duo의 모든 생활 방식에 맞춰 지원합니다. 펼치면 생활이 한눈에 들어오고, 접으면 지갑처럼 휴대할 수 있습니다"라고 말했습니다.</p>
+          
+          <p>iPhone Duo에 대한 더 자세한 소식은 IT之家의 첫 사용 경험 영상을 참고하시기 바랍니다.</p>
+          
+          <p>IT之家 Bilibili 계정을 팔로우하세요.</p>
+          
+          <h3>iPhone Duo 스펙</h3>
+          
+          <p>iPhone Duo는 Apple이 출시한 첫 폴더블 디스플레이 스마트폰으로, 책처럼 접히는 디자인을 채택했습니다. 7.6인치 폴더블 내부 디스플레이와 5.4인치 외부 디스플레이를 탑재했으며, 두 디스플레이 모두 Super Retina XDR 디스플레이와 ProMotion 적응형 주사율 기술을 지원합니다. 이 기기는 A20 Pro 칩을 탑재하여 하드웨어 가속 레이 트레이싱을 지원하며, 후면에는 4800만 화소 융합형 메인 카메라와 4800만 화소 융합형 초광각 렌즈가 장착되어 최대 4K, 120fps Dolby Vision 비디오 촬영을 지원합니다. 또한, 물리 SIM 카드 슬롯이 없으며 eSIM만 지원합니다.</p>
+          
+          <h3>출시 정보</h3>
+          
+          <p>iPhone Duo는 2026년 10월 23일 정식 출시되었으며, 중국 내수 시장 시작 가격은 15,999위안으로 Apple 역사상 가장 비싼 iPhone입니다. Apple 중국 공식 웹사이트에 따르면 고객당 2대만 구매할 수 있습니다. Apple 공식 데이터에 따르면, 이 기기는 외부 화면으로 동영상 재생 시 최대 44시간, 내부 화면으로 동영상 재생 시 최대 31시간 사용 가능합니다.</p>
+          
+          <h3>Liquid Glass 디자인 언어</h3>
+          
+          <p>본문에서 언급된 "리퀴드 글래스"는 Apple이 iOS 26에 도입한 Liquid Glass 디자인 언어를 의미합니다. 이는 iOS 7 이후 가장 큰 디자인 업데이트로 평가되며, 잠금 화면, 홈 화면, 제어 센터 및 앱에 새로운 디자인을 적용했습니다. 시스템 내의 다양한 UI 버튼도 리퀴드 글래스와 둥근 모서리 디자인을 중심으로 설계되어 빛을 굴절시키고 거울 같은 하이라이트를 통해 사용자 동작에 동적으로 반응합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>알리페이가 Apple의 첫 폴더블 스마트폰 iPhone Duo를 지원하기 시작했습니다. 최신 버전 알리페이 앱은 리퀴드 글래스 효과와 다양한 화면 모드에 최적화된 레이아웃 조정을 제공하여 iPhone Duo의 폴더블 디자인을 최대한 활용합니다. iPhone Duo는 A20 Pro 칩과 고성능 카메라를 탑재했으며, Apple의 새로운 Liquid Glass 디자인 언어가 적용되어 사용자 경험을 향상시켰습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>알리페이, iPhone Duo 지원</h3>
+          
+          <p>알리페이(Alipay)는 어제 밤 공식 발표를 통해 iPhone Duo를 지원한다고 밝혔습니다.</p>
+          
+          <p>iPhone Duo에서 알리페이 앱을 최신 버전 12.12.38로 업데이트하면 다음 기능을 사용할 수 있습니다.</p>
+<ul>
+<li>하단 바: 리퀴드 글래스 효과로 투명한 인터페이스와 새로운 경험을 제공합니다.</li>
+<li>모든 시나리오 지원: 내부 화면, 외부 화면, 가로 모드, 세로 모드 등 다양한 사용 방식에 따라 페이지 레이아웃이 자동으로 조정됩니다.</li>
+</ul>
+          
+          <p>알리페이 공식 관계자는 "알리페이는 iPhone Duo의 모든 생활 방식에 맞춰 지원합니다. 펼치면 생활이 한눈에 들어오고, 접으면 지갑처럼 휴대할 수 있습니다"라고 말했습니다.</p>
+          
+          <p>iPhone Duo에 대한 더 자세한 소식은 IT之家의 첫 사용 경험 영상을 참고하시기 바랍니다.</p>
+          
+          <p>IT之家 Bilibili 계정을 팔로우하세요.</p>
+          
+          <h3>iPhone Duo 스펙</h3>
+          
+          <p>iPhone Duo는 Apple이 출시한 첫 폴더블 디스플레이 스마트폰으로, 책처럼 접히는 디자인을 채택했습니다. 7.6인치 폴더블 내부 디스플레이와 5.4인치 외부 디스플레이를 탑재했으며, 두 디스플레이 모두 Super Retina XDR 디스플레이와 ProMotion 적응형 주사율 기술을 지원합니다. 이 기기는 A20 Pro 칩을 탑재하여 하드웨어 가속 레이 트레이싱을 지원하며, 후면에는 4800만 화소 융합형 메인 카메라와 4800만 화소 융합형 초광각 렌즈가 장착되어 최대 4K, 120fps Dolby Vision 비디오 촬영을 지원합니다. 또한, 물리 SIM 카드 슬롯이 없으며 eSIM만 지원합니다.</p>
+          
+          <h3>출시 정보</h3>
+          
+          <p>iPhone Duo는 2026년 10월 23일 정식 출시되었으며, 중국 내수 시장 시작 가격은 15,999위안으로 Apple 역사상 가장 비싼 iPhone입니다. Apple 중국 공식 웹사이트에 따르면 고객당 2대만 구매할 수 있습니다. Apple 공식 데이터에 따르면, 이 기기는 외부 화면으로 동영상 재생 시 최대 44시간, 내부 화면으로 동영상 재생 시 최대 31시간 사용 가능합니다.</p>
+          
+          <h3>Liquid Glass 디자인 언어</h3>
+          
+          <p>본문에서 언급된 "리퀴드 글래스"는 Apple이 iOS 26에 도입한 Liquid Glass 디자인 언어를 의미합니다. 이는 iOS 7 이후 가장 큰 디자인 업데이트로 평가되며, 잠금 화면, 홈 화면, 제어 센터 및 앱에 새로운 디자인을 적용했습니다. 시스템 내의 다양한 UI 버튼도 리퀴드 글래스와 둥근 모서리 디자인을 중심으로 설계되어 빛을 굴절시키고 거울 같은 하이라이트를 통해 사용자 동작에 동적으로 반응합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>알리페이가 Apple의 첫 폴더블 스마트폰 iPhone Duo를 지원하기 시작했습니다. 최신 버전 알리페이 앱은 리퀴드 글래스 효과와 다양한 화면 모드에 최적화된 레이아웃 조정을 제공하여 iPhone Duo의 폴더블 디자인을 최대한 활용합니다. iPhone Duo는 A20 Pro 칩과 고성능 카메라를 탑재했으며, Apple의 새로운 Liquid Glass 디자인 언어가 적용되어 사용자 경험을 향상시켰습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>알리페이, iPhone Duo 지원</h3>
+          
+          <p>알리페이(Alipay)는 어제 밤 공식 발표를 통해 iPhone Duo를 지원한다고 밝혔습니다.</p>
+          
+          <p>iPhone Duo에서 알리페이 앱을 최신 버전 12.12.38로 업데이트하면 다음 기능을 사용할 수 있습니다.</p>
+<ul>
+<li>하단 바: 리퀴드 글래스 효과로 투명한 인터페이스와 새로운 경험을 제공합니다.</li>
+<li>모든 시나리오 지원: 내부 화면, 외부 화면, 가로 모드, 세로 모드 등 다양한 사용 방식에 따라 페이지 레이아웃이 자동으로 조정됩니다.</li>
+</ul>
+          
+          <p>알리페이 공식 관계자는 "알리페이는 iPhone Duo의 모든 생활 방식에 맞춰 지원합니다. 펼치면 생활이 한눈에 들어오고, 접으면 지갑처럼 휴대할 수 있습니다"라고 말했습니다.</p>
+          
+          <p>iPhone Duo에 대한 더 자세한 소식은 IT之家의 첫 사용 경험 영상을 참고하시기 바랍니다.</p>
+          
+          <p>IT之家 Bilibili 계정을 팔로우하세요.</p>
+          
+          <h3>iPhone Duo 스펙</h3>
+          
+          <p>iPhone Duo는 Apple이 출시한 첫 폴더블 디스플레이 스마트폰으로, 책처럼 접히는 디자인을 채택했습니다. 7.6인치 폴더블 내부 디스플레이와 5.4인치 외부 디스플레이를 탑재했으며, 두 디스플레이 모두 Super Retina XDR 디스플레이와 ProMotion 적응형 주사율 기술을 지원합니다. 이 기기는 A20 Pro 칩을 탑재하여 하드웨어 가속 레이 트레이싱을 지원하며, 후면에는 4800만 화소 융합형 메인 카메라와 4800만 화소 융합형 초광각 렌즈가 장착되어 최대 4K, 120fps Dolby Vision 비디오 촬영을 지원합니다. 또한, 물리 SIM 카드 슬롯이 없으며 eSIM만 지원합니다.</p>
+          
+          <h3>출시 정보</h3>
+          
+          <p>iPhone Duo는 2026년 10월 23일 정식 출시되었으며, 중국 내수 시장 시작 가격은 15,999위안으로 Apple 역사상 가장 비싼 iPhone입니다. Apple 중국 공식 웹사이트에 따르면 고객당 2대만 구매할 수 있습니다. Apple 공식 데이터에 따르면, 이 기기는 외부 화면으로 동영상 재생 시 최대 44시간, 내부 화면으로 동영상 재생 시 최대 31시간 사용 가능합니다.</p>
+          
+          <h3>Liquid Glass 디자인 언어</h3>
+          
+          <p>본문에서 언급된 "리퀴드 글래스"는 Apple이 iOS 26에 도입한 Liquid Glass 디자인 언어를 의미합니다. 이는 iOS 7 이후 가장 큰 디자인 업데이트로 평가되며, 잠금 화면, 홈 화면, 제어 센터 및 앱에 새로운 디자인을 적용했습니다. 시스템 내의 다양한 UI 버튼도 리퀴드 글래스와 둥근 모서리 디자인을 중심으로 설계되어 빛을 굴절시키고 거울 같은 하이라이트를 통해 사용자 동작에 동적으로 반응합니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>알리페이가 Apple의 첫 폴더블 스마트폰 iPhone Duo를 지원하기 시작했습니다. 최신 버전 알리페이 앱은 리퀴드 글래스 효과와 다양한 화면 모드에 최적화된 레이아웃 조정을 제공하여 iPhone Duo의 폴더블 디자인을 최대한 활용합니다. iPhone Duo는 A20 Pro 칩과 고성능 카메라를 탑재했으며, Apple의 새로운 Liquid Glass 디자인 언어가 적용되어 사용자 경험을 향상시켰습니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">접고, 지갑은 항상 휴대하세요.</div>
+                <div class="caption-lang" data-lang="en">Fold it up, wallet goes with you.</div>
+                <div class="caption-lang" data-lang="ja">折りたたんで、財布はいつも持ち歩きましょう。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">개미숲</div>
+                <div class="caption-lang" data-lang="en">Ant Forest</div>
+                <div class="caption-lang" data-lang="ja">アリの森</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">스캔</div>
+                <div class="caption-lang" data-lang="en">Scan</div>
+                <div class="caption-lang" data-lang="ja">スキャン</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">수금/결제</div>
+                <div class="caption-lang" data-lang="en">Receive/Pay</div>
+                <div class="caption-lang" data-lang="ja">受取/支払い</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">이동</div>
+                <div class="caption-lang" data-lang="en">Travel</div>
+                <div class="caption-lang" data-lang="ja">移動</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">자동차 생활</div>
+                <div class="caption-lang" data-lang="en">Car Life</div>
+                <div class="caption-lang" data-lang="ja">カーライフ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Alipay 회원</div>
+                <div class="caption-lang" data-lang="en">Alipay Member</div>
+                <div class="caption-lang" data-lang="ja">Alipay会員</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">작은 지갑</div>
+                <div class="caption-lang" data-lang="en">Little Wallet</div>
+                <div class="caption-lang" data-lang="ja">小さな財布</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">건강 의료</div>
+                <div class="caption-lang" data-lang="en">Health and Medical</div>
+                <div class="caption-lang" data-lang="ja">健康医療</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">최근 소식</div>
+                <div class="caption-lang" data-lang="en">Recent News</div>
+                <div class="caption-lang" data-lang="ja">最新ニュース</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">추천</div>
+                <div class="caption-lang" data-lang="en">Recommended for you</div>
+                <div class="caption-lang" data-lang="ja">あなたへのおすすめ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">내 택배</div>
+                <div class="caption-lang" data-lang="en">My Express</div>
+                <div class="caption-lang" data-lang="ja">私の宅配便</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">시민 센터</div>
+                <div class="caption-lang" data-lang="en">Citizen Center</div>
+                <div class="caption-lang" data-lang="ja">市民センター</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">스타벅스</div>
+                <div class="caption-lang" data-lang="en">Starbucks</div>
+                <div class="caption-lang" data-lang="ja">スターバックス</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">시장 날씨표</div>
+                <div class="caption-lang" data-lang="en">Market Barometer</div>
+                <div class="caption-lang" data-lang="ja">市場の晴雨計</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오늘의 좋은 상품</div>
+                <div class="caption-lang" data-lang="en">Today&#39;s Good Deals</div>
+                <div class="caption-lang" data-lang="ja">今日の掘り出し物</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">검색</div>
+                <div class="caption-lang" data-lang="en">Search</div>
+                <div class="caption-lang" data-lang="ja">検索</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">카드 지갑</div>
+                <div class="caption-lang" data-lang="en">Card Pack</div>
+                <div class="caption-lang" data-lang="ja">カードケース</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">1분 전</div>
+                <div class="caption-lang" data-lang="en">1 minute ago</div>
+                <div class="caption-lang" data-lang="ja">1分前</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">경험할 수 있습니다:</div>
+                <div class="caption-lang" data-lang="en">You can experience:</div>
+                <div class="caption-lang" data-lang="ja">体験できます：</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">하단 바: 액체 유리 효과, 투명한 인터페이스, 새로운 경험을 선사합니다.</div>
+                <div class="caption-lang" data-lang="en">Bottom bar: Liquid glass effect, transparent interface, presenting a new experience.</div>
+                <div class="caption-lang" data-lang="ja">下部バー：液体ガラス効果、透明なインターフェース、新しい体験を提供します。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">스타일, 페이지 레이아웃 자동 조정.</div>
+                <div class="caption-lang" data-lang="en">style, page layout automatically adjusts.</div>
+                <div class="caption-lang" data-lang="ja">スタイル、ページレイアウトが自動調整されます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">큰 그릇 미소 차슈와 나루토마키</div>
+                <div class="caption-lang" data-lang="en">Large bowl of miso chashu with narutomaki</div>
+                <div class="caption-lang" data-lang="ja">大盛り味噌チャーシューと鳴門巻き</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">스스로 봐도 이질적이지 않나요?</div>
+                <div class="caption-lang" data-lang="en">Doesn&#39;t it look disjointed to you?</div>
+                <div class="caption-lang" data-lang="ja">自分で見ても違和感ないですか？</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">과일 알갱이 오렌지 주스</div>
+                <div class="caption-lang" data-lang="en">Pulp Orange Juice</div>
+                <div class="caption-lang" data-lang="ja">果粒入りオレンジジュース</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">지금 내가 참을 수 없는 건 Douyin이야</div>
+                <div class="caption-lang" data-lang="en">What I can&#39;t stand now is Douyin</div>
+                <div class="caption-lang" data-lang="ja">今私が我慢できないのはDouyinです</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">저우저우</div>
+                <div class="caption-lang" data-lang="en">Zhouzhou</div>
+                <div class="caption-lang" data-lang="ja">周周</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">그 싫은 AI 버튼 좀 없애줘, 아무도 그걸 원하지 않아</div>
+                <div class="caption-lang" data-lang="en">Take down that annoying AI button, nobody wants it</div>
+                <div class="caption-lang" data-lang="ja">あの嫌なAIボタンを外してくれ、誰もそれを望んでいない</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">레몬 정령 그 자체</div>
+                <div class="caption-lang" data-lang="en">Lemon essence itself</div>
+                <div class="caption-lang" data-lang="ja">レモン精霊そのもの</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">자동차 생활</div>
+                <div class="caption-lang" data-lang="en">Car Life</div>
+                <div class="caption-lang" data-lang="ja">カーライフ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">즈마 신용</div>
+                <div class="caption-lang" data-lang="en">Zhima Credit</div>
+                <div class="caption-lang" data-lang="ja">ジーマ信用</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">개미 숲</div>
+                <div class="caption-lang" data-lang="en">Ant Forest</div>
+                <div class="caption-lang" data-lang="ja">アントフォレスト</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">즈푸바오 회원</div>
+                <div class="caption-lang" data-lang="en">Alipay Membership</div>
+                <div class="caption-lang" data-lang="ja">アリペイ会員</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">화베이</div>
+                <div class="caption-lang" data-lang="en">Huabei</div>
+                <div class="caption-lang" data-lang="ja">ファーベイ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">수금 및 지불</div>
+                <div class="caption-lang" data-lang="en">Collect &amp; Pay</div>
+                <div class="caption-lang" data-lang="ja">支払いと受け取り</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">빨간 봉투</div>
+                <div class="caption-lang" data-lang="en">Red Packet</div>
+                <div class="caption-lang" data-lang="ja">お年玉</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">건강 의료</div>
+                <div class="caption-lang" data-lang="en">Health &amp; Medical</div>
+                <div class="caption-lang" data-lang="ja">健康医療</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">스타벅스</div>
+                <div class="caption-lang" data-lang="en">Starbucks</div>
+                <div class="caption-lang" data-lang="ja">スターバックス</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">캠퍼스</div>
+                <div class="caption-lang" data-lang="en">Campus</div>
+                <div class="caption-lang" data-lang="ja">キャンパス</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">샤오허바오</div>
+                <div class="caption-lang" data-lang="en">Xiaohebao</div>
+                <div class="caption-lang" data-lang="ja">シャオホーバオ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">앤트 인슈어런스</div>
+                <div class="caption-lang" data-lang="en">Ant Insurance</div>
+                <div class="caption-lang" data-lang="ja">アントインシュアランス</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">지에베이</div>
+                <div class="caption-lang" data-lang="en">Jiebei</div>
+                <div class="caption-lang" data-lang="ja">ジエベイ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">왕상 은행</div>
+                <div class="caption-lang" data-lang="en">MYbank</div>
+                <div class="caption-lang" data-lang="ja">MYbank</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">검색</div>
+                <div class="caption-lang" data-lang="en">Search</div>
+                <div class="caption-lang" data-lang="ja">検索</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">카드 지갑</div>
+                <div class="caption-lang" data-lang="en">Card Wallet</div>
+                <div class="caption-lang" data-lang="ja">カードウォレット</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">위어바오</div>
+                <div class="caption-lang" data-lang="en">Yu&#39;e Bao</div>
+                <div class="caption-lang" data-lang="ja">ユアバオ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">1분 전</div>
+                <div class="caption-lang" data-lang="en">1 minute ago</div>
+                <div class="caption-lang" data-lang="ja">1分前</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">최근 소식</div>
+                <div class="caption-lang" data-lang="en">Latest News</div>
+                <div class="caption-lang" data-lang="ja">最新ニュース</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">안녕하세요, 블루 카드 주차장에 입차 기록이 있는 것을 확인했습니다. 주차 요금이나 요금 규정을 확인해 드릴까요?</div>
+                <div class="caption-lang" data-lang="en">Good afternoon, I noticed there&#39;s an entry record for the Blue Card parking lot. Would you like me to check the parking fees or billing rules for you?</div>
+                <div class="caption-lang" data-lang="ja">こんにちは、ブルーカード駐車場に入場記録があることを確認しました。駐車料金や課金ルールについて確認しましょうか？</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">내 공적금 조회</div>
+                <div class="caption-lang" data-lang="en">Query my provident fund</div>
+                <div class="caption-lang" data-lang="ja">私の積立金を照会する</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">스캔</div>
+                <div class="caption-lang" data-lang="en">Scan</div>
+                <div class="caption-lang" data-lang="ja">スキャン</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">결제</div>
+                <div class="caption-lang" data-lang="en">Payments</div>
+                <div class="caption-lang" data-lang="ja">支払い</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">교통</div>
+                <div class="caption-lang" data-lang="en">Travel</div>
+                <div class="caption-lang" data-lang="ja">交通</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">재테크</div>
+                <div class="caption-lang" data-lang="en">Wealth Management</div>
+                <div class="caption-lang" data-lang="ja">資産運用</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/017/288.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-10"
+               class="archive-btn active">
+              2026-10
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
