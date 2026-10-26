@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - AI, Sony A7C II 카메라 펌웨어 해독 성공, FL2/FL3 및 Fujifilm Ricoh 필터 직접 잠금 해제</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="camera">
+  <meta name="article-brand" content="Sony">
+  <meta name="article-brand-color" content="#003087">
+  <meta name="title-ko" content="AI, Sony A7C II 카메라 펌웨어 해독 성공, FL2/FL3 및 Fujifilm Ricoh 필터 직접 잠금 해제">
+  <meta name="title-zh" content="AI, Sony A7C II 카메라 펌웨어 해독 성공, FL2/FL3 및 Fujifilm Ricoh 필터 직접 잠금 해제">
+  <meta name="title-ja" content="AI, Sony A7C II 카메라 펌웨어 해독 성공, FL2/FL3 및 Fujifilm Ricoh 필터 직접 잠금 해제">
+  <meta name="title-en" content="AI, Sony A7C II 카메라 펌웨어 해독 성공, FL2/FL3 및 Fujifilm Ricoh 필터 직접 잠금 해제">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<link rel="stylesheet" href="../../../../assets/site.css?v=20260910b">
+<script defer src="../../../../assets/news.js?v=20260910b"></script>
+<script defer src="../../../../assets/article.js?v=20260910b"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="site-header">
+    <a class="header-logo" href="../../../../index.html">
+      <span class="logo-icon">📡</span>
+      <span class="logo-text">AI<span class="logo-accent">시테이</span> 블로그</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../../../../index.html">IT뉴스</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-selector" id="lang-selector">
+        <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+        <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-btn" data-lang="en">🇺🇸 English</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #003087;">
+            Sony
+          </span>
+          
+          
+          
+          <span class="badge" style="background:#2563eb;">📷 카메라</span>
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="AI, Sony A7C II 카메라 펌웨어 해독 성공, FL2/FL3 및 Fujifilm Ricoh 필터 직접 잠금 해제"
+            data-zh="AI, Sony A7C II 카메라 펌웨어 해독 성공, FL2/FL3 및 Fujifilm Ricoh 필터 직접 잠금 해제"
+            data-ja="AI, Sony A7C II 카메라 펌웨어 해독 성공, FL2/FL3 및 Fujifilm Ricoh 필터 직접 잠금 해제"
+            data-en="AI, Sony A7C II 카메라 펌웨어 해독 성공, FL2/FL3 및 Fujifilm Ricoh 필터 직접 잠금 해제">AI, Sony A7C II 카메라 펌웨어 해독 성공, FL2/FL3 및 Fujifilm Ricoh 필터 직접 잠금 해제</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-10-27
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="AI, Sony A7C II 카메라 펌웨어 해독 성공, FL2/FL3 및 Fujifilm Ricoh 필터 직접 잠금 해제" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>소니 A7C II 커스텀 펌웨어</h3>
+          
+          <p>IT之家 10월 26일 소식에 따르면, 최근 AI를 활용한 흥미로운 역공학 프로젝트들이 많이 등장했습니다. 여기에는 Android 스마트폰에 iOS 시스템을 설치하는 것 등이 포함됩니다. 최근, "QAQLeonard"라는 닉네임의 한 네티즌이 Sony A7C II 카메라를 위한 커스텀 펌웨어를 제작하여 FL2, FL3 필름 모드를 직접 잠금 해제했습니다.</p>
+          
+          <p>이 펌웨어는 외부 LUT 가져오기를 지원하며, Fujifilm NC 및 Ricoh GR의 뛰어난 색조를 지원합니다. 또한, 크리에이티브 룩, 전자 셔터 사운드, 세로 화면 표시 등의 기능을 제공합니다. 현재 A7C II Tools는 3.0 버전으로 출시되었으며, 정식 그래픽 인터페이스를 갖춘 최초의 버전입니다. 드라이버 설정, 설치, 콜드 로딩 및 검증이 모두 하나의 창에서 버튼 클릭으로 완료되며, 명령줄을 사용할 필요가 없습니다.</p>
+          
+          <p>이 도구는 Sony A7C II(ILCE-7CM2) 펌웨어 2.01 버전만 지원합니다. 오리지널 A7C, A7 IV, A7CR, A7R V, A6700 및 A7 V를 포함한 다른 모델에는 적용되지 않습니다. Bilibili UP @老陈爱玩相机(라오천아이완샹지)도 설치 튜토리얼을 공유했습니다.</p>
+          
+          <p>IT之家는 카메라 개조가 부팅 불가, 반복 재부팅, 기능 이상 또는 데이터 손실을 초래할 수 있으며, 공식 업데이트, 보증 또는 수리에 영향을 미칠 수 있음을 알려드립니다. 성공적인 쓰기 및 일관된 읽기만으로 부팅 안전을 보장할 수 없으며, 복구 기능도 카메라를 살릴 수 있다고 보장하지 않습니다. 또한, 이 펌웨어를 설치한 일부 사용자들은 서드파티 배터리 인식이 영향을 받는다고 보고했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Sony A7C II용 커스텀 펌웨어 "A7C II Tools 3.0"이 출시되어 FL2, FL3 필름 모드 잠금 해제 및 외부 LUT 가져오기 등의 기능을 제공합니다. 이 버전은 최초로 그래픽 인터페이스를 지원하여 설치 편의성을 높였지만, Sony A7C II 펌웨어 2.01 버전만 지원하며, 카메라 개조로 인한 잠재적 위험이 따릅니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>소니 A7C II 커스텀 펌웨어</h3>
+          
+          <p>IT之家 10월 26일 소식에 따르면, 최근 AI를 활용한 흥미로운 역공학 프로젝트들이 많이 등장했습니다. 여기에는 Android 스마트폰에 iOS 시스템을 설치하는 것 등이 포함됩니다. 최근, "QAQLeonard"라는 닉네임의 한 네티즌이 Sony A7C II 카메라를 위한 커스텀 펌웨어를 제작하여 FL2, FL3 필름 모드를 직접 잠금 해제했습니다.</p>
+          
+          <p>이 펌웨어는 외부 LUT 가져오기를 지원하며, Fujifilm NC 및 Ricoh GR의 뛰어난 색조를 지원합니다. 또한, 크리에이티브 룩, 전자 셔터 사운드, 세로 화면 표시 등의 기능을 제공합니다. 현재 A7C II Tools는 3.0 버전으로 출시되었으며, 정식 그래픽 인터페이스를 갖춘 최초의 버전입니다. 드라이버 설정, 설치, 콜드 로딩 및 검증이 모두 하나의 창에서 버튼 클릭으로 완료되며, 명령줄을 사용할 필요가 없습니다.</p>
+          
+          <p>이 도구는 Sony A7C II(ILCE-7CM2) 펌웨어 2.01 버전만 지원합니다. 오리지널 A7C, A7 IV, A7CR, A7R V, A6700 및 A7 V를 포함한 다른 모델에는 적용되지 않습니다. Bilibili UP @老陈爱玩相机(라오천아이완샹지)도 설치 튜토리얼을 공유했습니다.</p>
+          
+          <p>IT之家는 카메라 개조가 부팅 불가, 반복 재부팅, 기능 이상 또는 데이터 손실을 초래할 수 있으며, 공식 업데이트, 보증 또는 수리에 영향을 미칠 수 있음을 알려드립니다. 성공적인 쓰기 및 일관된 읽기만으로 부팅 안전을 보장할 수 없으며, 복구 기능도 카메라를 살릴 수 있다고 보장하지 않습니다. 또한, 이 펌웨어를 설치한 일부 사용자들은 서드파티 배터리 인식이 영향을 받는다고 보고했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Sony A7C II용 커스텀 펌웨어 "A7C II Tools 3.0"이 출시되어 FL2, FL3 필름 모드 잠금 해제 및 외부 LUT 가져오기 등의 기능을 제공합니다. 이 버전은 최초로 그래픽 인터페이스를 지원하여 설치 편의성을 높였지만, Sony A7C II 펌웨어 2.01 버전만 지원하며, 카메라 개조로 인한 잠재적 위험이 따릅니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>소니 A7C II 커스텀 펌웨어</h3>
+          
+          <p>IT之家 10월 26일 소식에 따르면, 최근 AI를 활용한 흥미로운 역공학 프로젝트들이 많이 등장했습니다. 여기에는 Android 스마트폰에 iOS 시스템을 설치하는 것 등이 포함됩니다. 최근, "QAQLeonard"라는 닉네임의 한 네티즌이 Sony A7C II 카메라를 위한 커스텀 펌웨어를 제작하여 FL2, FL3 필름 모드를 직접 잠금 해제했습니다.</p>
+          
+          <p>이 펌웨어는 외부 LUT 가져오기를 지원하며, Fujifilm NC 및 Ricoh GR의 뛰어난 색조를 지원합니다. 또한, 크리에이티브 룩, 전자 셔터 사운드, 세로 화면 표시 등의 기능을 제공합니다. 현재 A7C II Tools는 3.0 버전으로 출시되었으며, 정식 그래픽 인터페이스를 갖춘 최초의 버전입니다. 드라이버 설정, 설치, 콜드 로딩 및 검증이 모두 하나의 창에서 버튼 클릭으로 완료되며, 명령줄을 사용할 필요가 없습니다.</p>
+          
+          <p>이 도구는 Sony A7C II(ILCE-7CM2) 펌웨어 2.01 버전만 지원합니다. 오리지널 A7C, A7 IV, A7CR, A7R V, A6700 및 A7 V를 포함한 다른 모델에는 적용되지 않습니다. Bilibili UP @老陈爱玩相机(라오천아이완샹지)도 설치 튜토리얼을 공유했습니다.</p>
+          
+          <p>IT之家는 카메라 개조가 부팅 불가, 반복 재부팅, 기능 이상 또는 데이터 손실을 초래할 수 있으며, 공식 업데이트, 보증 또는 수리에 영향을 미칠 수 있음을 알려드립니다. 성공적인 쓰기 및 일관된 읽기만으로 부팅 안전을 보장할 수 없으며, 복구 기능도 카메라를 살릴 수 있다고 보장하지 않습니다. 또한, 이 펌웨어를 설치한 일부 사용자들은 서드파티 배터리 인식이 영향을 받는다고 보고했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Sony A7C II용 커스텀 펌웨어 "A7C II Tools 3.0"이 출시되어 FL2, FL3 필름 모드 잠금 해제 및 외부 LUT 가져오기 등의 기능을 제공합니다. 이 버전은 최초로 그래픽 인터페이스를 지원하여 설치 편의성을 높였지만, Sony A7C II 펌웨어 2.01 버전만 지원하며, 카메라 개조로 인한 잠재적 위험이 따릅니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>소니 A7C II 커스텀 펌웨어</h3>
+          
+          <p>IT之家 10월 26일 소식에 따르면, 최근 AI를 활용한 흥미로운 역공학 프로젝트들이 많이 등장했습니다. 여기에는 Android 스마트폰에 iOS 시스템을 설치하는 것 등이 포함됩니다. 최근, "QAQLeonard"라는 닉네임의 한 네티즌이 Sony A7C II 카메라를 위한 커스텀 펌웨어를 제작하여 FL2, FL3 필름 모드를 직접 잠금 해제했습니다.</p>
+          
+          <p>이 펌웨어는 외부 LUT 가져오기를 지원하며, Fujifilm NC 및 Ricoh GR의 뛰어난 색조를 지원합니다. 또한, 크리에이티브 룩, 전자 셔터 사운드, 세로 화면 표시 등의 기능을 제공합니다. 현재 A7C II Tools는 3.0 버전으로 출시되었으며, 정식 그래픽 인터페이스를 갖춘 최초의 버전입니다. 드라이버 설정, 설치, 콜드 로딩 및 검증이 모두 하나의 창에서 버튼 클릭으로 완료되며, 명령줄을 사용할 필요가 없습니다.</p>
+          
+          <p>이 도구는 Sony A7C II(ILCE-7CM2) 펌웨어 2.01 버전만 지원합니다. 오리지널 A7C, A7 IV, A7CR, A7R V, A6700 및 A7 V를 포함한 다른 모델에는 적용되지 않습니다. Bilibili UP @老陈爱玩相机(라오천아이완샹지)도 설치 튜토리얼을 공유했습니다.</p>
+          
+          <p>IT之家는 카메라 개조가 부팅 불가, 반복 재부팅, 기능 이상 또는 데이터 손실을 초래할 수 있으며, 공식 업데이트, 보증 또는 수리에 영향을 미칠 수 있음을 알려드립니다. 성공적인 쓰기 및 일관된 읽기만으로 부팅 안전을 보장할 수 없으며, 복구 기능도 카메라를 살릴 수 있다고 보장하지 않습니다. 또한, 이 펌웨어를 설치한 일부 사용자들은 서드파티 배터리 인식이 영향을 받는다고 보고했습니다.</p>
+          
+          <h3>총평</h3>
+          
+          <p>Sony A7C II용 커스텀 펌웨어 "A7C II Tools 3.0"이 출시되어 FL2, FL3 필름 모드 잠금 해제 및 외부 LUT 가져오기 등의 기능을 제공합니다. 이 버전은 최초로 그래픽 인터페이스를 지원하여 설치 편의성을 높였지만, Sony A7C II 펌웨어 2.01 버전만 지원하며, 카메라 개조로 인한 잠재적 위험이 따릅니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">카메라 워크플로우에 통합 데스크톱 미리보기 추가</div>
+                <div class="caption-lang" data-lang="en">Add unified desktop preview to camera workflow</div>
+                <div class="caption-lang" data-lang="ja">カメラワークフローに統一されたデスクトッププレビューを追加</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">MIT 라이선스 및 Commons 약관이 적용된 원본 프로젝트 코드</div>
+                <div class="caption-lang" data-lang="en">MIT licensed original project code with Commons terms</div>
+                <div class="caption-lang" data-lang="ja">MITライセンスのオリジナルプロジェクトコードとコモンズ条項</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">릴리스 버전 3.0.3으로 업데이트됩니다.</div>
+                <div class="caption-lang" data-lang="en">Will accept release version correction to 3.0.3</div>
+                <div class="caption-lang" data-lang="ja">リリースバージョン3.0.3を受け入れます</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">3.0.4 복구 및 현재 상태 오디오 릴리스 준비 중</div>
+                <div class="caption-lang" data-lang="en">Prepare 3.0.4 recovery and current status audio release</div>
+                <div class="caption-lang" data-lang="ja">3.0.4の復元と現在のステータスオーディオのリリースを準備中</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">합병 데스크톱 미리보기 및 영어 프로젝트 개요 재작성</div>
+                <div class="caption-lang" data-lang="en">Hapjeong Desktop Preview and Rewrite English Project Overview</div>
+                <div class="caption-lang" data-lang="ja">合井デスクトッププレビューと英語プロジェクト概要の書き換え</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">수정되지 않은 PolyForm 비상업적 라이선스 사용</div>
+                <div class="caption-lang" data-lang="en">Uses unmodified PolyForm Noncommercial License</div>
+                <div class="caption-lang" data-lang="ja">PolyForm非営利ライセンスを改変せずに使用</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">확장 유료 사용 면책 조항 예시</div>
+                <div class="caption-lang" data-lang="en">Extended Paid Use Disclaimer Example</div>
+                <div class="caption-lang" data-lang="ja">有料利用免責事項の例を拡張する</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">통합 서비스 복구 및 안정적인 프런트엔드 작업 기록 공유</div>
+                <div class="caption-lang" data-lang="en">Unified service recovery, repair, and record stable shared frontend operations</div>
+                <div class="caption-lang" data-lang="ja">統一されたサービスが復元され、修復され、安定した共有フロントエンド操作が記録されます</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">v2.2-preview.1 출시, USB 복구 및 우선 서비스 포함</div>
+                <div class="caption-lang" data-lang="en">Released v2.2-preview.1, including USB fixes for fan control and priority service</div>
+                <div class="caption-lang" data-lang="ja">v2.2-preview.1をリリース、USBの修復と優先サービスを含む</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">3일 전</div>
+                <div class="caption-lang" data-lang="en">Three days ago</div>
+                <div class="caption-lang" data-lang="ja">3日前</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">5일 전</div>
+                <div class="caption-lang" data-lang="en">5 days ago</div>
+                <div class="caption-lang" data-lang="ja">5日前</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">4일 전</div>
+                <div class="caption-lang" data-lang="en">4 days ago</div>
+                <div class="caption-lang" data-lang="ja">4日前</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">데스크톱 도구: 원클릭 FL2/FL3, 맞춤형 크리에이티브</div>
+                <div class="caption-lang" data-lang="en">Desktop tools: One-click FL2/FL3, custom creativity</div>
+                <div class="caption-lang" data-lang="ja">デスクトップツール：ワンクリックFL2/FL3、カスタムクリエイティブ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">크리에이티브 룩 정의, 전자 셔터음, 세로 화면 표시</div>
+                <div class="caption-lang" data-lang="en">Creative look, electronic shutter sound, vertical screen display</div>
+                <div class="caption-lang" data-lang="ja">クリエイティブな外観、電子シャッター音、縦型ディスプレイの定義</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">원터치 공장 초기화 기능이 있습니다.</div>
+                <div class="caption-lang" data-lang="en">Show, and one-click restore to original factory settings.</div>
+                <div class="caption-lang" data-lang="ja">表示され、ワンクリックで工場出荷時の設定に復元できます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">보고서 저장소</div>
+                <div class="caption-lang" data-lang="en">Report warehouse</div>
+                <div class="caption-lang" data-lang="ja">倉庫を報告する</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">3일 전</div>
+                <div class="caption-lang" data-lang="en">3 days ago</div>
+                <div class="caption-lang" data-lang="ja">3日前</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">미크로드 크지드</div>
+                <div class="caption-lang" data-lang="en">Mikołaj Kopernik</div>
+                <div class="caption-lang" data-lang="ja">ミクロード・クジッド</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">언어</div>
+                <div class="caption-lang" data-lang="en">Language</div>
+                <div class="caption-lang" data-lang="ja">言語</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/017/777.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn active-cat">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-10"
+               class="archive-btn active">
+              2026-10
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
