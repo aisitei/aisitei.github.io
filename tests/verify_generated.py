@@ -56,7 +56,7 @@ for file in files:
     if layout.get('hero-image-wrap',(sys.maxsize,))[0]<layout.get('article-meta',(0,))[0]:errors.append('Image before title: '+str(relative))
     doc=References(updated)
     for url in doc.urls:
-        if '/assets/site.' in url or '/assets/news.js' in url or '/assets/article.js' in url:
+        if '/assets/site.' in url or '/assets/news.js' in url or '/assets/article.js' in url or '/assets/theme.js' in url:
             if not (file.parent/urlsplit(url).path).resolve().is_file():errors.append('Missing shared asset: '+str(relative))
 process.stdin.close();process.wait()
 if errors:

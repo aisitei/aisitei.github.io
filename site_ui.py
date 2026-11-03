@@ -9,7 +9,7 @@ from pathlib import Path
 
 PAGE_SIZE = 24
 LABELS = {'': '전체', 'mobile': '모바일·이미징', 'camera': '모바일·이미징', 'phone': '모바일·이미징', 'ai': 'AI', 'general': '테크'}
-ASSET_VERSION = '20261103b'
+ASSET_VERSION = '20261103c'
 
 
 def esc(value):
@@ -32,9 +32,10 @@ def masthead(prefix='', active='news', with_language=True):
         '<select id="language" aria-label="언어 / Language"><option value="ko">한국어</option>'
         '<option value="en">English</option><option value="ja">日本語</option>'
         '<option value="zh">中文</option></select></label>') if with_language else '<span class="report-language">한국어</span>'
+    theme = '<button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="다크 모드" hidden><span class="theme-symbol" aria-hidden="true">◐</span><span data-theme-label>다크 모드</span></button>'
     return f'''<header class="masthead"><div class="masthead-inner">
 <a class="wordmark" href="{prefix}index.html" aria-label="AI시테이 홈"><span>AI시테이</span><small>TECHNOLOGY JOURNAL</small></a>
-<nav class="primary-nav" aria-label="주 메뉴">{navigation}</nav>{language}
+<nav class="primary-nav" aria-label="주 메뉴">{navigation}</nav><div class="display-controls">{theme}{language}</div>
 </div></header>'''
 
 
@@ -83,6 +84,7 @@ def render_home(articles, page_title='IT뉴스', page=1, data_url='assets/data/a
     return f'''<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light">
 {base}<title>{esc(page_title)} | AI시테이</title><meta name="description" content="카메라, 스마트폰, AI의 새로운 소식. 해외 테크 뉴스를 네 가지 언어로 읽는 AI시테이.">
+<script src="assets/theme.js?v={ASSET_VERSION}"></script>
 <link rel="icon" href="assets/images/favicon.ico"><link rel="stylesheet" href="assets/site.css?v={ASSET_VERSION}">
 <script defer src="assets/news.js?v={ASSET_VERSION}"></script></head>
 <body class="news-home{' report-home' if report else ''}"><a class="skip-link" href="{url(page)}#news-content">본문으로 건너뛰기</a>
@@ -169,7 +171,7 @@ def upgrade_article(text, prefix):
     if 'class="article-main"' not in text:
         return text
     marker = '<!-- shared-reader-assets -->'
-    assets = f'{marker}\n<link rel="stylesheet" href="{prefix}assets/site.css?v={ASSET_VERSION}">\n<script defer src="{prefix}assets/news.js?v={ASSET_VERSION}"></script>\n<script defer src="{prefix}assets/article.js?v={ASSET_VERSION}"></script>\n<!-- /shared-reader-assets -->'
+    assets = f'{marker}\n<script src="{prefix}assets/theme.js?v={ASSET_VERSION}"></script>\n<link rel="stylesheet" href="{prefix}assets/site.css?v={ASSET_VERSION}">\n<script defer src="{prefix}assets/news.js?v={ASSET_VERSION}"></script>\n<script defer src="{prefix}assets/article.js?v={ASSET_VERSION}"></script>\n<!-- /shared-reader-assets -->'
     if marker in text:
         text = re.sub(r'<!-- shared-reader-assets -->.*?<!-- /shared-reader-assets -->', lambda _: assets, text, flags=re.S)
     else:
@@ -195,7 +197,7 @@ def upgrade_article_files(root):
 
 def upgrade_report(text, prefix):
     """Attach site chrome without altering report content or image paths."""
-    assets = f'<!-- shared-report-assets -->\n<link rel="stylesheet" href="{prefix}assets/site.css?v={ASSET_VERSION}">\n<!-- /shared-report-assets -->'
+    assets = f'<!-- shared-report-assets -->\n<script src="{prefix}assets/theme.js?v={ASSET_VERSION}"></script>\n<link rel="stylesheet" href="{prefix}assets/site.css?v={ASSET_VERSION}">\n<!-- /shared-report-assets -->'
     if '<!-- shared-report-assets -->' in text:
         text = re.sub(r'<!-- shared-report-assets -->.*?<!-- /shared-report-assets -->', lambda _: assets, text, flags=re.S)
     else:

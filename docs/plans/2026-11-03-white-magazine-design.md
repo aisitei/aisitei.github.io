@@ -18,3 +18,8 @@ Do not publish, push, migrate hosting, or change crawler/translation behavior as
 ## Category simplification
 
 The user approved merging camera and phone into the virtual `mobile` (모바일·이미징) filter and removing the generic tech tab. Preserve stored source categories, all/search coverage, and old camera/phone URLs. Apply merged display labels in all four languages and article navigation. Added tests cover union filtering and historical URL compatibility.
+
+
+## Optional dark appearance
+
+The user requested a dark mode option while retaining the white default. Add a shared header toggle and a small synchronous theme script to restore the saved choice before body paint. Use charcoal green paper, lighter green accents, and semantic aliases covering legacy article and report styles. Persist `aisitei_theme` locally, synchronize other tabs, and preserve functionality if storage is blocked. Keep original images and article/report content unchanged. Verify toggle state, page navigation, storage failures, responsive header, text/table contrast, and future templates. Publish after validation under the existing deployment authorization.
