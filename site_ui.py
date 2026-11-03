@@ -8,8 +8,8 @@ import re
 from pathlib import Path
 
 PAGE_SIZE = 24
-LABELS = {'': '전체', 'camera': '카메라', 'phone': '스마트폰', 'ai': 'AI', 'general': '테크'}
-ASSET_VERSION = '20261103a'
+LABELS = {'': '전체', 'mobile': '모바일·이미징', 'camera': '모바일·이미징', 'phone': '모바일·이미징', 'ai': 'AI', 'general': '테크'}
+ASSET_VERSION = '20261103b'
 
 
 def esc(value):
@@ -79,7 +79,7 @@ def render_home(articles, page_title='IT뉴스', page=1, data_url='assets/data/a
         links += f'<a rel="next" href="{url(page+1)}" data-i18n="next">다음</a>'
     seed = json.dumps({'articles': selected, 'total': len(articles), 'page': page, 'dataUrl': data_url, 'route': route}, ensure_ascii=False).replace('<', '\\u003c')
     base = '<base href="../">' if page > 1 else ''
-    tabs = ''.join('<a href="' + url(1) + ('?cat=' + key if key else '') + '" data-filter="' + key + '" class="topic-tab' + (' selected' if not key else '') + '"' + (' aria-current="page"' if not key else '') + '>' + value + '</a>' for key, value in LABELS.items())
+    tabs = ''.join('<a href="' + url(1) + ('?cat=' + key if key else '') + '" data-filter="' + key + '" class="topic-tab' + (' selected' if not key else '') + '"' + (' aria-current="page"' if not key else '') + '>' + value + '</a>' for key, value in LABELS.items() if key in ('', 'mobile', 'ai'))
     return f'''<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light">
 {base}<title>{esc(page_title)} | AI시테이</title><meta name="description" content="카메라, 스마트폰, AI의 새로운 소식. 해외 테크 뉴스를 네 가지 언어로 읽는 AI시테이.">

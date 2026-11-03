@@ -14,3 +14,7 @@ Approved reference: white-tech-magazine.html in this chat, with a white backgrou
 4. Rebuild. Run Python/Node regression suites and generated link/content checks. Inspect desktop/mobile using a local preview if available. Review the final changes and document any validation limitations.
 
 Do not publish, push, migrate hosting, or change crawler/translation behavior as part of this change.
+
+## Category simplification
+
+The user approved merging camera and phone into the virtual `mobile` (모바일·이미징) filter and removing the generic tech tab. Preserve stored source categories, all/search coverage, and old camera/phone URLs. Apply merged display labels in all four languages and article navigation. Added tests cover union filtering and historical URL compatibility.

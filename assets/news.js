@@ -14,14 +14,17 @@
     zh: {news:'新闻',reports:'深度报告',reportHeadline:'深入解读科技。',reportDescription:'关注新品发布中值得了解的技术与变化。',reportHighlights:'发布会记录',reportLatest:'报告列表'}
   };
   Object.keys(copy).forEach(lang=>Object.assign(copy[lang],magazineCopy[lang]));
+  const mobileLabels={ko:'모바일·이미징',en:'Mobile & imaging',ja:'モバイル・イメージング',zh:'移动与影像'};
+  Object.keys(copy).forEach(lang=>Object.assign(copy[lang],{mobile:mobileLabels[lang],camera:mobileLabels[lang],phone:mobileLabels[lang]}));
   function validLang(lang) { return languages.includes(lang) ? lang : 'ko'; }
   function readState(search, fallback) {
     const p = new URLSearchParams(search);
+    if(['camera','phone'].includes(p.get('cat')))p.set('cat','mobile');
     return {lang:validLang(p.get('lang') || fallback),query:p.get('search') || '',category:p.get('cat') || '',month:p.get('month') || '',page:Math.max(1, parseInt(p.get('page'), 10) || 1)};
   }
   function filterArticles(items, state) {
     const query = state.query.trim().toLocaleLowerCase();
-    return items.filter(a => (!state.category || a.category === state.category) && (!state.month || a.month === state.month) && (!query || String(a['title_' + state.lang] || a.title_ko || a.title).toLocaleLowerCase().includes(query)));
+    return items.filter(a => (!state.category || (state.category==='mobile' ? ['camera','phone','mobile'].includes(a.category) : a.category === state.category)) && (!state.month || a.month === state.month) && (!query || String(a['title_' + state.lang] || a.title_ko || a.title).toLocaleLowerCase().includes(query)));
   }
   function paginate(items, requestedPage, size=24) {
     const pages = Math.max(1, Math.ceil(items.length / size));

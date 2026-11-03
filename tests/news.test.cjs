@@ -34,3 +34,20 @@ test('unfiltered pagination retains real static URLs when the index cannot load'
   assert.equal(reader.pageLink({lang:'ko',query:'',category:'',month:''},2,'reports'), 'report-pages/page-2.html?lang=ko');
   assert.ok(reader.pageLink({lang:'ko',query:'Sony',category:'camera',month:''},2,'news').startsWith('index.html?'));
 });
+test('mobile imaging combines camera and phone while retaining search and date filters', () => {
+  const items = [
+    {title_ko:'Sony camera',category:'camera',month:'2026-11'},
+    {title_ko:'Sony phone',category:'phone',month:'2026-11'},
+    {title_ko:'Sony AI',category:'ai',month:'2026-11'},
+    {title_ko:'Sony industry',category:'general',month:'2026-11'},
+    {title_ko:'Sony old camera',category:'camera',month:'2026-10'}
+  ];
+  const result=reader.filterArticles(items,{lang:'ko',query:'Sony',category:'mobile',month:'2026-11'});
+  assert.equal(result.length,2);
+  assert.ok(result.every(a=>['camera','phone'].includes(a.category)));
+});
+test('historical camera and phone filter URLs open the merged category', () => {
+  for(const category of ['camera','phone']) {
+    assert.equal(reader.readState('?cat='+category,'ko').category,'mobile');
+  }
+});

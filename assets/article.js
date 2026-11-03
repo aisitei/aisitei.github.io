@@ -8,6 +8,7 @@
   const root=new URL('../', script.src);
   const home=new URL('index.html',root);
   const category=document.querySelector('meta[name="article-category"]')?.content || 'general';
+  const readerCategory=['camera','phone'].includes(category)?'mobile':category;
   let lang=R.validLang(new URLSearchParams(location.search).get('lang')||R.savedLang());
   main.id='article-content';
   const skip=document.createElement('a');skip.className='skip-link';skip.href='#article-content';skip.dataset.i18n='skip';document.body.prepend(skip);
@@ -20,7 +21,7 @@
     for(const [value,label] of Object.entries({ko:'한국어',en:'English',ja:'日本語',zh:'中文'})){const option=document.createElement('option');option.value=value;option.textContent=label;select.append(option);}
     languageLabel.append(select);oldSelector?.after(languageLabel);
   }
-  const crumb=document.createElement('a');crumb.className='reader-breadcrumb';crumb.href=new URL('index.html?cat='+encodeURIComponent(category),root);meta.prepend(crumb);
+  const crumb=document.createElement('a');crumb.className='reader-breadcrumb';crumb.href=new URL('index.html?cat='+encodeURIComponent(readerCategory),root);meta.prepend(crumb);
   // Only the actual category is used. Supplier/brand metadata can be ambiguous.
   const badges=document.querySelector('.badge-row');if(badges){badges.replaceChildren();const badge=document.createElement('span');badge.className='badge';badges.append(badge);}
   const source=document.querySelector('.source-footer a');
@@ -65,14 +66,14 @@
     });
     if(badges)badges.firstElementChild.textContent=t[category]||t.general;
     crumb.textContent=t.back+' / '+(t[category]||t.general);
-    crumb.href=new URL('index.html?cat='+encodeURIComponent(category)+'&lang='+lang,root);
+    crumb.href=new URL('index.html?cat='+encodeURIComponent(readerCategory)+'&lang='+lang,root);
     searchInput.placeholder=t.searchLabel;searchInput.setAttribute('aria-label',t.searchLabel);
     const paragraph=[...(chosen?.querySelectorAll('p')||[])].find(el=>el.textContent.trim().length>35);
     summary.hidden=!paragraph;
     if(paragraph){const text=paragraph.textContent.trim();summaryText.textContent=text.length>200?text.slice(0,200)+'…':text;}
     // Translate common legacy navigation labels while preserving links and dates.
     document.querySelectorAll('.primary-nav a').forEach(el=>{const url=new URL(el.href);url.searchParams.set('lang',lang);el.href=url;});
-    document.querySelectorAll('.sidebar .cat-btn').forEach(el=>{const url=new URL(el.href),cat=url.searchParams.get('cat');el.textContent=cat?t[cat]||t.general:t.all;});
+    document.querySelectorAll('.sidebar .cat-btn').forEach(el=>{const url=new URL(el.href),cat=url.searchParams.get('cat');if(cat==='phone'||cat==='general'){el.hidden=true;return;}if(cat==='camera'){url.searchParams.set('cat','mobile');el.href=url;}el.textContent=cat?t[cat]||t.general:t.all;});
     const sidebarTitles=document.querySelectorAll('.sidebar-title');
     sidebarTitles.forEach(el=>{const parent=el.parentElement;if(parent.querySelector('input'))el.textContent=t.searchLabel;else if(parent.querySelector('.archive-list'))el.textContent=t.archive;else if(parent.querySelector('.category-btns'))el.textContent=t.news;});
     document.querySelectorAll('.sidebar input').forEach(el=>{el.placeholder=t.searchLabel;el.setAttribute('aria-label',t.searchLabel);});
