@@ -194,6 +194,26 @@ def scan_articles(root: Path) -> list[dict]:
     return articles
 
 
+def scan_reports(root: Path) -> list[dict]:
+    """Discover both pipeline reports and article-style reports, once per folder."""
+    paths = {}
+    for name in ('report.html', 'index.html'):
+        for path in sorted((root / 'reports').rglob(name)):
+            paths[path.parent] = path
+    records = []
+    for path in paths.values():
+        record = extract_metadata(path, root)
+        if not record:
+            continue
+        match = re.match(r'(\d{4}-\d{2}-\d{2})', path.parent.name)
+        if match:
+            record['date'] = match[1]
+            record['month'] = match[1][:7]
+        record['category'] = 'phone'
+        records.append(record)
+    return sorted(records, key=lambda record: (record['date'], record['url']), reverse=True)
+
+
 # ── HTML generation helpers ──────────────────────────────────────────────────
 
 CATEGORY_LABELS = {
@@ -492,31 +512,12 @@ def main():
     print(f"Written paginated index and search data ({len(all_articles)} articles)")
     print(f"Updated shared article presentation: {upgrade_article_files(ROOT)} pages")
 
-    # reports.html — 발표회 정리 (reports/ 디렉터리의 아티클)
-    reports_dir = ROOT / "reports"
-    report_articles = []
-    if reports_dir.exists():
-        for html_path in sorted(reports_dir.rglob("index.html"), reverse=True):
-            meta = extract_metadata(html_path, ROOT)
-            if meta:
-                report_articles.append(meta)
-        report_articles.sort(key=lambda a: a["date"] or a["month"] or "0000", reverse=True)
-
-    if report_articles:
-        write_home_files(ROOT, report_articles, "발표회 정리", route="reports")
-        reports_html = (ROOT / "reports.html").read_text(encoding="utf-8")
-    else:
-        # 정리된 발표회가 아직 없을 때 — "공사 중" 페이지로 렌더
-        reports_html = build_under_construction_page(
-            title="발표회 정리",
-            heading="발표회 정리 페이지는 아직 준비 중입니다",
-            message="신제품 발표회·언팩 이벤트를 한국어로 정리한 콘텐츠를 곧 선보일 예정입니다. "
-                    "조만간 업데이트될 예정이니 잠시만 기다려 주세요.",
-            active_nav="smartphone",
-        )
-    reports_path = ROOT / "reports.html"
-    reports_path.write_text(reports_html, encoding="utf-8")
-    print(f"Written: {reports_path} ({len(report_articles)} articles)")
+    report_articles = scan_reports(ROOT)
+    write_home_files(ROOT, report_articles, "심층 리포트", route="reports")
+    # Preserve bookmarked historical list URLs with a complete static page.
+    (ROOT / 'smartphone.html').write_bytes((ROOT / 'reports.html').read_bytes())
+    from site_ui import upgrade_report_files
+    print(f"Written report index ({len(report_articles)} reports); updated {upgrade_report_files(ROOT)} report layouts")
 
     print("Done.")
 

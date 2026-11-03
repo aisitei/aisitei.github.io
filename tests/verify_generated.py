@@ -63,3 +63,26 @@ if errors:
     print('\n'.join(errors[:30]));raise SystemExit(f'{len(errors)} validation errors')
 print(f'PASS: {len(pages)} pages, {card_count} card links, {len(records)} searchable articles, {len(files)} preserved article bodies and valid title order.')
 print(f'Home: {(ROOT/"index.html").stat().st_size:,} bytes; search index loaded on demand: {(ROOT/"assets/data/articles.json").stat().st_size:,} bytes.')
+
+report_records=json.loads((ROOT/'assets/data/reports.json').read_text())
+report_pages=[ROOT/'reports.html',ROOT/'smartphone.html',*sorted((ROOT/'report-pages').glob('page-*.html'))]
+report_errors=[]
+for path in [*report_pages,*(ROOT/item['url'] for item in report_records)]:
+    doc=References(path.read_text())
+    base=(path.parent/doc.base).resolve() if doc.base else path.parent
+    for url in doc.urls:
+        parsed=urlsplit(url)
+        if not parsed.path or parsed.scheme or parsed.netloc:continue
+        target=ROOT/parsed.path.lstrip('/') if parsed.path.startswith('/') else base/unquote(parsed.path)
+        if not target.exists():report_errors.append(f'Missing report reference: {path.relative_to(ROOT)}: {url}')
+for item in report_records:
+    path=ROOT/item['url']
+    result=subprocess.run(['git','show','HEAD:'+item['url']],cwd=ROOT,capture_output=True)
+    if result.returncode:continue
+    original=result.stdout.decode()
+    if '<body>' in original:
+        content=original.split('<body>',1)[1].split('</body>',1)[0]
+        if content not in path.read_bytes().decode():report_errors.append('Changed report content: '+item['url'])
+if report_errors:
+    print('\n'.join(report_errors[:30]));raise SystemExit(f'{len(report_errors)} report validation errors')
+print(f'PASS: {len(report_records)} reports, preserved report content and valid report references including historical list URL.')

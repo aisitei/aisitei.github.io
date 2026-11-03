@@ -7,6 +7,13 @@
     ja: {news:'テックニュース',language:'言語',headline:'技術の変化を、毎日ひと目で。',description:'カメラ・スマートフォン・AI。世界のテックニュースをお届けします。',updated:'最新の配信',searchLabel:'記事を検索',search:'検索',placeholder:'製品、技術、ニュースを検索',archive:'アーカイブ',allDates:'すべての期間',latestHighlights:'新着トピックス',latest:'最新ニュース',results:'検索結果',previous:'前へ',next:'次へ',reset:'条件をクリア',empty:'記事が見つかりません',emptyHint:'検索語や絞り込み条件を変更してください。',footer:'海外テックニュース・自動収集と翻訳・各記事に原文のリンクを掲載しています。',top:'トップへ ↑',read:'記事を読む',count:'件の記事',all:'すべて',camera:'カメラ',phone:'スマートフォン',ai:'AI',general:'テック',loadError:'記事を読み込めませんでした。もう一度お試しください。',retry:'再試行',source:'原文',translated:'自動翻訳・詳細は原文をご確認ください',summary:'記事のプレビュー',related:'あわせて読む',back:'ニュース一覧',images:'すべての画像',pending:'翻訳を準備中です。韓国語の記事を表示しています。',skip:'本文へ移動'},
     zh: {news:'科技新闻',language:'语言',headline:'科技新变化，每日一览。',description:'相机、智能手机与 AI，汇集全球科技资讯。',updated:'最近发布',searchLabel:'搜索文章',search:'搜索',placeholder:'搜索产品、技术和新闻',archive:'归档',allDates:'全部日期',latestHighlights:'最新看点',latest:'最新新闻',results:'搜索结果',previous:'上一页',next:'下一页',reset:'清除筛选',empty:'没有找到相关文章',emptyHint:'请更换关键词或清除筛选条件。',footer:'海外科技新闻 · 自动收集和翻译 · 每篇文章均附原文来源。',top:'返回顶部 ↑',read:'阅读文章',count:'篇文章',all:'全部',camera:'相机',phone:'智能手机',ai:'AI',general:'科技',loadError:'无法加载全部文章，请稍后重试。',retry:'重试',source:'原文',translated:'自动翻译 · 详情请参阅原文',summary:'文章预览',related:'继续阅读',back:'全部新闻',images:'全部图片',pending:'所选语言的翻译正在准备中，暂时显示韩语内容。',skip:'跳至正文'}
   };
+  const magazineCopy = {
+    ko: {news:'뉴스',reports:'심층 리포트',reportHeadline:'기술을 읽는 시간',reportDescription:'신제품 발표에서 주목할 만한 기술과 변화를 살펴봅니다.',reportHighlights:'발표회 기록',reportLatest:'리포트 목록'},
+    en: {news:'News',reports:'Reports',reportHeadline:'A closer look at technology.',reportDescription:'Exploring technology and changes behind new product announcements.',reportHighlights:'Launch reports',reportLatest:'All reports'},
+    ja: {news:'ニュース',reports:'特集レポート',reportHeadline:'技術を読み解く時間。',reportDescription:'新製品発表の技術と変化を詳しく見ていきます。',reportHighlights:'発表会レポート',reportLatest:'レポート一覧'},
+    zh: {news:'新闻',reports:'深度报告',reportHeadline:'深入解读科技。',reportDescription:'关注新品发布中值得了解的技术与变化。',reportHighlights:'发布会记录',reportLatest:'报告列表'}
+  };
+  Object.keys(copy).forEach(lang=>Object.assign(copy[lang],magazineCopy[lang]));
   function validLang(lang) { return languages.includes(lang) ? lang : 'ko'; }
   function readState(search, fallback) {
     const p = new URLSearchParams(search);
@@ -96,7 +103,7 @@
     byId('featured-section').hidden=!feature.length;
     byId('featured').innerHTML=feature.map((a,i)=>articleCard(a,state.lang,i===0)).join('');
     byId('news-grid').innerHTML=(feature.length?result.items.slice(3):result.items).map(a=>articleCard(a,state.lang)).join('');
-    byId('latest-heading').textContent=filtered?t.results:t.latest;
+    byId('latest-heading').textContent=filtered?t.results:(seed.route==='reports'?t.reportLatest:t.latest);
     byId('result-count').textContent=`${total.toLocaleString()} ${t.count}`;
     byId('empty-state').hidden=total!==0;
     byId('filter-state').hidden=!filtered;

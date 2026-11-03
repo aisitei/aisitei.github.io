@@ -1,291 +1,49 @@
-<!DOCTYPE html>
-<html lang="ko" data-theme="dark">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI시테이 블로그 | 스마트폰 출시회 보고서</title>
-  <meta name="description" content="중국 스마트폰 출시 발표회 분석 보고서">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #3b82f6;
-      --primary-light: #60a5fa;
-      --primary-dark: #2563eb;
-      --accent: #f59e0b;
-      --bg: #0f172a;
-      --bg-secondary: #1e293b;
-      --bg-card: #1e293b;
-      --text: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --border: #334155;
-      --border-light: #1e293b;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
-      --shadow: 0 1px 3px rgba(0,0,0,0.4);
-      --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
-      --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
-      --radius: 12px;
-      --radius-sm: 8px;
-      --max-width: 1200px;
-      --header-height: 64px;
-      --sidebar-width: 280px;
-      --cat-camera: #3b82f6;
-      --cat-phone: #a78bfa;
-      --cat-ai: #10b981;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      transition: background 0.3s, color 0.3s;
-      overflow-x: hidden;
-    }
-
-    .header {
-      position: sticky; top: 0; z-index: 1000;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(12px);
-      background-color: color-mix(in srgb, var(--bg), transparent 10%);
-      height: var(--header-height);
-    }
-    .header-inner {
-      max-width: var(--max-width); margin: 0 auto; padding: 0 24px;
-      height: 100%; display: flex; align-items: center; justify-content: space-between;
-    }
-    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
-    .logo-icon {
-      width: 36px; height: 36px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      border-radius: 10px; display: flex; align-items: center; justify-content: center;
-      color: #fff; font-weight: 700; font-size: 16px;
-    }
-    .logo-text { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
-    .logo-text span { color: var(--primary); }
-    .nav-desktop { display: flex; align-items: center; gap: 4px; }
-    .nav-link {
-      padding: 8px 16px; border-radius: var(--radius-sm); text-decoration: none;
-      color: var(--text-secondary); font-size: 14px; font-weight: 500; transition: all 0.2s;
-    }
-    .nav-link:hover, .nav-link.active { color: var(--primary); background: color-mix(in srgb, var(--primary), transparent 92%); }
-    .header-actions { display: flex; align-items: center; gap: 8px; }
-    .btn-icon {
-      width: 40px; height: 40px; border: none; border-radius: var(--radius-sm);
-      background: transparent; color: var(--text-secondary); cursor: pointer;
-      display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 18px;
-    }
-    .btn-icon:hover { background: var(--bg-secondary); color: var(--text); }
-    .menu-toggle { display: none; }
-
-    .footer { border-top: 1px solid var(--border); padding: 40px 24px; margin-top: 48px; }
-    .footer-inner {
-      max-width: var(--max-width); margin: 0 auto;
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
-    }
-    .footer-left { font-size: 13px; color: var(--text-muted); }
-    .footer-links { display: flex; gap: 20px; }
-    .footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--primary); }
-
-    .mobile-drawer { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2000; }
-    .mobile-drawer.open { display: block; }
-    .drawer-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); }
-    .drawer-panel {
-      position: absolute; top: 0; right: 0; width: 280px; height: 100%;
-      background: var(--bg); padding: 24px; overflow-y: auto; box-shadow: -4px 0 20px rgba(0,0,0,0.15);
-    }
-    .drawer-close {
-      width: 36px; height: 36px; border: none; background: var(--bg-secondary);
-      border-radius: var(--radius-sm); font-size: 18px; cursor: pointer; color: var(--text);
-      display: flex; align-items: center; justify-content: center; margin-bottom: 24px; margin-left: auto;
-    }
-    .drawer-nav { display: flex; flex-direction: column; gap: 4px; }
-    .drawer-nav a {
-      padding: 12px 16px; border-radius: var(--radius-sm); text-decoration: none;
-      color: var(--text); font-size: 15px; font-weight: 500; transition: background 0.2s;
-    }
-    .drawer-nav a:hover, .drawer-nav a.active { background: color-mix(in srgb, var(--primary), transparent 92%); color: var(--primary); }
-
-    .scroll-top {
-      position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px;
-      border-radius: 50%; background: var(--primary); color: #fff; border: none; cursor: pointer;
-      display: none; align-items: center; justify-content: center; font-size: 20px;
-      box-shadow: var(--shadow-lg); transition: all 0.3s; z-index: 500;
-    }
-    .scroll-top.visible { display: flex; }
-    .scroll-top:hover { transform: translateY(-2px); background: var(--primary-dark); }
-
-    .fade-in { animation: fadeIn 0.5s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-
-    @media (max-width: 768px) {
-      :root { --header-height: 56px; }
-      .nav-desktop { display: none; }
-      .menu-toggle { display: flex; }
-      .footer-inner { flex-direction: column; text-align: center; }
-    }
-
-    .page-hero { background: linear-gradient(135deg, #7c3aed, #a855f7, #c084fc); color: #fff; padding: 48px 24px; text-align: center; }
-    .page-hero-inner { max-width: 680px; margin: 0 auto; }
-    .page-hero h1 { font-size: 32px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; line-height: 1.3; }
-    .page-hero p { font-size: 16px; opacity: 0.9; line-height: 1.6; }
-    .page-content { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
-    .report-grid { display: grid; gap: 20px; }
-    .report-card {
-      display: flex; background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius); overflow: hidden; transition: all 0.25s;
-      text-decoration: none; color: inherit;
-    }
-    .report-card:hover { border-color: #7c3aed; box-shadow: var(--shadow-md); transform: translateY(-2px); }
-    .report-bar { width: 5px; flex-shrink: 0; background: linear-gradient(180deg, #7c3aed, #a855f7); }
-    .report-body { padding: 24px; flex: 1; }
-    .report-date { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
-    .report-title { font-size: 19px; font-weight: 700; line-height: 1.4; color: var(--text); margin-bottom: 8px; }
-    .report-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 4px; background: color-mix(in srgb, #7c3aed, transparent 88%); color: #7c3aed; }
-    .report-count { text-align: center; margin-bottom: 24px; font-size: 14px; color: var(--text-secondary); }
-    @media (max-width: 768px) {
-      .page-hero { padding: 32px 20px; }
-      .page-hero h1 { font-size: 24px; }
-      .page-content { padding: 20px 16px; }
-      .report-body { padding: 16px; }
-      .report-title { font-size: 16px; }
-    }
-  </style>
-</head>
-<body>
-
-  <header class="header">
-    <div class="header-inner">
-      <a href="/" class="logo">
-        <div class="logo-icon">AI</div>
-        <div class="logo-text"><span>AI시테이</span> 블로그</div>
-      </a>
-      <nav class="nav-desktop">
-        <a href="/" class="nav-link">IT뉴스</a>
-        <a href="/smartphone.html" class="nav-link active">스마트폰</a>
-        <a href="/ai.html" class="nav-link">AI</a>
-      </nav>
-      <div class="header-actions">
-        <button class="btn-icon menu-toggle" onclick="toggleDrawer()" aria-label="메뉴 열기">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <div class="mobile-drawer" id="mobileDrawer">
-    <div class="drawer-overlay" onclick="toggleDrawer()"></div>
-    <div class="drawer-panel">
-      <button class="drawer-close" onclick="toggleDrawer()" aria-label="메뉴 닫기">&times;</button>
-      <nav class="drawer-nav">
-        <a href="/">IT뉴스</a>
-        <a href="/smartphone.html" class="active">스마트폰</a>
-        <a href="/ai.html">AI</a>
-      </nav>
-    </div>
-  </div>
-
-  <section class="page-hero">
-    <div class="page-hero-inner fade-in">
-      <h1>중국 스마트폰 출시회 보고서</h1>
-      <p>중국 주요 스마트폰 신제품 출시 발표회를 분석하여 정리합니다</p>
-    </div>
-  </section>
-
-  <div class="page-content">
-    <p class="report-count">총 7개의 보고서</p>
-    <div class="report-grid">
-      <a href="reports/2026-03-30-vivo/report.html" class="report-card fade-in">
-        <div class="report-bar"></div>
-        <div class="report-body">
-          <div class="report-date">2026.03.30</div>
-          <h3 class="report-title">vivo X300 시리즈 춘계 신제품 발표회 출시 보고서</h3>
-          <span class="report-badge">출시회 보고서</span>
-        </div>
-      </a>
-      <a href="reports/2026-03-26-iqoo/report.html" class="report-card fade-in">
-        <div class="report-bar"></div>
-        <div class="report-body">
-          <div class="report-date">2026.03.26</div>
-          <h3 class="report-title">iQOO Z11 시리즈 출시 보고서</h3>
-          <span class="report-badge">출시회 보고서</span>
-        </div>
-      </a>
-      <a href="reports/2026-03-24-oneplus/report.html" class="report-card fade-in">
-        <div class="report-bar"></div>
-        <div class="report-body">
-          <div class="report-date">2026.03.24</div>
-          <h3 class="report-title">OnePlus 15T 출시 보고서</h3>
-          <span class="report-badge">출시회 보고서</span>
-        </div>
-      </a>
-      <a href="reports/2026-03-24-huawei-spring/report.html" class="report-card fade-in">
-        <div class="report-bar"></div>
-        <div class="report-body">
-          <div class="report-date">2026.03.24</div>
-          <h3 class="report-title">화웨이 2026 봄 신제품 발표회 보고서</h3>
-          <span class="report-badge">출시회 보고서</span>
-        </div>
-      </a>
-      <a href="reports/2026-03-23-xiaomi-17-ultra/report.html" class="report-card fade-in">
-        <div class="report-bar"></div>
-        <div class="report-body">
-          <div class="report-date">2026.03.23</div>
-          <h3 class="report-title">Xiaomi 17 Ultra 출시 보고서</h3>
-          <span class="report-badge">출시회 보고서</span>
-        </div>
-      </a>
-      <a href="reports/2026-03-23-honor-magic-v6/report.html" class="report-card fade-in">
-        <div class="report-bar"></div>
-        <div class="report-body">
-          <div class="report-date">2026.03.23</div>
-          <h3 class="report-title">Honor Magic V6 출시 보고서</h3>
-          <span class="report-badge">출시회 보고서</span>
-        </div>
-      </a>
-      <a href="reports/2026-03-20-oppo-find-n6/report.html" class="report-card fade-in">
-        <div class="report-bar"></div>
-        <div class="report-body">
-          <div class="report-date">2026.03.20</div>
-          <h3 class="report-title">OPPO Find N6 출시 보고서</h3>
-          <span class="report-badge">출시회 보고서</span>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-left">
-        &copy; 2026 AI시테이 블로그. 기사 출처:
-        <a href="https://www.ithome.com" target="_blank" rel="noopener" style="color:var(--primary);text-decoration:none;">IT之家</a>
-      </div>
-      <div class="footer-links">
-        <a href="https://github.com/aisitei" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </div>
-  </footer>
-
-  <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()" aria-label="맨 위로 스크롤">
-    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-  </button>
-
-  <script>
-    function toggleDrawer() {
-      const drawer = document.getElementById('mobileDrawer');
-      drawer.classList.toggle('open');
-      document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
-    }
-    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-    window.addEventListener('scroll', () => { document.getElementById('scrollTopBtn').classList.toggle('visible', window.scrollY > 400); });
-
-  </script>
-</body>
-</html>
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light">
+<title>심층 리포트 | AI시테이</title><meta name="description" content="카메라, 스마트폰, AI의 새로운 소식. 해외 테크 뉴스를 네 가지 언어로 읽는 AI시테이.">
+<link rel="icon" href="assets/images/favicon.ico"><link rel="stylesheet" href="assets/site.css?v=20261103a">
+<script defer src="assets/news.js?v=20261103a"></script></head>
+<body class="news-home report-home"><a class="skip-link" href="reports.html#news-content">본문으로 건너뛰기</a>
+<header class="masthead"><div class="masthead-inner">
+<a class="wordmark" href="index.html" aria-label="AI시테이 홈"><span>AI시테이</span><small>TECHNOLOGY JOURNAL</small></a>
+<nav class="primary-nav" aria-label="주 메뉴"><a href="index.html" data-i18n="news">뉴스</a><a href="reports.html" data-i18n="reports" aria-current="page">심층 리포트</a><a href="index.html#archive" data-i18n="archive">아카이브</a></nav><label class="language-control"><span class="sr-only" data-i18n="language">언어</span><select id="language" aria-label="언어 / Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option></select></label>
+</div></header>
+<main class="news-shell" id="news-content">
+<section class="intro"><div><p class="eyebrow" data-i18n="reports">심층 리포트</p><h1 data-i18n="reportHeadline">기술을 읽는 시간</h1><p class="intro-description" data-i18n="reportDescription">신제품 발표에서 주목할 만한 기술과 변화를 살펴봅니다.</p></div><div class="edition"><span data-i18n="updated">최근 발행</span><strong>2026-03-30</strong></div></section>
+<form class="reader-tools" id="archive" role="search" action="reports.html"><label class="search-box"><span aria-hidden="true">⌕</span><span class="sr-only" data-i18n="searchLabel">기사 검색</span><input id="search" name="search" type="search" placeholder="궁금한 기술, 제품, 소식을 검색하세요" autocomplete="off"><button type="submit" data-i18n="search">검색</button></label>
+<label class="archive-control"><span data-i18n="archive">아카이브</span><select id="month" name="month" aria-label="아카이브"><option value="" data-i18n="allDates">전체 기간</option><option value="2026-03">2026-03</option></select></label></form>
+<nav class="topic-nav" aria-label="카테고리"><a href="reports.html" data-filter="" class="topic-tab selected" aria-current="page">전체</a><a href="reports.html?cat=camera" data-filter="camera" class="topic-tab">카메라</a><a href="reports.html?cat=phone" data-filter="phone" class="topic-tab">스마트폰</a><a href="reports.html?cat=ai" data-filter="ai" class="topic-tab">AI</a><a href="reports.html?cat=general" data-filter="general" class="topic-tab">테크</a></nav>
+<div class="filter-state" id="filter-state" hidden><span id="filter-description"></span><button id="reset" type="button" data-i18n="reset">필터 초기화</button></div>
+<section id="featured-section" ><div class="section-heading"><h2 data-i18n="reportHighlights">발표회 기록</h2></div><div class="featured-grid" id="featured"><article class="news-card lead-card"><a href="reports/2026-03-30-vivo/report.html">
+      <div class="news-image"><img src="reports/2026-03-30-vivo/images/screenshot_004.jpg" alt="" loading="eager" width="640" height="400"></div><div class="news-copy">
+      <div class="news-meta"><span class="topic" data-category="phone">스마트폰</span><time datetime="2026-03-30">2026-03-30</time></div>
+      <h2>vivo X300 시리즈 춘계 신제품 발표회 출시 보고서</h2><span class="read-story" aria-hidden="true">기사 읽기 <span>↗</span></span>
+      </div></a></article><article class="news-card"><a href="reports/2026-03-26-iqoo/report.html">
+      <div class="news-image"><img src="reports/2026-03-26-iqoo/images/screenshot_001.jpg" alt="" loading="lazy" width="640" height="400"></div><div class="news-copy">
+      <div class="news-meta"><span class="topic" data-category="phone">스마트폰</span><time datetime="2026-03-26">2026-03-26</time></div>
+      <h2>iQOO Z11 시리즈 출시 보고서</h2><span class="read-story" aria-hidden="true">기사 읽기 <span>↗</span></span>
+      </div></a></article><article class="news-card"><a href="reports/2026-03-24-oneplus/report.html">
+      <div class="news-image"><img src="reports/2026-03-24-oneplus/images/screenshot_013.jpg" alt="" loading="lazy" width="640" height="400"></div><div class="news-copy">
+      <div class="news-meta"><span class="topic" data-category="phone">스마트폰</span><time datetime="2026-03-24">2026-03-24</time></div>
+      <h2>OnePlus 15T 출시 보고서</h2><span class="read-story" aria-hidden="true">기사 읽기 <span>↗</span></span>
+      </div></a></article></div></section>
+<section class="latest-section" aria-labelledby="latest-heading"><div class="section-heading"><h2 id="latest-heading" data-i18n="reportLatest">리포트 목록</h2><span id="result-count" role="status" aria-live="polite">전체 7개 기사</span></div><div id="news-grid" class="news-grid"><article class="news-card"><a href="reports/2026-03-24-huawei-spring/report.html">
+      <div class="news-image"><img src="reports/2026-03-24-huawei-spring/images/001_opening.jpg" alt="" loading="lazy" width="640" height="400"></div><div class="news-copy">
+      <div class="news-meta"><span class="topic" data-category="phone">스마트폰</span><time datetime="2026-03-24">2026-03-24</time></div>
+      <h2>화웨이 2026 봄 신제품 발표회 보고서</h2><span class="read-story" aria-hidden="true">기사 읽기 <span>↗</span></span>
+      </div></a></article><article class="news-card"><a href="reports/2026-03-23-xiaomi-17-ultra/report.html">
+      <div class="news-image"><img src="reports/2026-03-23-xiaomi-17-ultra/images/screenshot_02.jpg" alt="" loading="lazy" width="640" height="400"></div><div class="news-copy">
+      <div class="news-meta"><span class="topic" data-category="phone">스마트폰</span><time datetime="2026-03-23">2026-03-23</time></div>
+      <h2>Xiaomi 17 Ultra 출시 보고서</h2><span class="read-story" aria-hidden="true">기사 읽기 <span>↗</span></span>
+      </div></a></article><article class="news-card"><a href="reports/2026-03-23-honor-magic-v6/report.html">
+      <div class="news-image"><img src="reports/2026-03-23-honor-magic-v6/images/01_magic_v6_intro.jpg" alt="" loading="lazy" width="640" height="400"></div><div class="news-copy">
+      <div class="news-meta"><span class="topic" data-category="phone">스마트폰</span><time datetime="2026-03-23">2026-03-23</time></div>
+      <h2>Honor Magic V6 출시 보고서</h2><span class="read-story" aria-hidden="true">기사 읽기 <span>↗</span></span>
+      </div></a></article><article class="news-card"><a href="reports/2026-03-20-oppo-find-n6/report.html">
+      <div class="news-image"><img src="reports/2026-03-20-oppo-find-n6/images/screenshot_001_design_colors.jpg" alt="" loading="lazy" width="640" height="400"></div><div class="news-copy">
+      <div class="news-meta"><span class="topic" data-category="phone">스마트폰</span><time datetime="2026-03-20">2026-03-20</time></div>
+      <h2>OPPO Find N6 출시 보고서</h2><span class="read-story" aria-hidden="true">기사 읽기 <span>↗</span></span>
+      </div></a></article></div><div id="empty-state" class="empty-state" hidden><h3 data-i18n="empty">검색 결과가 없습니다</h3><p data-i18n="emptyHint">다른 검색어를 입력하거나 필터를 초기화해 보세요.</p></div><p id="load-error" class="load-error" role="alert" hidden></p><nav id="pagination" class="pagination" aria-label="페이지"><span class="page-status">1 / 1</span></nav></section>
+<noscript><p>검색과 언어 전환은 JavaScript가 필요합니다. 아래 페이지 이동으로 모든 기사를 읽을 수 있습니다.</p></noscript>
+</main><footer class="site-footer"><a class="footer-brand" href="index.html">AI시테이</a><p data-i18n="footer">해외 테크 뉴스 · 자동 수집 및 번역 · 원문 출처는 각 기사에 표시됩니다.</p><a href="reports.html#news-content" data-i18n="top">맨 위로 ↑</a></footer>
+<script id="news-seed" type="application/json">{"articles": [{"title": "vivo X300 시리즈 춘계 신제품 발표회 출시 보고서", "title_ko": "vivo X300 시리즈 춘계 신제품 발표회 출시 보고서", "title_en": "vivo X300 시리즈 춘계 신제품 발표회 출시 보고서", "title_ja": "vivo X300 시리즈 춘계 신제품 발표회 출시 보고서", "title_zh": "vivo X300 시리즈 춘계 신제품 발표회 출시 보고서", "url": "reports/2026-03-30-vivo/report.html", "date": "2026-03-30", "month": "2026-03", "category": "phone", "thumbnail": "reports/2026-03-30-vivo/images/screenshot_004.jpg"}, {"title": "iQOO Z11 시리즈 출시 보고서", "title_ko": "iQOO Z11 시리즈 출시 보고서", "title_en": "iQOO Z11 시리즈 출시 보고서", "title_ja": "iQOO Z11 시리즈 출시 보고서", "title_zh": "iQOO Z11 시리즈 출시 보고서", "url": "reports/2026-03-26-iqoo/report.html", "date": "2026-03-26", "month": "2026-03", "category": "phone", "thumbnail": "reports/2026-03-26-iqoo/images/screenshot_001.jpg"}, {"title": "OnePlus 15T 출시 보고서", "title_ko": "OnePlus 15T 출시 보고서", "title_en": "OnePlus 15T 출시 보고서", "title_ja": "OnePlus 15T 출시 보고서", "title_zh": "OnePlus 15T 출시 보고서", "url": "reports/2026-03-24-oneplus/report.html", "date": "2026-03-24", "month": "2026-03", "category": "phone", "thumbnail": "reports/2026-03-24-oneplus/images/screenshot_013.jpg"}, {"title": "화웨이 2026 봄 신제품 발표회 보고서", "title_ko": "화웨이 2026 봄 신제품 발표회 보고서", "title_en": "화웨이 2026 봄 신제품 발표회 보고서", "title_ja": "화웨이 2026 봄 신제품 발표회 보고서", "title_zh": "화웨이 2026 봄 신제품 발표회 보고서", "url": "reports/2026-03-24-huawei-spring/report.html", "date": "2026-03-24", "month": "2026-03", "category": "phone", "thumbnail": "reports/2026-03-24-huawei-spring/images/001_opening.jpg"}, {"title": "Xiaomi 17 Ultra 출시 보고서", "title_ko": "Xiaomi 17 Ultra 출시 보고서", "title_en": "Xiaomi 17 Ultra 출시 보고서", "title_ja": "Xiaomi 17 Ultra 출시 보고서", "title_zh": "Xiaomi 17 Ultra 출시 보고서", "url": "reports/2026-03-23-xiaomi-17-ultra/report.html", "date": "2026-03-23", "month": "2026-03", "category": "phone", "thumbnail": "reports/2026-03-23-xiaomi-17-ultra/images/screenshot_02.jpg"}, {"title": "Honor Magic V6 출시 보고서", "title_ko": "Honor Magic V6 출시 보고서", "title_en": "Honor Magic V6 출시 보고서", "title_ja": "Honor Magic V6 출시 보고서", "title_zh": "Honor Magic V6 출시 보고서", "url": "reports/2026-03-23-honor-magic-v6/report.html", "date": "2026-03-23", "month": "2026-03", "category": "phone", "thumbnail": "reports/2026-03-23-honor-magic-v6/images/01_magic_v6_intro.jpg"}, {"title": "OPPO Find N6 출시 보고서", "title_ko": "OPPO Find N6 출시 보고서", "title_en": "OPPO Find N6 출시 보고서", "title_ja": "OPPO Find N6 출시 보고서", "title_zh": "OPPO Find N6 출시 보고서", "url": "reports/2026-03-20-oppo-find-n6/report.html", "date": "2026-03-20", "month": "2026-03", "category": "phone", "thumbnail": "reports/2026-03-20-oppo-find-n6/images/screenshot_001_design_colors.jpg"}], "total": 7, "page": 1, "dataUrl": "assets/data/reports.json", "route": "reports"}</script></body></html>

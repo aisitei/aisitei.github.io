@@ -13,10 +13,13 @@
   const skip=document.createElement('a');skip.className='skip-link';skip.href='#article-content';skip.dataset.i18n='skip';document.body.prepend(skip);
   // A single accessible language select, retaining the old buttons as fallback without JS.
   const oldSelector=document.querySelector('.lang-selector');
-  const languageLabel=document.createElement('label');languageLabel.className='language-control';
-  const select=document.createElement('select');select.id='reader-language';
-  for(const [value,label] of Object.entries({ko:'🇰🇷 한국어',en:'🇺🇸 English',ja:'🇯🇵 日本語',zh:'🇨🇳 中文'})){const option=document.createElement('option');option.value=value;option.textContent=label;select.append(option);}
-  languageLabel.append(select);oldSelector?.after(languageLabel);
+  let select=document.querySelector('.masthead #language');
+  if(!select){
+    const languageLabel=document.createElement('label');languageLabel.className='language-control';
+    select=document.createElement('select');select.id='reader-language';
+    for(const [value,label] of Object.entries({ko:'한국어',en:'English',ja:'日本語',zh:'中文'})){const option=document.createElement('option');option.value=value;option.textContent=label;select.append(option);}
+    languageLabel.append(select);oldSelector?.after(languageLabel);
+  }
   const crumb=document.createElement('a');crumb.className='reader-breadcrumb';crumb.href=new URL('index.html?cat='+encodeURIComponent(category),root);meta.prepend(crumb);
   // Only the actual category is used. Supplier/brand metadata can be ambiguous.
   const badges=document.querySelector('.badge-row');if(badges){badges.replaceChildren();const badge=document.createElement('span');badge.className='badge';badges.append(badge);}
@@ -68,7 +71,7 @@
     summary.hidden=!paragraph;
     if(paragraph){const text=paragraph.textContent.trim();summaryText.textContent=text.length>200?text.slice(0,200)+'…':text;}
     // Translate common legacy navigation labels while preserving links and dates.
-    document.querySelectorAll('.header-nav a').forEach(el=>el.textContent=t.news);
+    document.querySelectorAll('.primary-nav a').forEach(el=>{const url=new URL(el.href);url.searchParams.set('lang',lang);el.href=url;});
     document.querySelectorAll('.sidebar .cat-btn').forEach(el=>{const url=new URL(el.href),cat=url.searchParams.get('cat');el.textContent=cat?t[cat]||t.general:t.all;});
     const sidebarTitles=document.querySelectorAll('.sidebar-title');
     sidebarTitles.forEach(el=>{const parent=el.parentElement;if(parent.querySelector('input'))el.textContent=t.searchLabel;else if(parent.querySelector('.archive-list'))el.textContent=t.archive;else if(parent.querySelector('.category-btns'))el.textContent=t.news;});

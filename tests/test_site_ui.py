@@ -77,3 +77,48 @@ class GenerationTests(unittest.TestCase):
         page=build.build_page([article(i) for i in range(30)],'발표회 정리','smartphone')
         self.assertIn('assets/data/reports.json',page)
         self.assertIn('report-pages/page-2.html',page)
+
+class MagazineTests(unittest.TestCase):
+    def test_report_index_has_report_copy_and_working_archive_navigation(self):
+        from site_ui import render_home
+        page = render_home([article()], route='reports')
+        self.assertIn('data-i18n="reportHeadline"', page)
+        self.assertIn('href="index.html#archive"', page)
+        self.assertIn('href="reports.html"', page)
+        self.assertIn('name="color-scheme" content="light"', page)
+        self.assertIn('class="news-home report-home"', page)
+
+    def test_scanner_finds_legacy_reports_once_and_keeps_source_title(self):
+        import tempfile
+        from pathlib import Path
+        from build import scan_reports
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            report = root/'reports/2026-03-23-xiaomi/report.html'
+            report.parent.mkdir(parents=True)
+            report.write_text('<title>Xiaomi report</title><h1>Report</h1><img src="images/shot.jpg">')
+            records = scan_reports(root)
+            self.assertEqual(len(records), 1)
+            self.assertEqual(records[0]['url'], 'reports/2026-03-23-xiaomi/report.html')
+            self.assertEqual(records[0]['date'], '2026-03-23')
+            self.assertEqual(records[0]['title_ko'], 'Xiaomi report')
+            self.assertEqual(records[0]['category'], 'phone')
+
+    def test_report_upgrade_is_idempotent_and_preserves_body(self):
+        from site_ui import upgrade_report
+        body = '<section><h2>카메라</h2><p>원문 &amp; 이미지</p></section>'
+        text = '<html><head></head><body><div class="container">'+body+'</div></body></html>'
+        result = upgrade_report(text, '../../')
+        self.assertIn(body, result)
+        self.assertIn('href="../../reports.html"', result)
+        self.assertIn('report-reader', result)
+        self.assertEqual(upgrade_report(result, '../../'), result)
+
+    def test_article_upgrade_shares_navigation_without_rewriting_body(self):
+        from site_ui import upgrade_article
+        body = '<div class="article-body"><p>원문 유지</p></div>'
+        text = '<head></head><body><header class="site-header"><a href="old">Old</a></header><main class="article-main">'+body+'</main></body>'
+        result = upgrade_article(text, '../../../../')
+        self.assertIn('href="../../../../reports.html"', result)
+        self.assertIn(body, result)
+        self.assertEqual(upgrade_article(result, '../../../../'), result)
