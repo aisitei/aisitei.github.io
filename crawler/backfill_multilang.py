@@ -32,6 +32,7 @@ from translator import (
     translate_title_en, translate_title_ja, translate_title_zh,
 )
 from scraper import scrape_article_content
+from html_fragments import normalize_body_html
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
@@ -66,7 +67,7 @@ def mark_done(article_dir: str):
 
 
 def build_lang_body_inner(paragraphs: list) -> str:
-    return "\n".join(f"          {p}" for p in paragraphs)
+    return normalize_body_html("\n".join(f"          {p}" for p in paragraphs))
 
 
 def patch_article(entry: dict, repo_root: Path) -> bool:

@@ -8,6 +8,7 @@ from jinja2 import Environment, FileSystemLoader
 
 from scraper import Article, download_image
 from ocr import ImageTranslation
+from html_fragments import normalize_body_html
 
 logger = logging.getLogger(__name__)
 
@@ -88,6 +89,9 @@ def render_html(article: TranslatedArticle, date_str: str, local_images: list) -
         "ja": article.bodies.get("ja", article.bodies.get("ko", [])),
         "en": article.bodies.get("en", article.bodies.get("ko", [])),
     }
+
+    # Treat model output as standalone fragments, never as page containers.
+    bodies = {lang: [normalize_body_html("\n".join(parts))] for lang, parts in bodies.items()}
 
     html = template.render(
         title=titles["ko"],
