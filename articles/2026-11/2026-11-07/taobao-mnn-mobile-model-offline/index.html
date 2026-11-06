@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 타오바오 MNN 팀, 0.3B 모바일 모델 오픈소스 공개, Apple iPhone 18 Pro에서 오프라인으로 350 token/s 달성</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Apple">
+  <meta name="article-brand-color" content="#555555">
+  <meta name="title-ko" content="타오바오 MNN 팀, 0.3B 모바일 모델 오픈소스 공개, Apple iPhone 18 Pro에서 오프라인으로 350 token/s 달성">
+  <meta name="title-zh" content="타오바오 MNN 팀, 0.3B 모바일 모델 오픈소스 공개, Apple iPhone 18 Pro에서 오프라인으로 350 token/s 달성">
+  <meta name="title-ja" content="타오바오 MNN 팀, 0.3B 모바일 모델 오픈소스 공개, Apple iPhone 18 Pro에서 오프라인으로 350 token/s 달성">
+  <meta name="title-en" content="타오바오 MNN 팀, 0.3B 모바일 모델 오픈소스 공개, Apple iPhone 18 Pro에서 오프라인으로 350 token/s 달성">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<script src="../../../../assets/theme.js?v=20261103c"></script>
+<link rel="stylesheet" href="../../../../assets/site.css?v=20261103c">
+<script defer src="../../../../assets/news.js?v=20261103c"></script>
+<script defer src="../../../../assets/article.js?v=20261103c"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="masthead"><div class="masthead-inner">
+<a class="wordmark" href="../../../../index.html" aria-label="AI시테이 홈"><span>AI시테이</span><small>TECHNOLOGY JOURNAL</small></a>
+<nav class="primary-nav" aria-label="주 메뉴"><a href="../../../../index.html" data-i18n="news" aria-current="page">뉴스</a><a href="../../../../reports.html" data-i18n="reports">심층 리포트</a><a href="../../../../index.html#archive" data-i18n="archive">아카이브</a></nav><div class="display-controls"><button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="다크 모드" hidden><span class="theme-symbol" aria-hidden="true">◐</span><span data-theme-label>다크 모드</span></button><label class="language-control"><span class="sr-only" data-i18n="language">언어</span><select id="language" aria-label="언어 / Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option></select></label></div>
+</div></header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #555555;">
+            Apple
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="타오바오 MNN 팀, 0.3B 모바일 모델 오픈소스 공개, Apple iPhone 18 Pro에서 오프라인으로 350 token/s 달성"
+            data-zh="타오바오 MNN 팀, 0.3B 모바일 모델 오픈소스 공개, Apple iPhone 18 Pro에서 오프라인으로 350 token/s 달성"
+            data-ja="타오바오 MNN 팀, 0.3B 모바일 모델 오픈소스 공개, Apple iPhone 18 Pro에서 오프라인으로 350 token/s 달성"
+            data-en="타오바오 MNN 팀, 0.3B 모바일 모델 오픈소스 공개, Apple iPhone 18 Pro에서 오프라인으로 350 token/s 달성">타오바오 MNN 팀, 0.3B 모바일 모델 오픈소스 공개, Apple iPhone 18 Pro에서 오프라인으로 350 token/s 달성</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-11-07
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="타오바오 MNN 팀, 0.3B 모바일 모델 오픈소스 공개, Apple iPhone 18 Pro에서 오프라인으로 350 token/s 달성" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>MNN-Pocket-0.3B 모델 공개</h3>
+<p>IT之家 11월 6일 소식에 따르면, Taobao 산하 MNN 팀이 오늘 MNN-Pocket-0.3B 모델을 공개했습니다. 이 모델은 휴대폰 애플리케이션의 작업 요구사항과 리소스 예산을 고려하여 제한된 컴퓨팅 성능, 메모리 및 에너지 소비 내에서 작업 능력, 응답 속도 및 지속적인 실행 경험을 모두 충족하도록 설계되었습니다.</p>
+<p>Taobao와 같은 종합 휴대폰 애플리케이션을 중심으로, 팀은 "휴대폰 애플리케이션 네이티브 대규모 모델"을 네 가지 설계 목표로 구체화했습니다.</p>
+<ul>
+<li><b>속도:</b> 지정된 장치 및 컨텍스트 구성에서 디코딩 처리량이 200token/s를 초과합니다. 이 목표는 고속 클라우드 모델 서비스의 생성 처리량을 참고하여 로컬에서 원활한 생성 경험을 제공하는 것을 목표로 합니다.</li>
+<li><b>메모리:</b> 지정된 테스트 조건에서 피크 메모리가 300MB 미만입니다. 휴대폰이 8~16GB 메모리를 가지고 있더라도 시스템과 여러 애플리케이션이 공유해야 합니다. 약 500MB의 모델 모듈 예산을 예로 들면, 추론 피크를 300MB 미만으로 제어하여 컨텍스트 증가 및 통합 오버헤드에 대한 여유 공간을 확보할 수 있습니다.</li>
+<li><b>전력 소비:</b> 일반적인 추론 부하(입력 512~1024token, 출력 128token)에서 단일 추론 증분 에너지 소비 목표는 참조 휴대폰 배터리 에너지의 만분의 일, 즉 100회 추론 에너지 소비가 배터리 총 에너지의 1%를 초과하지 않도록 하여 고빈도 호출의 배터리 수명 오버헤드를 제어합니다.</li>
+<li><b>능력:</b> 지정된 비즈니스 시나리오에서 8B급 모델의 효과를 달성하는 것을 목표로 하며, 중영문 이해, 세계 지식, 수학, 코드 추론 능력을 모두 고려하고, 명령 준수를 중점적으로 강화하며, 긴 컨텍스트 및 다단계 작업을 위한 확장 공간을 확보합니다.</li>
+</ul>
+<p>MNN 팀은 약 3억 개의 매개변수를 가진 이 경량 언어 모델을 처음부터 설계하고 훈련했으며, 중국어와 영어를 중점적으로 지원합니다. 모델 구조, 어휘, 훈련 데이터, 사전 훈련 및 사후 훈련 방법, 양자화 및 추론 엔진을 협력적으로 최적화하여 Taobao 비즈니스 및 오픈소스 커뮤니티 개발자에게 작업 이해 능력, 빠른 응답, 쉬운 적응 및 통합이 가능한 모델 기반을 제공합니다.</p>
+<h3>성능</h3>
+<ul>
+<li>MNN-Pocket-0.3B는 Apple iPhone 18 Pro에서 실제 테스트 결과, MNN 추론 엔진을 통해 완전히 오프라인으로 실행되며 평균 디코딩(Decode) 속도는 약 350token/s입니다.</li>
+<li>MNN-Pocket-0.3B의 INT4 MNN 배포 파일 크기는 173MB에 불과하며, 모델 가중치, 토크나이저, 계산 그래프 및 추론 구성을 포함합니다.</li>
+<li>iPad Pro M5, Metal 백엔드, 512token 테스트 구성에서 모델 로드 및 추론 중 피크 Metal 상주 메모리는 로드 전 기준선 대비 228MB 증가했습니다.</li>
+<li>동일한 테스트에서 Qwen3-0.6B의 배포 파일 크기는 340MB, 피크 메모리 증가는 427MB였습니다. 이에 비해 MNN-Pocket-0.3B의 배포 크기는 약 49% 감소했고, 피크 메모리 증가는 약 47% 감소했습니다.</li>
+</ul>
+<p>휴대폰 애플리케이션 네이티브 대규모 모델의 경우, 작은 배포 크기는 모델 다운로드 및 업데이트 비용을 절감할 수 있으며, 낮은 실행 메모리는 페이지, 이미지, 비디오 등 비즈니스 모듈에 더 많은 공간을 확보하여 애플리케이션 통합의 리소스 부담을 줄입니다.</p>
+<p>팀은 Apple 및 Android 장치에서 Metal, OpenCL 및 CPU 백엔드를 사용하여 추론 처리량을 평가했습니다. 테스트는 MNN 3.6.2, INT4 양자화 및 통일된 실행 설정을 사용했으며, 각 구성은 한 번 예열하고 다섯 번 측정하여 처리량 중앙값을 취했으며, Prefill과 Decode는 각각 측정했습니다.</p>
+<ul>
+<li>iPad Pro M5/Metal, 512token 테스트 구성에서 MNN-Pocket-0.3B의 Prefill 처리량은 8,721token/s에 도달했으며, Decode 처리량은 466token/s에 도달하여 동일 조건의 Qwen3-0.6B(286token/s)의 약 1.63배에 달했습니다.</li>
+<li>Snapdragon 8 Gen 5의 CPU 백엔드에서 Decode 처리량은 251token/s에 도달했습니다.</li>
+</ul>
+<h3>아키텍처 및 최적화</h3>
+<p>휴대폰 애플리케이션 네이티브 대규모 모델을 위해 팀은 피크 메모리 300MB 미만, 디코딩 처리량 200token/s 초과를 아키텍처 선택 목표로 설정하고, 리소스 예산 내에서 모델 용량을 최대한 보존했습니다. 이 목표를 중심으로 팀은 약 50M에서 1.3B 매개변수를 커버하는 Dense 모델 구성을 구축하고 iPad Pro M5, 통일된 추론 설정에서 테스트했습니다. 약 300M은 이 실험 그룹에서 두 가지 제약 조건을 동시에 만족하는 최대 후보 규모였습니다.</p>
+<p>규모를 확정한 후, 팀은 유사한 매개변수 예산 내에서 모델 깊이, 은닉층 너비, 피드포워드 네트워크 및 어텐션 구성을 공동으로 조정했습니다. 16개 층에서 28개 층으로 증가시키자 성능이 향상되었습니다. 36개 층으로 계속 증가시키자 평가 평균 점수는 더 이상 향상되지 않았지만, 디코딩 처리량은 355token/s에서 323token/s로 감소했습니다. 여기서 처리량은 아키텍처 선택 비교에 사용되었으며, 앞서 언급된 최종 배포 버전의 테스트 구성과는 다릅니다.</p>
+<p>최종적으로 MNN-Pocket-0.3B는 28개 층 구조를 채택하고 그룹화된 쿼리 어텐션(GQA) 등의 구성을 결합하여 모델 능력, 실행 메모리 및 추론 효율성 사이의 균형을 이루었습니다.</p>
+<p>중국어 인터넷 휴대폰 애플리케이션을 위해 MNN-Pocket-0.3B는 중국어와 영어를 중점 지원 언어로 설정하고, 다른 언어의 토큰화 효율성 우선순위를 낮췄습니다. Qwen3 토크나이저를 기반으로 팀은 어휘를 약 151K에서 64K로 간소화하여 어휘 항목 수를 약 57% 줄였고, 임베딩 및 출력 층의 매개변수 및 저장 요구 사항을 줄였으며, 토큰별 생성 시 출력 투영 오버헤드를 낮췄습니다.</p>
+<h3>전력 소비</h3>
+<p>전력 소비 측면에서 팀은 OnePlus 13(Snapdragon 8 Gen 5)에서 MNN을 사용하여 MNN-Pocket-0.3B의 4비트 모델에 대한 전력 소비 테스트를 수행했습니다. CPU4 스레드, 입력 1024 및 출력 128 기준 부하에서 배터리 전류 및 전압을 측정하고 유휴 기준 전력 소비를 제외한 결과, 세 번의 테스트에서 환산된 평균 증분 에너지 소비는 약 2.7J/회였습니다. 이 휴대폰의 배터리 용량 6000mAh로 계산하면, 동일한 부하 작업을 100회 실행할 때 누적 증분 에너지 소비는 배터리 총 전력량의 약 0.3%를 차지합니다.</p>
+<h3>모델 능력</h3>
+<p>모델 능력 측면에서 기술 보고서에 채택된 평가 설정에서 MNN-Pocket-0.3B의 영어 IFEval 점수는 73.20, 팀이 구축한 중국어 명령 준수 IFEval-zh 점수는 74.59로, 비교된 모델 중 모두 최고 점수를 기록했습니다.</p>
+<p>중영문 지식, 추론, 수학, 코드 및 명령 준수를 포함하는 11개 평가에서 모델의 평균 점수는 50.00에 도달하여 보고서에 나열된 동일 규모 모델뿐만 아니라 MiniCPM4-0.5B, Qwen3-0.6B 등 더 큰 규모의 비교 모델보다 높았습니다. 이 중 중국어 수학 MGSM-zh 점수는 51.20, 코드 생성 HumanEval 점수는 53.66이었습니다.</p>
+<h3>오픈소스 버전</h3>
+<p>휴대폰 애플리케이션 네이티브 대규모 모델의 가치는 작업 적응 및 애플리케이션 통합을 통해 검증되어야 합니다. 이를 위해 MNN-Pocket-0.3B는 사전 훈련, 사후 훈련부터 엣지 장치 배포까지 여러 버전을 제공하여 연구자와 개발자가 적절한 시작점을 선택하고 계속해서 훈련, 평가 및 애플리케이션을 구축할 수 있도록 합니다.</p>
+<p>연구에서 배포까지, MNN 팀은 다양한 단계의 모델 진입점을 오픈소스화했습니다.</p>
+<ul>
+<li><b>MNN-Pocket-0.3B-Base:</b> 사전 훈련, 도메인 적응 및 기본 능력 연구를 계속합니다.</li>
+<li><b>MNN-Pocket-0.3B-SFT:</b> 사후 훈련 연구, 강화 학습, 증류 및 제거 실험을 수행합니다.</li>
+<li><b>MNN-Pocket-0.3B:</b> 범용 명령 호출 및 비즈니스 작업 적응을 지원합니다.</li>
+<li><b>MNN-Pocket-0.3B-MNN:</b> W4A16 QAT 엣지 장치 배포 버전으로, MNN 추론 엔진의 저비트 연산자 및 하드웨어 백엔드 최적화와 결합하여 특정 장치에서 디코딩 처리량이 466 token/s에 도달할 수 있습니다.</li>
+<li><b>MNN-Pocket-0.3B-DFlash2:</b> DFlash2 투기적 디코딩 초안 모델로, MNN 추론 엔진의 블록 단위 생성 및 검증 구현과 결합하여 특정 작업에서 디코딩 처리량이 일반적인 자기회귀 디코딩의 2.06배에 달할 수 있습니다.</li>
+<li><b>MNN-Pocket-0.3B-Dec:</b> 의사결정 헤드를 통해 후보 선택 유형 작업을 완료합니다.</li>
+</ul>
+<p>IT之家는 오픈소스 주소를 다음과 같이 첨부합니다.</p>
+<p>https://github.com/alibaba/mnn</p>
+<h3>총평</h3>
+<p>Taobao MNN 팀이 공개한 MNN-Pocket-0.3B는 휴대폰 애플리케이션에 최적화된 경량 언어 모델입니다. 이 모델은 제한된 리소스 환경에서 높은 디코딩 처리량(최대 466token/s)과 낮은 메모리 사용량(피크 300MB 미만)을 달성하며, 전력 소비도 효율적으로 관리합니다. 특히 중국어와 영어 처리 능력에서 우수한 성능을 보이며, 다양한 오픈소스 버전을 통해 연구 및 개발 커뮤니티의 활용을 지원합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>MNN-Pocket-0.3B 모델 공개</h3>
+<p>IT之家 11월 6일 소식에 따르면, Taobao 산하 MNN 팀이 오늘 MNN-Pocket-0.3B 모델을 공개했습니다. 이 모델은 휴대폰 애플리케이션의 작업 요구사항과 리소스 예산을 고려하여 제한된 컴퓨팅 성능, 메모리 및 에너지 소비 내에서 작업 능력, 응답 속도 및 지속적인 실행 경험을 모두 충족하도록 설계되었습니다.</p>
+<p>Taobao와 같은 종합 휴대폰 애플리케이션을 중심으로, 팀은 "휴대폰 애플리케이션 네이티브 대규모 모델"을 네 가지 설계 목표로 구체화했습니다.</p>
+<ul>
+<li><b>속도:</b> 지정된 장치 및 컨텍스트 구성에서 디코딩 처리량이 200token/s를 초과합니다. 이 목표는 고속 클라우드 모델 서비스의 생성 처리량을 참고하여 로컬에서 원활한 생성 경험을 제공하는 것을 목표로 합니다.</li>
+<li><b>메모리:</b> 지정된 테스트 조건에서 피크 메모리가 300MB 미만입니다. 휴대폰이 8~16GB 메모리를 가지고 있더라도 시스템과 여러 애플리케이션이 공유해야 합니다. 약 500MB의 모델 모듈 예산을 예로 들면, 추론 피크를 300MB 미만으로 제어하여 컨텍스트 증가 및 통합 오버헤드에 대한 여유 공간을 확보할 수 있습니다.</li>
+<li><b>전력 소비:</b> 일반적인 추론 부하(입력 512~1024token, 출력 128token)에서 단일 추론 증분 에너지 소비 목표는 참조 휴대폰 배터리 에너지의 만분의 일, 즉 100회 추론 에너지 소비가 배터리 총 에너지의 1%를 초과하지 않도록 하여 고빈도 호출의 배터리 수명 오버헤드를 제어합니다.</li>
+<li><b>능력:</b> 지정된 비즈니스 시나리오에서 8B급 모델의 효과를 달성하는 것을 목표로 하며, 중영문 이해, 세계 지식, 수학, 코드 추론 능력을 모두 고려하고, 명령 준수를 중점적으로 강화하며, 긴 컨텍스트 및 다단계 작업을 위한 확장 공간을 확보합니다.</li>
+</ul>
+<p>MNN 팀은 약 3억 개의 매개변수를 가진 이 경량 언어 모델을 처음부터 설계하고 훈련했으며, 중국어와 영어를 중점적으로 지원합니다. 모델 구조, 어휘, 훈련 데이터, 사전 훈련 및 사후 훈련 방법, 양자화 및 추론 엔진을 협력적으로 최적화하여 Taobao 비즈니스 및 오픈소스 커뮤니티 개발자에게 작업 이해 능력, 빠른 응답, 쉬운 적응 및 통합이 가능한 모델 기반을 제공합니다.</p>
+<h3>성능</h3>
+<ul>
+<li>MNN-Pocket-0.3B는 Apple iPhone 18 Pro에서 실제 테스트 결과, MNN 추론 엔진을 통해 완전히 오프라인으로 실행되며 평균 디코딩(Decode) 속도는 약 350token/s입니다.</li>
+<li>MNN-Pocket-0.3B의 INT4 MNN 배포 파일 크기는 173MB에 불과하며, 모델 가중치, 토크나이저, 계산 그래프 및 추론 구성을 포함합니다.</li>
+<li>iPad Pro M5, Metal 백엔드, 512token 테스트 구성에서 모델 로드 및 추론 중 피크 Metal 상주 메모리는 로드 전 기준선 대비 228MB 증가했습니다.</li>
+<li>동일한 테스트에서 Qwen3-0.6B의 배포 파일 크기는 340MB, 피크 메모리 증가는 427MB였습니다. 이에 비해 MNN-Pocket-0.3B의 배포 크기는 약 49% 감소했고, 피크 메모리 증가는 약 47% 감소했습니다.</li>
+</ul>
+<p>휴대폰 애플리케이션 네이티브 대규모 모델의 경우, 작은 배포 크기는 모델 다운로드 및 업데이트 비용을 절감할 수 있으며, 낮은 실행 메모리는 페이지, 이미지, 비디오 등 비즈니스 모듈에 더 많은 공간을 확보하여 애플리케이션 통합의 리소스 부담을 줄입니다.</p>
+<p>팀은 Apple 및 Android 장치에서 Metal, OpenCL 및 CPU 백엔드를 사용하여 추론 처리량을 평가했습니다. 테스트는 MNN 3.6.2, INT4 양자화 및 통일된 실행 설정을 사용했으며, 각 구성은 한 번 예열하고 다섯 번 측정하여 처리량 중앙값을 취했으며, Prefill과 Decode는 각각 측정했습니다.</p>
+<ul>
+<li>iPad Pro M5/Metal, 512token 테스트 구성에서 MNN-Pocket-0.3B의 Prefill 처리량은 8,721token/s에 도달했으며, Decode 처리량은 466token/s에 도달하여 동일 조건의 Qwen3-0.6B(286token/s)의 약 1.63배에 달했습니다.</li>
+<li>Snapdragon 8 Gen 5의 CPU 백엔드에서 Decode 처리량은 251token/s에 도달했습니다.</li>
+</ul>
+<h3>아키텍처 및 최적화</h3>
+<p>휴대폰 애플리케이션 네이티브 대규모 모델을 위해 팀은 피크 메모리 300MB 미만, 디코딩 처리량 200token/s 초과를 아키텍처 선택 목표로 설정하고, 리소스 예산 내에서 모델 용량을 최대한 보존했습니다. 이 목표를 중심으로 팀은 약 50M에서 1.3B 매개변수를 커버하는 Dense 모델 구성을 구축하고 iPad Pro M5, 통일된 추론 설정에서 테스트했습니다. 약 300M은 이 실험 그룹에서 두 가지 제약 조건을 동시에 만족하는 최대 후보 규모였습니다.</p>
+<p>규모를 확정한 후, 팀은 유사한 매개변수 예산 내에서 모델 깊이, 은닉층 너비, 피드포워드 네트워크 및 어텐션 구성을 공동으로 조정했습니다. 16개 층에서 28개 층으로 증가시키자 성능이 향상되었습니다. 36개 층으로 계속 증가시키자 평가 평균 점수는 더 이상 향상되지 않았지만, 디코딩 처리량은 355token/s에서 323token/s로 감소했습니다. 여기서 처리량은 아키텍처 선택 비교에 사용되었으며, 앞서 언급된 최종 배포 버전의 테스트 구성과는 다릅니다.</p>
+<p>최종적으로 MNN-Pocket-0.3B는 28개 층 구조를 채택하고 그룹화된 쿼리 어텐션(GQA) 등의 구성을 결합하여 모델 능력, 실행 메모리 및 추론 효율성 사이의 균형을 이루었습니다.</p>
+<p>중국어 인터넷 휴대폰 애플리케이션을 위해 MNN-Pocket-0.3B는 중국어와 영어를 중점 지원 언어로 설정하고, 다른 언어의 토큰화 효율성 우선순위를 낮췄습니다. Qwen3 토크나이저를 기반으로 팀은 어휘를 약 151K에서 64K로 간소화하여 어휘 항목 수를 약 57% 줄였고, 임베딩 및 출력 층의 매개변수 및 저장 요구 사항을 줄였으며, 토큰별 생성 시 출력 투영 오버헤드를 낮췄습니다.</p>
+<h3>전력 소비</h3>
+<p>전력 소비 측면에서 팀은 OnePlus 13(Snapdragon 8 Gen 5)에서 MNN을 사용하여 MNN-Pocket-0.3B의 4비트 모델에 대한 전력 소비 테스트를 수행했습니다. CPU4 스레드, 입력 1024 및 출력 128 기준 부하에서 배터리 전류 및 전압을 측정하고 유휴 기준 전력 소비를 제외한 결과, 세 번의 테스트에서 환산된 평균 증분 에너지 소비는 약 2.7J/회였습니다. 이 휴대폰의 배터리 용량 6000mAh로 계산하면, 동일한 부하 작업을 100회 실행할 때 누적 증분 에너지 소비는 배터리 총 전력량의 약 0.3%를 차지합니다.</p>
+<h3>모델 능력</h3>
+<p>모델 능력 측면에서 기술 보고서에 채택된 평가 설정에서 MNN-Pocket-0.3B의 영어 IFEval 점수는 73.20, 팀이 구축한 중국어 명령 준수 IFEval-zh 점수는 74.59로, 비교된 모델 중 모두 최고 점수를 기록했습니다.</p>
+<p>중영문 지식, 추론, 수학, 코드 및 명령 준수를 포함하는 11개 평가에서 모델의 평균 점수는 50.00에 도달하여 보고서에 나열된 동일 규모 모델뿐만 아니라 MiniCPM4-0.5B, Qwen3-0.6B 등 더 큰 규모의 비교 모델보다 높았습니다. 이 중 중국어 수학 MGSM-zh 점수는 51.20, 코드 생성 HumanEval 점수는 53.66이었습니다.</p>
+<h3>오픈소스 버전</h3>
+<p>휴대폰 애플리케이션 네이티브 대규모 모델의 가치는 작업 적응 및 애플리케이션 통합을 통해 검증되어야 합니다. 이를 위해 MNN-Pocket-0.3B는 사전 훈련, 사후 훈련부터 엣지 장치 배포까지 여러 버전을 제공하여 연구자와 개발자가 적절한 시작점을 선택하고 계속해서 훈련, 평가 및 애플리케이션을 구축할 수 있도록 합니다.</p>
+<p>연구에서 배포까지, MNN 팀은 다양한 단계의 모델 진입점을 오픈소스화했습니다.</p>
+<ul>
+<li><b>MNN-Pocket-0.3B-Base:</b> 사전 훈련, 도메인 적응 및 기본 능력 연구를 계속합니다.</li>
+<li><b>MNN-Pocket-0.3B-SFT:</b> 사후 훈련 연구, 강화 학습, 증류 및 제거 실험을 수행합니다.</li>
+<li><b>MNN-Pocket-0.3B:</b> 범용 명령 호출 및 비즈니스 작업 적응을 지원합니다.</li>
+<li><b>MNN-Pocket-0.3B-MNN:</b> W4A16 QAT 엣지 장치 배포 버전으로, MNN 추론 엔진의 저비트 연산자 및 하드웨어 백엔드 최적화와 결합하여 특정 장치에서 디코딩 처리량이 466 token/s에 도달할 수 있습니다.</li>
+<li><b>MNN-Pocket-0.3B-DFlash2:</b> DFlash2 투기적 디코딩 초안 모델로, MNN 추론 엔진의 블록 단위 생성 및 검증 구현과 결합하여 특정 작업에서 디코딩 처리량이 일반적인 자기회귀 디코딩의 2.06배에 달할 수 있습니다.</li>
+<li><b>MNN-Pocket-0.3B-Dec:</b> 의사결정 헤드를 통해 후보 선택 유형 작업을 완료합니다.</li>
+</ul>
+<p>IT之家는 오픈소스 주소를 다음과 같이 첨부합니다.</p>
+<p>https://github.com/alibaba/mnn</p>
+<h3>총평</h3>
+<p>Taobao MNN 팀이 공개한 MNN-Pocket-0.3B는 휴대폰 애플리케이션에 최적화된 경량 언어 모델입니다. 이 모델은 제한된 리소스 환경에서 높은 디코딩 처리량(최대 466token/s)과 낮은 메모리 사용량(피크 300MB 미만)을 달성하며, 전력 소비도 효율적으로 관리합니다. 특히 중국어와 영어 처리 능력에서 우수한 성능을 보이며, 다양한 오픈소스 버전을 통해 연구 및 개발 커뮤니티의 활용을 지원합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>MNN-Pocket-0.3B 모델 공개</h3>
+<p>IT之家 11월 6일 소식에 따르면, Taobao 산하 MNN 팀이 오늘 MNN-Pocket-0.3B 모델을 공개했습니다. 이 모델은 휴대폰 애플리케이션의 작업 요구사항과 리소스 예산을 고려하여 제한된 컴퓨팅 성능, 메모리 및 에너지 소비 내에서 작업 능력, 응답 속도 및 지속적인 실행 경험을 모두 충족하도록 설계되었습니다.</p>
+<p>Taobao와 같은 종합 휴대폰 애플리케이션을 중심으로, 팀은 "휴대폰 애플리케이션 네이티브 대규모 모델"을 네 가지 설계 목표로 구체화했습니다.</p>
+<ul>
+<li><b>속도:</b> 지정된 장치 및 컨텍스트 구성에서 디코딩 처리량이 200token/s를 초과합니다. 이 목표는 고속 클라우드 모델 서비스의 생성 처리량을 참고하여 로컬에서 원활한 생성 경험을 제공하는 것을 목표로 합니다.</li>
+<li><b>메모리:</b> 지정된 테스트 조건에서 피크 메모리가 300MB 미만입니다. 휴대폰이 8~16GB 메모리를 가지고 있더라도 시스템과 여러 애플리케이션이 공유해야 합니다. 약 500MB의 모델 모듈 예산을 예로 들면, 추론 피크를 300MB 미만으로 제어하여 컨텍스트 증가 및 통합 오버헤드에 대한 여유 공간을 확보할 수 있습니다.</li>
+<li><b>전력 소비:</b> 일반적인 추론 부하(입력 512~1024token, 출력 128token)에서 단일 추론 증분 에너지 소비 목표는 참조 휴대폰 배터리 에너지의 만분의 일, 즉 100회 추론 에너지 소비가 배터리 총 에너지의 1%를 초과하지 않도록 하여 고빈도 호출의 배터리 수명 오버헤드를 제어합니다.</li>
+<li><b>능력:</b> 지정된 비즈니스 시나리오에서 8B급 모델의 효과를 달성하는 것을 목표로 하며, 중영문 이해, 세계 지식, 수학, 코드 추론 능력을 모두 고려하고, 명령 준수를 중점적으로 강화하며, 긴 컨텍스트 및 다단계 작업을 위한 확장 공간을 확보합니다.</li>
+</ul>
+<p>MNN 팀은 약 3억 개의 매개변수를 가진 이 경량 언어 모델을 처음부터 설계하고 훈련했으며, 중국어와 영어를 중점적으로 지원합니다. 모델 구조, 어휘, 훈련 데이터, 사전 훈련 및 사후 훈련 방법, 양자화 및 추론 엔진을 협력적으로 최적화하여 Taobao 비즈니스 및 오픈소스 커뮤니티 개발자에게 작업 이해 능력, 빠른 응답, 쉬운 적응 및 통합이 가능한 모델 기반을 제공합니다.</p>
+<h3>성능</h3>
+<ul>
+<li>MNN-Pocket-0.3B는 Apple iPhone 18 Pro에서 실제 테스트 결과, MNN 추론 엔진을 통해 완전히 오프라인으로 실행되며 평균 디코딩(Decode) 속도는 약 350token/s입니다.</li>
+<li>MNN-Pocket-0.3B의 INT4 MNN 배포 파일 크기는 173MB에 불과하며, 모델 가중치, 토크나이저, 계산 그래프 및 추론 구성을 포함합니다.</li>
+<li>iPad Pro M5, Metal 백엔드, 512token 테스트 구성에서 모델 로드 및 추론 중 피크 Metal 상주 메모리는 로드 전 기준선 대비 228MB 증가했습니다.</li>
+<li>동일한 테스트에서 Qwen3-0.6B의 배포 파일 크기는 340MB, 피크 메모리 증가는 427MB였습니다. 이에 비해 MNN-Pocket-0.3B의 배포 크기는 약 49% 감소했고, 피크 메모리 증가는 약 47% 감소했습니다.</li>
+</ul>
+<p>휴대폰 애플리케이션 네이티브 대규모 모델의 경우, 작은 배포 크기는 모델 다운로드 및 업데이트 비용을 절감할 수 있으며, 낮은 실행 메모리는 페이지, 이미지, 비디오 등 비즈니스 모듈에 더 많은 공간을 확보하여 애플리케이션 통합의 리소스 부담을 줄입니다.</p>
+<p>팀은 Apple 및 Android 장치에서 Metal, OpenCL 및 CPU 백엔드를 사용하여 추론 처리량을 평가했습니다. 테스트는 MNN 3.6.2, INT4 양자화 및 통일된 실행 설정을 사용했으며, 각 구성은 한 번 예열하고 다섯 번 측정하여 처리량 중앙값을 취했으며, Prefill과 Decode는 각각 측정했습니다.</p>
+<ul>
+<li>iPad Pro M5/Metal, 512token 테스트 구성에서 MNN-Pocket-0.3B의 Prefill 처리량은 8,721token/s에 도달했으며, Decode 처리량은 466token/s에 도달하여 동일 조건의 Qwen3-0.6B(286token/s)의 약 1.63배에 달했습니다.</li>
+<li>Snapdragon 8 Gen 5의 CPU 백엔드에서 Decode 처리량은 251token/s에 도달했습니다.</li>
+</ul>
+<h3>아키텍처 및 최적화</h3>
+<p>휴대폰 애플리케이션 네이티브 대규모 모델을 위해 팀은 피크 메모리 300MB 미만, 디코딩 처리량 200token/s 초과를 아키텍처 선택 목표로 설정하고, 리소스 예산 내에서 모델 용량을 최대한 보존했습니다. 이 목표를 중심으로 팀은 약 50M에서 1.3B 매개변수를 커버하는 Dense 모델 구성을 구축하고 iPad Pro M5, 통일된 추론 설정에서 테스트했습니다. 약 300M은 이 실험 그룹에서 두 가지 제약 조건을 동시에 만족하는 최대 후보 규모였습니다.</p>
+<p>규모를 확정한 후, 팀은 유사한 매개변수 예산 내에서 모델 깊이, 은닉층 너비, 피드포워드 네트워크 및 어텐션 구성을 공동으로 조정했습니다. 16개 층에서 28개 층으로 증가시키자 성능이 향상되었습니다. 36개 층으로 계속 증가시키자 평가 평균 점수는 더 이상 향상되지 않았지만, 디코딩 처리량은 355token/s에서 323token/s로 감소했습니다. 여기서 처리량은 아키텍처 선택 비교에 사용되었으며, 앞서 언급된 최종 배포 버전의 테스트 구성과는 다릅니다.</p>
+<p>최종적으로 MNN-Pocket-0.3B는 28개 층 구조를 채택하고 그룹화된 쿼리 어텐션(GQA) 등의 구성을 결합하여 모델 능력, 실행 메모리 및 추론 효율성 사이의 균형을 이루었습니다.</p>
+<p>중국어 인터넷 휴대폰 애플리케이션을 위해 MNN-Pocket-0.3B는 중국어와 영어를 중점 지원 언어로 설정하고, 다른 언어의 토큰화 효율성 우선순위를 낮췄습니다. Qwen3 토크나이저를 기반으로 팀은 어휘를 약 151K에서 64K로 간소화하여 어휘 항목 수를 약 57% 줄였고, 임베딩 및 출력 층의 매개변수 및 저장 요구 사항을 줄였으며, 토큰별 생성 시 출력 투영 오버헤드를 낮췄습니다.</p>
+<h3>전력 소비</h3>
+<p>전력 소비 측면에서 팀은 OnePlus 13(Snapdragon 8 Gen 5)에서 MNN을 사용하여 MNN-Pocket-0.3B의 4비트 모델에 대한 전력 소비 테스트를 수행했습니다. CPU4 스레드, 입력 1024 및 출력 128 기준 부하에서 배터리 전류 및 전압을 측정하고 유휴 기준 전력 소비를 제외한 결과, 세 번의 테스트에서 환산된 평균 증분 에너지 소비는 약 2.7J/회였습니다. 이 휴대폰의 배터리 용량 6000mAh로 계산하면, 동일한 부하 작업을 100회 실행할 때 누적 증분 에너지 소비는 배터리 총 전력량의 약 0.3%를 차지합니다.</p>
+<h3>모델 능력</h3>
+<p>모델 능력 측면에서 기술 보고서에 채택된 평가 설정에서 MNN-Pocket-0.3B의 영어 IFEval 점수는 73.20, 팀이 구축한 중국어 명령 준수 IFEval-zh 점수는 74.59로, 비교된 모델 중 모두 최고 점수를 기록했습니다.</p>
+<p>중영문 지식, 추론, 수학, 코드 및 명령 준수를 포함하는 11개 평가에서 모델의 평균 점수는 50.00에 도달하여 보고서에 나열된 동일 규모 모델뿐만 아니라 MiniCPM4-0.5B, Qwen3-0.6B 등 더 큰 규모의 비교 모델보다 높았습니다. 이 중 중국어 수학 MGSM-zh 점수는 51.20, 코드 생성 HumanEval 점수는 53.66이었습니다.</p>
+<h3>오픈소스 버전</h3>
+<p>휴대폰 애플리케이션 네이티브 대규모 모델의 가치는 작업 적응 및 애플리케이션 통합을 통해 검증되어야 합니다. 이를 위해 MNN-Pocket-0.3B는 사전 훈련, 사후 훈련부터 엣지 장치 배포까지 여러 버전을 제공하여 연구자와 개발자가 적절한 시작점을 선택하고 계속해서 훈련, 평가 및 애플리케이션을 구축할 수 있도록 합니다.</p>
+<p>연구에서 배포까지, MNN 팀은 다양한 단계의 모델 진입점을 오픈소스화했습니다.</p>
+<ul>
+<li><b>MNN-Pocket-0.3B-Base:</b> 사전 훈련, 도메인 적응 및 기본 능력 연구를 계속합니다.</li>
+<li><b>MNN-Pocket-0.3B-SFT:</b> 사후 훈련 연구, 강화 학습, 증류 및 제거 실험을 수행합니다.</li>
+<li><b>MNN-Pocket-0.3B:</b> 범용 명령 호출 및 비즈니스 작업 적응을 지원합니다.</li>
+<li><b>MNN-Pocket-0.3B-MNN:</b> W4A16 QAT 엣지 장치 배포 버전으로, MNN 추론 엔진의 저비트 연산자 및 하드웨어 백엔드 최적화와 결합하여 특정 장치에서 디코딩 처리량이 466 token/s에 도달할 수 있습니다.</li>
+<li><b>MNN-Pocket-0.3B-DFlash2:</b> DFlash2 투기적 디코딩 초안 모델로, MNN 추론 엔진의 블록 단위 생성 및 검증 구현과 결합하여 특정 작업에서 디코딩 처리량이 일반적인 자기회귀 디코딩의 2.06배에 달할 수 있습니다.</li>
+<li><b>MNN-Pocket-0.3B-Dec:</b> 의사결정 헤드를 통해 후보 선택 유형 작업을 완료합니다.</li>
+</ul>
+<p>IT之家는 오픈소스 주소를 다음과 같이 첨부합니다.</p>
+<p>https://github.com/alibaba/mnn</p>
+<h3>총평</h3>
+<p>Taobao MNN 팀이 공개한 MNN-Pocket-0.3B는 휴대폰 애플리케이션에 최적화된 경량 언어 모델입니다. 이 모델은 제한된 리소스 환경에서 높은 디코딩 처리량(최대 466token/s)과 낮은 메모리 사용량(피크 300MB 미만)을 달성하며, 전력 소비도 효율적으로 관리합니다. 특히 중국어와 영어 처리 능력에서 우수한 성능을 보이며, 다양한 오픈소스 버전을 통해 연구 및 개발 커뮤니티의 활용을 지원합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>MNN-Pocket-0.3B 모델 공개</h3>
+<p>IT之家 11월 6일 소식에 따르면, Taobao 산하 MNN 팀이 오늘 MNN-Pocket-0.3B 모델을 공개했습니다. 이 모델은 휴대폰 애플리케이션의 작업 요구사항과 리소스 예산을 고려하여 제한된 컴퓨팅 성능, 메모리 및 에너지 소비 내에서 작업 능력, 응답 속도 및 지속적인 실행 경험을 모두 충족하도록 설계되었습니다.</p>
+<p>Taobao와 같은 종합 휴대폰 애플리케이션을 중심으로, 팀은 "휴대폰 애플리케이션 네이티브 대규모 모델"을 네 가지 설계 목표로 구체화했습니다.</p>
+<ul>
+<li><b>속도:</b> 지정된 장치 및 컨텍스트 구성에서 디코딩 처리량이 200token/s를 초과합니다. 이 목표는 고속 클라우드 모델 서비스의 생성 처리량을 참고하여 로컬에서 원활한 생성 경험을 제공하는 것을 목표로 합니다.</li>
+<li><b>메모리:</b> 지정된 테스트 조건에서 피크 메모리가 300MB 미만입니다. 휴대폰이 8~16GB 메모리를 가지고 있더라도 시스템과 여러 애플리케이션이 공유해야 합니다. 약 500MB의 모델 모듈 예산을 예로 들면, 추론 피크를 300MB 미만으로 제어하여 컨텍스트 증가 및 통합 오버헤드에 대한 여유 공간을 확보할 수 있습니다.</li>
+<li><b>전력 소비:</b> 일반적인 추론 부하(입력 512~1024token, 출력 128token)에서 단일 추론 증분 에너지 소비 목표는 참조 휴대폰 배터리 에너지의 만분의 일, 즉 100회 추론 에너지 소비가 배터리 총 에너지의 1%를 초과하지 않도록 하여 고빈도 호출의 배터리 수명 오버헤드를 제어합니다.</li>
+<li><b>능력:</b> 지정된 비즈니스 시나리오에서 8B급 모델의 효과를 달성하는 것을 목표로 하며, 중영문 이해, 세계 지식, 수학, 코드 추론 능력을 모두 고려하고, 명령 준수를 중점적으로 강화하며, 긴 컨텍스트 및 다단계 작업을 위한 확장 공간을 확보합니다.</li>
+</ul>
+<p>MNN 팀은 약 3억 개의 매개변수를 가진 이 경량 언어 모델을 처음부터 설계하고 훈련했으며, 중국어와 영어를 중점적으로 지원합니다. 모델 구조, 어휘, 훈련 데이터, 사전 훈련 및 사후 훈련 방법, 양자화 및 추론 엔진을 협력적으로 최적화하여 Taobao 비즈니스 및 오픈소스 커뮤니티 개발자에게 작업 이해 능력, 빠른 응답, 쉬운 적응 및 통합이 가능한 모델 기반을 제공합니다.</p>
+<h3>성능</h3>
+<ul>
+<li>MNN-Pocket-0.3B는 Apple iPhone 18 Pro에서 실제 테스트 결과, MNN 추론 엔진을 통해 완전히 오프라인으로 실행되며 평균 디코딩(Decode) 속도는 약 350token/s입니다.</li>
+<li>MNN-Pocket-0.3B의 INT4 MNN 배포 파일 크기는 173MB에 불과하며, 모델 가중치, 토크나이저, 계산 그래프 및 추론 구성을 포함합니다.</li>
+<li>iPad Pro M5, Metal 백엔드, 512token 테스트 구성에서 모델 로드 및 추론 중 피크 Metal 상주 메모리는 로드 전 기준선 대비 228MB 증가했습니다.</li>
+<li>동일한 테스트에서 Qwen3-0.6B의 배포 파일 크기는 340MB, 피크 메모리 증가는 427MB였습니다. 이에 비해 MNN-Pocket-0.3B의 배포 크기는 약 49% 감소했고, 피크 메모리 증가는 약 47% 감소했습니다.</li>
+</ul>
+<p>휴대폰 애플리케이션 네이티브 대규모 모델의 경우, 작은 배포 크기는 모델 다운로드 및 업데이트 비용을 절감할 수 있으며, 낮은 실행 메모리는 페이지, 이미지, 비디오 등 비즈니스 모듈에 더 많은 공간을 확보하여 애플리케이션 통합의 리소스 부담을 줄입니다.</p>
+<p>팀은 Apple 및 Android 장치에서 Metal, OpenCL 및 CPU 백엔드를 사용하여 추론 처리량을 평가했습니다. 테스트는 MNN 3.6.2, INT4 양자화 및 통일된 실행 설정을 사용했으며, 각 구성은 한 번 예열하고 다섯 번 측정하여 처리량 중앙값을 취했으며, Prefill과 Decode는 각각 측정했습니다.</p>
+<ul>
+<li>iPad Pro M5/Metal, 512token 테스트 구성에서 MNN-Pocket-0.3B의 Prefill 처리량은 8,721token/s에 도달했으며, Decode 처리량은 466token/s에 도달하여 동일 조건의 Qwen3-0.6B(286token/s)의 약 1.63배에 달했습니다.</li>
+<li>Snapdragon 8 Gen 5의 CPU 백엔드에서 Decode 처리량은 251token/s에 도달했습니다.</li>
+</ul>
+<h3>아키텍처 및 최적화</h3>
+<p>휴대폰 애플리케이션 네이티브 대규모 모델을 위해 팀은 피크 메모리 300MB 미만, 디코딩 처리량 200token/s 초과를 아키텍처 선택 목표로 설정하고, 리소스 예산 내에서 모델 용량을 최대한 보존했습니다. 이 목표를 중심으로 팀은 약 50M에서 1.3B 매개변수를 커버하는 Dense 모델 구성을 구축하고 iPad Pro M5, 통일된 추론 설정에서 테스트했습니다. 약 300M은 이 실험 그룹에서 두 가지 제약 조건을 동시에 만족하는 최대 후보 규모였습니다.</p>
+<p>규모를 확정한 후, 팀은 유사한 매개변수 예산 내에서 모델 깊이, 은닉층 너비, 피드포워드 네트워크 및 어텐션 구성을 공동으로 조정했습니다. 16개 층에서 28개 층으로 증가시키자 성능이 향상되었습니다. 36개 층으로 계속 증가시키자 평가 평균 점수는 더 이상 향상되지 않았지만, 디코딩 처리량은 355token/s에서 323token/s로 감소했습니다. 여기서 처리량은 아키텍처 선택 비교에 사용되었으며, 앞서 언급된 최종 배포 버전의 테스트 구성과는 다릅니다.</p>
+<p>최종적으로 MNN-Pocket-0.3B는 28개 층 구조를 채택하고 그룹화된 쿼리 어텐션(GQA) 등의 구성을 결합하여 모델 능력, 실행 메모리 및 추론 효율성 사이의 균형을 이루었습니다.</p>
+<p>중국어 인터넷 휴대폰 애플리케이션을 위해 MNN-Pocket-0.3B는 중국어와 영어를 중점 지원 언어로 설정하고, 다른 언어의 토큰화 효율성 우선순위를 낮췄습니다. Qwen3 토크나이저를 기반으로 팀은 어휘를 약 151K에서 64K로 간소화하여 어휘 항목 수를 약 57% 줄였고, 임베딩 및 출력 층의 매개변수 및 저장 요구 사항을 줄였으며, 토큰별 생성 시 출력 투영 오버헤드를 낮췄습니다.</p>
+<h3>전력 소비</h3>
+<p>전력 소비 측면에서 팀은 OnePlus 13(Snapdragon 8 Gen 5)에서 MNN을 사용하여 MNN-Pocket-0.3B의 4비트 모델에 대한 전력 소비 테스트를 수행했습니다. CPU4 스레드, 입력 1024 및 출력 128 기준 부하에서 배터리 전류 및 전압을 측정하고 유휴 기준 전력 소비를 제외한 결과, 세 번의 테스트에서 환산된 평균 증분 에너지 소비는 약 2.7J/회였습니다. 이 휴대폰의 배터리 용량 6000mAh로 계산하면, 동일한 부하 작업을 100회 실행할 때 누적 증분 에너지 소비는 배터리 총 전력량의 약 0.3%를 차지합니다.</p>
+<h3>모델 능력</h3>
+<p>모델 능력 측면에서 기술 보고서에 채택된 평가 설정에서 MNN-Pocket-0.3B의 영어 IFEval 점수는 73.20, 팀이 구축한 중국어 명령 준수 IFEval-zh 점수는 74.59로, 비교된 모델 중 모두 최고 점수를 기록했습니다.</p>
+<p>중영문 지식, 추론, 수학, 코드 및 명령 준수를 포함하는 11개 평가에서 모델의 평균 점수는 50.00에 도달하여 보고서에 나열된 동일 규모 모델뿐만 아니라 MiniCPM4-0.5B, Qwen3-0.6B 등 더 큰 규모의 비교 모델보다 높았습니다. 이 중 중국어 수학 MGSM-zh 점수는 51.20, 코드 생성 HumanEval 점수는 53.66이었습니다.</p>
+<h3>오픈소스 버전</h3>
+<p>휴대폰 애플리케이션 네이티브 대규모 모델의 가치는 작업 적응 및 애플리케이션 통합을 통해 검증되어야 합니다. 이를 위해 MNN-Pocket-0.3B는 사전 훈련, 사후 훈련부터 엣지 장치 배포까지 여러 버전을 제공하여 연구자와 개발자가 적절한 시작점을 선택하고 계속해서 훈련, 평가 및 애플리케이션을 구축할 수 있도록 합니다.</p>
+<p>연구에서 배포까지, MNN 팀은 다양한 단계의 모델 진입점을 오픈소스화했습니다.</p>
+<ul>
+<li><b>MNN-Pocket-0.3B-Base:</b> 사전 훈련, 도메인 적응 및 기본 능력 연구를 계속합니다.</li>
+<li><b>MNN-Pocket-0.3B-SFT:</b> 사후 훈련 연구, 강화 학습, 증류 및 제거 실험을 수행합니다.</li>
+<li><b>MNN-Pocket-0.3B:</b> 범용 명령 호출 및 비즈니스 작업 적응을 지원합니다.</li>
+<li><b>MNN-Pocket-0.3B-MNN:</b> W4A16 QAT 엣지 장치 배포 버전으로, MNN 추론 엔진의 저비트 연산자 및 하드웨어 백엔드 최적화와 결합하여 특정 장치에서 디코딩 처리량이 466 token/s에 도달할 수 있습니다.</li>
+<li><b>MNN-Pocket-0.3B-DFlash2:</b> DFlash2 투기적 디코딩 초안 모델로, MNN 추론 엔진의 블록 단위 생성 및 검증 구현과 결합하여 특정 작업에서 디코딩 처리량이 일반적인 자기회귀 디코딩의 2.06배에 달할 수 있습니다.</li>
+<li><b>MNN-Pocket-0.3B-Dec:</b> 의사결정 헤드를 통해 후보 선택 유형 작업을 완료합니다.</li>
+</ul>
+<p>IT之家는 오픈소스 주소를 다음과 같이 첨부합니다.</p>
+<p>https://github.com/alibaba/mnn</p>
+<h3>총평</h3>
+<p>Taobao MNN 팀이 공개한 MNN-Pocket-0.3B는 휴대폰 애플리케이션에 최적화된 경량 언어 모델입니다. 이 모델은 제한된 리소스 환경에서 높은 디코딩 처리량(최대 466token/s)과 낮은 메모리 사용량(피크 300MB 미만)을 달성하며, 전력 소비도 효율적으로 관리합니다. 특히 중국어와 영어 처리 능력에서 우수한 성능을 보이며, 다양한 오픈소스 버전을 통해 연구 및 개발 커뮤니티의 활용을 지원합니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.png" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.png" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.png" alt="이미지 6" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/023/212.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-11"
+               class="archive-btn active">
+              2026-11
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
