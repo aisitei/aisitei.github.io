@@ -10,9 +10,9 @@
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
   <meta name="title-ko" content="Apple, Secure Enclaves 보안 아키텍처 상세 설명: Siri, 카메라, 마이크 개인 정보 보호 업그레이드, 메인 시스템도 원본 정보에 접근 불가">
-  <meta name="title-zh" content="Apple, Secure Enclaves 보안 아키텍처 상세 설명: Siri, 카메라, 마이크 개인 정보 보호 업그레이드, 메인 시스템도 원본 정보에 접근 불가">
-  <meta name="title-ja" content="Apple, Secure Enclaves 보안 아키텍처 상세 설명: Siri, 카메라, 마이크 개인 정보 보호 업그레이드, 메인 시스템도 원본 정보에 접근 불가">
-  <meta name="title-en" content="Apple, Secure Enclaves 보안 아키텍처 상세 설명: Siri, 카메라, 마이크 개인 정보 보호 업그레이드, 메인 시스템도 원본 정보에 접근 불가">
+  <meta name="title-zh" content="苹果详解 Secure Exclaves 安全架构：Siri、摄像头和麦克风隐私保护升级，主系统也无法访问原始信息">
+  <meta name="title-ja" content="AppleがSecure Enclaveの安全アーキテクチャを解説：Siri、カメラ、マイクのプライバシー保護機能がアップグレードされ、メインシステムからも生データにアクセスできなくなる">
+  <meta name="title-en" content="Apple details Secure Enclave security architecture: Privacy upgrades for Siri, camera, and microphone ensure even the main system cannot access raw data">
   <style>
     :root {
       --bg: #0f172a;
@@ -533,9 +533,9 @@
 
         <h1 class="article-title"
             data-ko="Apple, Secure Enclaves 보안 아키텍처 상세 설명: Siri, 카메라, 마이크 개인 정보 보호 업그레이드, 메인 시스템도 원본 정보에 접근 불가"
-            data-zh="Apple, Secure Enclaves 보안 아키텍처 상세 설명: Siri, 카메라, 마이크 개인 정보 보호 업그레이드, 메인 시스템도 원본 정보에 접근 불가"
-            data-ja="Apple, Secure Enclaves 보안 아키텍처 상세 설명: Siri, 카메라, 마이크 개인 정보 보호 업그레이드, 메인 시스템도 원본 정보에 접근 불가"
-            data-en="Apple, Secure Enclaves 보안 아키텍처 상세 설명: Siri, 카메라, 마이크 개인 정보 보호 업그레이드, 메인 시스템도 원본 정보에 접근 불가">Apple, Secure Enclaves 보안 아키텍처 상세 설명: Siri, 카메라, 마이크 개인 정보 보호 업그레이드, 메인 시스템도 원본 정보에 접근 불가</h1>
+            data-zh="苹果详解 Secure Exclaves 安全架构：Siri、摄像头和麦克风隐私保护升级，主系统也无法访问原始信息"
+            data-ja="AppleがSecure Enclaveの安全アーキテクチャを解説：Siri、カメラ、マイクのプライバシー保護機能がアップグレードされ、メインシステムからも生データにアクセスできなくなる"
+            data-en="Apple details Secure Enclave security architecture: Privacy upgrades for Siri, camera, and microphone ensure even the main system cannot access raw data">Apple, Secure Enclaves 보안 아키텍처 상세 설명: Siri, 카메라, 마이크 개인 정보 보호 업그레이드, 메인 시스템도 원본 정보에 접근 불가</h1>
 
         <div class="article-info">
           
@@ -588,91 +588,91 @@
           
         </div>
         <div class="lang-body" data-lang="zh">
-          
-          <h3>보안 아키텍처 Secure Exclaves 소개</h3>
-<p>Apple은 오늘 Apple Silicon 칩의 보안 아키텍처인 Secure Exclaves(보안 격리 구역)에 대한 기술 문서를 발표했습니다. 이 문서는 Secure Exclaves가 카메라 및 마이크로폰에서 수집된 데이터를 처리할 때 원본 오디오 및 비디오 정보가 운영체제, 애플리케이션, 심지어 Apple 자체에도 접근되지 않도록 하는 메커니즘을 설명합니다.</p>
-<p>Apple 보안 엔지니어링 및 아키텍처 팀(SEAR)과 코어 운영체제 팀(Core OS)은 11월 12일 Apple 보안 연구 블로그에 "Secure Exclaves and Ambient Sensing"이라는 제목의 글을 게시하여 Secure Exclaves의 설계 원리, 기본 아키텍처 및 실제 적용 시나리오를 소개했습니다.</p>
-<p>Apple은 기기가 점점 더 지능적인 환경 감지 기능을 갖추게 되면서 카메라와 마이크로폰이 주변 환경 정보를 지속적으로 처리해야 한다고 밝혔습니다. 예를 들어, 기기는 사용자가 근처에 있는지, 특정 음성 명령을 감지하는지, 현재 누가 기기를 사용하고 있는지 등을 식별해야 합니다. 이러한 기능은 민감한 오디오 및 비디오 데이터를 처리해야 하지만, 기기가 이러한 정보를 지속적으로 녹화하거나 저장해야 한다는 의미는 아닙니다.</p>
-<p>이를 위해 Apple은 Secure Exclaves를 도입하여 카메라 및 마이크로폰 데이터 처리 과정을 독립적이고 격리된 실행 환경에 두었습니다. Apple의 설명에 따르면, 환경 감지 모드에서 원본 오디오 및 비디오 데이터는 주 운영체제, 애플리케이션 또는 Apple 자체로 전달되지 않으며, 처리 완료 후 폐기됩니다. 시스템은 특정 소리가 감지되었는지, 등록된 사용자가 식별되었는지, 사용자의 위치 등 필요한 메타데이터만 외부로 제공합니다.</p>
-<h3>Secure Exclaves의 주요 구성 요소</h3>
-<p>Secure Exclaves는 주로 데이터 격리, 제어된 통신 인터페이스 및 보안 지시 메커니즘의 세 가지 측면을 중심으로 구축됩니다.</p>
-<h4>데이터 격리</h4>
-<p>데이터 격리 측면에서 Secure Exclaves는 주 운영체제와 다른 프로세서 실행 환경에서 실행되며, Apple 맞춤형 L4 마이크로커널을 사용합니다. Apple은 또한 보안 페이지 테이블 모니터(SPTM)를 통해 메모리 접근 권한을 관리하여 주 운영체제 커널도 Secure Exclaves 전용 메모리의 데이터를 읽을 수 없도록 합니다.</p>
-<h4>통신 인터페이스</h4>
-<p>통신 측면에서 Apple은 Swift로 작성된 Secure IPC라는 통신 메커니즘을 개발했으며, 미리 정의된 인터페이스를 통해 서로 다른 구성 요소 간의 데이터 교환을 제한합니다. 각 격리 구역은 명시적으로 승인된 리소스에만 접근할 수 있으며, 감사된 필수 정보만 주 운영체제로 전달될 수 있습니다.</p>
-<h4>보안 지시 메커니즘</h4>
-<p>보안 지시 측면에서 Apple은 카메라 및 마이크로폰 데이터가 격리 환경을 언제 떠날 수 있는지 관리하는 전용 Exclave Indicator Controller(격리 구역 지시 컨트롤러)를 설계했습니다. 애플리케이션이 센서 데이터에 대한 완전한 접근이 필요할 때, 시스템은 먼저 해당 표시등 또는 화면 알림이 표시되었는지 확인하고, 규정된 가시 시간 동안 유지된 후에만 데이터 전송을 허용합니다.</p>
-<h3>Secure Exclaves의 적용 사례</h3>
-<p>Apple은 또한 HomeView에서 Secure Exclaves의 적용을 소개했습니다. 이 기기는 카메라와 마이크로폰을 통해 최대 6명의 등록된 사용자를 식별하고, 사용자가 기기 근처에 있는지 판단할 수 있습니다. 카메라 격리 구역은 얼굴을 감지하고 관련 데이터를 생성하며, 마이크로폰 격리 구역은 오디오 정보를 처리한 후 독립적인 신경망 엔진 격리 큐를 통해 추론을 수행합니다.</p>
-<p>최종적으로 시스템은 사용자 식별, 위치 및 식별 신뢰도와 같은 메타데이터만 주 운영체제로 전달하며, 원본 이미지나 오디오는 제공하지 않습니다. 운영체제는 이를 바탕으로 캘린더, 메시지, Apple Music 등 기능의 표시 내용을 조정할 수 있습니다.</p>
-<p>IT之家는 Secure Exclaves가 iPhone 18 Pro, iPhone 18 Pro Max 및 iPhone Duo의 카메라, 마이크로폰 화면 표시 기능과 MacBook Neo 및 HomeView의 카메라 표시 기능에도 적용된다는 점에 주목했습니다.</p>
-<p>Apple은 iPhone 18 Pro의 "Hey Siri" 음성 호출 기능을 예로 들어 이 메커니즘이 어떻게 작동하는지 설명했습니다. 기기는 먼저 AOP(Always-On Processor)를 통해 저전력으로 호출어를 감지하고, 가능한 "Hey Siri" 명령이 감지되면 오디오 버퍼를 오디오 격리 구역으로 전달하여 Siri 격리 구역에서 2차 인식을 수행합니다.</p>
-<p>호출어를 확인하기 전까지 주 운영체제는 Siri를 호출해야 한다는 알림만 받을 뿐 오디오 데이터는 얻지 못합니다. 사용자가 능동적인 상호작용 상태로 진입하고, 시스템이 마이크로폰 표시 마크 표시 및 보안 검사를 완료한 후에만 오디오가 Siri 서비스로 전송되는 것이 허용됩니다.</p>
-<p>Apple은 화면 표시 기능이 운영체제만 담당하는 것이 아니라고 설명했습니다. 화면 표시점을 사용하는 기기의 경우, 독립적인 디스플레이 격리 구역이 화면에 실제로 표시되는 픽셀(색상, 모양, 지속 시간, 밝기 포함)을 확인하여 표시 마크가 사용자에게 실제로 보이는지 확인하고, 악성 소프트웨어가 표시 마크를 숨기거나 위조하여 사용자를 오도하는 것을 방지합니다.</p>
-<h3>Secure Exclaves의 기반 기술</h3>
-<p>기반 기술 측면에서 Apple은 Secure Exclaves의 마이크로커널이 Capability 메커니즘을 사용하여 권한을 관리하며, 시스템 구성 요소는 기본적으로 다른 구성 요소나 하드웨어 리소스에 접근할 권한이 없으며, 명시적인 승인을 받은 후에만 상호작용할 수 있다고 밝혔습니다.</p>
-<p>Apple은 또한 마이크로커널에 대한 형식 검증을 수행하여 수학적 방법을 통해 C 언어 구현이 미리 정의된 기능 사양을 준수하는지 확인하고, 기존 소프트웨어 테스트로는 발견하기 어려운 하위 수준의 논리적 문제를 찾아냅니다. 그러나 Apple은 현재 형식 검증이 점진적으로 진행되고 있으며, 마이크로커널의 모든 부분을 포괄하지는 않는다고 강조했습니다.</p>
-<h3>총평</h3>
-<p>Apple의 Secure Exclaves는 사용자 프라이버시 보호를 강화하기 위한 혁신적인 보안 아키텍처입니다. 이 시스템은 카메라 및 마이크로폰 데이터를 격리된 환경에서 처리하여 원본 정보가 운영체제나 애플리케이션에 노출되지 않도록 합니다. 데이터 격리, 제어된 통신, 그리고 시각적 표시 메커니즘을 통해 민감한 환경 감지 기능이 안전하게 작동하도록 설계되었습니다.</p>
-          
+ <h3>安全隔离架构与核心目的</h3>
+<ul>
+<li><strong>Secure Exclaves（安全隔离区）</strong>：Apple推出此机制，用于处理摄像头和麦克风等敏感环境感知数据，确保原始音视频信息不会被操作系统、应用程序甚至Apple自身访问。</li>
+<li>该系统旨在解决设备具备智能环境感知能力时，如何持续处理敏感数据的隐私问题，核心原则是只传递必要的元数据（如是否检测到特定声音、用户位置），而非原始流。</li>
+</ul>
+<h3>技术架构与数据隔离机制</h3>
+<ul>
+<li><strong>运行环境分离</strong>：Secure Exclaves 在独立于主操作系统的处理器执行环境中运行，并采用Apple定制的 L4 微内核进行管理。</li>
+<li><strong>内存保护</strong>：通过安全页表监控器（SPTM）管理内存访问权限，即使是主操作系统内核也无法读取隔离区专属内存中的数据。</li>
+<li><strong>受控通信接口</strong>：开发了名为 Secure IPC 的通信机制（使用 Swift 编写），限制不同组件间的数据交换，确保每个隔离区只能访问明确授权的资源。</li>
+</ul>
+<h3>用户可见性与安全指示控制</h3>
+<ul>
+<li><strong>Exclave Indicator Controller</strong>：该控制器负责管理摄像头和麦克风数据何时可以离开隔离环境。</li>
+<li>为保护隐私，系统要求在应用程序需要完整访问传感器数据前，必须先显示相应的物理指示灯或屏幕提示，并达到规定的可见时间，才能允许数据传输。</li>
+<li><strong>独立显示验证</strong>：采用屏幕指示点的设备，会由独立的显示隔离区检查屏幕实际显示的像素（包括颜色、形状、持续时间和亮度），防止恶意软件伪造或隐藏指示标志。</li>
+</ul>
+<h3>关键应用场景与产品落地</h3>
+<ul>
+<li><strong>HomeView 应用</strong>：该设备可识别最多 6 名已登记用户，通过摄像头和麦克风的独立隔离区分别处理人脸和音频信息。最终只将用户标识、位置和识别置信度等元数据传递给主操作系统。</li>
+<li><strong>语音唤醒流程（以“Hey Siri”为例）</strong>：设备首先由常开处理器（AOP）低功耗监听唤醒词；只有在检测到潜在指令后，音频才会交给隔离区处理进行第二轮识别。在此之前，主系统只能收到通知，无法获取原始音频数据。</li>
+<li><strong>产品覆盖范围</strong>：Secure Exclaves 功能已应用于 iPhone 18 Pro、iPhone 18 Pro Max 和 iPhone Duo 的摄像头/麦克风屏幕指示功能，以及 MacBook Neo 和 HomeView 等设备。</li>
+</ul>
+<h3>底层技术与安全增强</h3>
+<ul>
+<li><strong>能力机制（Capability）</strong>：在底层微内核层面，采用“能力”机制管理权限，系统组件默认不具备访问其他资源或硬件的权限，必须获得明确授权才能交互。</li>
+<li><strong>形式化验证</strong>：Apple对微内核进行了数学方法的形式化验证，以检查 C 语言实现是否符合功能规范，发现传统软件测试难以覆盖的底层逻辑问题（目前该验证是逐步开展的）。</li>
+</ul>
+<h3>总结</h3>
+<p>Apple通过引入Secure Exclaves安全隔离区，构建了一套高度复杂的隐私保护系统。该机制将敏感的环境感知数据处理过程与主操作系统彻底分离，确保了原始音视频流在进行环境识别和语音唤醒时始终处于受控、不可访问的状态。这标志着苹果在移动设备隐私计算领域迈出了重要一步，极大地提升了用户对个人数据的信任度。</p>
         </div>
         <div class="lang-body" data-lang="ja">
-          
-          <h3>보안 아키텍처 Secure Exclaves 소개</h3>
-<p>Apple은 오늘 Apple Silicon 칩의 보안 아키텍처인 Secure Exclaves(보안 격리 구역)에 대한 기술 문서를 발표했습니다. 이 문서는 Secure Exclaves가 카메라 및 마이크로폰에서 수집된 데이터를 처리할 때 원본 오디오 및 비디오 정보가 운영체제, 애플리케이션, 심지어 Apple 자체에도 접근되지 않도록 하는 메커니즘을 설명합니다.</p>
-<p>Apple 보안 엔지니어링 및 아키텍처 팀(SEAR)과 코어 운영체제 팀(Core OS)은 11월 12일 Apple 보안 연구 블로그에 "Secure Exclaves and Ambient Sensing"이라는 제목의 글을 게시하여 Secure Exclaves의 설계 원리, 기본 아키텍처 및 실제 적용 시나리오를 소개했습니다.</p>
-<p>Apple은 기기가 점점 더 지능적인 환경 감지 기능을 갖추게 되면서 카메라와 마이크로폰이 주변 환경 정보를 지속적으로 처리해야 한다고 밝혔습니다. 예를 들어, 기기는 사용자가 근처에 있는지, 특정 음성 명령을 감지하는지, 현재 누가 기기를 사용하고 있는지 등을 식별해야 합니다. 이러한 기능은 민감한 오디오 및 비디오 데이터를 처리해야 하지만, 기기가 이러한 정보를 지속적으로 녹화하거나 저장해야 한다는 의미는 아닙니다.</p>
-<p>이를 위해 Apple은 Secure Exclaves를 도입하여 카메라 및 마이크로폰 데이터 처리 과정을 독립적이고 격리된 실행 환경에 두었습니다. Apple의 설명에 따르면, 환경 감지 모드에서 원본 오디오 및 비디오 데이터는 주 운영체제, 애플리케이션 또는 Apple 자체로 전달되지 않으며, 처리 완료 후 폐기됩니다. 시스템은 특정 소리가 감지되었는지, 등록된 사용자가 식별되었는지, 사용자의 위치 등 필요한 메타데이터만 외부로 제공합니다.</p>
-<h3>Secure Exclaves의 주요 구성 요소</h3>
-<p>Secure Exclaves는 주로 데이터 격리, 제어된 통신 인터페이스 및 보안 지시 메커니즘의 세 가지 측면을 중심으로 구축됩니다.</p>
-<h4>데이터 격리</h4>
-<p>데이터 격리 측면에서 Secure Exclaves는 주 운영체제와 다른 프로세서 실행 환경에서 실행되며, Apple 맞춤형 L4 마이크로커널을 사용합니다. Apple은 또한 보안 페이지 테이블 모니터(SPTM)를 통해 메모리 접근 권한을 관리하여 주 운영체제 커널도 Secure Exclaves 전용 메모리의 데이터를 읽을 수 없도록 합니다.</p>
-<h4>통신 인터페이스</h4>
-<p>통신 측면에서 Apple은 Swift로 작성된 Secure IPC라는 통신 메커니즘을 개발했으며, 미리 정의된 인터페이스를 통해 서로 다른 구성 요소 간의 데이터 교환을 제한합니다. 각 격리 구역은 명시적으로 승인된 리소스에만 접근할 수 있으며, 감사된 필수 정보만 주 운영체제로 전달될 수 있습니다.</p>
-<h4>보안 지시 메커니즘</h4>
-<p>보안 지시 측면에서 Apple은 카메라 및 마이크로폰 데이터가 격리 환경을 언제 떠날 수 있는지 관리하는 전용 Exclave Indicator Controller(격리 구역 지시 컨트롤러)를 설계했습니다. 애플리케이션이 센서 데이터에 대한 완전한 접근이 필요할 때, 시스템은 먼저 해당 표시등 또는 화면 알림이 표시되었는지 확인하고, 규정된 가시 시간 동안 유지된 후에만 데이터 전송을 허용합니다.</p>
-<h3>Secure Exclaves의 적용 사례</h3>
-<p>Apple은 또한 HomeView에서 Secure Exclaves의 적용을 소개했습니다. 이 기기는 카메라와 마이크로폰을 통해 최대 6명의 등록된 사용자를 식별하고, 사용자가 기기 근처에 있는지 판단할 수 있습니다. 카메라 격리 구역은 얼굴을 감지하고 관련 데이터를 생성하며, 마이크로폰 격리 구역은 오디오 정보를 처리한 후 독립적인 신경망 엔진 격리 큐를 통해 추론을 수행합니다.</p>
-<p>최종적으로 시스템은 사용자 식별, 위치 및 식별 신뢰도와 같은 메타데이터만 주 운영체제로 전달하며, 원본 이미지나 오디오는 제공하지 않습니다. 운영체제는 이를 바탕으로 캘린더, 메시지, Apple Music 등 기능의 표시 내용을 조정할 수 있습니다.</p>
-<p>IT之家는 Secure Exclaves가 iPhone 18 Pro, iPhone 18 Pro Max 및 iPhone Duo의 카메라, 마이크로폰 화면 표시 기능과 MacBook Neo 및 HomeView의 카메라 표시 기능에도 적용된다는 점에 주목했습니다.</p>
-<p>Apple은 iPhone 18 Pro의 "Hey Siri" 음성 호출 기능을 예로 들어 이 메커니즘이 어떻게 작동하는지 설명했습니다. 기기는 먼저 AOP(Always-On Processor)를 통해 저전력으로 호출어를 감지하고, 가능한 "Hey Siri" 명령이 감지되면 오디오 버퍼를 오디오 격리 구역으로 전달하여 Siri 격리 구역에서 2차 인식을 수행합니다.</p>
-<p>호출어를 확인하기 전까지 주 운영체제는 Siri를 호출해야 한다는 알림만 받을 뿐 오디오 데이터는 얻지 못합니다. 사용자가 능동적인 상호작용 상태로 진입하고, 시스템이 마이크로폰 표시 마크 표시 및 보안 검사를 완료한 후에만 오디오가 Siri 서비스로 전송되는 것이 허용됩니다.</p>
-<p>Apple은 화면 표시 기능이 운영체제만 담당하는 것이 아니라고 설명했습니다. 화면 표시점을 사용하는 기기의 경우, 독립적인 디스플레이 격리 구역이 화면에 실제로 표시되는 픽셀(색상, 모양, 지속 시간, 밝기 포함)을 확인하여 표시 마크가 사용자에게 실제로 보이는지 확인하고, 악성 소프트웨어가 표시 마크를 숨기거나 위조하여 사용자를 오도하는 것을 방지합니다.</p>
-<h3>Secure Exclaves의 기반 기술</h3>
-<p>기반 기술 측면에서 Apple은 Secure Exclaves의 마이크로커널이 Capability 메커니즘을 사용하여 권한을 관리하며, 시스템 구성 요소는 기본적으로 다른 구성 요소나 하드웨어 리소스에 접근할 권한이 없으며, 명시적인 승인을 받은 후에만 상호작용할 수 있다고 밝혔습니다.</p>
-<p>Apple은 또한 마이크로커널에 대한 형식 검증을 수행하여 수학적 방법을 통해 C 언어 구현이 미리 정의된 기능 사양을 준수하는지 확인하고, 기존 소프트웨어 테스트로는 발견하기 어려운 하위 수준의 논리적 문제를 찾아냅니다. 그러나 Apple은 현재 형식 검증이 점진적으로 진행되고 있으며, 마이크로커널의 모든 부분을 포괄하지는 않는다고 강조했습니다.</p>
-<h3>총평</h3>
-<p>Apple의 Secure Exclaves는 사용자 프라이버시 보호를 강화하기 위한 혁신적인 보안 아키텍처입니다. 이 시스템은 카메라 및 마이크로폰 데이터를 격리된 환경에서 처리하여 원본 정보가 운영체제나 애플리케이션에 노출되지 않도록 합니다. 데이터 격리, 제어된 통신, 그리고 시각적 표시 메커니즘을 통해 민감한 환경 감지 기능이 안전하게 작동하도록 설계되었습니다.</p>
-          
+ <h3>セキュリティアーキテクチャ「Secure Exclaves」の紹介</h3>
+<p>Appleは本日、自社のApple Siliconチップに搭載されたセキュリティアーキテクチャ「Secure Exclaves（セキュア・エクスクレブ）」に関する技術文書を発表しました。このドキュメントは、Secure Exclavesがカメラやマイクから収集したデータが処理される際、生（ロー）の音声およびビデオ情報がオペレーティングシステム、アプリケーション、さらにはApple自身にさえアクセスされない仕組みを説明しています。</p>
+<p><span style="font-weight: bold;">背景</span></p>
+<p>Appleセキュリティエンジニアリング＆アーキテクチャチーム（SEAR）とコアOSチームは、「Secure Exclaves and Ambient Sensing」というタイトルの記事を11月12日にAppleのセキュリティ研究ブログに公開し、Secure Exclavesの設計原理、基本的なアーキテクチャ、および実際の適用シナリオを紹介しました。</p>
+<p>Appleによると、デバイスがよりインテリジェントな環境認識機能を持つにつれて、カメラとマイクは周囲の環境情報を継続的に処理する必要があります。例えば、デバイスがユーザーが近くにいるか、特定の音声コマンドを検出したか、現在誰がデバイスを使用しているかを識別しなければなりません。これらの機能は機密性の高いオーディオおよびビデオデータを処理しますが、それが常に記録または保存されることを意味するわけではありません。</p>
+<p>この課題に対応するため、AppleはSecure Exclavesを導入し、カメラおよびマイクのデータ処理プロセス全体を独立した隔離された実行環境に配置しました。Appleの説明によれば、環境認識モードにおいて生データはメインOSやアプリケーション、またはApple本体に渡されることはなく、処理完了後に破棄されます。システムが外部に提供するのは、特定の音が検出されたか、登録ユーザーが識別されたか、使用者の位置など、必要なメタデータのみです。</p>
+<h3>Secure Exclavesの主要構成要素</h3>
+<p>Secure Exclavesは主に、「データの隔離」「制御された通信インターフェース」「セキュリティ表示メカニズム」という3つの側面を中心に構築されています。</p>
+<h4>データの隔離</h4>
+<p>データ隔離の観点から、Secure ExclavesはメインOSとは異なるプロセッサ実行環境で動作し、AppleカスタムのL4マイクロカーネルを使用しています。また、Appleは「セキュリティページテーブルモニター（SPTM）」を通じてメモリへのアクセス権を管理することで、メインOSのカーネルですらSecure Exclaves専用のメモリ内のデータを読むことができないようにしています。</p>
+<h4>通信インターフェース</h4>
+<p>通信面では、AppleがSwiftで開発した「Secure IPC」という通信メカニズムを採用し、事前に定義されたインターフェースを通じて異なるコンポーネント間のデータ交換を制限しています。各隔離領域は明示的に承認されたリソースにのみアクセスでき、監査された必須情報のみがメインOSに渡されることができます。</p>
+<h4>セキュリティ表示メカニズム</h4>
+<p>セキュリティ表示の観点から、Appleはカメラおよびマイクのデータが隔離環境をいつ離れるかを管理する専用の「Exclave Indicator Controller（エクスクレブ・インディケーター・コントローラー）」を設計しました。アプリケーションがセンサーデータへの完全なアクセスを必要とする場合、システムはまず該当の表示灯または画面通知が表示されたかを確認し、規定された可視時間が維持された後にのみデータ送信を許可します。</p>
+<h3>Secure Exclavesの適用事例</h3>
+<p>Appleはまた、「HomeView」におけるSecure Exclavesの適用を紹介しました。このデバイスは、カメラとマイクを通じて最大6名の登録ユーザーを識別し、ユーザーがデバイスの近くにいるかを判断できます。カメラ隔離領域は顔を検出し関連データを生成し、マイク隔離領域は音声情報を処理した後、独立したニューラルネットワークエンジン隔離キューを通じて推論を実行します。</p>
+<p>最終的にシステムがメインOSに渡すのは、ユーザー識別、位置、および識別信頼度といったメタデータのみであり、生画像や生音声は提供されません。オペレーティングシステムはこの情報に基づいて、カレンダー、メッセージ、Apple Musicなどの機能の表示内容を調整することができます。</p>
+<p>IT之家（ItJia）は、Secure ExclavesがiPhone 18 Pro、iPhone 18 Pro Max、およびiPhone Duoのカメラ・マイク画面表示機能や、MacBook NeoおよびHomeViewのカメラ表示機能にも適用される点に注目しています。</p>
+<p>Appleは、「Hey Siri」という音声呼び出し機能を例に、このメカニズムがどのように機能するかを説明しました。デバイスはまずAOP（Always-On Processor）を通じて低電力で呼び出し語を検知し、可能な「Hey Siri」コマンドが検出されると、オーディオバッファをオーディオ隔離領域に渡してSiri隔離領域で二次認識を行います。</p>
+<p>呼び出し語を確認するまで、メインOSはSiriを呼び出すという通知しか受け取れず、音声データ自体は取得できません。ユーザーが能動的なインタラクション状態に入り、システムがマイク表示マークの点灯とセキュリティチェックを完了した後でのみ、オーディオがSiriサービスに送信されることが許可されます。</p>
+<p>Appleは、画面表示機能がOSのみが担当するわけではないことも説明しました。画面表示ポイントを使用するデバイスの場合、独立したディスプレイ隔離領域が、実際に画面に表示されるピクセル（色、形状、持続時間、輝度を含む）を確認し、表示マークがユーザーに実際に視認できるかを検証します。これにより、悪意のあるソフトウェアが表示マークを隠蔽したり偽造してユーザーを誤認させることを防ぎます。</p>
+<h3>Secure Exclavesの基盤技術</h3>
+<p>基盤技術の観点から、AppleはSecure Exclavesのマイクロカーネルが「Capability（ケイパビリティ）」メカニズムを使用して権限を管理していると説明しました。これにより、システムコンポーネントは基本的に他のコンポーネントやハードウェアリソースにアクセスする権利を持たず、明示的な承認を得た場合にのみ相互作用が可能となります。</p>
+<p>また、Appleはマイクロカーネルに対して「形式検証（Formal Verification）」を実施しており、数学的手法を用いてC言語の実装が定義された機能仕様を遵守しているかを確認し、従来のソフトウェアテストでは発見が難しい低レベルの論理的な問題を検出します。ただし、Appleは現在この形式検証が段階的に進められており、マイクロカーネルの全ての部分を網羅しているわけではないと強調しています。</p>
+<h3>まとめ</h3>
+<p>AppleのSecure Exclavesは、ユーザープライバシー保護を大幅に強化するための革新的なセキュリティアーキテクチャです。本システムは、カメラやマイクから得られる機密性の高い環境データを隔離された実行環境で処理することで、生データがOSやアプリケーション層に漏洩するリスクを防ぎます。データの厳格な隔離、制御された通信インターフェース、そして視覚的な表示メカニズムを組み合わせることで、高度な環境認識機能を安全かつプライバシーを保護しながら実現しています。</p>
         </div>
         <div class="lang-body" data-lang="en">
-          
-          <h3>보안 아키텍처 Secure Exclaves 소개</h3>
-<p>Apple은 오늘 Apple Silicon 칩의 보안 아키텍처인 Secure Exclaves(보안 격리 구역)에 대한 기술 문서를 발표했습니다. 이 문서는 Secure Exclaves가 카메라 및 마이크로폰에서 수집된 데이터를 처리할 때 원본 오디오 및 비디오 정보가 운영체제, 애플리케이션, 심지어 Apple 자체에도 접근되지 않도록 하는 메커니즘을 설명합니다.</p>
-<p>Apple 보안 엔지니어링 및 아키텍처 팀(SEAR)과 코어 운영체제 팀(Core OS)은 11월 12일 Apple 보안 연구 블로그에 "Secure Exclaves and Ambient Sensing"이라는 제목의 글을 게시하여 Secure Exclaves의 설계 원리, 기본 아키텍처 및 실제 적용 시나리오를 소개했습니다.</p>
-<p>Apple은 기기가 점점 더 지능적인 환경 감지 기능을 갖추게 되면서 카메라와 마이크로폰이 주변 환경 정보를 지속적으로 처리해야 한다고 밝혔습니다. 예를 들어, 기기는 사용자가 근처에 있는지, 특정 음성 명령을 감지하는지, 현재 누가 기기를 사용하고 있는지 등을 식별해야 합니다. 이러한 기능은 민감한 오디오 및 비디오 데이터를 처리해야 하지만, 기기가 이러한 정보를 지속적으로 녹화하거나 저장해야 한다는 의미는 아닙니다.</p>
-<p>이를 위해 Apple은 Secure Exclaves를 도입하여 카메라 및 마이크로폰 데이터 처리 과정을 독립적이고 격리된 실행 환경에 두었습니다. Apple의 설명에 따르면, 환경 감지 모드에서 원본 오디오 및 비디오 데이터는 주 운영체제, 애플리케이션 또는 Apple 자체로 전달되지 않으며, 처리 완료 후 폐기됩니다. 시스템은 특정 소리가 감지되었는지, 등록된 사용자가 식별되었는지, 사용자의 위치 등 필요한 메타데이터만 외부로 제공합니다.</p>
-<h3>Secure Exclaves의 주요 구성 요소</h3>
-<p>Secure Exclaves는 주로 데이터 격리, 제어된 통신 인터페이스 및 보안 지시 메커니즘의 세 가지 측면을 중심으로 구축됩니다.</p>
-<h4>데이터 격리</h4>
-<p>데이터 격리 측면에서 Secure Exclaves는 주 운영체제와 다른 프로세서 실행 환경에서 실행되며, Apple 맞춤형 L4 마이크로커널을 사용합니다. Apple은 또한 보안 페이지 테이블 모니터(SPTM)를 통해 메모리 접근 권한을 관리하여 주 운영체제 커널도 Secure Exclaves 전용 메모리의 데이터를 읽을 수 없도록 합니다.</p>
-<h4>통신 인터페이스</h4>
-<p>통신 측면에서 Apple은 Swift로 작성된 Secure IPC라는 통신 메커니즘을 개발했으며, 미리 정의된 인터페이스를 통해 서로 다른 구성 요소 간의 데이터 교환을 제한합니다. 각 격리 구역은 명시적으로 승인된 리소스에만 접근할 수 있으며, 감사된 필수 정보만 주 운영체제로 전달될 수 있습니다.</p>
-<h4>보안 지시 메커니즘</h4>
-<p>보안 지시 측면에서 Apple은 카메라 및 마이크로폰 데이터가 격리 환경을 언제 떠날 수 있는지 관리하는 전용 Exclave Indicator Controller(격리 구역 지시 컨트롤러)를 설계했습니다. 애플리케이션이 센서 데이터에 대한 완전한 접근이 필요할 때, 시스템은 먼저 해당 표시등 또는 화면 알림이 표시되었는지 확인하고, 규정된 가시 시간 동안 유지된 후에만 데이터 전송을 허용합니다.</p>
-<h3>Secure Exclaves의 적용 사례</h3>
-<p>Apple은 또한 HomeView에서 Secure Exclaves의 적용을 소개했습니다. 이 기기는 카메라와 마이크로폰을 통해 최대 6명의 등록된 사용자를 식별하고, 사용자가 기기 근처에 있는지 판단할 수 있습니다. 카메라 격리 구역은 얼굴을 감지하고 관련 데이터를 생성하며, 마이크로폰 격리 구역은 오디오 정보를 처리한 후 독립적인 신경망 엔진 격리 큐를 통해 추론을 수행합니다.</p>
-<p>최종적으로 시스템은 사용자 식별, 위치 및 식별 신뢰도와 같은 메타데이터만 주 운영체제로 전달하며, 원본 이미지나 오디오는 제공하지 않습니다. 운영체제는 이를 바탕으로 캘린더, 메시지, Apple Music 등 기능의 표시 내용을 조정할 수 있습니다.</p>
-<p>IT之家는 Secure Exclaves가 iPhone 18 Pro, iPhone 18 Pro Max 및 iPhone Duo의 카메라, 마이크로폰 화면 표시 기능과 MacBook Neo 및 HomeView의 카메라 표시 기능에도 적용된다는 점에 주목했습니다.</p>
-<p>Apple은 iPhone 18 Pro의 "Hey Siri" 음성 호출 기능을 예로 들어 이 메커니즘이 어떻게 작동하는지 설명했습니다. 기기는 먼저 AOP(Always-On Processor)를 통해 저전력으로 호출어를 감지하고, 가능한 "Hey Siri" 명령이 감지되면 오디오 버퍼를 오디오 격리 구역으로 전달하여 Siri 격리 구역에서 2차 인식을 수행합니다.</p>
-<p>호출어를 확인하기 전까지 주 운영체제는 Siri를 호출해야 한다는 알림만 받을 뿐 오디오 데이터는 얻지 못합니다. 사용자가 능동적인 상호작용 상태로 진입하고, 시스템이 마이크로폰 표시 마크 표시 및 보안 검사를 완료한 후에만 오디오가 Siri 서비스로 전송되는 것이 허용됩니다.</p>
-<p>Apple은 화면 표시 기능이 운영체제만 담당하는 것이 아니라고 설명했습니다. 화면 표시점을 사용하는 기기의 경우, 독립적인 디스플레이 격리 구역이 화면에 실제로 표시되는 픽셀(색상, 모양, 지속 시간, 밝기 포함)을 확인하여 표시 마크가 사용자에게 실제로 보이는지 확인하고, 악성 소프트웨어가 표시 마크를 숨기거나 위조하여 사용자를 오도하는 것을 방지합니다.</p>
-<h3>Secure Exclaves의 기반 기술</h3>
-<p>기반 기술 측면에서 Apple은 Secure Exclaves의 마이크로커널이 Capability 메커니즘을 사용하여 권한을 관리하며, 시스템 구성 요소는 기본적으로 다른 구성 요소나 하드웨어 리소스에 접근할 권한이 없으며, 명시적인 승인을 받은 후에만 상호작용할 수 있다고 밝혔습니다.</p>
-<p>Apple은 또한 마이크로커널에 대한 형식 검증을 수행하여 수학적 방법을 통해 C 언어 구현이 미리 정의된 기능 사양을 준수하는지 확인하고, 기존 소프트웨어 테스트로는 발견하기 어려운 하위 수준의 논리적 문제를 찾아냅니다. 그러나 Apple은 현재 형식 검증이 점진적으로 진행되고 있으며, 마이크로커널의 모든 부분을 포괄하지는 않는다고 강조했습니다.</p>
-<h3>총평</h3>
-<p>Apple의 Secure Exclaves는 사용자 프라이버시 보호를 강화하기 위한 혁신적인 보안 아키텍처입니다. 이 시스템은 카메라 및 마이크로폰 데이터를 격리된 환경에서 처리하여 원본 정보가 운영체제나 애플리케이션에 노출되지 않도록 합니다. 데이터 격리, 제어된 통신, 그리고 시각적 표시 메커니즘을 통해 민감한 환경 감지 기능이 안전하게 작동하도록 설계되었습니다.</p>
-          
+ <h3>Introducing the Secure Exclaves Security Architecture</h3>
+<p>Apple today released a technical document detailing its security architecture for Apple Silicon chips, called Secure Exclaves. This document explains how Secure Exclaves processes data collected from cameras and microphones in a way that prevents raw audio and video information from being accessible to the operating system, applications, or even Apple itself.</p>
+<p>The Apple Security Engineering and Architecture Team (SEAR) and the Core OS team published an article titled "Secure Exclaves and Ambient Sensing" on the Apple security research blog on November 12th. This piece introduced the design principles, basic architecture, and practical application scenarios of Secure Exclaves.</p>
+<p>Apple stated that as devices gain increasingly intelligent ambient sensing capabilities, cameras and microphones must continuously process surrounding environmental information. For instance, a device needs to identify whether a user is nearby, detect specific voice commands, or determine who is currently using the device. While these functions require processing sensitive audio and video data, it does not mean the device constantly records or stores this information.</p>
+<p>To address this, Apple introduced Secure Exclaves, placing the camera and microphone data processing process within an independent and isolated execution environment. According to Apple's explanation, in ambient sensing mode, raw audio and video data is not passed to the main operating system, applications, or even Apple itself; it is discarded after processing. The system only provides necessary metadata externally, such as whether a specific sound was detected, if a registered user was identified, or the user's location.</p>
+<h3>Key Components of Secure Exclaves</h3>
+<p>Secure Exclaves are built around three core aspects: data isolation, controlled communication interfaces, and secure indication mechanisms.</p>
+<h4>Data Isolation</h4>
+<p>In terms of data isolation, Secure Exclaves run in a separate processor execution environment from the main operating system, utilizing an Apple-custom L4 microkernel. Apple also manages memory access rights through a Security Page Table Monitor (SPTM), ensuring that even the main OS kernel cannot read data stored in the dedicated secure memory of Secure Exclaves.</p>
+<h4>Communication Interface</h4>
+<p>For communication, Apple developed a mechanism called Secure IPC, written in Swift. This limits data exchange between different components through predefined interfaces. Each enclave can only access explicitly authorized resources, and only audited essential information can be passed to the main operating system.</p>
+<h4>Security Indication Mechanism</h4>
+<p>Regarding security indication, Apple designed a dedicated Exclave Indicator Controller that manages when camera and microphone data can leave the isolated environment. When an application requires full access to sensor data, the system first verifies if the corresponding indicator light or screen notification has been displayed. Data transmission is only allowed after it has remained visible for a specified duration.</p>
+<h3>Use Cases for Secure Exclaves</h3>
+<p>Apple also introduced the application of Secure Exclaves in HomeView. This device can identify up to six registered users and determine if a user is near the device via its camera and microphone. The camera enclave detects faces and generates related data, while the microphone enclave processes audio information and performs inference through an independent neural network engine enclave.</p>
+<p>Ultimately, the system only passes metadata—such as user identification, location, and identification confidence—to the main operating system, without providing raw images or audio. The OS can then use this information to adjust content for features like Calendar, Messages, and Apple Music.</p>
+<p>IT之家 noted that Secure Exclaves are also applied to camera display functions on the iPhone 18 Pro, iPhone 18 Pro Max, iPhone Duo, MacBook Neo, and HomeView.</p>
+<p>Apple explained how this mechanism works using the "Hey Siri" voice activation feature of the iPhone 18 Pro. The device first detects the wake word at a low power level via the AOP (Always-On Processor). If a possible "Hey Siri" command is detected, the audio buffer is passed to an audio enclave for secondary recognition within the Siri enclave.</p>
+<p>Until the wake word is confirmed, the main operating system only receives a notification that Siri needs to be called and does not receive the audio data. Audio transmission to the Siri service is only permitted after the user enters an active interaction state and the system completes microphone display marking and security checks.</p>
+<p>Apple clarified that screen display functions are not solely managed by the operating system. In devices using a display indicator, an independent Display Enclave verifies the actual pixels (including color, shape, duration, and brightness) displayed on the screen to ensure the indicator mark is visible to the user, preventing malicious software from hiding or forging the mark to mislead the user.</p>
+<h3>Underlying Technology of Secure Exclaves</h3>
+<p>In terms of underlying technology, Apple stated that the microkernel for Secure Exclaves manages permissions using a Capability mechanism. System components are fundamentally unable to access other components or hardware resources and can only interact after explicit authorization.</p>
+<p>Apple also performs formal verification on the microkernel, which uses mathematical methods to ensure that the C language implementation adheres to predefined functional specifications, thereby finding low-level logical issues that traditional software testing might miss. However, Apple emphasized that formal verification is currently being rolled out gradually and does not cover every part of the microkernel.</p>
+<h3>Summary</h3>
+<p>Apple's Secure Exclaves represent an innovative security architecture designed to enhance user privacy. The system processes camera and microphone data within isolated environments, ensuring that raw information cannot be exposed to the operating system or applications. By utilizing data isolation, controlled communication, and visual display mechanisms, sensitive ambient sensing functions are engineered to operate securely.</p>
         </div>
       </div>
 
