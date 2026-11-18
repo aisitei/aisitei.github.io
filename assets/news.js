@@ -14,6 +14,13 @@
     zh: {news:'新闻',reports:'深度报告',reportHeadline:'深入解读科技。',reportDescription:'关注新品发布中值得了解的技术与变化。',reportHighlights:'发布会记录',reportLatest:'报告列表'}
   };
   Object.keys(copy).forEach(lang=>Object.assign(copy[lang],magazineCopy[lang]));
+  const loadingCopy = {
+    ko: {loading:'전체 기사 목록을 불러오는 중입니다…',retrying:'응답이 느려 다시 시도하는 중입니다… ({n}/{total})'},
+    en: {loading:'Loading the full article list…',retrying:'The server is slow. Trying again… ({n}/{total})'},
+    ja: {loading:'記事一覧を読み込み中です…',retrying:'応答が遅いため再試行しています… ({n}/{total})'},
+    zh: {loading:'正在加载全部文章…',retrying:'响应较慢，正在重试… ({n}/{total})'}
+  };
+  Object.keys(copy).forEach(lang=>Object.assign(copy[lang],loadingCopy[lang]));
   const mobileLabels={ko:'모바일·이미징',en:'Mobile & imaging',ja:'モバイル・イメージング',zh:'移动与影像'};
   Object.keys(copy).forEach(lang=>Object.assign(copy[lang],{mobile:mobileLabels[lang],camera:mobileLabels[lang],phone:mobileLabels[lang]}));
   function validLang(lang) { return languages.includes(lang) ? lang : 'ko'; }
@@ -55,7 +62,44 @@
     const image = a.thumbnail && !a.thumbnail.endsWith('apple-touch-icon.png') ? `<img src="${escape(a.thumbnail)}" alt="" loading="${lead?'eager':'lazy'}" width="640" height="400">` : `<img class="fallback-image" src="assets/images/apple-touch-icon.png" alt="" loading="lazy" width="180" height="180">`;
     return `<article class="news-card${lead?' lead-card':''}"><a href="${escape(a.url)}?lang=${lang}"><div class="news-image">${image}</div><div class="news-copy"><div class="news-meta"><span class="topic">${escape(topic)}</span><time datetime="${escape(a.date)}">${escape(a.date)}</time></div><h2>${escape(title)}</h2><span class="read-story" aria-hidden="true">${t.read}<span>↗</span></span></div></a></article>`;
   }
-  const api={filterArticles,paginate,readState,pageLink,copy,validLang,savedLang,saveLang,escape,localize,articleCard};
+  // GitHub Pages occasionally stalls a cache-miss request for 20-30s, while the same
+  // request retried right after is served from cache. Abort only when no bytes have
+  // arrived for idleMs, so a slow but steadily progressing download is never cut off.
+  async function fetchJsonWithRetry(fetchImpl, url, options={}) {
+    const attempts=options.attempts||3, idleMs=options.idleMs||15000;
+    let lastError;
+    for(let n=1;n<=attempts;n++) {
+      const controller=new AbortController();
+      let timer;
+      const arm=()=>{clearTimeout(timer);timer=setTimeout(()=>controller.abort(),idleMs);};
+      try {
+        arm();
+        const response=await fetchImpl(url,{signal:controller.signal,priority:options.priority});
+        if(!response.ok) throw Error('http '+response.status);
+        let data;
+        if(response.body && typeof response.body.getReader==='function') {
+          const streamReader=response.body.getReader(), chunks=[];
+          let size=0;
+          for(;;) {
+            const {done,value}=await streamReader.read();
+            if(done) break;
+            chunks.push(value);size+=value.length;arm();
+          }
+          const bytes=new Uint8Array(size);
+          let offset=0;
+          for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.length;}
+          data=JSON.parse(new TextDecoder().decode(bytes));
+        } else data=await response.json();
+        if(!Array.isArray(data)) throw Error('index');
+        return data;
+      } catch (error) {
+        lastError=error;
+        if(n<attempts && options.onRetry) options.onRetry(n+1,attempts);
+      } finally {clearTimeout(timer);}
+    }
+    throw lastError;
+  }
+  const api={filterArticles,paginate,readState,pageLink,copy,validLang,savedLang,saveLang,escape,localize,articleCard,fetchJsonWithRetry};
   if(typeof module !== 'undefined') module.exports=api;
   if(typeof window === 'undefined') return;
   window.NewsReader=api;
@@ -73,16 +117,27 @@
   }));
   let state=readState(location.search, savedLang());
   if(!new URLSearchParams(location.search).has('page')) state.page=seed.page;
-  let corpus=null, pending=null, requestId=0;
+  let corpus=null, pending=null, requestId=0, loadingShown=false;
   const byId=id=>document.getElementById(id);
   const categoryLinks=[...document.querySelectorAll('[data-filter]')];
   function pageHref(page) {
     return pageLink(state,page,seed.route);
   }
 
-  async function allArticles() {
+  function setLoading(message) {
+    let el=byId('loading-state');
+    if(!el) {
+      el=document.createElement('p');el.id='loading-state';el.className='loading-state';el.setAttribute('role','status');el.hidden=true;
+      byId('news-grid').before(el);
+    }
+    el.textContent=message||'';el.hidden=!message;
+  }
+  async function allArticles(options={}) {
     if(corpus) return corpus;
-    if(!pending) pending=fetch(new URL(seed.dataUrl, document.baseURI)).then(r=>{if(!r.ok) throw Error('index'); return r.json();}).then(data=>{if(!Array.isArray(data)) throw Error('index');corpus=data;return data;}).finally(()=>{pending=null;});
+    if(!pending) {
+      const onRetry=(n,total)=>{if(loadingShown)setLoading(copy[state.lang].retrying.replace('{n}',n).replace('{total}',total));};
+      pending=fetchJsonWithRetry((url,init)=>fetch(url,init),new URL(seed.dataUrl, document.baseURI),{onRetry,priority:options.priority}).then(data=>{corpus=data;return data;}).finally(()=>{pending=null;});
+    }
     return pending;
   }
   function controls() {
@@ -125,6 +180,7 @@
     byId('news-content').setAttribute('aria-busy','true');
     try {
       const full=Boolean(corpus||state.query||state.category||state.month||state.page!==seed.page);
+      if(full && !corpus){loadingShown=true;setLoading(copy[state.lang].loading);}
       const items=full?filterArticles(await allArticles(),state):seed.articles;
       if(id!==requestId)return;
       render(items,full?items.length:seed.total,full);
@@ -135,7 +191,7 @@
       const error=byId('load-error');error.replaceChildren(document.createTextNode(copy[state.lang].loadError));
       const retry=document.createElement('button');retry.textContent=copy[state.lang].retry;retry.onclick=()=>update(push);error.append(retry);error.hidden=false;
       return false;
-    } finally {if(id===requestId)byId('news-content').removeAttribute('aria-busy');}
+    } finally {if(id===requestId){byId('news-content').removeAttribute('aria-busy');loadingShown=false;setLoading('');}}
   }
   let timer;
   document.querySelector('.reader-tools').addEventListener('submit',event=>{event.preventDefault();clearTimeout(timer);state.query=byId('search').value.trim();state.page=1;update(true);});
@@ -147,5 +203,18 @@
   byId('pagination').addEventListener('click',event=>{const link=event.target.closest('[data-page]');if(!link||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||event.button!==0)return;event.preventDefault();state.page=Number(link.dataset.page);update(true).then(ok=>{if(ok)byId('latest-heading').scrollIntoView({block:'start'});else if(ok===false&&!state.query&&!state.category&&!state.month)location.href=link.href;});});
   window.addEventListener('popstate',()=>{clearTimeout(timer);state=readState(location.search,savedLang());if(!new URLSearchParams(location.search).has('page'))state.page=Number(location.pathname.match(/\/page-(\d+)\.html$/)?.[1])||1;update();});
   document.addEventListener('error',event=>{if(event.target.tagName==='IMG'&&event.target.closest('.news-image')){const target=event.target;if(target.classList.contains('fallback-image'))return;target.classList.add('fallback-image');target.src=new URL('assets/images/apple-touch-icon.png',document.baseURI).href;}},true);
+  // Thumbnails can stall on the CDN; keep a skeleton behind each one until it has loaded.
+  const markLoaded=img=>{const box=img.closest('.news-image');if(box&&img.naturalWidth>0)box.classList.add('is-loaded');};
+  document.addEventListener('load',event=>{if(event.target.tagName==='IMG')markLoaded(event.target);},true);
+  document.querySelectorAll('.news-image img').forEach(img=>{if(img.complete)markLoaded(img);});
+  // Start downloading the search index before the first search so it is usually ready by then.
+  const prefetch=()=>{if(!corpus&&!pending)allArticles({priority:'low'}).catch(()=>{});};
+  ['focusin','pointerenter','touchstart'].forEach(name=>document.querySelector('.reader-tools').addEventListener(name,prefetch,{once:true,passive:true}));
+  const connection=navigator.connection||{};
+  if(!connection.saveData&&!/^(slow-2g|2g|3g)$/.test(connection.effectiveType||'')) {
+    const whenIdle=window.requestIdleCallback||(callback=>setTimeout(callback,1));
+    const startIdle=()=>setTimeout(()=>whenIdle(prefetch),1500);
+    if(document.readyState==='complete')startIdle();else window.addEventListener('load',startIdle,{once:true});
+  }
   update();
 })();

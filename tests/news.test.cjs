@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const source = fs.existsSync('assets/news.js') ? fs.readFileSync('assets/news.js', 'utf8') : '';
-const sandbox = {module: {exports: {}}, URLSearchParams};
+const sandbox = {module: {exports: {}}, URLSearchParams, AbortController, TextDecoder, setTimeout, clearTimeout};
 vm.runInNewContext(source, sandbox);
 const reader = sandbox.module.exports;
 test('combined search, category and month can find an article beyond the first page', () => {
@@ -49,5 +49,38 @@ test('mobile imaging combines camera and phone while retaining search and date f
 test('historical camera and phone filter URLs open the merged category', () => {
   for(const category of ['camera','phone']) {
     assert.equal(reader.readState('?cat='+category,'ko').category,'mobile');
+  }
+});
+
+const stalls = (signal) => new Promise((_, reject) => signal.addEventListener('abort', () => reject(new Error('aborted'))));
+const okResponse = (data) => ({ok: true, json: async () => data});
+test('a stalled index request is aborted and retried until it succeeds', async () => {
+  assert.equal(typeof reader.fetchJsonWithRetry, 'function');
+  let calls = 0;
+  const retries = [];
+  const data = await reader.fetchJsonWithRetry((url, options) => ++calls === 1 ? stalls(options.signal) : Promise.resolve(okResponse([{title_ko: 'a'}])), 'index.json', {attempts: 3, idleMs: 20, onRetry: (n, total) => retries.push([n, total])});
+  assert.equal(calls, 2);
+  assert.deepEqual(data, [{title_ko: 'a'}]);
+  assert.deepEqual(retries, [[2, 3]]);
+});
+test('HTTP errors and non-array payloads are retried, then the last error is thrown', async () => {
+  let calls = 0;
+  const responses = [{ok: false, status: 503}, okResponse({not: 'an array'}), {ok: false, status: 502}];
+  await assert.rejects(reader.fetchJsonWithRetry(async () => responses[calls++], 'index.json', {attempts: 3, idleMs: 20}), /502/);
+  assert.equal(calls, 3);
+});
+test('a slow but progressing download is not treated as a stall', async () => {
+  const encoder = new TextEncoder();
+  const chunks = [encoder.encode('[{"title_ko":'), encoder.encode('"slow"}'), encoder.encode(']')];
+  let calls = 0;
+  const body = {getReader: () => ({read: () => new Promise(resolve => setTimeout(() => resolve(chunks.length ? {done: false, value: chunks.shift()} : {done: true}), 15))})};
+  const data = await reader.fetchJsonWithRetry(async () => (calls++, {ok: true, body}), 'index.json', {attempts: 2, idleMs: 40});
+  assert.equal(calls, 1);
+  assert.equal(data[0].title_ko, 'slow');
+});
+test('loading and retry messages exist in every supported language', () => {
+  for (const lang of ['ko', 'en', 'ja', 'zh']) {
+    assert.ok(reader.copy[lang].loading, lang + ' loading');
+    assert.match(reader.copy[lang].retrying, /\{n\}.*\{total\}/, lang + ' retrying');
   }
 });

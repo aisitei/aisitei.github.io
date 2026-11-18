@@ -72,6 +72,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { 
 .news-image { aspect-ratio: 16/10; overflow: hidden; background: var(--surface); border-radius: var(--radius); }
 .news-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .news-image img.fallback-image { object-fit: contain; padding: 35px; opacity: .85; }
+.news-image img.fallback-image { background: var(--surface); }
+/* Skeleton shown until a thumbnail has loaded (the CDN can stall for 20s+). */
+.news-image:not(.is-loaded) { background: linear-gradient(100deg, var(--surface) 30%, var(--line) 50%, var(--surface) 70%) 0 0 / 200% 100%; animation: news-shimmer 1.4s linear infinite; }
+@keyframes news-shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+.loading-state { margin: 0 0 18px; padding: 10px 14px; background: var(--surface); border-left: 3px solid var(--accent); color: var(--muted); font-size: 14px; }
+.loading-state::before { content: ''; display: inline-block; width: 11px; height: 11px; margin-right: 9px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; vertical-align: -1px; animation: news-spin .8s linear infinite; }
+@keyframes news-spin { to { transform: rotate(360deg); } }
+#news-content[aria-busy="true"] :is(.featured-grid,.news-grid) { opacity: .55; transition: opacity .15s; }
+@media(prefers-reduced-motion:reduce) { .news-image:not(.is-loaded), .loading-state::before { animation: none; } }
 .news-copy { padding-top: 15px; }
 .news-meta { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px; font-size: 11px; margin-bottom: 8px; }
 .topic { color: var(--accent); font-weight: 500; }
