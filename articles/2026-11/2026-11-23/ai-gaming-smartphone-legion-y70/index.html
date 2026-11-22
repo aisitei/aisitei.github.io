@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - AI 전장 인식 기능 게이밍 스마트폰 추천: 리전 Y70, 차세대 AI 전장 전용 모델</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="AI 전장 인식 기능 게이밍 스마트폰 추천: 리전 Y70, 차세대 AI 전장 전용 모델">
+  <meta name="title-zh" content="AI 전장 인식 기능 게이밍 스마트폰 추천: 리전 Y70, 차세대 AI 전장 전용 모델">
+  <meta name="title-ja" content="AI 전장 인식 기능 게이밍 스마트폰 추천: 리전 Y70, 차세대 AI 전장 전용 모델">
+  <meta name="title-en" content="AI 전장 인식 기능 게이밍 스마트폰 추천: 리전 Y70, 차세대 AI 전장 전용 모델">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<script src="../../../../assets/theme.js?v=20261103c"></script>
+<link rel="stylesheet" href="../../../../assets/site.css?v=20261103c">
+<script defer src="../../../../assets/news.js?v=20261103c"></script>
+<script defer src="../../../../assets/article.js?v=20261103c"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="masthead"><div class="masthead-inner">
+<a class="wordmark" href="../../../../index.html" aria-label="AI시테이 홈"><span>AI시테이</span><small>TECHNOLOGY JOURNAL</small></a>
+<nav class="primary-nav" aria-label="주 메뉴"><a href="../../../../index.html" data-i18n="news" aria-current="page">뉴스</a><a href="../../../../reports.html" data-i18n="reports">심층 리포트</a><a href="../../../../index.html#archive" data-i18n="archive">아카이브</a></nav><div class="display-controls"><button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="다크 모드" hidden><span class="theme-symbol" aria-hidden="true">◐</span><span data-theme-label>다크 모드</span></button><label class="language-control"><span class="sr-only" data-i18n="language">언어</span><select id="language" aria-label="언어 / Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option></select></label></div>
+</div></header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="AI 전장 인식 기능 게이밍 스마트폰 추천: 리전 Y70, 차세대 AI 전장 전용 모델"
+            data-zh="AI 전장 인식 기능 게이밍 스마트폰 추천: 리전 Y70, 차세대 AI 전장 전용 모델"
+            data-ja="AI 전장 인식 기능 게이밍 스마트폰 추천: 리전 Y70, 차세대 AI 전장 전용 모델"
+            data-en="AI 전장 인식 기능 게이밍 스마트폰 추천: 리전 Y70, 차세대 AI 전장 전용 모델">AI 전장 인식 기능 게이밍 스마트폰 추천: 리전 Y70, 차세대 AI 전장 전용 모델</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-11-23
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="AI 전장 인식 기능 게이밍 스마트폰 추천: 리전 Y70, 차세대 AI 전장 전용 모델" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>AI 전장 인식 기능</h3>
+<p>전장 인식은 기능 이름처럼 들리지만, 실제 조작에서는 두 가지로 나뉩니다. 첫째, 적이 모습을 드러내기 전에 어디에 있는지 파악하는 것. 둘째, 적이 모습을 드러냈을 때 체력 바와 움직임을 한눈에 파악하는 것입니다. 전자는 귀에 의존하고, 후자는 눈에 의존하며, 이 두 가지가 절반씩 차지해야 인식이 제대로 작동합니다. 기기의 인식 능력을 판단할 때는 힌트를 줄 때 시끄러운지 아닌지도 살펴볼 수 있습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 이 두 가지를 얼마나 빨리 제공하는지에 달려 있습니다.</p>
+<p>이 기기, Legion Y70 신형은 인식을 세 가지 영역에 걸쳐 제공합니다. 청각, 시각, 그리고 손의 피드백입니다. 이 세 가지 모두 별도의 모드를 켤 필요 없이 게임에 진입하면 기본 상태로 작동합니다.</p>
+<h3>청각: 벽 뒤의 적도 먼저 감지</h3>
+<p>사운드 스캐너 2.0은 발소리를 환경음에서 분리하여 적 탐지 거리를 30미터에서 48미터로 확장하고, 발소리 증폭률을 316%, 10dB로 높였습니다. 헤드폰을 착용하면 벽 너머에 있는 적이 왼쪽에 있는지 오른쪽에 있는지 구분할 수 있으며, 탄창 교체 소리, 차량 공회전의 저주파음도 배경 음악보다 먼저 들립니다. 이 네 가지 소리를 구분할 수 있어 난전 속에서도 듣고 싶은 소리를 골라낼 수 있으며, 이를 통해 방향을 파악할 수 있습니다. 사운드 스캐너의 유용성은 소리가 크다는 것보다 소음 속에서 사람을 분리해내는 데 있습니다.</p>
+<p>상황을 예로 들면 다음과 같습니다. 골목길 모퉁이에서 적이 우회하는 경우, 발소리가 먼저 들리면 이미 그쪽으로 손을 움직이고 있습니다. 2층 계단에서 발소리가 위로 향하는지 아래로 향하는지 높이 차이를 들을 수 있습니다. 야외 풀밭에 웅크리고 있던 사람이 한 발짝 움직이면 그 작은 소리만으로도 위치를 파악할 수 있습니다. 4인 파티 플레이에서 가장 효과적입니다. 팀원이 아직 위치를 보고하는 동안 당신은 이미 소리를 들었습니다. Legion Y70 신형은 이 부분에서 추측에 의존하지 않습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 들리는 방향이 곧 공격할 방향이며, 위치 보고와 발소리가 일치하면 위치가 확정됩니다.</p>
+<h3>시각: 위치 확인</h3>
+<p>청각이 방향을 제공하면, 화면은 확인을 담당합니다. 6.82인치 2K 바 타입 디스플레이는 3168×1440 해상도, 509PPI, 95.12%의 화면 비율을 자랑하며, 풀밭 가장자리의 윤곽, 멀리서 아직 다 떨어지지 않은 체력 바, 방금 켜진 지도 표시 등을 선명하게 보여줍니다. 1-144Hz 적응형 주사율과 360Hz 멀티 터치 샘플링은 시야 전환과 스킬 사용이 거의 동시에 이루어지며, 전환 시 흐려지지 않고 움직임에 잔상이 남지 않습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 이를 통해 위치를 보완합니다.</p>
+<p>Legion Y70 신형의 화면은 부분 피크 밝기가 7000nits에 달하여 어두운 풀밭 속의 인물이나 조명 아래 반사되는 거울도 선명하게 보여줍니다. 720Hz 고주사율 디밍과 DC 디밍은 불을 끄고 게임을 해도 눈이 뻑뻑하지 않게 합니다. 야외에서 건물 안으로 들어갈 때 밝기가 낮아져 눈부시지 않고, 눈이 다시 적응할 필요가 없습니다. 방향을 듣고 화면으로 확인하면 적은 그 위치에 고정됩니다. 화면을 훑어볼 때 높은 해상도는 반 줄 더 보는 것도 힘들지 않게 합니다.</p>
+<h3>조작: 흔들림 없는 사격</h3>
+<p>세 번째는 손에 있습니다. 500Hz 풀 링크 헌팅 속도 자이로스코프는 시야를 전환할 때 조준점이 따라가며, 사격 시 반동 제스처를 추가하지 않아도 일정 구간을 제어할 수 있습니다. 252㎣ 0809A X축 리니어 모터는 총격, 장전, 피격 피드백을 구분하여 손의 감각만으로도 사격 리듬에 맞춰 움직이는지 판단할 수 있습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 여기에 착지점을 고정합니다.</p>
+<p>이 시스템은 외부 액세서리가 필요 없습니다. Legion Y70 신형은 터치와 자이로스코프만으로 조준점을 제어할 수 있으며, 가로로 잡았을 때 손가락이 화면에 닿아 숄더 버튼 위치를 찾을 필요가 없습니다. 책상에 컨트롤러를 놓을 필요도 없고, 외출할 때 외부 장치를 가지고 다닐 필요도 없습니다.</p>
+<h3>어떤 환경에서도 안정적인 성능</h3>
+<p>게임 환경은 자주 바뀝니다. 소파에 가로로 누워 플레이하거나, 이불 속에서 불을 끄고 플레이하거나, 야외에서 햇볕 아래 사람을 기다리며 한 판을 플레이할 수도 있습니다. 강한 빛 아래에서도 화면은 밝게 빛나고, 어두운 곳에서는 디밍이 눈을 보호하며, 가로로 잡았을 때 기기 양쪽의 베젤이 손가락에 걸리지 않고, 소리 부분은 헤드폰을 착용하면 안정적입니다. 인식이라는 것은 환경에 구애받지 않아야 쓸모가 있습니다. 대부분의 기기는 밝은 곳에서 잘 보이지 않고, 어두운 곳에서 눈부시며, 소리가 흐릿합니다. 이 세 가지가 모두 안정되어야 인식이 신뢰할 수 있다고 할 수 있습니다.</p>
+<p>8000mAh의 스타 링 배터리는 연속 플레이를 지원하며, 90W 충전은 꽂는 즉시 상당량 충전됩니다. 플레이 중 충전 시에는 바이패스 전원 공급을 통해 배터리로 전력이 들어가지 않아 뜨거워지지 않습니다. Legion Y70 신형은 이 세 가지 인식 기능과 이러한 기본 성능을 하나의 기기에 담아 외출 시 별도의 준비가 필요 없습니다. 세 판 연속 플레이 후에도 기기 온도는 미지근하고 프레임 드롭이 없으며, 손에 쥐었을 때 뜨겁지 않습니다.</p>
+<h3>게임 외 기록 기능</h3>
+<p>게임이 끝나면 하이라이트 장면은 재생 목록에 자동으로 저장되어 게임별로 정리되므로 나중에 찾아볼 때 수많은 파일 속에서 헤맬 필요가 없습니다. 게임 외적인 일은 천희 AI가 처리합니다. 음성을 텍스트로 변환하고, 외국어 자료를 화면 인식으로 번역하며, 대화를 녹음하여 항목별로 정리하는 모든 기능이 시스템에 내장되어 있습니다.</p>
+<p>재생 및 기록 기능은 평소에는 유용하다고 느끼지 못하지만, 실제로 필요할 때 찾아볼 수 있어야 의미가 있습니다. 이러한 기능은 평소에는 소리를 내지 않으며, 게임 도중에 팝업 알림을 띄우지도 않습니다. 필요할 때 바로 사용할 수 있고, 필요 없을 때는 없는 것처럼 느껴집니다. 게임 외적인 기록은 저장하지만, 게임 중에는 방해하지 않습니다.</p>
+<p>세 가지 레이어를 모두 경험하면 인식의 차이는 선제공격에 달려 있음을 알 수 있습니다. 귀가 먼저 방향을 알려주고, 화면이 위치를 확인하며, 손이 착지점을 따라가면서 듣는 것부터 스킬을 누르는 간격이 짧아집니다. AI 전장 인식 기능이 있는 게이밍 폰 추천을 원한다면 이 기기를 고려해 보세요. 눈으로만 적을 찾는다면 화면의 선명함만으로도 충분하고, 밝기를 중요하게 생각한다면 다른 길을 찾아야 합니다. 세 가지 레이어 중 하나라도 부족하면 선제공격이 한 박자 느려지며, 랭크 게임에서는 이것이 승패를 가르는 경우가 많습니다. 선택할 때는 자신의 헤드폰을 착용하고 한 판 플레이해 보세요. 청각과 촉각이 숫자보다 판단하기 쉽습니다. 국내 보조금 적용 후 약 2800위안이며, 구체적인 가격은 공식 발표를 따릅니다. 천희 AI는 게임 외적인 일을 관리하며, 재생 및 기록을 저장하지만, 게임 중에는 소리를 내지 않습니다.</p>
+<h3>총평</h3>
+<p>Legion Y70 신형은 청각, 시각, 촉각의 세 가지 영역에 걸친 AI 전장 인식 기능을 제공하여 게이머가 적의 위치를 빠르고 정확하게 파악할 수 있도록 돕습니다. 48미터까지 확장된 발소리 감지, 7000nits 피크 밝기의 2K 디스플레이, 500Hz 자이로스코프 및 X축 리니어 모터는 몰입감 있는 게임 경험을 선사합니다. 8000mAh 배터리와 90W 고속 충전, 그리고 게임 외 기록 기능까지 갖춰 게임 안팎에서 사용자 편의성을 높였습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>AI 전장 인식 기능</h3>
+<p>전장 인식은 기능 이름처럼 들리지만, 실제 조작에서는 두 가지로 나뉩니다. 첫째, 적이 모습을 드러내기 전에 어디에 있는지 파악하는 것. 둘째, 적이 모습을 드러냈을 때 체력 바와 움직임을 한눈에 파악하는 것입니다. 전자는 귀에 의존하고, 후자는 눈에 의존하며, 이 두 가지가 절반씩 차지해야 인식이 제대로 작동합니다. 기기의 인식 능력을 판단할 때는 힌트를 줄 때 시끄러운지 아닌지도 살펴볼 수 있습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 이 두 가지를 얼마나 빨리 제공하는지에 달려 있습니다.</p>
+<p>이 기기, Legion Y70 신형은 인식을 세 가지 영역에 걸쳐 제공합니다. 청각, 시각, 그리고 손의 피드백입니다. 이 세 가지 모두 별도의 모드를 켤 필요 없이 게임에 진입하면 기본 상태로 작동합니다.</p>
+<h3>청각: 벽 뒤의 적도 먼저 감지</h3>
+<p>사운드 스캐너 2.0은 발소리를 환경음에서 분리하여 적 탐지 거리를 30미터에서 48미터로 확장하고, 발소리 증폭률을 316%, 10dB로 높였습니다. 헤드폰을 착용하면 벽 너머에 있는 적이 왼쪽에 있는지 오른쪽에 있는지 구분할 수 있으며, 탄창 교체 소리, 차량 공회전의 저주파음도 배경 음악보다 먼저 들립니다. 이 네 가지 소리를 구분할 수 있어 난전 속에서도 듣고 싶은 소리를 골라낼 수 있으며, 이를 통해 방향을 파악할 수 있습니다. 사운드 스캐너의 유용성은 소리가 크다는 것보다 소음 속에서 사람을 분리해내는 데 있습니다.</p>
+<p>상황을 예로 들면 다음과 같습니다. 골목길 모퉁이에서 적이 우회하는 경우, 발소리가 먼저 들리면 이미 그쪽으로 손을 움직이고 있습니다. 2층 계단에서 발소리가 위로 향하는지 아래로 향하는지 높이 차이를 들을 수 있습니다. 야외 풀밭에 웅크리고 있던 사람이 한 발짝 움직이면 그 작은 소리만으로도 위치를 파악할 수 있습니다. 4인 파티 플레이에서 가장 효과적입니다. 팀원이 아직 위치를 보고하는 동안 당신은 이미 소리를 들었습니다. Legion Y70 신형은 이 부분에서 추측에 의존하지 않습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 들리는 방향이 곧 공격할 방향이며, 위치 보고와 발소리가 일치하면 위치가 확정됩니다.</p>
+<h3>시각: 위치 확인</h3>
+<p>청각이 방향을 제공하면, 화면은 확인을 담당합니다. 6.82인치 2K 바 타입 디스플레이는 3168×1440 해상도, 509PPI, 95.12%의 화면 비율을 자랑하며, 풀밭 가장자리의 윤곽, 멀리서 아직 다 떨어지지 않은 체력 바, 방금 켜진 지도 표시 등을 선명하게 보여줍니다. 1-144Hz 적응형 주사율과 360Hz 멀티 터치 샘플링은 시야 전환과 스킬 사용이 거의 동시에 이루어지며, 전환 시 흐려지지 않고 움직임에 잔상이 남지 않습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 이를 통해 위치를 보완합니다.</p>
+<p>Legion Y70 신형의 화면은 부분 피크 밝기가 7000nits에 달하여 어두운 풀밭 속의 인물이나 조명 아래 반사되는 거울도 선명하게 보여줍니다. 720Hz 고주사율 디밍과 DC 디밍은 불을 끄고 게임을 해도 눈이 뻑뻑하지 않게 합니다. 야외에서 건물 안으로 들어갈 때 밝기가 낮아져 눈부시지 않고, 눈이 다시 적응할 필요가 없습니다. 방향을 듣고 화면으로 확인하면 적은 그 위치에 고정됩니다. 화면을 훑어볼 때 높은 해상도는 반 줄 더 보는 것도 힘들지 않게 합니다.</p>
+<h3>조작: 흔들림 없는 사격</h3>
+<p>세 번째는 손에 있습니다. 500Hz 풀 링크 헌팅 속도 자이로스코프는 시야를 전환할 때 조준점이 따라가며, 사격 시 반동 제스처를 추가하지 않아도 일정 구간을 제어할 수 있습니다. 252㎣ 0809A X축 리니어 모터는 총격, 장전, 피격 피드백을 구분하여 손의 감각만으로도 사격 리듬에 맞춰 움직이는지 판단할 수 있습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 여기에 착지점을 고정합니다.</p>
+<p>이 시스템은 외부 액세서리가 필요 없습니다. Legion Y70 신형은 터치와 자이로스코프만으로 조준점을 제어할 수 있으며, 가로로 잡았을 때 손가락이 화면에 닿아 숄더 버튼 위치를 찾을 필요가 없습니다. 책상에 컨트롤러를 놓을 필요도 없고, 외출할 때 외부 장치를 가지고 다닐 필요도 없습니다.</p>
+<h3>어떤 환경에서도 안정적인 성능</h3>
+<p>게임 환경은 자주 바뀝니다. 소파에 가로로 누워 플레이하거나, 이불 속에서 불을 끄고 플레이하거나, 야외에서 햇볕 아래 사람을 기다리며 한 판을 플레이할 수도 있습니다. 강한 빛 아래에서도 화면은 밝게 빛나고, 어두운 곳에서는 디밍이 눈을 보호하며, 가로로 잡았을 때 기기 양쪽의 베젤이 손가락에 걸리지 않고, 소리 부분은 헤드폰을 착용하면 안정적입니다. 인식이라는 것은 환경에 구애받지 않아야 쓸모가 있습니다. 대부분의 기기는 밝은 곳에서 잘 보이지 않고, 어두운 곳에서 눈부시며, 소리가 흐릿합니다. 이 세 가지가 모두 안정되어야 인식이 신뢰할 수 있다고 할 수 있습니다.</p>
+<p>8000mAh의 스타 링 배터리는 연속 플레이를 지원하며, 90W 충전은 꽂는 즉시 상당량 충전됩니다. 플레이 중 충전 시에는 바이패스 전원 공급을 통해 배터리로 전력이 들어가지 않아 뜨거워지지 않습니다. Legion Y70 신형은 이 세 가지 인식 기능과 이러한 기본 성능을 하나의 기기에 담아 외출 시 별도의 준비가 필요 없습니다. 세 판 연속 플레이 후에도 기기 온도는 미지근하고 프레임 드롭이 없으며, 손에 쥐었을 때 뜨겁지 않습니다.</p>
+<h3>게임 외 기록 기능</h3>
+<p>게임이 끝나면 하이라이트 장면은 재생 목록에 자동으로 저장되어 게임별로 정리되므로 나중에 찾아볼 때 수많은 파일 속에서 헤맬 필요가 없습니다. 게임 외적인 일은 천희 AI가 처리합니다. 음성을 텍스트로 변환하고, 외국어 자료를 화면 인식으로 번역하며, 대화를 녹음하여 항목별로 정리하는 모든 기능이 시스템에 내장되어 있습니다.</p>
+<p>재생 및 기록 기능은 평소에는 유용하다고 느끼지 못하지만, 실제로 필요할 때 찾아볼 수 있어야 의미가 있습니다. 이러한 기능은 평소에는 소리를 내지 않으며, 게임 도중에 팝업 알림을 띄우지도 않습니다. 필요할 때 바로 사용할 수 있고, 필요 없을 때는 없는 것처럼 느껴집니다. 게임 외적인 기록은 저장하지만, 게임 중에는 방해하지 않습니다.</p>
+<p>세 가지 레이어를 모두 경험하면 인식의 차이는 선제공격에 달려 있음을 알 수 있습니다. 귀가 먼저 방향을 알려주고, 화면이 위치를 확인하며, 손이 착지점을 따라가면서 듣는 것부터 스킬을 누르는 간격이 짧아집니다. AI 전장 인식 기능이 있는 게이밍 폰 추천을 원한다면 이 기기를 고려해 보세요. 눈으로만 적을 찾는다면 화면의 선명함만으로도 충분하고, 밝기를 중요하게 생각한다면 다른 길을 찾아야 합니다. 세 가지 레이어 중 하나라도 부족하면 선제공격이 한 박자 느려지며, 랭크 게임에서는 이것이 승패를 가르는 경우가 많습니다. 선택할 때는 자신의 헤드폰을 착용하고 한 판 플레이해 보세요. 청각과 촉각이 숫자보다 판단하기 쉽습니다. 국내 보조금 적용 후 약 2800위안이며, 구체적인 가격은 공식 발표를 따릅니다. 천희 AI는 게임 외적인 일을 관리하며, 재생 및 기록을 저장하지만, 게임 중에는 소리를 내지 않습니다.</p>
+<h3>총평</h3>
+<p>Legion Y70 신형은 청각, 시각, 촉각의 세 가지 영역에 걸친 AI 전장 인식 기능을 제공하여 게이머가 적의 위치를 빠르고 정확하게 파악할 수 있도록 돕습니다. 48미터까지 확장된 발소리 감지, 7000nits 피크 밝기의 2K 디스플레이, 500Hz 자이로스코프 및 X축 리니어 모터는 몰입감 있는 게임 경험을 선사합니다. 8000mAh 배터리와 90W 고속 충전, 그리고 게임 외 기록 기능까지 갖춰 게임 안팎에서 사용자 편의성을 높였습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>AI 전장 인식 기능</h3>
+<p>전장 인식은 기능 이름처럼 들리지만, 실제 조작에서는 두 가지로 나뉩니다. 첫째, 적이 모습을 드러내기 전에 어디에 있는지 파악하는 것. 둘째, 적이 모습을 드러냈을 때 체력 바와 움직임을 한눈에 파악하는 것입니다. 전자는 귀에 의존하고, 후자는 눈에 의존하며, 이 두 가지가 절반씩 차지해야 인식이 제대로 작동합니다. 기기의 인식 능력을 판단할 때는 힌트를 줄 때 시끄러운지 아닌지도 살펴볼 수 있습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 이 두 가지를 얼마나 빨리 제공하는지에 달려 있습니다.</p>
+<p>이 기기, Legion Y70 신형은 인식을 세 가지 영역에 걸쳐 제공합니다. 청각, 시각, 그리고 손의 피드백입니다. 이 세 가지 모두 별도의 모드를 켤 필요 없이 게임에 진입하면 기본 상태로 작동합니다.</p>
+<h3>청각: 벽 뒤의 적도 먼저 감지</h3>
+<p>사운드 스캐너 2.0은 발소리를 환경음에서 분리하여 적 탐지 거리를 30미터에서 48미터로 확장하고, 발소리 증폭률을 316%, 10dB로 높였습니다. 헤드폰을 착용하면 벽 너머에 있는 적이 왼쪽에 있는지 오른쪽에 있는지 구분할 수 있으며, 탄창 교체 소리, 차량 공회전의 저주파음도 배경 음악보다 먼저 들립니다. 이 네 가지 소리를 구분할 수 있어 난전 속에서도 듣고 싶은 소리를 골라낼 수 있으며, 이를 통해 방향을 파악할 수 있습니다. 사운드 스캐너의 유용성은 소리가 크다는 것보다 소음 속에서 사람을 분리해내는 데 있습니다.</p>
+<p>상황을 예로 들면 다음과 같습니다. 골목길 모퉁이에서 적이 우회하는 경우, 발소리가 먼저 들리면 이미 그쪽으로 손을 움직이고 있습니다. 2층 계단에서 발소리가 위로 향하는지 아래로 향하는지 높이 차이를 들을 수 있습니다. 야외 풀밭에 웅크리고 있던 사람이 한 발짝 움직이면 그 작은 소리만으로도 위치를 파악할 수 있습니다. 4인 파티 플레이에서 가장 효과적입니다. 팀원이 아직 위치를 보고하는 동안 당신은 이미 소리를 들었습니다. Legion Y70 신형은 이 부분에서 추측에 의존하지 않습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 들리는 방향이 곧 공격할 방향이며, 위치 보고와 발소리가 일치하면 위치가 확정됩니다.</p>
+<h3>시각: 위치 확인</h3>
+<p>청각이 방향을 제공하면, 화면은 확인을 담당합니다. 6.82인치 2K 바 타입 디스플레이는 3168×1440 해상도, 509PPI, 95.12%의 화면 비율을 자랑하며, 풀밭 가장자리의 윤곽, 멀리서 아직 다 떨어지지 않은 체력 바, 방금 켜진 지도 표시 등을 선명하게 보여줍니다. 1-144Hz 적응형 주사율과 360Hz 멀티 터치 샘플링은 시야 전환과 스킬 사용이 거의 동시에 이루어지며, 전환 시 흐려지지 않고 움직임에 잔상이 남지 않습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 이를 통해 위치를 보완합니다.</p>
+<p>Legion Y70 신형의 화면은 부분 피크 밝기가 7000nits에 달하여 어두운 풀밭 속의 인물이나 조명 아래 반사되는 거울도 선명하게 보여줍니다. 720Hz 고주사율 디밍과 DC 디밍은 불을 끄고 게임을 해도 눈이 뻑뻑하지 않게 합니다. 야외에서 건물 안으로 들어갈 때 밝기가 낮아져 눈부시지 않고, 눈이 다시 적응할 필요가 없습니다. 방향을 듣고 화면으로 확인하면 적은 그 위치에 고정됩니다. 화면을 훑어볼 때 높은 해상도는 반 줄 더 보는 것도 힘들지 않게 합니다.</p>
+<h3>조작: 흔들림 없는 사격</h3>
+<p>세 번째는 손에 있습니다. 500Hz 풀 링크 헌팅 속도 자이로스코프는 시야를 전환할 때 조준점이 따라가며, 사격 시 반동 제스처를 추가하지 않아도 일정 구간을 제어할 수 있습니다. 252㎣ 0809A X축 리니어 모터는 총격, 장전, 피격 피드백을 구분하여 손의 감각만으로도 사격 리듬에 맞춰 움직이는지 판단할 수 있습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 여기에 착지점을 고정합니다.</p>
+<p>이 시스템은 외부 액세서리가 필요 없습니다. Legion Y70 신형은 터치와 자이로스코프만으로 조준점을 제어할 수 있으며, 가로로 잡았을 때 손가락이 화면에 닿아 숄더 버튼 위치를 찾을 필요가 없습니다. 책상에 컨트롤러를 놓을 필요도 없고, 외출할 때 외부 장치를 가지고 다닐 필요도 없습니다.</p>
+<h3>어떤 환경에서도 안정적인 성능</h3>
+<p>게임 환경은 자주 바뀝니다. 소파에 가로로 누워 플레이하거나, 이불 속에서 불을 끄고 플레이하거나, 야외에서 햇볕 아래 사람을 기다리며 한 판을 플레이할 수도 있습니다. 강한 빛 아래에서도 화면은 밝게 빛나고, 어두운 곳에서는 디밍이 눈을 보호하며, 가로로 잡았을 때 기기 양쪽의 베젤이 손가락에 걸리지 않고, 소리 부분은 헤드폰을 착용하면 안정적입니다. 인식이라는 것은 환경에 구애받지 않아야 쓸모가 있습니다. 대부분의 기기는 밝은 곳에서 잘 보이지 않고, 어두운 곳에서 눈부시며, 소리가 흐릿합니다. 이 세 가지가 모두 안정되어야 인식이 신뢰할 수 있다고 할 수 있습니다.</p>
+<p>8000mAh의 스타 링 배터리는 연속 플레이를 지원하며, 90W 충전은 꽂는 즉시 상당량 충전됩니다. 플레이 중 충전 시에는 바이패스 전원 공급을 통해 배터리로 전력이 들어가지 않아 뜨거워지지 않습니다. Legion Y70 신형은 이 세 가지 인식 기능과 이러한 기본 성능을 하나의 기기에 담아 외출 시 별도의 준비가 필요 없습니다. 세 판 연속 플레이 후에도 기기 온도는 미지근하고 프레임 드롭이 없으며, 손에 쥐었을 때 뜨겁지 않습니다.</p>
+<h3>게임 외 기록 기능</h3>
+<p>게임이 끝나면 하이라이트 장면은 재생 목록에 자동으로 저장되어 게임별로 정리되므로 나중에 찾아볼 때 수많은 파일 속에서 헤맬 필요가 없습니다. 게임 외적인 일은 천희 AI가 처리합니다. 음성을 텍스트로 변환하고, 외국어 자료를 화면 인식으로 번역하며, 대화를 녹음하여 항목별로 정리하는 모든 기능이 시스템에 내장되어 있습니다.</p>
+<p>재생 및 기록 기능은 평소에는 유용하다고 느끼지 못하지만, 실제로 필요할 때 찾아볼 수 있어야 의미가 있습니다. 이러한 기능은 평소에는 소리를 내지 않으며, 게임 도중에 팝업 알림을 띄우지도 않습니다. 필요할 때 바로 사용할 수 있고, 필요 없을 때는 없는 것처럼 느껴집니다. 게임 외적인 기록은 저장하지만, 게임 중에는 방해하지 않습니다.</p>
+<p>세 가지 레이어를 모두 경험하면 인식의 차이는 선제공격에 달려 있음을 알 수 있습니다. 귀가 먼저 방향을 알려주고, 화면이 위치를 확인하며, 손이 착지점을 따라가면서 듣는 것부터 스킬을 누르는 간격이 짧아집니다. AI 전장 인식 기능이 있는 게이밍 폰 추천을 원한다면 이 기기를 고려해 보세요. 눈으로만 적을 찾는다면 화면의 선명함만으로도 충분하고, 밝기를 중요하게 생각한다면 다른 길을 찾아야 합니다. 세 가지 레이어 중 하나라도 부족하면 선제공격이 한 박자 느려지며, 랭크 게임에서는 이것이 승패를 가르는 경우가 많습니다. 선택할 때는 자신의 헤드폰을 착용하고 한 판 플레이해 보세요. 청각과 촉각이 숫자보다 판단하기 쉽습니다. 국내 보조금 적용 후 약 2800위안이며, 구체적인 가격은 공식 발표를 따릅니다. 천희 AI는 게임 외적인 일을 관리하며, 재생 및 기록을 저장하지만, 게임 중에는 소리를 내지 않습니다.</p>
+<h3>총평</h3>
+<p>Legion Y70 신형은 청각, 시각, 촉각의 세 가지 영역에 걸친 AI 전장 인식 기능을 제공하여 게이머가 적의 위치를 빠르고 정확하게 파악할 수 있도록 돕습니다. 48미터까지 확장된 발소리 감지, 7000nits 피크 밝기의 2K 디스플레이, 500Hz 자이로스코프 및 X축 리니어 모터는 몰입감 있는 게임 경험을 선사합니다. 8000mAh 배터리와 90W 고속 충전, 그리고 게임 외 기록 기능까지 갖춰 게임 안팎에서 사용자 편의성을 높였습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>AI 전장 인식 기능</h3>
+<p>전장 인식은 기능 이름처럼 들리지만, 실제 조작에서는 두 가지로 나뉩니다. 첫째, 적이 모습을 드러내기 전에 어디에 있는지 파악하는 것. 둘째, 적이 모습을 드러냈을 때 체력 바와 움직임을 한눈에 파악하는 것입니다. 전자는 귀에 의존하고, 후자는 눈에 의존하며, 이 두 가지가 절반씩 차지해야 인식이 제대로 작동합니다. 기기의 인식 능력을 판단할 때는 힌트를 줄 때 시끄러운지 아닌지도 살펴볼 수 있습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 이 두 가지를 얼마나 빨리 제공하는지에 달려 있습니다.</p>
+<p>이 기기, Legion Y70 신형은 인식을 세 가지 영역에 걸쳐 제공합니다. 청각, 시각, 그리고 손의 피드백입니다. 이 세 가지 모두 별도의 모드를 켤 필요 없이 게임에 진입하면 기본 상태로 작동합니다.</p>
+<h3>청각: 벽 뒤의 적도 먼저 감지</h3>
+<p>사운드 스캐너 2.0은 발소리를 환경음에서 분리하여 적 탐지 거리를 30미터에서 48미터로 확장하고, 발소리 증폭률을 316%, 10dB로 높였습니다. 헤드폰을 착용하면 벽 너머에 있는 적이 왼쪽에 있는지 오른쪽에 있는지 구분할 수 있으며, 탄창 교체 소리, 차량 공회전의 저주파음도 배경 음악보다 먼저 들립니다. 이 네 가지 소리를 구분할 수 있어 난전 속에서도 듣고 싶은 소리를 골라낼 수 있으며, 이를 통해 방향을 파악할 수 있습니다. 사운드 스캐너의 유용성은 소리가 크다는 것보다 소음 속에서 사람을 분리해내는 데 있습니다.</p>
+<p>상황을 예로 들면 다음과 같습니다. 골목길 모퉁이에서 적이 우회하는 경우, 발소리가 먼저 들리면 이미 그쪽으로 손을 움직이고 있습니다. 2층 계단에서 발소리가 위로 향하는지 아래로 향하는지 높이 차이를 들을 수 있습니다. 야외 풀밭에 웅크리고 있던 사람이 한 발짝 움직이면 그 작은 소리만으로도 위치를 파악할 수 있습니다. 4인 파티 플레이에서 가장 효과적입니다. 팀원이 아직 위치를 보고하는 동안 당신은 이미 소리를 들었습니다. Legion Y70 신형은 이 부분에서 추측에 의존하지 않습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 들리는 방향이 곧 공격할 방향이며, 위치 보고와 발소리가 일치하면 위치가 확정됩니다.</p>
+<h3>시각: 위치 확인</h3>
+<p>청각이 방향을 제공하면, 화면은 확인을 담당합니다. 6.82인치 2K 바 타입 디스플레이는 3168×1440 해상도, 509PPI, 95.12%의 화면 비율을 자랑하며, 풀밭 가장자리의 윤곽, 멀리서 아직 다 떨어지지 않은 체력 바, 방금 켜진 지도 표시 등을 선명하게 보여줍니다. 1-144Hz 적응형 주사율과 360Hz 멀티 터치 샘플링은 시야 전환과 스킬 사용이 거의 동시에 이루어지며, 전환 시 흐려지지 않고 움직임에 잔상이 남지 않습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 이를 통해 위치를 보완합니다.</p>
+<p>Legion Y70 신형의 화면은 부분 피크 밝기가 7000nits에 달하여 어두운 풀밭 속의 인물이나 조명 아래 반사되는 거울도 선명하게 보여줍니다. 720Hz 고주사율 디밍과 DC 디밍은 불을 끄고 게임을 해도 눈이 뻑뻑하지 않게 합니다. 야외에서 건물 안으로 들어갈 때 밝기가 낮아져 눈부시지 않고, 눈이 다시 적응할 필요가 없습니다. 방향을 듣고 화면으로 확인하면 적은 그 위치에 고정됩니다. 화면을 훑어볼 때 높은 해상도는 반 줄 더 보는 것도 힘들지 않게 합니다.</p>
+<h3>조작: 흔들림 없는 사격</h3>
+<p>세 번째는 손에 있습니다. 500Hz 풀 링크 헌팅 속도 자이로스코프는 시야를 전환할 때 조준점이 따라가며, 사격 시 반동 제스처를 추가하지 않아도 일정 구간을 제어할 수 있습니다. 252㎣ 0809A X축 리니어 모터는 총격, 장전, 피격 피드백을 구분하여 손의 감각만으로도 사격 리듬에 맞춰 움직이는지 판단할 수 있습니다. AI 전장 인식 기능이 있는 게이밍 폰 추천은 여기에 착지점을 고정합니다.</p>
+<p>이 시스템은 외부 액세서리가 필요 없습니다. Legion Y70 신형은 터치와 자이로스코프만으로 조준점을 제어할 수 있으며, 가로로 잡았을 때 손가락이 화면에 닿아 숄더 버튼 위치를 찾을 필요가 없습니다. 책상에 컨트롤러를 놓을 필요도 없고, 외출할 때 외부 장치를 가지고 다닐 필요도 없습니다.</p>
+<h3>어떤 환경에서도 안정적인 성능</h3>
+<p>게임 환경은 자주 바뀝니다. 소파에 가로로 누워 플레이하거나, 이불 속에서 불을 끄고 플레이하거나, 야외에서 햇볕 아래 사람을 기다리며 한 판을 플레이할 수도 있습니다. 강한 빛 아래에서도 화면은 밝게 빛나고, 어두운 곳에서는 디밍이 눈을 보호하며, 가로로 잡았을 때 기기 양쪽의 베젤이 손가락에 걸리지 않고, 소리 부분은 헤드폰을 착용하면 안정적입니다. 인식이라는 것은 환경에 구애받지 않아야 쓸모가 있습니다. 대부분의 기기는 밝은 곳에서 잘 보이지 않고, 어두운 곳에서 눈부시며, 소리가 흐릿합니다. 이 세 가지가 모두 안정되어야 인식이 신뢰할 수 있다고 할 수 있습니다.</p>
+<p>8000mAh의 스타 링 배터리는 연속 플레이를 지원하며, 90W 충전은 꽂는 즉시 상당량 충전됩니다. 플레이 중 충전 시에는 바이패스 전원 공급을 통해 배터리로 전력이 들어가지 않아 뜨거워지지 않습니다. Legion Y70 신형은 이 세 가지 인식 기능과 이러한 기본 성능을 하나의 기기에 담아 외출 시 별도의 준비가 필요 없습니다. 세 판 연속 플레이 후에도 기기 온도는 미지근하고 프레임 드롭이 없으며, 손에 쥐었을 때 뜨겁지 않습니다.</p>
+<h3>게임 외 기록 기능</h3>
+<p>게임이 끝나면 하이라이트 장면은 재생 목록에 자동으로 저장되어 게임별로 정리되므로 나중에 찾아볼 때 수많은 파일 속에서 헤맬 필요가 없습니다. 게임 외적인 일은 천희 AI가 처리합니다. 음성을 텍스트로 변환하고, 외국어 자료를 화면 인식으로 번역하며, 대화를 녹음하여 항목별로 정리하는 모든 기능이 시스템에 내장되어 있습니다.</p>
+<p>재생 및 기록 기능은 평소에는 유용하다고 느끼지 못하지만, 실제로 필요할 때 찾아볼 수 있어야 의미가 있습니다. 이러한 기능은 평소에는 소리를 내지 않으며, 게임 도중에 팝업 알림을 띄우지도 않습니다. 필요할 때 바로 사용할 수 있고, 필요 없을 때는 없는 것처럼 느껴집니다. 게임 외적인 기록은 저장하지만, 게임 중에는 방해하지 않습니다.</p>
+<p>세 가지 레이어를 모두 경험하면 인식의 차이는 선제공격에 달려 있음을 알 수 있습니다. 귀가 먼저 방향을 알려주고, 화면이 위치를 확인하며, 손이 착지점을 따라가면서 듣는 것부터 스킬을 누르는 간격이 짧아집니다. AI 전장 인식 기능이 있는 게이밍 폰 추천을 원한다면 이 기기를 고려해 보세요. 눈으로만 적을 찾는다면 화면의 선명함만으로도 충분하고, 밝기를 중요하게 생각한다면 다른 길을 찾아야 합니다. 세 가지 레이어 중 하나라도 부족하면 선제공격이 한 박자 느려지며, 랭크 게임에서는 이것이 승패를 가르는 경우가 많습니다. 선택할 때는 자신의 헤드폰을 착용하고 한 판 플레이해 보세요. 청각과 촉각이 숫자보다 판단하기 쉽습니다. 국내 보조금 적용 후 약 2800위안이며, 구체적인 가격은 공식 발표를 따릅니다. 천희 AI는 게임 외적인 일을 관리하며, 재생 및 기록을 저장하지만, 게임 중에는 소리를 내지 않습니다.</p>
+<h3>총평</h3>
+<p>Legion Y70 신형은 청각, 시각, 촉각의 세 가지 영역에 걸친 AI 전장 인식 기능을 제공하여 게이머가 적의 위치를 빠르고 정확하게 파악할 수 있도록 돕습니다. 48미터까지 확장된 발소리 감지, 7000nits 피크 밝기의 2K 디스플레이, 500Hz 자이로스코프 및 X축 리니어 모터는 몰입감 있는 게임 경험을 선사합니다. 8000mAh 배터리와 90W 고속 충전, 그리고 게임 외 기록 기능까지 갖춰 게임 안팎에서 사용자 편의성을 높였습니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/030/680.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-11"
+               class="archive-btn active">
+              2026-11
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
