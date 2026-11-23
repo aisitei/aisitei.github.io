@@ -10,9 +10,9 @@
   <meta name="article-brand" content="Apple">
   <meta name="article-brand-color" content="#555555">
   <meta name="title-ko" content="개발자가 Apple 제한 우회, iPhone 타사 키보드에 직접 음성 입력 구현 성공">
-  <meta name="title-zh" content="개발자가 Apple 제한 우회, iPhone 타사 키보드에 직접 음성 입력 구현 성공">
-  <meta name="title-ja" content="개발자가 Apple 제한 우회, iPhone 타사 키보드에 직접 음성 입력 구현 성공">
-  <meta name="title-en" content="개발자가 Apple 제한 우회, iPhone 타사 키보드에 직접 음성 입력 구현 성공">
+  <meta name="title-zh" content="开发者绕过苹果限制，成功为 iPhone 第三方键盘实现直接语音输入">
+  <meta name="title-ja" content="開発者がAppleの制限を回避し、iPhone向けサードパーティ製キーボードで音声入力を実現">
+  <meta name="title-en" content="Developer bypasses Apple restrictions to enable direct voice input for iPhone third-party keyboards">
   <style>
     :root {
       --bg: #0f172a;
@@ -533,9 +533,9 @@
 
         <h1 class="article-title"
             data-ko="개발자가 Apple 제한 우회, iPhone 타사 키보드에 직접 음성 입력 구현 성공"
-            data-zh="개발자가 Apple 제한 우회, iPhone 타사 키보드에 직접 음성 입력 구현 성공"
-            data-ja="개발자가 Apple 제한 우회, iPhone 타사 키보드에 직접 음성 입력 구현 성공"
-            data-en="개발자가 Apple 제한 우회, iPhone 타사 키보드에 직접 음성 입력 구현 성공">개발자가 Apple 제한 우회, iPhone 타사 키보드에 직접 음성 입력 구현 성공</h1>
+            data-zh="开发者绕过苹果限制，成功为 iPhone 第三方键盘实现直接语音输入"
+            data-ja="開発者がAppleの制限を回避し、iPhone向けサードパーティ製キーボードで音声入力を実現"
+            data-en="Developer bypasses Apple restrictions to enable direct voice input for iPhone third-party keyboards">개발자가 Apple 제한 우회, iPhone 타사 키보드에 직접 음성 입력 구현 성공</h1>
 
         <div class="article-info">
           
@@ -574,49 +574,59 @@
           
         </div>
         <div class="lang-body" data-lang="zh">
-          
-          <h3>서론</h3>
-<p>IT之家 11월 23일 보도에 따르면, 외신 cultofmac은 최근 개발자들이 음성 입력 기능을 iPhone 서드파티 키보드에 직접 통합하는 데 성공했다고 전했습니다. 이제 사용자들은 앱을 전환할 필요 없이 키보드의 마이크 아이콘을 탭하기만 하면 바로 음성 입력을 시작할 수 있습니다.</p>
-<h3>기존 제한 사항</h3>
-<p>이전에는 Apple이 서드파티 키보드가 기기 마이크에 직접 접근하는 것을 허용하지 않았습니다. 이러한 앱들은 먼저 자체 메인 앱을 열어 녹음을 시작하고, 음성 인식이 완료된 후 원래의 텍스트 입력 화면으로 돌아와야 했습니다. iOS 26.4에서는 이러한 사용상의 불편함이 더욱 커졌습니다. Apple이 서드파티 키보드가 현재 실행 중인 앱 정보를 얻는 권한을 조정하여, 키보드가 이전 앱으로 자동으로 돌아갈 수 없게 되었고, 사용자들은 수동으로 전환해야 했습니다.</p>
-<h3>제한 우회 성공</h3>
-<p>하지만 이제 개발자들은 Apple의 제한을 성공적으로 우회했습니다. Raycast는 기기 마이크에 직접 접근을 지원하는 최초의 서드파티 키보드 앱이며, 이후 Function, Aqua Voice, Superwhisper, Granola, Wispr Flow도 음성 입력 기능을 추가하며 뒤를 이었습니다.</p>
-<h3>기술적 원리</h3>
-<p>Raycast는 아직 이 기능의 구체적인 구현 방식을 공식적으로 설명하지 않았습니다. 그러나 개발자 Chandra Vikram은 소셜 플랫폼 X에서 가능한 기술적 원리를 공유했습니다. 키보드 내부에 매우 작고 거의 보이지 않는 웹 뷰를 삽입하고, 브라우저가 제공하는 마이크 API를 통해 오디오를 수집하는 방식입니다. WebKit이 녹음을 독립적인 프로세스에서 처리하기 때문에, 이 방식은 서드파티 키보드 자체의 마이크 접근 제한을 우회하는 것으로 보입니다.</p>
-<p>이후 마이크 API로 수집된 오디오는 키보드로 다시 전달되어 음성 인식 및 텍스트 변환에 사용됩니다. 이 솔루션은 Apple의 기존 제한을 교묘하게 회피했지만, 공식 API를 사용하지 않았다는 점은 Apple이 향후 iOS 시스템 업데이트를 통해 이러한 구현 방식을 차단할 가능성이 있음을 의미합니다.</p>
-<h3>총평</h3>
-<p>개발자들이 Apple의 마이크 접근 제한을 우회하여 서드파티 키보드에 음성 입력 기능을 직접 통합하는 데 성공했습니다. 이는 사용자 편의성을 크게 향상시키지만, 비공식적인 방법을 사용했기 때문에 Apple이 향후 시스템 업데이트를 통해 해당 기능을 차단할 가능성도 있습니다.</p>
-          
+ <h3>语音输入功能突破与集成</h3>
+<p>开发者们近期成功将直接的语音输入功能集成到 iPhone 的第三方键盘中。用户现在无需切换应用，只需点击键盘上的麦克风图标即可开始进行实时语音输入。</p>
+<h3>Apple系统限制与技术绕过</h3>
+<p>此前，由于 Apple 对安全和隐私的严格限制，第三方键盘最初无法直接访问设备麦克风。此类应用必须先打开自身主应用启动录音，完成语音识别后才能返回文本输入界面。此外，iOS 26.4 的更新进一步增加了使用难度，调整了第三方键盘获取当前运行应用信息的权限，导致用户需要手动切换回原应用。</p>
+<p>目前开发者已成功绕过这些限制，实现了直接的麦克风访问和语音识别流程。</p>
+<h3>核心技术原理分析</h3>
+<p>根据开发者 Chandra Vikram 的分享，实现这一功能的关键在于巧妙的技术规避：</p>
+<ul>
+<li><strong>嵌入式网页视图：</strong> 键盘内部嵌入了一个体积极小、几乎不可见的网页视图。</li>
+<li><strong>API利用：</strong> 通过浏览器提供的麦克风 API 来采集音频数据。</li>
+<li><strong>绕过机制：</strong> 由于 WebKit 会在独立进程中处理录音，这使得该方式规避了第三方键盘自身无法直接访问麦克风的系统限制。</li>
+</ul>
+<p>采集到的音频随后会传回键盘用于语音识别和文字转录。</p>
+<h3>支持新功能的第三方应用</h3>
+<p>首批实现此功能并率先推出的应用包括：</p>
+<ul>
+<li>Raycast（首款支持直接访问设备麦克风的第三方键盘）</li>
+<li>Function</li>
+<li>Aqua Voice</li>
+<li>Superwhisper</li>
+<li>Granola</li>
+<li>Wispr Flow</li>
+</ul>
+<h3>总结</h3>
+<p>本次突破标志着第三方键盘在功能性上取得了重大进展，实现了无缝、直接的语音输入体验。该技术通过嵌入 WebKit 视图并利用浏览器 API 绕过了 Apple 原有的麦克风访问限制。然而，由于此方案并未采用官方 API，未来若 Apple 发布新的 iOS 系统更新，仍有可能封堵这一实现方式。</p>
         </div>
         <div class="lang-body" data-lang="ja">
-          
-          <h3>서론</h3>
-<p>IT之家 11월 23일 보도에 따르면, 외신 cultofmac은 최근 개발자들이 음성 입력 기능을 iPhone 서드파티 키보드에 직접 통합하는 데 성공했다고 전했습니다. 이제 사용자들은 앱을 전환할 필요 없이 키보드의 마이크 아이콘을 탭하기만 하면 바로 음성 입력을 시작할 수 있습니다.</p>
-<h3>기존 제한 사항</h3>
-<p>이전에는 Apple이 서드파티 키보드가 기기 마이크에 직접 접근하는 것을 허용하지 않았습니다. 이러한 앱들은 먼저 자체 메인 앱을 열어 녹음을 시작하고, 음성 인식이 완료된 후 원래의 텍스트 입력 화면으로 돌아와야 했습니다. iOS 26.4에서는 이러한 사용상의 불편함이 더욱 커졌습니다. Apple이 서드파티 키보드가 현재 실행 중인 앱 정보를 얻는 권한을 조정하여, 키보드가 이전 앱으로 자동으로 돌아갈 수 없게 되었고, 사용자들은 수동으로 전환해야 했습니다.</p>
-<h3>제한 우회 성공</h3>
-<p>하지만 이제 개발자들은 Apple의 제한을 성공적으로 우회했습니다. Raycast는 기기 마이크에 직접 접근을 지원하는 최초의 서드파티 키보드 앱이며, 이후 Function, Aqua Voice, Superwhisper, Granola, Wispr Flow도 음성 입력 기능을 추가하며 뒤를 이었습니다.</p>
-<h3>기술적 원리</h3>
-<p>Raycast는 아직 이 기능의 구체적인 구현 방식을 공식적으로 설명하지 않았습니다. 그러나 개발자 Chandra Vikram은 소셜 플랫폼 X에서 가능한 기술적 원리를 공유했습니다. 키보드 내부에 매우 작고 거의 보이지 않는 웹 뷰를 삽입하고, 브라우저가 제공하는 마이크 API를 통해 오디오를 수집하는 방식입니다. WebKit이 녹음을 독립적인 프로세스에서 처리하기 때문에, 이 방식은 서드파티 키보드 자체의 마이크 접근 제한을 우회하는 것으로 보입니다.</p>
-<p>이후 마이크 API로 수집된 오디오는 키보드로 다시 전달되어 음성 인식 및 텍스트 변환에 사용됩니다. 이 솔루션은 Apple의 기존 제한을 교묘하게 회피했지만, 공식 API를 사용하지 않았다는 점은 Apple이 향후 iOS 시스템 업데이트를 통해 이러한 구현 방식을 차단할 가능성이 있음을 의미합니다.</p>
-<h3>총평</h3>
-<p>개발자들이 Apple의 마이크 접근 제한을 우회하여 서드파티 키보드에 음성 입력 기능을 직접 통합하는 데 성공했습니다. 이는 사용자 편의성을 크게 향상시키지만, 비공식적인 방법을 사용했기 때문에 Apple이 향후 시스템 업데이트를 통해 해당 기능을 차단할 가능성도 있습니다.</p>
-          
+ <h3>導入</h3>
+<p>IT之家が11月23日に報じたところによると、海外メディアのcultofmacは、開発者がiPhoneのサードパーティ製キーボードに音声入力機能を直接統合することに成功したと伝えています。これにより、ユーザーはアプリを切り替える必要がなくなり、単にキーボードのマイクアイコンをタップするだけで即座に音声入力を開始できるようになりました。</p>
+<h3>従来の制限事項</h3>
+<p>これまでAppleは、サードパーティ製キーボードがデバイスのマイクに直接アクセスすることを許可していませんでした。これらのアプリを利用する場合、まず独自のメインアプリを開いて録音を開始し、音声認識が完了した後、元のテキスト入力画面に戻るという一連の操作が必要でした。</p>
+<p>この使い勝手の悪さは、iOS 16.4でさらに深刻化しました。Appleはサードパーティ製キーボードが現在実行中のアプリの情報にアクセスする権限を調整したため、キーボードが以前のアプリへ自動的に戻ることができなくなり、ユーザーは手動での切り替えが必要となりました。</p>
+<h3>制限回避の成功</h3>
+<p>しかし、開発者たちはこのAppleによる制限を克服することに成功しました。Raycastは、デバイスのマイクへの直接アクセスをサポートした初のサードパーティ製キーボードアプリであり、その後もFunction、Aqua Voice、Superwhisper、Granola、Wispr Flowといった複数のアプリが音声入力機能を追加し、続きました。</p>
+<h3>技術的な仕組み</h3>
+<p>Raycastは、この機能の具体的な実装方法を公式には説明していません。しかし、開発者のChandra Vikram氏がソーシャルプラットフォームXで共有した技術的原理によると、キーボード内部に非常に小さく目立たないWeb Viewを埋め込み、ブラウザが提供するMic APIを通じて音声を収集するという仕組みです。</p>
+<p>WebKitは録音を独立したプロセスとして処理するため、この手法はサードパーティ製キーボード自体のマイクアクセス制限を迂回していると考えられます。その後、Mic APIで収集された音声データは再びキーボードに渡され、音声認識とテキスト変換に使用されます。</p>
+<p>このソリューションはAppleの既存の制限を巧みに回避していますが、公式APIを使用していないという点は、Appleが今後のiOSシステムアップデートを通じて、同様の実装方法をブロックする可能性があることを示唆しています。</p>
+<h3>まとめ</h3>
+<p>開発者たちは、サードパーティ製キーボードに音声入力機能を直接統合するため、Appleのマイクアクセス制限を回避することに成功しました。これはユーザー体験を大幅に向上させる画期的な進展ですが、非公式な方法を利用しているため、将来的にAppleがシステムアップデートを通じてこの機能自体を制限する可能性も指摘されています。</p>
         </div>
         <div class="lang-body" data-lang="en">
-          
-          <h3>서론</h3>
-<p>IT之家 11월 23일 보도에 따르면, 외신 cultofmac은 최근 개발자들이 음성 입력 기능을 iPhone 서드파티 키보드에 직접 통합하는 데 성공했다고 전했습니다. 이제 사용자들은 앱을 전환할 필요 없이 키보드의 마이크 아이콘을 탭하기만 하면 바로 음성 입력을 시작할 수 있습니다.</p>
-<h3>기존 제한 사항</h3>
-<p>이전에는 Apple이 서드파티 키보드가 기기 마이크에 직접 접근하는 것을 허용하지 않았습니다. 이러한 앱들은 먼저 자체 메인 앱을 열어 녹음을 시작하고, 음성 인식이 완료된 후 원래의 텍스트 입력 화면으로 돌아와야 했습니다. iOS 26.4에서는 이러한 사용상의 불편함이 더욱 커졌습니다. Apple이 서드파티 키보드가 현재 실행 중인 앱 정보를 얻는 권한을 조정하여, 키보드가 이전 앱으로 자동으로 돌아갈 수 없게 되었고, 사용자들은 수동으로 전환해야 했습니다.</p>
-<h3>제한 우회 성공</h3>
-<p>하지만 이제 개발자들은 Apple의 제한을 성공적으로 우회했습니다. Raycast는 기기 마이크에 직접 접근을 지원하는 최초의 서드파티 키보드 앱이며, 이후 Function, Aqua Voice, Superwhisper, Granola, Wispr Flow도 음성 입력 기능을 추가하며 뒤를 이었습니다.</p>
-<h3>기술적 원리</h3>
-<p>Raycast는 아직 이 기능의 구체적인 구현 방식을 공식적으로 설명하지 않았습니다. 그러나 개발자 Chandra Vikram은 소셜 플랫폼 X에서 가능한 기술적 원리를 공유했습니다. 키보드 내부에 매우 작고 거의 보이지 않는 웹 뷰를 삽입하고, 브라우저가 제공하는 마이크 API를 통해 오디오를 수집하는 방식입니다. WebKit이 녹음을 독립적인 프로세스에서 처리하기 때문에, 이 방식은 서드파티 키보드 자체의 마이크 접근 제한을 우회하는 것으로 보입니다.</p>
-<p>이후 마이크 API로 수집된 오디오는 키보드로 다시 전달되어 음성 인식 및 텍스트 변환에 사용됩니다. 이 솔루션은 Apple의 기존 제한을 교묘하게 회피했지만, 공식 API를 사용하지 않았다는 점은 Apple이 향후 iOS 시스템 업데이트를 통해 이러한 구현 방식을 차단할 가능성이 있음을 의미합니다.</p>
-<h3>총평</h3>
-<p>개발자들이 Apple의 마이크 접근 제한을 우회하여 서드파티 키보드에 음성 입력 기능을 직접 통합하는 데 성공했습니다. 이는 사용자 편의성을 크게 향상시키지만, 비공식적인 방법을 사용했기 때문에 Apple이 향후 시스템 업데이트를 통해 해당 기능을 차단할 가능성도 있습니다.</p>
-          
+ <h3>Introduction</h3>
+<p>According to a report from IT之家 on November 23rd, foreign media outlet cultofmac reported that developers have successfully integrated voice input functionality directly into third-party iPhone keyboards. Users can now start voice input simply by tapping the microphone icon on the keyboard, without needing to switch apps.</p>
+<h3>Previous Limitations</h3>
+<p>Previously, Apple did not allow third-party keyboards direct access to the device's microphone. These applications had to first open their own main app to begin recording, and then return to the original text input screen after voice recognition was complete. This user inconvenience increased with iOS 26.4. Apple adjusted the permissions that allowed third-party keyboards to obtain information about currently running apps, making it impossible for the keyboard to automatically revert to the previous application; users had to switch manually.</p>
+<h3>Circumventing Restrictions</h3>
+<p>However, developers have now successfully circumvented Apple's restrictions. Raycast was the first third-party keyboard app to support direct access to the device microphone, followed by Function, Aqua Voice, Superwhisper, Granola, and Wispr Flow, which subsequently added voice input capabilities.</p>
+<h3>Technical Mechanism</h3>
+<p>Raycast has not officially disclosed the specific implementation method for this feature. However, developer Chandra Vikram shared a possible technical principle on the social platform X. The method involves embedding a very small, almost invisible web view within the keyboard and collecting audio through the microphone API provided by the browser. Because WebKit processes recording in an independent process, this approach appears to bypass the native microphone access limitations of the third-party keyboard itself.</p>
+<p>The audio collected via the microphone API is then passed back to the keyboard for voice recognition and text conversion. While this solution cleverly evades Apple's existing restrictions, the fact that it does not use official APIs suggests that Apple may block this implementation method through future iOS system updates.</p>
+<h3>Summary</h3>
+<p>Developers have successfully integrated direct voice input into third-party keyboards by circumventing Apple’s microphone access limitations. This significantly improves user convenience, but because the method is unofficial, there is a possibility that Apple could block this functionality via future iOS system updates.</p>
         </div>
       </div>
 
