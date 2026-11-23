@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Geekwills의 블랙프라이데이 세일 베스트 스마트폰!</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="Geekwills의 블랙프라이데이 세일 베스트 스마트폰!">
+  <meta name="title-zh" content="Geekwills의 블랙프라이데이 세일 베스트 스마트폰!">
+  <meta name="title-ja" content="Geekwills의 블랙프라이데이 세일 베스트 스마트폰!">
+  <meta name="title-en" content="Geekwills의 블랙프라이데이 세일 베스트 스마트폰!">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<script src="../../../../assets/theme.js?v=20261103c"></script>
+<link rel="stylesheet" href="../../../../assets/site.css?v=20261103c">
+<script defer src="../../../../assets/news.js?v=20261103c"></script>
+<script defer src="../../../../assets/article.js?v=20261103c"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="masthead"><div class="masthead-inner">
+<a class="wordmark" href="../../../../index.html" aria-label="AI시테이 홈"><span>AI시테이</span><small>TECHNOLOGY JOURNAL</small></a>
+<nav class="primary-nav" aria-label="주 메뉴"><a href="../../../../index.html" data-i18n="news" aria-current="page">뉴스</a><a href="../../../../reports.html" data-i18n="reports">심층 리포트</a><a href="../../../../index.html#archive" data-i18n="archive">아카이브</a></nav><div class="display-controls"><button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="다크 모드" hidden><span class="theme-symbol" aria-hidden="true">◐</span><span data-theme-label>다크 모드</span></button><label class="language-control"><span class="sr-only" data-i18n="language">언어</span><select id="language" aria-label="언어 / Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option></select></label></div>
+</div></header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Geekwills의 블랙프라이데이 세일 베스트 스마트폰!"
+            data-zh="Geekwills의 블랙프라이데이 세일 베스트 스마트폰!"
+            data-ja="Geekwills의 블랙프라이데이 세일 베스트 스마트폰!"
+            data-en="Geekwills의 블랙프라이데이 세일 베스트 스마트폰!">Geekwills의 블랙프라이데이 세일 베스트 스마트폰!</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-11-24
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.png" alt="Geekwills의 블랙프라이데이 세일 베스트 스마트폰!" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>블랙 프라이데이 세일: Geekwills 추천 스마트폰</h3>
+<p>블랙 프라이데이가 드디어 시작되었습니다. Gizmochina에서는 다양한 스마트폰을 리뷰하고, Geekwills에서 최고의 할인 혜택을 제공하고자 합니다. 이번 블랙 프라이데이 세일 내용은 다음과 같습니다.</p>
+<ul>
+<li>모든 스마트폰 5% 할인</li>
+<li>일부 스마트폰 특별 할인 (두 가지 할인은 중복 적용 불가)</li>
+</ul>
+<p>규칙은 명확하죠? 이제 저희가 가장 추천하는 스마트폰들을 살펴보겠습니다. 각 제목에 포함된 링크를 클릭하면 해당 쇼핑 페이지로 바로 이동합니다.</p>
+<h3>OPPO Find X10 Pro Max</h3>
+<p>플래그십 모델 중 첫 번째는 OPPO Find X10 Pro Max입니다. 이 모델은 특정 헤드라인 기능보다는 균형 잡힌 성능에 중점을 둡니다. 세 개의 200MP 카메라 모두에 대형 센서를 탑재했으며, 특히 초광각 카메라는 색수차가 거의 없고 동영상 촬영에 탁월합니다. 메인 카메라는 뛰어난 다이내믹 레인지를 제공하지만, 기본 샤프닝은 마스터 모드에서 조절할 수 있습니다. 70mm 망원 카메라는 작년 모델에서 계승되었지만, 140mm까지 유용한 결과물을 제공하며 그 이상에서도 활용 가능하고 매크로 촬영도 지원합니다. 카메라 모듈은 손가락이 가리지 않도록 배치되었으며, 주요 경쟁 모델보다 가볍습니다. 디스플레이는 144Hz 주사율, 95% BT.2020 색역 커버리지, 그리고 야외 시인성을 향상시키는 탈착식 AR 반사 방지 필름을 제공합니다. Dimensity 9600 Pro 칩은 가벼운 게임부터 중간 정도의 게임에서 탁월한 성능을 발휘하며 Snapdragon보다 전력 소모가 적습니다. 고사양 게임에서는 성능 차이가 줄어듭니다. 8,000mAh 배터리는 하루 종일 사용 가능하지만, 80W 충전은 80분 이상 소요되어 경쟁 모델보다 다소 느립니다. 전반적으로 저희가 생각하는 가장 균형 잡힌 스마트폰입니다.</p>
+<h3>HONOR Magic 9 Pro Max</h3>
+<p>HONOR Magic 9 Pro Max는 ARRI와의 협력을 통해 모바일 비디오 제작에 중점을 둔 모델입니다. 카메라 모듈에는 f/1.57 조리개와 CIPA 8.0 손떨림 방지 기능을 갖춘 200MP 메인 카메라, 200배 디지털 줌을 지원하는 200MP 3.5배 망원 카메라, 그리고 50MP 초광각 카메라가 포함되어 있습니다. 전용 ARRI CINEMA 모드는 10비트 색상으로 4K 60fps ARRI LogC3를 녹화하며, 14가지 사전 설정 룩과 다양한 LUT를 지원합니다. 6.8인치 플랫 LTPO 디스플레이는 적응형 120Hz 주사율과 4,320Hz PWM 디밍을 지원합니다. Snapdragon 8EE6 칩은 현재 안드로이드에서 가장 강력한 칩입니다. 8,800mAh 배터리는 100W 유선 및 80W 무선 충전을 지원하며, HONOR의 테스트에서 7시간 이상의 4K 녹화가 가능했습니다. 3D 얼굴 잠금 해제와 초음파 지문 스캔을 모두 제공하며, IP68/69/69K 등급을 받았습니다. 전반적으로 단점이 없는 매우 강력한 스마트폰입니다.</p>
+<h3>vivo X500 Pro Max</h3>
+<p>vivo X500 Pro Max는 X300 Pro의 정기 업데이트 모델로, 디자인이나 카메라 하드웨어에는 큰 변화가 없습니다. 메인 카메라는 LOFIC 기술을 통해 다이내믹 레인지가 향상되었으며, Authentic 조명 모드를 사용할 수 있습니다. 망원 카메라는 최근 세대와 동일한 200MP급 센서를 사용하여 30배 또는 60배 줌에서도 유용한 이미지를 촬영하며, 안정적인 야간 성능과 매크로 촬영을 지원합니다. 초광각 카메라는 가장 약한 카메라로, 저조도 환경에서는 성능이 완벽하지 않습니다. 동영상 촬영의 경우, 메인 카메라가 이제 4K 240fps 슬로우 모션 녹화를 지원합니다. Dimensity 9600 Pro 칩은 대부분의 경쟁 모델보다 더 많은 게임에서 슈퍼 해상도 및 프레임 보간을 지원하며, 8,000mAh 배터리는 작년 모델의 배터리 지속 시간 문제를 해결했습니다. 충전은 90W 유선 및 40W 무선으로, 방전 상태에서 약 65분 소요됩니다. 두꺼운 카메라 범프는 그립감을 저해하지만, 동급 모델 중 가장 가볍습니다. 사진 촬영을 좋아한다면 이 모델을 강력히 추천합니다.</p>
+<h3>Xiaomi 18 Pro Max</h3>
+<p>Xiaomi 18 Pro Max는 후면 디스플레이를 유지하며, 이제 플러시 렌즈, 알림 지원, 스크린샷, AI 생성 맞춤형 기능을 제공합니다. 이러한 추가 기능은 무게 증가에 기여하여 플래그십 모델 중 두 번째로 무거운 스마트폰이 되었습니다. 가장 논란이 되는 기능은 프라이버시 디스플레이로, 비스듬한 각도에서 시야를 어둡게 하고 영역 보호 기능을 제공하지만, 일부 단점도 있습니다 (자세한 내용은 전체 리뷰를 참조하세요). 성능은 17 Pro Max보다 훨씬 향상되어, 고사양 게임에서 초기 스로틀링 없이 최대 출력을 유지합니다. LOFIC 기술이 적용된 200MP 메인 카메라는 뛰어난 다이내믹 레인지를 제공하며, 더 높은 대비를 제공하는 가벼운 Essential 모드와 CCD 스타일 필터가 함께 제공됩니다. 75mm 망원 카메라는 장거리 줌에서 뛰어난 성능을 발휘하며 매크로 기능도 있지만, 화이트 밸런스가 약간 일관적이지 않습니다. 17mm 초광각 카메라는 전면 카메라 센서와 동일하며, 성능은 그리 좋지 않습니다. 100W 충전은 약 한 시간 만에 배터리를 완전히 충전합니다. 후면 디스플레이를 좋아한다면 이 모델은 여전히 가치가 있습니다.</p>
+<h3>HUAWEI Mate 90 Pro Max</h3>
+<p>HUAWEI Mate 90 Pro Max는 Mate 시리즈의 중앙 원형 카메라 디자인을 계승하며, 네 방향 패턴의 후면 패널, 프레임으로 이어지는 광택 있는 하단 부분, 그리고 알루미늄 합금과 유리 섬유가 혼합된 후면 커버를 특징으로 합니다. Pro Max 및 Collector’s Edition은 화웨이의 Tau Scaling Law를 기반으로 한 Kirin 9050 Pro 칩을 탑재하며, 이론적으로 트랜지스터 밀도를 두 배로 늘리고 HarmonyOS와 함께 작동합니다. 메인 카메라는 가변 조리개를 유지하고 눈부심 방지 적외선 코팅을 추가했으며, 망원 카메라는 200MP 센서로 업그레이드되었습니다. Ultimate 및 Collector’s Edition은 카메라 모듈 아래에 세 개의 접점을 추가하여 자체 1인치 센서를 갖춘 전동식 외부 줌 렌즈를 장착, 진정한 24mm–240mm 광학 줌과 손떨림 방지 기능을 제공합니다. 업데이트된 Tandem OLED 디스플레이는 Mate 80 Pro Max보다 약간 개선되었으며, 전면 카메라와 3D 구조광 모듈을 수용하는 세 개의 상단 컷아웃이 있습니다. 본체는 일반 스마트폰보다 약간 넓습니다. 배터리 용량은 6,000mAh에서 6,800mAh로 증가했지만, 화웨이는 칩 수준의 효율성에 의존하여 경쟁 모델에 비해 순수 용량은 여전히 뒤처집니다. 글로벌 출시는 아직 확정되지 않았습니다.</p>
+<p>지금까지 최신 플래그십 모델들을 살펴보았습니다. 저희 채널에서는 Pro 또는 표준 버전, 그리고 6개월 이상 전에 출시된 이전 Ultra 모델들도 리뷰했습니다. 다음은 폴더블폰입니다.</p>
+<h3>OnePlus 16</h3>
+<p>OnePlus 16은 9,000mAh 배터리라는 하나의 숫자로 정의됩니다. OnePlus 15의 7,300mAh에서 증가한 수치이며, 대부분의 플래그십 모델이 5,000~6,000mAh인 것을 감안하면 매우 큰 용량입니다. 이는 다른 모든 것에 영향을 미칩니다. 이 폰은 무겁고 76.67mm로 상당히 넓어서 손이 작은 사용자들은 불편함을 느낄 수 있습니다 (Galaxy S24 Ultra보다 넓습니다). 6.78인치 1.5K 디스플레이는 이제 지원되는 게임뿐만 아니라 시스템 전체에서 165Hz 주사율을 지원합니다. 메인 카메라는 몇 년 만에 처음으로 적절한 센서 업그레이드를 받았습니다. 1/1.4인치 센서에 200MP를 탑재하여 저조도 촬영을 개선하고 강력한 크롭 기능을 제공하지만, 처리에는 1초가 소요됩니다. 50MP 3.5배 잠망경 망원 카메라와 50MP 초광각 카메라는 변경 없이 유지되었으며, 전면 카메라는 50MP로 증가하고 자동 초점 기능을 갖췄습니다. Snapdragon 8 Elite Extreme Gen 6는 최대 설정에서 게임을 처리하며, 더 큰 증기 챔버는 가로 모드에서 손이 닿는 곳에서 멀리 떨어져 배치되었습니다. 충전은 120W에서 100W 유선으로 감소했지만, 완전 충전에는 약 50분이 소요되며, 50W 무선 및 바이패스 충전은 유지됩니다. OnePlus는 5년 후에도 최소 80%의 배터리 용량을 약속합니다.</p>
+<p>참고: OnePlus는 북미와 유럽에서 철수했으므로 이 폰은 중국 전용입니다.</p>
+<h3>OPPO Find X10 시리즈</h3>
+<p>Find X10 시리즈는 라인업을 세 가지 모델로 재편했습니다. X10 E는 Dimensity 9500s를 탑재한 X9의 마이너 업데이트 모델이며, 표준 X10과 X10 Pro Max는 사실상 작년 Pro 모델의 이름이 변경된 것입니다. X10과 Pro Max는 X9의 기본 디자인 위에 계단식 직사각형 디자인을 공유하며, 흰색 Pro Max는 더 깔끔한 카메라 같은 외관을 위해 계단식 디자인을 생략했습니다. 카메라 셔터 버튼은 두 세대 만에 공식적으로 사라졌습니다. 두 모델 모두 1–144Hz 적응형 주사율, BT.2020 색역, 더 좁은 베젤, 그리고 유지할 가치가 있는 사전 설치된 AR 코팅 스크린 프로텍터를 갖춘 TIANMA 디스플레이를 사용합니다. 표준 X10은 Dimensity 9600M 칩을 탑재했는데, 리뷰어는 이 칩이 "9500+"라는 이름이 더 적합하다고 주장합니다. Pro Max는 진정한 2nm 9600 Pro 칩을 탑재합니다. Pro Max는 세 개의 200MP 카메라를 동시에 선보이며, 초광각 카메라가 드디어 대형 센서를 탑재하여 Ultra급 성능에 도달했습니다. 표준 X10의 초광각 카메라는 여전히 가장 약한 카메라입니다. 두 모델 모두 크기 차이에도 불구하고 8,000mAh 배터리를 탑재하며, 80W 유선 및 50W 무선 충전을 지원합니다. 표준 모델은 배터리 성능을 희생하지 않고 더 작은 폰을 원하는 사용자에게 적합하며, Pro Max는 사진 촬영과 성능에 중점을 둡니다.</p>
+<h3>vivo X500 시리즈</h3>
+<p>vivo X500 시리즈는 대형, 중형, 소형 세 가지 크기로 출시되며, 모델 위치가 재조정되었습니다. 표준 버전은 커지고, Pro는 작아졌으며, 새로운 Pro Max는 X300 Pro의 자리를 이어받아 vivo의 최고 올라운드 플래그십이 되었습니다. 표준 X500은 가장 많은 디자인 변화를 겪었으며, 카메라 모듈이 직사각형의 돌출된 부분으로 왼쪽 상단으로 이동했습니다. Pro와 Pro Max는 익숙한 중앙 원형 모듈과 AI 버튼, 경사진 후면 전환 디자인을 유지합니다. 세 모델 모두 144Hz 주사율을 지원하는 BOE 패널을 사용하지만, 표준 버전만 LTPS이고 Pro Max만 2K 해상도에 도달합니다. Dimensity 9600M은 표준 모델에 전력을 공급하며, 2nm 9600 Pro는 두 Pro 모델에 모두 탑재됩니다. 카메라는 진정한 차별점입니다. Pro Max는 X300 Ultra의 200MP 망원 카메라를 채택하고 메인 카메라의 다이내믹 레인지와 손떨림 방지를 개선했지만, 초광각 카메라는 내년 Ultra 모델을 위해 의도적으로 성능을 제한했습니다. 또한 400mm 망원 컨버터를 지원합니다. Pro의 망원 카메라는 센서와 픽셀이 축소되었으며, 표준 X500은 LOFIC 기능을 제거하고 망원 초점 거리를 70mm로 단축했습니다. 배터리 용량은 크게 증가하여 Pro Max는 약 1,500mAh(23%) 증가하여 X300의 배터리 불만을 직접적으로 해결했습니다.</p>
+<h3>Xiaomi 18 Fold</h3>
+<p>Xiaomi 18 Fold는 먼저 여권 스타일의 폼팩터를 채택했으며, 세 개의 카메라 모두 배터리 위에 수평으로 배치되었습니다. 컴팩트한 본체에도 불구하고 IR 블래스터, NFC, UWB를 유지합니다. 220g 미만으로 많은 일반 스마트폰보다 가볍지만, eSIM이 없으며 두 스피커 모두 같은 쪽에 있습니다. 두 디스플레이 모두 전체 RGB 서브픽셀을 사용하며, 내부 화면에는 AR 코팅과 얕은 주름이 있지만 스타일러스는 지원하지 않습니다. XRING O3 칩은 이론적으로 강력한 최고 성능을 제공하지만, 발열로 인해 성능이 상당히 제한됩니다. 카메라 시스템은 REDMI K100 Pro Max와 동일한 센서를 사용하며, 80mm 망원 카메라와 좁은 17mm 초광각 카메라를 갖췄습니다. 6,000mAh 배터리는 일반 폰과 비슷한 지속 시간을 제공하며, 67W 유선 충전으로 50분 만에 완전히 충전되고 50W 무선 충전을 지원합니다. 글로벌 출시 가능성이 낮으므로 Geekwills에서 구매하는 것이 가장 좋은 방법입니다.</p>
+<h3>HUAWEI Pura X Max</h3>
+<p>HUAWEI Pura X Max는 작년에 출시된 오리지널 Pura X에 이어 화웨이의 두 번째 넓은 화면 비율의 폴더블폰입니다. 접힌 폰을 일반 스마트폰처럼 느끼게 하기보다는 내부 디스플레이 경험에 중점을 둡니다. 넓은 화면은 동영상 시청 시 낭비되는 공간을 최소화하며, 5.4인치 외부 디스플레이도 제공합니다. 소프트웨어 측면에서도 화웨이는 사용자 친화적인 최적화를 많이 했습니다. 하드웨어 측면에서 Pura X Max는 타협 없는 완전한 카메라 시스템을 유지합니다. 유출된 정보에 따르면 Find N6와 같은 경쟁 모델의 주름은 거의 보이지 않는다고 하지만, Pura X Max 자체의 특정 단점은 여기에서 자세히 설명되지 않았습니다.</p>
+<h3>HUAWEI Pura X View</h3>
+<p>HUAWEI Pura X View는 폴더블폰은 아니지만, 현재 매우 인기 있는 제품입니다. Pura X의 비폴더블 형제 모델과 같으며, 표준 16:9 동영상보다 약간 더 긴 16:9.5 와이드 스크린을 공유합니다. 무거운 카메라 모듈이 없어 약 201g으로 가볍고 편안하게 잡을 수 있으며, 주머니에 넣기에도 충분히 얇지만, 광택 있는 슬림 프레임은 미끄러워 잡기 어려울 수 있습니다. 더 넓은 본체에는 7,000mAh 배터리가 들어갑니다. 사용 시 추가된 너비는 타이핑, 문서 보기, 독서, 동영상 시청에 이점을 제공합니다. 키가 더 넓어져 오타가 줄어들지만, 한 손 타이핑에는 한 손 모드가 필요합니다. 화면 영역은 독서용 Kindle Paperwhite와 같습니다. 16:9 또는 2:1 동영상은 일반 폰보다 낭비되는 공간이 적습니다. 게임은 더 많은 세로 콘텐츠를 제공하며, 더 큰 냉각판이 온도를 낮게 유지합니다. Kirin 9030S 칩, 12GB RAM, HarmonyOS 7을 탑재했습니다. 카메라는 200MP 메인, 50MP 망원, 8MP 초광각, 그리고 2세대 RYYB 센서를 탑재한 50MP 전면 카메라를 포함합니다. OLED 디스플레이는 FHD+ 해상도와 406 PPI를 제공하며, 쿤룬 글라스로 보호되고 IP68 등급을 받았습니다. 66W 유선 및 50W 무선 충전, 듀얼 SIM, eSIM을 지원합니다. 이 폰은 실제로 모든 사람에게 적합합니다.</p>
+<p>다시 한번 말씀드리지만, 올해 가격 인상으로 인해 더 저렴한 폰을 원하실 수도 있습니다. 다음은 저희가 추천하는 두 가지 모델입니다.</p>
+<h3>REDMI K100 Pro Max</h3>
+<p>REDMI K100 Pro Max는 가격 통제에 중점을 두어 약 700달러에 일부 사양 타협을 통해 출시되었습니다. 서브우퍼가 포함된 시그니처 2.1채널 스피커 시스템은 여전히 최대 볼륨에서도 선명한 출력을 제공하지만, 더 큰 배터리로 인해 음향 챔버가 압축되어 저음이 약간 퇴보했습니다. 디스플레이는 주요 업그레이드입니다. Xiaomi의 HyperRGB 픽셀 배열을 통해 거의 2K에 가까운 선명도, 900니트 이상의 수동 밝기, 그리고 최초의 BT.2020 색역 지원을 제공합니다. Snapdragon 8 Elite Gen 5를 탑재하여 일상적인 사용과 중간 정도의 게임을 잘 처리하지만, 커스텀 원신 맵과 같은 고사양 작업은 온도를 46°C까지 올립니다. D2 칩은 모든 게임에서 최대 165fps의 프레임 보간을 가능하게 합니다. 200MP 메인 카메라는 이전 모델보다 작은 센서를 사용하지만, 견고한 결과물을 제공하며, 뛰어난 In-Sensor Zoom은 120mm 망원 카메라와의 격차를 메워줍니다 (망원 카메라는 화이트 밸런스가 불규칙합니다). 동영상 성능은 저조도에서 눈에 띄게 떨어져 스틸 사진보다 훨씬 낮은 평가를 받습니다. 배터리 수명은 최고 수준이며, 100W 유선 충전으로 65분 만에 완전히 충전되고, 27W 역충전은 보조 배터리를 거의 대체할 수 있습니다. 사양과 가격을 중요하게 생각한다면 이 모델이 완벽할 수 있습니다.</p>
+<h3>HONOR WIN RT 2</h3>
+<p>HONOR WIN RT 2는 가치 중심의 공식을 기반으로 하며, 배터리 용량이 10,000mAh에서 12,000mAh 이상으로 증가했습니다. 테스트 결과, 한 번 충전으로 하루 종일 집중적인 사용과 게임을 한 후에도 17%가 남아 있었으므로, 이 폰은 실제로 이틀 이상 일반적인 사용이 가능합니다. 내장된 단일 팬은 이제 Rapid Cooling 모드를 포함하여 100초 만에 온도를 10°C 낮추며, 마이크가 활성화된 상태에서도 작동하므로 게임 통화 시 더 이상 헤드폰이 필요하지 않습니다 (단, 팬은 최대 속도에서 시끄럽습니다). 비용 효율성을 고려하여 Snapdragon 8 Elite Gen 5를 사용합니다. 2K 185Hz LTPS 디스플레이는 뛰어난 선명도와 부드러움을 제공하지만, 최고 주사율은 일부 앱에서만 작동하며 개발자 옵션에서 활성화해야 합니다. 카메라 성능은 기본적입니다. 200MP 메인 센서는 크롭을 통해 괜찮은 사진을 생성하며, 동영상 품질은 300달러짜리 폰과 비슷하고 망원 카메라는 없습니다. 게임 성능은 혼합적입니다. 가벼운 작업은 잘 실행되지만, Honkai: Star Rail과 같은 고사양 게임은 스로틀링이 발생하고 표면 온도가 50°C를 초과합니다. 90W 충전은 91분 소요됩니다. 대용량 배터리와 견고한 일상 성능을 좋아한다면 이 모델이 적합합니다.</p>
+<h3>총평</h3>
+<p>지금까지 Geekwills 블랙 프라이데이 세일에서 구매할 것을 추천하는 스마트폰들을 살펴보았습니다. 다시 한번 말씀드리지만, 모든 폰은 5% 할인되며, 일부 폰은 특별 할인이 적용되지만 두 할인은 중복되지 않습니다. 각 제목의 링크를 통해 해당 제품 페이지로 바로 이동할 수 있습니다. 물론 Geekwills에는 이 외에도 다양한 할인 폰들이 있으니 직접 확인해 보세요. 즐거운 쇼핑 되세요!</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>블랙 프라이데이 세일: Geekwills 추천 스마트폰</h3>
+<p>블랙 프라이데이가 드디어 시작되었습니다. Gizmochina에서는 다양한 스마트폰을 리뷰하고, Geekwills에서 최고의 할인 혜택을 제공하고자 합니다. 이번 블랙 프라이데이 세일 내용은 다음과 같습니다.</p>
+<ul>
+<li>모든 스마트폰 5% 할인</li>
+<li>일부 스마트폰 특별 할인 (두 가지 할인은 중복 적용 불가)</li>
+</ul>
+<p>규칙은 명확하죠? 이제 저희가 가장 추천하는 스마트폰들을 살펴보겠습니다. 각 제목에 포함된 링크를 클릭하면 해당 쇼핑 페이지로 바로 이동합니다.</p>
+<h3>OPPO Find X10 Pro Max</h3>
+<p>플래그십 모델 중 첫 번째는 OPPO Find X10 Pro Max입니다. 이 모델은 특정 헤드라인 기능보다는 균형 잡힌 성능에 중점을 둡니다. 세 개의 200MP 카메라 모두에 대형 센서를 탑재했으며, 특히 초광각 카메라는 색수차가 거의 없고 동영상 촬영에 탁월합니다. 메인 카메라는 뛰어난 다이내믹 레인지를 제공하지만, 기본 샤프닝은 마스터 모드에서 조절할 수 있습니다. 70mm 망원 카메라는 작년 모델에서 계승되었지만, 140mm까지 유용한 결과물을 제공하며 그 이상에서도 활용 가능하고 매크로 촬영도 지원합니다. 카메라 모듈은 손가락이 가리지 않도록 배치되었으며, 주요 경쟁 모델보다 가볍습니다. 디스플레이는 144Hz 주사율, 95% BT.2020 색역 커버리지, 그리고 야외 시인성을 향상시키는 탈착식 AR 반사 방지 필름을 제공합니다. Dimensity 9600 Pro 칩은 가벼운 게임부터 중간 정도의 게임에서 탁월한 성능을 발휘하며 Snapdragon보다 전력 소모가 적습니다. 고사양 게임에서는 성능 차이가 줄어듭니다. 8,000mAh 배터리는 하루 종일 사용 가능하지만, 80W 충전은 80분 이상 소요되어 경쟁 모델보다 다소 느립니다. 전반적으로 저희가 생각하는 가장 균형 잡힌 스마트폰입니다.</p>
+<h3>HONOR Magic 9 Pro Max</h3>
+<p>HONOR Magic 9 Pro Max는 ARRI와의 협력을 통해 모바일 비디오 제작에 중점을 둔 모델입니다. 카메라 모듈에는 f/1.57 조리개와 CIPA 8.0 손떨림 방지 기능을 갖춘 200MP 메인 카메라, 200배 디지털 줌을 지원하는 200MP 3.5배 망원 카메라, 그리고 50MP 초광각 카메라가 포함되어 있습니다. 전용 ARRI CINEMA 모드는 10비트 색상으로 4K 60fps ARRI LogC3를 녹화하며, 14가지 사전 설정 룩과 다양한 LUT를 지원합니다. 6.8인치 플랫 LTPO 디스플레이는 적응형 120Hz 주사율과 4,320Hz PWM 디밍을 지원합니다. Snapdragon 8EE6 칩은 현재 안드로이드에서 가장 강력한 칩입니다. 8,800mAh 배터리는 100W 유선 및 80W 무선 충전을 지원하며, HONOR의 테스트에서 7시간 이상의 4K 녹화가 가능했습니다. 3D 얼굴 잠금 해제와 초음파 지문 스캔을 모두 제공하며, IP68/69/69K 등급을 받았습니다. 전반적으로 단점이 없는 매우 강력한 스마트폰입니다.</p>
+<h3>vivo X500 Pro Max</h3>
+<p>vivo X500 Pro Max는 X300 Pro의 정기 업데이트 모델로, 디자인이나 카메라 하드웨어에는 큰 변화가 없습니다. 메인 카메라는 LOFIC 기술을 통해 다이내믹 레인지가 향상되었으며, Authentic 조명 모드를 사용할 수 있습니다. 망원 카메라는 최근 세대와 동일한 200MP급 센서를 사용하여 30배 또는 60배 줌에서도 유용한 이미지를 촬영하며, 안정적인 야간 성능과 매크로 촬영을 지원합니다. 초광각 카메라는 가장 약한 카메라로, 저조도 환경에서는 성능이 완벽하지 않습니다. 동영상 촬영의 경우, 메인 카메라가 이제 4K 240fps 슬로우 모션 녹화를 지원합니다. Dimensity 9600 Pro 칩은 대부분의 경쟁 모델보다 더 많은 게임에서 슈퍼 해상도 및 프레임 보간을 지원하며, 8,000mAh 배터리는 작년 모델의 배터리 지속 시간 문제를 해결했습니다. 충전은 90W 유선 및 40W 무선으로, 방전 상태에서 약 65분 소요됩니다. 두꺼운 카메라 범프는 그립감을 저해하지만, 동급 모델 중 가장 가볍습니다. 사진 촬영을 좋아한다면 이 모델을 강력히 추천합니다.</p>
+<h3>Xiaomi 18 Pro Max</h3>
+<p>Xiaomi 18 Pro Max는 후면 디스플레이를 유지하며, 이제 플러시 렌즈, 알림 지원, 스크린샷, AI 생성 맞춤형 기능을 제공합니다. 이러한 추가 기능은 무게 증가에 기여하여 플래그십 모델 중 두 번째로 무거운 스마트폰이 되었습니다. 가장 논란이 되는 기능은 프라이버시 디스플레이로, 비스듬한 각도에서 시야를 어둡게 하고 영역 보호 기능을 제공하지만, 일부 단점도 있습니다 (자세한 내용은 전체 리뷰를 참조하세요). 성능은 17 Pro Max보다 훨씬 향상되어, 고사양 게임에서 초기 스로틀링 없이 최대 출력을 유지합니다. LOFIC 기술이 적용된 200MP 메인 카메라는 뛰어난 다이내믹 레인지를 제공하며, 더 높은 대비를 제공하는 가벼운 Essential 모드와 CCD 스타일 필터가 함께 제공됩니다. 75mm 망원 카메라는 장거리 줌에서 뛰어난 성능을 발휘하며 매크로 기능도 있지만, 화이트 밸런스가 약간 일관적이지 않습니다. 17mm 초광각 카메라는 전면 카메라 센서와 동일하며, 성능은 그리 좋지 않습니다. 100W 충전은 약 한 시간 만에 배터리를 완전히 충전합니다. 후면 디스플레이를 좋아한다면 이 모델은 여전히 가치가 있습니다.</p>
+<h3>HUAWEI Mate 90 Pro Max</h3>
+<p>HUAWEI Mate 90 Pro Max는 Mate 시리즈의 중앙 원형 카메라 디자인을 계승하며, 네 방향 패턴의 후면 패널, 프레임으로 이어지는 광택 있는 하단 부분, 그리고 알루미늄 합금과 유리 섬유가 혼합된 후면 커버를 특징으로 합니다. Pro Max 및 Collector’s Edition은 화웨이의 Tau Scaling Law를 기반으로 한 Kirin 9050 Pro 칩을 탑재하며, 이론적으로 트랜지스터 밀도를 두 배로 늘리고 HarmonyOS와 함께 작동합니다. 메인 카메라는 가변 조리개를 유지하고 눈부심 방지 적외선 코팅을 추가했으며, 망원 카메라는 200MP 센서로 업그레이드되었습니다. Ultimate 및 Collector’s Edition은 카메라 모듈 아래에 세 개의 접점을 추가하여 자체 1인치 센서를 갖춘 전동식 외부 줌 렌즈를 장착, 진정한 24mm–240mm 광학 줌과 손떨림 방지 기능을 제공합니다. 업데이트된 Tandem OLED 디스플레이는 Mate 80 Pro Max보다 약간 개선되었으며, 전면 카메라와 3D 구조광 모듈을 수용하는 세 개의 상단 컷아웃이 있습니다. 본체는 일반 스마트폰보다 약간 넓습니다. 배터리 용량은 6,000mAh에서 6,800mAh로 증가했지만, 화웨이는 칩 수준의 효율성에 의존하여 경쟁 모델에 비해 순수 용량은 여전히 뒤처집니다. 글로벌 출시는 아직 확정되지 않았습니다.</p>
+<p>지금까지 최신 플래그십 모델들을 살펴보았습니다. 저희 채널에서는 Pro 또는 표준 버전, 그리고 6개월 이상 전에 출시된 이전 Ultra 모델들도 리뷰했습니다. 다음은 폴더블폰입니다.</p>
+<h3>OnePlus 16</h3>
+<p>OnePlus 16은 9,000mAh 배터리라는 하나의 숫자로 정의됩니다. OnePlus 15의 7,300mAh에서 증가한 수치이며, 대부분의 플래그십 모델이 5,000~6,000mAh인 것을 감안하면 매우 큰 용량입니다. 이는 다른 모든 것에 영향을 미칩니다. 이 폰은 무겁고 76.67mm로 상당히 넓어서 손이 작은 사용자들은 불편함을 느낄 수 있습니다 (Galaxy S24 Ultra보다 넓습니다). 6.78인치 1.5K 디스플레이는 이제 지원되는 게임뿐만 아니라 시스템 전체에서 165Hz 주사율을 지원합니다. 메인 카메라는 몇 년 만에 처음으로 적절한 센서 업그레이드를 받았습니다. 1/1.4인치 센서에 200MP를 탑재하여 저조도 촬영을 개선하고 강력한 크롭 기능을 제공하지만, 처리에는 1초가 소요됩니다. 50MP 3.5배 잠망경 망원 카메라와 50MP 초광각 카메라는 변경 없이 유지되었으며, 전면 카메라는 50MP로 증가하고 자동 초점 기능을 갖췄습니다. Snapdragon 8 Elite Extreme Gen 6는 최대 설정에서 게임을 처리하며, 더 큰 증기 챔버는 가로 모드에서 손이 닿는 곳에서 멀리 떨어져 배치되었습니다. 충전은 120W에서 100W 유선으로 감소했지만, 완전 충전에는 약 50분이 소요되며, 50W 무선 및 바이패스 충전은 유지됩니다. OnePlus는 5년 후에도 최소 80%의 배터리 용량을 약속합니다.</p>
+<p>참고: OnePlus는 북미와 유럽에서 철수했으므로 이 폰은 중국 전용입니다.</p>
+<h3>OPPO Find X10 시리즈</h3>
+<p>Find X10 시리즈는 라인업을 세 가지 모델로 재편했습니다. X10 E는 Dimensity 9500s를 탑재한 X9의 마이너 업데이트 모델이며, 표준 X10과 X10 Pro Max는 사실상 작년 Pro 모델의 이름이 변경된 것입니다. X10과 Pro Max는 X9의 기본 디자인 위에 계단식 직사각형 디자인을 공유하며, 흰색 Pro Max는 더 깔끔한 카메라 같은 외관을 위해 계단식 디자인을 생략했습니다. 카메라 셔터 버튼은 두 세대 만에 공식적으로 사라졌습니다. 두 모델 모두 1–144Hz 적응형 주사율, BT.2020 색역, 더 좁은 베젤, 그리고 유지할 가치가 있는 사전 설치된 AR 코팅 스크린 프로텍터를 갖춘 TIANMA 디스플레이를 사용합니다. 표준 X10은 Dimensity 9600M 칩을 탑재했는데, 리뷰어는 이 칩이 "9500+"라는 이름이 더 적합하다고 주장합니다. Pro Max는 진정한 2nm 9600 Pro 칩을 탑재합니다. Pro Max는 세 개의 200MP 카메라를 동시에 선보이며, 초광각 카메라가 드디어 대형 센서를 탑재하여 Ultra급 성능에 도달했습니다. 표준 X10의 초광각 카메라는 여전히 가장 약한 카메라입니다. 두 모델 모두 크기 차이에도 불구하고 8,000mAh 배터리를 탑재하며, 80W 유선 및 50W 무선 충전을 지원합니다. 표준 모델은 배터리 성능을 희생하지 않고 더 작은 폰을 원하는 사용자에게 적합하며, Pro Max는 사진 촬영과 성능에 중점을 둡니다.</p>
+<h3>vivo X500 시리즈</h3>
+<p>vivo X500 시리즈는 대형, 중형, 소형 세 가지 크기로 출시되며, 모델 위치가 재조정되었습니다. 표준 버전은 커지고, Pro는 작아졌으며, 새로운 Pro Max는 X300 Pro의 자리를 이어받아 vivo의 최고 올라운드 플래그십이 되었습니다. 표준 X500은 가장 많은 디자인 변화를 겪었으며, 카메라 모듈이 직사각형의 돌출된 부분으로 왼쪽 상단으로 이동했습니다. Pro와 Pro Max는 익숙한 중앙 원형 모듈과 AI 버튼, 경사진 후면 전환 디자인을 유지합니다. 세 모델 모두 144Hz 주사율을 지원하는 BOE 패널을 사용하지만, 표준 버전만 LTPS이고 Pro Max만 2K 해상도에 도달합니다. Dimensity 9600M은 표준 모델에 전력을 공급하며, 2nm 9600 Pro는 두 Pro 모델에 모두 탑재됩니다. 카메라는 진정한 차별점입니다. Pro Max는 X300 Ultra의 200MP 망원 카메라를 채택하고 메인 카메라의 다이내믹 레인지와 손떨림 방지를 개선했지만, 초광각 카메라는 내년 Ultra 모델을 위해 의도적으로 성능을 제한했습니다. 또한 400mm 망원 컨버터를 지원합니다. Pro의 망원 카메라는 센서와 픽셀이 축소되었으며, 표준 X500은 LOFIC 기능을 제거하고 망원 초점 거리를 70mm로 단축했습니다. 배터리 용량은 크게 증가하여 Pro Max는 약 1,500mAh(23%) 증가하여 X300의 배터리 불만을 직접적으로 해결했습니다.</p>
+<h3>Xiaomi 18 Fold</h3>
+<p>Xiaomi 18 Fold는 먼저 여권 스타일의 폼팩터를 채택했으며, 세 개의 카메라 모두 배터리 위에 수평으로 배치되었습니다. 컴팩트한 본체에도 불구하고 IR 블래스터, NFC, UWB를 유지합니다. 220g 미만으로 많은 일반 스마트폰보다 가볍지만, eSIM이 없으며 두 스피커 모두 같은 쪽에 있습니다. 두 디스플레이 모두 전체 RGB 서브픽셀을 사용하며, 내부 화면에는 AR 코팅과 얕은 주름이 있지만 스타일러스는 지원하지 않습니다. XRING O3 칩은 이론적으로 강력한 최고 성능을 제공하지만, 발열로 인해 성능이 상당히 제한됩니다. 카메라 시스템은 REDMI K100 Pro Max와 동일한 센서를 사용하며, 80mm 망원 카메라와 좁은 17mm 초광각 카메라를 갖췄습니다. 6,000mAh 배터리는 일반 폰과 비슷한 지속 시간을 제공하며, 67W 유선 충전으로 50분 만에 완전히 충전되고 50W 무선 충전을 지원합니다. 글로벌 출시 가능성이 낮으므로 Geekwills에서 구매하는 것이 가장 좋은 방법입니다.</p>
+<h3>HUAWEI Pura X Max</h3>
+<p>HUAWEI Pura X Max는 작년에 출시된 오리지널 Pura X에 이어 화웨이의 두 번째 넓은 화면 비율의 폴더블폰입니다. 접힌 폰을 일반 스마트폰처럼 느끼게 하기보다는 내부 디스플레이 경험에 중점을 둡니다. 넓은 화면은 동영상 시청 시 낭비되는 공간을 최소화하며, 5.4인치 외부 디스플레이도 제공합니다. 소프트웨어 측면에서도 화웨이는 사용자 친화적인 최적화를 많이 했습니다. 하드웨어 측면에서 Pura X Max는 타협 없는 완전한 카메라 시스템을 유지합니다. 유출된 정보에 따르면 Find N6와 같은 경쟁 모델의 주름은 거의 보이지 않는다고 하지만, Pura X Max 자체의 특정 단점은 여기에서 자세히 설명되지 않았습니다.</p>
+<h3>HUAWEI Pura X View</h3>
+<p>HUAWEI Pura X View는 폴더블폰은 아니지만, 현재 매우 인기 있는 제품입니다. Pura X의 비폴더블 형제 모델과 같으며, 표준 16:9 동영상보다 약간 더 긴 16:9.5 와이드 스크린을 공유합니다. 무거운 카메라 모듈이 없어 약 201g으로 가볍고 편안하게 잡을 수 있으며, 주머니에 넣기에도 충분히 얇지만, 광택 있는 슬림 프레임은 미끄러워 잡기 어려울 수 있습니다. 더 넓은 본체에는 7,000mAh 배터리가 들어갑니다. 사용 시 추가된 너비는 타이핑, 문서 보기, 독서, 동영상 시청에 이점을 제공합니다. 키가 더 넓어져 오타가 줄어들지만, 한 손 타이핑에는 한 손 모드가 필요합니다. 화면 영역은 독서용 Kindle Paperwhite와 같습니다. 16:9 또는 2:1 동영상은 일반 폰보다 낭비되는 공간이 적습니다. 게임은 더 많은 세로 콘텐츠를 제공하며, 더 큰 냉각판이 온도를 낮게 유지합니다. Kirin 9030S 칩, 12GB RAM, HarmonyOS 7을 탑재했습니다. 카메라는 200MP 메인, 50MP 망원, 8MP 초광각, 그리고 2세대 RYYB 센서를 탑재한 50MP 전면 카메라를 포함합니다. OLED 디스플레이는 FHD+ 해상도와 406 PPI를 제공하며, 쿤룬 글라스로 보호되고 IP68 등급을 받았습니다. 66W 유선 및 50W 무선 충전, 듀얼 SIM, eSIM을 지원합니다. 이 폰은 실제로 모든 사람에게 적합합니다.</p>
+<p>다시 한번 말씀드리지만, 올해 가격 인상으로 인해 더 저렴한 폰을 원하실 수도 있습니다. 다음은 저희가 추천하는 두 가지 모델입니다.</p>
+<h3>REDMI K100 Pro Max</h3>
+<p>REDMI K100 Pro Max는 가격 통제에 중점을 두어 약 700달러에 일부 사양 타협을 통해 출시되었습니다. 서브우퍼가 포함된 시그니처 2.1채널 스피커 시스템은 여전히 최대 볼륨에서도 선명한 출력을 제공하지만, 더 큰 배터리로 인해 음향 챔버가 압축되어 저음이 약간 퇴보했습니다. 디스플레이는 주요 업그레이드입니다. Xiaomi의 HyperRGB 픽셀 배열을 통해 거의 2K에 가까운 선명도, 900니트 이상의 수동 밝기, 그리고 최초의 BT.2020 색역 지원을 제공합니다. Snapdragon 8 Elite Gen 5를 탑재하여 일상적인 사용과 중간 정도의 게임을 잘 처리하지만, 커스텀 원신 맵과 같은 고사양 작업은 온도를 46°C까지 올립니다. D2 칩은 모든 게임에서 최대 165fps의 프레임 보간을 가능하게 합니다. 200MP 메인 카메라는 이전 모델보다 작은 센서를 사용하지만, 견고한 결과물을 제공하며, 뛰어난 In-Sensor Zoom은 120mm 망원 카메라와의 격차를 메워줍니다 (망원 카메라는 화이트 밸런스가 불규칙합니다). 동영상 성능은 저조도에서 눈에 띄게 떨어져 스틸 사진보다 훨씬 낮은 평가를 받습니다. 배터리 수명은 최고 수준이며, 100W 유선 충전으로 65분 만에 완전히 충전되고, 27W 역충전은 보조 배터리를 거의 대체할 수 있습니다. 사양과 가격을 중요하게 생각한다면 이 모델이 완벽할 수 있습니다.</p>
+<h3>HONOR WIN RT 2</h3>
+<p>HONOR WIN RT 2는 가치 중심의 공식을 기반으로 하며, 배터리 용량이 10,000mAh에서 12,000mAh 이상으로 증가했습니다. 테스트 결과, 한 번 충전으로 하루 종일 집중적인 사용과 게임을 한 후에도 17%가 남아 있었으므로, 이 폰은 실제로 이틀 이상 일반적인 사용이 가능합니다. 내장된 단일 팬은 이제 Rapid Cooling 모드를 포함하여 100초 만에 온도를 10°C 낮추며, 마이크가 활성화된 상태에서도 작동하므로 게임 통화 시 더 이상 헤드폰이 필요하지 않습니다 (단, 팬은 최대 속도에서 시끄럽습니다). 비용 효율성을 고려하여 Snapdragon 8 Elite Gen 5를 사용합니다. 2K 185Hz LTPS 디스플레이는 뛰어난 선명도와 부드러움을 제공하지만, 최고 주사율은 일부 앱에서만 작동하며 개발자 옵션에서 활성화해야 합니다. 카메라 성능은 기본적입니다. 200MP 메인 센서는 크롭을 통해 괜찮은 사진을 생성하며, 동영상 품질은 300달러짜리 폰과 비슷하고 망원 카메라는 없습니다. 게임 성능은 혼합적입니다. 가벼운 작업은 잘 실행되지만, Honkai: Star Rail과 같은 고사양 게임은 스로틀링이 발생하고 표면 온도가 50°C를 초과합니다. 90W 충전은 91분 소요됩니다. 대용량 배터리와 견고한 일상 성능을 좋아한다면 이 모델이 적합합니다.</p>
+<h3>총평</h3>
+<p>지금까지 Geekwills 블랙 프라이데이 세일에서 구매할 것을 추천하는 스마트폰들을 살펴보았습니다. 다시 한번 말씀드리지만, 모든 폰은 5% 할인되며, 일부 폰은 특별 할인이 적용되지만 두 할인은 중복되지 않습니다. 각 제목의 링크를 통해 해당 제품 페이지로 바로 이동할 수 있습니다. 물론 Geekwills에는 이 외에도 다양한 할인 폰들이 있으니 직접 확인해 보세요. 즐거운 쇼핑 되세요!</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>블랙 프라이데이 세일: Geekwills 추천 스마트폰</h3>
+<p>블랙 프라이데이가 드디어 시작되었습니다. Gizmochina에서는 다양한 스마트폰을 리뷰하고, Geekwills에서 최고의 할인 혜택을 제공하고자 합니다. 이번 블랙 프라이데이 세일 내용은 다음과 같습니다.</p>
+<ul>
+<li>모든 스마트폰 5% 할인</li>
+<li>일부 스마트폰 특별 할인 (두 가지 할인은 중복 적용 불가)</li>
+</ul>
+<p>규칙은 명확하죠? 이제 저희가 가장 추천하는 스마트폰들을 살펴보겠습니다. 각 제목에 포함된 링크를 클릭하면 해당 쇼핑 페이지로 바로 이동합니다.</p>
+<h3>OPPO Find X10 Pro Max</h3>
+<p>플래그십 모델 중 첫 번째는 OPPO Find X10 Pro Max입니다. 이 모델은 특정 헤드라인 기능보다는 균형 잡힌 성능에 중점을 둡니다. 세 개의 200MP 카메라 모두에 대형 센서를 탑재했으며, 특히 초광각 카메라는 색수차가 거의 없고 동영상 촬영에 탁월합니다. 메인 카메라는 뛰어난 다이내믹 레인지를 제공하지만, 기본 샤프닝은 마스터 모드에서 조절할 수 있습니다. 70mm 망원 카메라는 작년 모델에서 계승되었지만, 140mm까지 유용한 결과물을 제공하며 그 이상에서도 활용 가능하고 매크로 촬영도 지원합니다. 카메라 모듈은 손가락이 가리지 않도록 배치되었으며, 주요 경쟁 모델보다 가볍습니다. 디스플레이는 144Hz 주사율, 95% BT.2020 색역 커버리지, 그리고 야외 시인성을 향상시키는 탈착식 AR 반사 방지 필름을 제공합니다. Dimensity 9600 Pro 칩은 가벼운 게임부터 중간 정도의 게임에서 탁월한 성능을 발휘하며 Snapdragon보다 전력 소모가 적습니다. 고사양 게임에서는 성능 차이가 줄어듭니다. 8,000mAh 배터리는 하루 종일 사용 가능하지만, 80W 충전은 80분 이상 소요되어 경쟁 모델보다 다소 느립니다. 전반적으로 저희가 생각하는 가장 균형 잡힌 스마트폰입니다.</p>
+<h3>HONOR Magic 9 Pro Max</h3>
+<p>HONOR Magic 9 Pro Max는 ARRI와의 협력을 통해 모바일 비디오 제작에 중점을 둔 모델입니다. 카메라 모듈에는 f/1.57 조리개와 CIPA 8.0 손떨림 방지 기능을 갖춘 200MP 메인 카메라, 200배 디지털 줌을 지원하는 200MP 3.5배 망원 카메라, 그리고 50MP 초광각 카메라가 포함되어 있습니다. 전용 ARRI CINEMA 모드는 10비트 색상으로 4K 60fps ARRI LogC3를 녹화하며, 14가지 사전 설정 룩과 다양한 LUT를 지원합니다. 6.8인치 플랫 LTPO 디스플레이는 적응형 120Hz 주사율과 4,320Hz PWM 디밍을 지원합니다. Snapdragon 8EE6 칩은 현재 안드로이드에서 가장 강력한 칩입니다. 8,800mAh 배터리는 100W 유선 및 80W 무선 충전을 지원하며, HONOR의 테스트에서 7시간 이상의 4K 녹화가 가능했습니다. 3D 얼굴 잠금 해제와 초음파 지문 스캔을 모두 제공하며, IP68/69/69K 등급을 받았습니다. 전반적으로 단점이 없는 매우 강력한 스마트폰입니다.</p>
+<h3>vivo X500 Pro Max</h3>
+<p>vivo X500 Pro Max는 X300 Pro의 정기 업데이트 모델로, 디자인이나 카메라 하드웨어에는 큰 변화가 없습니다. 메인 카메라는 LOFIC 기술을 통해 다이내믹 레인지가 향상되었으며, Authentic 조명 모드를 사용할 수 있습니다. 망원 카메라는 최근 세대와 동일한 200MP급 센서를 사용하여 30배 또는 60배 줌에서도 유용한 이미지를 촬영하며, 안정적인 야간 성능과 매크로 촬영을 지원합니다. 초광각 카메라는 가장 약한 카메라로, 저조도 환경에서는 성능이 완벽하지 않습니다. 동영상 촬영의 경우, 메인 카메라가 이제 4K 240fps 슬로우 모션 녹화를 지원합니다. Dimensity 9600 Pro 칩은 대부분의 경쟁 모델보다 더 많은 게임에서 슈퍼 해상도 및 프레임 보간을 지원하며, 8,000mAh 배터리는 작년 모델의 배터리 지속 시간 문제를 해결했습니다. 충전은 90W 유선 및 40W 무선으로, 방전 상태에서 약 65분 소요됩니다. 두꺼운 카메라 범프는 그립감을 저해하지만, 동급 모델 중 가장 가볍습니다. 사진 촬영을 좋아한다면 이 모델을 강력히 추천합니다.</p>
+<h3>Xiaomi 18 Pro Max</h3>
+<p>Xiaomi 18 Pro Max는 후면 디스플레이를 유지하며, 이제 플러시 렌즈, 알림 지원, 스크린샷, AI 생성 맞춤형 기능을 제공합니다. 이러한 추가 기능은 무게 증가에 기여하여 플래그십 모델 중 두 번째로 무거운 스마트폰이 되었습니다. 가장 논란이 되는 기능은 프라이버시 디스플레이로, 비스듬한 각도에서 시야를 어둡게 하고 영역 보호 기능을 제공하지만, 일부 단점도 있습니다 (자세한 내용은 전체 리뷰를 참조하세요). 성능은 17 Pro Max보다 훨씬 향상되어, 고사양 게임에서 초기 스로틀링 없이 최대 출력을 유지합니다. LOFIC 기술이 적용된 200MP 메인 카메라는 뛰어난 다이내믹 레인지를 제공하며, 더 높은 대비를 제공하는 가벼운 Essential 모드와 CCD 스타일 필터가 함께 제공됩니다. 75mm 망원 카메라는 장거리 줌에서 뛰어난 성능을 발휘하며 매크로 기능도 있지만, 화이트 밸런스가 약간 일관적이지 않습니다. 17mm 초광각 카메라는 전면 카메라 센서와 동일하며, 성능은 그리 좋지 않습니다. 100W 충전은 약 한 시간 만에 배터리를 완전히 충전합니다. 후면 디스플레이를 좋아한다면 이 모델은 여전히 가치가 있습니다.</p>
+<h3>HUAWEI Mate 90 Pro Max</h3>
+<p>HUAWEI Mate 90 Pro Max는 Mate 시리즈의 중앙 원형 카메라 디자인을 계승하며, 네 방향 패턴의 후면 패널, 프레임으로 이어지는 광택 있는 하단 부분, 그리고 알루미늄 합금과 유리 섬유가 혼합된 후면 커버를 특징으로 합니다. Pro Max 및 Collector’s Edition은 화웨이의 Tau Scaling Law를 기반으로 한 Kirin 9050 Pro 칩을 탑재하며, 이론적으로 트랜지스터 밀도를 두 배로 늘리고 HarmonyOS와 함께 작동합니다. 메인 카메라는 가변 조리개를 유지하고 눈부심 방지 적외선 코팅을 추가했으며, 망원 카메라는 200MP 센서로 업그레이드되었습니다. Ultimate 및 Collector’s Edition은 카메라 모듈 아래에 세 개의 접점을 추가하여 자체 1인치 센서를 갖춘 전동식 외부 줌 렌즈를 장착, 진정한 24mm–240mm 광학 줌과 손떨림 방지 기능을 제공합니다. 업데이트된 Tandem OLED 디스플레이는 Mate 80 Pro Max보다 약간 개선되었으며, 전면 카메라와 3D 구조광 모듈을 수용하는 세 개의 상단 컷아웃이 있습니다. 본체는 일반 스마트폰보다 약간 넓습니다. 배터리 용량은 6,000mAh에서 6,800mAh로 증가했지만, 화웨이는 칩 수준의 효율성에 의존하여 경쟁 모델에 비해 순수 용량은 여전히 뒤처집니다. 글로벌 출시는 아직 확정되지 않았습니다.</p>
+<p>지금까지 최신 플래그십 모델들을 살펴보았습니다. 저희 채널에서는 Pro 또는 표준 버전, 그리고 6개월 이상 전에 출시된 이전 Ultra 모델들도 리뷰했습니다. 다음은 폴더블폰입니다.</p>
+<h3>OnePlus 16</h3>
+<p>OnePlus 16은 9,000mAh 배터리라는 하나의 숫자로 정의됩니다. OnePlus 15의 7,300mAh에서 증가한 수치이며, 대부분의 플래그십 모델이 5,000~6,000mAh인 것을 감안하면 매우 큰 용량입니다. 이는 다른 모든 것에 영향을 미칩니다. 이 폰은 무겁고 76.67mm로 상당히 넓어서 손이 작은 사용자들은 불편함을 느낄 수 있습니다 (Galaxy S24 Ultra보다 넓습니다). 6.78인치 1.5K 디스플레이는 이제 지원되는 게임뿐만 아니라 시스템 전체에서 165Hz 주사율을 지원합니다. 메인 카메라는 몇 년 만에 처음으로 적절한 센서 업그레이드를 받았습니다. 1/1.4인치 센서에 200MP를 탑재하여 저조도 촬영을 개선하고 강력한 크롭 기능을 제공하지만, 처리에는 1초가 소요됩니다. 50MP 3.5배 잠망경 망원 카메라와 50MP 초광각 카메라는 변경 없이 유지되었으며, 전면 카메라는 50MP로 증가하고 자동 초점 기능을 갖췄습니다. Snapdragon 8 Elite Extreme Gen 6는 최대 설정에서 게임을 처리하며, 더 큰 증기 챔버는 가로 모드에서 손이 닿는 곳에서 멀리 떨어져 배치되었습니다. 충전은 120W에서 100W 유선으로 감소했지만, 완전 충전에는 약 50분이 소요되며, 50W 무선 및 바이패스 충전은 유지됩니다. OnePlus는 5년 후에도 최소 80%의 배터리 용량을 약속합니다.</p>
+<p>참고: OnePlus는 북미와 유럽에서 철수했으므로 이 폰은 중국 전용입니다.</p>
+<h3>OPPO Find X10 시리즈</h3>
+<p>Find X10 시리즈는 라인업을 세 가지 모델로 재편했습니다. X10 E는 Dimensity 9500s를 탑재한 X9의 마이너 업데이트 모델이며, 표준 X10과 X10 Pro Max는 사실상 작년 Pro 모델의 이름이 변경된 것입니다. X10과 Pro Max는 X9의 기본 디자인 위에 계단식 직사각형 디자인을 공유하며, 흰색 Pro Max는 더 깔끔한 카메라 같은 외관을 위해 계단식 디자인을 생략했습니다. 카메라 셔터 버튼은 두 세대 만에 공식적으로 사라졌습니다. 두 모델 모두 1–144Hz 적응형 주사율, BT.2020 색역, 더 좁은 베젤, 그리고 유지할 가치가 있는 사전 설치된 AR 코팅 스크린 프로텍터를 갖춘 TIANMA 디스플레이를 사용합니다. 표준 X10은 Dimensity 9600M 칩을 탑재했는데, 리뷰어는 이 칩이 "9500+"라는 이름이 더 적합하다고 주장합니다. Pro Max는 진정한 2nm 9600 Pro 칩을 탑재합니다. Pro Max는 세 개의 200MP 카메라를 동시에 선보이며, 초광각 카메라가 드디어 대형 센서를 탑재하여 Ultra급 성능에 도달했습니다. 표준 X10의 초광각 카메라는 여전히 가장 약한 카메라입니다. 두 모델 모두 크기 차이에도 불구하고 8,000mAh 배터리를 탑재하며, 80W 유선 및 50W 무선 충전을 지원합니다. 표준 모델은 배터리 성능을 희생하지 않고 더 작은 폰을 원하는 사용자에게 적합하며, Pro Max는 사진 촬영과 성능에 중점을 둡니다.</p>
+<h3>vivo X500 시리즈</h3>
+<p>vivo X500 시리즈는 대형, 중형, 소형 세 가지 크기로 출시되며, 모델 위치가 재조정되었습니다. 표준 버전은 커지고, Pro는 작아졌으며, 새로운 Pro Max는 X300 Pro의 자리를 이어받아 vivo의 최고 올라운드 플래그십이 되었습니다. 표준 X500은 가장 많은 디자인 변화를 겪었으며, 카메라 모듈이 직사각형의 돌출된 부분으로 왼쪽 상단으로 이동했습니다. Pro와 Pro Max는 익숙한 중앙 원형 모듈과 AI 버튼, 경사진 후면 전환 디자인을 유지합니다. 세 모델 모두 144Hz 주사율을 지원하는 BOE 패널을 사용하지만, 표준 버전만 LTPS이고 Pro Max만 2K 해상도에 도달합니다. Dimensity 9600M은 표준 모델에 전력을 공급하며, 2nm 9600 Pro는 두 Pro 모델에 모두 탑재됩니다. 카메라는 진정한 차별점입니다. Pro Max는 X300 Ultra의 200MP 망원 카메라를 채택하고 메인 카메라의 다이내믹 레인지와 손떨림 방지를 개선했지만, 초광각 카메라는 내년 Ultra 모델을 위해 의도적으로 성능을 제한했습니다. 또한 400mm 망원 컨버터를 지원합니다. Pro의 망원 카메라는 센서와 픽셀이 축소되었으며, 표준 X500은 LOFIC 기능을 제거하고 망원 초점 거리를 70mm로 단축했습니다. 배터리 용량은 크게 증가하여 Pro Max는 약 1,500mAh(23%) 증가하여 X300의 배터리 불만을 직접적으로 해결했습니다.</p>
+<h3>Xiaomi 18 Fold</h3>
+<p>Xiaomi 18 Fold는 먼저 여권 스타일의 폼팩터를 채택했으며, 세 개의 카메라 모두 배터리 위에 수평으로 배치되었습니다. 컴팩트한 본체에도 불구하고 IR 블래스터, NFC, UWB를 유지합니다. 220g 미만으로 많은 일반 스마트폰보다 가볍지만, eSIM이 없으며 두 스피커 모두 같은 쪽에 있습니다. 두 디스플레이 모두 전체 RGB 서브픽셀을 사용하며, 내부 화면에는 AR 코팅과 얕은 주름이 있지만 스타일러스는 지원하지 않습니다. XRING O3 칩은 이론적으로 강력한 최고 성능을 제공하지만, 발열로 인해 성능이 상당히 제한됩니다. 카메라 시스템은 REDMI K100 Pro Max와 동일한 센서를 사용하며, 80mm 망원 카메라와 좁은 17mm 초광각 카메라를 갖췄습니다. 6,000mAh 배터리는 일반 폰과 비슷한 지속 시간을 제공하며, 67W 유선 충전으로 50분 만에 완전히 충전되고 50W 무선 충전을 지원합니다. 글로벌 출시 가능성이 낮으므로 Geekwills에서 구매하는 것이 가장 좋은 방법입니다.</p>
+<h3>HUAWEI Pura X Max</h3>
+<p>HUAWEI Pura X Max는 작년에 출시된 오리지널 Pura X에 이어 화웨이의 두 번째 넓은 화면 비율의 폴더블폰입니다. 접힌 폰을 일반 스마트폰처럼 느끼게 하기보다는 내부 디스플레이 경험에 중점을 둡니다. 넓은 화면은 동영상 시청 시 낭비되는 공간을 최소화하며, 5.4인치 외부 디스플레이도 제공합니다. 소프트웨어 측면에서도 화웨이는 사용자 친화적인 최적화를 많이 했습니다. 하드웨어 측면에서 Pura X Max는 타협 없는 완전한 카메라 시스템을 유지합니다. 유출된 정보에 따르면 Find N6와 같은 경쟁 모델의 주름은 거의 보이지 않는다고 하지만, Pura X Max 자체의 특정 단점은 여기에서 자세히 설명되지 않았습니다.</p>
+<h3>HUAWEI Pura X View</h3>
+<p>HUAWEI Pura X View는 폴더블폰은 아니지만, 현재 매우 인기 있는 제품입니다. Pura X의 비폴더블 형제 모델과 같으며, 표준 16:9 동영상보다 약간 더 긴 16:9.5 와이드 스크린을 공유합니다. 무거운 카메라 모듈이 없어 약 201g으로 가볍고 편안하게 잡을 수 있으며, 주머니에 넣기에도 충분히 얇지만, 광택 있는 슬림 프레임은 미끄러워 잡기 어려울 수 있습니다. 더 넓은 본체에는 7,000mAh 배터리가 들어갑니다. 사용 시 추가된 너비는 타이핑, 문서 보기, 독서, 동영상 시청에 이점을 제공합니다. 키가 더 넓어져 오타가 줄어들지만, 한 손 타이핑에는 한 손 모드가 필요합니다. 화면 영역은 독서용 Kindle Paperwhite와 같습니다. 16:9 또는 2:1 동영상은 일반 폰보다 낭비되는 공간이 적습니다. 게임은 더 많은 세로 콘텐츠를 제공하며, 더 큰 냉각판이 온도를 낮게 유지합니다. Kirin 9030S 칩, 12GB RAM, HarmonyOS 7을 탑재했습니다. 카메라는 200MP 메인, 50MP 망원, 8MP 초광각, 그리고 2세대 RYYB 센서를 탑재한 50MP 전면 카메라를 포함합니다. OLED 디스플레이는 FHD+ 해상도와 406 PPI를 제공하며, 쿤룬 글라스로 보호되고 IP68 등급을 받았습니다. 66W 유선 및 50W 무선 충전, 듀얼 SIM, eSIM을 지원합니다. 이 폰은 실제로 모든 사람에게 적합합니다.</p>
+<p>다시 한번 말씀드리지만, 올해 가격 인상으로 인해 더 저렴한 폰을 원하실 수도 있습니다. 다음은 저희가 추천하는 두 가지 모델입니다.</p>
+<h3>REDMI K100 Pro Max</h3>
+<p>REDMI K100 Pro Max는 가격 통제에 중점을 두어 약 700달러에 일부 사양 타협을 통해 출시되었습니다. 서브우퍼가 포함된 시그니처 2.1채널 스피커 시스템은 여전히 최대 볼륨에서도 선명한 출력을 제공하지만, 더 큰 배터리로 인해 음향 챔버가 압축되어 저음이 약간 퇴보했습니다. 디스플레이는 주요 업그레이드입니다. Xiaomi의 HyperRGB 픽셀 배열을 통해 거의 2K에 가까운 선명도, 900니트 이상의 수동 밝기, 그리고 최초의 BT.2020 색역 지원을 제공합니다. Snapdragon 8 Elite Gen 5를 탑재하여 일상적인 사용과 중간 정도의 게임을 잘 처리하지만, 커스텀 원신 맵과 같은 고사양 작업은 온도를 46°C까지 올립니다. D2 칩은 모든 게임에서 최대 165fps의 프레임 보간을 가능하게 합니다. 200MP 메인 카메라는 이전 모델보다 작은 센서를 사용하지만, 견고한 결과물을 제공하며, 뛰어난 In-Sensor Zoom은 120mm 망원 카메라와의 격차를 메워줍니다 (망원 카메라는 화이트 밸런스가 불규칙합니다). 동영상 성능은 저조도에서 눈에 띄게 떨어져 스틸 사진보다 훨씬 낮은 평가를 받습니다. 배터리 수명은 최고 수준이며, 100W 유선 충전으로 65분 만에 완전히 충전되고, 27W 역충전은 보조 배터리를 거의 대체할 수 있습니다. 사양과 가격을 중요하게 생각한다면 이 모델이 완벽할 수 있습니다.</p>
+<h3>HONOR WIN RT 2</h3>
+<p>HONOR WIN RT 2는 가치 중심의 공식을 기반으로 하며, 배터리 용량이 10,000mAh에서 12,000mAh 이상으로 증가했습니다. 테스트 결과, 한 번 충전으로 하루 종일 집중적인 사용과 게임을 한 후에도 17%가 남아 있었으므로, 이 폰은 실제로 이틀 이상 일반적인 사용이 가능합니다. 내장된 단일 팬은 이제 Rapid Cooling 모드를 포함하여 100초 만에 온도를 10°C 낮추며, 마이크가 활성화된 상태에서도 작동하므로 게임 통화 시 더 이상 헤드폰이 필요하지 않습니다 (단, 팬은 최대 속도에서 시끄럽습니다). 비용 효율성을 고려하여 Snapdragon 8 Elite Gen 5를 사용합니다. 2K 185Hz LTPS 디스플레이는 뛰어난 선명도와 부드러움을 제공하지만, 최고 주사율은 일부 앱에서만 작동하며 개발자 옵션에서 활성화해야 합니다. 카메라 성능은 기본적입니다. 200MP 메인 센서는 크롭을 통해 괜찮은 사진을 생성하며, 동영상 품질은 300달러짜리 폰과 비슷하고 망원 카메라는 없습니다. 게임 성능은 혼합적입니다. 가벼운 작업은 잘 실행되지만, Honkai: Star Rail과 같은 고사양 게임은 스로틀링이 발생하고 표면 온도가 50°C를 초과합니다. 90W 충전은 91분 소요됩니다. 대용량 배터리와 견고한 일상 성능을 좋아한다면 이 모델이 적합합니다.</p>
+<h3>총평</h3>
+<p>지금까지 Geekwills 블랙 프라이데이 세일에서 구매할 것을 추천하는 스마트폰들을 살펴보았습니다. 다시 한번 말씀드리지만, 모든 폰은 5% 할인되며, 일부 폰은 특별 할인이 적용되지만 두 할인은 중복되지 않습니다. 각 제목의 링크를 통해 해당 제품 페이지로 바로 이동할 수 있습니다. 물론 Geekwills에는 이 외에도 다양한 할인 폰들이 있으니 직접 확인해 보세요. 즐거운 쇼핑 되세요!</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>블랙 프라이데이 세일: Geekwills 추천 스마트폰</h3>
+<p>블랙 프라이데이가 드디어 시작되었습니다. Gizmochina에서는 다양한 스마트폰을 리뷰하고, Geekwills에서 최고의 할인 혜택을 제공하고자 합니다. 이번 블랙 프라이데이 세일 내용은 다음과 같습니다.</p>
+<ul>
+<li>모든 스마트폰 5% 할인</li>
+<li>일부 스마트폰 특별 할인 (두 가지 할인은 중복 적용 불가)</li>
+</ul>
+<p>규칙은 명확하죠? 이제 저희가 가장 추천하는 스마트폰들을 살펴보겠습니다. 각 제목에 포함된 링크를 클릭하면 해당 쇼핑 페이지로 바로 이동합니다.</p>
+<h3>OPPO Find X10 Pro Max</h3>
+<p>플래그십 모델 중 첫 번째는 OPPO Find X10 Pro Max입니다. 이 모델은 특정 헤드라인 기능보다는 균형 잡힌 성능에 중점을 둡니다. 세 개의 200MP 카메라 모두에 대형 센서를 탑재했으며, 특히 초광각 카메라는 색수차가 거의 없고 동영상 촬영에 탁월합니다. 메인 카메라는 뛰어난 다이내믹 레인지를 제공하지만, 기본 샤프닝은 마스터 모드에서 조절할 수 있습니다. 70mm 망원 카메라는 작년 모델에서 계승되었지만, 140mm까지 유용한 결과물을 제공하며 그 이상에서도 활용 가능하고 매크로 촬영도 지원합니다. 카메라 모듈은 손가락이 가리지 않도록 배치되었으며, 주요 경쟁 모델보다 가볍습니다. 디스플레이는 144Hz 주사율, 95% BT.2020 색역 커버리지, 그리고 야외 시인성을 향상시키는 탈착식 AR 반사 방지 필름을 제공합니다. Dimensity 9600 Pro 칩은 가벼운 게임부터 중간 정도의 게임에서 탁월한 성능을 발휘하며 Snapdragon보다 전력 소모가 적습니다. 고사양 게임에서는 성능 차이가 줄어듭니다. 8,000mAh 배터리는 하루 종일 사용 가능하지만, 80W 충전은 80분 이상 소요되어 경쟁 모델보다 다소 느립니다. 전반적으로 저희가 생각하는 가장 균형 잡힌 스마트폰입니다.</p>
+<h3>HONOR Magic 9 Pro Max</h3>
+<p>HONOR Magic 9 Pro Max는 ARRI와의 협력을 통해 모바일 비디오 제작에 중점을 둔 모델입니다. 카메라 모듈에는 f/1.57 조리개와 CIPA 8.0 손떨림 방지 기능을 갖춘 200MP 메인 카메라, 200배 디지털 줌을 지원하는 200MP 3.5배 망원 카메라, 그리고 50MP 초광각 카메라가 포함되어 있습니다. 전용 ARRI CINEMA 모드는 10비트 색상으로 4K 60fps ARRI LogC3를 녹화하며, 14가지 사전 설정 룩과 다양한 LUT를 지원합니다. 6.8인치 플랫 LTPO 디스플레이는 적응형 120Hz 주사율과 4,320Hz PWM 디밍을 지원합니다. Snapdragon 8EE6 칩은 현재 안드로이드에서 가장 강력한 칩입니다. 8,800mAh 배터리는 100W 유선 및 80W 무선 충전을 지원하며, HONOR의 테스트에서 7시간 이상의 4K 녹화가 가능했습니다. 3D 얼굴 잠금 해제와 초음파 지문 스캔을 모두 제공하며, IP68/69/69K 등급을 받았습니다. 전반적으로 단점이 없는 매우 강력한 스마트폰입니다.</p>
+<h3>vivo X500 Pro Max</h3>
+<p>vivo X500 Pro Max는 X300 Pro의 정기 업데이트 모델로, 디자인이나 카메라 하드웨어에는 큰 변화가 없습니다. 메인 카메라는 LOFIC 기술을 통해 다이내믹 레인지가 향상되었으며, Authentic 조명 모드를 사용할 수 있습니다. 망원 카메라는 최근 세대와 동일한 200MP급 센서를 사용하여 30배 또는 60배 줌에서도 유용한 이미지를 촬영하며, 안정적인 야간 성능과 매크로 촬영을 지원합니다. 초광각 카메라는 가장 약한 카메라로, 저조도 환경에서는 성능이 완벽하지 않습니다. 동영상 촬영의 경우, 메인 카메라가 이제 4K 240fps 슬로우 모션 녹화를 지원합니다. Dimensity 9600 Pro 칩은 대부분의 경쟁 모델보다 더 많은 게임에서 슈퍼 해상도 및 프레임 보간을 지원하며, 8,000mAh 배터리는 작년 모델의 배터리 지속 시간 문제를 해결했습니다. 충전은 90W 유선 및 40W 무선으로, 방전 상태에서 약 65분 소요됩니다. 두꺼운 카메라 범프는 그립감을 저해하지만, 동급 모델 중 가장 가볍습니다. 사진 촬영을 좋아한다면 이 모델을 강력히 추천합니다.</p>
+<h3>Xiaomi 18 Pro Max</h3>
+<p>Xiaomi 18 Pro Max는 후면 디스플레이를 유지하며, 이제 플러시 렌즈, 알림 지원, 스크린샷, AI 생성 맞춤형 기능을 제공합니다. 이러한 추가 기능은 무게 증가에 기여하여 플래그십 모델 중 두 번째로 무거운 스마트폰이 되었습니다. 가장 논란이 되는 기능은 프라이버시 디스플레이로, 비스듬한 각도에서 시야를 어둡게 하고 영역 보호 기능을 제공하지만, 일부 단점도 있습니다 (자세한 내용은 전체 리뷰를 참조하세요). 성능은 17 Pro Max보다 훨씬 향상되어, 고사양 게임에서 초기 스로틀링 없이 최대 출력을 유지합니다. LOFIC 기술이 적용된 200MP 메인 카메라는 뛰어난 다이내믹 레인지를 제공하며, 더 높은 대비를 제공하는 가벼운 Essential 모드와 CCD 스타일 필터가 함께 제공됩니다. 75mm 망원 카메라는 장거리 줌에서 뛰어난 성능을 발휘하며 매크로 기능도 있지만, 화이트 밸런스가 약간 일관적이지 않습니다. 17mm 초광각 카메라는 전면 카메라 센서와 동일하며, 성능은 그리 좋지 않습니다. 100W 충전은 약 한 시간 만에 배터리를 완전히 충전합니다. 후면 디스플레이를 좋아한다면 이 모델은 여전히 가치가 있습니다.</p>
+<h3>HUAWEI Mate 90 Pro Max</h3>
+<p>HUAWEI Mate 90 Pro Max는 Mate 시리즈의 중앙 원형 카메라 디자인을 계승하며, 네 방향 패턴의 후면 패널, 프레임으로 이어지는 광택 있는 하단 부분, 그리고 알루미늄 합금과 유리 섬유가 혼합된 후면 커버를 특징으로 합니다. Pro Max 및 Collector’s Edition은 화웨이의 Tau Scaling Law를 기반으로 한 Kirin 9050 Pro 칩을 탑재하며, 이론적으로 트랜지스터 밀도를 두 배로 늘리고 HarmonyOS와 함께 작동합니다. 메인 카메라는 가변 조리개를 유지하고 눈부심 방지 적외선 코팅을 추가했으며, 망원 카메라는 200MP 센서로 업그레이드되었습니다. Ultimate 및 Collector’s Edition은 카메라 모듈 아래에 세 개의 접점을 추가하여 자체 1인치 센서를 갖춘 전동식 외부 줌 렌즈를 장착, 진정한 24mm–240mm 광학 줌과 손떨림 방지 기능을 제공합니다. 업데이트된 Tandem OLED 디스플레이는 Mate 80 Pro Max보다 약간 개선되었으며, 전면 카메라와 3D 구조광 모듈을 수용하는 세 개의 상단 컷아웃이 있습니다. 본체는 일반 스마트폰보다 약간 넓습니다. 배터리 용량은 6,000mAh에서 6,800mAh로 증가했지만, 화웨이는 칩 수준의 효율성에 의존하여 경쟁 모델에 비해 순수 용량은 여전히 뒤처집니다. 글로벌 출시는 아직 확정되지 않았습니다.</p>
+<p>지금까지 최신 플래그십 모델들을 살펴보았습니다. 저희 채널에서는 Pro 또는 표준 버전, 그리고 6개월 이상 전에 출시된 이전 Ultra 모델들도 리뷰했습니다. 다음은 폴더블폰입니다.</p>
+<h3>OnePlus 16</h3>
+<p>OnePlus 16은 9,000mAh 배터리라는 하나의 숫자로 정의됩니다. OnePlus 15의 7,300mAh에서 증가한 수치이며, 대부분의 플래그십 모델이 5,000~6,000mAh인 것을 감안하면 매우 큰 용량입니다. 이는 다른 모든 것에 영향을 미칩니다. 이 폰은 무겁고 76.67mm로 상당히 넓어서 손이 작은 사용자들은 불편함을 느낄 수 있습니다 (Galaxy S24 Ultra보다 넓습니다). 6.78인치 1.5K 디스플레이는 이제 지원되는 게임뿐만 아니라 시스템 전체에서 165Hz 주사율을 지원합니다. 메인 카메라는 몇 년 만에 처음으로 적절한 센서 업그레이드를 받았습니다. 1/1.4인치 센서에 200MP를 탑재하여 저조도 촬영을 개선하고 강력한 크롭 기능을 제공하지만, 처리에는 1초가 소요됩니다. 50MP 3.5배 잠망경 망원 카메라와 50MP 초광각 카메라는 변경 없이 유지되었으며, 전면 카메라는 50MP로 증가하고 자동 초점 기능을 갖췄습니다. Snapdragon 8 Elite Extreme Gen 6는 최대 설정에서 게임을 처리하며, 더 큰 증기 챔버는 가로 모드에서 손이 닿는 곳에서 멀리 떨어져 배치되었습니다. 충전은 120W에서 100W 유선으로 감소했지만, 완전 충전에는 약 50분이 소요되며, 50W 무선 및 바이패스 충전은 유지됩니다. OnePlus는 5년 후에도 최소 80%의 배터리 용량을 약속합니다.</p>
+<p>참고: OnePlus는 북미와 유럽에서 철수했으므로 이 폰은 중국 전용입니다.</p>
+<h3>OPPO Find X10 시리즈</h3>
+<p>Find X10 시리즈는 라인업을 세 가지 모델로 재편했습니다. X10 E는 Dimensity 9500s를 탑재한 X9의 마이너 업데이트 모델이며, 표준 X10과 X10 Pro Max는 사실상 작년 Pro 모델의 이름이 변경된 것입니다. X10과 Pro Max는 X9의 기본 디자인 위에 계단식 직사각형 디자인을 공유하며, 흰색 Pro Max는 더 깔끔한 카메라 같은 외관을 위해 계단식 디자인을 생략했습니다. 카메라 셔터 버튼은 두 세대 만에 공식적으로 사라졌습니다. 두 모델 모두 1–144Hz 적응형 주사율, BT.2020 색역, 더 좁은 베젤, 그리고 유지할 가치가 있는 사전 설치된 AR 코팅 스크린 프로텍터를 갖춘 TIANMA 디스플레이를 사용합니다. 표준 X10은 Dimensity 9600M 칩을 탑재했는데, 리뷰어는 이 칩이 "9500+"라는 이름이 더 적합하다고 주장합니다. Pro Max는 진정한 2nm 9600 Pro 칩을 탑재합니다. Pro Max는 세 개의 200MP 카메라를 동시에 선보이며, 초광각 카메라가 드디어 대형 센서를 탑재하여 Ultra급 성능에 도달했습니다. 표준 X10의 초광각 카메라는 여전히 가장 약한 카메라입니다. 두 모델 모두 크기 차이에도 불구하고 8,000mAh 배터리를 탑재하며, 80W 유선 및 50W 무선 충전을 지원합니다. 표준 모델은 배터리 성능을 희생하지 않고 더 작은 폰을 원하는 사용자에게 적합하며, Pro Max는 사진 촬영과 성능에 중점을 둡니다.</p>
+<h3>vivo X500 시리즈</h3>
+<p>vivo X500 시리즈는 대형, 중형, 소형 세 가지 크기로 출시되며, 모델 위치가 재조정되었습니다. 표준 버전은 커지고, Pro는 작아졌으며, 새로운 Pro Max는 X300 Pro의 자리를 이어받아 vivo의 최고 올라운드 플래그십이 되었습니다. 표준 X500은 가장 많은 디자인 변화를 겪었으며, 카메라 모듈이 직사각형의 돌출된 부분으로 왼쪽 상단으로 이동했습니다. Pro와 Pro Max는 익숙한 중앙 원형 모듈과 AI 버튼, 경사진 후면 전환 디자인을 유지합니다. 세 모델 모두 144Hz 주사율을 지원하는 BOE 패널을 사용하지만, 표준 버전만 LTPS이고 Pro Max만 2K 해상도에 도달합니다. Dimensity 9600M은 표준 모델에 전력을 공급하며, 2nm 9600 Pro는 두 Pro 모델에 모두 탑재됩니다. 카메라는 진정한 차별점입니다. Pro Max는 X300 Ultra의 200MP 망원 카메라를 채택하고 메인 카메라의 다이내믹 레인지와 손떨림 방지를 개선했지만, 초광각 카메라는 내년 Ultra 모델을 위해 의도적으로 성능을 제한했습니다. 또한 400mm 망원 컨버터를 지원합니다. Pro의 망원 카메라는 센서와 픽셀이 축소되었으며, 표준 X500은 LOFIC 기능을 제거하고 망원 초점 거리를 70mm로 단축했습니다. 배터리 용량은 크게 증가하여 Pro Max는 약 1,500mAh(23%) 증가하여 X300의 배터리 불만을 직접적으로 해결했습니다.</p>
+<h3>Xiaomi 18 Fold</h3>
+<p>Xiaomi 18 Fold는 먼저 여권 스타일의 폼팩터를 채택했으며, 세 개의 카메라 모두 배터리 위에 수평으로 배치되었습니다. 컴팩트한 본체에도 불구하고 IR 블래스터, NFC, UWB를 유지합니다. 220g 미만으로 많은 일반 스마트폰보다 가볍지만, eSIM이 없으며 두 스피커 모두 같은 쪽에 있습니다. 두 디스플레이 모두 전체 RGB 서브픽셀을 사용하며, 내부 화면에는 AR 코팅과 얕은 주름이 있지만 스타일러스는 지원하지 않습니다. XRING O3 칩은 이론적으로 강력한 최고 성능을 제공하지만, 발열로 인해 성능이 상당히 제한됩니다. 카메라 시스템은 REDMI K100 Pro Max와 동일한 센서를 사용하며, 80mm 망원 카메라와 좁은 17mm 초광각 카메라를 갖췄습니다. 6,000mAh 배터리는 일반 폰과 비슷한 지속 시간을 제공하며, 67W 유선 충전으로 50분 만에 완전히 충전되고 50W 무선 충전을 지원합니다. 글로벌 출시 가능성이 낮으므로 Geekwills에서 구매하는 것이 가장 좋은 방법입니다.</p>
+<h3>HUAWEI Pura X Max</h3>
+<p>HUAWEI Pura X Max는 작년에 출시된 오리지널 Pura X에 이어 화웨이의 두 번째 넓은 화면 비율의 폴더블폰입니다. 접힌 폰을 일반 스마트폰처럼 느끼게 하기보다는 내부 디스플레이 경험에 중점을 둡니다. 넓은 화면은 동영상 시청 시 낭비되는 공간을 최소화하며, 5.4인치 외부 디스플레이도 제공합니다. 소프트웨어 측면에서도 화웨이는 사용자 친화적인 최적화를 많이 했습니다. 하드웨어 측면에서 Pura X Max는 타협 없는 완전한 카메라 시스템을 유지합니다. 유출된 정보에 따르면 Find N6와 같은 경쟁 모델의 주름은 거의 보이지 않는다고 하지만, Pura X Max 자체의 특정 단점은 여기에서 자세히 설명되지 않았습니다.</p>
+<h3>HUAWEI Pura X View</h3>
+<p>HUAWEI Pura X View는 폴더블폰은 아니지만, 현재 매우 인기 있는 제품입니다. Pura X의 비폴더블 형제 모델과 같으며, 표준 16:9 동영상보다 약간 더 긴 16:9.5 와이드 스크린을 공유합니다. 무거운 카메라 모듈이 없어 약 201g으로 가볍고 편안하게 잡을 수 있으며, 주머니에 넣기에도 충분히 얇지만, 광택 있는 슬림 프레임은 미끄러워 잡기 어려울 수 있습니다. 더 넓은 본체에는 7,000mAh 배터리가 들어갑니다. 사용 시 추가된 너비는 타이핑, 문서 보기, 독서, 동영상 시청에 이점을 제공합니다. 키가 더 넓어져 오타가 줄어들지만, 한 손 타이핑에는 한 손 모드가 필요합니다. 화면 영역은 독서용 Kindle Paperwhite와 같습니다. 16:9 또는 2:1 동영상은 일반 폰보다 낭비되는 공간이 적습니다. 게임은 더 많은 세로 콘텐츠를 제공하며, 더 큰 냉각판이 온도를 낮게 유지합니다. Kirin 9030S 칩, 12GB RAM, HarmonyOS 7을 탑재했습니다. 카메라는 200MP 메인, 50MP 망원, 8MP 초광각, 그리고 2세대 RYYB 센서를 탑재한 50MP 전면 카메라를 포함합니다. OLED 디스플레이는 FHD+ 해상도와 406 PPI를 제공하며, 쿤룬 글라스로 보호되고 IP68 등급을 받았습니다. 66W 유선 및 50W 무선 충전, 듀얼 SIM, eSIM을 지원합니다. 이 폰은 실제로 모든 사람에게 적합합니다.</p>
+<p>다시 한번 말씀드리지만, 올해 가격 인상으로 인해 더 저렴한 폰을 원하실 수도 있습니다. 다음은 저희가 추천하는 두 가지 모델입니다.</p>
+<h3>REDMI K100 Pro Max</h3>
+<p>REDMI K100 Pro Max는 가격 통제에 중점을 두어 약 700달러에 일부 사양 타협을 통해 출시되었습니다. 서브우퍼가 포함된 시그니처 2.1채널 스피커 시스템은 여전히 최대 볼륨에서도 선명한 출력을 제공하지만, 더 큰 배터리로 인해 음향 챔버가 압축되어 저음이 약간 퇴보했습니다. 디스플레이는 주요 업그레이드입니다. Xiaomi의 HyperRGB 픽셀 배열을 통해 거의 2K에 가까운 선명도, 900니트 이상의 수동 밝기, 그리고 최초의 BT.2020 색역 지원을 제공합니다. Snapdragon 8 Elite Gen 5를 탑재하여 일상적인 사용과 중간 정도의 게임을 잘 처리하지만, 커스텀 원신 맵과 같은 고사양 작업은 온도를 46°C까지 올립니다. D2 칩은 모든 게임에서 최대 165fps의 프레임 보간을 가능하게 합니다. 200MP 메인 카메라는 이전 모델보다 작은 센서를 사용하지만, 견고한 결과물을 제공하며, 뛰어난 In-Sensor Zoom은 120mm 망원 카메라와의 격차를 메워줍니다 (망원 카메라는 화이트 밸런스가 불규칙합니다). 동영상 성능은 저조도에서 눈에 띄게 떨어져 스틸 사진보다 훨씬 낮은 평가를 받습니다. 배터리 수명은 최고 수준이며, 100W 유선 충전으로 65분 만에 완전히 충전되고, 27W 역충전은 보조 배터리를 거의 대체할 수 있습니다. 사양과 가격을 중요하게 생각한다면 이 모델이 완벽할 수 있습니다.</p>
+<h3>HONOR WIN RT 2</h3>
+<p>HONOR WIN RT 2는 가치 중심의 공식을 기반으로 하며, 배터리 용량이 10,000mAh에서 12,000mAh 이상으로 증가했습니다. 테스트 결과, 한 번 충전으로 하루 종일 집중적인 사용과 게임을 한 후에도 17%가 남아 있었으므로, 이 폰은 실제로 이틀 이상 일반적인 사용이 가능합니다. 내장된 단일 팬은 이제 Rapid Cooling 모드를 포함하여 100초 만에 온도를 10°C 낮추며, 마이크가 활성화된 상태에서도 작동하므로 게임 통화 시 더 이상 헤드폰이 필요하지 않습니다 (단, 팬은 최대 속도에서 시끄럽습니다). 비용 효율성을 고려하여 Snapdragon 8 Elite Gen 5를 사용합니다. 2K 185Hz LTPS 디스플레이는 뛰어난 선명도와 부드러움을 제공하지만, 최고 주사율은 일부 앱에서만 작동하며 개발자 옵션에서 활성화해야 합니다. 카메라 성능은 기본적입니다. 200MP 메인 센서는 크롭을 통해 괜찮은 사진을 생성하며, 동영상 품질은 300달러짜리 폰과 비슷하고 망원 카메라는 없습니다. 게임 성능은 혼합적입니다. 가벼운 작업은 잘 실행되지만, Honkai: Star Rail과 같은 고사양 게임은 스로틀링이 발생하고 표면 온도가 50°C를 초과합니다. 90W 충전은 91분 소요됩니다. 대용량 배터리와 견고한 일상 성능을 좋아한다면 이 모델이 적합합니다.</p>
+<h3>총평</h3>
+<p>지금까지 Geekwills 블랙 프라이데이 세일에서 구매할 것을 추천하는 스마트폰들을 살펴보았습니다. 다시 한번 말씀드리지만, 모든 폰은 5% 할인되며, 일부 폰은 특별 할인이 적용되지만 두 할인은 중복되지 않습니다. 각 제목의 링크를 통해 해당 제품 페이지로 바로 이동할 수 있습니다. 물론 Geekwills에는 이 외에도 다양한 할인 폰들이 있으니 직접 확인해 보세요. 즐거운 쇼핑 되세요!</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.png" alt="이미지 1" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.png" alt="이미지 3" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.png" alt="이미지 4" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.png" alt="이미지 5" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.png" alt="이미지 6" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img07.png" alt="이미지 7" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img08.png" alt="이미지 8" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img09.png" alt="이미지 9" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img10.png" alt="이미지 10" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img11.png" alt="이미지 11" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img12.png" alt="이미지 12" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img13.png" alt="이미지 13" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img14.png" alt="이미지 14" loading="lazy">
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          Gizmochina
+        </div>
+        
+        <a class="btn-original" href="https://www.gizmochina.com/2026/11/23/the-best-phones-on-black-friday-sales-from-geekwills/" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Gizmochina에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-11"
+               class="archive-btn active">
+              2026-11
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
