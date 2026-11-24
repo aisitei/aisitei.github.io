@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - Xiaomi 브라우저 스마트폰, Pad 확장 프로그램 지원 공식 발표: 광고 차단, 웹페이지 번역, AI 비서, 스크립트 관리</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="phone">
+  <meta name="article-brand" content="Xiaomi">
+  <meta name="article-brand-color" content="#FF6900">
+  <meta name="title-ko" content="Xiaomi 브라우저 스마트폰, Pad 확장 프로그램 지원 공식 발표: 광고 차단, 웹페이지 번역, AI 비서, 스크립트 관리">
+  <meta name="title-zh" content="Xiaomi 브라우저 스마트폰, Pad 확장 프로그램 지원 공식 발표: 광고 차단, 웹페이지 번역, AI 비서, 스크립트 관리">
+  <meta name="title-ja" content="Xiaomi 브라우저 스마트폰, Pad 확장 프로그램 지원 공식 발표: 광고 차단, 웹페이지 번역, AI 비서, 스크립트 관리">
+  <meta name="title-en" content="Xiaomi 브라우저 스마트폰, Pad 확장 프로그램 지원 공식 발표: 광고 차단, 웹페이지 번역, AI 비서, 스크립트 관리">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<script src="../../../../assets/theme.js?v=20261103c"></script>
+<link rel="stylesheet" href="../../../../assets/site.css?v=20261103c">
+<script defer src="../../../../assets/news.js?v=20261103c"></script>
+<script defer src="../../../../assets/article.js?v=20261103c"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="masthead"><div class="masthead-inner">
+<a class="wordmark" href="../../../../index.html" aria-label="AI시테이 홈"><span>AI시테이</span><small>TECHNOLOGY JOURNAL</small></a>
+<nav class="primary-nav" aria-label="주 메뉴"><a href="../../../../index.html" data-i18n="news" aria-current="page">뉴스</a><a href="../../../../reports.html" data-i18n="reports">심층 리포트</a><a href="../../../../index.html#archive" data-i18n="archive">아카이브</a></nav><div class="display-controls"><button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="다크 모드" hidden><span class="theme-symbol" aria-hidden="true">◐</span><span data-theme-label>다크 모드</span></button><label class="language-control"><span class="sr-only" data-i18n="language">언어</span><select id="language" aria-label="언어 / Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option></select></label></div>
+</div></header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          <span class="badge brand-badge" style="background: #FF6900;">
+            Xiaomi
+          </span>
+          
+          
+          <span class="badge" style="background:#dc2626;">📱 스마트폰</span>
+          
+          
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="Xiaomi 브라우저 스마트폰, Pad 확장 프로그램 지원 공식 발표: 광고 차단, 웹페이지 번역, AI 비서, 스크립트 관리"
+            data-zh="Xiaomi 브라우저 스마트폰, Pad 확장 프로그램 지원 공식 발표: 광고 차단, 웹페이지 번역, AI 비서, 스크립트 관리"
+            data-ja="Xiaomi 브라우저 스마트폰, Pad 확장 프로그램 지원 공식 발표: 광고 차단, 웹페이지 번역, AI 비서, 스크립트 관리"
+            data-en="Xiaomi 브라우저 스마트폰, Pad 확장 프로그램 지원 공식 발표: 광고 차단, 웹페이지 번역, AI 비서, 스크립트 관리">Xiaomi 브라우저 스마트폰, Pad 확장 프로그램 지원 공식 발표: 광고 차단, 웹페이지 번역, AI 비서, 스크립트 관리</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-11-25
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="Xiaomi 브라우저 스마트폰, Pad 확장 프로그램 지원 공식 발표: 광고 차단, 웹페이지 번역, AI 비서, 스크립트 관리" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>Xiaomi 브라우저 확장 프로그램 지원</h3>
+<p>Xiaomi 인터넷 공식 웨이보에 따르면, Xiaomi 브라우저 모바일 및 Pad 버전이 이제 확장 프로그램을 지원합니다. 광고 차단, 웹 페이지 번역, AI 어시스턴트, 스크립트 관리 기능을 메뉴에서 바로 사용할 수 있습니다.</p>
+<p>IT之家는 지난 6월 Xiaomi 직원 @劣人潘이 이 기능을 예고하며, 적절한 시기에 플러그인을 지원하는 브라우저 버전을 출시할 것이라고 언급했음을 확인했습니다.</p>
+<p>Xiaomi 브라우저 모바일 버전은 20.32 이상, Pad 버전은 20.6 이상으로 업데이트해야 확장 프로그램 기능을 사용할 수 있습니다. 확장 프로그램 외에도 이번 업데이트를 통해 Xiaomi 브라우저의 AI 검색에 '인터랙티브 스퀘어' 기능이 추가되어 다운로드 없이 바로 사용할 수 있습니다.</p>
+<p>사실 브라우저 플러그인 기능은 이번에 처음 등장한 것이 아니라 Xiaomi HyperOS 4 시스템과 함께 처음 공개되었습니다. 2026년 8월 중순, 한 디지털 블로거는 HyperOS 4 브라우저가 이미 플러그인 기능을 지원하며, 사용자가 브라우저 메뉴에서 개인 센터로 들어가 '플러그인' 입구에서 추천 플러그인을 찾아 설치할 수 있다고 공유했습니다.</p>
+<p>참고로 HyperOS 4 베타 버전은 2026년 8월 14일 저녁부터 Xiaomi 17 시리즈, Redmi K90 시리즈 및 Xiaomi Pad 8 시리즈 등 기종에 순차적으로 배포되기 시작했습니다.</p>
+<p>공개된 확장 프로그램 인터페이스를 보면, 추천 확장 프로그램에는 몰입형 번역, AdGuard 광고 차단기, 유다오 링동 번역 등이 포함되어 있으며, 인기 확장 프로그램에는 FetchV, uBlock Origin Lite 등이 있습니다.</p>
+<p>이 기능은 출시 초기에는 시스템에 내장된 추천 플러그인만 지원하며, 사용자가 직접 타사 플러그인 패키지를 설치하는 것은 아직 지원되지 않아 데스크톱 브라우저와는 여전히 차이가 있습니다.</p>
+<h3>총평</h3>
+<p>Xiaomi 브라우저가 모바일 및 Pad 버전에서 확장 프로그램 기능을 공식 지원하기 시작했습니다. 이 기능은 광고 차단, 웹 페이지 번역, AI 어시스턴트 등을 포함하며, Xiaomi HyperOS 4 시스템에서 처음 선보였습니다. 현재는 시스템 내장 추천 플러그인만 지원하며, 타사 플러그인 설치는 아직 불가능합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>Xiaomi 브라우저 확장 프로그램 지원</h3>
+<p>Xiaomi 인터넷 공식 웨이보에 따르면, Xiaomi 브라우저 모바일 및 Pad 버전이 이제 확장 프로그램을 지원합니다. 광고 차단, 웹 페이지 번역, AI 어시스턴트, 스크립트 관리 기능을 메뉴에서 바로 사용할 수 있습니다.</p>
+<p>IT之家는 지난 6월 Xiaomi 직원 @劣人潘이 이 기능을 예고하며, 적절한 시기에 플러그인을 지원하는 브라우저 버전을 출시할 것이라고 언급했음을 확인했습니다.</p>
+<p>Xiaomi 브라우저 모바일 버전은 20.32 이상, Pad 버전은 20.6 이상으로 업데이트해야 확장 프로그램 기능을 사용할 수 있습니다. 확장 프로그램 외에도 이번 업데이트를 통해 Xiaomi 브라우저의 AI 검색에 '인터랙티브 스퀘어' 기능이 추가되어 다운로드 없이 바로 사용할 수 있습니다.</p>
+<p>사실 브라우저 플러그인 기능은 이번에 처음 등장한 것이 아니라 Xiaomi HyperOS 4 시스템과 함께 처음 공개되었습니다. 2026년 8월 중순, 한 디지털 블로거는 HyperOS 4 브라우저가 이미 플러그인 기능을 지원하며, 사용자가 브라우저 메뉴에서 개인 센터로 들어가 '플러그인' 입구에서 추천 플러그인을 찾아 설치할 수 있다고 공유했습니다.</p>
+<p>참고로 HyperOS 4 베타 버전은 2026년 8월 14일 저녁부터 Xiaomi 17 시리즈, Redmi K90 시리즈 및 Xiaomi Pad 8 시리즈 등 기종에 순차적으로 배포되기 시작했습니다.</p>
+<p>공개된 확장 프로그램 인터페이스를 보면, 추천 확장 프로그램에는 몰입형 번역, AdGuard 광고 차단기, 유다오 링동 번역 등이 포함되어 있으며, 인기 확장 프로그램에는 FetchV, uBlock Origin Lite 등이 있습니다.</p>
+<p>이 기능은 출시 초기에는 시스템에 내장된 추천 플러그인만 지원하며, 사용자가 직접 타사 플러그인 패키지를 설치하는 것은 아직 지원되지 않아 데스크톱 브라우저와는 여전히 차이가 있습니다.</p>
+<h3>총평</h3>
+<p>Xiaomi 브라우저가 모바일 및 Pad 버전에서 확장 프로그램 기능을 공식 지원하기 시작했습니다. 이 기능은 광고 차단, 웹 페이지 번역, AI 어시스턴트 등을 포함하며, Xiaomi HyperOS 4 시스템에서 처음 선보였습니다. 현재는 시스템 내장 추천 플러그인만 지원하며, 타사 플러그인 설치는 아직 불가능합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>Xiaomi 브라우저 확장 프로그램 지원</h3>
+<p>Xiaomi 인터넷 공식 웨이보에 따르면, Xiaomi 브라우저 모바일 및 Pad 버전이 이제 확장 프로그램을 지원합니다. 광고 차단, 웹 페이지 번역, AI 어시스턴트, 스크립트 관리 기능을 메뉴에서 바로 사용할 수 있습니다.</p>
+<p>IT之家는 지난 6월 Xiaomi 직원 @劣人潘이 이 기능을 예고하며, 적절한 시기에 플러그인을 지원하는 브라우저 버전을 출시할 것이라고 언급했음을 확인했습니다.</p>
+<p>Xiaomi 브라우저 모바일 버전은 20.32 이상, Pad 버전은 20.6 이상으로 업데이트해야 확장 프로그램 기능을 사용할 수 있습니다. 확장 프로그램 외에도 이번 업데이트를 통해 Xiaomi 브라우저의 AI 검색에 '인터랙티브 스퀘어' 기능이 추가되어 다운로드 없이 바로 사용할 수 있습니다.</p>
+<p>사실 브라우저 플러그인 기능은 이번에 처음 등장한 것이 아니라 Xiaomi HyperOS 4 시스템과 함께 처음 공개되었습니다. 2026년 8월 중순, 한 디지털 블로거는 HyperOS 4 브라우저가 이미 플러그인 기능을 지원하며, 사용자가 브라우저 메뉴에서 개인 센터로 들어가 '플러그인' 입구에서 추천 플러그인을 찾아 설치할 수 있다고 공유했습니다.</p>
+<p>참고로 HyperOS 4 베타 버전은 2026년 8월 14일 저녁부터 Xiaomi 17 시리즈, Redmi K90 시리즈 및 Xiaomi Pad 8 시리즈 등 기종에 순차적으로 배포되기 시작했습니다.</p>
+<p>공개된 확장 프로그램 인터페이스를 보면, 추천 확장 프로그램에는 몰입형 번역, AdGuard 광고 차단기, 유다오 링동 번역 등이 포함되어 있으며, 인기 확장 프로그램에는 FetchV, uBlock Origin Lite 등이 있습니다.</p>
+<p>이 기능은 출시 초기에는 시스템에 내장된 추천 플러그인만 지원하며, 사용자가 직접 타사 플러그인 패키지를 설치하는 것은 아직 지원되지 않아 데스크톱 브라우저와는 여전히 차이가 있습니다.</p>
+<h3>총평</h3>
+<p>Xiaomi 브라우저가 모바일 및 Pad 버전에서 확장 프로그램 기능을 공식 지원하기 시작했습니다. 이 기능은 광고 차단, 웹 페이지 번역, AI 어시스턴트 등을 포함하며, Xiaomi HyperOS 4 시스템에서 처음 선보였습니다. 현재는 시스템 내장 추천 플러그인만 지원하며, 타사 플러그인 설치는 아직 불가능합니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>Xiaomi 브라우저 확장 프로그램 지원</h3>
+<p>Xiaomi 인터넷 공식 웨이보에 따르면, Xiaomi 브라우저 모바일 및 Pad 버전이 이제 확장 프로그램을 지원합니다. 광고 차단, 웹 페이지 번역, AI 어시스턴트, 스크립트 관리 기능을 메뉴에서 바로 사용할 수 있습니다.</p>
+<p>IT之家는 지난 6월 Xiaomi 직원 @劣人潘이 이 기능을 예고하며, 적절한 시기에 플러그인을 지원하는 브라우저 버전을 출시할 것이라고 언급했음을 확인했습니다.</p>
+<p>Xiaomi 브라우저 모바일 버전은 20.32 이상, Pad 버전은 20.6 이상으로 업데이트해야 확장 프로그램 기능을 사용할 수 있습니다. 확장 프로그램 외에도 이번 업데이트를 통해 Xiaomi 브라우저의 AI 검색에 '인터랙티브 스퀘어' 기능이 추가되어 다운로드 없이 바로 사용할 수 있습니다.</p>
+<p>사실 브라우저 플러그인 기능은 이번에 처음 등장한 것이 아니라 Xiaomi HyperOS 4 시스템과 함께 처음 공개되었습니다. 2026년 8월 중순, 한 디지털 블로거는 HyperOS 4 브라우저가 이미 플러그인 기능을 지원하며, 사용자가 브라우저 메뉴에서 개인 센터로 들어가 '플러그인' 입구에서 추천 플러그인을 찾아 설치할 수 있다고 공유했습니다.</p>
+<p>참고로 HyperOS 4 베타 버전은 2026년 8월 14일 저녁부터 Xiaomi 17 시리즈, Redmi K90 시리즈 및 Xiaomi Pad 8 시리즈 등 기종에 순차적으로 배포되기 시작했습니다.</p>
+<p>공개된 확장 프로그램 인터페이스를 보면, 추천 확장 프로그램에는 몰입형 번역, AdGuard 광고 차단기, 유다오 링동 번역 등이 포함되어 있으며, 인기 확장 프로그램에는 FetchV, uBlock Origin Lite 등이 있습니다.</p>
+<p>이 기능은 출시 초기에는 시스템에 내장된 추천 플러그인만 지원하며, 사용자가 직접 타사 플러그인 패키지를 설치하는 것은 아직 지원되지 않아 데스크톱 브라우저와는 여전히 차이가 있습니다.</p>
+<h3>총평</h3>
+<p>Xiaomi 브라우저가 모바일 및 Pad 버전에서 확장 프로그램 기능을 공식 지원하기 시작했습니다. 이 기능은 광고 차단, 웹 페이지 번역, AI 어시스턴트 등을 포함하며, Xiaomi HyperOS 4 시스템에서 처음 선보였습니다. 현재는 시스템 내장 추천 플러그인만 지원하며, 타사 플러그인 설치는 아직 불가능합니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xiaomi 브라우저</div>
+                <div class="caption-lang" data-lang="en">Xiaomi Browser</div>
+                <div class="caption-lang" data-lang="ja">Xiaomiブラウザ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xiaomi 브라우저 업데이트</div>
+                <div class="caption-lang" data-lang="en">Xiaomi Browser update</div>
+                <div class="caption-lang" data-lang="ja">Xiaomiブラウザの更新</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">확장 프로그램</div>
+                <div class="caption-lang" data-lang="en">Extensions</div>
+                <div class="caption-lang" data-lang="ja">拡張機能</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">멈추지 않고 나아가다</div>
+                <div class="caption-lang" data-lang="en">Go forward without hesitation</div>
+                <div class="caption-lang" data-lang="ja">一途に前進する</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">하나는 천을 앞선다</div>
+                <div class="caption-lang" data-lang="en">One precedes a thousand</div>
+                <div class="caption-lang" data-lang="ja">一は千に先んじる</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">역사</div>
+                <div class="caption-lang" data-lang="en">History</div>
+                <div class="caption-lang" data-lang="ja">履歴</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">최신</div>
+                <div class="caption-lang" data-lang="en">Latest</div>
+                <div class="caption-lang" data-lang="ja">最新</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.jpg" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">모바일 브라우저</div>
+                <div class="caption-lang" data-lang="en">Mobile browser</div>
+                <div class="caption-lang" data-lang="ja">モバイルブラウザ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">브라우저에 유용한 도구를 설치하세요. 휴대폰, iPad 모두 지원됩니다.</div>
+                <div class="caption-lang" data-lang="en">Install useful tools for your browser, supported on both phones and iPads.</div>
+                <div class="caption-lang" data-lang="ja">ブラウザに便利なツールをインストールしてください。携帯電話、iPadの両方に対応しています。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">광고 차단</div>
+                <div class="caption-lang" data-lang="en">Ad blocking</div>
+                <div class="caption-lang" data-lang="ja">広告ブロック</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">웹 페이지의 불량 광고 필터링</div>
+                <div class="caption-lang" data-lang="en">Filter out unwanted ads on web pages</div>
+                <div class="caption-lang" data-lang="ja">ウェブページの不要な広告をフィルタリング</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">외국어 웹 페이지 대조 번역</div>
+                <div class="caption-lang" data-lang="en">Comparative translation of foreign language web pages</div>
+                <div class="caption-lang" data-lang="ja">外国語ウェブページの対照翻訳</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">읽기 편함</div>
+                <div class="caption-lang" data-lang="en">Easy to read</div>
+                <div class="caption-lang" data-lang="ja">読みやすい</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">사이드바에서 언제든지 질문</div>
+                <div class="caption-lang" data-lang="en">Ask questions anytime in the sidebar</div>
+                <div class="caption-lang" data-lang="ja">サイドバーでいつでも質問</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">자주 사용하는 웹사이트에 로드</div>
+                <div class="caption-lang" data-lang="en">Load to frequently used websites</div>
+                <div class="caption-lang" data-lang="ja">よく使うウェブサイトにロード</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">사용자 정의 스크립트</div>
+                <div class="caption-lang" data-lang="en">Custom scripts</div>
+                <div class="caption-lang" data-lang="ja">カスタムスクリプト</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">브라우저에 확장 프로그램 추가</div>
+                <div class="caption-lang" data-lang="en">Add extensions to browser</div>
+                <div class="caption-lang" data-lang="ja">ブラウザに拡張機能を追加</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">확장 프로그램</div>
+                <div class="caption-lang" data-lang="en">Extensions</div>
+                <div class="caption-lang" data-lang="ja">拡張機能</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xiaomi 브라우저 하단의 &#39;메뉴&#39;를 탭하세요.</div>
+                <div class="caption-lang" data-lang="en">Tap &#39;Menu&#39; at the bottom of Xiaomi Browser</div>
+                <div class="caption-lang" data-lang="ja">Xiaomiブラウザ下部の「メニュー」をタップ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">거침없이 나아가다</div>
+                <div class="caption-lang" data-lang="en">Go forward without hesitation</div>
+                <div class="caption-lang" data-lang="ja">ひたすら前へ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">스위치 켜기</div>
+                <div class="caption-lang" data-lang="en">Turn on the switch</div>
+                <div class="caption-lang" data-lang="ja">スイッチをオンにする</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">종료</div>
+                <div class="caption-lang" data-lang="en">Exit</div>
+                <div class="caption-lang" data-lang="ja">終了</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">광고 차단</div>
+                <div class="caption-lang" data-lang="en">Ad blocking</div>
+                <div class="caption-lang" data-lang="ja">広告ブロック</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">기록</div>
+                <div class="caption-lang" data-lang="en">History</div>
+                <div class="caption-lang" data-lang="ja">履歴</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">확장 프로그램</div>
+                <div class="caption-lang" data-lang="en">Extensions</div>
+                <div class="caption-lang" data-lang="ja">拡張機能</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">버전 및 모델 요구 사항</div>
+                <div class="caption-lang" data-lang="en">Version and model requirements</div>
+                <div class="caption-lang" data-lang="ja">バージョンとモデルの要件</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">웹 페이지 번역</div>
+                <div class="caption-lang" data-lang="en">Web page translation</div>
+                <div class="caption-lang" data-lang="ja">ウェブページ翻訳</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">시크릿 모드</div>
+                <div class="caption-lang" data-lang="en">Incognito mode</div>
+                <div class="caption-lang" data-lang="ja">シークレットモード</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">불만 신고</div>
+                <div class="caption-lang" data-lang="en">Complaint report</div>
+                <div class="caption-lang" data-lang="ja">苦情報告</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">스크립트 관리</div>
+                <div class="caption-lang" data-lang="en">Script management</div>
+                <div class="caption-lang" data-lang="ja">スクリプト管理</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">즐겨찾기 추가</div>
+                <div class="caption-lang" data-lang="en">Add bookmark</div>
+                <div class="caption-lang" data-lang="ja">ブックマークを追加</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">새로고침</div>
+                <div class="caption-lang" data-lang="en">Refresh</div>
+                <div class="caption-lang" data-lang="ja">更新</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">홈 화면에 추가</div>
+                <div class="caption-lang" data-lang="en">Add to desktop</div>
+                <div class="caption-lang" data-lang="ja">デスクトップに追加</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg" alt="이미지 4" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">호박 마을 사탕 얻는 밤</div>
+                <div class="caption-lang" data-lang="en">Pumpkin Town Trick-or-Treat Night</div>
+                <div class="caption-lang" data-lang="ja">パンプキンタウンのトリック・オア・トリートの夜</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">숲 요새</div>
+                <div class="caption-lang" data-lang="en">Forest Fortress</div>
+                <div class="caption-lang" data-lang="ja">森の要塞</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">타워 디펜스</div>
+                <div class="caption-lang" data-lang="en">Tower Defense</div>
+                <div class="caption-lang" data-lang="ja">タワーディフェンス</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">균열</div>
+                <div class="caption-lang" data-lang="en">Rift</div>
+                <div class="caption-lang" data-lang="ja">裂け目</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">놓으면 멈추고 자동 발사</div>
+                <div class="caption-lang" data-lang="en">Release to stop, auto-fire</div>
+                <div class="caption-lang" data-lang="ja">放すと停止、自動発射</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">파쿠르</div>
+                <div class="caption-lang" data-lang="en">Parkour</div>
+                <div class="caption-lang" data-lang="ja">パルクール</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg" alt="이미지 5" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xiaomi 브라우저 열기</div>
+                <div class="caption-lang" data-lang="en">Open Xiaomi Browser</div>
+                <div class="caption-lang" data-lang="ja">Xiaomiブラウザを開く</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">입력창 바로 위.</div>
+                <div class="caption-lang" data-lang="en">Just above the input box</div>
+                <div class="caption-lang" data-lang="ja">入力ボックスのすぐ上</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">안녕하세요, 무엇을 도와드릴까요?</div>
+                <div class="caption-lang" data-lang="en">Hi, how can I help you?</div>
+                <div class="caption-lang" data-lang="ja">こんにちは、何かお手伝いできることはありますか？</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">검색과 질문 답변을 도와드릴 수 있으니, 무엇이든 물어보세요.</div>
+                <div class="caption-lang" data-lang="en">I can help you search and answer questions, please feel free to ask.</div>
+                <div class="caption-lang" data-lang="ja">検索や質問にお答えできますので、何でもお尋ねください。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">짧은 만남 후 상대방이 더 알아보고 싶다고 말한다면?</div>
+                <div class="caption-lang" data-lang="en">After a brief meeting, they said they want to know more?</div>
+                <div class="caption-lang" data-lang="ja">短い面会後、相手はもっと知りたいと言った？</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">모자이크 텍스트를 식별하는 실용적인 방법은 무엇입니까?</div>
+                <div class="caption-lang" data-lang="en">How to judge the practical method of mosaic text?</div>
+                <div class="caption-lang" data-lang="ja">モザイク文字を判断する実用的な方法とは？</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">숙제 문제가 있다면 Xiaomi 교육 센터로 오세요.</div>
+                <div class="caption-lang" data-lang="en">Homework problems, come to Xiaomi Education Center</div>
+                <div class="caption-lang" data-lang="ja">宿題の難問はXiaomi教育センターへ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">하나 골라서 플레이하세요.</div>
+                <div class="caption-lang" data-lang="en">Pick one, let&#39;s play</div>
+                <div class="caption-lang" data-lang="ja">一つ選んで、始めよう</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">인기 및 최신</div>
+                <div class="caption-lang" data-lang="en">In &#34;Hot&#34; and &#34;Latest</div>
+                <div class="caption-lang" data-lang="ja">「人気」と「最新」で</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">선택해서 바로 플레이하세요.</div>
+                <div class="caption-lang" data-lang="en">Pick one to play now</div>
+                <div class="caption-lang" data-lang="ja">タップしてプレイできるものを1つ選んでください</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">여기를 클릭하세요</div>
+                <div class="caption-lang" data-lang="en">Click here</div>
+                <div class="caption-lang" data-lang="ja">ここをタップ</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xiaomi 계정 로그인</div>
+                <div class="caption-lang" data-lang="en">Log in to your Xiaomi account</div>
+                <div class="caption-lang" data-lang="ja">Xiaomiアカウントにログイン</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">휴대폰을 바꿔도 찾을 수 있습니다.</div>
+                <div class="caption-lang" data-lang="en">Can be retrieved even if you change phones</div>
+                <div class="caption-lang" data-lang="ja">携帯電話を買い替えても取り戻せる</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">사용함&#39;에서 찾기</div>
+                <div class="caption-lang" data-lang="en">Found in Used</div>
+                <div class="caption-lang" data-lang="ja">「使用済み」から見つける</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">플레이한 게임과 소장품</div>
+                <div class="caption-lang" data-lang="en">Played and collected works</div>
+                <div class="caption-lang" data-lang="ja">プレイした作品とコレクション作品</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">오른쪽 상단에 바탕화면 추가</div>
+                <div class="caption-lang" data-lang="en">Add to desktop from top right corner</div>
+                <div class="caption-lang" data-lang="ja">デスクトップに追加</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">다음에는 한 번에 바로 접속하세요.</div>
+                <div class="caption-lang" data-lang="en">Next time, one-click direct access</div>
+                <div class="caption-lang" data-lang="ja">次回はワンクリックで直接アクセス</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.jpg" alt="이미지 6" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xiaomi 직원</div>
+                <div class="caption-lang" data-lang="en">Xiaomi employee</div>
+                <div class="caption-lang" data-lang="ja">シャオミの従業員</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">Xiaomi 브라우저에 대한 진심 어린 제안에 감사드립니다. 모든 의견은</div>
+                <div class="caption-lang" data-lang="en">Thank you for your sincere advice on Xiaomi Browser, every one of which is meaningful</div>
+                <div class="caption-lang" data-lang="ja">Xiaomiブラウザへの貴重なご意見ありがとうございます。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">피드백은 우리에게 매우 소중하며 제품 발전을 이끄는 원동력입니다.</div>
+                <div class="caption-lang" data-lang="en">Seeing that is precious to us, it also drives product improvement</div>
+                <div class="caption-lang" data-lang="ja">私たちにとって、出会いはかけがえのないものであり、製品を進歩させる原動力でもあります。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">중요한 동력.</div>
+                <div class="caption-lang" data-lang="en">Important power.</div>
+                <div class="caption-lang" data-lang="ja">重要な原動力。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">홈페이지 내비게이션: 향후 탐색 버전 홈페이지에 더 많은 기능을 추가할 예정입니다.</div>
+                <div class="caption-lang" data-lang="en">Homepage Navigation: We will add more to the homepage in the exploration version.</div>
+                <div class="caption-lang" data-lang="ja">ホームページナビゲーション：今後、探索版ホームページにさらに多くの機能を追加する予定です。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">다양한 도구, 학습 자료, 실용적인 내비게이션 구성으로 첫 경험을 더욱 풍성하게 만듭니다.</div>
+                <div class="caption-lang" data-lang="en">Multi-tool, learning resources, and practical navigation configuration, let&#39;s start</div>
+                <div class="caption-lang" data-lang="ja">多機能ツール、学習リソース、実用的なナビゲーション構成により、まず</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">사용자의 요구에 더 잘 맞는 페이지.</div>
+                <div class="caption-lang" data-lang="en">More in line with your usage needs.</div>
+                <div class="caption-lang" data-lang="ja">よりお客様のニーズに合ったページに。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">2. 비디오 재생: 비디오 재생 경험을 매우 중요하게 생각하며, 현재</div>
+                <div class="caption-lang" data-lang="en">Video playback: We highly value the video playback experience and are currently</div>
+                <div class="caption-lang" data-lang="ja">動画再生：私たちは動画再生体験を非常に重視しており、現在</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">원활한 시청 모드&#34;를 적극 추진하고 플레이어 상호 작용을 최적화하며 디코딩 기능을 개선합니다.</div>
+                <div class="caption-lang" data-lang="en">Vigorously promote &#34;smooth viewing mode&#34;, player interaction optimization, and decoding capabilities</div>
+                <div class="caption-lang" data-lang="ja">「スムーズ視聴モード」の強力な推進、プレーヤーのインタラクション最適化、デコード機能</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">점진적 출시.</div>
+                <div class="caption-lang" data-lang="en">Rolling out in phases.</div>
+                <div class="caption-lang" data-lang="ja">順次公開。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">3. 다운로드 기능: Xunlei와 협력하여 다운로드 경험을 개선하고 있습니다.</div>
+                <div class="caption-lang" data-lang="en">Download function: We are working with Xunlei to improve the download experience</div>
+                <div class="caption-lang" data-lang="ja">3.ダウンロード機能：迅雷と共同でダウンロード体験を向上させています</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">귀하의 제안으로 다운로드에 대한 사용자들의 의견을 더욱 명확하게 파악할 수 있었습니다.</div>
+                <div class="caption-lang" data-lang="en">level. Your suggestions give us a clearer view of user demand for downloads</div>
+                <div class="caption-lang" data-lang="ja">あなたの提案は、ユーザーがダウンロードに対して抱いているものをより明確に示してくれました</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">가장 실용적인 기능에 대한 요구 사항을 계속 추적하고 제공하기 위해 노력하겠습니다.</div>
+                <div class="caption-lang" data-lang="en">The most practical functional needs, we will continue to follow up and strive to bring</div>
+                <div class="caption-lang" data-lang="ja">最も実用的な機能のニーズを継続的に追跡し、提供できるよう努力します</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">더욱 풍부하고 포괄적인 다운로드 경험.</div>
+                <div class="caption-lang" data-lang="en">Richer, more comprehensive download experience.</div>
+                <div class="caption-lang" data-lang="ja">より豊かで包括的なダウンロード体験。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">4. 웹 접근성: 브라우저의 웹 접근성도 지속적으로 최적화하고 있습니다.</div>
+                <div class="caption-lang" data-lang="en">Web accessibility: We are also continuously optimizing the browser&#39;s web</div>
+                <div class="caption-lang" data-lang="ja">ウェブアクセシビリティ：ブラウザのウェブアクセシビリティも継続的に最適化しています。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">페이지 열기 성공률을 높이고 위험 제어 URL 판단 기준을 지속적으로 개선합니다.</div>
+                <div class="caption-lang" data-lang="en">Improve the success rate of page opening and continuously improve the judgment criteria for risk control websites</div>
+                <div class="caption-lang" data-lang="ja">ページの成功率を開き、リスク管理ウェブサイトの判定基準を継続的に改善する</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">정확성을 높여 안전을 보장하면서 불필요한 차단을 줄입니다.</div>
+                <div class="caption-lang" data-lang="en">Accurate, reducing unnecessary interceptions while ensuring safety.</div>
+                <div class="caption-lang" data-lang="ja">安全を確保しつつ不必要なインターセプトを減らす。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">5. 플러그인 지원: 플러그인은 브라우저의 가장 독특한 기능 중 하나입니다.</div>
+                <div class="caption-lang" data-lang="en">Plugin support: Plugins are one of the most unique features of browsers.</div>
+                <div class="caption-lang" data-lang="ja">5. プラグインサポート：プラグインはブラウザの最もユニークな機能の一つです。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">좋은 소식은, 내부적으로 플러그인 기능 개발에 착수했다는 것입니다.</div>
+                <div class="caption-lang" data-lang="en">Good news, we&#39;ve started internal development on the plugin feature, and</div>
+                <div class="caption-lang" data-lang="ja">朗報です。社内でプラグイン機能の開発に着手しました。</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">일정 부분 진전을 이루었으며, 적절한 시기에 발표할 예정입니다.</div>
+                <div class="caption-lang" data-lang="en">Made some progress. We will release it at an appropriate time in the future</div>
+                <div class="caption-lang" data-lang="ja">一定の進展があった。今後適切な時期に発表する</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">플러그인을 지원하는 브라우저 버전, 기대해주세요!</div>
+                <div class="caption-lang" data-lang="en">Browser version with plugin support, coming soon!</div>
+                <div class="caption-lang" data-lang="ja">プラグイン対応ブラウザ版、乞うご期待！</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/031/813.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn active-cat">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn ">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-11"
+               class="archive-btn active">
+              2026-11
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
