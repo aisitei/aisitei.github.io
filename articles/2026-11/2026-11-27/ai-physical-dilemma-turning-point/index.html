@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI시테이 - 스마트폰의 딜레마 재현, 물리적 AI의 대규모 전환점은 어디인가?</title>
+  <link rel="icon" href="../../../../assets/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/images/apple-touch-icon.png">
+  <meta name="article-category" content="ai">
+  <meta name="article-brand" content="">
+  <meta name="article-brand-color" content="">
+  <meta name="title-ko" content="스마트폰의 딜레마 재현, 물리적 AI의 대규모 전환점은 어디인가?">
+  <meta name="title-zh" content="스마트폰의 딜레마 재현, 물리적 AI의 대규모 전환점은 어디인가?">
+  <meta name="title-ja" content="스마트폰의 딜레마 재현, 물리적 AI의 대규모 전환점은 어디인가?">
+  <meta name="title-en" content="스마트폰의 딜레마 재현, 물리적 AI의 대규모 전환점은 어디인가?">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-secondary: #1e293b;
+      --surface: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --border: #334155;
+      --accent: #3b82f6;
+      --header-height: 56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header (identical to main pages) ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .header-logo:hover { color: var(--accent); text-decoration: none; }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .logo-text { font-size: 17px; font-weight: 800; }
+    .logo-accent { color: var(--accent); }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .lang-btn:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .lang-btn.active-lang {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Page layout: article + sidebar ── */
+    .page-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── Article content ── */
+    .article-main { min-width: 0; }
+
+    /* Hero image — full width, max-height 제한 (세로 이미지 대응) */
+    .hero-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 24px;
+      max-height: 520px;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 원문에 이미지가 없는 경우 — 파비콘을 중앙 정렬된 플레이스홀더로 사용 */
+    .hero-image-fallback {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .hero-image-fallback img {
+      width: auto;
+      height: 60%;
+      max-height: 220px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* Article meta */
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
+    .brand-badge { font-size: 12px; padding: 4px 12px; }
+
+    .article-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* Body paragraphs */
+    .article-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .article-body p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .article-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .article-body ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .article-body ul li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      list-style: disc;
+    }
+
+    /* lang-body: hidden by default, shown via JS */
+    .lang-body { display: none; }
+    .lang-body.lang-active { display: contents; }
+
+    /* All images section */
+    .images-section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .images-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .image-item { margin-bottom: 28px; }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+    }
+
+    .image-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .caption-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .caption-lang {
+      display: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .caption-lang.lang-active {
+      display: block;
+    }
+
+    /* Source footer */
+    .source-footer {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-label { font-size: 13px; color: var(--text-secondary); }
+    .source-label strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+    .btn-original {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-original:hover { opacity: 0.85; text-decoration: none; }
+
+    /* ── Sidebar (identical CSS to main pages) ── */
+    .sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 16px);
+      max-height: calc(100vh - var(--header-height) - 32px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+
+    /* Search */
+    .search-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--accent); }
+
+    /* Category buttons */
+    .category-btns { display: flex; flex-direction: column; gap: 4px; }
+
+    .cat-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .cat-btn.active-cat {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Archive */
+    .archive-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .archive-list::-webkit-scrollbar { width: 3px; }
+    .archive-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .archive-btn {
+      width: 100%;
+      text-align: left;
+      padding: 6px 8px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .archive-btn:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+    .archive-btn.active { background: var(--accent); color: #fff; }
+    .archive-count { font-size: 11px; opacity: 0.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 0 12px; gap: 10px; }
+      .header-nav a { padding: 6px 8px; font-size: 13px; }
+      .lang-btn { font-size: 11px; padding: 3px 6px; }
+      .page-layout { padding: 16px 12px 60px; }
+      .logo-text { display: none; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0036958863764472" crossorigin="anonymous"></script>
+<!-- shared-reader-assets -->
+<script src="../../../../assets/theme.js?v=20261103c"></script>
+<link rel="stylesheet" href="../../../../assets/site.css?v=20261103c">
+<script defer src="../../../../assets/news.js?v=20261103c"></script>
+<script defer src="../../../../assets/article.js?v=20261103c"></script>
+<!-- /shared-reader-assets -->
+</head>
+<body>
+
+  <!-- ── Sticky header (identical to main pages) ── -->
+  <header class="masthead"><div class="masthead-inner">
+<a class="wordmark" href="../../../../index.html" aria-label="AI시테이 홈"><span>AI시테이</span><small>TECHNOLOGY JOURNAL</small></a>
+<nav class="primary-nav" aria-label="주 메뉴"><a href="../../../../index.html" data-i18n="news" aria-current="page">뉴스</a><a href="../../../../reports.html" data-i18n="reports">심층 리포트</a><a href="../../../../index.html#archive" data-i18n="archive">아카이브</a></nav><div class="display-controls"><button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="다크 모드" hidden><span class="theme-symbol" aria-hidden="true">◐</span><span data-theme-label>다크 모드</span></button><label class="language-control"><span class="sr-only" data-i18n="language">언어</span><select id="language" aria-label="언어 / Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option></select></label></div>
+</div></header>
+
+  <!-- ── Two-column layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Article content ── -->
+    <main class="article-main">
+
+
+
+      <!-- Article meta: brand badge + category badge + title + info -->
+      <div class="article-meta">
+        <div class="badge-row">
+          
+          
+          
+          
+          <span class="badge" style="background:#059669;">🤖 AI</span>
+          
+        </div>
+
+        <h1 class="article-title"
+            data-ko="스마트폰의 딜레마 재현, 물리적 AI의 대규모 전환점은 어디인가?"
+            data-zh="스마트폰의 딜레마 재현, 물리적 AI의 대규모 전환점은 어디인가?"
+            data-ja="스마트폰의 딜레마 재현, 물리적 AI의 대규모 전환점은 어디인가?"
+            data-en="스마트폰의 딜레마 재현, 물리적 AI의 대규모 전환점은 어디인가?">스마트폰의 딜레마 재현, 물리적 AI의 대규모 전환점은 어디인가?</h1>
+
+        <div class="article-info">
+          
+          <span class="info-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            2026-11-27
+          </span>
+          
+          
+        </div>
+      </div>
+
+
+<div class="hero-image-wrap">
+        <img src="images/img01.jpg" alt="스마트폰의 딜레마 재현, 물리적 AI의 대규모 전환점은 어디인가?" loading="eager">
+      </div>
+      
+
+      <div class="divider"></div>
+
+      <!-- Body — 4개 언어 -->
+      <div class="article-body">
+        <div class="lang-body" data-lang="ko">
+          
+          <h3>서론</h3>
+<p>초기 스마트폰 내부는 마치 작은 도시와 같았습니다. 기저대역 칩은 통신을, ISP는 이미징을, 오디오 코덱은 소리를, 이미지 센서는 빛을 전기 신호로 변환하는 등 각자의 역할이 명확하고 독립적이었습니다. 기저대역, ISP 등 독립적이었던 칩들이 SoC에 통합되면서 스마트폰 혁신은 가속화되었고, 얇고 가벼우며 긴 배터리 수명과 향상된 이미징 성능을 갖춘 10년이 시작되었습니다.</p>
+<p>오늘날 물리 AI는 동일한 갈림길에 서 있습니다. 물리 AI는 지능형 에이전트가 실제 세계에서 "인지-이해-결정-실행"의 폐쇄 루프를 완성하는 것을 의미하며, 로봇, 자율주행, 지능형 제조 장비 등이 그 매개체입니다. 대규모 언어 모델(LLM)은 "두뇌" 역할을 보완했고, 강화 학습은 시뮬레이션에서 운동 제어를 반복적으로 시도하고 실제 기계에 적용할 수 있게 했습니다. 그러나 실험실을 벗어나 공장, 창고, 거실로 들어서면 가장 먼저 드러나는 문제는 의사 결정 능력이 아니라 공간에 대한 인지와 이해라는 더 근본적인 부분입니다. 이 두 가지는 여전히 서로 다른 칩, 보드, 케이블 사이에 분리되어 있습니다.</p>
+<p>11월 24일, 芯明智能科技有限公司(이하 "芯明")는 자사의 첫 듀얼 모드 비전 AI 모듈 Mercury를 출시했습니다. 이 모듈은 심도 측정, 인스턴스 분할, 자세 추정 등 기존에 엣지 디바이스와 메인 컨트롤러에 분산되어 있던 작업을 자체 개발한 공간 지능 칩 기반의 모듈 하나로 통합했습니다. 동일한 하드웨어로 고정밀 모드(NFOV)와 광각 모드(WFOV)를 동적으로 전환하여 근거리, 중거리, 원거리의 모든 범위를 커버할 수 있습니다. 芯明은 물리 AI의 공간 인지 및 이해를 엣지 디바이스에서 폐쇄 루프로 구현했습니다.</p>
+<h3>물리 AI의 인지 병목 현상</h3>
+<p>스마트폰 산업의 경험은 복잡하지 않습니다. 분리가 세분화될수록 다시 만들어야 하는 인터페이스와 타이밍이 많아지고, 비용도 항목별로 추가됩니다. 대부분의 처리 과정이 동일한 실리콘 칩에 통합될 때 비로소 적응 문제는 보드 레벨에서 칩 내부로 전환되어 칩 제조업체의 내부 문제가 됩니다.</p>
+<p>물리 AI는 동일한 지점에서 정체되어 있습니다. 로봇의 비전 링크에서 일반적으로 모듈은 한 프레임의 심도 맵을 출력하는 역할만 하며, 빈 공간 채우기, 객체 인식, 의미론적 이해는 메인 컨트롤러 CPU 또는 외부 GPU에 맡겨집니다. 이 과정에는 데이터 전송이라는 큰 간극이 존재합니다.</p>
+<p>이 간극은 고객 현장에서 반복적으로 나타났습니다. 심층적인 논의 끝에 芯明은 고객이 제기하는 문제가 다양한 시나리오에 흩어져 있지만, 결국 물리 AI의 공간 인지 및 이해라는 동일한 병목 현상으로 귀결된다는 것을 발견했습니다. 이를 세 가지 주요 범주로 요약할 수 있습니다. 첫째, 투명, 반사, 저조도 환경에서 모듈에서 직접 출력되는 심도 맵에 빈 공간이 생기기 쉬워 메인 컨트롤러의 연산 능력이 이해보다는 보정에 먼저 사용되어 지연 시간이 길어집니다. 둘째, 고속 이동 시 센서 데이터 처리가 완료된 후에야 추론이 이루어져 로봇이 장애물을 인식했을 때 이미 목표물이 이동한 상태입니다. 셋째, 원거리는 넓은 범위 커버리지가 필요하고 근거리는 서브 밀리미터 정밀도가 필요하여 하드웨어를 추가해야만 두 가지를 모두 충족할 수 있어 비용, 부피, 통합 난이도가 모두 증가합니다.</p>
+<p>세 가지 문제는 동일한 문제점을 지적합니다. 심도 측정은 모듈 내에서 발생하고, 의미론적 이해는 모듈 외부에서 발생하며, 그 중간은 데이터 전송으로 연결됩니다. 이는 특정 칩의 성능 부족이 아니라 분리된 아키텍처의 통신 병목 현상이 드러난 것입니다. 이는 또한 더 단순한 결론으로 이어집니다. 해결책은 더 많은 모듈이나 더 강력한 메인 컨트롤러를 추가하는 것이 아니라, 데이터가 생성되는 원점에서 측정과 이해를 동시에 완료하는 것입니다.</p>
+<h3>芯明 Mercury 출시: 하나의 하드웨어로 엣지 디바이스 인지 및 이해 폐쇄 루프 구현</h3>
+<p>芯明은 이에 대한 해결책으로 엣지 AI를 인지의 최전선에 직접 배치했습니다.</p>
+<p>과거에는 완제품 제조업체가 근거리 작업과 원거리 내비게이션을 위해 각각 비전 구성을 장착해야 했습니다. Mercury의 핵심 설계 논리는 동일한 하드웨어가 고정밀(NFOV)과 광각(WFOV) 두 가지 모드를 지원하여 "정밀하게 보는 것"과 "넓게 보는 것" 사이를 유연하게 전환하고, 중요 영역의 정밀도를 유지하면서 전체 시야를 놓치지 않도록 하는 것입니다.</p>
+<p>Mercury와 기존 모듈의 진정한 차이점은 이해가 어느 단계에서 발생하는지에 있습니다. Mercury의 기본 AI 비전 플랫폼인 Galaxy Vision은 芯明이 자체 개발한 공간 지능 칩을 기반으로 구축되었으며, 심도 엔진, ISP, NPU 및 ARM 프로세서를 통합하여 객체 감지, 인스턴스 분할, 자세 추정을 모두 모듈 내 칩에서 완료할 수 있도록 합니다. 외부 가속기나 서버가 필요 없습니다. 전체 칩은 3.5 TOPS의 엣지 AI 연산 능력을 제공하며, 전력 소비는 1와트 미만입니다.</p>
+<p>엣지 디바이스의 공간 인지 및 이해 폐쇄 루프를 성공적으로 실행하려면 몇 가지 기본 능력이 필요합니다. Mercury 단일 모듈의 123° 넓은 시야각은 사각지대를 거의 남기지 않으며, 0.5미터 거리에서 0.21mm의 심도 정밀도를 달성하여 정밀한 집기, 무작위 분류 및 조립과 같은 작업을 지원하기에 충분합니다. 최대 유효 거리가 10미터를 초과하는 능력은 근거리 정밀도와 원거리 커버리지라는 한때 상충되던 두 가지 지표를 동일한 하드웨어에 통합했습니다.</p>
+<p>하위 AI 이해 작업에는 또 다른 암묵적인 전제가 있습니다. 심도 데이터와 컬러 데이터가 시간과 공간적으로 정렬되어야 한다는 것입니다. Mercury는 고해상도 듀얼 IR과 듀얼 RGB의 쿼드 카메라 아키텍처를 채택하고 글로벌 셔터를 사용하여 하드웨어 동기화 및 칩 레벨 심도-컬러 정렬(D2C)을 기본적으로 지원하여 데이터의 시간적 일관성과 공간적 일관성을 원점에서 보장합니다.</p>
+<p>시공간 정렬을 기반으로 로봇 비전의 전체 범위 요구 사항을 충족하는 능력을 갖춰야 합니다. 0.3미터 근거리 정밀 검사부터 중거리 장애물 회피 상호 작용, 그리고 10미터 이상의 원거리 내비게이션 계획에 이르기까지 하나의 모듈로 로봇 비전의 전체 링크를 연결하여 보정 복잡성, BOM 비용, 통합 난이도를 낮춥니다. 모듈이 갖춘 IP65 보호 등급, GMSL2.0 및 USB 3.0 인터페이스 등의 구성은 산업용 제품 표준에 완벽하게 부합합니다.</p>
+<p>매개변수는 설계 의도만을 설명하며, 이러한 능력이 실제 시나리오에서 얼마나 남아 있는지는 신제품 발표 현장에서의 일련의 실제 테스트가 가장 설득력 있는 검증을 제공했습니다. 표준 보드가 30cm에서 10m까지 뒤로 물러나도 화면 속 목표물은 항상 중앙에 위치하며 감지 가능했습니다. 카메라로 벽을 촬영했을 때, 포인트 클라우드 심도의 99.9%가 0에서 1mm 사이에 있었습니다. 심도 맵에서 다른 점들을 연속적으로 관찰했을 때, 드리프트는 0.5mm를 초과하지 않았습니다. 밀리미터급 광학 실험 보드의 계단은 단계별로 명확하게 식별 가능했습니다. 검은색, 반사 등 복잡한 환경에서도 심도 디테일이 안정적으로 표현되었습니다. 모듈 내에서 자세 추정, 인스턴스 분할 및 의미론적 인식과 같은 기능이 구현되었습니다.</p>
+<p>투명 물체의 심도 맵을 처리할 때도 Mercury는 업계에서 일반적으로 메인 컨트롤러에 사후 처리를 맡기는 방식과 달리, 이 단계를 모듈 내 자체 개발 칩으로 앞당겨 독점적인 듀얼 카메라 심도 + RGB 신경망 강화 엣지 디바이스 직접 출력 솔루션을 통해 모듈 내에서 실시간으로 보완하여 메인 컨트롤러의 연산 능력을 점유하지 않습니다.</p>
+<p>이러한 실제 테스트는 제품 매개변수뿐만 아니라 범위, 시간 및 공간 안정성, 정밀도, 재료 적응성 및 의미론적 출력 등 기업이 진정으로 중요하게 생각하는 능력이 동일한 데이터 경로에 통합되었음을 증명합니다.</p>
+<h3>엣지 디바이스 공간 인지 및 이해가 표준 부품이 될 때</h3>
+<p>현재 물리 AI는 개념적 열기에서 생산 라인 검증으로 나아가고 있습니다. Fortune Business Insights의 추산에 따르면, 2025년 전 세계 물리 AI 시장 규모는 334억 2천만 달러이며, 2026년에는 420억 6천만 달러로 증가할 것으로 예상되며, 2034년에는 2,940억 7천만 달러에 달할 것으로 예상되어 예측 기간 동안 연평균 성장률이 27.5%에 이릅니다. 시장은 응용 가속화 단계에 진입했지만, 이러한 예측이 실현될지 여부를 결정하는 것은 "인지-이해-결정-실행"이 실제 시나리오에서 낮은 지연 시간의 폐쇄 루프를 형성할 수 있는지 여부이며, 그중 가장 과소평가되기 쉬운 부분이 바로 프런트엔드 인지입니다.</p>
+<p>Mercury의 가치는 실제 시나리오에서의 구현에서 크게 나타나며, 이를 위해 세 가지 방향을 중점적으로 계획했습니다. 첫째, 로봇 환경 인지. 0.3미터에서 10미터까지의 전체 범위, 넓은 시야각, 글로벌 셔터 및 높은 프레임률을 통해 실내외 및 주야간 조건에서 경로를 명확하게 볼 수 있어 고속 이동 시 화면 잔상이 없도록 합니다. 둘째, 산업 검사. NFOV 고정밀 모드와 서브 밀리미터 정밀도를 사용하여 결함, 조립, 위치 지정 등 온라인 검사 작업의 세부 사항을 한 번에 명확하게 볼 수 있습니다. 셋째, 휴머노이드 로봇의 손-눈 협응. 0.3미터부터 측정 가능한 근거리 능력과 2560x1920 해상도의 컬러 이미징을 통해 손과 눈이 움직임 속에서 일관된 박자를 유지하도록 합니다.</p>
+<p>더 주목할 만한 점은 산업 체인 분업과 산업의 근본적인 논리를 재정의한다는 것입니다. 이전에는 3D 인지가 완제품 제조업체가 직접 해결해야 하는 부분이었습니다. 보정, 융합, 보완, 타이밍 정렬 등 모든 회사가 처음부터 다시 시작해야 했습니다. 이러한 능력이 표준 부품 형태로 BOM에 포함되면 다중 하드웨어 스택이 줄어들고, 보정 및 알고리즘 이식 비용이 감소하며, 양산 주기가 단축됩니다. 물리 AI의 진입 장벽도 "인지를 만들 수 있는지"에서 "인지를 잘 활용할 수 있는지"로 바뀔 것입니다.</p>
+<p>芯明이 물리 AI의 엣지 디바이스 공간 인지 및 이해라는 핵심 계층에 집중하는 것은 갑작스러운 결정이 아닙니다. 2026년 11월 현재, 회사는 전 세계적으로 130개 이상의 발명 특허를 출원했으며, 70개 이상이 승인되었습니다. 물리 AI 엔드투엔드 제품 시스템은 "칩-알고리즘-모듈-솔루션"의 전체 링크를 커버합니다. Meituan 드론, Geek+, Juxing, Jundu Robot, Linghou Robot, Qingqu Intelligence 등 고객의 지원을 받아, 芯明의 제품과 기술은 지능형 제조 로봇, 휴머노이드 로봇, 물류 창고 로봇, 스마트 의료, 산업 안전 및 MR 헤드셋 등 여러 물리 AI 응용 분야에 적용되어 기본 능력이 충분히 검증되었습니다.</p>
+<p>芯明의 창립자 겸 CEO인 첸저홍(钱哲弘) 박사는 "대규모 언어 모델은 로봇에게 '두뇌'를 주었지만, 물리 AI가 진정으로 현실 세계에 들어설 수 있을지는 로봇이 주변 공간을 로컬에서 실시간으로 명확하게 보고 이해할 수 있는지에 달려 있습니다. 芯明이 하려는 것은 물리 AI의 칩 레벨 인지 기반을 만드는 것입니다. 심도, SLAM 및 AI 이해를 하나의 칩, 하나의 모듈에 통합하여 로봇의 '두뇌'와 협력하고 경쟁하지 않는 것입니다. Mercury는 이 경로에서 또 다른 제품화된 구현입니다. 다음으로, 우리는 칩과 모듈에서 엔드투엔드 물리 AI 인지 플랫폼으로 나아가고, 인지, 연산 능력 및 엣지 디바이스 대규모 언어 모델이 통합된 차세대 물리 AI 칩을 추진하여 로봇이 '볼 수 있는 것'에서 '이해하고 행동하는 것'으로 나아가도록 할 것입니다."라고 말했습니다.</p>
+<p>시야를 넓히면 물리 AI 분야의 경쟁 초점이 이동하고 있습니다. 芯明 Mercury의 출시는 단순히 새로운 모듈의 출시를 넘어, 엣지 AI 원시 인지 기술 경로의 실현 가능성을 제품으로 입증한 것입니다. 인지 수집과 의미론적 이해가 동일한 실리콘 칩 내에서 완료될 수 있을 때, 완제품의 메인 컨트롤러 연산 자원도 그만큼 해방됩니다.</p>
+<p>현재 업계에서는 물리 AI의 대규모 상용화 시기에 대해 여전히 논쟁 중이지만, 돌파구는 엣지 디바이스에 숨어 있을 수 있습니다. 로봇이 세상을 인지하고 이해하는 능력을 먼저 갖추게 한 다음, 세상을 변화시키는 것에 대해 이야기해야 합니다.</p>
+<p>芯明은 공간 지능 칩 및 제품 설계에 주력하며, 자체 개발한 일련의 칩은 실시간 3D 스테레오 비전 인지, 엣지 AI, SLAM(실시간 위치 추정 및 지도 작성)을 단일 칩에 통합한 세계 최고의 시스템 온 칩(SoC) 공간 지능 칩입니다. 이 칩은 엣지 디바이스에서 심도 계산, AI 추론, 공간 지도 작성 및 다중 센서 융합을 완료하여 시스템 복잡성, 전력 소비 및 비용을 크게 줄입니다. 현재 芯明은 "칩-모듈-알고리즘-솔루션"의 물리 AI 엔드투엔드 제품 시스템을 구축했으며, MR 혼합 현실, 휴머노이드 로봇, 정교한 로봇 손, 협동 로봇 팔, 저고도 물류 드론, 3D 스캐닝 및 가전제품 등 다양한 응용 시나리오를 커버합니다.</p>
+<h3>총평</h3>
+<p>芯明은 자체 개발한 공간 지능 칩 기반의 듀얼 모드 비전 AI 모듈 Mercury를 출시했습니다. 이 모듈은 심도 측정, 인스턴스 분할, 자세 추정 등 기존에 분산되어 있던 작업을 하나의 하드웨어로 통합하여 엣지 디바이스에서 공간 인지 및 이해의 폐쇄 루프를 구현합니다. Mercury는 고정밀(NFOV)과 광각(WFOV) 모드를 동적으로 전환하며, 0.3미터에서 10미터 이상의 모든 범위를 커버하고, 엣지 AI 연산 능력을 제공하여 로봇의 인지 및 이해 능력을 향상시킵니다. 이는 물리 AI의 대규모 상용화를 위한 핵심적인 단계로, 로봇이 실제 세계를 효율적으로 인지하고 이해할 수 있도록 돕습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="zh">
+          
+          <h3>서론</h3>
+<p>초기 스마트폰 내부는 마치 작은 도시와 같았습니다. 기저대역 칩은 통신을, ISP는 이미징을, 오디오 코덱은 소리를, 이미지 센서는 빛을 전기 신호로 변환하는 등 각자의 역할이 명확하고 독립적이었습니다. 기저대역, ISP 등 독립적이었던 칩들이 SoC에 통합되면서 스마트폰 혁신은 가속화되었고, 얇고 가벼우며 긴 배터리 수명과 향상된 이미징 성능을 갖춘 10년이 시작되었습니다.</p>
+<p>오늘날 물리 AI는 동일한 갈림길에 서 있습니다. 물리 AI는 지능형 에이전트가 실제 세계에서 "인지-이해-결정-실행"의 폐쇄 루프를 완성하는 것을 의미하며, 로봇, 자율주행, 지능형 제조 장비 등이 그 매개체입니다. 대규모 언어 모델(LLM)은 "두뇌" 역할을 보완했고, 강화 학습은 시뮬레이션에서 운동 제어를 반복적으로 시도하고 실제 기계에 적용할 수 있게 했습니다. 그러나 실험실을 벗어나 공장, 창고, 거실로 들어서면 가장 먼저 드러나는 문제는 의사 결정 능력이 아니라 공간에 대한 인지와 이해라는 더 근본적인 부분입니다. 이 두 가지는 여전히 서로 다른 칩, 보드, 케이블 사이에 분리되어 있습니다.</p>
+<p>11월 24일, 芯明智能科技有限公司(이하 "芯明")는 자사의 첫 듀얼 모드 비전 AI 모듈 Mercury를 출시했습니다. 이 모듈은 심도 측정, 인스턴스 분할, 자세 추정 등 기존에 엣지 디바이스와 메인 컨트롤러에 분산되어 있던 작업을 자체 개발한 공간 지능 칩 기반의 모듈 하나로 통합했습니다. 동일한 하드웨어로 고정밀 모드(NFOV)와 광각 모드(WFOV)를 동적으로 전환하여 근거리, 중거리, 원거리의 모든 범위를 커버할 수 있습니다. 芯明은 물리 AI의 공간 인지 및 이해를 엣지 디바이스에서 폐쇄 루프로 구현했습니다.</p>
+<h3>물리 AI의 인지 병목 현상</h3>
+<p>스마트폰 산업의 경험은 복잡하지 않습니다. 분리가 세분화될수록 다시 만들어야 하는 인터페이스와 타이밍이 많아지고, 비용도 항목별로 추가됩니다. 대부분의 처리 과정이 동일한 실리콘 칩에 통합될 때 비로소 적응 문제는 보드 레벨에서 칩 내부로 전환되어 칩 제조업체의 내부 문제가 됩니다.</p>
+<p>물리 AI는 동일한 지점에서 정체되어 있습니다. 로봇의 비전 링크에서 일반적으로 모듈은 한 프레임의 심도 맵을 출력하는 역할만 하며, 빈 공간 채우기, 객체 인식, 의미론적 이해는 메인 컨트롤러 CPU 또는 외부 GPU에 맡겨집니다. 이 과정에는 데이터 전송이라는 큰 간극이 존재합니다.</p>
+<p>이 간극은 고객 현장에서 반복적으로 나타났습니다. 심층적인 논의 끝에 芯明은 고객이 제기하는 문제가 다양한 시나리오에 흩어져 있지만, 결국 물리 AI의 공간 인지 및 이해라는 동일한 병목 현상으로 귀결된다는 것을 발견했습니다. 이를 세 가지 주요 범주로 요약할 수 있습니다. 첫째, 투명, 반사, 저조도 환경에서 모듈에서 직접 출력되는 심도 맵에 빈 공간이 생기기 쉬워 메인 컨트롤러의 연산 능력이 이해보다는 보정에 먼저 사용되어 지연 시간이 길어집니다. 둘째, 고속 이동 시 센서 데이터 처리가 완료된 후에야 추론이 이루어져 로봇이 장애물을 인식했을 때 이미 목표물이 이동한 상태입니다. 셋째, 원거리는 넓은 범위 커버리지가 필요하고 근거리는 서브 밀리미터 정밀도가 필요하여 하드웨어를 추가해야만 두 가지를 모두 충족할 수 있어 비용, 부피, 통합 난이도가 모두 증가합니다.</p>
+<p>세 가지 문제는 동일한 문제점을 지적합니다. 심도 측정은 모듈 내에서 발생하고, 의미론적 이해는 모듈 외부에서 발생하며, 그 중간은 데이터 전송으로 연결됩니다. 이는 특정 칩의 성능 부족이 아니라 분리된 아키텍처의 통신 병목 현상이 드러난 것입니다. 이는 또한 더 단순한 결론으로 이어집니다. 해결책은 더 많은 모듈이나 더 강력한 메인 컨트롤러를 추가하는 것이 아니라, 데이터가 생성되는 원점에서 측정과 이해를 동시에 완료하는 것입니다.</p>
+<h3>芯明 Mercury 출시: 하나의 하드웨어로 엣지 디바이스 인지 및 이해 폐쇄 루프 구현</h3>
+<p>芯明은 이에 대한 해결책으로 엣지 AI를 인지의 최전선에 직접 배치했습니다.</p>
+<p>과거에는 완제품 제조업체가 근거리 작업과 원거리 내비게이션을 위해 각각 비전 구성을 장착해야 했습니다. Mercury의 핵심 설계 논리는 동일한 하드웨어가 고정밀(NFOV)과 광각(WFOV) 두 가지 모드를 지원하여 "정밀하게 보는 것"과 "넓게 보는 것" 사이를 유연하게 전환하고, 중요 영역의 정밀도를 유지하면서 전체 시야를 놓치지 않도록 하는 것입니다.</p>
+<p>Mercury와 기존 모듈의 진정한 차이점은 이해가 어느 단계에서 발생하는지에 있습니다. Mercury의 기본 AI 비전 플랫폼인 Galaxy Vision은 芯明이 자체 개발한 공간 지능 칩을 기반으로 구축되었으며, 심도 엔진, ISP, NPU 및 ARM 프로세서를 통합하여 객체 감지, 인스턴스 분할, 자세 추정을 모두 모듈 내 칩에서 완료할 수 있도록 합니다. 외부 가속기나 서버가 필요 없습니다. 전체 칩은 3.5 TOPS의 엣지 AI 연산 능력을 제공하며, 전력 소비는 1와트 미만입니다.</p>
+<p>엣지 디바이스의 공간 인지 및 이해 폐쇄 루프를 성공적으로 실행하려면 몇 가지 기본 능력이 필요합니다. Mercury 단일 모듈의 123° 넓은 시야각은 사각지대를 거의 남기지 않으며, 0.5미터 거리에서 0.21mm의 심도 정밀도를 달성하여 정밀한 집기, 무작위 분류 및 조립과 같은 작업을 지원하기에 충분합니다. 최대 유효 거리가 10미터를 초과하는 능력은 근거리 정밀도와 원거리 커버리지라는 한때 상충되던 두 가지 지표를 동일한 하드웨어에 통합했습니다.</p>
+<p>하위 AI 이해 작업에는 또 다른 암묵적인 전제가 있습니다. 심도 데이터와 컬러 데이터가 시간과 공간적으로 정렬되어야 한다는 것입니다. Mercury는 고해상도 듀얼 IR과 듀얼 RGB의 쿼드 카메라 아키텍처를 채택하고 글로벌 셔터를 사용하여 하드웨어 동기화 및 칩 레벨 심도-컬러 정렬(D2C)을 기본적으로 지원하여 데이터의 시간적 일관성과 공간적 일관성을 원점에서 보장합니다.</p>
+<p>시공간 정렬을 기반으로 로봇 비전의 전체 범위 요구 사항을 충족하는 능력을 갖춰야 합니다. 0.3미터 근거리 정밀 검사부터 중거리 장애물 회피 상호 작용, 그리고 10미터 이상의 원거리 내비게이션 계획에 이르기까지 하나의 모듈로 로봇 비전의 전체 링크를 연결하여 보정 복잡성, BOM 비용, 통합 난이도를 낮춥니다. 모듈이 갖춘 IP65 보호 등급, GMSL2.0 및 USB 3.0 인터페이스 등의 구성은 산업용 제품 표준에 완벽하게 부합합니다.</p>
+<p>매개변수는 설계 의도만을 설명하며, 이러한 능력이 실제 시나리오에서 얼마나 남아 있는지는 신제품 발표 현장에서의 일련의 실제 테스트가 가장 설득력 있는 검증을 제공했습니다. 표준 보드가 30cm에서 10m까지 뒤로 물러나도 화면 속 목표물은 항상 중앙에 위치하며 감지 가능했습니다. 카메라로 벽을 촬영했을 때, 포인트 클라우드 심도의 99.9%가 0에서 1mm 사이에 있었습니다. 심도 맵에서 다른 점들을 연속적으로 관찰했을 때, 드리프트는 0.5mm를 초과하지 않았습니다. 밀리미터급 광학 실험 보드의 계단은 단계별로 명확하게 식별 가능했습니다. 검은색, 반사 등 복잡한 환경에서도 심도 디테일이 안정적으로 표현되었습니다. 모듈 내에서 자세 추정, 인스턴스 분할 및 의미론적 인식과 같은 기능이 구현되었습니다.</p>
+<p>투명 물체의 심도 맵을 처리할 때도 Mercury는 업계에서 일반적으로 메인 컨트롤러에 사후 처리를 맡기는 방식과 달리, 이 단계를 모듈 내 자체 개발 칩으로 앞당겨 독점적인 듀얼 카메라 심도 + RGB 신경망 강화 엣지 디바이스 직접 출력 솔루션을 통해 모듈 내에서 실시간으로 보완하여 메인 컨트롤러의 연산 능력을 점유하지 않습니다.</p>
+<p>이러한 실제 테스트는 제품 매개변수뿐만 아니라 범위, 시간 및 공간 안정성, 정밀도, 재료 적응성 및 의미론적 출력 등 기업이 진정으로 중요하게 생각하는 능력이 동일한 데이터 경로에 통합되었음을 증명합니다.</p>
+<h3>엣지 디바이스 공간 인지 및 이해가 표준 부품이 될 때</h3>
+<p>현재 물리 AI는 개념적 열기에서 생산 라인 검증으로 나아가고 있습니다. Fortune Business Insights의 추산에 따르면, 2025년 전 세계 물리 AI 시장 규모는 334억 2천만 달러이며, 2026년에는 420억 6천만 달러로 증가할 것으로 예상되며, 2034년에는 2,940억 7천만 달러에 달할 것으로 예상되어 예측 기간 동안 연평균 성장률이 27.5%에 이릅니다. 시장은 응용 가속화 단계에 진입했지만, 이러한 예측이 실현될지 여부를 결정하는 것은 "인지-이해-결정-실행"이 실제 시나리오에서 낮은 지연 시간의 폐쇄 루프를 형성할 수 있는지 여부이며, 그중 가장 과소평가되기 쉬운 부분이 바로 프런트엔드 인지입니다.</p>
+<p>Mercury의 가치는 실제 시나리오에서의 구현에서 크게 나타나며, 이를 위해 세 가지 방향을 중점적으로 계획했습니다. 첫째, 로봇 환경 인지. 0.3미터에서 10미터까지의 전체 범위, 넓은 시야각, 글로벌 셔터 및 높은 프레임률을 통해 실내외 및 주야간 조건에서 경로를 명확하게 볼 수 있어 고속 이동 시 화면 잔상이 없도록 합니다. 둘째, 산업 검사. NFOV 고정밀 모드와 서브 밀리미터 정밀도를 사용하여 결함, 조립, 위치 지정 등 온라인 검사 작업의 세부 사항을 한 번에 명확하게 볼 수 있습니다. 셋째, 휴머노이드 로봇의 손-눈 협응. 0.3미터부터 측정 가능한 근거리 능력과 2560x1920 해상도의 컬러 이미징을 통해 손과 눈이 움직임 속에서 일관된 박자를 유지하도록 합니다.</p>
+<p>더 주목할 만한 점은 산업 체인 분업과 산업의 근본적인 논리를 재정의한다는 것입니다. 이전에는 3D 인지가 완제품 제조업체가 직접 해결해야 하는 부분이었습니다. 보정, 융합, 보완, 타이밍 정렬 등 모든 회사가 처음부터 다시 시작해야 했습니다. 이러한 능력이 표준 부품 형태로 BOM에 포함되면 다중 하드웨어 스택이 줄어들고, 보정 및 알고리즘 이식 비용이 감소하며, 양산 주기가 단축됩니다. 물리 AI의 진입 장벽도 "인지를 만들 수 있는지"에서 "인지를 잘 활용할 수 있는지"로 바뀔 것입니다.</p>
+<p>芯明이 물리 AI의 엣지 디바이스 공간 인지 및 이해라는 핵심 계층에 집중하는 것은 갑작스러운 결정이 아닙니다. 2026년 11월 현재, 회사는 전 세계적으로 130개 이상의 발명 특허를 출원했으며, 70개 이상이 승인되었습니다. 물리 AI 엔드투엔드 제품 시스템은 "칩-알고리즘-모듈-솔루션"의 전체 링크를 커버합니다. Meituan 드론, Geek+, Juxing, Jundu Robot, Linghou Robot, Qingqu Intelligence 등 고객의 지원을 받아, 芯明의 제품과 기술은 지능형 제조 로봇, 휴머노이드 로봇, 물류 창고 로봇, 스마트 의료, 산업 안전 및 MR 헤드셋 등 여러 물리 AI 응용 분야에 적용되어 기본 능력이 충분히 검증되었습니다.</p>
+<p>芯明의 창립자 겸 CEO인 첸저홍(钱哲弘) 박사는 "대규모 언어 모델은 로봇에게 '두뇌'를 주었지만, 물리 AI가 진정으로 현실 세계에 들어설 수 있을지는 로봇이 주변 공간을 로컬에서 실시간으로 명확하게 보고 이해할 수 있는지에 달려 있습니다. 芯明이 하려는 것은 물리 AI의 칩 레벨 인지 기반을 만드는 것입니다. 심도, SLAM 및 AI 이해를 하나의 칩, 하나의 모듈에 통합하여 로봇의 '두뇌'와 협력하고 경쟁하지 않는 것입니다. Mercury는 이 경로에서 또 다른 제품화된 구현입니다. 다음으로, 우리는 칩과 모듈에서 엔드투엔드 물리 AI 인지 플랫폼으로 나아가고, 인지, 연산 능력 및 엣지 디바이스 대규모 언어 모델이 통합된 차세대 물리 AI 칩을 추진하여 로봇이 '볼 수 있는 것'에서 '이해하고 행동하는 것'으로 나아가도록 할 것입니다."라고 말했습니다.</p>
+<p>시야를 넓히면 물리 AI 분야의 경쟁 초점이 이동하고 있습니다. 芯明 Mercury의 출시는 단순히 새로운 모듈의 출시를 넘어, 엣지 AI 원시 인지 기술 경로의 실현 가능성을 제품으로 입증한 것입니다. 인지 수집과 의미론적 이해가 동일한 실리콘 칩 내에서 완료될 수 있을 때, 완제품의 메인 컨트롤러 연산 자원도 그만큼 해방됩니다.</p>
+<p>현재 업계에서는 물리 AI의 대규모 상용화 시기에 대해 여전히 논쟁 중이지만, 돌파구는 엣지 디바이스에 숨어 있을 수 있습니다. 로봇이 세상을 인지하고 이해하는 능력을 먼저 갖추게 한 다음, 세상을 변화시키는 것에 대해 이야기해야 합니다.</p>
+<p>芯明은 공간 지능 칩 및 제품 설계에 주력하며, 자체 개발한 일련의 칩은 실시간 3D 스테레오 비전 인지, 엣지 AI, SLAM(실시간 위치 추정 및 지도 작성)을 단일 칩에 통합한 세계 최고의 시스템 온 칩(SoC) 공간 지능 칩입니다. 이 칩은 엣지 디바이스에서 심도 계산, AI 추론, 공간 지도 작성 및 다중 센서 융합을 완료하여 시스템 복잡성, 전력 소비 및 비용을 크게 줄입니다. 현재 芯明은 "칩-모듈-알고리즘-솔루션"의 물리 AI 엔드투엔드 제품 시스템을 구축했으며, MR 혼합 현실, 휴머노이드 로봇, 정교한 로봇 손, 협동 로봇 팔, 저고도 물류 드론, 3D 스캐닝 및 가전제품 등 다양한 응용 시나리오를 커버합니다.</p>
+<h3>총평</h3>
+<p>芯明은 자체 개발한 공간 지능 칩 기반의 듀얼 모드 비전 AI 모듈 Mercury를 출시했습니다. 이 모듈은 심도 측정, 인스턴스 분할, 자세 추정 등 기존에 분산되어 있던 작업을 하나의 하드웨어로 통합하여 엣지 디바이스에서 공간 인지 및 이해의 폐쇄 루프를 구현합니다. Mercury는 고정밀(NFOV)과 광각(WFOV) 모드를 동적으로 전환하며, 0.3미터에서 10미터 이상의 모든 범위를 커버하고, 엣지 AI 연산 능력을 제공하여 로봇의 인지 및 이해 능력을 향상시킵니다. 이는 물리 AI의 대규모 상용화를 위한 핵심적인 단계로, 로봇이 실제 세계를 효율적으로 인지하고 이해할 수 있도록 돕습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="ja">
+          
+          <h3>서론</h3>
+<p>초기 스마트폰 내부는 마치 작은 도시와 같았습니다. 기저대역 칩은 통신을, ISP는 이미징을, 오디오 코덱은 소리를, 이미지 센서는 빛을 전기 신호로 변환하는 등 각자의 역할이 명확하고 독립적이었습니다. 기저대역, ISP 등 독립적이었던 칩들이 SoC에 통합되면서 스마트폰 혁신은 가속화되었고, 얇고 가벼우며 긴 배터리 수명과 향상된 이미징 성능을 갖춘 10년이 시작되었습니다.</p>
+<p>오늘날 물리 AI는 동일한 갈림길에 서 있습니다. 물리 AI는 지능형 에이전트가 실제 세계에서 "인지-이해-결정-실행"의 폐쇄 루프를 완성하는 것을 의미하며, 로봇, 자율주행, 지능형 제조 장비 등이 그 매개체입니다. 대규모 언어 모델(LLM)은 "두뇌" 역할을 보완했고, 강화 학습은 시뮬레이션에서 운동 제어를 반복적으로 시도하고 실제 기계에 적용할 수 있게 했습니다. 그러나 실험실을 벗어나 공장, 창고, 거실로 들어서면 가장 먼저 드러나는 문제는 의사 결정 능력이 아니라 공간에 대한 인지와 이해라는 더 근본적인 부분입니다. 이 두 가지는 여전히 서로 다른 칩, 보드, 케이블 사이에 분리되어 있습니다.</p>
+<p>11월 24일, 芯明智能科技有限公司(이하 "芯明")는 자사의 첫 듀얼 모드 비전 AI 모듈 Mercury를 출시했습니다. 이 모듈은 심도 측정, 인스턴스 분할, 자세 추정 등 기존에 엣지 디바이스와 메인 컨트롤러에 분산되어 있던 작업을 자체 개발한 공간 지능 칩 기반의 모듈 하나로 통합했습니다. 동일한 하드웨어로 고정밀 모드(NFOV)와 광각 모드(WFOV)를 동적으로 전환하여 근거리, 중거리, 원거리의 모든 범위를 커버할 수 있습니다. 芯明은 물리 AI의 공간 인지 및 이해를 엣지 디바이스에서 폐쇄 루프로 구현했습니다.</p>
+<h3>물리 AI의 인지 병목 현상</h3>
+<p>스마트폰 산업의 경험은 복잡하지 않습니다. 분리가 세분화될수록 다시 만들어야 하는 인터페이스와 타이밍이 많아지고, 비용도 항목별로 추가됩니다. 대부분의 처리 과정이 동일한 실리콘 칩에 통합될 때 비로소 적응 문제는 보드 레벨에서 칩 내부로 전환되어 칩 제조업체의 내부 문제가 됩니다.</p>
+<p>물리 AI는 동일한 지점에서 정체되어 있습니다. 로봇의 비전 링크에서 일반적으로 모듈은 한 프레임의 심도 맵을 출력하는 역할만 하며, 빈 공간 채우기, 객체 인식, 의미론적 이해는 메인 컨트롤러 CPU 또는 외부 GPU에 맡겨집니다. 이 과정에는 데이터 전송이라는 큰 간극이 존재합니다.</p>
+<p>이 간극은 고객 현장에서 반복적으로 나타났습니다. 심층적인 논의 끝에 芯明은 고객이 제기하는 문제가 다양한 시나리오에 흩어져 있지만, 결국 물리 AI의 공간 인지 및 이해라는 동일한 병목 현상으로 귀결된다는 것을 발견했습니다. 이를 세 가지 주요 범주로 요약할 수 있습니다. 첫째, 투명, 반사, 저조도 환경에서 모듈에서 직접 출력되는 심도 맵에 빈 공간이 생기기 쉬워 메인 컨트롤러의 연산 능력이 이해보다는 보정에 먼저 사용되어 지연 시간이 길어집니다. 둘째, 고속 이동 시 센서 데이터 처리가 완료된 후에야 추론이 이루어져 로봇이 장애물을 인식했을 때 이미 목표물이 이동한 상태입니다. 셋째, 원거리는 넓은 범위 커버리지가 필요하고 근거리는 서브 밀리미터 정밀도가 필요하여 하드웨어를 추가해야만 두 가지를 모두 충족할 수 있어 비용, 부피, 통합 난이도가 모두 증가합니다.</p>
+<p>세 가지 문제는 동일한 문제점을 지적합니다. 심도 측정은 모듈 내에서 발생하고, 의미론적 이해는 모듈 외부에서 발생하며, 그 중간은 데이터 전송으로 연결됩니다. 이는 특정 칩의 성능 부족이 아니라 분리된 아키텍처의 통신 병목 현상이 드러난 것입니다. 이는 또한 더 단순한 결론으로 이어집니다. 해결책은 더 많은 모듈이나 더 강력한 메인 컨트롤러를 추가하는 것이 아니라, 데이터가 생성되는 원점에서 측정과 이해를 동시에 완료하는 것입니다.</p>
+<h3>芯明 Mercury 출시: 하나의 하드웨어로 엣지 디바이스 인지 및 이해 폐쇄 루프 구현</h3>
+<p>芯明은 이에 대한 해결책으로 엣지 AI를 인지의 최전선에 직접 배치했습니다.</p>
+<p>과거에는 완제품 제조업체가 근거리 작업과 원거리 내비게이션을 위해 각각 비전 구성을 장착해야 했습니다. Mercury의 핵심 설계 논리는 동일한 하드웨어가 고정밀(NFOV)과 광각(WFOV) 두 가지 모드를 지원하여 "정밀하게 보는 것"과 "넓게 보는 것" 사이를 유연하게 전환하고, 중요 영역의 정밀도를 유지하면서 전체 시야를 놓치지 않도록 하는 것입니다.</p>
+<p>Mercury와 기존 모듈의 진정한 차이점은 이해가 어느 단계에서 발생하는지에 있습니다. Mercury의 기본 AI 비전 플랫폼인 Galaxy Vision은 芯明이 자체 개발한 공간 지능 칩을 기반으로 구축되었으며, 심도 엔진, ISP, NPU 및 ARM 프로세서를 통합하여 객체 감지, 인스턴스 분할, 자세 추정을 모두 모듈 내 칩에서 완료할 수 있도록 합니다. 외부 가속기나 서버가 필요 없습니다. 전체 칩은 3.5 TOPS의 엣지 AI 연산 능력을 제공하며, 전력 소비는 1와트 미만입니다.</p>
+<p>엣지 디바이스의 공간 인지 및 이해 폐쇄 루프를 성공적으로 실행하려면 몇 가지 기본 능력이 필요합니다. Mercury 단일 모듈의 123° 넓은 시야각은 사각지대를 거의 남기지 않으며, 0.5미터 거리에서 0.21mm의 심도 정밀도를 달성하여 정밀한 집기, 무작위 분류 및 조립과 같은 작업을 지원하기에 충분합니다. 최대 유효 거리가 10미터를 초과하는 능력은 근거리 정밀도와 원거리 커버리지라는 한때 상충되던 두 가지 지표를 동일한 하드웨어에 통합했습니다.</p>
+<p>하위 AI 이해 작업에는 또 다른 암묵적인 전제가 있습니다. 심도 데이터와 컬러 데이터가 시간과 공간적으로 정렬되어야 한다는 것입니다. Mercury는 고해상도 듀얼 IR과 듀얼 RGB의 쿼드 카메라 아키텍처를 채택하고 글로벌 셔터를 사용하여 하드웨어 동기화 및 칩 레벨 심도-컬러 정렬(D2C)을 기본적으로 지원하여 데이터의 시간적 일관성과 공간적 일관성을 원점에서 보장합니다.</p>
+<p>시공간 정렬을 기반으로 로봇 비전의 전체 범위 요구 사항을 충족하는 능력을 갖춰야 합니다. 0.3미터 근거리 정밀 검사부터 중거리 장애물 회피 상호 작용, 그리고 10미터 이상의 원거리 내비게이션 계획에 이르기까지 하나의 모듈로 로봇 비전의 전체 링크를 연결하여 보정 복잡성, BOM 비용, 통합 난이도를 낮춥니다. 모듈이 갖춘 IP65 보호 등급, GMSL2.0 및 USB 3.0 인터페이스 등의 구성은 산업용 제품 표준에 완벽하게 부합합니다.</p>
+<p>매개변수는 설계 의도만을 설명하며, 이러한 능력이 실제 시나리오에서 얼마나 남아 있는지는 신제품 발표 현장에서의 일련의 실제 테스트가 가장 설득력 있는 검증을 제공했습니다. 표준 보드가 30cm에서 10m까지 뒤로 물러나도 화면 속 목표물은 항상 중앙에 위치하며 감지 가능했습니다. 카메라로 벽을 촬영했을 때, 포인트 클라우드 심도의 99.9%가 0에서 1mm 사이에 있었습니다. 심도 맵에서 다른 점들을 연속적으로 관찰했을 때, 드리프트는 0.5mm를 초과하지 않았습니다. 밀리미터급 광학 실험 보드의 계단은 단계별로 명확하게 식별 가능했습니다. 검은색, 반사 등 복잡한 환경에서도 심도 디테일이 안정적으로 표현되었습니다. 모듈 내에서 자세 추정, 인스턴스 분할 및 의미론적 인식과 같은 기능이 구현되었습니다.</p>
+<p>투명 물체의 심도 맵을 처리할 때도 Mercury는 업계에서 일반적으로 메인 컨트롤러에 사후 처리를 맡기는 방식과 달리, 이 단계를 모듈 내 자체 개발 칩으로 앞당겨 독점적인 듀얼 카메라 심도 + RGB 신경망 강화 엣지 디바이스 직접 출력 솔루션을 통해 모듈 내에서 실시간으로 보완하여 메인 컨트롤러의 연산 능력을 점유하지 않습니다.</p>
+<p>이러한 실제 테스트는 제품 매개변수뿐만 아니라 범위, 시간 및 공간 안정성, 정밀도, 재료 적응성 및 의미론적 출력 등 기업이 진정으로 중요하게 생각하는 능력이 동일한 데이터 경로에 통합되었음을 증명합니다.</p>
+<h3>엣지 디바이스 공간 인지 및 이해가 표준 부품이 될 때</h3>
+<p>현재 물리 AI는 개념적 열기에서 생산 라인 검증으로 나아가고 있습니다. Fortune Business Insights의 추산에 따르면, 2025년 전 세계 물리 AI 시장 규모는 334억 2천만 달러이며, 2026년에는 420억 6천만 달러로 증가할 것으로 예상되며, 2034년에는 2,940억 7천만 달러에 달할 것으로 예상되어 예측 기간 동안 연평균 성장률이 27.5%에 이릅니다. 시장은 응용 가속화 단계에 진입했지만, 이러한 예측이 실현될지 여부를 결정하는 것은 "인지-이해-결정-실행"이 실제 시나리오에서 낮은 지연 시간의 폐쇄 루프를 형성할 수 있는지 여부이며, 그중 가장 과소평가되기 쉬운 부분이 바로 프런트엔드 인지입니다.</p>
+<p>Mercury의 가치는 실제 시나리오에서의 구현에서 크게 나타나며, 이를 위해 세 가지 방향을 중점적으로 계획했습니다. 첫째, 로봇 환경 인지. 0.3미터에서 10미터까지의 전체 범위, 넓은 시야각, 글로벌 셔터 및 높은 프레임률을 통해 실내외 및 주야간 조건에서 경로를 명확하게 볼 수 있어 고속 이동 시 화면 잔상이 없도록 합니다. 둘째, 산업 검사. NFOV 고정밀 모드와 서브 밀리미터 정밀도를 사용하여 결함, 조립, 위치 지정 등 온라인 검사 작업의 세부 사항을 한 번에 명확하게 볼 수 있습니다. 셋째, 휴머노이드 로봇의 손-눈 협응. 0.3미터부터 측정 가능한 근거리 능력과 2560x1920 해상도의 컬러 이미징을 통해 손과 눈이 움직임 속에서 일관된 박자를 유지하도록 합니다.</p>
+<p>더 주목할 만한 점은 산업 체인 분업과 산업의 근본적인 논리를 재정의한다는 것입니다. 이전에는 3D 인지가 완제품 제조업체가 직접 해결해야 하는 부분이었습니다. 보정, 융합, 보완, 타이밍 정렬 등 모든 회사가 처음부터 다시 시작해야 했습니다. 이러한 능력이 표준 부품 형태로 BOM에 포함되면 다중 하드웨어 스택이 줄어들고, 보정 및 알고리즘 이식 비용이 감소하며, 양산 주기가 단축됩니다. 물리 AI의 진입 장벽도 "인지를 만들 수 있는지"에서 "인지를 잘 활용할 수 있는지"로 바뀔 것입니다.</p>
+<p>芯明이 물리 AI의 엣지 디바이스 공간 인지 및 이해라는 핵심 계층에 집중하는 것은 갑작스러운 결정이 아닙니다. 2026년 11월 현재, 회사는 전 세계적으로 130개 이상의 발명 특허를 출원했으며, 70개 이상이 승인되었습니다. 물리 AI 엔드투엔드 제품 시스템은 "칩-알고리즘-모듈-솔루션"의 전체 링크를 커버합니다. Meituan 드론, Geek+, Juxing, Jundu Robot, Linghou Robot, Qingqu Intelligence 등 고객의 지원을 받아, 芯明의 제품과 기술은 지능형 제조 로봇, 휴머노이드 로봇, 물류 창고 로봇, 스마트 의료, 산업 안전 및 MR 헤드셋 등 여러 물리 AI 응용 분야에 적용되어 기본 능력이 충분히 검증되었습니다.</p>
+<p>芯明의 창립자 겸 CEO인 첸저홍(钱哲弘) 박사는 "대규모 언어 모델은 로봇에게 '두뇌'를 주었지만, 물리 AI가 진정으로 현실 세계에 들어설 수 있을지는 로봇이 주변 공간을 로컬에서 실시간으로 명확하게 보고 이해할 수 있는지에 달려 있습니다. 芯明이 하려는 것은 물리 AI의 칩 레벨 인지 기반을 만드는 것입니다. 심도, SLAM 및 AI 이해를 하나의 칩, 하나의 모듈에 통합하여 로봇의 '두뇌'와 협력하고 경쟁하지 않는 것입니다. Mercury는 이 경로에서 또 다른 제품화된 구현입니다. 다음으로, 우리는 칩과 모듈에서 엔드투엔드 물리 AI 인지 플랫폼으로 나아가고, 인지, 연산 능력 및 엣지 디바이스 대규모 언어 모델이 통합된 차세대 물리 AI 칩을 추진하여 로봇이 '볼 수 있는 것'에서 '이해하고 행동하는 것'으로 나아가도록 할 것입니다."라고 말했습니다.</p>
+<p>시야를 넓히면 물리 AI 분야의 경쟁 초점이 이동하고 있습니다. 芯明 Mercury의 출시는 단순히 새로운 모듈의 출시를 넘어, 엣지 AI 원시 인지 기술 경로의 실현 가능성을 제품으로 입증한 것입니다. 인지 수집과 의미론적 이해가 동일한 실리콘 칩 내에서 완료될 수 있을 때, 완제품의 메인 컨트롤러 연산 자원도 그만큼 해방됩니다.</p>
+<p>현재 업계에서는 물리 AI의 대규모 상용화 시기에 대해 여전히 논쟁 중이지만, 돌파구는 엣지 디바이스에 숨어 있을 수 있습니다. 로봇이 세상을 인지하고 이해하는 능력을 먼저 갖추게 한 다음, 세상을 변화시키는 것에 대해 이야기해야 합니다.</p>
+<p>芯明은 공간 지능 칩 및 제품 설계에 주력하며, 자체 개발한 일련의 칩은 실시간 3D 스테레오 비전 인지, 엣지 AI, SLAM(실시간 위치 추정 및 지도 작성)을 단일 칩에 통합한 세계 최고의 시스템 온 칩(SoC) 공간 지능 칩입니다. 이 칩은 엣지 디바이스에서 심도 계산, AI 추론, 공간 지도 작성 및 다중 센서 융합을 완료하여 시스템 복잡성, 전력 소비 및 비용을 크게 줄입니다. 현재 芯明은 "칩-모듈-알고리즘-솔루션"의 물리 AI 엔드투엔드 제품 시스템을 구축했으며, MR 혼합 현실, 휴머노이드 로봇, 정교한 로봇 손, 협동 로봇 팔, 저고도 물류 드론, 3D 스캐닝 및 가전제품 등 다양한 응용 시나리오를 커버합니다.</p>
+<h3>총평</h3>
+<p>芯明은 자체 개발한 공간 지능 칩 기반의 듀얼 모드 비전 AI 모듈 Mercury를 출시했습니다. 이 모듈은 심도 측정, 인스턴스 분할, 자세 추정 등 기존에 분산되어 있던 작업을 하나의 하드웨어로 통합하여 엣지 디바이스에서 공간 인지 및 이해의 폐쇄 루프를 구현합니다. Mercury는 고정밀(NFOV)과 광각(WFOV) 모드를 동적으로 전환하며, 0.3미터에서 10미터 이상의 모든 범위를 커버하고, 엣지 AI 연산 능력을 제공하여 로봇의 인지 및 이해 능력을 향상시킵니다. 이는 물리 AI의 대규모 상용화를 위한 핵심적인 단계로, 로봇이 실제 세계를 효율적으로 인지하고 이해할 수 있도록 돕습니다.</p>
+          
+        </div>
+        <div class="lang-body" data-lang="en">
+          
+          <h3>서론</h3>
+<p>초기 스마트폰 내부는 마치 작은 도시와 같았습니다. 기저대역 칩은 통신을, ISP는 이미징을, 오디오 코덱은 소리를, 이미지 센서는 빛을 전기 신호로 변환하는 등 각자의 역할이 명확하고 독립적이었습니다. 기저대역, ISP 등 독립적이었던 칩들이 SoC에 통합되면서 스마트폰 혁신은 가속화되었고, 얇고 가벼우며 긴 배터리 수명과 향상된 이미징 성능을 갖춘 10년이 시작되었습니다.</p>
+<p>오늘날 물리 AI는 동일한 갈림길에 서 있습니다. 물리 AI는 지능형 에이전트가 실제 세계에서 "인지-이해-결정-실행"의 폐쇄 루프를 완성하는 것을 의미하며, 로봇, 자율주행, 지능형 제조 장비 등이 그 매개체입니다. 대규모 언어 모델(LLM)은 "두뇌" 역할을 보완했고, 강화 학습은 시뮬레이션에서 운동 제어를 반복적으로 시도하고 실제 기계에 적용할 수 있게 했습니다. 그러나 실험실을 벗어나 공장, 창고, 거실로 들어서면 가장 먼저 드러나는 문제는 의사 결정 능력이 아니라 공간에 대한 인지와 이해라는 더 근본적인 부분입니다. 이 두 가지는 여전히 서로 다른 칩, 보드, 케이블 사이에 분리되어 있습니다.</p>
+<p>11월 24일, 芯明智能科技有限公司(이하 "芯明")는 자사의 첫 듀얼 모드 비전 AI 모듈 Mercury를 출시했습니다. 이 모듈은 심도 측정, 인스턴스 분할, 자세 추정 등 기존에 엣지 디바이스와 메인 컨트롤러에 분산되어 있던 작업을 자체 개발한 공간 지능 칩 기반의 모듈 하나로 통합했습니다. 동일한 하드웨어로 고정밀 모드(NFOV)와 광각 모드(WFOV)를 동적으로 전환하여 근거리, 중거리, 원거리의 모든 범위를 커버할 수 있습니다. 芯明은 물리 AI의 공간 인지 및 이해를 엣지 디바이스에서 폐쇄 루프로 구현했습니다.</p>
+<h3>물리 AI의 인지 병목 현상</h3>
+<p>스마트폰 산업의 경험은 복잡하지 않습니다. 분리가 세분화될수록 다시 만들어야 하는 인터페이스와 타이밍이 많아지고, 비용도 항목별로 추가됩니다. 대부분의 처리 과정이 동일한 실리콘 칩에 통합될 때 비로소 적응 문제는 보드 레벨에서 칩 내부로 전환되어 칩 제조업체의 내부 문제가 됩니다.</p>
+<p>물리 AI는 동일한 지점에서 정체되어 있습니다. 로봇의 비전 링크에서 일반적으로 모듈은 한 프레임의 심도 맵을 출력하는 역할만 하며, 빈 공간 채우기, 객체 인식, 의미론적 이해는 메인 컨트롤러 CPU 또는 외부 GPU에 맡겨집니다. 이 과정에는 데이터 전송이라는 큰 간극이 존재합니다.</p>
+<p>이 간극은 고객 현장에서 반복적으로 나타났습니다. 심층적인 논의 끝에 芯明은 고객이 제기하는 문제가 다양한 시나리오에 흩어져 있지만, 결국 물리 AI의 공간 인지 및 이해라는 동일한 병목 현상으로 귀결된다는 것을 발견했습니다. 이를 세 가지 주요 범주로 요약할 수 있습니다. 첫째, 투명, 반사, 저조도 환경에서 모듈에서 직접 출력되는 심도 맵에 빈 공간이 생기기 쉬워 메인 컨트롤러의 연산 능력이 이해보다는 보정에 먼저 사용되어 지연 시간이 길어집니다. 둘째, 고속 이동 시 센서 데이터 처리가 완료된 후에야 추론이 이루어져 로봇이 장애물을 인식했을 때 이미 목표물이 이동한 상태입니다. 셋째, 원거리는 넓은 범위 커버리지가 필요하고 근거리는 서브 밀리미터 정밀도가 필요하여 하드웨어를 추가해야만 두 가지를 모두 충족할 수 있어 비용, 부피, 통합 난이도가 모두 증가합니다.</p>
+<p>세 가지 문제는 동일한 문제점을 지적합니다. 심도 측정은 모듈 내에서 발생하고, 의미론적 이해는 모듈 외부에서 발생하며, 그 중간은 데이터 전송으로 연결됩니다. 이는 특정 칩의 성능 부족이 아니라 분리된 아키텍처의 통신 병목 현상이 드러난 것입니다. 이는 또한 더 단순한 결론으로 이어집니다. 해결책은 더 많은 모듈이나 더 강력한 메인 컨트롤러를 추가하는 것이 아니라, 데이터가 생성되는 원점에서 측정과 이해를 동시에 완료하는 것입니다.</p>
+<h3>芯明 Mercury 출시: 하나의 하드웨어로 엣지 디바이스 인지 및 이해 폐쇄 루프 구현</h3>
+<p>芯明은 이에 대한 해결책으로 엣지 AI를 인지의 최전선에 직접 배치했습니다.</p>
+<p>과거에는 완제품 제조업체가 근거리 작업과 원거리 내비게이션을 위해 각각 비전 구성을 장착해야 했습니다. Mercury의 핵심 설계 논리는 동일한 하드웨어가 고정밀(NFOV)과 광각(WFOV) 두 가지 모드를 지원하여 "정밀하게 보는 것"과 "넓게 보는 것" 사이를 유연하게 전환하고, 중요 영역의 정밀도를 유지하면서 전체 시야를 놓치지 않도록 하는 것입니다.</p>
+<p>Mercury와 기존 모듈의 진정한 차이점은 이해가 어느 단계에서 발생하는지에 있습니다. Mercury의 기본 AI 비전 플랫폼인 Galaxy Vision은 芯明이 자체 개발한 공간 지능 칩을 기반으로 구축되었으며, 심도 엔진, ISP, NPU 및 ARM 프로세서를 통합하여 객체 감지, 인스턴스 분할, 자세 추정을 모두 모듈 내 칩에서 완료할 수 있도록 합니다. 외부 가속기나 서버가 필요 없습니다. 전체 칩은 3.5 TOPS의 엣지 AI 연산 능력을 제공하며, 전력 소비는 1와트 미만입니다.</p>
+<p>엣지 디바이스의 공간 인지 및 이해 폐쇄 루프를 성공적으로 실행하려면 몇 가지 기본 능력이 필요합니다. Mercury 단일 모듈의 123° 넓은 시야각은 사각지대를 거의 남기지 않으며, 0.5미터 거리에서 0.21mm의 심도 정밀도를 달성하여 정밀한 집기, 무작위 분류 및 조립과 같은 작업을 지원하기에 충분합니다. 최대 유효 거리가 10미터를 초과하는 능력은 근거리 정밀도와 원거리 커버리지라는 한때 상충되던 두 가지 지표를 동일한 하드웨어에 통합했습니다.</p>
+<p>하위 AI 이해 작업에는 또 다른 암묵적인 전제가 있습니다. 심도 데이터와 컬러 데이터가 시간과 공간적으로 정렬되어야 한다는 것입니다. Mercury는 고해상도 듀얼 IR과 듀얼 RGB의 쿼드 카메라 아키텍처를 채택하고 글로벌 셔터를 사용하여 하드웨어 동기화 및 칩 레벨 심도-컬러 정렬(D2C)을 기본적으로 지원하여 데이터의 시간적 일관성과 공간적 일관성을 원점에서 보장합니다.</p>
+<p>시공간 정렬을 기반으로 로봇 비전의 전체 범위 요구 사항을 충족하는 능력을 갖춰야 합니다. 0.3미터 근거리 정밀 검사부터 중거리 장애물 회피 상호 작용, 그리고 10미터 이상의 원거리 내비게이션 계획에 이르기까지 하나의 모듈로 로봇 비전의 전체 링크를 연결하여 보정 복잡성, BOM 비용, 통합 난이도를 낮춥니다. 모듈이 갖춘 IP65 보호 등급, GMSL2.0 및 USB 3.0 인터페이스 등의 구성은 산업용 제품 표준에 완벽하게 부합합니다.</p>
+<p>매개변수는 설계 의도만을 설명하며, 이러한 능력이 실제 시나리오에서 얼마나 남아 있는지는 신제품 발표 현장에서의 일련의 실제 테스트가 가장 설득력 있는 검증을 제공했습니다. 표준 보드가 30cm에서 10m까지 뒤로 물러나도 화면 속 목표물은 항상 중앙에 위치하며 감지 가능했습니다. 카메라로 벽을 촬영했을 때, 포인트 클라우드 심도의 99.9%가 0에서 1mm 사이에 있었습니다. 심도 맵에서 다른 점들을 연속적으로 관찰했을 때, 드리프트는 0.5mm를 초과하지 않았습니다. 밀리미터급 광학 실험 보드의 계단은 단계별로 명확하게 식별 가능했습니다. 검은색, 반사 등 복잡한 환경에서도 심도 디테일이 안정적으로 표현되었습니다. 모듈 내에서 자세 추정, 인스턴스 분할 및 의미론적 인식과 같은 기능이 구현되었습니다.</p>
+<p>투명 물체의 심도 맵을 처리할 때도 Mercury는 업계에서 일반적으로 메인 컨트롤러에 사후 처리를 맡기는 방식과 달리, 이 단계를 모듈 내 자체 개발 칩으로 앞당겨 독점적인 듀얼 카메라 심도 + RGB 신경망 강화 엣지 디바이스 직접 출력 솔루션을 통해 모듈 내에서 실시간으로 보완하여 메인 컨트롤러의 연산 능력을 점유하지 않습니다.</p>
+<p>이러한 실제 테스트는 제품 매개변수뿐만 아니라 범위, 시간 및 공간 안정성, 정밀도, 재료 적응성 및 의미론적 출력 등 기업이 진정으로 중요하게 생각하는 능력이 동일한 데이터 경로에 통합되었음을 증명합니다.</p>
+<h3>엣지 디바이스 공간 인지 및 이해가 표준 부품이 될 때</h3>
+<p>현재 물리 AI는 개념적 열기에서 생산 라인 검증으로 나아가고 있습니다. Fortune Business Insights의 추산에 따르면, 2025년 전 세계 물리 AI 시장 규모는 334억 2천만 달러이며, 2026년에는 420억 6천만 달러로 증가할 것으로 예상되며, 2034년에는 2,940억 7천만 달러에 달할 것으로 예상되어 예측 기간 동안 연평균 성장률이 27.5%에 이릅니다. 시장은 응용 가속화 단계에 진입했지만, 이러한 예측이 실현될지 여부를 결정하는 것은 "인지-이해-결정-실행"이 실제 시나리오에서 낮은 지연 시간의 폐쇄 루프를 형성할 수 있는지 여부이며, 그중 가장 과소평가되기 쉬운 부분이 바로 프런트엔드 인지입니다.</p>
+<p>Mercury의 가치는 실제 시나리오에서의 구현에서 크게 나타나며, 이를 위해 세 가지 방향을 중점적으로 계획했습니다. 첫째, 로봇 환경 인지. 0.3미터에서 10미터까지의 전체 범위, 넓은 시야각, 글로벌 셔터 및 높은 프레임률을 통해 실내외 및 주야간 조건에서 경로를 명확하게 볼 수 있어 고속 이동 시 화면 잔상이 없도록 합니다. 둘째, 산업 검사. NFOV 고정밀 모드와 서브 밀리미터 정밀도를 사용하여 결함, 조립, 위치 지정 등 온라인 검사 작업의 세부 사항을 한 번에 명확하게 볼 수 있습니다. 셋째, 휴머노이드 로봇의 손-눈 협응. 0.3미터부터 측정 가능한 근거리 능력과 2560x1920 해상도의 컬러 이미징을 통해 손과 눈이 움직임 속에서 일관된 박자를 유지하도록 합니다.</p>
+<p>더 주목할 만한 점은 산업 체인 분업과 산업의 근본적인 논리를 재정의한다는 것입니다. 이전에는 3D 인지가 완제품 제조업체가 직접 해결해야 하는 부분이었습니다. 보정, 융합, 보완, 타이밍 정렬 등 모든 회사가 처음부터 다시 시작해야 했습니다. 이러한 능력이 표준 부품 형태로 BOM에 포함되면 다중 하드웨어 스택이 줄어들고, 보정 및 알고리즘 이식 비용이 감소하며, 양산 주기가 단축됩니다. 물리 AI의 진입 장벽도 "인지를 만들 수 있는지"에서 "인지를 잘 활용할 수 있는지"로 바뀔 것입니다.</p>
+<p>芯明이 물리 AI의 엣지 디바이스 공간 인지 및 이해라는 핵심 계층에 집중하는 것은 갑작스러운 결정이 아닙니다. 2026년 11월 현재, 회사는 전 세계적으로 130개 이상의 발명 특허를 출원했으며, 70개 이상이 승인되었습니다. 물리 AI 엔드투엔드 제품 시스템은 "칩-알고리즘-모듈-솔루션"의 전체 링크를 커버합니다. Meituan 드론, Geek+, Juxing, Jundu Robot, Linghou Robot, Qingqu Intelligence 등 고객의 지원을 받아, 芯明의 제품과 기술은 지능형 제조 로봇, 휴머노이드 로봇, 물류 창고 로봇, 스마트 의료, 산업 안전 및 MR 헤드셋 등 여러 물리 AI 응용 분야에 적용되어 기본 능력이 충분히 검증되었습니다.</p>
+<p>芯明의 창립자 겸 CEO인 첸저홍(钱哲弘) 박사는 "대규모 언어 모델은 로봇에게 '두뇌'를 주었지만, 물리 AI가 진정으로 현실 세계에 들어설 수 있을지는 로봇이 주변 공간을 로컬에서 실시간으로 명확하게 보고 이해할 수 있는지에 달려 있습니다. 芯明이 하려는 것은 물리 AI의 칩 레벨 인지 기반을 만드는 것입니다. 심도, SLAM 및 AI 이해를 하나의 칩, 하나의 모듈에 통합하여 로봇의 '두뇌'와 협력하고 경쟁하지 않는 것입니다. Mercury는 이 경로에서 또 다른 제품화된 구현입니다. 다음으로, 우리는 칩과 모듈에서 엔드투엔드 물리 AI 인지 플랫폼으로 나아가고, 인지, 연산 능력 및 엣지 디바이스 대규모 언어 모델이 통합된 차세대 물리 AI 칩을 추진하여 로봇이 '볼 수 있는 것'에서 '이해하고 행동하는 것'으로 나아가도록 할 것입니다."라고 말했습니다.</p>
+<p>시야를 넓히면 물리 AI 분야의 경쟁 초점이 이동하고 있습니다. 芯明 Mercury의 출시는 단순히 새로운 모듈의 출시를 넘어, 엣지 AI 원시 인지 기술 경로의 실현 가능성을 제품으로 입증한 것입니다. 인지 수집과 의미론적 이해가 동일한 실리콘 칩 내에서 완료될 수 있을 때, 완제품의 메인 컨트롤러 연산 자원도 그만큼 해방됩니다.</p>
+<p>현재 업계에서는 물리 AI의 대규모 상용화 시기에 대해 여전히 논쟁 중이지만, 돌파구는 엣지 디바이스에 숨어 있을 수 있습니다. 로봇이 세상을 인지하고 이해하는 능력을 먼저 갖추게 한 다음, 세상을 변화시키는 것에 대해 이야기해야 합니다.</p>
+<p>芯明은 공간 지능 칩 및 제품 설계에 주력하며, 자체 개발한 일련의 칩은 실시간 3D 스테레오 비전 인지, 엣지 AI, SLAM(실시간 위치 추정 및 지도 작성)을 단일 칩에 통합한 세계 최고의 시스템 온 칩(SoC) 공간 지능 칩입니다. 이 칩은 엣지 디바이스에서 심도 계산, AI 추론, 공간 지도 작성 및 다중 센서 융합을 완료하여 시스템 복잡성, 전력 소비 및 비용을 크게 줄입니다. 현재 芯明은 "칩-모듈-알고리즘-솔루션"의 물리 AI 엔드투엔드 제품 시스템을 구축했으며, MR 혼합 현실, 휴머노이드 로봇, 정교한 로봇 손, 협동 로봇 팔, 저고도 물류 드론, 3D 스캐닝 및 가전제품 등 다양한 응용 시나리오를 커버합니다.</p>
+<h3>총평</h3>
+<p>芯明은 자체 개발한 공간 지능 칩 기반의 듀얼 모드 비전 AI 모듈 Mercury를 출시했습니다. 이 모듈은 심도 측정, 인스턴스 분할, 자세 추정 등 기존에 분산되어 있던 작업을 하나의 하드웨어로 통합하여 엣지 디바이스에서 공간 인지 및 이해의 폐쇄 루프를 구현합니다. Mercury는 고정밀(NFOV)과 광각(WFOV) 모드를 동적으로 전환하며, 0.3미터에서 10미터 이상의 모든 범위를 커버하고, 엣지 AI 연산 능력을 제공하여 로봇의 인지 및 이해 능력을 향상시킵니다. 이는 물리 AI의 대규모 상용화를 위한 핵심적인 단계로, 로봇이 실제 세계를 효율적으로 인지하고 이해할 수 있도록 돕습니다.</p>
+          
+        </div>
+      </div>
+
+      <!-- All images (one by one, full width) -->
+      
+      <div class="images-section">
+        <div class="images-section-title">🖼️ 이미지 전체 보기</div>
+        
+        
+        <div class="image-item">
+          <img src="images/img01.jpg" alt="이미지 1" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">芯明지능</div>
+                <div class="caption-lang" data-lang="en">Xinming Intelligence</div>
+                <div class="caption-lang" data-lang="ja">芯明インテリジェンス</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">동일 하드웨어</div>
+                <div class="caption-lang" data-lang="en">Same hardware</div>
+                <div class="caption-lang" data-lang="ja">同一ハードウェア</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img02.png" alt="이미지 2" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">芯明 지능</div>
+                <div class="caption-lang" data-lang="en">Xinming Intelligence</div>
+                <div class="caption-lang" data-lang="ja">芯明インテリジェンス</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">잘 안 보여요</div>
+                <div class="caption-lang" data-lang="en">Can&#39;t see clearly</div>
+                <div class="caption-lang" data-lang="ja">よく見えない</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">고객의 세 가지 공통적인 문제</div>
+                <div class="caption-lang" data-lang="en">Three common problems of customers</div>
+                <div class="caption-lang" data-lang="ja">顧客の3つの共通課題</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img03.jpg" alt="이미지 3" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">芯明지능</div>
+                <div class="caption-lang" data-lang="en">Xinming Intelligence</div>
+                <div class="caption-lang" data-lang="ja">芯明智能</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">전체 감지 스택에서 객체 감지, 인스턴스 분할 및 자세 추정은 모두 모듈 NPU에서 실행됩니다.</div>
+                <div class="caption-lang" data-lang="en">Target detection, instance segmentation, and pose estimation all run on the module NPU in the full perception stack.</div>
+                <div class="caption-lang" data-lang="ja">全感知スタックにおける物体検出、インスタンスセグメンテーション、姿勢推定はすべてモジュールNPU上で実行されます。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img04.jpg" alt="이미지 4" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">전체 시야 깊이 품질의 세대별 향상</div>
+                <div class="caption-lang" data-lang="en">Generational improvement in full field depth quality</div>
+                <div class="caption-lang" data-lang="ja">全視野深度品質の世代的向上</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">서브밀리미터급 정밀도</div>
+                <div class="caption-lang" data-lang="en">Sub-millimeter precision</div>
+                <div class="caption-lang" data-lang="ja">サブミリメートル級精度</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img05.jpg" alt="이미지 5" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">신밍 지능</div>
+                <div class="caption-lang" data-lang="en">Xinming Intelligence</div>
+                <div class="caption-lang" data-lang="ja">シンミンインテリジェンス</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img06.jpg" alt="이미지 6" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">근거리 정밀 감지, 중거리 장애물 회피 상호 작용, 장거리 내비게이션 계획의 모든 범위 요구 사항을 동시에 충족합니다.</div>
+                <div class="caption-lang" data-lang="en">Simultaneously covers full-range requirements for close-range precision detection, mid-range obstacle avoidance interaction, and long-range navigation planning.</div>
+                <div class="caption-lang" data-lang="ja">近距離精密検出、中距離障害物回避インタラクション、長距離ナビゲーション計画の全範囲のニーズを同時にカバーします。</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img07.jpg" alt="이미지 7" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img08.jpg" alt="이미지 8" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img09.jpg" alt="이미지 9" loading="lazy">
+          
+        </div>
+        
+        
+        <div class="image-item">
+          <img src="images/img10.jpg" alt="이미지 10" loading="lazy">
+          
+          <figcaption class="image-caption">
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">芯明지능</div>
+                <div class="caption-lang" data-lang="en">Xinming Intelligence</div>
+                <div class="caption-lang" data-lang="ja">芯明インテリジェンス</div>
+                
+              </div>
+              
+            
+              
+              <div class="caption-pair">
+                <div class="caption-lang" data-lang="ko">芯明: 물리 AI를 위한 엣지 디바이스 공간 인식 및 이해 핵심 계층 구축</div>
+                <div class="caption-lang" data-lang="en">Xinming: Building the core layer of edge-side spatial perception and understanding for physical AI</div>
+                <div class="caption-lang" data-lang="ja">芯明：物理AIのためのエッジデバイス空間認識と理解のコア層を構築</div>
+                
+              </div>
+              
+            
+          </figcaption>
+          
+        </div>
+        
+      </div>
+      
+
+      <!-- Source footer -->
+      <div class="source-footer">
+        <div class="source-label">
+          <strong>원문 출처</strong>
+          IT之家 (ithome.com)
+        </div>
+        
+        <a class="btn-original" href="https://www.ithome.com/1/033/111.htm" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          IT之家에서 보기
+        </a>
+        
+      </div>
+
+    </main>
+
+    <!-- ── Right sidebar (sticky, navigation-based) ── -->
+    <aside class="sidebar">
+
+      <!-- 📣 AdSense -->
+      <div class="sidebar-card adsense-card">
+        <div class="sidebar-title">광고</div>
+        <div class="adsense-slot">
+          <!-- Google AdSense 코드를 아래에 삽입하세요 -->
+          <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+
+      <!-- 🔍 Search → navigates to index.html?search=... -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔍 검색</div>
+        <input
+          type="search"
+          class="search-input"
+          id="article-search"
+          placeholder="기사 검색..."
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- 📂 Category -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">📂 카테고리</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">전체</a>
+          <a href="../../../../index.html?cat=camera" class="cat-btn ">📷 카메라</a>
+          <a href="../../../../index.html?cat=phone" class="cat-btn ">📱 스마트폰</a>
+          <a href="../../../../index.html?cat=ai" class="cat-btn active-cat">🤖 AI</a>
+        </div>
+      </div>
+
+      <!-- 📅 Archive — current month link -->
+      
+      <div class="sidebar-card">
+        <div class="sidebar-title">📅 아카이브</div>
+        <ul class="archive-list">
+          <li>
+            <a href="../../../../index.html?month=2026-11"
+               class="archive-btn active">
+              2026-11
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- 🔗 바로가기 -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">🔗 바로가기</div>
+        <div class="category-btns">
+          <a href="../../../../index.html" class="cat-btn">📋 전체 목록</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    // ── 언어 선택기 ──────────────────────────────────────────────────────────
+    (function () {
+      var LANG_KEY = 'aisitei_lang';
+      var DEFAULT_LANG = 'ko';
+
+      function getLang() {
+        return localStorage.getItem(LANG_KEY) || DEFAULT_LANG;
+      }
+
+      function setLang(lang) {
+        localStorage.setItem(LANG_KEY, lang);
+        applyLang(lang);
+      }
+
+      function applyLang(lang) {
+        // 본문 전환
+        var bodies = document.querySelectorAll('.lang-body');
+        bodies.forEach(function (el) {
+          if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('lang-active');
+          } else {
+            el.classList.remove('lang-active');
+          }
+        });
+
+        // 제목 전환
+        var titleEl = document.querySelector('.article-title');
+        if (titleEl) {
+          var newTitle = titleEl.getAttribute('data-' + lang) || titleEl.getAttribute('data-ko') || '';
+          if (newTitle) titleEl.textContent = newTitle;
+        }
+
+        // 버튼 활성화
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          btn.classList.toggle('active-lang', btn.getAttribute('data-lang') === lang);
+        });
+
+        // 이미지 캡션 언어 전환 (ZH는 캡션 없음)
+        document.querySelectorAll('.caption-lang').forEach(function (el) {
+          el.classList.toggle('lang-active', el.getAttribute('data-lang') === lang);
+        });
+
+        // html lang 속성 업데이트
+        var langMap = { ko: 'ko', zh: 'zh-Hans', ja: 'ja', en: 'en' };
+        document.documentElement.setAttribute('lang', langMap[lang] || 'ko');
+      }
+
+      // 버튼 이벤트
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-lang'));
+        });
+      });
+
+      // 초기화
+      applyLang(getLang());
+    })();
+
+    // 검색창 → Enter 시 메인 페이지로 이동 (실시간 검색은 메인에서 처리)
+    document.getElementById('article-search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = this.value.trim();
+        if (q) {
+          location.href = '../../../../index.html?search=' + encodeURIComponent(q);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
